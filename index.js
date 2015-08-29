@@ -2,12 +2,21 @@
 var React = require('react-native');
 var {View, Navigator, Text, StyleSheet} = React;
 var alt = require('./alt');
-var Store = require('./store');
+var PageStore = require('./store');
 var Actions = require('./actions');
+var FetchActions = require('./FetchActions');
+var FetchStore = require('./FetchStore');
 var Animations = require('./Animations');
 
 // schema class represents schema for routes and it is processed inside Router component
 class Schema extends React.Component {
+    render(){
+        return null;
+    }
+}
+
+// schema class represents fetch call
+class API extends React.Component {
     render(){
         return null;
     }
@@ -25,6 +34,7 @@ class Router extends React.Component {
         super(props);
         this.state  = {initialRoute: null};
         this.routes = {};
+        this.apis = {};
         this.schemas = {};
     }
 
@@ -71,7 +81,7 @@ class Router extends React.Component {
     componentDidMount(){
         var self = this;
         var RouterActions = this.props.actions || Actions;
-        var RouterStore = this.props.store|| Store;
+        var RouterStore = this.props.store|| PageStore;
         var initial = null;
 
         // iterate schemas
@@ -103,7 +113,33 @@ class Router extends React.Component {
             }
         });
 
+
+        // iterate fetches
+        React.Children.forEach(this.props.children, function (child, index){
+            if (child.type.name == 'API') {
+                var name = child.props.name;
+                self.apis[name] = child.props;
+
+                // generate sugar actions like 'login'
+                if (!(RouterActions[name])) {
+                    RouterActions[name] = function (data) {
+                        if (typeof(data)!='object'){
+                            data={data:data};
+                        }
+                        FetchActions.fetch(name, data);
+                    }
+                }
+            }
+        });
+        // load all APIs to FetchStore
+        FetchActions.load(this.apis);
+
         RouterStore.listen(this.onChange.bind(this));
+        FetchStore.listen(this.onFetchChange.bind(this));
+    }
+
+    onFetchChange(state){
+
     }
 
     componentWillUnmount() {
@@ -190,4 +226,4 @@ var styles = StyleSheet.create({
     },
 });
 
-module.exports = {Router, Actions, Store, Route, Animations, Schema}
+module.exports = {Router, Actions, API, PageStore, Route, Animations, Schema, FetchStore, FetchActions, alt}
