@@ -130,7 +130,6 @@ class Router extends React.Component {
     }
 
     getRoute(route, data) {
-        console.log("getRoute: "+JSON.stringify(data));
         var schema = this.schemas[route.schema || 'default'] || {};
         var sceneConfig = route.sceneConfig || schema.sceneConfig || Animations.FlatFloatFromRight;
         var NavBar = route.navBar || schema.navBar;
@@ -145,7 +144,7 @@ class Router extends React.Component {
                 gestures: {}
             },
             navigationBar: route.hideNavBar ? null : navBar,
-            passProps: data
+            passProps: { ...route, ...data }
         }
     }
 

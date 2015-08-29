@@ -14,12 +14,22 @@
     "router",
     "navigation"
   ],
-  "author": "Pavlo Aksonov <akso.nov@gmail.com> (http://aksonov.com)",
+  "author": {
+    "name": "Pavlo Aksonov",
+    "email": "akso.nov@gmail.com",
+    "url": "http://aksonov.com"
+  },
   "license": "ISC",
   "dependencies": {
     "alt": "^0.17.1"
   },
   "peerDependencies": {
     "react-native": "^0.9.0"
-  }
+  },
+  "readme": "# react-native-router-flux\nReact Native Router using Flux architecture\n",
+  "readmeFilename": "README.md",
+  "gitHead": "ac054cfda0894ba1db6c4901ebdddc83b3b2d083",
+  "_id": "react-native-router-flux@0.0.1",
+  "_shasum": "24c503b60046b88c48ea2806747c3f233dc68add",
+  "_from": "react-native-router-flux@*"
 }
