@@ -64,12 +64,14 @@ class Router extends React.Component {
         if (page.mode=='pop'){
             var num = page.num || 1;
             var routes = this.refs.nav.getCurrentRoutes();
+            console.log("ROUTES LENGTH:" + routes.length);
+            console.log("POP DATA:"+JSON.stringify(page.data));
             // pop only existing routes!
-            if (routes.length-1-num>=0) {
+            if (num < routes.length) {
                 this.refs.nav.popToRoute(routes[routes.length - 1 - num]);
             } else {
                 if (this.props.onExit){
-                    this.props.onExit();
+                    this.props.onExit(routes[0], page.data || {});
                 }
             }
         }
@@ -97,7 +99,7 @@ class Router extends React.Component {
             if (child.type.name == 'Route') {
                 var name = child.props.name;
                 self.routes[name] = child.props;
-                if (child.props.initial || !initial) {
+                if (child.props.initial || !initial || name==self.props.initial) {
                     initial = child.props;
                     self.setState({initialRoute: child.props});
                 }
@@ -134,8 +136,7 @@ class Router extends React.Component {
         // load all APIs to FetchStore
         FetchActions.load(this.apis);
 
-        RouterStore.listen(this.onChange.bind(this));
-        FetchStore.listen(this.onFetchChange.bind(this));
+        this.routerUnlisten = RouterStore.listen(this.onChange.bind(this));
     }
 
     onFetchChange(state){
@@ -143,8 +144,7 @@ class Router extends React.Component {
     }
 
     componentWillUnmount() {
-        var RouterStore = this.props.store || Store;
-        RouterStore.unlisten(this.onChange);
+        this.routerUnlisten();
     }
 
     renderScene(route, navigator) {
@@ -171,7 +171,7 @@ class Router extends React.Component {
         var NavBar = route.navBar || schema.navBar;
         var navBar;
         if (NavBar){
-            navBar = <NavBar {...route} {...data} />
+            navBar = <NavBar {...schema} {...route} {...data} />
         }
         return {
             component: route.component,

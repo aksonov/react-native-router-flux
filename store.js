@@ -29,11 +29,13 @@ class RouterStore {
 
     onPop(data){
         console.log("Pop");
-        if (isNumeric(data)){
-            data = {num: data};
-        }
         if (!data){
             data = {};
+        }
+        if (isNumeric(data)){
+            data = {num: data};
+        } else {
+            data.num = 1;
         }
         data.mode = 'pop';
         this.setState(data);
