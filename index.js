@@ -104,9 +104,13 @@ class Router extends React.Component {
                     self.setState({initialRoute: child.props});
                 }
                 if (!(RouterActions[name])) {
-                    RouterActions[name] = function (data) {
+                    RouterActions[name] = function (data, dynamicTitle) {
                         if (typeof(data)!='object'){
                             data={data:data};
+                        }
+                        if(dynamicTitle){
+                            var updatedRoute = Object.assign({}, self.routes[name], {title: dynamicTitle});
+                            self.routes[name] = updatedRoute;
                         }
                         var args = {name: name, data:data};
                         RouterActions.push(args);
