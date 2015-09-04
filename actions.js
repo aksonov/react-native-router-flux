@@ -7,4 +7,4 @@ class Actions {
     }
 }
 
-module.exports = alt.createActions(Actions);
+module.exports = alt.createActions(Actions, "Actions");
