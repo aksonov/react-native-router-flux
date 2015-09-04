@@ -52,4 +52,4 @@ class RouterStore {
 }
 
 
-module.exports = alt.createStore(RouterStore);
+module.exports = alt.createStore(RouterStore, "RouterStore");

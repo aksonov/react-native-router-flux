@@ -1,6 +1,6 @@
 var alt = require('./alt');
 
-class Actions {
+class FetchActions {
     fetch(route, data){
         this.dispatch({route, data});
     }
@@ -23,4 +23,4 @@ class Actions {
 }
 
 
-module.exports = alt.createActions(Actions);
+module.exports = alt.createActions(FetchActions, "FetchActions");
