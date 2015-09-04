@@ -23,4 +23,4 @@ class FetchActions {
 }
 
 
-module.exports = alt.createActions(FetchActions, "FetchActions");
+module.exports = alt.createActions(FetchActions);
