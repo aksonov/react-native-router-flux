@@ -167,7 +167,7 @@ class Router extends React.Component {
 
     getRoute(route, data) {
         var schema = this.schemas[route.schema || 'default'] || {};
-        var sceneConfig = route.sceneConfig || schema.sceneConfig || Animations.FlatFloatFromRight;
+        var sceneConfig = route.sceneConfig || schema.sceneConfig || Animations.None;
         var NavBar = route.navBar || schema.navBar;
         var navBar;
         if (NavBar){

@@ -51,7 +51,26 @@ var FlatFadeToTheUp = {
         round: PixelRatio.get(),
     },
 };
+
 FlatFloatFromBottom.animationInterpolators.out = buildStyleInterpolator(FlatFadeToTheUp);
 FlatFloatFromRight.animationInterpolators.out = buildStyleInterpolator(FlatFadeToTheLeft);
 
-module.exports = {FlatFloatFromRight, FlatFloatFromBottom};
+var None = {
+    gestures: {
+    },
+
+    // Rebound spring parameters when transitioning FROM this scene
+    springFriction: 0,
+    springTension: 2000,
+
+    // Velocity to start at when transitioning without gesture
+    defaultTransitionVelocity: 1.5,
+
+    // Animation interpolators for horizontal transitioning:
+    animationInterpolators: {
+        into: buildStyleInterpolator(FlatFadeToTheUp),
+        out: buildStyleInterpolator(FlatFadeToTheUp),
+    },
+};
+
+module.exports = {FlatFloatFromRight, FlatFloatFromBottom, None};
