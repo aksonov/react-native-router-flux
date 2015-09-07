@@ -9,26 +9,42 @@ var FetchStore = require('./FetchStore');
 var Animations = require('./Animations');
 
 // schema class represents schema for routes and it is processed inside Router component
-var Schema = React.createClass({
+class Schema extends React.Component {
     render(){
         return null;
     }
-});
+}
 
 // schema class represents fetch call
-var API = React.createClass({
+class API extends React.Component {
     render(){
         return null;
     }
-});
+}
 
 // route class processed inside Router component
-var Route = React.createClass({
+class Route extends React.Component {
     render(){
         return null;
     }
 
-});
+}
+
+/* Returns the class name of the argument or undefined if
+ it's not a valid JavaScript object.
+ */
+function getClassName(obj) {
+    if (obj.toString) {
+        var arr = obj.toString().match(
+            /function\s*(\w+)/);
+
+        if (arr && arr.length == 2) {
+            return arr[1];
+        }
+    }
+
+    return undefined;
+}
 
 class Router extends React.Component {
     constructor(props){
@@ -89,7 +105,7 @@ class Router extends React.Component {
 
         // iterate schemas
         React.Children.forEach(this.props.children, function (child, index){
-            if (child.type.displayName == 'Schema') {
+            if (child.type.name == getClassName(Schema)) {
                 var name = child.props.name;
                 self.schemas[name] = child.props;
             }
@@ -97,7 +113,7 @@ class Router extends React.Component {
 
         // iterate routes
         React.Children.forEach(this.props.children, function (child, index){
-            if (child.type.displayName == 'Route') {
+            if (child.type.name == getClassName(Route)) {
                 var name = child.props.name;
                 self.routes[name] = child.props;
                 if (child.props.initial || !initial || name==self.props.initial) {
@@ -119,7 +135,7 @@ class Router extends React.Component {
 
         // iterate fetches
         React.Children.forEach(this.props.children, function (child, index){
-            if (child.type.displayName == 'API') {
+            if (child.type.name == getClassName(API)) {
                 var name = child.props.name;
                 self.apis[name] = child.props;
 
@@ -207,7 +223,7 @@ class Router extends React.Component {
                 </View>
             );
         } else {
-            return <View/>
+            return <View style={styles.container}><Text>No initial route</Text></View>
         }
 
     }
