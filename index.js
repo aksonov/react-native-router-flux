@@ -9,26 +9,27 @@ var FetchStore = require('./FetchStore');
 var Animations = require('./Animations');
 
 // schema class represents schema for routes and it is processed inside Router component
-class Schema extends React.Component {
+var Schema = React.createClass({
     render(){
         return null;
     }
-}
+});
 
 // schema class represents fetch call
-class API extends React.Component {
+var API = React.createClass({
     render(){
         return null;
     }
-}
+});
 
 // route class processed inside Router component
-class Route extends React.Component {
+var Route = React.createClass({
     render(){
         return null;
     }
 
-}
+});
+
 class Router extends React.Component {
     constructor(props){
         super(props);
@@ -57,15 +58,15 @@ class Router extends React.Component {
             if (route.schema=='popup'){
                 this.setState({modal: React.createElement(route.component, {data: page.data})});
             } else {
-                console.log("PUSH");
+                //console.log("PUSH");
                 this.refs.nav.push(this.getRoute(route, page.data))
             }
         }
         if (page.mode=='pop'){
             var num = page.num || 1;
             var routes = this.refs.nav.getCurrentRoutes();
-            console.log("ROUTES LENGTH:" + routes.length);
-            console.log("POP DATA:"+JSON.stringify(page.data));
+            //console.log("ROUTES LENGTH:" + routes.length);
+            //console.log("POP DATA:"+JSON.stringify(page.data));
             // pop only existing routes!
             if (num < routes.length) {
                 this.refs.nav.popToRoute(routes[routes.length - 1 - num]);
@@ -88,7 +89,7 @@ class Router extends React.Component {
 
         // iterate schemas
         React.Children.forEach(this.props.children, function (child, index){
-            if (child.type.name == 'Schema') {
+            if (child.type.displayName == 'Schema') {
                 var name = child.props.name;
                 self.schemas[name] = child.props;
             }
@@ -96,7 +97,7 @@ class Router extends React.Component {
 
         // iterate routes
         React.Children.forEach(this.props.children, function (child, index){
-            if (child.type.name == 'Route') {
+            if (child.type.displayName == 'Route') {
                 var name = child.props.name;
                 self.routes[name] = child.props;
                 if (child.props.initial || !initial || name==self.props.initial) {
@@ -104,13 +105,13 @@ class Router extends React.Component {
                     self.setState({initialRoute: child.props});
                 }
                 if (!(RouterActions[name])) {
-                    RouterActions[name] = function (data) {
+                    RouterActions[name] = alt.createAction(name, function (data) {
                         if (typeof(data)!='object'){
                             data={data:data};
                         }
                         var args = {name: name, data:data};
                         RouterActions.push(args);
-                    }
+                    });
                 }
             }
         });
@@ -118,18 +119,18 @@ class Router extends React.Component {
 
         // iterate fetches
         React.Children.forEach(this.props.children, function (child, index){
-            if (child.type.name == 'API') {
+            if (child.type.displayName == 'API') {
                 var name = child.props.name;
                 self.apis[name] = child.props;
 
                 // generate sugar actions like 'login'
                 if (!(RouterActions[name])) {
-                    RouterActions[name] = function (data) {
+                    RouterActions[name] = alt.createAction(name, function (data) {
                         if (typeof(data)!='object'){
                             data={data:data};
                         }
                         FetchActions.fetch(name, data);
-                    }
+                    });
                 }
             }
         });

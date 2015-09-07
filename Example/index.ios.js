@@ -23,11 +23,11 @@ var Example = React.createClass({
                 <Schema name="default" sceneConfig={Animations.FlatFloatFromRight} navBar={NavBar} />
                 <Schema name="withoutAnimation" navBar={NavBar} />
 
-                <Route name="launch" component={Launch} initial={true} hideNavBar={false} title="Launch"/>
+                <Route name="launch" component={Launch} initial={true} hideNavBar={true} title="Launch"/>
                 <Route name="register" component={Register} title="Register" />
                 <Route name="login" component={Login} schema="modal"/>
                 <Route name="register2" component={Register} schema="withoutAnimation" />
-                <Route name="login" component={Login} schema="modal"/>
+                <Route name="error" component={Error} schema="popup"/>
             </Router>
         );
     }

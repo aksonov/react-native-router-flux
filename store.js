@@ -22,13 +22,13 @@ class RouterStore {
     }
 
     onPush(data){
-        console.log("Push ("+JSON.stringify(data)+")");
+//        console.log("Push ("+JSON.stringify(data)+")");
         data.mode = 'push';
         this.setState(data);
     }
 
     onPop(data){
-        console.log("Pop");
+//        console.log("Pop");
         if (!data){
             data = {};
         }
