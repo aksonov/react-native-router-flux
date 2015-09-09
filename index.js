@@ -168,7 +168,7 @@ class Router extends React.Component {
         }
         var child = Component ?  <Component navigator={navigator} route={route} {...route.passProps}/> : React.Children.only(this.routes[route.name].children)
         return (
-            <View style={{flex:1}}>
+            <View style={styles.transparent}>
                 {navBar}
                 {child}
             </View>
@@ -205,7 +205,7 @@ class Router extends React.Component {
             );
         }
         return (
-            <View style={{flex:1}}>
+            <View style={styles.transparent}>
                 <Navigator
                     renderScene={this.renderScene.bind(this)}
                     configureScene={(route) => { return route.sceneConfig;}}
@@ -231,6 +231,10 @@ var styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    transparent: {
+      flex:1,
+      backgroundColor: "transparent"
+    }
 });
 
 module.exports = {Router, Container, Actions, API, PageStore, Route, Animations, Schema, FetchStore, FetchActions, alt}
