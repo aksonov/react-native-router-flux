@@ -7,6 +7,7 @@ var Actions = require('./actions');
 var FetchActions = require('./FetchActions');
 var FetchStore = require('./FetchStore');
 var Animations = require('./Animations');
+var Container = require('./Container');
 
 // schema class represents schema for routes and it is processed inside Router component
 class Schema extends React.Component {
@@ -46,13 +47,63 @@ function getClassName(obj) {
     return undefined;
 }
 
+let SchemaClassName = getClassName(Schema);
+let RouteClassName = getClassName(Route);
+let APIClassName = getClassName(API);
+
 class Router extends React.Component {
     constructor(props){
         super(props);
-        this.state  = {initialRoute: null};
+        this.state = {};
         this.routes = {};
         this.apis = {};
         this.schemas = {};
+
+        var self = this;
+        var RouterActions = props.actions || Actions;
+        var RouterStore = props.store|| PageStore;
+        var initial = null;
+
+        React.Children.forEach(props.children, function (child, index){
+            var name = child.props.name;
+            if (child.type.name == SchemaClassName) {
+                self.schemas[name] = child.props;
+            } else if (child.type.name == RouteClassName) {
+                if (child.props.initial || !initial || name==props.initial) {
+                    initial = child.props;
+                    self.initialRoute =  child.props;
+                }
+                if (!(RouterActions[name])) {
+                    RouterActions[name] = alt.createAction(name, function (data) {
+                        if (typeof(data)!='object'){
+                            data={data:data};
+                        }
+                        var args = {name: name, data:data};
+                        RouterActions.push(args);
+                    });
+                }
+                self.routes[name] = child.props;
+                if (!child.props.component && !child.props.children){
+                    console.error("No route component is defined for name: "+name);
+                    return;
+                }
+
+            } else  if (child.type.name == APIClassName) {
+                self.apis[name] = child.props;
+                // generate sugar actions like 'login'
+                if (!(RouterActions[name])) {
+                    RouterActions[name] = alt.createAction(name, function (data) {
+                        if (typeof(data)!='object'){
+                            data={data:data};
+                        }
+                        FetchActions.fetch(name, data);
+                    });
+                }
+            }
+        });
+        // load all APIs to FetchStore
+        FetchActions.load(this.apis);
+
     }
 
     onChange(page){
@@ -66,10 +117,6 @@ class Router extends React.Component {
                 alert("No route is defined for name: "+page.name);
                 return;
             }
-            if (!route.component){
-                alert("No route component is defined for name: "+page.name);
-                return;
-            }
             // check if route is popup
             if (route.schema=='popup'){
                 this.setState({modal: React.createElement(route.component, {data: page.data})});
@@ -81,8 +128,6 @@ class Router extends React.Component {
         if (page.mode=='pop'){
             var num = page.num || 1;
             var routes = this.refs.nav.getCurrentRoutes();
-            //console.log("ROUTES LENGTH:" + routes.length);
-            //console.log("POP DATA:"+JSON.stringify(page.data));
             // pop only existing routes!
             if (num < routes.length) {
                 this.refs.nav.popToRoute(routes[routes.length - 1 - num]);
@@ -98,61 +143,7 @@ class Router extends React.Component {
     }
 
     componentDidMount(){
-        var self = this;
-        var RouterActions = this.props.actions || Actions;
         var RouterStore = this.props.store|| PageStore;
-        var initial = null;
-
-        // iterate schemas
-        React.Children.forEach(this.props.children, function (child, index){
-            if (child.type.name == getClassName(Schema)) {
-                var name = child.props.name;
-                self.schemas[name] = child.props;
-            }
-        });
-
-        // iterate routes
-        React.Children.forEach(this.props.children, function (child, index){
-            if (child.type.name == getClassName(Route)) {
-                var name = child.props.name;
-                self.routes[name] = child.props;
-                if (child.props.initial || !initial || name==self.props.initial) {
-                    initial = child.props;
-                    self.setState({initialRoute: child.props});
-                }
-                if (!(RouterActions[name])) {
-                    RouterActions[name] = alt.createAction(name, function (data) {
-                        if (typeof(data)!='object'){
-                            data={data:data};
-                        }
-                        var args = {name: name, data:data};
-                        RouterActions.push(args);
-                    });
-                }
-            }
-        });
-
-
-        // iterate fetches
-        React.Children.forEach(this.props.children, function (child, index){
-            if (child.type.name == getClassName(API)) {
-                var name = child.props.name;
-                self.apis[name] = child.props;
-
-                // generate sugar actions like 'login'
-                if (!(RouterActions[name])) {
-                    RouterActions[name] = alt.createAction(name, function (data) {
-                        if (typeof(data)!='object'){
-                            data={data:data};
-                        }
-                        FetchActions.fetch(name, data);
-                    });
-                }
-            }
-        });
-        // load all APIs to FetchStore
-        FetchActions.load(this.apis);
-
         this.routerUnlisten = RouterStore.listen(this.onChange.bind(this));
     }
 
@@ -165,6 +156,7 @@ class Router extends React.Component {
     }
 
     renderScene(route, navigator) {
+        console.log("ROUTE: "+route.name)
         var Component = route.component;
         var navBar = route.navigationBar;
 
@@ -174,10 +166,11 @@ class Router extends React.Component {
                 route: route
             });
         }
+        var child = Component ?  <Component navigator={navigator} route={route} {...route.passProps}/> : React.Children.only(this.routes[route.name].children)
         return (
             <View style={{flex:1}}>
                 {navBar}
-                <Component navigator={navigator} route={route} {...route.passProps}/>
+                {child}
             </View>
         )
     }
@@ -191,6 +184,7 @@ class Router extends React.Component {
             navBar = <NavBar {...schema} {...route} {...data} />
         }
         return {
+            name: route.name,
             component: route.component,
             sceneConfig: {
                 ...sceneConfig,
@@ -210,21 +204,17 @@ class Router extends React.Component {
                 </View>
             );
         }
-        if (this.state.initialRoute){
-            return (
-                <View style={{flex:1}}>
-                    <Navigator
-                        renderScene={this.renderScene}
-                        configureScene={(route) => { return route.sceneConfig;}}
-                        ref="nav"
-                        initialRoute={this.getRoute(this.state.initialRoute)}
-                        />
-                    {modal}
-                </View>
-            );
-        } else {
-            return <View style={styles.container}><Text>No initial route</Text></View>
-        }
+        return (
+            <View style={{flex:1}}>
+                <Navigator
+                    renderScene={this.renderScene.bind(this)}
+                    configureScene={(route) => { return route.sceneConfig;}}
+                    ref="nav"
+                    initialRoute={this.getRoute(this.initialRoute)}
+                    />
+                {modal}
+            </View>
+        );
 
     }
 
@@ -243,4 +233,4 @@ var styles = StyleSheet.create({
     },
 });
 
-module.exports = {Router, Actions, API, PageStore, Route, Animations, Schema, FetchStore, FetchActions, alt}
+module.exports = {Router, Container, Actions, API, PageStore, Route, Animations, Schema, FetchStore, FetchActions, alt}

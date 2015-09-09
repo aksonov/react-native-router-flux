@@ -14,8 +14,16 @@ var FetchSource = {
                 console.log("DO FETCH:"+url);
                 return fetch(url).then((response) => response.text())
                     .then((responseText) => {
-                        return {route, data: JSON.parse(responseText)};
-                    })
+                        var data = {};
+                        try {
+                            data = JSON.parse(responseText);
+                        } catch (e) {
+                            throw new Error("Invalid output " + responseText);
+                        }
+                        return {route, data: data};
+                    }).catch((errorMessage) => {
+                            Actions.error({route, errorMessage});
+                    });
             },
 
             local() {
@@ -55,6 +63,8 @@ class FetchStore {
     }
 
     onLoading(){
+        console.log("onLoading");
+        this.errorMessage = null;
         this.loading = true;
     }
 
@@ -75,9 +85,10 @@ class FetchStore {
         return false;
     }
 
-    onError(errorMessage) {
+    onError({route, errorMessage}) {
         this.loading = false;
-        console.log("onError:"+JSON.stringify(data));
+        this.route = route;
+        this.data = null;
         this.errorMessage = errorMessage;
     }
 }

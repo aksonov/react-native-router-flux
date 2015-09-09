@@ -28,7 +28,6 @@ class RouterStore {
     }
 
     onPop(data){
-//        console.log("Pop");
         if (!data){
             data = {};
         }
