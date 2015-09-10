@@ -19,6 +19,7 @@ class RouterStore {
         this.bindAction(actions.push, this.onPush);
         this.bindAction(actions.pop, this.onPop);
         this.bindAction(actions.dismiss, this.onDismiss);
+        this.bindAction(actions.reset, this.onReset);
     }
 
     onPush(data){
@@ -46,6 +47,10 @@ class RouterStore {
         }
         data.mode = 'dismiss';
         this.setState(data);
+    }
+
+    onReset(data){
+        this.setState({mode:'reset', initial:data});
     }
 
 }

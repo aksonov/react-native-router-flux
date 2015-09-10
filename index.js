@@ -52,23 +52,21 @@ let ActionClassName = getClassName(Action);
 class Router extends React.Component {
     constructor(props){
         super(props);
-        this.state = {};
         this.routes = {};
         this.schemas = {};
 
         var self = this;
         var RouterActions = props.actions || Actions;
         var RouterStore = props.store|| PageStore;
-        var initial = null;
+        this.initial = props.initial;
 
         React.Children.forEach(props.children, function (child, index){
             var name = child.props.name;
             if (child.type.name == SchemaClassName) {
                 self.schemas[name] = child.props;
             } else if (child.type.name == RouteClassName) {
-                if (child.props.initial || !initial || name==props.initial) {
-                    initial = child.props;
-                    self.initialRoute =  child.props;
+                if (child.props.initial || !self.initial) {
+                    self.initial = name;
                 }
                 if (!(RouterActions[name])) {
                     RouterActions[name] = alt.createAction(name, function (data) {
@@ -88,11 +86,12 @@ class Router extends React.Component {
             } else  if (child.type.name == ActionClassName) {
                 if (!(RouterActions[name])) {
                     RouterActions[name] = alt.createAction(name, function(data){
-                        //console.log("DATA:"+JSON.stringify(data));
                         return {name, props: child.props, data:data}});
                 }
             }
         });
+        this.initialRoute =  this.routes[this.initial] || console.error("No initial route "+this.initial);
+        this.state = {initial: this.initial};
     }
 
     onChange(page){
@@ -129,6 +128,11 @@ class Router extends React.Component {
         if (page.mode=='dismiss') {
             this.setState({modal: null});
         }
+
+        if (page.mode=='reset'){
+            // reset navigation stack
+            this.refs.nav.immediatelyResetRouteStack([this.getRoute(this.routes[page.initial], {})])
+        }
     }
 
     componentDidMount(){
@@ -141,7 +145,6 @@ class Router extends React.Component {
     }
 
     renderScene(route, navigator) {
-        console.log("ROUTE: "+route.name)
         var Component = route.component;
         var navBar = route.navigationBar;
 
@@ -182,6 +185,8 @@ class Router extends React.Component {
     }
 
     render(){
+        this.initialRoute =  this.routes[this.props.initial || this.initial];
+
         var modal = null;
         if (this.state.modal){
             modal = (<View style={styles.container}>
