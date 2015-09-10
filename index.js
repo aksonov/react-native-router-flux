@@ -4,8 +4,6 @@ var {View, Navigator, Text, StyleSheet} = React;
 var alt = require('./alt');
 var PageStore = require('./store');
 var Actions = require('./actions');
-var FetchActions = require('./FetchActions');
-var FetchStore = require('./FetchStore');
 var Animations = require('./Animations');
 var Container = require('./Container');
 
@@ -16,8 +14,8 @@ class Schema extends React.Component {
     }
 }
 
-// schema class represents fetch call
-class API extends React.Component {
+// action class represents simple action which will be handled by user-defined stores
+class Action extends React.Component {
     render(){
         return null;
     }
@@ -49,14 +47,13 @@ function getClassName(obj) {
 
 let SchemaClassName = getClassName(Schema);
 let RouteClassName = getClassName(Route);
-let APIClassName = getClassName(API);
+let ActionClassName = getClassName(Action);
 
 class Router extends React.Component {
     constructor(props){
         super(props);
         this.state = {};
         this.routes = {};
-        this.apis = {};
         this.schemas = {};
 
         var self = this;
@@ -88,22 +85,14 @@ class Router extends React.Component {
                     return;
                 }
 
-            } else  if (child.type.name == APIClassName) {
-                self.apis[name] = child.props;
-                // generate sugar actions like 'login'
+            } else  if (child.type.name == ActionClassName) {
                 if (!(RouterActions[name])) {
-                    RouterActions[name] = alt.createAction(name, function (data) {
-                        if (typeof(data)!='object'){
-                            data={data:data};
-                        }
-                        FetchActions.fetch(name, data);
-                    });
+                    RouterActions[name] = alt.createAction(name, function(data){
+                        //console.log("DATA:"+JSON.stringify(data));
+                        return {name, props: child.props, data:data}});
                 }
             }
         });
-        // load all APIs to FetchStore
-        FetchActions.load(this.apis);
-
     }
 
     onChange(page){
@@ -147,10 +136,6 @@ class Router extends React.Component {
         this.routerUnlisten = RouterStore.listen(this.onChange.bind(this));
     }
 
-    onFetchChange(state){
-
-    }
-
     componentWillUnmount() {
         this.routerUnlisten();
     }
@@ -166,7 +151,8 @@ class Router extends React.Component {
                 route: route
             });
         }
-        var child = Component ?  <Component navigator={navigator} route={route} {...route.passProps}/> : React.Children.only(this.routes[route.name].children)
+        var child = Component ?  <Component navigator={navigator} route={route} {...route.passProps}/>
+            : React.Children.only(this.routes[route.name].children);
         return (
             <View style={{flex:1}}>
                 {navBar}
@@ -233,4 +219,4 @@ var styles = StyleSheet.create({
     },
 });
 
-module.exports = {Router, Container, Actions, API, PageStore, Route, Animations, Schema, FetchStore, FetchActions, alt}
+module.exports = {Router, Container, Actions, Action, PageStore, Route, Animations, Schema, alt}

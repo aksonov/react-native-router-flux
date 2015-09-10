@@ -1,6 +1,6 @@
 {
   "name": "react-native-router-flux",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "React Native Router using Flux architecture",
   "main": "index.js",
   "scripts": {
@@ -21,8 +21,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "alt": "^0.17.1",
-    "qs": "^5.0.0"
+    "alt": "^0.17.1"
   },
   "readme": "# react-native-router-flux\nReact Native Router using Flux architecture\n",
   "readmeFilename": "README.md",
