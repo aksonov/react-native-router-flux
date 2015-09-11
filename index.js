@@ -137,6 +137,7 @@ class Router extends React.Component {
 
     componentDidMount(){
         var RouterStore = this.props.store|| PageStore;
+        Actions.init(this.initial);
         this.routerUnlisten = RouterStore.listen(this.onChange.bind(this));
     }
 
@@ -190,8 +191,9 @@ class Router extends React.Component {
         var modal = null;
         if (this.state.modal){
             modal = (<View style={styles.container}>
-                    <View style={[styles.container,{backgroundColor:'black',opacity:0.5}]}/>
+                    <View style={[styles.container,{backgroundColor:'black',opacity:0.5},this.props.popupStyle]}/>
                     {this.state.modal}
+
                 </View>
             );
         }

@@ -3,7 +3,7 @@ var alt = require('./alt');
 
 class Actions {
     constructor(){
-        this.generateActions('push', 'pop','dismiss','reset');
+        this.generateActions('push', 'pop','dismiss','reset','init');
     }
 }
 
