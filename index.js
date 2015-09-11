@@ -6,6 +6,7 @@ var PageStore = require('./store');
 var Actions = require('./actions');
 var Animations = require('./Animations');
 var Container = require('./Container');
+var AltNativeContainer = require('alt/AltNativeContainer');
 
 // schema class represents schema for routes and it is processed inside Router component
 class Schema extends React.Component {
@@ -86,7 +87,7 @@ class Router extends React.Component {
             } else  if (child.type.name == ActionClassName) {
                 if (!(RouterActions[name])) {
                     RouterActions[name] = alt.createAction(name, function(data){
-                        return {name, props: child.props, data:data}});
+                        RouterActions.custom({name, props: child.props, data:data})});
                 }
             }
         });
@@ -107,7 +108,13 @@ class Router extends React.Component {
             }
             // check if route is popup
             if (route.schema=='popup'){
-                this.setState({modal: React.createElement(route.component, {data: page.data})});
+                var element = React.createElement(route.component, Object.assign({}, route, page.data));
+                if (route.store){
+                    element = (<AltNativeContainer store={route.store} {...element.props}>
+                        {element}
+                    </AltNativeContainer>);
+                }
+                this.setState({modal: element});
             } else {
                 //console.log("PUSH");
                 this.refs.nav.push(this.getRoute(route, page.data))
@@ -155,8 +162,16 @@ class Router extends React.Component {
                 route: route
             });
         }
-        var child = Component ?  <Component navigator={navigator} route={route} {...route.passProps}/>
+        var child = Component ?  <Component key={route.name} navigator={navigator} route={route} {...route.passProps}/>
             : React.Children.only(this.routes[route.name].children);
+
+        // wrap with AltNativeContainer if 'store' is defined
+        if (this.routes[route.name].store ){
+            child = (<AltNativeContainer key={route.name+"alt"}  store={this.routes[route.name].store} {...child.props}>
+                {child}
+                </AltNativeContainer>);
+        }
+
         return (
             <View style={styles.transparent}>
                 {navBar}
