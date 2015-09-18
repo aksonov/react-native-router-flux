@@ -49,6 +49,8 @@ class RouterStore {
             data.num = 1;
         }
         data.mode = 'pop';
+        // add name of closed page
+        data.name = this.currentRoute;
         for (var i=0;i<data.num && this.routes.length>1;i++){
             this.routes.pop();
         }

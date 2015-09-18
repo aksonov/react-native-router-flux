@@ -180,6 +180,15 @@ class Router extends React.Component {
         )
     }
 
+    extend(destination, source) {
+        for (var property in source) {
+            if (source.hasOwnProperty(property)) {
+                destination[property] = source[property];
+            }
+        }
+        return destination;
+    }
+
     getRoute(route, data) {
         var schema = this.schemas[route.schema || 'default'] || {};
         var sceneConfig = route.sceneConfig || schema.sceneConfig || Animations.None;
@@ -188,6 +197,8 @@ class Router extends React.Component {
         if (NavBar){
             navBar = <NavBar {...schema} {...route} {...data} />
         }
+        var props = this.extend({}, route);
+        props = this.extend(props, data);
         return {
             name: route.name,
             component: route.component,
@@ -196,7 +207,7 @@ class Router extends React.Component {
                 gestures: {}
             },
             navigationBar: route.hideNavBar ? null : navBar,
-            passProps: { ...route, ...data }
+            passProps: props
         }
     }
 
