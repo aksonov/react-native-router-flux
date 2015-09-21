@@ -10,6 +10,9 @@ var AltNativeContainer = require('alt/AltNativeContainer');
 
 // schema class represents schema for routes and it is processed inside Router component
 class Schema extends React.Component {
+    className(){
+        return "Schema";
+    }
     render(){
         return null;
     }
@@ -17,6 +20,9 @@ class Schema extends React.Component {
 
 // action class represents simple action which will be handled by user-defined stores
 class Action extends React.Component {
+    className(){
+        return "Action";
+    }
     render(){
         return null;
     }
@@ -24,31 +30,14 @@ class Action extends React.Component {
 
 // route class processed inside Router component
 class Route extends React.Component {
+    className(){
+        return "Route";
+    }
     render(){
         return null;
     }
 
 }
-
-/* Returns the class name of the argument or undefined if
- it's not a valid JavaScript object.
- */
-function getClassName(obj) {
-    if (obj.toString) {
-        var arr = obj.toString().match(
-            /function\s*(\w+)/);
-
-        if (arr && arr.length == 2) {
-            return arr[1];
-        }
-    }
-
-    return undefined;
-}
-
-let SchemaClassName = getClassName(Schema);
-let RouteClassName = getClassName(Route);
-let ActionClassName = getClassName(Action);
 
 class Router extends React.Component {
     constructor(props){
@@ -63,9 +52,10 @@ class Router extends React.Component {
 
         React.Children.forEach(props.children, function (child, index){
             var name = child.props.name;
-            if (child.type.name == SchemaClassName) {
+            if (child.type.prototype.className() == "Schema") {
                 self.schemas[name] = child.props;
-            } else if (child.type.name == RouteClassName) {
+            } else if (child.type.prototype.className() == "Route") {
+//                console.log("Added route: " + name);
                 if (child.props.initial || !self.initial) {
                     self.initial = name;
                 }
@@ -84,7 +74,8 @@ class Router extends React.Component {
                     return;
                 }
 
-            } else  if (child.type.name == ActionClassName) {
+            } else  if (child.type.prototype.className() == "Action") {
+                //console.log("Added action: " + name);
                 if (!(RouterActions[name])) {
                     RouterActions[name] = alt.createAction(name, function(data){
                         RouterActions.custom({name, props: child.props, data:data})});
@@ -167,6 +158,10 @@ class Router extends React.Component {
 
         // wrap with AltNativeContainer if 'store' is defined
         if (this.routes[route.name].store ){
+            if (!this.routes[route.name]){
+                alert("Cannot found route for name: "+ route.name);
+                return;
+            }
             child = (<AltNativeContainer key={route.name+"alt"}  store={this.routes[route.name].store} {...child.props}>
                 {child}
                 </AltNativeContainer>);

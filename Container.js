@@ -6,6 +6,7 @@ var Store = require('./ContainerStore');
 var {View, Navigator, Text} = React;
 var Animations = require('./Animations');
 var alt = require('./alt');
+var AltNativeContainer = require('alt/AltNativeContainer');
 
 class Item extends React.Component {
     render(){
@@ -67,10 +68,20 @@ class Container extends React.Component {
                 route: route
             });
         }
+        var child = Component ?  <Component key={route.name} navigator={navigator} route={route} {...route.passProps}/>
+            : React.Children.only(this.routes[route.name].children);
+
+        // wrap with AltNativeContainer if 'store' is defined
+        if (this.routes[route.name].store ){
+            child = (<AltNativeContainer key={route.name+"alt"}  store={this.routes[route.name].store} {...child.props}>
+                {child}
+            </AltNativeContainer>);
+        }
+
         return (
-            <View style={{flex:1}}>
+            <View style={{flex:1,backgroundColor: "transparent"}}>
                 {navBar}
-                <Component navigator={navigator} route={route} {...route.passProps}/>
+                {child}
             </View>
         )
     }
@@ -98,7 +109,7 @@ class Container extends React.Component {
     render(){
         return (
             <Navigator
-                renderScene={this.renderScene}
+                renderScene={this.renderScene.bind(this)}
                 configureScene={(route) => { return route.sceneConfig;}}
                 ref="nav"
                 initialRoute={this.getRoute(this.initialRoute)}
