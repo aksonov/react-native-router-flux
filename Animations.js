@@ -1,8 +1,8 @@
 'use strict';
 
 // Scene Config
-var {Navigator,Dimensions,PixelRatio,buildStyleInterpolator} = require('react-native');
-var buildStyleInterpolator = require('buildStyleInterpolator');
+var {Navigator,Dimensions,PixelRatio} = require('react-native');
+var buildStyleInterpolator = require('react-native/Libraries/Utilities/buildStyleInterpolator');
 var FlatFloatFromRight = Object.assign({}, Navigator.SceneConfigs.FloatFromRight);
 var FlatFloatFromBottom = Object.assign({}, Navigator.SceneConfigs.FloatFromBottom);
 

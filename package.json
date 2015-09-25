@@ -1,6 +1,6 @@
 {
   "name": "react-native-router-flux",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "React Native Router using Flux architecture",
   "main": "index.js",
   "scripts": {
@@ -23,10 +23,27 @@
   "dependencies": {
     "alt": "^0.17.1"
   },
-  "readme": "# react-native-router-flux\nReact Native Router using Flux architecture\n",
-  "readmeFilename": "README.md",
   "gitHead": "ac054cfda0894ba1db6c4901ebdddc83b3b2d083",
-  "_id": "react-native-router-flux@0.1.6",
-  "_shasum": "7bd670ae909e1286be97f23e56478059f7fd5951",
-  "_from": "react-native-router-flux@>=0.1.5 <0.2.0"
+  "_id": "react-native-router-flux@0.1.8",
+  "_shasum": "0e4671550c307ce7ea940eb4ff624e217bcc5225",
+  "_from": "react-native-router-flux@0.1.8",
+  "_npmVersion": "2.13.2",
+  "_nodeVersion": "2.5.0",
+  "_npmUser": {
+    "name": "aksonov",
+    "email": "pavlo.aksonov@gmail.com"
+  },
+  "dist": {
+    "shasum": "0e4671550c307ce7ea940eb4ff624e217bcc5225",
+    "tarball": "http://registry.npmjs.org/react-native-router-flux/-/react-native-router-flux-0.1.8.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "aksonov",
+      "email": "pavlo.aksonov@gmail.com"
+    }
+  ],
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/react-native-router-flux/-/react-native-router-flux-0.1.8.tgz",
+  "readme": "ERROR: No README data found!"
 }
