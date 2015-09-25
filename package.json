@@ -1,6 +1,6 @@
 {
   "name": "react-native-router-flux",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "React Native Router using Flux architecture",
   "main": "index.js",
   "scripts": {
@@ -24,9 +24,9 @@
     "alt": "^0.17.1"
   },
   "gitHead": "ac054cfda0894ba1db6c4901ebdddc83b3b2d083",
-  "_id": "react-native-router-flux@0.1.8",
-  "_shasum": "0e4671550c307ce7ea940eb4ff624e217bcc5225",
-  "_from": "react-native-router-flux@0.1.8",
+  "_id": "react-native-router-flux@0.1.9",
+  "_shasum": "c2f38efddfcce1fe65187777de24e8418af1f276",
+  "_from": "react-native-router-flux@0.1.9",
   "_npmVersion": "2.13.2",
   "_nodeVersion": "2.5.0",
   "_npmUser": {

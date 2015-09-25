@@ -77,8 +77,12 @@ class Router extends React.Component {
             } else  if (child.type.prototype.className() == "Action") {
                 //console.log("Added action: " + name);
                 if (!(RouterActions[name])) {
+
+                    // merge Router props with children props
+                    var props = Object.assign({}, self.props);
+                    props = Object.assign(props, child.props)
                     RouterActions[name] = alt.createAction(name, function(data){
-                        RouterActions.custom({name, props: child.props, data:data})});
+                        RouterActions.custom({name, props, data})});
                 }
             }
         });
