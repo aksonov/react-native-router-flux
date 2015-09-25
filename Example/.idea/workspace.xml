@@ -25,17 +25,27 @@
         <entry file="file://$PROJECT_DIR$/index.ios.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="34" column="19" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+              <caret line="38" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/node_modules/react-native-router-flux/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.025210084">
+            <state vertical-scroll-proportion="-0.625">
               <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/node_modules/react-native-router-flux/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5320946">
+              <caret line="34" column="45" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -73,23 +83,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/react-native-router-flux/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="104" column="24" selection-start-line="104" selection-start-column="24" selection-end-line="104" selection-end-column="24" />
-              <folding>
-                <marker date="1442841225000" expanded="true" signature="3548:3683" placeholder="&lt;xml/&gt;" />
-                <marker date="1442841225000" expanded="true" signature="5663:5824" placeholder="&lt;xml/&gt;" />
-                <marker date="1442841225000" expanded="true" signature="5867:5969" placeholder="&lt;xml/&gt;" />
-                <marker date="1442841225000" expanded="true" signature="7132:7342" placeholder="&lt;xml/&gt;" />
-                <marker date="1442841225000" expanded="true" signature="7397:7761" placeholder="&lt;xml/&gt;" />
-                <marker date="1442841225000" expanded="true" signature="7447:7717" placeholder="&lt;xml/&gt;" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Launch.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/components/Launch.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -107,9 +100,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-              <folding>
-                <marker date="1441614332000" expanded="true" signature="276:524" placeholder="&lt;xml/&gt;" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -157,9 +148,10 @@
         <option value="$PROJECT_DIR$/components/Login.js" />
         <option value="$PROJECT_DIR$/components/Launch.js" />
         <option value="$PROJECT_DIR$/node_modules/react-native-router-flux/index.js" />
-        <option value="$PROJECT_DIR$/index.ios.js" />
         <option value="$PROJECT_DIR$/node_modules/react-native-router-flux/Animations.js" />
         <option value="$PROJECT_DIR$/node_modules/react-native-router-flux/package.json" />
+        <option value="$PROJECT_DIR$/index.ios.js" />
+        <option value="$PROJECT_DIR$/node_modules/react-native-router-flux/README.md" />
       </list>
     </option>
   </component>
@@ -384,23 +376,11 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/components/Launch.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
-          <folding>
-            <marker date="1441863945000" expanded="true" signature="297:786" placeholder="&lt;xml/&gt;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/components/Error.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-          <folding>
-            <marker date="1441614332000" expanded="true" signature="276:524" placeholder="&lt;xml/&gt;" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -445,12 +425,12 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="64" column="22" selection-start-line="64" selection-start-column="22" selection-end-line="64" selection-end-column="22" />
           <folding>
-            <marker date="1442841225000" expanded="true" signature="3548:3683" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="5663:5824" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="5867:5969" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="7132:7342" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="7397:7761" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="7447:7717" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
           </folding>
         </state>
       </provider>
@@ -509,12 +489,12 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="68" column="14" selection-start-line="68" selection-start-column="14" selection-end-line="68" selection-end-column="14" />
           <folding>
-            <marker date="1442841225000" expanded="true" signature="3548:3683" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="5663:5824" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="5867:5969" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="7132:7342" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="7397:7761" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="7447:7717" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
           </folding>
         </state>
       </provider>
@@ -557,12 +537,12 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="68" column="14" selection-start-line="68" selection-start-column="14" selection-end-line="68" selection-end-column="14" />
           <folding>
-            <marker date="1442841225000" expanded="true" signature="3548:3683" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="5663:5824" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="5867:5969" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="7132:7342" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="7397:7761" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="7447:7717" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
           </folding>
         </state>
       </provider>
@@ -749,12 +729,12 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="104" column="24" selection-start-line="104" selection-start-column="24" selection-end-line="104" selection-end-column="24" />
           <folding>
-            <marker date="1442841225000" expanded="true" signature="3548:3683" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="5663:5824" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="5867:5969" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="7132:7342" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="7397:7761" placeholder="&lt;xml/&gt;" />
-            <marker date="1442841225000" expanded="true" signature="7447:7717" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
+            <marker date="1442841225000" expanded="true" signature="-1:-1" placeholder="&lt;xml/&gt;" />
           </folding>
         </state>
       </provider>
@@ -765,16 +745,6 @@
           <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
           <folding>
             <marker date="1441863945000" expanded="true" signature="297:786" placeholder="&lt;xml/&gt;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/Error.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-          <folding>
-            <marker date="1441614332000" expanded="true" signature="276:524" placeholder="&lt;xml/&gt;" />
           </folding>
         </state>
       </provider>
@@ -817,14 +787,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.ios.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="19" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/react-native-router-flux/Animations.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -835,8 +797,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/react-native-router-flux/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.025210084">
+        <state vertical-scroll-proportion="-0.625">
           <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/Error.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.ios.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="38" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/react-native-router-flux/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5320946">
+          <caret line="34" column="45" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
           <folding />
         </state>
       </provider>
