@@ -77,12 +77,8 @@ class Router extends React.Component {
             } else  if (child.type.prototype.className() == "Action") {
                 //console.log("Added action: " + name);
                 if (!(RouterActions[name])) {
-
-                    // merge Router props with children props
-                    var props = Object.assign({}, self.props);
-                    props = Object.assign(props, child.props)
                     RouterActions[name] = alt.createAction(name, function(data){
-                        RouterActions.custom({name, props, data})});
+                        RouterActions.custom({name, props: child.props, data:data})});
                 }
             }
         });
@@ -157,13 +153,18 @@ class Router extends React.Component {
                 route: route
             });
         }
-        var child = Component ?  <Component key={route.name} navigator={navigator} route={route} {...route.passProps}/>
-            : React.Children.only(this.routes[route.name].children);
+        var child = null;
+        if (Component){
+            child = <Component key={route.name} navigator={navigator} route={route} {...route.passProps}/>
+        } else {
+            child = React.Children.only(this.routes[route.name].children);
+            child = React.addons.cloneWithProps(child, {schemas: this.schemas});
+        }
 
         // wrap with AltNativeContainer if 'store' is defined
         if (this.routes[route.name].store ){
             if (!this.routes[route.name]){
-                alert("Cannot found route for name: "+ route.name);
+                console.error("Cannot found route for name: "+ route.name);
                 return;
             }
             child = (<AltNativeContainer key={route.name+"alt"}  store={this.routes[route.name].store} {...child.props}>

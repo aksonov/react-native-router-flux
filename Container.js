@@ -18,7 +18,6 @@ class Container extends React.Component {
         super(props);
         this.state = {};
         this.routes = {};
-        this.navRoutes = {};
         this.initial = props.initial;
         var self = this;
 
@@ -48,12 +47,20 @@ class Container extends React.Component {
 
     onChange({page}){
         console.log(page.name);
-        var route = this.routes[page.name];
+        var route = this.getRoute(this.routes[page.name], page.data)
+        var found = false;
+        var self = this;
         // check if route exists
-        if (!this.navRoutes[page.name]){
-            this.refs.nav.push(this.getRoute(route, page.data));
-        } else {
-            this.refs.nav.jumpTo(this.navRoutes[page.name]);
+        this.refs.nav.getCurrentRoutes().forEach(function(navRoute){
+            if (navRoute.name == route.name){
+                self.refs.nav.jumpTo(navRoute);
+                found = true;
+                return;
+            }
+        });
+
+        if (!found){
+            this.refs.nav.push(route);
         }
 
     }
@@ -87,13 +94,14 @@ class Container extends React.Component {
     }
 
     getRoute(route, data) {
-        var sceneConfig = route.sceneConfig || Animations.None;
-        var NavBar = route.navBar;
+        var schema = this.props.schemas[route.schema || 'default'] || {};
+        var sceneConfig = route.sceneConfig || schema.sceneConfig || Animations.None;
+        var NavBar = route.navBar || schema.navBar;
         var navBar;
         if (NavBar){
             navBar = <NavBar {...schema} {...route} {...data} />
         }
-        this.navRoutes[route.name] = {
+        return {
             name: route.name,
             component: route.component,
             sceneConfig: {
@@ -103,17 +111,20 @@ class Container extends React.Component {
             navigationBar: route.hideNavBar ? null : navBar,
             passProps: { ...route, ...data }
         }
-        return this.navRoutes[route.name];
     }
 
     render(){
+        var Component = this.props.component;
         return (
-            <Navigator
-                renderScene={this.renderScene.bind(this)}
-                configureScene={(route) => { return route.sceneConfig;}}
-                ref="nav"
-                initialRoute={this.getRoute(this.initialRoute)}
-                />
+            <View style={{flex:1,backgroundColor: "transparent"}}>
+                <Navigator
+                    renderScene={this.renderScene.bind(this)}
+                    configureScene={(route) => { return route.sceneConfig;}}
+                    ref="nav"
+                    initialRoute={this.getRoute(this.initialRoute)}
+                    />
+                {Component && <Component {...this.props}/>}
+            </View>
         );
     }
 }
