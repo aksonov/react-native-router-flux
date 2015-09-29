@@ -78,7 +78,9 @@ class Router extends React.Component {
                 //console.log("Added action: " + name);
                 if (!(RouterActions[name])) {
                     RouterActions[name] = alt.createAction(name, function(data){
-                        RouterActions.custom({name, props: child.props, data:data})});
+                        var props = self.extend({}, self.props);
+                        props = self.extend(props, child.props);
+                        RouterActions.custom({name, props, data})});
                 }
             }
         });
@@ -190,11 +192,6 @@ class Router extends React.Component {
     }
 
     getRoute(route, data) {
-        var proto = (data||{}).constructor.name;
-        // avoid passing React Native parameters 
-        if (proto != 'Object'){
-            data = {};
-        }
         var schema = this.schemas[route.schema || 'default'] || {};
         var sceneConfig = route.sceneConfig || schema.sceneConfig || Animations.None;
         var NavBar = route.navBar || schema.navBar;
