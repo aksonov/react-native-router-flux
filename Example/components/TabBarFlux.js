@@ -17,7 +17,7 @@ class TabBarFlux extends React.Component {
             if (!el.props.name)
                 console.error("No name is defined for element");
             var Icon = el.props.icon || console.error("No icon class is defined for "+el.name);
-            children.push(<Icon {...el.props}/>);
+            children.push(<Icon key={el.props.name} {...el.props}/>);
         });
 
         return (

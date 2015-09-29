@@ -190,6 +190,11 @@ class Router extends React.Component {
     }
 
     getRoute(route, data) {
+        var proto = (data||{}).constructor.name;
+        // avoid passing React Native parameters 
+        if (proto != 'Object'){
+            data = {};
+        }
         var schema = this.schemas[route.schema || 'default'] || {};
         var sceneConfig = route.sceneConfig || schema.sceneConfig || Animations.None;
         var NavBar = route.navBar || schema.navBar;
