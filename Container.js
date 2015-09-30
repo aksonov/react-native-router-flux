@@ -46,7 +46,10 @@ class Container extends React.Component {
     }
 
     onChange({page}){
-        console.log(page.name);
+        //console.log(page.name);
+        if (!this.routes[page.name]){
+            console.error("No route for page:"+page.name);
+        }
         var route = this.getRoute(this.routes[page.name], page.data)
         var found = false;
         var self = this;
@@ -94,13 +97,12 @@ class Container extends React.Component {
     }
 
     getRoute(route, data) {
-        var proto = (data||{}).constructor.name;
-        // avoid passing React Native parameters
-        if (proto != 'Object'){
-            data = {};
+        if (!route){
+            console.error("No route for DATA:"+JSON.stringify(data));
         }
         var schema = this.props.schemas[route.schema || 'default'] || {};
-        var sceneConfig = route.sceneConfig || schema.sceneConfig || Animations.None;
+        var sceneConfig = Animations.None;
+//        var sceneConfig = route.sceneConfig || schema.sceneConfig || Animations.None;
         var NavBar = route.navBar || schema.navBar;
         var navBar;
         if (NavBar){
@@ -120,6 +122,11 @@ class Container extends React.Component {
 
     render(){
         var Component = this.props.component;
+        if (!this.initialRoute) {
+            console.error("No initial route!");
+            return <View/>;
+        }
+
         return (
             <View style={{flex:1,backgroundColor: "transparent"}}>
                 <Navigator

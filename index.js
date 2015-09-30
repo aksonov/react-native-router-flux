@@ -91,12 +91,12 @@ class Router extends React.Component {
     onChange(page){
         if (page.mode=='push'){
             if (!page.name){
-                alert("Page name is not defined for action");
+                console.error("Page name is not defined for action");
                 return;
             }
             var route = this.routes[page.name];
             if (!route){
-                alert("No route is defined for name: "+page.name);
+                console.error("No route is defined for name: "+page.name);
                 return;
             }
             // check if route is popup
@@ -192,6 +192,9 @@ class Router extends React.Component {
     }
 
     getRoute(route, data) {
+        if (!route){
+            console.error("No route for data:"+JSON.stringify(data));
+        }
         var schema = this.schemas[route.schema || 'default'] || {};
         var sceneConfig = route.sceneConfig || schema.sceneConfig || Animations.None;
         var NavBar = route.navBar || schema.navBar;
@@ -214,7 +217,13 @@ class Router extends React.Component {
     }
 
     render(){
+        if (!(this.props.initial || this.initial)){
+            console.error("No initial attribute!");
+        }
         this.initialRoute =  this.routes[this.props.initial || this.initial];
+        if (!this.initialRoute) {
+            console.error("No initial route!");
+        }
 
         var modal = null;
         if (this.state.modal){

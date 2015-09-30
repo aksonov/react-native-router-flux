@@ -2,6 +2,8 @@
 var alt = require('./alt');
 
 function filterParam(data){
+    if (typeof(data)!='object') 
+        return data;
     if (!data){
         return;
     }
