@@ -1,10 +1,10 @@
 {
   "name": "react-native-router-flux",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "React Native Router using Flux architecture",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "react-native",
@@ -45,5 +45,30 @@
   ],
   "directories": {},
   "_resolved": "https://registry.npmjs.org/react-native-router-flux/-/react-native-router-flux-0.1.8.tgz",
-  "readme": "ERROR: No README data found!"
+  "readme": "ERROR: No README data found!",
+  "devDependencies": {
+    "alt": "^0.17.3",
+    "babel-core": "^5.8.25",
+    "jest-cli": "^0.5.8",
+    "react": "^0.13.3",
+    "react-tools": "^0.13.3"
+  },
+  "jest": {
+    "unmockedModulePathPatterns": [
+      "react",
+      "promise",
+      "node_modules/alt",
+      "alt.js",
+      "source-map"
+    ],
+    "scriptPreprocessor": "jestSupport/scriptPreprocess.js",
+    "setupEnvScriptFile": "jestSupport/env.js",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "packager/react-packager/src/Activity/"
+    ],
+    "testFileExtensions": [
+      "js"
+    ]
+  }
 }

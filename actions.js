@@ -19,6 +19,9 @@ function filterParam(data){
 }
 
 class Actions {
+    constructor(){
+
+    }
     push(data){
         this.dispatch(filterParam(data));
     }
