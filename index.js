@@ -148,9 +148,16 @@ class Router extends React.Component {
     renderScene(route, navigator) {
         var Component = route.component;
         var navBar = route.navigationBar;
+        var footer = route.footer;
 
         if (navBar) {
             navBar = React.addons.cloneWithProps(navBar, {
+                navigator: navigator,
+                route: route
+            });
+        }
+        if (footer){
+            footer = React.addons.cloneWithProps(footer, {
                 navigator: navigator,
                 route: route
             });
@@ -178,6 +185,7 @@ class Router extends React.Component {
             <View style={styles.transparent}>
                 {navBar}
                 {child}
+                {footer}
             </View>
         )
     }
@@ -198,9 +206,16 @@ class Router extends React.Component {
         var schema = this.schemas[route.schema || 'default'] || {};
         var sceneConfig = route.sceneConfig || schema.sceneConfig || Animations.None;
         var NavBar = route.navBar || schema.navBar;
+        var Footer = route.footer || schema.footer;
+
         var navBar;
         if (NavBar){
             navBar = <NavBar {...schema} {...route} {...data} />
+        }
+
+        var footer;
+        if (Footer){
+            footer = <Footer {...schema} {...route} {...data} />
         }
         var props = this.extend({}, route);
         props = this.extend(props, data);
@@ -212,6 +227,7 @@ class Router extends React.Component {
                 gestures: {}
             },
             navigationBar: route.hideNavBar ? null : navBar,
+            footer: footer,
             passProps: props
         }
     }
