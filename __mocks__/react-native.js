@@ -29,6 +29,11 @@ class Navigator extends React.Component {
     immediatelyResetRouteStack(routes){
         this._currentRoutes = routes;
     }
+    replace(route){
+        this._currentRoutes.pop();
+        this._currentRoutes.push(route);
+        this.setState({route: route});
+    }
     popToRoute(route){
         while (this._currentRoutes[this._currentRoutes.length-1] != route){
             this._currentRoutes.pop();

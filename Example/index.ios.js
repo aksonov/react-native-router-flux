@@ -8,6 +8,7 @@ var Login = require('./components/Login');
 var {Router, Route, Container, Actions, Animations, Schema} = require('react-native-router-flux');
 var {NavBar, NavBarModal} = require('./components/NavBar');
 var Error = require('./components/Error');
+var Home = require('./components/Home');
 var TabView = require('./components/TabView');
 var TabIcon = require('./components/TabIcon');
 var TabBarFlux = require('./components/TabBarFlux');
@@ -25,6 +26,7 @@ class Example extends React.Component {
 
                     <Route name="launch" component={Launch} initial={true} hideNavBar={true} title="Launch"/>
                     <Route name="register" component={Register} title="Register"/>
+                    <Route name="home" component={Home} title="Home" type="replace"/>
                     <Route name="login" component={Login} schema="modal"/>
                     <Route name="register2" component={Register} schema="withoutAnimation"/>
                     <Route name="error" component={Error} schema="popup"/>

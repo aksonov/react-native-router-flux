@@ -9,8 +9,7 @@ class Register extends React.Component {
     render(){
         return (
             <View style={styles.container}>
-                <Text>Register page</Text>
-                <Button onPress={Actions.home}>Home</Button>
+                <Text>Home</Text>
                 <Button onPress={Actions.pop}>Back</Button>
             </View>
         );

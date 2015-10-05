@@ -40,6 +40,9 @@ class Actions {
     custom(data){
         this.dispatch(filterParam(data));
     }
+    replace(data){
+        this.dispatch(filterParam(data));
+    }
 }
 
 module.exports = alt.createActions(Actions);

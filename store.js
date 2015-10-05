@@ -23,6 +23,7 @@ class RouterStore {
         this.bindAction(actions.pop, this.onPop);
         this.bindAction(actions.dismiss, this.onDismiss);
         this.bindAction(actions.reset, this.onReset);
+        this.bindAction(actions.replace, this.onReplace);
     }
 
     onInit(initial){
@@ -34,6 +35,14 @@ class RouterStore {
 
     onPush(data){
         data.mode = 'push';
+        this.routes.push(data.name);
+        this.currentRoute = this.routes[this.routes.length-1];
+        this.setState(data);
+    }
+
+    onReplace(data){
+        data.mode = 'replace';
+        this.routes.pop();
         this.routes.push(data.name);
         this.currentRoute = this.routes[this.routes.length-1];
         this.setState(data);

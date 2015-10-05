@@ -65,7 +65,8 @@ class Router extends React.Component {
                             data={data:data};
                         }
                         var args = {name: name, data:data};
-                        RouterActions.push(args);
+                        var action = child.props.type || 'push';
+                        RouterActions[action](args);
                     });
                 }
                 self.routes[name] = child.props;
@@ -89,7 +90,7 @@ class Router extends React.Component {
     }
 
     onChange(page){
-        if (page.mode=='push'){
+        if (page.mode=='push' || page.mode=='replace'){
             if (!page.name){
                 console.error("Page name is not defined for action");
                 return;
@@ -109,8 +110,11 @@ class Router extends React.Component {
                 }
                 this.setState({modal: element});
             } else {
-                //console.log("PUSH");
-                this.refs.nav.push(this.getRoute(route, page.data))
+                if (page.mode == 'replace'){
+                    this.refs.nav.replace(this.getRoute(route, page.data))
+                } else {
+                    this.refs.nav.push(this.getRoute(route, page.data))
+                }
             }
         }
         if (page.mode=='pop'){

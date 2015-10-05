@@ -9,7 +9,7 @@
     "react-native": "^0.11.4",
     "react-native-button": "^1.2.1",
     "react-native-navbar": "^0.8.0",
-    "react-native-router-flux": "^0.2.4",
+    "react-native-router-flux": "^0.3.0",
     "react-native-tabs": "^0.0.5"
   }
 }
