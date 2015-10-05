@@ -9,7 +9,7 @@ React Native Router using Flux architecture
 - Use popup with Flux actions (see Error popup within Example project)
 - Hide nav bar for some screens easily
 - Use tab bars for some screens with Flux actions (see demo)
-- Simplify processing of data flow in your app (see Getting Started, 4.1)
+- Simplify processing of data flow in your app (see Getting Started, #4)
 - Define your custom Flux actions (like fetch or validation actions) with the component too, so you will have all app actions in the one place.
 
 ## Example
@@ -104,37 +104,36 @@ module.exports = Launch;
 ## Getting started
 1. `npm install react-native-router-flux --save`
 2. In top-level index.js:
-2.1 Define Route for each app screen. Its 'type' attribute is 'push' by default, but you also could define 'replace', so navigator will replace current route with new route.
+    * Define Route for each app screen. Its 'type' attribute is 'push' by default, but you also could define 'replace', so navigator will replace current route with new route.
 'component' attribute is React component class which will be created for this route and all route attributes will be passed to it.
 'name' is unique name of Route.
-2.2 If some your Routes have common attributes, you may define Schema element and just use 'schema' attribute for 'route'
-2.3 If you want to define some your custom actions, just add 'Action' element inside Router. That action will not be processed by the component, it will call Actions.custom({name:ACTION_NAME, ...params}) so you could handle it in your stores. It allows to add Fetch actions (which downloads web content), etc.
+    * If some your Routes have common attributes, you may define Schema element and just use 'schema' attribute for 'route'
+    * If you want to define some your custom actions, just add 'Action' element inside Router. That action will not be processed by the component, it will call Actions.custom({name:ACTION_NAME, ...params}) so you could handle it in your stores. It allows to add Fetch actions (which downloads web content), etc.
 3. In any app screen:
-3.1 var {Actions} = require('react-native-router-flux');
-3.2 Actions.ACTION_NAME(PARAMS) will call appropriate action and params will be passed to next screen.
-4. In your Flux stores (optional):
-4.1 You may subscribe to any push/replace/pop 'page' actions in your store.
+    * var {Actions} = require('react-native-router-flux');
+    * Actions.ACTION_NAME(PARAMS) will call appropriate action and params will be passed to next screen.
+4. In your Flux stores (optional).  You may subscribe to any push/replace/pop 'page' actions in your store.
 It could be necessary if you want to process user data somehow. For example, if some component manages user form and have "Save" button which should store that data and pop the screen, you may use Actions.pop(this.state) in that component and then subscribe to Actions.pop actions within store:
-```
-class SearchFilterStore {
-    constructor(){
-        this.bindAction(Actions.pop, this.onSet);
-    }
 
-    onSet(data){
-        this.waitFor(PageStore.dispatchToken);
-        var route = PageStore.getState().currentRoute;
-
-        if (route == 'yourFORM'){
-            // save data
-
-            this.saveData(data);
-            return true;
+        class SearchFilterStore {
+            constructor(){
+                this.bindAction(Actions.pop, this.onSet);
+            }
+        
+            onSet(data){
+                this.waitFor(PageStore.dispatchToken);
+                var route = PageStore.getState().currentRoute;
+        
+                if (route == 'yourFORM'){
+                    // save data
+        
+                    this.saveData(data);
+                    return true;
+                }
+                return false;
+            }
         }
-        return false;
-    }
-}
-module.exports = alt.createStore(SearchFilterStore, 'SearchFilterStore');
-```
+        module.exports = alt.createStore(SearchFilterStore, 'SearchFilterStore');
+
 
 Here PageStore.getState().currentRoute is used to check current page, so the store will process only data for needed route.
