@@ -116,7 +116,7 @@ class Container extends React.Component {
 
         var navBar;
         if (NavBar){
-            navBar = <NavBar {...schema} {...route} {...data} />
+            navBar = <NavBar prevTitle=" " {...schema} {...route} {...data}/>
         }
 
         var footer;
