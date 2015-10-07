@@ -66,7 +66,7 @@ class Router extends React.Component {
                         }
                         var args = {name: name, data:data};
                         var action = child.props.type || 'push';
-                        RouterActions[action](args);
+                        return RouterActions[action](args);
                     });
                 }
                 self.routes[name] = child.props;
@@ -81,7 +81,7 @@ class Router extends React.Component {
                     RouterActions[name] = alt.createAction(name, function(data){
                         var props = self.extend({}, self.props);
                         props = self.extend(props, child.props);
-                        RouterActions.custom({name, props, data})});
+                        return RouterActions.custom({name, props, data})});
                 }
             }
         });

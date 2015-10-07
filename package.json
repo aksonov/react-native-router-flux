@@ -1,6 +1,6 @@
 {
   "name": "react-native-router-flux",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "React Native Router using Flux architecture",
   "main": "index.js",
   "scripts": {

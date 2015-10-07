@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="97450839-8f3e-45e1-8596-afe33fd2bfc3" name="Default" comment="" />
+    <list default="true" id="97450839-8f3e-45e1-8596-afe33fd2bfc3" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../index.js" afterPath="$PROJECT_DIR$/../index.js" />
+    </list>
     <ignored path="Example.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,10 +29,10 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="4" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
               <folding>
-                <marker date="1443523824000" expanded="true" signature="672:2401" placeholder="&lt;xml/&gt;" />
-                <marker date="1443523824000" expanded="true" signature="822:2380" placeholder="&lt;xml/&gt;" />
-                <marker date="1443523824000" expanded="true" signature="1629:2354" placeholder="&lt;xml/&gt;" />
-                <marker date="1443523824000" expanded="true" signature="1694:2325" placeholder="&lt;xml/&gt;" />
+                <marker date="1444048366000" expanded="true" signature="713:2528" placeholder="&lt;xml/&gt;" />
+                <marker date="1444048366000" expanded="true" signature="863:2507" placeholder="&lt;xml/&gt;" />
+                <marker date="1444048366000" expanded="true" signature="1756:2481" placeholder="&lt;xml/&gt;" />
+                <marker date="1444048366000" expanded="true" signature="1821:2452" placeholder="&lt;xml/&gt;" />
               </folding>
             </state>
           </provider>
@@ -73,6 +75,15 @@
       </file>
       <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/node_modules/react-native-tabs/README.md">
+          <provider editor-type-id="MultiMarkdownFxPreviewEditor">
+            <state />
+          </provider>
+          <provider editor-type-id="MarkdownPreviewEditor">
+            <state />
+          </provider>
+          <provider editor-type-id="MultiMarkdownFxHtmlEditor">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="47" column="37" selection-start-line="47" selection-start-column="37" selection-end-line="47" selection-end-column="37" />
@@ -81,11 +92,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NavBar.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NavBar.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/components/NavBar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.40865386">
+            <state vertical-scroll-proportion="0.0">
               <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/node_modules/react-native-router-flux/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -135,10 +156,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="55" />
+    <option name="x" value="45" />
     <option name="y" value="23" />
-    <option name="width" value="1865" />
-    <option name="height" value="1057" />
+    <option name="width" value="1235" />
+    <option name="height" value="777" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -178,6 +199,52 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node_modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node_modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="react-native-router-flux" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -264,16 +331,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="55" y="23" width="1865" height="1057" extended-state="0" />
-    <editor active="false" />
+    <frame x="45" y="23" width="1235" height="777" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21149674" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21087314" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32671082" sideWeight="0.44569817" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32574975" sideWeight="0.55430186" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32554746" sideWeight="0.55430186" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -309,10 +376,77 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="4" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding>
-            <marker date="1443523824000" expanded="true" signature="672:2401" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="822:2380" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1629:2354" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1694:2325" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="713:2528" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="863:2507" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1756:2481" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1821:2452" placeholder="&lt;xml/&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/TabView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="34" selection-end-column="25" />
+          <folding>
+            <marker date="1443516142000" expanded="true" signature="174:277" placeholder="&lt;xml/&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/react-native-tabs/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/react-native-tabs/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="26" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
+          <folding>
+            <marker date="1443535550000" expanded="true" signature="1315:1686" placeholder="&lt;xml/&gt;" />
+            <marker date="1443535550000" expanded="true" signature="1436:1647" placeholder="&lt;xml/&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/react-native-tabs/README.md">
+      <provider editor-type-id="MultiMarkdownFxPreviewEditor">
+        <state />
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider editor-type-id="MultiMarkdownFxHtmlEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="47" column="37" selection-start-line="47" selection-start-column="37" selection-end-line="47" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/NavBar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.ios.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding>
+            <marker date="1444048366000" expanded="true" signature="713:2528" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="863:2507" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1756:2481" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1821:2452" placeholder="&lt;xml/&gt;" />
           </folding>
         </state>
       </provider>
@@ -374,10 +508,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
           <folding>
-            <marker date="1443523824000" expanded="true" signature="672:2401" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="822:2380" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1629:2354" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1694:2325" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="713:2528" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="863:2507" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1756:2481" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1821:2452" placeholder="&lt;xml/&gt;" />
           </folding>
         </state>
       </provider>
@@ -394,10 +528,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
           <folding>
-            <marker date="1443523824000" expanded="true" signature="672:2401" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="822:2380" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1629:2354" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1694:2325" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="713:2528" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="863:2507" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1756:2481" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1821:2452" placeholder="&lt;xml/&gt;" />
           </folding>
         </state>
       </provider>
@@ -414,10 +548,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1443523824000" expanded="true" signature="672:2401" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="822:2380" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1629:2354" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1694:2325" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="713:2528" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="863:2507" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1756:2481" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1821:2452" placeholder="&lt;xml/&gt;" />
           </folding>
         </state>
       </provider>
@@ -441,10 +575,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
           <folding>
-            <marker date="1443523824000" expanded="true" signature="672:2401" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="822:2380" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1629:2354" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1694:2325" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="713:2528" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="863:2507" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1756:2481" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1821:2452" placeholder="&lt;xml/&gt;" />
           </folding>
         </state>
       </provider>
@@ -482,10 +616,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="39" column="61" selection-start-line="39" selection-start-column="61" selection-end-line="39" selection-end-column="61" />
           <folding>
-            <marker date="1443523824000" expanded="true" signature="672:2401" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="822:2380" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1629:2354" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1694:2325" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="713:2528" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="863:2507" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1756:2481" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1821:2452" placeholder="&lt;xml/&gt;" />
           </folding>
         </state>
       </provider>
@@ -516,10 +650,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="14" column="5" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="5" />
           <folding>
-            <marker date="1443523824000" expanded="true" signature="672:2401" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="822:2380" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1629:2354" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1694:2325" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="713:2528" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="863:2507" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1756:2481" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1821:2452" placeholder="&lt;xml/&gt;" />
           </folding>
         </state>
       </provider>
@@ -529,10 +663,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="14" column="5" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="5" />
           <folding>
-            <marker date="1443523824000" expanded="true" signature="672:2401" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="822:2380" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1629:2354" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1694:2325" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="713:2528" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="863:2507" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1756:2481" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1821:2452" placeholder="&lt;xml/&gt;" />
           </folding>
         </state>
       </provider>
@@ -542,10 +676,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="4" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
           <folding>
-            <marker date="1443523824000" expanded="true" signature="672:2401" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="822:2380" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1629:2354" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1694:2325" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="713:2528" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="863:2507" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1756:2481" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1821:2452" placeholder="&lt;xml/&gt;" />
           </folding>
         </state>
       </provider>
@@ -596,7 +730,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -619,7 +752,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="73" selection-start-line="8" selection-start-column="73" selection-end-line="8" selection-end-column="73" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -627,7 +759,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="32" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -636,10 +767,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="4" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding>
-            <marker date="1443523824000" expanded="true" signature="672:2401" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="822:2380" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1629:2354" placeholder="&lt;xml/&gt;" />
-            <marker date="1443523824000" expanded="true" signature="1694:2325" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="713:2528" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="863:2507" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1756:2481" placeholder="&lt;xml/&gt;" />
+            <marker date="1444048366000" expanded="true" signature="1821:2452" placeholder="&lt;xml/&gt;" />
           </folding>
         </state>
       </provider>
@@ -655,6 +786,15 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/react-native-tabs/README.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider editor-type-id="MultiMarkdownFxPreviewEditor">
+        <state />
+      </provider>
+      <provider editor-type-id="MultiMarkdownFxHtmlEditor">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="47" column="37" selection-start-line="47" selection-start-column="37" selection-end-line="47" selection-end-column="37" />
@@ -683,8 +823,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/components/NavBar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40865386">
+        <state vertical-scroll-proportion="0.0">
           <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/react-native-router-flux/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
