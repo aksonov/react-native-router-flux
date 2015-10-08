@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97450839-8f3e-45e1-8596-afe33fd2bfc3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../index.js" afterPath="$PROJECT_DIR$/../index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="Example.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -141,10 +141,10 @@
         <option value="$PROJECT_DIR$/node_modules/react-native-router-flux/README.md" />
         <option value="$PROJECT_DIR$/node_modules/react-native-tabs/package.json" />
         <option value="$PROJECT_DIR$/node_modules/react-native-tabs/README.md" />
-        <option value="$PROJECT_DIR$/node_modules/react-native-router-flux/package.json" />
         <option value="$PROJECT_DIR$/node_modules/react-native-router-flux/index.js" />
         <option value="$PROJECT_DIR$/node_modules/react-native-tabs/index.js" />
         <option value="$PROJECT_DIR$/node_modules/react-native-router-flux/Container.js" />
+        <option value="$PROJECT_DIR$/node_modules/react-native-router-flux/package.json" />
       </list>
     </option>
   </component>
@@ -331,7 +331,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="45" y="23" width="1235" height="777" extended-state="6" />
+    <frame x="45" y="23" width="1235" height="777" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21087314" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />

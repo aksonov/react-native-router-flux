@@ -98,6 +98,7 @@ describe('Router', function() {
         expect(navBar.props.customProp).toEqual("a");
         expect(navBar.props.ownProp).toEqual(undefined);
 
+        // let's test "replace" action
         Actions.home({data:"Hello world home!", id:111, customProp:'bb'});
         len = router.refs.nav.getCurrentRoutes().length;
         expect(len).toEqual(4);
@@ -105,64 +106,65 @@ describe('Router', function() {
             router, 'homeComponent');
 
         expect(homeComponent.props.data).toEqual('Hello world home!');
+        expect(homeComponent.props.customProp).toEqual('bb');
         navBar = TestUtils.findRenderedDOMComponentWithTag(
             router, 'navBar2');
-        //
-        //expect(navBar.props.customProp).toEqual("bb");
-        //expect(navBar.props.ownProp).toEqual("c");
-        //expect(navBar.props.id).toEqual(111);
-        //expect(navBar.props.data).toEqual("Hello world home!");
-        //
-        //expect(navBar.props.customProp).toEqual("bb");
-        //expect(navBar.props.ownProp).toEqual("c");
-        //
-        //Actions.pop(2);
-        //len = router.refs.nav.getCurrentRoutes().length;
-        //expect(len).toEqual(2);
-        //
-        //expect(router.refs.nav.getCurrentRoutes()[len-1].name).toEqual('signin');
-        //expect(router.refs.nav.getCurrentRoutes()[len-1].passProps.data).toEqual("Hello world!");
-        //expect(router.refs.nav.getCurrentRoutes()[len-1].passProps.id).toEqual(undefined);
-        //
-        //Actions.pop();
-        //len = router.refs.nav.getCurrentRoutes().length;
-        //expect(len).toEqual(1);
-        //
-        //expect(router.refs.nav.getCurrentRoutes()[len-1].name).toEqual('launch');
-        //launchComponent = TestUtils.findRenderedDOMComponentWithTag(
-        //    router, 'launchComponent');
-        //
-        //expect(launchComponent.props.customProp).toEqual("a");
-        //
+
+        expect(navBar.props.customProp).toEqual("bb");
+        expect(navBar.props.ownProp).toEqual("c");
+        expect(navBar.props.id).toEqual(111);
+        expect(navBar.props.data).toEqual("Hello world home!");
+
+        expect(navBar.props.customProp).toEqual("bb");
+        expect(navBar.props.ownProp).toEqual("c");
+
+        Actions.pop(2);
+        len = router.refs.nav.getCurrentRoutes().length;
+        expect(len).toEqual(2);
+
+        expect(router.refs.nav.getCurrentRoutes()[len-1].name).toEqual('signin');
+        expect(router.refs.nav.getCurrentRoutes()[len-1].passProps.data).toEqual("Hello world!");
+        expect(router.refs.nav.getCurrentRoutes()[len-1].passProps.id).toEqual(undefined);
+
+        Actions.pop();
+        len = router.refs.nav.getCurrentRoutes().length;
+        expect(len).toEqual(1);
+
+        expect(router.refs.nav.getCurrentRoutes()[len-1].name).toEqual('launch');
+        launchComponent = TestUtils.findRenderedDOMComponentWithTag(
+            router, 'launchComponent');
+
+        expect(launchComponent.props.customProp).toEqual("a");
+
 
 
     });
 
-    //it('custom actions', function(){
-    //    var router = this.router;
-    //    expect(router.refs.nav.props.initialRoute.name).toEqual('launch');
-    //    var len = router.refs.nav.getCurrentRoutes().length;
-    //    expect(len).toEqual(1);
-    //    var launchComponent = TestUtils.findRenderedDOMComponentWithTag(
-    //        router, 'launchComponent');
-    //
-    //    expect(launchComponent.props.customProp).toEqual("a");
-    //    var state = TestStore.getState();
-    //    expect(state.data).toEqual(undefined);
-    //
-    //
-    //    // no changes within current component should be
-    //    Actions.custom1({url: 'hello world'});
-    //
-    //    len = router.refs.nav.getCurrentRoutes().length;
-    //    expect(len).toEqual(1);
-    //    var launchComponent = TestUtils.findRenderedDOMComponentWithTag(
-    //        router, 'launchComponent');
-    //
-    //    expect(launchComponent.props.customProp).toEqual("a");
-    //    state = TestStore.getState();
-    //    expect(state.data.name).toEqual("custom1");
-    //    expect(state.data.data.url).toEqual('hello world');
-    //
-    //});
+    it('custom actions', function(){
+        var router = this.router;
+        expect(router.refs.nav.props.initialRoute.name).toEqual('launch');
+        var len = router.refs.nav.getCurrentRoutes().length;
+        expect(len).toEqual(1);
+        var launchComponent = TestUtils.findRenderedDOMComponentWithTag(
+            router, 'launchComponent');
+
+        expect(launchComponent.props.customProp).toEqual("a");
+        var state = TestStore.getState();
+        expect(state.data).toEqual(undefined);
+
+
+        // no changes within current component should be
+        Actions.custom1({url: 'hello world'});
+
+        len = router.refs.nav.getCurrentRoutes().length;
+        expect(len).toEqual(1);
+        var launchComponent = TestUtils.findRenderedDOMComponentWithTag(
+            router, 'launchComponent');
+
+        expect(launchComponent.props.customProp).toEqual("a");
+        state = TestStore.getState();
+        expect(state.data.name).toEqual("custom1");
+        expect(state.data.data.url).toEqual('hello world');
+
+    });
 });
