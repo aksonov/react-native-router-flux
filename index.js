@@ -228,7 +228,6 @@ class Router extends React.Component {
             component: route.component,
             sceneConfig: {
                 ...sceneConfig,
-                gestures: {}
             },
             navigationBar: route.hideNavBar ? null : navBar,
             footer: footer,
