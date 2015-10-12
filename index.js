@@ -157,13 +157,15 @@ class Router extends React.Component {
         if (navBar) {
             navBar = React.addons.cloneWithProps(navBar, {
                 navigator: navigator,
-                route: route
+                route: route,
+                ref: 'navBar'
             });
         }
         if (footer){
             footer = React.addons.cloneWithProps(footer, {
                 navigator: navigator,
-                route: route
+                route: route,
+                ref: 'footer'
             });
         }
         var child = null;
