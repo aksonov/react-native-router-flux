@@ -230,7 +230,7 @@ class Router extends React.Component {
                 ...sceneConfig,
             },
             navigationBar: route.hideNavBar ? null : navBar,
-            footer: footer,
+            footer: route.hideFooter ? null : footer,
             passProps: props
         }
     }

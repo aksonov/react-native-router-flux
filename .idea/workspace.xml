@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59748be3-646c-4afa-8d2c-ef7cf14cafe4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="59748be3-646c-4afa-8d2c-ef7cf14cafe4" name="Default" comment="" />
     <ignored path="react-native-router-flux.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -56,7 +54,7 @@
       <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Example/node_modules/react-native-router-flux/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.032786883">
+            <state vertical-scroll-proportion="0.047244094">
               <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
               <folding />
             </state>
@@ -116,7 +114,7 @@
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="82" column="26" selection-start-line="82" selection-start-column="26" selection-end-line="82" selection-end-column="26" />
+              <caret line="80" column="26" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -176,10 +174,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="55" />
+    <option name="x" value="43" />
     <option name="y" value="23" />
-    <option name="width" value="1316" />
-    <option name="height" value="1057" />
+    <option name="width" value="1237" />
+    <option name="height" value="777" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -432,10 +430,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="55" y="23" width="1316" height="1057" extended-state="0" />
-    <editor active="true" />
+    <frame x="43" y="23" width="1237" height="777" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35444015" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3774671" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -798,7 +796,7 @@
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="82" column="26" selection-start-line="82" selection-start-column="26" selection-end-line="82" selection-end-column="26" />
+          <caret line="80" column="26" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
           <folding />
         </state>
       </provider>
@@ -853,7 +851,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Example/node_modules/react-native-router-flux/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.032786883">
+        <state vertical-scroll-proportion="0.047244094">
           <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
           <folding />
         </state>
