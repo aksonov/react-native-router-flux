@@ -10,6 +10,9 @@
     "react-native",
     "react-native-router",
     "react-components",
+    "react-component",
+    "ios",
+    "android",
     "flux",
     "router",
     "navigation"
