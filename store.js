@@ -18,12 +18,13 @@ class RouterStore {
     constructor(){
         this.routes = [];
         this.currentRoute = null;
-        this.bindAction(actions.init, this.onInit);
-        this.bindAction(actions.push, this.onPush);
-        this.bindAction(actions.pop, this.onPop);
-        this.bindAction(actions.dismiss, this.onDismiss);
-        this.bindAction(actions.reset, this.onReset);
-        this.bindAction(actions.replace, this.onReplace);
+        this.bindActions(actions); //use alt's magic method, it's the same as below
+        //this.bindAction(actions.init, this.onInit);
+        // this.bindAction(actions.push, this.onPush);
+        // this.bindAction(actions.pop, this.onPop);
+        // this.bindAction(actions.dismiss, this.onDismiss);
+        // this.bindAction(actions.reset, this.onReset);
+        // this.bindAction(actions.replace, this.onReplace);
     }
 
     onInit(initial){
