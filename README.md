@@ -16,7 +16,7 @@ React Native Router using Flux architecture
 ![demo-2](https://cloud.githubusercontent.com/assets/1321329/9466261/de64558e-4b33-11e5-8ada-0fcd49442769.gif)
 
 
-```
+```javascript
 'use strict';
 
 var React = require('react-native');
@@ -69,7 +69,7 @@ AppRegistry.registerComponent('Example', () => Example);
 ```
 
 components/Launch.js (initial screen)
-```
+```javascript
 'use strict';
 
 var React = require('react-native');
@@ -114,26 +114,28 @@ module.exports = Launch;
     * Actions.ACTION_NAME(PARAMS) will call appropriate action and params will be passed to next screen.
 4. In your Flux stores (optional).  You may subscribe to any push/replace/pop 'page' actions in your store.
 It could be necessary if you want to process user data somehow. For example, if some component manages user form and have "Save" button which should store that data and pop the screen, you may use Actions.pop(this.state) in that component and then subscribe to Actions.pop actions within store:
-
-        class SearchFilterStore {
-            constructor(){
-                this.bindAction(Actions.pop, this.onSet);
-            }
-        
-            onSet(data){
-                this.waitFor(PageStore.dispatchToken);
-                var route = PageStore.getState().currentRoute;
-        
-                if (route == 'yourFORM'){
-                    // save data
-        
-                    this.saveData(data);
-                    return true;
-                }
-                return false;
-            }
+    
+    ```javascript
+    class SearchFilterStore {
+        constructor(){
+            this.bindAction(Actions.pop, this.onSet);
         }
-        module.exports = alt.createStore(SearchFilterStore, 'SearchFilterStore');
+    
+        onSet(data){
+            this.waitFor(PageStore.dispatchToken);
+            var route = PageStore.getState().currentRoute;
+    
+            if (route == 'yourFORM'){
+                // save data
+    
+                this.saveData(data);
+                return true;
+            }
+            return false;
+        }
+    }
+    module.exports = alt.createStore(SearchFilterStore, 'SearchFilterStore');
+    ```
 
 
 Here PageStore.getState().currentRoute is used to check current page, so the store will process only data for needed route.
