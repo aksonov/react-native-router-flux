@@ -1,6 +1,9 @@
 # react-native-router-flux
 React Native Router using Flux architecture
 
+## Redux support
+It is version for Flux architecture (alt.js.org implementation), for version with Redux support, use react-native-redux-router (https://github.com/aksonov/react-native-redux-router)
+
 ## Why I need to use it?
 - Use Flux actions to replace/push/pop screens with easy syntax like Actions.login for navigation to login screen
 - Forget about passing navigator object to all React elements, use actions from anywhere in your UI code.
