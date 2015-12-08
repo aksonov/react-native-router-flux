@@ -39,26 +39,10 @@ export default class Example extends React.Component {
                                 <Route name="tab1_2" component={TabView} title="Tab #1_2" />
                             </Router>
                         </Route>
-                        <Route name="tab2" icon={TabIcon} schema="tab" title="Tab #2" >
-                            <Router>
-                                <Route name="tab2_1" component={TabView} title="Tab #2" />
-                            </Router>
-                        </Route>
-                        <Route name="tab3" icon={TabIcon} schema="tab" title="Tab #3" >
-                            <Router>
-                                <Route name="tab3_1" component={TabView} title="Tab #3" />
-                            </Router>
-                        </Route>
-                        <Route name="tab4" icon={TabIcon} schema="tab" title="Tab #4" >
-                            <Router>
-                                <Route name="tab4_1" component={TabView} title="Tab #4" />
-                            </Router>
-                        </Route>
-                        <Route name="tab5" icon={TabIcon} schema="tab" title="Tab #5" >
-                            <Router>
-                                <Route name="tab5_1" component={TabView} title="Tab #5" />
-                            </Router>
-                        </Route>
+                        <Route name="tab2" icon={TabIcon} schema="tab" title="Tab #2" component={TabView} />
+                        <Route name="tab3" icon={TabIcon} schema="tab" title="Tab #3" component={TabView} />
+                        <Route name="tab4" icon={TabIcon} schema="tab" title="Tab #4" component={TabView} />
+                        <Route name="tab5" icon={TabIcon} schema="tab" title="Tab #5" component={TabView} />
                     </Router>
                 </Route>
             </Router>
