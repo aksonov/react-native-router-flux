@@ -3,12 +3,12 @@
 var React = require('react-native');
 var {View, Text, StyleSheet} = React;
 var Button = require('react-native-button');
-var {Actions, ContainerStore} = require('react-native-router-flux');
+var {Actions} = require('react-native-router-flux');
 var Tabs = require('react-native-tabs');
 
 class TabBarFlux extends React.Component {
     onSelect(el){
-        Actions.switch({name: el.props.name, data:el.props});
+        Actions[el.props.name](el.props);
         return {selected: true};
     }
     render(){
@@ -21,7 +21,7 @@ class TabBarFlux extends React.Component {
         });
 
         return (
-            <Tabs style={{backgroundColor:'white'}} onSelect={this.onSelect.bind(this)}>
+            <Tabs style={{backgroundColor:'white'}} onSelect={this.onSelect.bind(this)} {...this.props}>
                 {children}
             </Tabs>
         );

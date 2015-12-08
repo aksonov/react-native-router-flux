@@ -6,9 +6,8 @@
     "start": "node_modules/react-native/packager/packager.sh"
   },
   "dependencies": {
-    "react-native": "^0.13.2",
+    "react-native": "^0.16",
     "react-native-button": "^1.2.1",
-    "react-native-navbar": "^0.8.0",
     "react-native-router-flux": "^0.3.2",
     "react-native-tabs": "^0.0.5"
   }
