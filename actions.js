@@ -139,6 +139,8 @@ class Actions {
             navigator.push(route);
 
         }
+        // set navigator accordingly
+        this.nav = navigator;
 
     }
 
@@ -151,6 +153,11 @@ class Actions {
         const number = isNumeric(data) ? data : 1;
         let navigator = this.nav;
         let routes = navigator.getCurrentRoutes();
+        // ignore 'switch' routes
+        while (routes.length > 0 && routes[routes.length-1].getType() === 'switch' && navigator.parentNavigator){
+            navigator = navigator.parentNavigator;
+            routes = navigator.getCurrentRoutes();
+        }
         while (routes.length <= number){
             // try parent navigator if we cannot pop current one
             if (navigator.parentNavigator){

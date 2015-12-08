@@ -61,7 +61,7 @@ export default class Route {
     }
 
     configureScene() {
-        return this.sceneConfig || Animations.None;
+        return this.sceneConfig;
     }
 
     renderScene(navigator) {
