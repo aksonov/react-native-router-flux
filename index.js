@@ -10,10 +10,9 @@
 import React from 'react-native';
 const {View, Navigator, Text, StyleSheet} = React;
 import ExNavigator from '@exponent/react-native-navigator';
-import Animations from './Animations';
 import Button from 'react-native-button';
 import Tabs from 'react-native-tabs';
-
+import buildStyleInterpolator from 'react-native/Libraries/Utilities/buildStyleInterpolator';
 function filterParam(data){
     if (typeof(data)!='object')
         return data;
@@ -189,6 +188,17 @@ class ActionContainer {
 
 const Actions = new ActionContainer();
 
+var NoTransition = {
+    opacity: {
+        from: 1,
+        to: 1,
+        min: 1,
+        max: 1,
+        type: 'linear',
+        extrapolate: false,
+        round: 100,
+    },
+};
 
 class ExRoute {
     /**
@@ -236,7 +246,14 @@ class ExRoute {
     }
 
     configureScene() {
-        return this.sceneConfig;
+        return this.sceneConfig || {
+                ...Navigator.SceneConfigs.FloatFromLeft,
+                gestures: null,
+                defaultTransitionVelocity: 100,
+                animationInterpolators: {
+                    into: buildStyleInterpolator(NoTransition),
+                    out: buildStyleInterpolator(NoTransition),
+                }};
     }
 
     renderScene(navigator) {
@@ -418,4 +435,4 @@ var styles = StyleSheet.create({
     }
 });
 
-module.exports = {Router, Animations, Actions, Route, Schema, TabBar, ExNavigator}
+module.exports = {Router, Actions, Route, Schema, TabBar, ExNavigator}
