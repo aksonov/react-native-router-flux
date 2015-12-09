@@ -10,7 +10,7 @@ class Register extends React.Component {
         return (
             <View style={styles.container}>
                 <Text>Register page</Text>
-                <Button onPress={Actions.home}>Home</Button>
+                <Button onPress={Actions.home}>Replace screen</Button>
                 <Button onPress={Actions.pop}>Back</Button>
             </View>
         );

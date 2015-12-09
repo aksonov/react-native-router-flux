@@ -8,11 +8,11 @@
  */
 
 import React from 'react-native';
-const {View, Navigator, Text, StyleSheet} = React;
+const {View, Navigator, Text, StyleSheet, TouchableOpacity} = React;
 import ExNavigator from '@exponent/react-native-navigator';
 import Button from 'react-native-button';
+import Animations from './Animations';
 import Tabs from 'react-native-tabs';
-import buildStyleInterpolator from 'react-native/Libraries/Utilities/buildStyleInterpolator';
 function filterParam(data){
     if (typeof(data)!='object')
         return data;
@@ -44,10 +44,26 @@ class ActionContainer {
         this.onReplace = null;
         this.onSwitch = null;
         this.navs = {};
-        this.nav = null;
         this.push = this.push.bind(this);
         this.pop = this.pop.bind(this);
         this.replace = this.replace.bind(this);
+        this.currentRoute = null;
+        this.navsParent = {};
+    }
+
+    onDidFocus(name, isLeaf){
+        // if route is leaf, set current route to it, otherwise, find leaf
+        console.log("onDidFocus"+name+isLeaf);
+        if (isLeaf){
+            console.log("SETTING CURRENT ROUTE TO "+name);
+            this.currentRoute = name;
+        } else if (this.navsParent[name]){
+            console.log("GETTING LATEST SCENE FOR "+name);
+            const routes = this.navsParent[name].getCurrentRoutes();
+            console.log("SETTING CURRENT ROUTE TO "+routes[routes.length-1].getName());
+            this.currentRoute = routes[routes.length-1].getName();
+        }
+
     }
 
     /***
@@ -56,7 +72,9 @@ class ActionContainer {
      * @param nav navigator instance
      */
     setNavigator(name, nav){
+        console.log("SETTING NAV "+nav.props._parent+" TO NAME="+name);
         this.navs[name] = nav;
+        this.navsParent[nav.props._parent || 'root'] = nav;
     }
 
     /**
@@ -88,15 +106,30 @@ class ActionContainer {
         }
     }
 
+    isFocused(navigator){
+        // get current route
+        const routes = navigator.getCurrentRoutes();
+        const curRoute = routes[routes.length - 1];
+        return curRoute.focused;
+    }
+
     /***
      * Push new route to current nav stack
      * @param route defined route
      */
     push(route){
         const name = route.getName();
-        const navigator = this.navs[name];
-        // set latest navigator
-        this.nav = navigator;
+        let navigator = this.navs[name];
+        // if route is leaf, push it from latest route navigator, not from root navigator
+        if (route.isLeaf()){
+            navigator = this.navs[this.currentRoute];
+            this.navs[name] = navigator;// save it for future pop()
+
+        }
+
+        if (!this.isFocused(navigator)){
+            return;
+        }
 
         if (this.onPush){
             // don't do action if it is not allowed (onPush returned false)
@@ -113,7 +146,17 @@ class ActionContainer {
      */
     replace(route){
         const name = route.getName();
-        const navigator = this.navs[name];
+        let navigator = this.navs[name];
+        // if route is leaf, push it from latest route navigator, not from root navigator
+        if (route.isLeaf()){
+            navigator = this.navs[this.currentRoute];
+            this.navs[name] = navigator;// save it for future pop()
+        }
+
+        if (!this.isFocused(navigator)){
+            return;
+        }
+
         if (this.onReplace){
             // don't do action if it is not allowed (onPush returned false)
             if (!this.onReplace(navigator, route)){
@@ -130,6 +173,7 @@ class ActionContainer {
     switch(route){
         const name = route.getName();
         const navigator = this.navs[name];
+
         if (this.onSwitch){
             // don't do action if it is not allowed (onPush returned false)
             if (!this.onSwitch(navigator, route)){
@@ -144,9 +188,6 @@ class ActionContainer {
             navigator.push(route);
 
         }
-        // set navigator accordingly
-        this.nav = navigator;
-
     }
 
     /***
@@ -156,16 +197,14 @@ class ActionContainer {
     pop(data){
         data = filterParam(data);
         const number = isNumeric(data) ? data : 1;
-        let navigator = this.nav;
+        let navigator = this.navs[this.currentRoute];
+        console.log("LATEST NAV:"+this.navs[this.currentRoute].props._parent);
         let routes = navigator.getCurrentRoutes();
-        // ignore 'switch' routes
-        while (routes.length > 0 && routes[routes.length-1].getType() === 'switch' && navigator.parentNavigator){
-            navigator = navigator.parentNavigator;
-            routes = navigator.getCurrentRoutes();
-        }
-        while (routes.length <= number){
+        console.log("NAV LATEST SCENE:"+routes[routes.length-1].getName()+" "+routes.length);
+        while (routes.length <= number || routes[routes.length-1].getType() === 'switch'){
             // try parent navigator if we cannot pop current one
             if (navigator.parentNavigator){
+                console.log("pop to parent navigator");
                 navigator = navigator.parentNavigator;
                 routes = navigator.getCurrentRoutes();
             } else {
@@ -180,26 +219,16 @@ class ActionContainer {
             }
         }
         const name = route.getName();// name of route
-        // set navigator accordingly
-        this.nav = this.navs[name];
         navigator.popToRoute(routes[routes.length-number-1]);
     }
 }
 
 const Actions = new ActionContainer();
-
-var NoTransition = {
-    opacity: {
-        from: 1,
-        to: 1,
-        min: 1,
-        max: 1,
-        type: 'linear',
-        extrapolate: false,
-        round: 100,
-    },
-};
-
+class Container extends React.Component {
+    render(){
+        return <View {...this.props}/>;
+    }
+}
 class ExRoute {
     /**
      * All properties for this route. name field is required and should be unique for the route
@@ -216,44 +245,55 @@ class ExRoute {
      * @param props
      * @param schemas
      */
-    constructor(props, schemas){
-        if (!props){
+    constructor(props, schemas) {
+        if (!props) {
             throw new Error("No props is defined for this Route");
         }
-        if (!props.name){
+        if (!props.name) {
             throw new Error("No name is defined for this Route");
         }
-        if (props.schema && (!schemas || !schemas[props.schema])){
-            throw new Error("No schema="+props.schema+" is defined for route="+props.name);
+        if (props.schema && (!schemas || !schemas[props.schema])) {
+            throw new Error("No schema=" + props.schema + " is defined for route=" + props.name);
         }
         const schema = schemas ? schemas[props.schema || 'default'] || {} : {};
-        const {name, type, title, sceneConfig, onRightButton, rightButtonTitle, header, footer, component, children} = {...schema, ...props};
-        if (!component && !children){
+        const {name, type, title, hideNavBar, wrapRouter, sceneConfig, onRight, rightTitle, header, footer, component, children} = {...schema, ...props};
+        if (!component && !children) {
             throw new Error("Component class or scene instance (child) should be passed");
         }
         this.title = title;
-        this.onRightButton = onRightButton;
-        this.rightButtonTitle = rightButtonTitle;
+        this.onRight = onRight;
+        this.rightTitle = rightTitle;
         this.sceneConfig = sceneConfig;
+        this.wrapRouter = wrapRouter;
         this.props = props;
         this.type = type;
+        this.focused = false;
         this.name = name;
         this.header = header;
         this.footer = footer;
+        this.hideNavBar = hideNavBar;
         this.schemas = schemas;
         this.component = component;
         this.children = children;
+        this.leaf = this.component && !(this.getType() === 'switch' || this.wrapRouter);
+    }
+
+    onDidFocus(event){
+        this.focused = true;
+        Actions.onDidFocus(this.getName(), this.isLeaf());
+    }
+
+    onWillBlur(event){
+        this.focused = false;
+        console.log("LOSE FOCUS!"+this.getName());
+    }
+
+    isLeaf(){
+        return this.leaf;
     }
 
     configureScene() {
-        return this.sceneConfig || {
-                ...Navigator.SceneConfigs.FloatFromLeft,
-                gestures: null,
-                defaultTransitionVelocity: 100,
-                animationInterpolators: {
-                    into: buildStyleInterpolator(NoTransition),
-                    out: buildStyleInterpolator(NoTransition),
-                }};
+        return this.getType() === 'switch' ? Animations.None : this.sceneConfig || Animations.None;
     }
 
     renderScene(navigator) {
@@ -263,23 +303,24 @@ class ExRoute {
         let child;
         if (Component){
             // separate processing for 'switch' routes - they should be wrapped into separate Router
-            if (this.getType()==='switch'){
-                child = (<Router navigator={navigator} schemas={this.schemas}>
-                    <Route {...this.props} name={"_"+this.props.name} type="push"/>
+            if (!this.isLeaf()){
+                child = (<Router navigator={navigator} schemas={this.schemas} _parent={this.props.name}>
+                    <Route {...this.props} name={"_"+this.props.name} type="push" wrapRouter={false} hideNavBar={false}/>
                 </Router>);
             } else {
                 child = <Component key={this.name} navigator={navigator} {...this.props} schemas={this.schemas}/>
+                this.leaf = true;
             }
         } else {
             child = React.Children.only(this.children);
-            child = React.cloneElement(child, {navigator, schemas: this.schemas});
+            child = React.cloneElement(child, {navigator, schemas: this.schemas, _parent:this.props.name});
         }
         return (
-            <View style={styles.transparent}>
+            <Container style={styles.transparent} route={this.getName()}>
                 {Header && <Header navigator={navigator} {...this.props}/>}
                 {child}
                 {Footer && <Footer navigator={navigator} {...this.props}/>}
-            </View>
+            </Container>
         )
     }
 
@@ -295,9 +336,21 @@ class ExRoute {
         return this.type || "push";
     }
 
+    getBackButtonTitle(navigator, index, state){
+        let previousIndex = index - 1;
+        let previousRoute = state.routeStack[previousIndex];
+        let title = previousRoute.getTitle(navigator, previousIndex, state);
+        return title.length>10 ? null : title;
+    }
+
     renderRightButton() {
-        if (this.onRightButton && this.rightButtonTitle){
-            this.onRightButton(this.props);
+        if (this.onRight && this.rightTitle){
+            return (<TouchableOpacity
+                touchRetentionOffset={ExNavigator.Styles.barButtonTouchRetentionOffset}
+                onPress={() => this.onRight(this.props)}
+                style={ExNavigator.Styles.barRightButton}>
+                <Text style={ExNavigator.Styles.barRightButtonText}>{this.rightTitle}</Text>
+            </TouchableOpacity>);
         } else {
             return null;
         }
@@ -314,11 +367,16 @@ class TabBar extends React.Component {
     }
     render(){
         var children = [];
-        React.Children.forEach(this.props.children, function(el){
+        var self = this;
+        let selected = false;
+        React.Children.forEach(this.props.children, function(el, index){
+            const schema = self.props.schemas && el.props.schema && self.props.schemas[el.props.schema] ? self.props.schemas[el.props.schema] : {};
+            let props = {...schema, ...el.props};
+
             if (!el.props.name)
                 console.error("No name is defined for element");
-            var Icon = el.props.icon || console.error("No icon class is defined for "+el.name);
-            children.push(<Icon key={el.props.name} {...el.props}/>);
+            var Icon = props.icon || console.error("No icon class is defined for "+el.name);
+            children.push(<Icon key={el.props.name} {...props}/>);
         });
 
         return (
@@ -385,7 +443,8 @@ class Router extends React.Component {
         React.Children.forEach(this.props.children, function (child, index) {
             const name = child.props.name;
             if (child.type.prototype.className() === "Route") {
-                Actions.setNavigator(name, self.refs.nav);
+                    Actions.setNavigator(name, self.refs.nav);
+
             }
         });
     }
@@ -405,10 +464,12 @@ class Router extends React.Component {
         return (
             <View style={styles.transparent}>
                 <ExNavigator ref="nav"
-                    initialRoute={new ExRoute(initialRoute, this.schemas)}
-                    style={styles.transparent}
-                    sceneStyle={{ paddingTop: this.props.showNavigationBar ? 44 : 0}}
+                             initialRoute={new ExRoute(initialRoute, this.schemas)}
+                             style={styles.transparent}
+                             sceneStyle={{ paddingTop: 0 }}
+                             showNavigationBar={!this.props.hideNavBar}
                     {...this.props}
+
                 />
                 {footer}
             </View>
@@ -430,9 +491,15 @@ var styles = StyleSheet.create({
         alignItems: 'center',
     },
     transparent: {
-      flex:1,
-      backgroundColor: "transparent"
-    }
+        flex:1,
+        backgroundColor: "transparent"
+    },
+    barTitleText: {
+        fontFamily: '.HelveticaNeueInterface-MediumP4',
+        fontSize: 17,
+        marginTop: 11,
+    },
+
 });
 
-module.exports = {Router, Actions, Route, Schema, TabBar, ExNavigator}
+module.exports = {Router, Actions, Route, Schema, TabBar, ExNavigator, Animations}
