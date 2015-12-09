@@ -1,6 +1,6 @@
 {
   "name": "react-native-router-flux",
-  "version": "0.3.4",
+  "version": "1.0.0",
   "description": "React Native Router using Flux architecture",
   "main": "index.js",
   "scripts": {
@@ -23,9 +23,6 @@
     "url": "http://aksonov.com"
   },
   "license": "ISC",
-  "dependencies": {
-    "alt": "^0.17.1"
-  },
   "gitHead": "ac054cfda0894ba1db6c4901ebdddc83b3b2d083",
   "_id": "react-native-router-flux@0.3.3",
   "_shasum": "074748258f7ff6b6d7e2d509123d15a8ec84cb45",
@@ -36,42 +33,15 @@
     "name": "aksonov",
     "email": "pavlo.aksonov@gmail.com"
   },
-  "dist": {
-    "shasum": "0e4671550c307ce7ea940eb4ff624e217bcc5225",
-    "tarball": "http://registry.npmjs.org/react-native-router-flux/-/react-native-router-flux-0.1.8.tgz"
-  },
   "maintainers": [
     {
       "name": "aksonov",
       "email": "pavlo.aksonov@gmail.com"
     }
   ],
-  "directories": {},
-  "_resolved": "https://registry.npmjs.org/react-native-router-flux/-/react-native-router-flux-0.1.8.tgz",
-  "readme": "ERROR: No README data found!",
-  "devDependencies": {
-    "alt": "^0.17.3",
-    "babel-core": "^5.8.25",
-    "jest-cli": "^0.5.8",
-    "react": "^0.13.3",
-    "react-tools": "^0.13.3"
-  },
-  "jest": {
-    "unmockedModulePathPatterns": [
-      "react",
-      "promise",
-      "node_modules/alt",
-      "alt.js",
-      "source-map"
-    ],
-    "scriptPreprocessor": "jestSupport/scriptPreprocess.js",
-    "setupEnvScriptFile": "jestSupport/env.js",
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "packager/react-packager/src/Activity/"
-    ],
-    "testFileExtensions": [
-      "js"
-    ]
+  "dependencies": {
+    "@exponent/react-native-navigator": "^0.3.5",
+    "react-native-button": "^1.3.1",
+    "react-native-tabs": "^0.1.4"
   }
 }

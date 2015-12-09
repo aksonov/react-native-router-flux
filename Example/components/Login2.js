@@ -5,11 +5,11 @@ var {View, Text, StyleSheet} = React;
 var Button = require('react-native-button');
 var Actions = require('react-native-router-flux').Actions;
 
-class Register extends React.Component {
+class Login extends React.Component {
     render(){
         return (
             <View style={styles.container}>
-                <Text>Replace screen</Text>
+                <Text>Login2 page: {this.props.data}</Text>
                 <Button onPress={Actions.pop}>Back</Button>
             </View>
         );
@@ -35,4 +35,6 @@ var styles = StyleSheet.create({
     },
 });
 
-module.exports = Register;
+
+
+module.exports = Login;
