@@ -116,12 +116,12 @@ module.exports = Launch;
 1. `npm install react-native-router-flux --save`
 2. In top-level index.js:
     * Define Route for each app screen. Its 'type' attribute is 'push' by default, but you also could define 'replace', so navigator will replace current route with new route.
-    'switch' type represents tab screen.
-'component' attribute is React component class which will be created for this route and all route attributes will be passed to it.
-'wrapRouter' - wraps Route inside new navigator.
-'name' is unique name of Route.
+    'switch' type represents tab screen. 'component' attribute is React component class which will be created for this route and all route attributes will be passed to it.
+Instead of defining 'component' class you could define any child (one) you want to be used for that route (even one more Router)
+'wrapRouter' - adds Router child for this Route (so defines own navigator for the route). 'name' is unique name of Route.
+All other attributes will be passed to scene class.
+
     * If some your Routes have common attributes, you may define Schema element and just use 'schema' attribute for 'route'
-    * If you want to define some your custom actions, just add 'Action' element inside Router. That action will not be processed by the component, it will call Actions.custom({name:ACTION_NAME, ...params}) so you could handle it in your stores. It allows to add Fetch actions (which downloads web content), etc.
 3. In any app screen:
     * var {Actions} = require('react-native-router-flux');
-    * Actions.ACTION_NAME(PARAMS) will call appropriate action and params will be passed to next screen.
+    * Actions.ACTION_NAME(PARAMS) will call appropriate action and params will be passed to the route
