@@ -16,8 +16,7 @@ If handler returns false route action is ignored. For Redux Don't forget to 'con
 
 
 ## Example
-![demo-2](https://cloud.githubusercontent.com/assets/1321329/9466261/de64558e-4b33-11e5-8ada-0fcd49442769.gif)
-
+![launch](https://cloud.githubusercontent.com/assets/1321329/11692367/7337cfe2-9e9f-11e5-8515-e8b7a9f230ec.gif)
 
 ```javascript
 var React = require('react-native');
