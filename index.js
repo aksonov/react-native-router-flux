@@ -53,15 +53,20 @@ class ActionContainer {
 
     onDidFocus(name, isLeaf){
         // if route is leaf, set current route to it, otherwise, find leaf
-        console.log("onDidFocus"+name+isLeaf);
+        //console.log("onDidFocus"+name+isLeaf);
         if (isLeaf){
-            console.log("SETTING CURRENT ROUTE TO "+name);
+            //console.log("SETTING CURRENT ROUTE TO "+name);
             this.currentRoute = name;
-        } else if (this.navsParent[name]){
-            console.log("GETTING LATEST SCENE FOR "+name);
-            const routes = this.navsParent[name].getCurrentRoutes();
-            console.log("SETTING CURRENT ROUTE TO "+routes[routes.length-1].getName());
-            this.currentRoute = routes[routes.length-1].getName();
+        } else {
+            let routeName = name;
+            while (this.navsParent[routeName]) {
+                //console.log("GETTING LATEST SCENE FOR " + name);
+                const routes = this.navsParent[routeName].getCurrentRoutes();
+                routeName = routes[routes.length - 1].getName();
+            }
+
+            //console.log("SETTING CURRENT ROUTE TO "+routeName);
+            this.currentRoute = routeName;
         }
 
     }
@@ -72,7 +77,7 @@ class ActionContainer {
      * @param nav navigator instance
      */
     setNavigator(name, nav){
-        console.log("SETTING NAV "+nav.props._parent+" TO NAME="+name);
+        //console.log("SETTING NAV "+nav.props._parent+" TO NAME="+name);
         this.navs[name] = nav;
         this.navsParent[nav.props._parent || 'root'] = nav;
     }
@@ -158,7 +163,7 @@ class ActionContainer {
         }
 
         if (this.onReplace){
-            // don't do action if it is not allowed (onReplace returned false)
+            // don't do action if it is not allowed (onPush returned false)
             if (!this.onReplace(navigator, route)){
                 return;
             }
@@ -198,13 +203,13 @@ class ActionContainer {
         data = filterParam(data);
         const number = isNumeric(data) ? data : 1;
         let navigator = this.navs[this.currentRoute];
-        console.log("LATEST NAV:"+this.navs[this.currentRoute].props._parent);
+        //console.log("LATEST NAV:"+this.navs[this.currentRoute].props._parent);
         let routes = navigator.getCurrentRoutes();
-        console.log("NAV LATEST SCENE:"+routes[routes.length-1].getName()+" "+routes.length);
+        //console.log("NAV LATEST SCENE:"+routes[routes.length-1].getName()+" "+routes.length);
         while (routes.length <= number || routes[routes.length-1].getType() === 'switch'){
             // try parent navigator if we cannot pop current one
             if (navigator.parentNavigator){
-                console.log("pop to parent navigator");
+                //console.log("pop to parent navigator");
                 navigator = navigator.parentNavigator;
                 routes = navigator.getCurrentRoutes();
             } else {
@@ -285,7 +290,7 @@ class ExRoute {
 
     onWillBlur(event){
         this.focused = false;
-        console.log("LOSE FOCUS!"+this.getName());
+        //console.log("LOSE FOCUS!"+this.getName());
     }
 
     isLeaf(){
