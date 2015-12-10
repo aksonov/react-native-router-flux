@@ -309,11 +309,11 @@ class ExRoute {
         if (Component){
             // separate processing for 'switch' routes - they should be wrapped into separate Router
             if (!this.isLeaf()){
-                child = (<Router navigator={navigator} schemas={this.schemas} _parent={this.props.name}>
-                    <Route {...this.props} name={"_"+this.props.name} type="push" wrapRouter={false} hideNavBar={false}/>
+                child = (<Router _parent={this.props.name} {...this.props} navigator={navigator} schemas={this.schemas} >
+                    <Route {...this.props} name={"_"+this.props.name} type="push" wrapRouter={false}/>
                 </Router>);
             } else {
-                child = <Component key={this.name} navigator={navigator} {...this.props} schemas={this.schemas}/>
+                child = <Component key={this.name} {...this.props} navigator={navigator} schemas={this.schemas}/>
                 this.leaf = true;
             }
         } else {

@@ -28,7 +28,7 @@ export default class Example extends React.Component {
                 <Schema name="withoutAnimation"/>
                 <Schema name="tab" type="switch" icon={TabIcon} />
 
-                <Route name="launch" component={Launch} initial={true} wrapRouter={true} title="Launch"/>
+                <Route name="launch" component={Launch} initial={true} wrapRouter={true} title="Launch" hideNavBar={true}/>
                 <Route name="register" component={Register} title="Register"/>
                 <Route name="home" component={Home} title="Replace" type="replace"/>
                 <Route name="login" schema="modal">
