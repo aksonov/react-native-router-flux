@@ -158,7 +158,7 @@ class ActionContainer {
         }
 
         if (this.onReplace){
-            // don't do action if it is not allowed (onPush returned false)
+            // don't do action if it is not allowed (onReplace returned false)
             if (!this.onReplace(navigator, route)){
                 return;
             }
