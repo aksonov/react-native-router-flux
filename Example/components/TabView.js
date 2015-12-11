@@ -8,7 +8,6 @@ var Actions = require('react-native-router-flux').Actions;
 
 class TabView extends React.Component {
     render(){
-        console.log("RENDER!"+this.props.name);
         return (
             <View style={styles.container}>
                 <Text>Tab {this.props.title}</Text>
@@ -16,6 +15,11 @@ class TabView extends React.Component {
                 <Button onPress={Actions.tab1_2}>next screen for tab1_1</Button>
                 }
                 <Button onPress={Actions.pop}>Back</Button>
+                <Button onPress={Actions.tab1}>Switch to tab1</Button>
+                <Button onPress={Actions.tab2}>Switch to tab2</Button>
+                <Button onPress={Actions.tab3}>Switch to tab3</Button>
+                <Button onPress={Actions.tab4}>Switch to tab4</Button>
+                <Button onPress={Actions.tab5}>Switch to tab5</Button>
             </View>
         );
     }

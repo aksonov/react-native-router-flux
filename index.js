@@ -88,7 +88,7 @@ class ActionContainer {
      * @param props route props
      * @param schemas route schemas
      */
-    addAction(name, props, schemas){
+    addAction(name, props, schemas, router){
         if (!name) {
             throw Error("No name is defined for the router");
         }
@@ -106,7 +106,7 @@ class ActionContainer {
             if (!self[action]){
                 throw Error("No action="+action+" exist for route="+route.getName());
             }
-            self[action](route);
+            self[action](route, router);
 
         }
     }
@@ -175,7 +175,7 @@ class ActionContainer {
      * Switch to defined route (so it will jump to existing route if it exists within nav stack or push otherwise), usable for tab bar.
      * @param route defined route
      */
-    switch(route){
+    switch(route, router){
         const name = route.getName();
         const navigator = this.navs[name];
 
@@ -185,6 +185,10 @@ class ActionContainer {
                 return;
             }
         }
+        if (router && router.onSwitch){
+            router.onSwitch(route);
+        }
+
         const routes = navigator.getCurrentRoutes();
         const exist = routes.filter(el=>el.getName()==route.getName());
         if (exist.length){
@@ -371,31 +375,44 @@ class TabBar extends React.Component {
             throw new Error("No action is defined for name="+el.props.name+" actions:"+JSON.stringify(Object.keys(Actions)));
         }
         Actions[el.props.name](el.props);
-        InteractionManager.runAfterInteractions(() =>
-            this.setState({hideTabBar: el.props.hideTabBar}));
         return {selected: true};
+    }
+    getChildrenState(selectedRoute){
+        var self = this;
+        let selected = false;
+        var children = [];
+        React.Children.forEach(this.props.children, function(el, index){
+            const schema = self.props.schemas && el.props.schema && self.props.schemas[el.props.schema] ? self.props.schemas[el.props.schema] : {};
+            let props = {...schema, ...el.props};
+            if (!el.props.name)
+                console.error("No name is defined for element");
+            if (selectedRoute){
+                if (selectedRoute == el.props.name){
+                    props.selected = true;
+                } else {
+                    props.selected = false;
+                }
+            }
+
+            var Icon = props.icon || console.error("No icon class is defined for "+el.name);
+            children.push(<Icon key={el.props.name} {...props}/>);
+            if (props.selected || index === 0){
+                selected = el;
+                console.log("SELECTED:"+el.props.name+" "+selectedRoute);
+            }
+        });
+        return {children, hideTabBar: selected.props.hideTabBar};
     }
     componentWillMount(){
         if (!this.props.children){
             return;
         }
-        var children = [];
-        var self = this;
-        let selected = false;
-        React.Children.forEach(this.props.children, function(el, index){
-            const schema = self.props.schemas && el.props.schema && self.props.schemas[el.props.schema] ? self.props.schemas[el.props.schema] : {};
-            let props = {...schema, ...el.props};
+        this.state = this.getChildrenState(this.props.selected);
 
-            if (!el.props.name)
-                console.error("No name is defined for element");
-            var Icon = props.icon || console.error("No icon class is defined for "+el.name);
-            children.push(<Icon key={el.props.name} {...props}/>);
-            if (el.props.selected || index === 0){
-                selected = el;
-            }
-        });
-        this.state = {children, hideTabBar: selected.props.hideTabBar};
+    }
 
+    componentWillReceiveProps({selected}){
+        this.setState(this.getChildrenState(selected));
     }
     render(){
         if (this.state.hideTabBar){
@@ -453,11 +470,16 @@ class Router extends React.Component {
                     self.initial = name;
                 }
                 // declare function with null navigator to avoid undefined Actions
-                Actions.addAction(name, child.props, self.schemas)
+                Actions.addAction(name, child.props, self.schemas, self)
                 self.routes[name] = child.props;
             }
         });
         this.state = {initial: this.initial};
+    }
+
+    onSwitch(route){
+        console.log("SWITCHED TO"+route.getName());
+        this.setState({selected: route.getName()});
     }
 
     componentDidMount() {
@@ -480,11 +502,15 @@ class Router extends React.Component {
             console.error("No initial route!"+JSON.stringify(this.routes));
         }
 
+        const Header = this.props.header;
+        const header = Header ? <Header {...this.props} {...this.state}/> : null;
+
         const Footer = this.props.footer;
-        const footer = Footer ? <Footer {...this.props}/> : null;
+        const footer = Footer ? <Footer {...this.props} {...this.state}/> : null;
 
         return (
             <View style={styles.transparent}>
+                {header}
                 <ExNavigator ref="nav"
                              initialRoute={new ExRoute(initialRoute, this.schemas)}
                              style={styles.transparent}
