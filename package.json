@@ -23,16 +23,6 @@
     "url": "http://aksonov.com"
   },
   "license": "ISC",
-  "gitHead": "ac054cfda0894ba1db6c4901ebdddc83b3b2d083",
-  "_id": "react-native-router-flux@0.3.3",
-  "_shasum": "074748258f7ff6b6d7e2d509123d15a8ec84cb45",
-  "_from": "react-native-router-flux@0.3.3",
-  "_npmVersion": "2.13.2",
-  "_nodeVersion": "2.5.0",
-  "_npmUser": {
-    "name": "aksonov",
-    "email": "pavlo.aksonov@gmail.com"
-  },
   "maintainers": [
     {
       "name": "aksonov",
