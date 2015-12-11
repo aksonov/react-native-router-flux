@@ -8,7 +8,7 @@
  */
 
 import React from 'react-native';
-const {View, Navigator, Text, StyleSheet, TouchableOpacity} = React;
+const {View, Navigator, Text, StyleSheet, TouchableOpacity, InteractionManager} = React;
 import ExNavigator from '@exponent/react-native-navigator';
 import Button from 'react-native-button';
 import Animations from './Animations';
@@ -163,7 +163,7 @@ class ActionContainer {
         }
 
         if (this.onReplace){
-            // don't do action if it is not allowed (onPush returned false)
+            // don't do action if it is not allowed (onReplace returned false)
             if (!this.onReplace(navigator, route)){
                 return;
             }
@@ -180,7 +180,7 @@ class ActionContainer {
         const navigator = this.navs[name];
 
         if (this.onSwitch){
-            // don't do action if it is not allowed (onPush returned false)
+            // don't do action if it is not allowed (onSwitch returned false)
             if (!this.onSwitch(navigator, route)){
                 return;
             }
@@ -363,14 +363,22 @@ class ExRoute {
 }
 
 class TabBar extends React.Component {
+    constructor(props){
+        super(props);
+    }
     onSelect(el){
         if (!Actions[el.props.name]){
             throw new Error("No action is defined for name="+el.props.name+" actions:"+JSON.stringify(Object.keys(Actions)));
         }
         Actions[el.props.name](el.props);
+        InteractionManager.runAfterInteractions(() =>
+            this.setState({hideTabBar: el.props.hideTabBar}));
         return {selected: true};
     }
-    render(){
+    componentWillMount(){
+        if (!this.props.children){
+            return;
+        }
         var children = [];
         var self = this;
         let selected = false;
@@ -382,11 +390,20 @@ class TabBar extends React.Component {
                 console.error("No name is defined for element");
             var Icon = props.icon || console.error("No icon class is defined for "+el.name);
             children.push(<Icon key={el.props.name} {...props}/>);
+            if (el.props.selected || index === 0){
+                selected = el;
+            }
         });
+        this.state = {children, hideTabBar: selected.props.hideTabBar};
 
+    }
+    render(){
+        if (this.state.hideTabBar){
+            return <View/>
+        }
         return (
             <Tabs style={{backgroundColor:'white'}} onSelect={this.onSelect.bind(this)} {...this.props}>
-                {children}
+                {this.state.children}
             </Tabs>
         );
     }
