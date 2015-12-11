@@ -10,7 +10,6 @@
 import React from 'react-native';
 const {View, Navigator, Text, StyleSheet, TouchableOpacity, InteractionManager} = React;
 import ExNavigator from '@exponent/react-native-navigator';
-import Button from 'react-native-button';
 import Animations from './Animations';
 import Tabs from 'react-native-tabs';
 function filterParam(data){
