@@ -10,7 +10,6 @@
 import React from 'react-native';
 const {View, Navigator, Text, StyleSheet, TouchableOpacity, InteractionManager} = React;
 import ExNavigator from '@exponent/react-native-navigator';
-import Button from 'react-native-button';
 import Animations from './Animations';
 import Tabs from 'react-native-tabs';
 function filterParam(data){
@@ -375,6 +374,8 @@ class TabBar extends React.Component {
             throw new Error("No action is defined for name="+el.props.name+" actions:"+JSON.stringify(Object.keys(Actions)));
         }
         Actions[el.props.name](el.props);
+        InteractionManager.runAfterInteractions(() =>
+                        this.setState({hideTabBar: el.props.hideTabBar}));
         return {selected: true};
     }
     getChildrenState(selectedRoute){
@@ -398,7 +399,6 @@ class TabBar extends React.Component {
             children.push(<Icon key={el.props.name} {...props}/>);
             if (props.selected || index === 0){
                 selected = el;
-                console.log("SELECTED:"+el.props.name+" "+selectedRoute);
             }
         });
         return {children, hideTabBar: selected.props.hideTabBar};
@@ -412,7 +412,9 @@ class TabBar extends React.Component {
     }
 
     componentWillReceiveProps({selected}){
-        this.setState(this.getChildrenState(selected));
+        //console.log("TABBAR "+selected);
+        InteractionManager.runAfterInteractions(() =>
+            this.setState(this.getChildrenState(selected)));
     }
     render(){
         if (this.state.hideTabBar){
@@ -478,7 +480,7 @@ class Router extends React.Component {
     }
 
     onSwitch(route){
-        console.log("SWITCHED TO"+route.getName());
+        //console.log("SWITCHED TO"+route.getName());
         this.setState({selected: route.getName()});
     }
 

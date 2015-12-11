@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97450839-8f3e-45e1-8596-afe33fd2bfc3" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/components/TabBarFlux.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Example.js" afterPath="$PROJECT_DIR$/Example.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/TabView.js" afterPath="$PROJECT_DIR$/components/TabView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="Example.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,7 +27,7 @@
         <entry file="file://$PROJECT_DIR$/node_modules/react-native-router-flux/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="414" column="52" selection-start-line="414" selection-start-column="52" selection-end-line="414" selection-end-column="52" />
+              <caret line="414" column="21" selection-start-line="414" selection-start-column="10" selection-end-line="414" selection-end-column="21" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -42,8 +38,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/node_modules/react-native-tabs/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6763285">
-              <caret line="57" column="24" selection-start-line="57" selection-start-column="24" selection-end-line="57" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.36231884">
+              <caret line="29" column="21" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -770,7 +766,7 @@
     <entry file="file://$PROJECT_DIR$/node_modules/react-native-router-flux/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="414" column="52" selection-start-line="414" selection-start-column="52" selection-end-line="414" selection-end-column="52" />
+          <caret line="414" column="21" selection-start-line="414" selection-start-column="10" selection-end-line="414" selection-end-column="21" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -779,8 +775,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/react-native-tabs/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6763285">
-          <caret line="57" column="24" selection-start-line="57" selection-start-column="24" selection-end-line="57" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.36231884">
+          <caret line="29" column="21" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="21" />
           <folding />
         </state>
       </provider>
