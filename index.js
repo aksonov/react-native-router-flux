@@ -50,24 +50,16 @@ class ActionContainer {
         this.navsParent = {};
     }
 
-    onDidFocus(name, isLeaf){
-        // if route is leaf, set current route to it, otherwise, find leaf
-        //console.log("onDidFocus"+name+isLeaf);
-        if (isLeaf){
-            //console.log("SETTING CURRENT ROUTE TO "+name);
-            this.currentRoute = name;
-        } else {
-            let routeName = name;
-            while (this.navsParent[routeName]) {
-                //console.log("GETTING LATEST SCENE FOR " + name);
-                const routes = this.navsParent[routeName].getCurrentRoutes();
-                routeName = routes[routes.length - 1].getName();
-            }
-
-            //console.log("SETTING CURRENT ROUTE TO "+routeName);
-            this.currentRoute = routeName;
+    onDidFocus(name, isLeaf) {
+        let routeName = name;
+        while (this.navsParent[routeName]) {
+            //console.log("GETTING LATEST SCENE FOR " + name);
+            const routes = this.navsParent[routeName].getCurrentRoutes();
+            routeName = routes[routes.length - 1].getName();
         }
 
+        //console.log("SETTING CURRENT ROUTE TO "+routeName);
+        this.currentRoute = routeName;
     }
 
     /***
@@ -124,6 +116,7 @@ class ActionContainer {
     push(route){
         const name = route.getName();
         let navigator = this.navs[name];
+        console.log("PUSH TO"+name+" "+route.isLeaf());
         // if route is leaf, push it from latest route navigator, not from root navigator
         if (route.isLeaf()){
             navigator = this.navs[this.currentRoute];
@@ -141,6 +134,12 @@ class ActionContainer {
                 return;
             }
         }
+        if (route.onEnter){
+            if (!route.onEnter(route)){
+                return;
+            }
+        }
+
         navigator.push(route);
     }
 
@@ -264,7 +263,9 @@ class ExRoute {
             throw new Error("No schema=" + props.schema + " is defined for route=" + props.name);
         }
         const schema = schemas ? schemas[props.schema || 'default'] || {} : {};
-        const {name, type, title, hideNavBar, wrapRouter, sceneConfig, onRight, rightTitle, header, footer, component, children} = {...schema, ...props};
+        const {name, type, title, hideNavBar, navigationBarStyle, backButtonStyle, rightButtonStyle, rightButtonTextStyle,
+            onEnter, onLeave, wrapRouter, sceneConfig, renderLeftButton,
+            onRight, rightTitle, header, renderRightButton, renderBackButton, footer, component, children} = {...schema, ...props};
         if (!component && !children) {
             throw new Error("Component class or scene instance (child) should be passed");
         }
@@ -283,16 +284,35 @@ class ExRoute {
         this.schemas = schemas;
         this.component = component;
         this.children = children;
+        this.onEnter = onEnter;
+        this.onLeave = onLeave;
+        this.backButtonStyle = backButtonStyle;
+        this.rightButtonStyle = rightButtonStyle;
+        this.rightButtonTextStyle = rightButtonTextStyle;
+        this.navigationBarStyle = navigationBarStyle;
+        if (renderRightButton){
+            this.renderRightButton = renderRightButton.bind(this, this);
+        }
+        if (renderBackButton){
+            this.renderBackButton = renderBackButton.bind(this, this);
+        }
+        if (renderLeftButton){
+            this.renderLeftButton = renderLeftButton.bind(this, this);
+        }
         this.leaf = this.component && !(this.getType() === 'switch' || this.wrapRouter);
     }
 
     onDidFocus(event){
         this.focused = true;
+//        console.log("FOCUS "+this.getName());
         Actions.onDidFocus(this.getName(), this.isLeaf());
     }
 
     onWillBlur(event){
         this.focused = false;
+        if (this.onLeave){
+            this.onLeave(this, event);
+        }
         //console.log("LOSE FOCUS!"+this.getName());
     }
 
@@ -316,7 +336,7 @@ class ExRoute {
                     <Route {...this.props} name={"_"+this.props.name} type="push" wrapRouter={false}/>
                 </Router>);
             } else {
-                child = <Component key={this.name} {...this.props} navigator={navigator} schemas={this.schemas}/>
+                child = <Component key={this.name} {...this.props} navigator={navigator} schemas={this.schemas} _parent={this.props.name}/>
                 this.leaf = true;
             }
         } else {
@@ -356,8 +376,8 @@ class ExRoute {
             return (<TouchableOpacity
                 touchRetentionOffset={ExNavigator.Styles.barButtonTouchRetentionOffset}
                 onPress={() => this.onRight(this.props)}
-                style={ExNavigator.Styles.barRightButton}>
-                <Text style={ExNavigator.Styles.barRightButtonText}>{this.rightTitle}</Text>
+                style={[ExNavigator.Styles.barRightButton, this.rightButtonStyle]}>
+                <Text style={[ExNavigator.Styles.barRightButtonText, this.rightButtonTextStyle]}>{this.rightTitle}</Text>
             </TouchableOpacity>);
         } else {
             return null;
