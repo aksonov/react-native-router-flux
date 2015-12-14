@@ -264,7 +264,7 @@ class ExRoute {
         }
         const schema = schemas ? schemas[props.schema || 'default'] || {} : {};
         const {name, type, title, hideNavBar, navigationBarStyle, backButtonStyle, rightButtonStyle, rightButtonTextStyle,
-            onEnter, onLeave, wrapRouter, sceneConfig, renderLeftButton,
+            onEnter, onLeave, wrapRouter, sceneConfig, renderLeftButton, renderTitle,
             onRight, rightTitle, header, renderRightButton, renderBackButton, footer, component, children} = {...schema, ...props};
         if (!component && !children) {
             throw new Error("Component class or scene instance (child) should be passed");
@@ -298,6 +298,9 @@ class ExRoute {
         }
         if (renderLeftButton){
             this.renderLeftButton = renderLeftButton.bind(this, this);
+        }
+        if (renderTitle){
+            this.renderTitle = renderTitle.bind(this, this);
         }
         this.leaf = this.component && !(this.getType() === 'switch' || this.wrapRouter);
     }
