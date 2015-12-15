@@ -426,6 +426,22 @@ class TabBar extends React.Component {
         });
         return {children, hideTabBar: selected.props.hideTabBar};
     }
+
+    applyStyle(props) {
+        if(!props.tabStyle) {
+            return {
+              backgroundColor:'white',
+              borderTopColor:'white',
+              borderTopWidth:1
+            }
+        }
+        return {
+            backgroundColor:  props.tabStyle.backgroundColor || 'white',
+            borderTopColor: props.tabStyle.borderTopColor || 'white',
+            borderTopWidth: props.tabStyle.borderTopWidth || 1
+        }
+    }
+
     componentWillMount(){
         if (!this.props.children){
             return;
@@ -444,7 +460,7 @@ class TabBar extends React.Component {
             return <View/>
         }
         return (
-            <Tabs style={{backgroundColor:'white'}} onSelect={this.onSelect.bind(this)} {...this.props}>
+            <Tabs style={this.applyStyle(this.props)} onSelect={this.onSelect.bind(this)} {...this.props}>
                 {this.state.children}
             </Tabs>
         );
