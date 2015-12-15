@@ -60,7 +60,9 @@ export default class Example extends React.Component {
                 </Route>
                 <Route name="register2" component={Register} title="Register2"  schema="withoutAnimation"/>
                 <Route name="tabbar">
-                    <Router footer={TabBar} showNavigationBar={false}>
+                    <Router footer={TabBar} showNavigationBar={false}
+                        tabStyle={{backgroundColor:'#E7E7E7',borderTopColor:'white',borderTopWidth:1}
+                    >
                         <Route name="tab1" schema="tab" title="Tab #1" >
                             <Router>
                                 <Route name="tab1_1" component={TabView} title="Tab #1_1" />
