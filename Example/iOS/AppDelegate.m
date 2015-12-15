@@ -47,7 +47,7 @@
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"Example"
-                                               initialProperties:nil
+                                               initialProperties:@{@"initialRoutes": @[@"launch", @"login"]}
                                                    launchOptions:launchOptions];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

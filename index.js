@@ -479,7 +479,7 @@ class Router extends React.Component {
         super(props);
         this.routes = {};
         this.schemas = {...props.schemas};
-        this.initial = props.initial;
+        this.initial = this.props.initialRoutes || []; // Initial names array
 
         const self = this;
         React.Children.forEach(this.props.children, function (child, index) {
@@ -491,8 +491,8 @@ class Router extends React.Component {
         React.Children.forEach(this.props.children, function (child, index) {
             const name = child.props.name;
             if (child.type.prototype.className() === "Route") {
-                if (child.props.initial || !self.initial) {
-                    self.initial = name;
+                if (child.props.initial) {
+                    self.initial.push(name);
                 }
                 // declare function with null navigator to avoid undefined Actions
                 Actions.addAction(name, child.props, self.schemas, self)
@@ -519,12 +519,12 @@ class Router extends React.Component {
     }
 
     render(){
-        if (!this.state.initial){
+        if (!this.state.initial.length){
             console.error("No initial attribute!");
         }
-        const initialRoute =  this.routes[this.state.initial];
-        if (!initialRoute) {
-            console.error("No initial route!"+JSON.stringify(this.routes));
+        const initialRoutes =  this.state.initial.map((name) => this.routes[name]);
+        if (!initialRoutes.length) {
+            console.error("No initial routes!"+JSON.stringify(this.routes));
         }
 
         const Header = this.props.header;
@@ -537,7 +537,7 @@ class Router extends React.Component {
             <View style={styles.transparent}>
                 {header}
                 <ExNavigator ref="nav"
-                             initialRoute={new ExRoute(initialRoute, this.schemas)}
+                             initialRouteStack={initialRoutes.map((route) => new ExRoute(route, this.schemas))}
                              style={styles.transparent}
                              sceneStyle={{ paddingTop: 0 }}
                              showNavigationBar={!this.props.hideNavBar}
