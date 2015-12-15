@@ -488,9 +488,13 @@ class Router extends React.Component {
                 self.schemas[name] = child.props;
             }
         });
+        this.first = null;
         React.Children.forEach(this.props.children, function (child, index) {
             const name = child.props.name;
             if (child.type.prototype.className() === "Route") {
+                if (!self.first){
+                    self.first = name;
+                }
                 if (child.props.initial) {
                     self.initial.push(name);
                 }
@@ -499,6 +503,10 @@ class Router extends React.Component {
                 self.routes[name] = child.props;
             }
         });
+        // add first route as initial if no initial attribute set
+        if (!this.initial.length && this.first){
+            this.initial.push(this.first);
+        }
         this.state = {initial: this.initial};
     }
 

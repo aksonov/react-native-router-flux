@@ -22,7 +22,7 @@ class TabIcon extends React.Component {
 export default class Example extends React.Component {
     render() {
         return (
-            <Router hideNavBar={true} initialRoutes={['launch', 'login']}>
+            <Router hideNavBar={true} initialRoutes={['launch']}>
                 <Schema name="modal" sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
                 <Schema name="default" sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
                 <Schema name="withoutAnimation"/>
