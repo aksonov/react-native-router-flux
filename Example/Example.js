@@ -22,13 +22,13 @@ class TabIcon extends React.Component {
 export default class Example extends React.Component {
     render() {
         return (
-            <Router hideNavBar={true}>
+            <Router hideNavBar={true} initialRoutes={['launch', 'login']}>
                 <Schema name="modal" sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
                 <Schema name="default" sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
                 <Schema name="withoutAnimation"/>
                 <Schema name="tab" type="switch" icon={TabIcon} />
 
-                <Route name="launch" component={Launch} initial={true} wrapRouter={true} title="Launch" hideNavBar={true}/>
+                <Route name="launch" component={Launch} wrapRouter={true} title="Launch" hideNavBar={true}/>
                 <Route name="register" component={Register} title="Register"/>
                 <Route name="home" component={Home} title="Replace" type="replace"/>
                 <Route name="login" schema="modal">
