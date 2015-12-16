@@ -116,7 +116,7 @@ class ActionContainer {
     push(route){
         const name = route.getName();
         let navigator = this.navs[name];
-        console.log("PUSH TO"+name+" "+route.isLeaf());
+        //console.log("PUSH TO"+name+" "+route.isLeaf());
         // if route is leaf, push it from latest route navigator, not from root navigator
         if (route.isLeaf()){
             navigator = this.navs[this.currentRoute];
