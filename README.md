@@ -1,36 +1,71 @@
-# react-native-router-flux
+# React Native Router [![Join the chat at https://gitter.im/aksonov/react-native-router-flux](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aksonov/react-native-router-flux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![Join the chat at https://gitter.im/aksonov/react-native-router-flux](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aksonov/react-native-router-flux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-React Native Router Actions based on exNavigator (https://github.com/exponentjs/ex-navigator)
+Router for React Native based on [exNavigator](https://github.com/exponentjs/ex-navigator)
 
-## Why?
-- Use Actions to replace/push/pop screens with easy syntax like Actions.login for navigation to login screen
-- Forget about passing navigator object to all React elements, use actions from anywhere in your UI code.
-- Configure all of your screens ("routes") once (define animations, nav bars, etc.), at one place and then just use short actions commands. For example if you use some special animation for Login screen, you don't need to code it anywhere where an user should be redirected to login screen.
-- Use route "schemas" to define common property for some screens. For example some screens are "modal" (i.e. have animation from bottom and have Cancel/Close nav button), so you could define group for them to avoid any code repeatition.
-- Hide nav bar for some screens easily
-- Use built-in tab bar for some screens (see demo)
-- Nested Navigators are supported (i.e. separate navigator for each tab view inside root navigator). push/pop actions will automatically use latest navigator.
+## Features
+- Define your screens ("routes") and animation transitions in one central location
+- Use simple syntax to call transitions anywhere in your code (e.g. `Actions.login`)
+- Eliminates the need to pass navigator objects to your screens
+- Use a `Schema` to define common properties for a group of screens. For example, you can define a "modal" `Schema` for screens that animate from the bottom of the screen.
+- Ability to show/hide navigation bar (see limitations)
+- Support for managing a tab bar, using [react-native-tabs](https://github.com/aksonov/react-native-tabs) (see demo)
+- Support for nested navigators. For example, each tab can have its own navigator, nested in a root navigator. Transition actions will automatically use the top navigator.
 
-## Redux or other Flux support
-The component doesn't depend from any Flux implementation and allows to intercept all route actions by adding Actions.onPush/onReplace/onPop handlers from your store(s).
-If handler returns false route action is ignored. For Redux Don't forget to 'connect' your component to your store.
+## Installation
+```
+npm i react-native-router-flux --save
+```
+
+## Usage
+1. In top-level index.js, define a `Router` and child `Route` elements for your screens.
+    * If some of your screens have common attributes, consider defining a `Schema` element to reduce repetition
+2. In any app screen:
+    * import {Actions} from 'react-native-router-flux'
+    * Actions.ACTION_NAME(PARAMS) will call appropriate action and params will be passed to the route
+
+## Configuration
+
+##### Router:
+| Property | Type | Default | Description |
+|---------------|----------|--------------|----------------------------------------------------------------|
+| header | object | null | optional header view |
+| footer | object | null | optional footer view (e.g. tab bar) |
+| hideNavBar | bool | false | hides navigation bar |
+
+##### Route:
+
+| Property | Type | Default | Description |
+|-----------|--------|---------|--------------------------------------------|
+| name | string | required | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
+| component | React.Component | semi-required | The `Component` to be displayed. Not required when defining a nested `Router` or child, see example |
+| type | string | optional | Defines how the new screen is added to the navigator stack. One of `push`, `replace`, `switch`.  Default is 'push'. `replace` tells navigator to replace current route with new route. `switch` is used for tab screens. |
+| initial | bool | false | Set to `true` if this is the initial screen |
+| title | string | null | The title to be displayed in the navigation bar |
+| schema | string | optional | Set this property to the name of a previously defined `Schema` to inherit its properties |
+| wrapRouter | bool | false | If `true`, the route is automatically nested in its own `Router`. Useful for modal screens. |
+| sceneConfig | Navigator.SceneConfigs | optional | Defines the transition animation.  |
+
+##### Schema:
+
+| Property | Type | Default | Description |
+|-----------|--------|---------|--------------------------------------------|
+| name | string | required | The name of the schema, to be referenced in the route as `schema={"name"}` |
+| property | - |  - | A `Schema` can have any property that you want the `Route` to inherit  |
 
 
 ## Example
 ![launch](https://cloud.githubusercontent.com/assets/1321329/11692367/7337cfe2-9e9f-11e5-8515-e8b7a9f230ec.gif)
 
 ```javascript
-var React = require('react-native');
-var {AppRegistry, Navigator, StyleSheet,Text,View} = React;
-var Launch = require('./components/Launch');
-var Register = require('./components/Register');
-var Login = require('./components/Login');
-var Login2 = require('./components/Login2');
-var {Router, Route, Schema, Animations, TabBar} = require('react-native-router-flux');
-var Error = require('./components/Error');
-var Home = require('./components/Home');
-var TabView = require('./components/TabView');
+import React, {AppRegistry, Navigator, StyleSheet, Text, View} from 'react-native'
+import Launch from './components/Launch'
+import Register from './components/Register'
+import Login from './components/Login'
+import Login2 from './components/Login2'
+import {Router, Route, Schema, Animations, TabBar} from 'react-native-router-flux'
+import Error from './components/Error'
+import Home from './components/Home'
+import TabView from './components/TabView'
 
 class TabIcon extends React.Component {
     render(){
@@ -81,12 +116,9 @@ export default class Example extends React.Component {
 
 components/Launch.js (initial screen)
 ```
-'use strict';
-
-var React = require('react-native');
-var {View, Text, StyleSheet, TouchableHighlight} = React;
-var Button = require('react-native-button');
-var Actions = require('react-native-router-flux').Actions;
+import React, {View, Text, StyleSheet, TouchableHighlight} from 'react-native'
+import Button from 'react-native-button'
+import {Actions} from 'react-native-router-flux'
 
 class Launch extends React.Component {
     render(){
@@ -114,16 +146,38 @@ var styles = StyleSheet.create({
 module.exports = Launch;
 ```
 
-## Getting started
-1. `npm install react-native-router-flux --save`
-2. In top-level index.js:
-    * Define Route for each app screen. Its 'type' attribute is 'push' by default, but you also could define 'replace', so navigator will replace current route with new route.
-    'switch' type represents tab screen. 'component' attribute is React component class which will be created for this route and all route attributes will be passed to it.
-Instead of defining 'component' class you could define any child (one) you want to be used for that route (even one more Router)
-'wrapRouter' - adds Router child for this Route (so defines own navigator for the route). 'name' is unique name of Route.
-All other attributes will be passed to scene class.
+## Redux/Flux support
+This component is not opinionated and does not depend on any implementation of Flux or Redux.
 
-    * If some your Routes have common attributes, you may define Schema element and just use 'schema' attribute for 'route'
-3. In any app screen:
-    * var {Actions} = require('react-native-router-flux');
-    * Actions.ACTION_NAME(PARAMS) will call appropriate action and params will be passed to the route
+All route actions can be hooked by adding handlers for `Actions.onPush`, `Actions.onReplace`, `Actions.onPop` in your store(s).
+
+If a handler returns false, the route action is ignored. For Redux, you will need to 'connect' your component to your store.
+
+For example, instead of 
+```
+<Route name="register" component={Register} title="Register"/>
+```
+
+you might write:
+
+```
+<Route name="register" component={connect(selectFnForRegister)(Register)} title="Register"/>
+```
+
+## Limitations
+### Nested Routers
+* Showing and hiding navigation bars and tab bars is only possible on the root `Router`. For example, if you have a tab bar where each tab has its own `Router`, it would not be possible for to show the navigation bar on tab 1, and then push another screen onto the child navigator without the navigation bar shown. In order to get this behavior you will have to manage your own navigation bar component. 
+* Although you can pass data into a `Route` (e.g. `Actions.login({user_id: '3'})`), this is currently not working for `Route` inside of a nested `Router`.
+* If you are using a tab bar where each tab has its own `Router`, modal screens will have to be presented from the root navigator in order to cover the tab bar. To do this, the modal screen should be defined in the root router, and should have the `wrapRouter={true}` property as in the example below.
+```
+        <Router>
+          <Schema name="modal" sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
+          <Route name="myModal" component={myModal} title="Modal" schema="modal" wrapRouter={true} />
+          <Route name="tabbar">
+            <Router footer={TabBar}>
+              <Route name="tab1" schema="tab" title="Tab 1" component={Tab1}/>
+            </Router>
+          </Route>
+        </Router>
+```
+
