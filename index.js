@@ -210,11 +210,17 @@ class ActionContainer {
         //console.log("NAV LATEST SCENE:"+routes[routes.length-1].getName()+" "+routes.length);
         while (routes.length <= number || routes[routes.length-1].getType() === 'switch'){
             // try parent navigator if we cannot pop current one
-            if (navigator.parentNavigator){
+            var parentNavigator = navigator.parentNavigator;
+            if ( ! parentNavigator) {
+              parentNavigator = this.navs[navigator.props._parent];
+            }
+
+            if (parentNavigator) {
                 //console.log("pop to parent navigator");
-                navigator = navigator.parentNavigator;
+                navigator = parentNavigator;
                 routes = navigator.getCurrentRoutes();
-            } else {
+            }
+            else {
                 throw new Error("Cannot pop navigator with less than "+number+" screens");
             }
         }
@@ -547,7 +553,7 @@ class Router extends React.Component {
                 <ExNavigator ref="nav"
                              initialRouteStack={initialRoutes.map((route) => new ExRoute(route, this.schemas))}
                              style={styles.transparent}
-                             sceneStyle={{ paddingTop: 0 }}
+                             sceneStyle={{ paddingTop: 0, backgroundColor: 'transparent' }}
                              showNavigationBar={!this.props.hideNavBar}
                     {...this.props}
 
