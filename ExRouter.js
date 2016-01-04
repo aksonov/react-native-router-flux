@@ -63,6 +63,9 @@ export class ExRouteAdapter {
     }
 
     renderLeftButton(navigator, index, state){
+        if (this.route.props.renderLeftButton){
+            return this.route.props.renderLeftButton(this.route, navigator, index, state)
+        }
         if (index === 0) {
             return null;
         }
@@ -105,15 +108,18 @@ export class ExRouteAdapter {
         );
     }
 
-    renderRightButton() {
-        if (this.route.onRight && this.route.rightTitle){
+    renderRightButton(navigator, index, state) {
+        if (this.route.props.onRight && this.route.props.rightTitle){
             return (<TouchableOpacity
                 touchRetentionOffset={ExNavigator.Styles.barButtonTouchRetentionOffset}
-                onPress={() => this.route.onRight({...this.route.props, ...this.props})}
-                style={[ExNavigator.Styles.barRightButton, this.route.rightButtonStyle]}>
-                <Text style={[ExNavigator.Styles.barRightButtonText, this.route.rightButtonTextStyle]}>{this.route.rightTitle}</Text>
+                onPress={() => this.route.props.onRight({...this.route.props, ...this.props})}
+                style={[ExNavigator.Styles.barRightButton, this.route.props.rightButtonStyle]}>
+                <Text style={[ExNavigator.Styles.barRightButtonText, this.route.props.rightButtonTextStyle]}>{this.route.props.rightTitle}</Text>
             </TouchableOpacity>);
         } else {
+            if (this.route.props.renderRightButton){
+                return this.route.props.renderRightButton(this.route, navigator, index, state)
+            }
             return null;
         }
     }
