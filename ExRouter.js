@@ -3,11 +3,15 @@ import Router from './Router';
 import Route from './Route';
 import * as Components from './Common';
 import ExNavigator from '@exponent/react-native-navigator';
+import ExNavigatorStyles from '@exponent/react-native-navigator/ExNavigatorStyles';
+import { BackIcon } from '@exponent/react-native-navigator/ExNavigatorIcons';
 import Animations from './Animations';
 const {TouchableOpacity, StyleSheet, View, Text} = React;
 import ReactRouter from './ReactRouter';
+import Actions from './Actions';
+import debug from './debug';
 
-export class ExRoute {
+export class ExRouteAdapter {
     name: string;
     navigator: ExNavigator;
     route: Route;
@@ -31,6 +35,7 @@ export class ExRoute {
     }
 
     renderScene(navigator) {
+        debug("RENDER SCENE:", this.route.name, Object.keys(this.route.props));
         const Component = this.route.component;
         const child = Component ?
             !this.route.wrapRouter ? <Component key={this.route.name} name={this.route.name} {...this.route.props} {...this.props} route={this.route}/>:
@@ -57,6 +62,49 @@ export class ExRoute {
         return title.length>10 ? null : title;
     }
 
+    renderLeftButton(navigator, index, state){
+        if (index === 0) {
+            return null;
+        }
+
+        let previousIndex = index - 1;
+        let previousRoute = state.routeStack[previousIndex];
+        if (previousRoute.renderBackButton) {
+            return previousRoute.renderBackButton(navigator, previousIndex, state);
+        }
+
+        let title = this.getBackButtonTitle(navigator, index, state);
+
+        if (title) {
+            var buttonText =
+                <Text
+                    numberOfLines={1}
+                    style={[
+            ExNavigatorStyles.barButtonText,
+            ExNavigatorStyles.barBackButtonText,
+            this._barButtonTextStyle,
+          ]}
+                >
+                    {title}
+                </Text>;
+        }
+
+        return (
+            <TouchableOpacity
+                pressRetentionOffset={ExNavigatorStyles.barButtonPressRetentionOffset}
+                onPress={() => Actions.pop()}
+                style={[ExNavigatorStyles.barBackButton, styles.backButtonStyle]}>
+                <BackIcon
+                    style={[
+            ExNavigatorStyles.barButtonIcon,
+            this._barButtonIconStyle,
+          ]}
+                />
+                {buttonText}
+            </TouchableOpacity>
+        );
+    }
+
     renderRightButton() {
         if (this.route.onRight && this.route.rightTitle){
             return (<TouchableOpacity
@@ -70,10 +118,6 @@ export class ExRoute {
         }
     }
 }
-
-const defaultCreateRoute = function(route, data){
-    return new ExRoute(route, data);
-};
 
 export default class ExRouter extends React.Component {
     router: Router;
@@ -95,7 +139,7 @@ export default class ExRouter extends React.Component {
                 return false;
             }
         }
-        this.refs.nav.push(new ExRoute(route, props));
+        this.refs.nav.push(new ExRouteAdapter(route, props));
         return true;
     }
 
@@ -106,7 +150,7 @@ export default class ExRouter extends React.Component {
                 return false;
             }
         }
-        this.refs.nav.replace(new ExRoute(route, props));
+        this.refs.nav.replace(new ExRouteAdapter(route, props));
         return true;
     }
 
@@ -123,7 +167,7 @@ export default class ExRouter extends React.Component {
         if (exist.length){
             navigator.jumpTo(exist[0]);
         } else {
-            navigator.push(new ExRoute(route, props));
+            navigator.push(new ExRouteAdapter(route, props));
 
         }
         this.setState({selected: route.name});
@@ -151,11 +195,12 @@ export default class ExRouter extends React.Component {
 
         const Footer = this.props.footer;
         const footer = Footer ? <Footer {...this.props} {...this.state}/> : null;
+        debug("RENDER ROUTER:", router.name, Object.keys(this.props), Object.keys(this.state || {}));
 
         return (
             <View style={styles.transparent}>
                 {header}
-                <ExNavigator ref="nav" initialRouteStack={router.stack.map(route => new ExRoute(router.routes[route]))}
+                <ExNavigator ref="nav" initialRouteStack={router.stack.map(route => new ExRouteAdapter(router.routes[route]))}
                          style={styles.transparent}
                          sceneStyle={{ paddingTop: 0 }}
                          showNavigationBar={!this.props.hideNavBar}

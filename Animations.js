@@ -124,6 +124,7 @@ var FromTheRight = {
 const Animations = {
     FlatFloatFromRight: {
         ...Navigator.SceneConfigs.FloatFromRight,
+        gestures: null,
         // Animation interpolators for horizontal transitioning:
         animationInterpolators: {
             into: buildStyleInterpolator(FromTheRight),

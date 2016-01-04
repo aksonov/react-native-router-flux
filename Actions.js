@@ -1,5 +1,6 @@
 import Route from './Route';
 import Router from './Router';
+import debug from './debug';
 
 function isNumeric(n){
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -40,16 +41,21 @@ class Actions {
         props = filterParam(props);
         // check if route is in children, current or parent routers
         let router: Router = this.currentRouter;
+
+        debug("Route to "+name+" current router="+this.currentRouter.name+ " current route="+this.currentRouter.currentRoute.name);
         // deep into child router
+
         while (router.currentRoute.childRouter){
             router = router.currentRoute.childRouter;
+            debug("Switching to child router="+router.name);
         }
         while (!router.routes[name]){
             const route = router.parentRoute;
             if (!route || !route.parent){
-                throw new Error("Cannot find router for route="+name);
+                throw new Error("Cannot find router for route="+name+" current router="+router.name);
             }
             router = route.parent;
+            debug("Switching to router="+router.name);
         }
         if (router.route(name, props)){
             this.currentRouter = router;
@@ -73,8 +79,10 @@ class Actions {
             return true;
         } else {
             let router: Router = this.currentRouter;
+            debug("Pop, router="+router.name);
             while (router.stack.length <= 1 || router.currentRoute.type === 'switch'){
                 router = router.parentRoute.parent;
+                debug("Switching to parent router="+router.name);
             }
             if (router.pop()){
                 this.currentRouter = router;
