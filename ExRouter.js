@@ -6,7 +6,7 @@ import ExNavigator from '@exponent/react-native-navigator';
 import ExNavigatorStyles from '@exponent/react-native-navigator/ExNavigatorStyles';
 import { BackIcon } from '@exponent/react-native-navigator/ExNavigatorIcons';
 import Animations from './Animations';
-const {TouchableOpacity, StyleSheet, View, Text} = React;
+const {TouchableOpacity, Navigator, StyleSheet, View, Text} = React;
 import ReactRouter from './ReactRouter';
 import Actions from './Actions';
 import debug from './debug';
@@ -28,6 +28,15 @@ export class ExRouteAdapter {
         }
         this.props = props;
         this.renderScene = this.renderScene.bind(this);
+        if (this.route.props.renderRightButton){
+            this.renderRightButton = this.route.props.renderRightButton.bind(this.route);
+        }
+        if (this.route.props.renderTitle){
+            this.renderTitle = this.route.props.renderTitle.bind(this.route);
+        }
+        if (this.route.props.renderLeftButton){
+            this.renderLeftButton = this.route.props.renderLeftButton.bind(this.route);
+        }
     }
 
     configureScene() {
@@ -35,7 +44,7 @@ export class ExRouteAdapter {
     }
 
     renderScene(navigator) {
-        debug("RENDER SCENE:", this.route.name, Object.keys(this.route.props));
+        debug("RENDER SCENE:"+ this.route.name + " TITLE:"+this.route.title);
         const Component = this.route.component;
         const child = Component ?
             !this.route.wrapRouter ? <Component key={this.route.name} name={this.route.name} {...this.route.props} {...this.props} route={this.route}/>:
@@ -52,6 +61,7 @@ export class ExRouteAdapter {
     }
 
     getTitle() {
+        debug("TITLE ="+this.route.title+" for route="+this.route.name);
         return this.route.title || "";
     }
 
@@ -63,10 +73,7 @@ export class ExRouteAdapter {
     }
 
     renderLeftButton(navigator, index, state){
-        if (this.route.props.renderLeftButton){
-            return this.route.props.renderLeftButton(this.route, navigator, index, state)
-        }
-        if (index === 0) {
+        if (index === 0 || index < navigator.getCurrentRoutes().length-1) {
             return null;
         }
 
@@ -117,11 +124,25 @@ export class ExRouteAdapter {
                 <Text style={[ExNavigator.Styles.barRightButtonText, this.route.props.rightButtonTextStyle]}>{this.route.props.rightTitle}</Text>
             </TouchableOpacity>);
         } else {
-            if (this.route.props.renderRightButton){
-                return this.route.props.renderRightButton(this.route, navigator, index, state)
-            }
             return null;
         }
+    }
+}
+
+class ExNavigationBar extends Navigator.NavigationBar {
+    constructor(props){
+        super(props);
+        this.state = {};
+    }
+    render(){
+        const route = this.props.router.nextRoute || this.props.router.currentRoute;
+        if (route.props.hideNavBar === false){
+            return super.render();
+        }
+        if (this.props.router.props.hideNavBar){
+            return null;
+        }
+        return super.render();
     }
 }
 
@@ -146,6 +167,7 @@ export default class ExRouter extends React.Component {
             }
         }
         this.refs.nav.push(new ExRouteAdapter(route, props));
+        debug("PUSHED TO:"+route.name);
         return true;
     }
 
@@ -209,7 +231,7 @@ export default class ExRouter extends React.Component {
                 <ExNavigator ref="nav" initialRouteStack={router.stack.map(route => new ExRouteAdapter(router.routes[route]))}
                          style={styles.transparent}
                          sceneStyle={{ paddingTop: 0 }}
-                         showNavigationBar={!this.props.hideNavBar}
+                         renderNavigationBar={props=><ExNavigationBar {...props} router={router}/>}
                     {...this.props}
                 />
                 {footer}
