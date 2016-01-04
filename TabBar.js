@@ -21,7 +21,7 @@ export default class TabBar extends React.Component {
         let selected = false;
         var children = [];
         React.Children.forEach(this.props.children, function(el, index){
-            const schema = self.props.schemas && el.props.schema && self.props.schemas[el.props.schema] ? self.props.schemas[el.props.schema] : {};
+            const schema = self.props.router && self.props.router.schemas[el.props.schema] ? self.props.router.schemas[el.props.schema] : {};
             let props = {...schema, ...el.props};
             if (!el.props.name)
                 console.error("No name is defined for element");

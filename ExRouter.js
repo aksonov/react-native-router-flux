@@ -31,7 +31,6 @@ export class ExRoute {
     }
 
     renderScene(navigator) {
-        console.log("RENDER SCENE:"+this.route.name);
         const Component = this.route.component;
         const child = Component ?
             !this.route.wrapRouter ? <Component key={this.route.name} name={this.route.name} {...this.route.props} {...this.props} route={this.route}/>:
@@ -90,16 +89,34 @@ export default class ExRouter extends React.Component {
     }
 
     onPush(route: Route, props:{ [key: string]: any}):boolean {
+        if (this.props.onPush){
+            const res = this.props.onPush(route, props);
+            if (!res){
+                return false;
+            }
+        }
         this.refs.nav.push(new ExRoute(route, props));
         return true;
     }
 
     onReplace(route: Route, props:{ [key: string]: any}):boolean {
+        if (this.props.onReplace){
+            const res = this.props.onReplace(route, props);
+            if (!res){
+                return false;
+            }
+        }
         this.refs.nav.replace(new ExRoute(route, props));
         return true;
     }
 
     onJump(route: Route, props:{ [key: string]: any}):boolean {
+        if (this.props.onJump){
+            const res = this.props.onJump(route, props);
+            if (!res){
+                return false;
+            }
+        }
         const navigator = this.refs.nav;
         const routes = navigator.getCurrentRoutes();
         const exist = routes.filter(el=>el.getName()==route.name);
@@ -114,14 +131,21 @@ export default class ExRouter extends React.Component {
     }
 
     onPop(num: number){
+        if (this.props.onPop){
+            const res = this.props.onPop(num);
+            if (!res){
+                return false;
+            }
+        }
         this.refs.nav.pop();
         return true;
     }
 
     render() {
         const router = this.props.router;
-        console.log("RE-RENDER selected",router.name,this.state && this.state.selected);
-
+        if (!router){
+            throw new Error("No router is defined");
+        }
         const Header = this.props.header;
         const header = Header ? <Header {...this.props} {...this.state}/> : null;
 
