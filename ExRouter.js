@@ -155,6 +155,7 @@ export default class ExRouter extends React.Component {
         this.onPush = this.onPush.bind(this);
         this.onPop = this.onPop.bind(this);
         this.onPush = this.onPush.bind(this);
+        this.onReset = this.onReset.bind(this);
         this.onReplace = this.onReplace.bind(this);
         this.onJump = this.onJump.bind(this);
     }
@@ -179,6 +180,22 @@ export default class ExRouter extends React.Component {
             }
         }
         this.refs.nav.replace(new ExRouteAdapter(route, props));
+        return true;
+    }
+
+    /***
+     * Reset every scene with an array of routes
+     * @param route defined route
+     */
+
+     onReset(route: Route, props:{ [key: string]: any}):boolean {
+        if (this.props.onReset){
+            const res = this.props.onReset(route, props);
+            if (!res){
+                return false;
+            }
+        }
+        this.refs.nav.immediatelyResetRouteStack([new ExRouteAdapter(route, props)]);
         return true;
     }
 
