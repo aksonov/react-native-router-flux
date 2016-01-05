@@ -20,6 +20,9 @@ export class RouterDelegate {
     onReplace(name:string, props:{ [key: string]: any}):boolean {
         return true;
     }
+    onReset(name:string, props:{ [key: string]: any}):boolean {
+        return true;
+    }
     onSwitch(name:string, props:{ [key: string]: any}):boolean {
         return true;
     }
@@ -165,6 +168,13 @@ export default class Router {
 
     _replace(name:string, props:{ [key: string]: any} ) {
         this._stack[this._stack.length - 1] = name;
+    }
+    /***
+     * Reset every scene with an array of routes
+     * @param route defined route
+     */
+    _reset(name:string, props:{ [key: string]: any} ) {
+        this._stack = [name];
     }
 
     _jump(name:string, props:{ [key: string]: any} ) {
