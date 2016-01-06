@@ -48,12 +48,25 @@ export class ExRouteAdapter {
         const Component = this.route.component;
         const child = Component ?
             !this.route.wrapRouter ? <Component key={this.route.name} name={this.route.name} {...this.route.props} {...this.props} route={this.route}/>:
-                <ReactRouter name={this.route.name+"Router"} {...this.route.props} {...this.props} route={this.route} router={ExRouter} >
-                    <Components.Route {...this.route.props}  {...this.props} component={Component} name={"_"+this.route.name} type="push" wrapRouter={false}/>
+                <ReactRouter name={this.route.name+"Router"} {...this.route.props} {...this.props} route={this.route} router={ExRouter}  initial={"_"+this.route.name} footer={null} header={null}>
+                    <Components.Route {...this.route.props}  {...this.props} component={Component} name={"_"+this.route.name} type="push" wrapRouter={false} initial={true}/>
                 </ReactRouter>
             :
             React.cloneElement(React.Children.only(this.route.children), {...this.route.props, data:this.props, route:this.route});
-        return child;
+
+        const Header = this.route.props.header;
+        const header = Header ? <Header {...this.route.props} {...this.props}/> : null;
+
+        const Footer = this.route.props.footer;
+        const footer = Footer ? <Footer {...this.route.props} {...this.props}/> : null;
+
+        return (
+            <View style={styles.transparent}>
+                {header}
+                {child}
+                {footer}
+            </View>
+        );
     }
 
     getName(){
@@ -240,7 +253,9 @@ export default class ExRouter extends React.Component {
 
         const Footer = this.props.footer;
         const footer = Footer ? <Footer {...this.props} {...this.state}/> : null;
-        debug("RENDER ROUTER:", router.name, Object.keys(this.props), Object.keys(this.state || {}));
+        debug("RENDER ROUTER:",router.name);
+        debug(Object.keys(router.routes));
+        debug(router.stack);
 
         return (
             <View style={styles.transparent}>

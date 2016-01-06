@@ -83,11 +83,12 @@ export default class Router {
 
 
         schemas.forEach(el=>this._addSchema(el.name, el));
-        routes.forEach(el=>this._addRoute(el.name, el));
+        let selected = null;
+        routes.forEach(el=>{if (el.initial) selected = el.name;this._addRoute(el.name, el)});
 
         // select first one as initial
         if (!stack || !stack.length){
-            stack = [routes[0].name];
+            stack = [selected || routes[0].name];
         }
         this.stack = stack;
         // add actions
