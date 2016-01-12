@@ -115,7 +115,7 @@ export class ExRouteAdapter {
                     style={[
             ExNavigatorStyles.barButtonText,
             ExNavigatorStyles.barBackButtonText,
-            this._barButtonTextStyle,
+            navigator.props.barButtonTextStyle,
           ]}
                 >
                     {title}
@@ -130,7 +130,7 @@ export class ExRouteAdapter {
                 <BackIcon
                     style={[
             ExNavigatorStyles.barButtonIcon,
-            this._barButtonIconStyle,
+            navigator.props.barButtonIconStyle,
           ]}
                 />
                 {buttonText}
