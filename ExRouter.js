@@ -54,10 +54,10 @@ export class ExRouteAdapter {
             :
             React.cloneElement(React.Children.only(this.route.children), {...this.route.props, data:this.props, route:this.route});
 
-        const Header = this.route.props.header;
+        const Header = this.route.header;
         const header = Header ? <Header {...this.route.props} {...this.props}/> : null;
 
-        const Footer = this.route.props.footer;
+        const Footer = this.route.footer;
         const footer = Footer ? <Footer {...this.route.props} {...this.props}/> : null;
 
         return (
@@ -263,7 +263,7 @@ export default class ExRouter extends React.Component {
                 <ExNavigator ref="nav" initialRouteStack={router.stack.map(route => new ExRouteAdapter(router.routes[route]))}
                          style={styles.transparent}
                          sceneStyle={{ paddingTop: 0 }}
-                         renderNavigationBar={props=><ExNavigationBar {...props} router={router} navigationStyles={Navigator.NavigationBar.StylesIOS}/>}
+                         renderNavigationBar={props=><ExNavigationBar {...props} router={router}/>}
                     {...this.props}
                 />
                 {footer}

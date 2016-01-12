@@ -19,6 +19,12 @@ class TabIcon extends React.Component {
     }
 }
 
+class Header extends React.Component {
+    render(){
+        return <Text>Header</Text>
+    }
+}
+
 export default class Example extends React.Component {
     render() {
         return (
@@ -51,7 +57,7 @@ export default class Example extends React.Component {
                         <Route name="tab5" schema="tab" title="Tab #5" component={TabView} />
                     </Router>
                 </Route>
-                <Route name="launch" component={Launch} wrapRouter={true} title="Launch" hideNavBar={true} initial={true}/>
+                <Route name="launch" header={Header} component={Launch} wrapRouter={true} title="Launch" hideNavBar={true} initial={true}/>
             </Router>
         );
     }
