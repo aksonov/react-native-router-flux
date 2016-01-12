@@ -152,7 +152,7 @@ class ExNavigationBar extends Navigator.NavigationBar {
         if (route.props.hideNavBar === false){
             return super.render();
         }
-        if (this.props.router.props.hideNavBar){
+        if (this.props.router.props.hideNavBar || route.props.hideNavBar){
             return null;
         }
         return super.render();

@@ -9,6 +9,7 @@
 
 import Route from './Route';
 import Actions from './Actions';
+import debug from './debug';
 
 export class RouterDelegate {
     onPush(name:string, props:{ [key: string]: any}):boolean {
@@ -34,6 +35,7 @@ export default class Router {
     schemas: {[key: string]: {[key:string]:any } };
     props: { [key: string]: any};
     parentRoute: ?Route;
+    nextRoute: ?Route;
     _stack: Array<string>;
     delegate:RouterDelegate;
 
@@ -65,6 +67,8 @@ export default class Router {
                 stack:Array<string> = null, props:{ [key: string]: any} = {}){
         this.schemas = {};
         this.routes = {};
+        this.pop = this.pop.bind(this);
+        this.route = this.route.bind(this);
         this.delegate = new RouterDelegate();
         if (!routes || !routes.length){
             throw new Error("routes is not defined");
@@ -147,10 +151,11 @@ export default class Router {
         if (!this["_"+action]){
             throw new Error("No type="+action+" is supported");
         }
+        this.nextRoute = this.routes[name];
 
         const handler = "on"+capitalizeFirstLetter(action);
         if (this.delegate[handler]) {
-            console.log("Run handler "+handler);
+            debug("Run handler "+handler);
             const res:boolean = this.delegate[handler](this.routes[name], props);
             if (!res) {
                 console.log("Ignore push, handler returns false");
@@ -193,6 +198,7 @@ export default class Router {
         if (this._stack.length <= num){
             throw new Error("Cannot pop(), stack=["+this._stack+"]");
         }
+        this.nextRoute = null;
         if (this.delegate.onPop && this.delegate.onPop(num)){
             const routes = this._stack.splice(-num, num);
             return true;
