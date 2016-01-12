@@ -46,7 +46,7 @@ export default class Example extends React.Component {
                 <Route name="tabbar">
                     <Router footer={TabBar} showNavigationBar={false}>
                         <Route name="tab1" schema="tab" title="Tab #1" >
-                            <Router>
+                            <Router onPop={()=>{console.log("onPop is called!"); return true} }>
                                 <Route name="tab1_1" component={TabView} title="Tab #1_1" />
                                 <Route name="tab1_2" component={TabView} title="Tab #1_2" />
                             </Router>
