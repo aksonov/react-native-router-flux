@@ -19,6 +19,12 @@ class TabIcon extends React.Component {
     }
 }
 
+class Header extends React.Component {
+    render(){
+        return <Text>Header</Text>
+    }
+}
+
 export default class Example extends React.Component {
     render() {
         return (
@@ -31,16 +37,16 @@ export default class Example extends React.Component {
                 <Route name="register" component={Register} title="Register"/>
                 <Route name="home" component={Home} title="Replace" type="replace"/>
                 <Route name="login" schema="modal">
-                    <Router>
+                    <Router name="loginRouter">
                         <Route name="loginModal" component={Login} title="Login" schema="modal"/>
-                        <Route name="loginModal2" component={Login2} title="Login2"/>
+                        <Route name="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
                     </Router>
                 </Route>
                 <Route name="register2" component={Register} title="Register2"  schema="withoutAnimation"/>
                 <Route name="tabbar">
                     <Router footer={TabBar} showNavigationBar={false}>
                         <Route name="tab1" schema="tab" title="Tab #1" >
-                            <Router>
+                            <Router onPop={()=>{console.log("onPop is called!"); return true} }>
                                 <Route name="tab1_1" component={TabView} title="Tab #1_1" />
                                 <Route name="tab1_2" component={TabView} title="Tab #1_2" />
                             </Router>
@@ -51,7 +57,7 @@ export default class Example extends React.Component {
                         <Route name="tab5" schema="tab" title="Tab #5" component={TabView} />
                     </Router>
                 </Route>
-                <Route name="launch" component={Launch} wrapRouter={true} title="Launch" hideNavBar={true} initial={true}/>
+                <Route name="launch" header={Header} component={Launch} wrapRouter={true} title="Launch" hideNavBar={true} initial={true}/>
             </Router>
         );
     }
