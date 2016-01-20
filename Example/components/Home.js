@@ -5,7 +5,7 @@ var {View, Text, StyleSheet} = React;
 var Button = require('react-native-button');
 var Actions = require('react-native-router-flux').Actions;
 
-class Register extends React.Component {
+class Home extends React.Component {
     render(){
         return (
             <View style={styles.container}>
@@ -35,4 +35,4 @@ var styles = StyleSheet.create({
     },
 });
 
-module.exports = Register;
+module.exports = Home;
