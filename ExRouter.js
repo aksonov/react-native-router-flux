@@ -202,6 +202,7 @@ export default class ExRouter extends React.Component {
                 return false;
             }
         }
+        this.refs.nav.popToTop();
         this.refs.nav.replace(new ExRouteAdapter(route, props));
         return true;
     }
