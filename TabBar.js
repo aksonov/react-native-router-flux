@@ -59,7 +59,7 @@ export default class TabBar extends React.Component {
             return <View/>
         }
         return (
-            <Tabs style={{backgroundColor:'white'}} onSelect={this.onSelect.bind(this)} {...this.props}>
+            <Tabs style={[{backgroundColor:'white'}, this.props.style]} onSelect={this.onSelect.bind(this)} {...this.props}>
                 {this.state.children}
             </Tabs>
         );
