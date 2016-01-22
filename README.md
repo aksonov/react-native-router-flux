@@ -38,7 +38,7 @@ npm i react-native-router-flux --save
 |-----------|--------|---------|--------------------------------------------|
 | name | string | required | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
 | component | React.Component | semi-required | The `Component` to be displayed. Not required when defining a nested `Router` or child, see example |
-| type | string | optional | Defines how the new screen is added to the navigator stack. One of `push`, `replace`, `switch`.  Default is 'push'. `replace` tells navigator to replace current route with new route. `switch` is used for tab screens. |
+| type | string | optional | Defines how the new screen is added to the navigator stack. One of `push`, `replace`, `switch`, `reset`.  Default is 'push'. `replace` tells navigator to replace current route with new route. `switch` is used for tab screens. `reset` is similar to replace except it unmounts the componets in the navigator stack. |
 | initial | bool | false | Set to `true` if this is the initial screen |
 | title | string | null | The title to be displayed in the navigation bar |
 | schema | string | optional | Set this property to the name of a previously defined `Schema` to inherit its properties |
@@ -95,7 +95,7 @@ export default class Example extends React.Component {
                 </Route>
                 <Route name="register2" component={Register} title="Register2"  schema="withoutAnimation"/>
                 <Route name="tabbar">
-                    <Router footer={TabBar} showNavigationBar={false}>
+                    <Router footer={TabBar} showNavigationBar={false} tabBarStyle={{borderTopColor:'#00bb00',borderTopWidth:1,backgroundColor:'white'}}>
                         <Route name="tab1" schema="tab" title="Tab #1" >
                             <Router>
                                 <Route name="tab1_1" component={TabView} title="Tab #1_1" />

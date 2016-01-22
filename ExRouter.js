@@ -86,6 +86,16 @@ export class ExRouteAdapter {
     }
 
     renderLeftButton(navigator, index, state){
+        if (this.route.props.onLeft && this.route.props.leftTitle) {
+            return (<TouchableOpacity
+              touchRetentionOffset={ExNavigator.Styles.barButtonTouchRetentionOffset}
+              onPress={() => this.route.props.onLeft({...this.route.props, ...this.props})}
+              style={[ExNavigator.Styles.barLeftButton, this.route.props.leftButtonStyle]}>
+                <Text
+                  style={[ExNavigator.Styles.barLeftButtonText, this.route.props.leftButtonTextStyle]}>{this.route.props.leftTitle}</Text>
+            </TouchableOpacity>);
+        }
+        
         if (index === 0 || index < navigator.getCurrentRoutes().length-1) {
             return null;
         }
@@ -105,7 +115,7 @@ export class ExRouteAdapter {
                     style={[
             ExNavigatorStyles.barButtonText,
             ExNavigatorStyles.barBackButtonText,
-            this._barButtonTextStyle,
+            navigator.props.barButtonTextStyle,
           ]}
                 >
                     {title}
@@ -120,7 +130,7 @@ export class ExRouteAdapter {
                 <BackIcon
                     style={[
             ExNavigatorStyles.barButtonIcon,
-            this._barButtonIconStyle,
+            navigator.props.barButtonIconStyle,
           ]}
                 />
                 {buttonText}
@@ -263,7 +273,7 @@ export default class ExRouter extends React.Component {
                 <ExNavigator ref="nav" initialRouteStack={router.stack.map(route => new ExRouteAdapter(router.routes[route]))}
                          style={styles.transparent}
                          sceneStyle={{ paddingTop: 0 }}
-                         renderNavigationBar={props=><ExNavigationBar {...props} router={router}/>}
+                         renderNavigationBar={props=><ExNavigationBar navigationStyles={Navigator.NavigationBar.StylesIOS} {...props} router={router}/>}
                     {...this.props}
                 />
                 {footer}

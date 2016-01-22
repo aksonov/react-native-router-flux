@@ -42,13 +42,13 @@ class Actions {
         // check if route is in children, current or parent routers
         let router: Router = this.currentRouter;
 
-        debug("Route to "+name+" current router="+this.currentRouter.name+ " current route="+this.currentRouter.currentRoute.name);
         // deep into child router
-
         while (router.currentRoute.childRouter){
             router = router.currentRoute.childRouter;
             debug("Switching to child router="+router.name);
         }
+
+        debug("Route to "+name+" current router="+this.currentRouter.name+ " current route="+this.currentRouter.currentRoute.name);
         while (!router.routes[name]){
             const route = router.parentRoute;
             if (!route || !route.parent){
@@ -58,6 +58,13 @@ class Actions {
             debug("Switching to router="+router.name);
         }
         if (router.route(name, props)){
+            
+            // deep into child router
+            while (router.currentRoute.childRouter){
+                router = router.currentRoute.childRouter;
+                debug("Switching to child router="+router.name);
+            }
+
             this.currentRouter = router;
             return true;
         }
