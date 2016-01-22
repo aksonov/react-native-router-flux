@@ -79,7 +79,7 @@ class Actions {
         }
         if (num > 1){
             for (let i=0;i<num;i++){
-                if (!Actions.pop()){
+                if (!this.pop()){
                     return false;
                 }
             }
