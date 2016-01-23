@@ -51,7 +51,12 @@ export default class Example extends React.Component {
                                 <Route name="tab1_2" component={TabView} title="Tab #1_2" />
                             </Router>
                         </Route>
-                        <Route name="tab2" schema="tab" title="Tab #2" hideTabBar={true} component={TabView} />
+                        <Route name="tab2" schema="tab" title="Tab #2" >
+                            <Router onPop={()=>{console.log("onPop is called!"); return true} }>
+                                <Route name="tab2_1" component={TabView} title="Tab #2_1" />
+                                <Route name="tab2_2" component={TabView} title="Tab #2_2" />
+                            </Router>
+                        </Route>
                         <Route name="tab3" schema="tab" title="Tab #3" component={TabView} />
                         <Route name="tab4" schema="tab" title="Tab #4" component={TabView} />
                         <Route name="tab5" schema="tab" title="Tab #5" component={TabView} />
