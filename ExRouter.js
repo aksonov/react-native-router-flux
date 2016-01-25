@@ -46,7 +46,6 @@ export class ExRouteAdapter {
     }
 
     renderScene(navigator) {
-        console.log("PROPS:"+this.props);
         const Component = this.route.component;
         const child = Component ?
             !this.route.wrapRouter ? <Component key={this.route.name} name={this.route.name} {...this.route.props} {...this.props} route={this.route}/>:
