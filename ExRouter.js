@@ -181,6 +181,7 @@ export default class ExRouter extends React.Component {
         this.onReset = this.onReset.bind(this);
         this.onReplace = this.onReplace.bind(this);
         this.onJump = this.onJump.bind(this);
+        this.state = {};
     }
 
     onPush(route: Route, props:{ [key: string]: any}):boolean {
@@ -253,6 +254,16 @@ export default class ExRouter extends React.Component {
         return true;
     }
 
+    onModal(route: Route, props:{ [key: string]: any}):boolean {
+        let element = React.createElement(route.component, Object.assign({}, route.props, props));
+        this.setState({modal: element});
+        return true;
+    }
+
+    onDismiss(){
+        this.setState({modal: null});
+    }
+
     render() {
         const router = this.props.router;
         if (!router){
@@ -277,6 +288,7 @@ export default class ExRouter extends React.Component {
                     {...this.props}
                 />
                 {footer}
+                {this.state.modal}
             </View>
         );
     }

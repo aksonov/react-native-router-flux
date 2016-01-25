@@ -130,6 +130,7 @@ export default class Router {
     _addActions(){
         if (!Actions.currentRouter){
             Actions.currentRouter = this;
+            debug("Set current router:"+this.name);
         }
         Object.keys(this.routes).forEach(name=>{
             if (!Actions[name]){
@@ -158,7 +159,7 @@ export default class Router {
             debug("Run handler "+handler);
             const res:boolean = this.delegate[handler](this.routes[name], props);
             if (!res) {
-                console.log("Ignore push, handler returns false");
+                console.log("Ignore "+action+", handler returns false");
                 return false;
             }
         } else {
@@ -166,6 +167,9 @@ export default class Router {
         }
         this["_"+action](name, props);
         return true;
+    }
+
+    _modal(name:string, props:{ [key: string]: any} ) {
     }
 
     _push(name:string, props:{ [key: string]: any} ){
@@ -205,6 +209,12 @@ export default class Router {
         }
         return false;
     }
+
+    dismiss() {
+        return this.delegate.onDismiss && this.delegate.onDismiss();
+    }
+
+
 }
 
 function capitalizeFirstLetter(string) {

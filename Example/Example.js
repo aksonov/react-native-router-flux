@@ -28,7 +28,7 @@ class Header extends React.Component {
 export default class Example extends React.Component {
     render() {
         return (
-            <Router hideNavBar={true} >
+            <Router hideNavBar={true} name="root">
                 <Schema name="modal" sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
                 <Schema name="default" sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
                 <Schema name="withoutAnimation"/>
@@ -43,6 +43,7 @@ export default class Example extends React.Component {
                     </Router>
                 </Route>
                 <Route name="register2" component={Register} title="Register2"  schema="withoutAnimation"/>
+                <Route name="error" type="modal" component={Error}/>
                 <Route name="tabbar">
                     <Router footer={TabBar} showNavigationBar={false}>
                         <Route name="tab1" schema="tab" title="Tab #1" >

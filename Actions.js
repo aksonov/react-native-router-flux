@@ -29,6 +29,7 @@ class Actions {
     constructor(){
         this.pop = this.pop.bind(this);
         this.route = this.route.bind(this);
+        this.dismiss = this.dismiss.bind(this);
     }
 
     route(name: string, props: { [key: string]: any} = {}){
@@ -69,6 +70,15 @@ class Actions {
             return true;
         }
         return false;
+    }
+    dismiss(){
+        let router: Router = this.currentRouter;
+        // go to root router
+        while (router.parentRoute){
+            router = router.parentRoute.parent;
+            debug("Switching to parent router="+router.name);
+        }
+        return router.dismiss();
     }
     pop(num: number = 1){
         if (!isNumeric(num)){

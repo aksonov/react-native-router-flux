@@ -13,6 +13,7 @@ class Launch extends React.Component {
                 <Button onPress={()=>Actions.login({data:"Custom data", title:'Custom title' })}>Go to Login page</Button>
                 <Button onPress={Actions.register}>Go to Register page</Button>
                 <Button onPress={Actions.register2}>Go to Register page without animation</Button>
+                <Button onPress={()=>Actions.error("Error message")}>Popup error</Button>
                 <Button onPress={Actions.tabbar}>Go to TabBar page</Button>
             </View>
         );
