@@ -109,21 +109,21 @@ export default class Router {
         this.schemas[name] = props;
     }
 
-    _addRoute(name: string, props:{ [key: string]: any}){
-        if (!name){
+    _addRoute(routeName: string, props:{ [key: string]: any}){
+        if (!routeName){
             throw new Error("Route name is not defined");
         }
         const schemaName: string = props.schema || 'default';
         const schema = this.schemas[schemaName] || {};
         // pass router data to inner routes
-        const {children, data, ...routerProps}  = this.props;
-        const routeProps = Object.assign({}, data, schema, props);
+        const {children, name, header, footer, showNavigationBar, route, component, hideNavBar, sceneConfig, type, ...routerProps}  = this.props;
+        const routeProps = Object.assign({}, schema, routerProps, props);
 
-        if (this.routes[name]){
-            throw new Error("Route="+name+" is not unique!");
+        if (this.routes[routeName]){
+            throw new Error("Route="+routeName+" is not unique!");
         }
 
-        this.routes[name] = new Route(routeProps, this);
+        this.routes[routeName] = new Route(routeProps, this);
 
     }
 
@@ -137,8 +137,6 @@ export default class Router {
                 Actions[name] = function(data){
                     return Actions.route(name, data);
                 }
-            } else {
-                throw new Error("Action = "+name+" is not unique!");
             }
         });
     }

@@ -24,10 +24,11 @@ export class ExRouteAdapter {
         }
         this.route = route;
         this.name = route.name;
+        this.title = props.title || route.title;
         if (!this.name){
             throw new Error("name is not defined for route");
         }
-        this.props = props;
+        this.props = props || {};
         this.renderScene = this.renderScene.bind(this);
         if (this.route.props.renderRightButton){
             this.renderRightButton = this.route.props.renderRightButton.bind(this.route);
@@ -45,7 +46,7 @@ export class ExRouteAdapter {
     }
 
     renderScene(navigator) {
-        debug("RENDER SCENE:"+ this.route.name + " TITLE:"+this.route.title+" NAVBAR"+this.route.props.hideNavBar+" IS COMPONENT:"+(this.route.component!=null)+" TYPE:"+this.route.type);
+        console.log("PROPS:"+this.props);
         const Component = this.route.component;
         const child = Component ?
             !this.route.wrapRouter ? <Component key={this.route.name} name={this.route.name} {...this.route.props} {...this.props} route={this.route}/>:
@@ -53,7 +54,7 @@ export class ExRouteAdapter {
                     <Components.Route {...this.route.props}  {...this.props} component={Component} name={"_"+this.route.name} type="push" wrapRouter={false} initial={true}/>
                 </ReactRouter>
             :
-            React.cloneElement(React.Children.only(this.route.children), {...this.route.props, data:this.props, route:this.route});
+            React.cloneElement(React.Children.only(this.route.children), {...this.route.props, ...this.props, route:this.route});
 
         const Header = this.route.header;
         const header = Header ? <Header {...this.route.props} {...this.props}/> : null;
@@ -76,14 +77,15 @@ export class ExRouteAdapter {
 
     getTitle() {
         debug("TITLE ="+this.route.title+" for route="+this.route.name);
-        return this.route.title || "";
+        return this.title || "";
     }
 
     getBackButtonTitle(navigator, index, state){
         let previousIndex = index - 1;
         let previousRoute = state.routeStack[previousIndex];
         let title = previousRoute.getTitle(navigator, previousIndex, state);
-        return title.length>10 ? null : title;
+        const res = title.length>10 ? null : title;
+        return this.route.props.leftTitle || res;
     }
 
     renderLeftButton(navigator, index, state){

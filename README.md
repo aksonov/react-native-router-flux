@@ -168,7 +168,6 @@ you might write:
 
 ## Limitations
 ### Nested Routers
-* Although you can pass data into a `Route` (e.g. `Actions.login({user_id: '3'})`), this is currently not working for `Route` inside of a nested `Router`.
 * If you are using a tab bar where each tab has its own `Router`, modal screens will have to be presented from the root navigator in order to cover the tab bar. To do this, the modal screen should be defined in the root router, and should have the `wrapRouter={true}` property as in the example below.
 ```
         <Router>

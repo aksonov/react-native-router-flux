@@ -38,7 +38,7 @@ export default class Example extends React.Component {
                 <Route name="home" component={Home} title="Replace" type="replace"/>
                 <Route name="login" schema="modal">
                     <Router name="loginRouter">
-                        <Route name="loginModal" component={Login} title="Login" schema="modal"/>
+                        <Route name="loginModal" component={Login} schema="modal"/>
                         <Route name="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
                     </Router>
                 </Route>
