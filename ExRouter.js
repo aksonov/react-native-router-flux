@@ -18,6 +18,7 @@ export class ExRouteAdapter {
     props: { [key: string]: any};
 
     constructor(route: Route, props:{ [key: string]: any} = {}){
+        debug("ExRouter constructor"+props.schema);
         if (!route){
             throw new Error("route is not defined ");
         }
@@ -40,11 +41,11 @@ export class ExRouteAdapter {
     }
 
     configureScene() {
-        return this.route.type === 'switch' ? Animations.None : this.route.props.sceneConfig || Animations.None;
+        return this.route.props.sceneConfig || Animations.None;
     }
 
     renderScene(navigator) {
-        debug("RENDER SCENE:"+ this.route.name + " TITLE:"+this.route.title);
+        debug("RENDER SCENE:"+ this.route.name + " TITLE:"+this.route.title+" NAVBAR"+this.route.props.hideNavBar+" IS COMPONENT:"+(this.route.component!=null)+" TYPE:"+this.route.type);
         const Component = this.route.component;
         const child = Component ?
             !this.route.wrapRouter ? <Component key={this.route.name} name={this.route.name} {...this.route.props} {...this.props} route={this.route}/>:

@@ -38,11 +38,11 @@ npm i react-native-router-flux --save
 |-----------|--------|---------|--------------------------------------------|
 | name | string | required | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
 | component | React.Component | semi-required | The `Component` to be displayed. Not required when defining a nested `Router` or child, see example |
-| type | string | optional | Defines how the new screen is added to the navigator stack. One of `push`, `replace`, `switch`, `reset`.  Default is 'push'. `replace` tells navigator to replace current route with new route. `switch` is used for tab screens. `reset` is similar to replace except it unmounts the componets in the navigator stack. |
+| type | string | optional | Defines how the new screen is added to the navigator stack. One of `push`, `modal`,`replace`, `switch`, `reset`.  Default is 'push'. `replace` tells navigator to replace current route with new route. `modal` type inserts its 'component' after navigator component. It could be used for popup alerts as well for various needed processes before any navigator transitions (like login auth process).``switch` is used for tab screens. `reset` is similar to replace except it unmounts the componets in the navigator stack. `modal` component could be dismissed by using Actions.dismiss() |
 | initial | bool | false | Set to `true` if this is the initial screen |
 | title | string | null | The title to be displayed in the navigation bar |
 | schema | string | optional | Set this property to the name of a previously defined `Schema` to inherit its properties |
-| wrapRouter | bool | false | If `true`, the route is automatically nested in its own `Router`. Useful for modal screens. |
+| wrapRouter | bool | false | If `true`, the route is automatically nested in its own `Router`. Useful for modal screens. For type==switch wrapRouter will be true|
 | sceneConfig | Navigator.SceneConfigs | optional | Defines the transition animation.  |
 
 ##### Schema:
@@ -93,6 +93,7 @@ export default class Example extends React.Component {
                         <Route name="loginModal2" component={Login2} title="Login2"/>
                     </Router>
                 </Route>
+                <Route name="error" component={Error} title="Error"  type="modal"/>
                 <Route name="register2" component={Register} title="Register2"  schema="withoutAnimation"/>
                 <Route name="tabbar">
                     <Router footer={TabBar} showNavigationBar={false} tabBarStyle={{borderTopColor:'#00bb00',borderTopWidth:1,backgroundColor:'white'}}>
@@ -128,6 +129,7 @@ class Launch extends React.Component {
                 <Button onPress={()=>Actions.login({data:"Custom data", title:'Custom title' })}>Go to Login page</Button>
                 <Button onPress={Actions.register}>Go to Register page</Button>
                 <Button onPress={Actions.register2}>Go to Register page without animation</Button>
+                <Button onPress={Actions.error('error message')}>Show error popup</Button>
                 <Button onPress={Actions.tabbar}>Go to TabBar page</Button>
             </View>
         );
@@ -166,7 +168,6 @@ you might write:
 
 ## Limitations
 ### Nested Routers
-* Showing and hiding navigation bars and tab bars is only possible on the root `Router`. For example, if you have a tab bar where each tab has its own `Router`, it would not be possible for to show the navigation bar on tab 1, and then push another screen onto the child navigator without the navigation bar shown. In order to get this behavior you will have to manage your own navigation bar component. 
 * Although you can pass data into a `Route` (e.g. `Actions.login({user_id: '3'})`), this is currently not working for `Route` inside of a nested `Router`.
 * If you are using a tab bar where each tab has its own `Router`, modal screens will have to be presented from the root navigator in order to cover the tab bar. To do this, the modal screen should be defined in the root router, and should have the `wrapRouter={true}` property as in the example below.
 ```

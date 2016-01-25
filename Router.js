@@ -137,6 +137,8 @@ export default class Router {
                 Actions[name] = function(data){
                     return Actions.route(name, data);
                 }
+            } else {
+                throw new Error("Action = "+name+" is not unique!");
             }
         });
     }
