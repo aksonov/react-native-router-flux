@@ -99,8 +99,12 @@ class Actions {
             debug("Pop, router="+router.name+" stack length:"+router.stack.length);
             debug("Current route="+router.currentRoute.name+" type="+router.currentRoute.type);
             while (router.stack.length <= 1 || router.currentRoute.type === 'switch'){
-                router = router.parentRoute.parent;
-                debug("Switching to parent router="+router.name);
+                if (router.parentRoute) {
+                  router = router.parentRoute.parent;
+                  debug("Switching to parent router="+router.name);
+                } else {
+                  return false;
+                }
             }
             if (router.pop()){
                 this.currentRouter = router;
