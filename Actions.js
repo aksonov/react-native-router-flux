@@ -103,7 +103,7 @@ class Actions {
                   router = router.parentRoute.parent;
                   debug("Switching to parent router="+router.name);
                 } else {
-                  return false;
+                  break;
                 }
             }
             if (router.pop()){
