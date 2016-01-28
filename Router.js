@@ -200,7 +200,7 @@ export default class Router {
 
     pop(num: number = 1){
         if (this._stack.length <= num){
-            throw new Error("Cannot pop(), stack=["+this._stack+"]");
+            return false;
         }
         this.nextRoute = null;
         if (this.delegate.onPop && this.delegate.onPop(num)){
