@@ -145,7 +145,8 @@ export default class Router {
         if (!this.routes[name]){
             throw new Error("No route is defined for name="+name);
         }
-        const action = this.routes[name].type === "switch" ? "jump": this.routes[name].type;
+        const type = props.type ? props.type : this.routes[name].type;
+        const action = type === "switch" ? "jump": type;
         if (!action){
             throw new Error("No type is defined for name="+name);
         }
