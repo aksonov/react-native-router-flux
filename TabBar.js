@@ -11,7 +11,11 @@ export default class TabBar extends React.Component {
         if (!Actions[el.props.name]){
             throw new Error("No action is defined for name="+el.props.name+" actions:"+JSON.stringify(Object.keys(Actions)));
         }
-        Actions[el.props.name]();
+        if (el.props.selected && Actions[el.props.defaultRoute]) {
+          Actions[el.props.defaultRoute]();
+        } else {
+          Actions[el.props.name]();
+        }
         InteractionManager.runAfterInteractions(() =>
             this.setState({hideTabBar: el.props.hideTabBar}));
         return {selected: true};

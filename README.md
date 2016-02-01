@@ -44,6 +44,7 @@ npm i react-native-router-flux --save
 | schema | string | optional | Set this property to the name of a previously defined `Schema` to inherit its properties |
 | wrapRouter | bool | false | If `true`, the route is automatically nested in its own `Router`. Useful for modal screens. For type==switch wrapRouter will be true|
 | sceneConfig | Navigator.SceneConfigs | optional | Defines the transition animation.  |
+| defaultRoute | string | optional | Defines which route to go to if this route is used as a tab and the tab is clicked on when the tab is already selected |
 
 ##### Schema:
 
