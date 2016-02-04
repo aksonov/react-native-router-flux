@@ -47,19 +47,20 @@ export class ExRouteAdapter {
 
     renderScene(navigator) {
         const Component = this.route.component;
+        const {initial, ...routeProps} = this.route.props;
         const child = Component ?
-            !this.route.wrapRouter ? <Component key={this.route.name} name={this.route.name} {...this.route.props} {...this.props} route={this.route}/>:
-                <ReactRouter name={this.route.name+"Router"} {...this.route.props} {...this.props} route={this.route} router={ExRouter}  initial={"_"+this.route.name} footer={null} header={null}>
-                    <Components.Route {...this.route.props}  {...this.props} component={Component} name={"_"+this.route.name} type="push" wrapRouter={false} initial={true}/>
+            !this.route.wrapRouter ? <Component key={this.route.name} name={this.route.name} {...routeProps} {...this.props} route={this.route}/>:
+                <ReactRouter name={this.route.name+"Router"} {...routeProps} {...this.props} route={this.route} router={ExRouter}  initial={"_"+this.route.name} footer={null} header={null}>
+                    <Components.Route {...routeProps}  {...this.props} component={Component} name={"_"+this.route.name} type="push" wrapRouter={false} initial={true}/>
                 </ReactRouter>
             :
-            React.cloneElement(React.Children.only(this.route.children), {...this.route.props, ...this.props, route:this.route});
+            React.cloneElement(React.Children.only(this.route.children), {...routeProps, ...this.props, route:this.route});
 
         const Header = this.route.header;
-        const header = Header ? <Header {...this.route.props} {...this.props}/> : null;
+        const header = Header ? <Header {...routeProps} {...this.props}/> : null;
 
         const Footer = this.route.footer;
-        const footer = Footer ? <Footer {...this.route.props} {...this.props}/> : null;
+        const footer = Footer ? <Footer {...routeProps} {...this.props}/> : null;
 
         return (
             <View style={styles.transparent}>

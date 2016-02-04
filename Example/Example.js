@@ -63,7 +63,7 @@ export default class Example extends React.Component {
                         <Route name="tab5" schema="tab" title="Tab #5" component={TabView} />
                     </Router>
                 </Route>
-                <Route name="launch" header={Header} component={Launch} wrapRouter={true} title="Launch" hideNavBar={true} initial={true}/>
+                <Route name="launch" header={Header} initial={true} component={Launch} wrapRouter={true} title="Launch" hideNavBar={true}/>
             </Router>
         );
     }
