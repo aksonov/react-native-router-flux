@@ -294,7 +294,7 @@ export default class ExRouter extends React.Component {
                 {header}
                 <ExNavigator ref="nav" initialRouteStack={router.stack.map(route => new ExRouteAdapter(router.routes[route]))}
                          style={styles.transparent}
-                         sceneStyle={{ paddingTop: 0 }}
+                         sceneStyle={{ paddingTop: 0, backgroundColor:'transparent' }}
                          renderNavigationBar={props=><ExNavigationBar {...props} router={router}/>}
                     {...this.props}
                 />
