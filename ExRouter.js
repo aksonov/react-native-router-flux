@@ -187,6 +187,12 @@ export default class ExRouter extends React.Component {
         this.state = {};
     }
 
+    componentWillUnmount() {
+        if (this === Actions.currentRouter.delegate) {
+            Actions.currentRouter = null;
+        }
+    }
+
     onPush(route: Route, props:{ [key: string]: any}):boolean {
         if (this.props.onPush){
             const res = this.props.onPush(route, props);
