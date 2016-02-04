@@ -205,7 +205,8 @@ export default class ExRouter extends React.Component {
                 return false;
             }
         }
-        this.refs.nav.replace(new ExRouteAdapter(route, props));
+        this.refs.nav.immediatelyResetRouteStack(this.refs.nav.getCurrentRoutes().splice(-1,1));
+        this.refs.nav.push(new ExRouteAdapter(route, props));
         return true;
     }
 
