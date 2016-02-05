@@ -179,8 +179,6 @@ export default class ExRouter extends React.Component {
         super(props);
         this.onPop = this.onPop.bind(this);
         this.onPush = this.onPush.bind(this);
-        this.onPop = this.onPop.bind(this);
-        this.onPush = this.onPush.bind(this);
         this.onReset = this.onReset.bind(this);
         this.onReplace = this.onReplace.bind(this);
         this.onJump = this.onJump.bind(this);
