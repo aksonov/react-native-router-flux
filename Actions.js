@@ -48,7 +48,7 @@ class Actions {
     dispatchEvent(type :string, router: any) {
         currentStack = router._stack[router._stack.length-1];
         route = router.routes[currentStack];
-        _eventListener[type].forEach(function(val, key){
+        _eventListener[type] && _eventListener[type].forEach(function(val, key){
             val(route);
         });
     }
