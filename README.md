@@ -30,7 +30,7 @@ npm i react-native-router-flux --save
 |---------------|----------|--------------|----------------------------------------------------------------|
 | header | object | null | optional header view |
 | footer | object | null | optional footer view (e.g. tab bar) |
-| hideNavBar | bool | false | hides navigation bar |
+| hideNavBar | bool | false | hides navigation bar for every route |
 
 ##### Route:
 
@@ -45,6 +45,7 @@ npm i react-native-router-flux --save
 | wrapRouter | bool | false | If `true`, the route is automatically nested in its own `Router`. Useful for modal screens. For type==switch wrapRouter will be true|
 | sceneConfig | Navigator.SceneConfigs | optional | Defines the transition animation.  |
 | defaultRoute | string | optional | Defines which route to go to if this route is used as a tab and the tab is clicked on when the tab is already selected |
+| hideNavBar | bool | false | hides navigation bar for this route |
 
 ##### Schema:
 
