@@ -58,7 +58,7 @@ export default class Example extends React.Component {
                                 <Route name="tab2_2" component={TabView} title="Tab #2_2" />
                             </Router>
                         </Route>
-                        <Route name="tab3" schema="tab" title="Tab #3" component={TabView} />
+                        <Route name="tab3" schema="tab" title="Tab #3" component={TabView} hideTabBar={true}/>
                         <Route name="tab4" schema="tab" title="Tab #4" component={TabView} />
                         <Route name="tab5" schema="tab" title="Tab #5" component={TabView} />
                     </Router>

@@ -46,6 +46,7 @@ npm i react-native-router-flux --save
 | sceneConfig | Navigator.SceneConfigs | optional | Defines the transition animation.  |
 | defaultRoute | string | optional | Defines which route to go to if this route is used as a tab and the tab is clicked on when the tab is already selected |
 | hideNavBar | bool | false | hides navigation bar for this route |
+| hideTabBar | bool | false | hides tab bar for this route (if built-in TabBar component is used as footer for parent Router, check Example)|
 
 ##### Schema:
 
@@ -105,8 +106,13 @@ export default class Example extends React.Component {
                                 <Route name="tab1_2" component={TabView} title="Tab #1_2" />
                             </Router>
                         </Route>
-                        <Route name="tab2" schema="tab" title="Tab #2" component={TabView} />
-                        <Route name="tab3" schema="tab" title="Tab #3" component={TabView} />
+                        <Route name="tab2" schema="tab" title="Tab #2" hideNavBar={true}>
+                            <Router onPop={()=>{console.log("onPop is called!"); return true} }>
+                                <Route name="tab2_1" component={TabView} title="Tab #2_1" />
+                                <Route name="tab2_2" component={TabView} title="Tab #2_2" />
+                            </Router>
+                        </Route>
+                        <Route name="tab3" schema="tab" title="Tab #3" component={TabView} hideTabBar={true}/>
                         <Route name="tab4" schema="tab" title="Tab #4" component={TabView} />
                         <Route name="tab5" schema="tab" title="Tab #5" component={TabView} />
                     </Router>
