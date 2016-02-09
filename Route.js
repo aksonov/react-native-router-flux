@@ -43,6 +43,7 @@ export default class Route {
         this.header = header;
         this.footer = footer;
         this.props = props;
+        this.navigator = parent.delegate.refs.nav;
         this.wrapRouter = wrapRouter || type=='switch';
 
     }
