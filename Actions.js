@@ -2,6 +2,8 @@ import Route from './Route';
 import Router from './Router';
 import debug from './debug';
 
+var _eventListener = {};
+
 function isNumeric(n){
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
@@ -31,7 +33,25 @@ class Actions {
         this.route = this.route.bind(this);
         this.dismiss = this.dismiss.bind(this);
     }
-
+    addEventListener(type: string, handler: Function) {
+        if(_eventListener[type] === undefined) {
+            _eventListener[type] = []
+        }
+        _eventListener[type].push(handler);
+    }
+    removeEventListener(type: string, handler: Function) {
+        var i = _eventListener[type].indexOf(handler);
+        if(i != -1) {
+            _eventListener[type].splice(i, 1);
+        }
+    }
+    dispatchEvent(type :string, router: any) {
+        currentStack = router._stack[router._stack.length-1];
+        route = router.routes[currentStack];
+        _eventListener[type] && _eventListener[type].forEach(function(val, key){
+            val(route);
+        });
+    }
     route(name: string, props: { [key: string]: any} = {}){
         if (!this.currentRouter){
             throw new Error("No current router is set");
@@ -59,7 +79,7 @@ class Actions {
             debug("Switching to router="+router.name);
         }
         if (router.route(name, props)){
-            
+
             // deep into child router
             while (router.currentRoute.childRouter){
                 router = router.currentRoute.childRouter;
@@ -67,6 +87,7 @@ class Actions {
             }
 
             this.currentRouter = router;
+            this.dispatchEvent('route', router);
             return true;
         }
         return false;
@@ -108,6 +129,7 @@ class Actions {
             }
             if (router.pop()){
                 this.currentRouter = router;
+                this.dispatchEvent('route', router);
                 return true;
             } else {
                 return false;

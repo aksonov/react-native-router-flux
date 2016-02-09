@@ -6,6 +6,24 @@ import Actions from './Actions';
 export default class TabBar extends React.Component {
     constructor(props){
         super(props);
+        this.onRoute = this.onRoute.bind(this);
+        Actions.addEventListener('route', this.onRoute);
+    }
+    isChild(route) {
+        router = route.parent;
+        while(router.parentRoute) {
+            if(this.props.router == router) {
+                return true;
+            }
+            router = router.parentRoute.parent;
+        }
+        return false;
+    }
+    onRoute(route) {
+        hideTabBar = route.props.hideTabBar ? true : false;
+        if(this.isChild(route) && hideTabBar != this.state.hideTabBar) {
+            this.setState({hideTabBar});
+        }
     }
     onSelect(el){
         if (!Actions[el.props.name]){
