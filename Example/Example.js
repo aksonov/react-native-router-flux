@@ -11,6 +11,8 @@ var {Route, Schema, Animations, Actions, TabBar} = RNRF;
 var Error = require('./components/Error');
 var Home = require('./components/Home');
 var TabView = require('./components/TabView');
+
+// Redux stuff is optional
 import { createStore } from 'redux'
 import { Provider, connect } from 'react-redux'
 
@@ -58,6 +60,7 @@ class Header extends React.Component {
 
 export default class Example extends React.Component {
     render() {
+        // Provider is optional (if you want to use redux)
         return (
             <Provider store={store}>
                 <Router hideNavBar={true} name="root">
