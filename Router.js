@@ -12,19 +12,19 @@ import Actions from './Actions';
 import debug from './debug';
 
 export class RouterDelegate {
-    onPush(name:string, props:{ [key: string]: any}):boolean {
+    onPush(route:Route, props:{ [key: string]: any}):boolean {
         return true;
     }
-    onPop(name:string, props:{ [key: string]: any}): boolean {
+    onPop(num: number = 1, route:Route, props:{ [key: string]: any}): boolean {
         return true;
     }
-    onReplace(name:string, props:{ [key: string]: any}):boolean {
+    onReplace(route:Route, props:{ [key: string]: any}):boolean {
         return true;
     }
-    onReset(name:string, props:{ [key: string]: any}):boolean {
+    onReset(route:Route, props:{ [key: string]: any}):boolean {
         return true;
     }
-    onSwitch(name:string, props:{ [key: string]: any}):boolean {
+    onSwitch(route:Route, props:{ [key: string]: any}):boolean {
         return true;
     }
 }
@@ -199,12 +199,12 @@ export default class Router {
         }
     }
 
-    pop(num: number = 1){
+    pop(num: number = 1, props:{ [key: string]: any} = {}){
         if (this._stack.length <= num){
             return false;
         }
         this.nextRoute = null;
-        if (this.delegate.onPop && this.delegate.onPop(num)){
+        if (this.delegate.onPop && this.delegate.onPop(num, this.currentRoute, props)){
             const routes = this._stack.splice(-num, num);
             return true;
         }

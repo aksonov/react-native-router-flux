@@ -11,6 +11,7 @@ import React from 'react-native'
 import Router from './Router';
 import ExRouter from './ExRouter';
 const {StyleSheet, View} = React;
+import debug from './debug';
 import Actions from './Actions';
 export default class extends React.Component {
 
@@ -32,6 +33,6 @@ export default class extends React.Component {
 
     render(){
         const Component = this.props.router || ExRouter;
-        return (<Component ref="router" {...this.props} router={this.router} />);
+        return (<Component ref="router" {...this.props} router={this.router} dispatch={this.props.dispatch}/>);
     }
 }

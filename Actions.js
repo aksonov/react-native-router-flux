@@ -2,6 +2,13 @@ import Route from './Route';
 import Router from './Router';
 import debug from './debug';
 
+const BEFORE_ROUTE = 'BEFORE_ROUTER_ROUTE';
+const AFTER_ROUTE = 'AFTER_ROUTER_ROUTE';
+const BEFORE_POP = 'BEFORE_ROUTER_POP';
+const AFTER_POP = 'AFTER_ROUTER_POP';
+const BEFORE_DISMISS = 'BEFORE_ROUTER_DISMISS';
+const AFTER_DISMISS = 'AFTER_ROUTER_DISMISS';
+
 function isNumeric(n){
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
@@ -58,8 +65,12 @@ class Actions {
             router = route.parent;
             debug("Switching to router="+router.name);
         }
+        debug("ROUTER DELEGATE PROPS:"+ router.delegate.props.dispatch)
+        const currentRoute = router.routes[name];
+        if (router.delegate.props && router.delegate.props.dispatch){
+            router.delegate.props.dispatch({...props, type: BEFORE_ROUTE, route:currentRoute, name})
+        }
         if (router.route(name, props)){
-            
             // deep into child router
             while (router.currentRoute.childRouter){
                 router = router.currentRoute.childRouter;
@@ -67,20 +78,32 @@ class Actions {
             }
 
             this.currentRouter = router;
+            if (router.delegate.props && router.delegate.props.dispatch){
+                router.delegate.props.dispatch({...props, type: AFTER_ROUTE, route:currentRoute, name})
+            }
             return true;
         }
         return false;
     }
-    dismiss(){
+    dismiss(props: { [key: string]: any} = {}){
+        props = filterParam(props);
         let router: Router = this.currentRouter;
         // go to root router
         while (router.parentRoute){
             router = router.parentRoute.parent;
             debug("Switching to parent router="+router.name);
         }
-        return router.dismiss();
+        if (router.delegate.props && router.delegate.props.dispatch){
+            router.delegate.props.dispatch({...props, type: BEFORE_DISMISS, route:router.currentRoute, name:router.currentRoute.name})
+        }
+        const res = router.dismiss();
+        if (router.delegate.props && router.delegate.props.dispatch){
+            router.delegate.props.dispatch({...props, type: AFTER_DISMISS, route:router.currentRoute, name:router.currentRoute.name})
+        }
+        return res;
     }
-    pop(num: number = 1){
+    pop(num: number = 1, props: { [key: string]: any} = {}){
+        props = filterParam(props);
         if (!isNumeric(num)){
             num = 1;
         }
@@ -106,8 +129,14 @@ class Actions {
                   break;
                 }
             }
-            if (router.pop()){
+            if (router.delegate.props && router.delegate.props.dispatch){
+                router.delegate.props.dispatch({...props, type: BEFORE_POP, route:router.currentRoute, name:router.currentRoute.name})
+            }
+            if (router.pop(1, props)){
                 this.currentRouter = router;
+                if (router.delegate.props && router.delegate.props.dispatch){
+                    router.delegate.props.dispatch({...props, type: AFTER_POP, route:router.currentRoute, name:router.currentRoute.name})
+                }
                 return true;
             } else {
                 return false;
@@ -116,5 +145,11 @@ class Actions {
         }
     }
 }
-
-export default new Actions();
+const actions = new Actions();
+actions.BEFORE_ROUTE = BEFORE_ROUTE;
+actions.AFTER_ROUTE = AFTER_ROUTE;
+actions.BEFORE_POP = BEFORE_POP;
+actions.AFTER_POP = AFTER_POP;
+actions.BEFORE_DISMISS = BEFORE_DISMISS;
+actions.AFTER_DISMISS = AFTER_DISMISS;
+export default actions;

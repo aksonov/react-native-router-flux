@@ -284,9 +284,6 @@ export default class ExRouter extends React.Component {
         const Footer = this.props.footer;
         const footer = Footer ? <Footer {...this.props} {...this.state}/> : null;
         debug("RENDER ROUTER:",router.name);
-        debug(Object.keys(router.routes));
-        debug(router.stack);
-
         return (
             <View style={styles.transparent}>
                 {header}

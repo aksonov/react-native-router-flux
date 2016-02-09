@@ -162,6 +162,7 @@ This component is not opinionated and does not depend on any implementation of F
 All route actions can be hooked by adding handlers for `Actions.onPush`, `Actions.onReplace`, `Actions.onPop` in your store(s).
 
 If a handler returns false, the route action is ignored. For Redux, you will need to 'connect' your component to your store.
+If 'dispatch' prop is passed to the router, it will be called with current route as `route`, `name` as route name and all route props, check Example for more details.
 
 For example, instead of 
 ```
