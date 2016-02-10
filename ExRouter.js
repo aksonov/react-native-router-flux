@@ -48,6 +48,7 @@ export class ExRouteAdapter {
     renderScene(navigator) {
         const Component = this.route.component;
         const {initial, ...routeProps} = this.route.props;
+        debug("RENDER SCENE"+this.props.dispatch);
         const child = Component ?
             !this.route.wrapRouter ? <Component key={this.route.name} name={this.route.name} {...routeProps} {...this.props} route={this.route}/>:
                 <ReactRouter name={this.route.name+"Router"} {...routeProps} {...this.props} route={this.route} router={ExRouter}  initial={"_"+this.route.name} footer={null} header={null}>
@@ -198,7 +199,7 @@ export default class ExRouter extends React.Component {
                 return false;
             }
         }
-        this.refs.nav.push(new ExRouteAdapter(route, props));
+        this.refs.nav.push(new ExRouteAdapter(route, {...this.props, ...props}));
         debug("PUSHED TO:"+route.name);
         return true;
     }
@@ -212,7 +213,7 @@ export default class ExRouter extends React.Component {
         }
         //this.refs.nav.immediatelyResetRouteStack(this.refs.nav.getCurrentRoutes().splice(-1,1));
         //this.refs.nav.push(new ExRouteAdapter(route, props));
-        this.refs.nav.replace(new ExRouteAdapter(route, props));
+        this.refs.nav.replace(new ExRouteAdapter(route, {...this.props, ...props}));
         return true;
     }
 
@@ -228,7 +229,7 @@ export default class ExRouter extends React.Component {
                 return false;
             }
         }
-        this.refs.nav.immediatelyResetRouteStack([new ExRouteAdapter(route, props)]);
+        this.refs.nav.immediatelyResetRouteStack([new ExRouteAdapter(route, {...this.props, ...props})]);
         return true;
     }
 
@@ -245,7 +246,7 @@ export default class ExRouter extends React.Component {
         if (exist.length){
             navigator.jumpTo(exist[0]);
         } else {
-            navigator.push(new ExRouteAdapter(route, props));
+            navigator.push(new ExRouteAdapter(route, {...this.props, ...props}));
 
         }
         this.setState({selected: route.name});
@@ -290,9 +291,7 @@ export default class ExRouter extends React.Component {
                 <ExNavigator
                     ref="nav"
                     initialRouteStack={router.stack.map(route => {
-                        const oldProps = router.routes[route].props
-                        router.routes[route].props = {...oldProps, ...this.props}
-                        return new ExRouteAdapter(router.routes[route])
+                        return new ExRouteAdapter(router.routes[route], this.props)
                     })}
                     style={styles.transparent}
                     sceneStyle={{ paddingTop: 0, backgroundColor:'transparent' }}

@@ -8,7 +8,7 @@
   "dependencies": {
     "react-native": "^0.19",
     "react-native-button": "^1.2.1",
-    "react-native-router-flux": "^2.2.0",
+    "react-native-router-flux": "^2.2.1",
     "react-redux": "^4.4.0",
     "redux": "^3.3.1"
   }
