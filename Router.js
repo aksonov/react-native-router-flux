@@ -32,7 +32,7 @@ export default class Router extends React.Component {
     }
 
     render(){
-        const Component = this.props.router || ExRouter;
+        const Component = this.props.plugin || ExRouter;
         return (<Component ref="router" {...this.props} router={this.router} dispatch={this.props.dispatch}/>);
     }
 }
