@@ -7,7 +7,7 @@
  *
  */
 
-import type Router from './Router';
+import type BaseRouter from './BaseRouter';
 export default class Route {
     name: string;
     type: string;
@@ -17,11 +17,11 @@ export default class Route {
     component: any;
     children: any;
     props: { [key: string]: any};
-    parent: Router;
+    parent: BaseRouter;
     navigator: any;
-    childRouter: ?Router;
+    childRouter: ?BaseRouter;
 
-    constructor({name, type, component, schema, children, header, footer, wrapRouter, ...props}: { [key: string]: any} = {}, parent: Router = null) {
+    constructor({name, type, component, schema, children, header, footer, wrapRouter, ...props}: { [key: string]: any} = {}, parent: BaseRouter = null) {
         if (!name) {
             throw new Error("no name is defined for Route=" + name);
         }

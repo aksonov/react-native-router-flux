@@ -1,5 +1,5 @@
 import React from 'react-native';
-import Router from './Router';
+import BaseRouter from './BaseRouter';
 import Route from './Route';
 import * as Components from './Common';
 import ExNavigator from '@exponent/react-native-navigator';
@@ -7,7 +7,7 @@ import ExNavigatorStyles from '@exponent/react-native-navigator/ExNavigatorStyle
 import { BackIcon } from '@exponent/react-native-navigator/ExNavigatorIcons';
 import Animations from './Animations';
 const {TouchableOpacity, Navigator, StyleSheet, View, Text} = React;
-import ReactRouter from './ReactRouter';
+import Router from './Router';
 import Actions from './Actions';
 import debug from './debug';
 
@@ -50,9 +50,9 @@ export class ExRouteAdapter {
         const {initial, ...routeProps} = this.route.props;
         const child = Component ?
             !this.route.wrapRouter ? <Component key={this.route.name} name={this.route.name} {...routeProps} {...this.props} route={this.route}/>:
-                <ReactRouter name={this.route.name+"Router"} {...routeProps} {...this.props} route={this.route} router={ExRouter}  initial={"_"+this.route.name} footer={null} header={null}>
+                <Router name={this.route.name+"Router"} {...routeProps} {...this.props} route={this.route} router={ExRouter}  initial={"_"+this.route.name} footer={null} header={null}>
                     <Components.Route {...routeProps}  {...this.props} component={Component} name={"_"+this.route.name} type="push" wrapRouter={false} initial={true}/>
-                </ReactRouter>
+                </Router>
             :
             React.cloneElement(React.Children.only(this.route.children), {...routeProps, ...this.props, route:this.route});
 
@@ -173,7 +173,7 @@ class ExNavigationBar extends Navigator.NavigationBar {
 }
 
 export default class ExRouter extends React.Component {
-    router: Router;
+    router: BaseRouter;
 
     constructor(props){
         super(props);
