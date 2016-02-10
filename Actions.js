@@ -1,5 +1,5 @@
 import Route from './Route';
-import Router from './Router';
+import BaseRouter from './BaseRouter';
 import debug from './debug';
 
 const BEFORE_ROUTE = 'BEFORE_ROUTER_ROUTE';
@@ -31,7 +31,7 @@ function filterParam(data){
 }
 
 class Actions {
-    currentRouter: ?Router;
+    currentRouter: ?BaseRouter;
 
     constructor(){
         this.pop = this.pop.bind(this);
@@ -48,7 +48,7 @@ class Actions {
 
         props = filterParam(props);
         // check if route is in children, current or parent routers
-        let router: Router = this.currentRouter;
+        let router: BaseRouter = this.currentRouter;
 
         // deep into child router
         while (router.currentRoute.childRouter){
@@ -87,7 +87,7 @@ class Actions {
     }
     dismiss(props: { [key: string]: any} = {}){
         props = filterParam(props);
-        let router: Router = this.currentRouter;
+        let router: BaseRouter = this.currentRouter;
         // go to root router
         while (router.parentRoute){
             router = router.parentRoute.parent;
@@ -118,7 +118,7 @@ class Actions {
             }
             return true;
         } else {
-            let router: Router = this.currentRouter;
+            let router: BaseRouter = this.currentRouter;
             debug("Pop, router="+router.name+" stack length:"+router.stack.length);
             debug("Current route="+router.currentRoute.name+" type="+router.currentRoute.type);
             while (router.stack.length <= 1 || router.currentRoute.type === 'switch'){
