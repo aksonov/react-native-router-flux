@@ -155,6 +155,104 @@ var styles = StyleSheet.create({
 
 module.exports = Launch;
 ```
+## Sidebar/Drawer support
+You can easily configure react-native-router-flux to handle a sidebar/drawer for specific routes:  
+**1.** Create a sidebar/drawer component (you can use both [react-native-drawer](https://github.com/root-two/react-native-drawer) and [react-native-side-menu](https://github.com/react-native-fellowship/react-native-side-menu)) and pass its router props to its children:
+```javascript
+<DrawerLayout>
+   {React.Children.map(children, c => React.cloneElement(c, {route: this.props.route}))}
+</DrawerLayout>
+```  
+**2.** In you router component add the sidebar/drawer and nested routes following this pattern:
+```javascript
+<Router>
+  <Route name="without-drawer"/>
+  <Route name="main">
+   <Drawer>
+      <Router>
+        <Route name="with-drawer-a"/>
+        <Route name="with-drawer-b"/>
+      </Router>
+    </Drawer>
+  </Route>
+</Router>
+```
+
+Here is a complete example of a working drawer using a common app with:
+- A session screen that just checks if the user is already logged-in on startup (SessionScreen)
+- An auth screen that handles signin/signup (AuthScreen)
+- Many other screens that show the true content of the app, all using the sidebar
+
+**SideDrawer.js (I'm using 'react-native-drawer')**
+```javascript
+import Drawer from 'react-native-drawer'
+
+class SideDrawer extends React.Component {
+  render() {
+    return (
+      <Drawer
+        type="overlay"
+        content={<SideDrawerContent />}
+        tapToClose={true}
+        openDrawerOffset={0.2} 
+        panCloseMask={0.2}
+        closedDrawerOffset={-3}
+        styles={{ drawer: drawerStyle, main: mainStyle }}
+        tweenHandler={(ratio) => ({ main: { opacity: (2 - ratio) / 2 } })}
+      >
+        {React.Children.map(this.props.children, c => React.cloneElement(c, {
+          route: this.props.route
+        }))}
+      </Drawer>
+    )
+  }
+}
+```
+
+**Router.js**
+```javascript
+const hideNavBar = Platform.OS === 'android'
+const paddingTop = Platform.OS === 'android' ? 0 : 8
+
+export default class Routes extends React.Component {
+  render() {
+    return (
+      <Router>
+        <Schema
+          name='boot'
+          sceneConfig={Navigator.SceneConfigs.FadeAndroid}
+          hideNavBar={true}
+          type='replace'
+        />
+        <Schema
+          name='main'
+          sceneConfig={Navigator.SceneConfigs.FadeAndroid}
+          hideNavBar={hideNavBar}
+        />
+
+        <Route schema='boot' component={SessionScreen} name='session' initial={true} />
+        <Route schema='boot' component={AuthScreen} name='auth' />
+
+        <Route name='main' hideNavBar={true} type='reset'>
+          <SideDrawer>
+            <Router
+              sceneStyle={styles.scene}
+              navigationBarStyle={styles.navigationBar}
+              titleStyle={styles.title}
+              barButtonIconStyle={styles.barButtonIcon}
+              barButtonTextStyle={styles.barButtonText}
+            >
+              <Route schema='main' component={PlaceScreen} name='place' title='Places' />
+              <Route schema='main' component={PaymentScreen} name='payment' title='Payment' header={Toolbar} />
+            </Router>
+          </SideDrawer>
+        </Route>
+
+      </Router>
+    )
+  }
+}
+```
 
 ## Redux/Flux support
 This component is not opinionated and does not depend on any implementation of Flux or Redux.
