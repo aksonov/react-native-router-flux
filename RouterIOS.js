@@ -8,13 +8,13 @@
  */
 
 import React from 'react-native';
-import Router from './Router';
+import BaseRouter from './BaseRouter';
 import Route from './Route';
 import * as Components from './Common';
 import ExNavigator from '@exponent/react-native-navigator';
 import Animations from './Animations';
 const {TouchableOpacity, NavigatorIOS, StyleSheet, View, Text} = React;
-import ReactRouter from './ReactRouter';
+import Router from './Router';
 
 class RouteIOS extends React.Component {
     constructor(props){
@@ -25,9 +25,9 @@ class RouteIOS extends React.Component {
         const Component = this.route.component;
         const child = Component ?
             !this.route.wrapRouter ? <Component key={this.route.name} name={this.route.name} {...this.route.props} {...this.props} route={this.route}/>:
-                <ReactRouter name={this.route.name+"Router"} {...this.route.props} {...this.props} route={this.route} router={RouterIOS} >
+                <Router name={this.route.name+"Router"} {...this.route.props} {...this.props} route={this.route} router={RouterIOS} >
                     <Components.Route {...this.route.props}  {...this.props} component={Component} name={"_"+this.route.name} type="push" wrapRouter={false}/>
-                </ReactRouter>
+                </Router>
             :
             React.cloneElement(React.Children.only(this.route.children), {...this.route.props, data:this.props, route:this.route});
 
@@ -38,7 +38,7 @@ class RouteIOS extends React.Component {
     }
 }
 export default class RouterIOS extends React.Component {
-    router: Router;
+    router: BaseRouter;
 
     constructor(props){
         super(props);
