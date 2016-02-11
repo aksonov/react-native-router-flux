@@ -203,21 +203,21 @@ export default class ExRouter extends React.Component {
                 return false;
             }
         }
-        this.refs.nav.push(new ExRouteAdapter(route, {...props, ...parentProps(this.props)}));
+        this.refs.nav.push(new ExRouteAdapter(route, props));
         debug("PUSHED TO:"+route.name);
         return true;
     }
 
     onReplace(route: Route, props:{ [key: string]: any}):boolean {
         if (this.props.onReplace){
-            const res = this.props.onReplace(route, {...props, ...parentProps(this.props)});
+            const res = this.props.onReplace(route, props);
             if (!res){
                 return false;
             }
         }
         //this.refs.nav.immediatelyResetRouteStack(this.refs.nav.getCurrentRoutes().splice(-1,1));
         //this.refs.nav.push(new ExRouteAdapter(route, props));
-        this.refs.nav.replace(new ExRouteAdapter(route, {...props, ...parentProps(this.props)}));
+        this.refs.nav.replace(new ExRouteAdapter(route, props));
         return true;
     }
 
@@ -233,7 +233,7 @@ export default class ExRouter extends React.Component {
                 return false;
             }
         }
-        this.refs.nav.immediatelyResetRouteStack([new ExRouteAdapter(route, {...props, ...parentProps(this.props)})]);
+        this.refs.nav.immediatelyResetRouteStack([new ExRouteAdapter(route, props)]);
         return true;
     }
 
@@ -250,7 +250,7 @@ export default class ExRouter extends React.Component {
         if (exist.length){
             navigator.jumpTo(exist[0]);
         } else {
-            navigator.push(new ExRouteAdapter(route, {...props, ...parentProps(this.props)}));
+            navigator.push(new ExRouteAdapter(route, props));
 
         }
         this.setState({selected: route.name});
