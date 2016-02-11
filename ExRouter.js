@@ -55,7 +55,7 @@ export class ExRouteAdapter {
         const {initial, ...routeProps} = this.route.props;
         const child = Component ?
             !this.route.wrapRouter ? <Component key={this.route.name} name={this.route.name} {...routeProps} {...this.props} route={this.route}/>:
-                <Router name={this.route.name+"Router"} {...routeProps} {...this.props} route={this.route} router={ExRouter}  initial={"_"+this.route.name} footer={null} header={null}>
+                <Router name={this.route.name+"Router"} {...routeProps} {...this.props} route={this.route} plugin={ExRouter}  initial={"_"+this.route.name} footer={null} header={null}>
                     <Components.Route {...routeProps}  {...this.props} component={Component} name={"_"+this.route.name} type="push" wrapRouter={false} initial={true}/>
                 </Router>
             :
