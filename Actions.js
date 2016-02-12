@@ -8,6 +8,8 @@ const BEFORE_POP = 'BEFORE_ROUTER_POP';
 const AFTER_POP = 'AFTER_ROUTER_POP';
 const BEFORE_DISMISS = 'BEFORE_ROUTER_DISMISS';
 const AFTER_DISMISS = 'AFTER_ROUTER_DISMISS';
+const AFTER_FOCUS = 'AFTER_ROUTER_FOCUS';
+const BEFORE_FOCUS = 'BEFORE_ROUTER_FOCUS';
 
 function isNumeric(n){
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -152,4 +154,6 @@ actions.BEFORE_POP = BEFORE_POP;
 actions.AFTER_POP = AFTER_POP;
 actions.BEFORE_DISMISS = BEFORE_DISMISS;
 actions.AFTER_DISMISS = AFTER_DISMISS;
+actions.BEFORE_FOCUS = BEFORE_FOCUS;
+actions.AFTER_FOCUS = AFTER_FOCUS;
 export default actions;
