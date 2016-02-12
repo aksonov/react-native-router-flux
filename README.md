@@ -255,17 +255,15 @@ export default class Routes extends React.Component {
 ```
 
 ## Redux/Flux support
-This component is not opinionated and does not depend on any implementation of Flux or Redux.
+This component is not opinionated and does not depend on any implementation of Flux or Redux, but you can easily connect it to them.
 
-If a handler returns false, the route action is ignored. For Redux, you will need to 'connect' your component to your store.
 If 'dispatch' prop is passed to the router, it will be called with current route as `route`, `name` as route name and all route props, check Example for more details.
 
 Also all route actions can be hooked by adding handlers for `Actions.onPush`, `Actions.onReplace`, `Actions.onPop` in your store(s).
 
-You can easily connect and control both the Router and the Routes to Redux/Flux.  
-Here are the steps/example for connecting the router and its routes to Redux and creating a component aware of being focused:  
+Here is an example of connecting the router and its routes to Redux and creating a component aware of being focused:  
 
-**1. Connect a <Route> to Redux**  
+**1. Connect a `<Route>` to Redux**  
 Connecting a `<Route>` to Redux is easy, instead of:  
 ```javascript
 <Route name="register" component={RegisterScreen} title="Register" />
@@ -276,19 +274,19 @@ you might write:
 ```
 You can also simply connect the component itself in its own file like you usually do.  
   
-**2. Connect a <Router> to Redux**  
+**2. Connect a `<Router>` to Redux**  
 If you need to inform Redux of the navigation status (i.e. when you pop a route) just override the `<Router>` component included in `react-native-router-flux` with a connected one:  
 ```javascript
 import ReactNativeRouter, { Actions, Router } from 'react-native-router-flux'
 const Router = connect()(ReactNativeRouter.Router) 
 ```
 Now when you use a `<Router>` it will be connected to the store and will trigger the following actions:
-- Actions.BEFORE_ROUTE
-- Actions.AFTER_ROUTE
-- Actions.AFTER_POP
-- Actions.BEFORE_POP
-- Actions.AFTER_DISMISS
-- Actions.BEFORE_DISMISS
+- `Actions.BEFORE_ROUTE`
+- `Actions.AFTER_ROUTE`
+- `Actions.AFTER_POP`
+- `Actions.BEFORE_POP`
+- `Actions.AFTER_DISMISS`
+- `Actions.BEFORE_DISMISS`
 
 Take a look at [this](https://github.com/aksonov/react-native-router-flux/blob/master/Example/Example.js) for an example.
 
@@ -314,7 +312,7 @@ If `global.currentRoute` is `payment` and the previous `global.currentRoute` was
     }
   }
 ```
-P.S.: Remember to check that `currentRoute === 'payment'`, otherwise you'll start doSomething() on every route change!  
+P.S.: Remember to check `currentRoute === 'payment'`, otherwise you'll start doSomething() on every route change!  
 
 ## Limitations
 ### Nested Routers
