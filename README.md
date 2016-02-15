@@ -44,6 +44,19 @@ npm i react-native-router-flux --save
 | schema | string | optional | Set this property to the name of a previously defined `Schema` to inherit its properties |
 | wrapRouter | bool | false | If `true`, the route is automatically nested in its own `Router`. Useful for modal screens. |
 | sceneConfig | Navigator.SceneConfigs | optional | Defines the transition animation.  |
+| navigationBarStyle | View style |  | optional style override for the navigation bar |
+| titleStyle | Text style |  | optional style override for the title element |
+| renderTitle | Closure | | optional closure to render the title element |
+| barButtonIconStyle | Image style |  | optional style override for icon buttons (e.g. back icon) |
+| leftTitle | string | | optional string to display on the left if the previous route does not provide `renderBackButton` prop. `renderBackButton` > `leftTitle` > <previous route's `title`> |
+| renderLeftButton | Closure | | optional closure to render the left title / buttons element |
+| renderBackButton | Closure | | optional closure to render back text or button if this route happens to be the previous route |
+| leftButtonStyle | View style | | optional style override for the container of left title / buttons |
+| leftButtonTextStyle | Text style | | optional style override for the left title element |
+| rightTitle | string | | optional string to display on the right. `onRight` must be provided for this to appear. |
+| renderRightButton | Closure | | optional closure to render the right title / buttons element |
+| rightButtonStyle | View style | | optional style override for the container of right title / buttons |
+| rightButtonTextStyle | Text style | | optional style override for the right title element |
 
 ##### Schema:
 
