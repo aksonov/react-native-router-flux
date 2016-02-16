@@ -150,9 +150,6 @@ export default class BaseRouter {
         if (!action){
             throw new Error("No type is defined for name="+name);
         }
-        if (!this["_"+action]){
-            throw new Error("No type="+action+" is supported");
-        }
         this.nextRoute = this.routes[name];
 
         const handler = "on"+capitalizeFirstLetter(action);
@@ -166,11 +163,10 @@ export default class BaseRouter {
         } else {
             throw new Error("No handler "+handler+" for route="+name);
         }
-        this["_"+action](name, props);
+        if (!this["_"+action]) {
+            this["_" + action](name, props);
+        }
         return true;
-    }
-
-    _modal(name:string, props:{ [key: string]: any} ) {
     }
 
     _push(name:string, props:{ [key: string]: any} ){

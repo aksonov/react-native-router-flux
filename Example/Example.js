@@ -19,22 +19,22 @@ import { Provider, connect } from 'react-redux'
 function reducer(state = {}, action) {
     switch (action.type) {
         case Actions.BEFORE_ROUTE:
-            console.log("BEFORE_ROUTE:", action);
+            //console.log("BEFORE_ROUTE:", action);
             return state;
         case Actions.AFTER_ROUTE:
-            console.log("AFTER_ROUTE:", action);
+            //console.log("AFTER_ROUTE:", action);
             return state;
         case Actions.AFTER_POP:
-            console.log("AFTER_POP:", action);
+            //console.log("AFTER_POP:", action);
             return state;
         case Actions.BEFORE_POP:
-            console.log("BEFORE_POP:", action);
+            //console.log("BEFORE_POP:", action);
             return state;
         case Actions.AFTER_DISMISS:
-            console.log("AFTER_DISMISS:", action);
+            //console.log("AFTER_DISMISS:", action);
             return state;
         case Actions.BEFORE_DISMISS:
-            console.log("BEFORE_DISMISS:", action);
+            //console.log("BEFORE_DISMISS:", action);
             return state;
         default:
             return state;
@@ -70,6 +70,7 @@ export default class Example extends React.Component {
                     <Schema name="tab" type="switch" icon={TabIcon} />
 
                     <Route name="register" component={Register} title="Register"/>
+                    <Route name="showActionSheet" type="actionSheet" title="What do you want to do?" options={['Delete', 'Save', 'Cancel']} cancelButtonIndex={2} destructiveButtonIndex={0}/>
                     <Route name="home" component={Home} title="Replace" type="replace"/>
                     <Route name="login" schema="modal">
                         <Router name="loginRouter">

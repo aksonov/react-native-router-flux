@@ -10,6 +10,7 @@ const {TouchableOpacity, Navigator, StyleSheet, View, Text} = React;
 import Router from './Router';
 import Actions from './Actions';
 import debug from './debug';
+import ActionSheet from '@exponent/react-native-action-sheet';
 
 function parentProps(props = {}){
     const {name, sceneConfig, title, children, router, initial, showNavigationBar, hideNavBar, footer, header, ...routerProps} = props;
@@ -187,6 +188,7 @@ export default class ExRouter extends React.Component {
         this.onReset = this.onReset.bind(this);
         this.onReplace = this.onReplace.bind(this);
         this.onJump = this.onJump.bind(this);
+        this.onActionSheet = this.onActionSheet.bind(this);
         this.state = {};
     }
 
@@ -278,6 +280,10 @@ export default class ExRouter extends React.Component {
         this.setState({modal: null});
     }
 
+    onActionSheet(route: Route, props:{ [key: string]: any}){
+        this.refs.actionsheet.showActionSheetWithOptions({...route.props, ...props}, props.callback);
+    }
+
     render() {
         const router = this.props.router;
         if (!router){
@@ -290,21 +296,23 @@ export default class ExRouter extends React.Component {
         const footer = Footer ? <Footer {...this.props} {...this.state}/> : null;
         debug("RENDER ROUTER:"+router.name);
         return (
-            <View style={styles.transparent}>
-                {header}
-                <ExNavigator ref="nav" initialRouteStack={router.stack.map(route => {
-                        const oldProps = router.routes[route].props
-                        router.routes[route].props = {...oldProps, ...parentProps(this.props)}
-                        return new ExRouteAdapter(router.routes[route])
-                    })}
-                    style={styles.transparent}
-                    sceneStyle={{ paddingTop: 0, backgroundColor:'transparent' }}
-                    renderNavigationBar={props=><ExNavigationBar {...props} router={router}/>}
-                    {...this.props}
-                />
-                {footer}
-                {this.state.modal}
-            </View>
+            <ActionSheet ref="actionsheet">
+                <View style={styles.transparent}>
+                    {header}
+                    <ExNavigator ref="nav" initialRouteStack={router.stack.map(route => {
+                            const oldProps = router.routes[route].props
+                            router.routes[route].props = {...oldProps, ...parentProps(this.props)}
+                            return new ExRouteAdapter(router.routes[route])
+                        })}
+                        style={styles.transparent}
+                        sceneStyle={{ paddingTop: 0, backgroundColor:'transparent' }}
+                        renderNavigationBar={props=><ExNavigationBar {...props} router={router}/>}
+                        {...this.props}
+                    />
+                    {footer}
+                    {this.state.modal}
+                </View>
+            </ActionSheet>
         );
     }
 

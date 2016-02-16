@@ -32,9 +32,6 @@ export default class Route {
         this.type = type || 'push';
         this.component = component;
         this.children = children;
-        if (!this.component && !this.children) {
-            throw new Error("component or children should be defined for route=" + name);
-        }
         if (!parent) {
             throw new Error("Parent router is not set!");
         }
