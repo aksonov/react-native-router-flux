@@ -137,6 +137,7 @@ export default class Example extends React.Component {
 ```
 
 components/Launch.js (initial screen)
+
 ```
 import React, {View, Text, StyleSheet, TouchableHighlight} from 'react-native'
 import Button from 'react-native-button'
@@ -168,6 +169,13 @@ var styles = StyleSheet.create({
 
 module.exports = Launch;
 ```
+
+## Modals
+To display a modal use ```type="modal"``` for your route components.
+Modal type inserts its 'component' after navigator component. See the ```Examples``` folder for more details.
+
+Note that **ReactNativeRouterFlux will not provide animations for modals** and you'll need to animate the modal yourself (or use a library)
+
 ## Sidebar/Drawer support
 You can easily configure react-native-router-flux to handle a sidebar/drawer for specific routes:  
 **1.** Create a sidebar/drawer component (you can use both [react-native-drawer](https://github.com/root-two/react-native-drawer) and [react-native-side-menu](https://github.com/react-native-fellowship/react-native-side-menu)) and pass its router props to its children:
