@@ -11,6 +11,7 @@ var {Route, Schema, Animations, Actions, TabBar} = RNRF;
 var Error = require('./components/Error');
 var Home = require('./components/Home');
 var TabView = require('./components/TabView');
+var ReactNativeModalBox = require('./components/ReactNativeModalBox');
 
 // Redux stuff is optional
 import { createStore } from 'redux'
@@ -80,6 +81,7 @@ export default class Example extends React.Component {
                     </Route>
                     <Route name="register2" component={Register} title="Register2"  schema="withoutAnimation"/>
                     <Route name="error" type="modal" component={Error}/>
+                    <Route name="modalBox" type="modal" component={ReactNativeModalBox}/>
                     <Route name="tabbar">
                         <Router footer={TabBar} showNavigationBar={false}>
                             <Route name="tab1" schema="tab" title="Tab #1" >

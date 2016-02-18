@@ -32,24 +32,28 @@ export default class Router extends React.Component {
 
         if (this.props.dispatch) {
           this.router.delegate.refs.nav.navigationContext.addListener('willfocus', function (ev) {
-            let name = ev.data.route.name;
-            let title = ev.data.route.title;
+            let route = ev.data.route;
+            let name = route.name;
+            let title = route.title;
 
             this.props.dispatch({
               type: Actions.BEFORE_FOCUS,
               name: name,
-              title: title
+              title: title,
+              route: route
             });
           }.bind(this));
 
           this.router.delegate.refs.nav.navigationContext.addListener('didfocus', function (ev) {
-            let name = ev.data.route.name;
-            let title = ev.data.route.title;
+            let route = ev.data.route;
+            let name = route.name;
+            let title = route.title;
 
             this.props.dispatch({
               type: Actions.AFTER_FOCUS,
               name: name,
-              title: title
+              title: title,
+              route: route
             });
           }.bind(this));
         }
