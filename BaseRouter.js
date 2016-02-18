@@ -163,7 +163,7 @@ export default class BaseRouter {
         } else {
             throw new Error("No handler "+handler+" for route="+name);
         }
-        if (!this["_"+action]) {
+        if (this["_"+action]) {
             this["_" + action](name, props);
         }
         return true;
