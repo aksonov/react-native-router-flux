@@ -35,6 +35,7 @@ export default class Router extends React.Component {
             let route = ev.data.route;
             let name = route.name;
             let title = route.title;
+            Actions.currentRouter = this.router;
 
             this.props.dispatch({
               type: Actions.BEFORE_FOCUS,
