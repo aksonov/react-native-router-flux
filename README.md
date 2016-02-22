@@ -138,7 +138,7 @@ export default class Example extends React.Component {
 
 components/Launch.js (initial screen)
 
-```
+```javascript
 import React, {View, Text, StyleSheet, TouchableHighlight} from 'react-native'
 import Button from 'react-native-button'
 import {Actions} from 'react-native-router-flux'
