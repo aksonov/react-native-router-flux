@@ -199,7 +199,9 @@ You can easily configure react-native-router-flux to handle a sidebar/drawer for
 </Router>
 ```
 
-Here is a complete example of a working drawer using a common app with:
+There is **an [example](https://github.com/efkan/rndrawer-implemented-rnrouter)** which is worked together with `react-native-drawer`.
+
+Also here is another complete example of a working drawer using a common app with:
 - A session screen that just checks if the user is already logged-in on startup (SessionScreen)
 - An auth screen that handles signin/signup (AuthScreen)
 - Many other screens that show the true content of the app, all using the sidebar
