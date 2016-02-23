@@ -30,6 +30,7 @@ export class ExRouteAdapter {
         }
         this.route = route;
         this.name = route.name;
+        if (props.title) this.route.title = props.title;
         this.title = props.title || route.title;
         if (!this.name){
             throw new Error("name is not defined for route");
@@ -40,7 +41,7 @@ export class ExRouteAdapter {
             this.renderRightButton = this.route.props.renderRightButton.bind(this.route);
         }
         if (this.route.props.renderTitle){
-            this.renderTitle = this.route.props.renderTitle.bind(this.route);
+            this.renderTitle = this.route.props.renderTitle.bind(this, this.route);
         }
         if (this.route.props.renderLeftButton){
             this.renderLeftButton = this.route.props.renderLeftButton.bind(this.route);
