@@ -211,6 +211,10 @@ export default class BaseRouter {
         return this.delegate.onDismiss && this.delegate.onDismiss();
     }
 
+    refresh(props:{ [key: string]: any} = {}) {
+        return this.delegate.onRefresh && this.delegate.onRefresh(props);
+    }
+
 
 }
 

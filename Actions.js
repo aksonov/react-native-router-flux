@@ -10,6 +10,8 @@ const BEFORE_DISMISS = 'BEFORE_ROUTER_DISMISS';
 const AFTER_DISMISS = 'AFTER_ROUTER_DISMISS';
 const AFTER_FOCUS = 'AFTER_ROUTER_FOCUS';
 const BEFORE_FOCUS = 'BEFORE_ROUTER_FOCUS';
+const AFTER_REFRESH = 'AFTER_ROUTER_REFRESH';
+const BEFORE_REFRESH = 'BEFORE_ROUTER_REFRESH';
 
 function isNumeric(n){
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -101,6 +103,18 @@ class Actions {
         const res = router.dismiss();
         if (router.delegate.props && router.delegate.props.dispatch){
             router.delegate.props.dispatch({...props, type: AFTER_DISMISS, route:router.currentRoute, name:router.currentRoute.name})
+        }
+        return res;
+    }
+    refresh(props: { [key: string]: any} = {}){
+        props = filterParam(props);
+        let router: BaseRouter = this.currentRouter;
+        if (router.delegate.props && router.delegate.props.dispatch){
+            router.delegate.props.dispatch({...props, type: BEFORE_REFRESH, route:router.currentRoute, name:router.currentRoute.name})
+        }
+        const res = router.refresh(props);
+        if (router.delegate.props && router.delegate.props.dispatch){
+            router.delegate.props.dispatch({...props, type: AFTER_REFRESH, route:router.currentRoute, name:router.currentRoute.name})
         }
         return res;
     }
