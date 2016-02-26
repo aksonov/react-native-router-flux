@@ -1,5 +1,5 @@
 import React from 'react-native';
-import Router from './Router';
+import BaseRouter from './BaseRouter';
 import Route from './Route';
 import * as Components from './Common';
 import ExNavigator from '@exponent/react-native-navigator';
@@ -7,10 +7,16 @@ import ExNavigatorStyles from '@exponent/react-native-navigator/ExNavigatorStyle
 import { BackIcon } from '@exponent/react-native-navigator/ExNavigatorIcons';
 import Animations from './Animations';
 const {TouchableOpacity, Navigator, StyleSheet, View, Text} = React;
-import ReactRouter from './ReactRouter';
+import Router from './Router';
 import Actions from './Actions';
 import debug from './debug';
+import ActionSheet from '@exponent/react-native-action-sheet';
 
+function parentProps(props = {}){
+    const {name, sceneConfig, title, children, router, initial, showNavigationBar, renderNavigationBar, hideNavBar, footer, header, ...routerProps} = props;
+    return routerProps;
+
+}
 export class ExRouteAdapter {
     name: string;
     navigator: ExNavigator;
@@ -18,15 +24,17 @@ export class ExRouteAdapter {
     props: { [key: string]: any};
 
     constructor(route: Route, props:{ [key: string]: any} = {}){
+        debug("ExRouter constructor"+props.schema);
         if (!route){
             throw new Error("route is not defined ");
         }
         this.route = route;
         this.name = route.name;
+        this.title = props.title || route.title;
         if (!this.name){
             throw new Error("name is not defined for route");
         }
-        this.props = props;
+        this.props = props || {};
         this.renderScene = this.renderScene.bind(this);
         if (this.route.props.renderRightButton){
             this.renderRightButton = this.route.props.renderRightButton.bind(this.route);
@@ -40,25 +48,25 @@ export class ExRouteAdapter {
     }
 
     configureScene() {
-        return this.route.type === 'switch' ? Animations.None : this.route.props.sceneConfig || Animations.None;
+        return this.route.props.sceneConfig || Animations.None;
     }
 
     renderScene(navigator) {
-        debug("RENDER SCENE:"+ this.route.name + " TITLE:"+this.route.title);
         const Component = this.route.component;
+        const {initial, ...routeProps} = this.route.props;
         const child = Component ?
-            !this.route.wrapRouter ? <Component key={this.route.name} name={this.route.name} {...this.route.props} {...this.props} route={this.route}/>:
-                <ReactRouter name={this.route.name+"Router"} {...this.route.props} {...this.props} route={this.route} router={ExRouter}  initial={"_"+this.route.name} footer={null} header={null}>
-                    <Components.Route {...this.route.props}  {...this.props} component={Component} name={"_"+this.route.name} type="push" wrapRouter={false} initial={true}/>
-                </ReactRouter>
+            !this.route.wrapRouter ? <Component key={this.route.name} name={this.route.name} {...routeProps} {...this.props} route={this.route}/>:
+                <Router name={this.route.name+"Router"} {...routeProps} {...this.props} route={this.route} plugin={ExRouter}  initial={"_"+this.route.name} footer={null} header={null}>
+                    <Components.Route {...routeProps}  {...this.props} component={Component} name={"_"+this.route.name} type="push" wrapRouter={false} initial={true}/>
+                </Router>
             :
-            React.cloneElement(React.Children.only(this.route.children), {...this.route.props, data:this.props, route:this.route});
+            React.cloneElement(React.Children.only(this.route.children), {...routeProps, ...this.props, route:this.route});
 
         const Header = this.route.header;
-        const header = Header ? <Header {...this.route.props} {...this.props}/> : null;
+        const header = Header ? <Header {...routeProps} {...this.props}/> : null;
 
         const Footer = this.route.footer;
-        const footer = Footer ? <Footer {...this.route.props} {...this.props}/> : null;
+        const footer = Footer ? <Footer {...routeProps} {...this.props}/> : null;
 
         return (
             <View style={styles.transparent}>
@@ -75,14 +83,15 @@ export class ExRouteAdapter {
 
     getTitle() {
         debug("TITLE ="+this.route.title+" for route="+this.route.name);
-        return this.route.title || "";
+        return this.title || "";
     }
 
     getBackButtonTitle(navigator, index, state){
         let previousIndex = index - 1;
         let previousRoute = state.routeStack[previousIndex];
         let title = previousRoute.getTitle(navigator, previousIndex, state);
-        return title.length>10 ? null : title;
+        const res = title.length>10 ? null : title;
+        return this.route.props.leftTitle || res;
     }
 
     renderLeftButton(navigator, index, state){
@@ -95,7 +104,7 @@ export class ExRouteAdapter {
                   style={[ExNavigator.Styles.barLeftButtonText, this.route.props.leftButtonTextStyle]}>{this.route.props.leftTitle}</Text>
             </TouchableOpacity>);
         }
-        
+
         if (index === 0 || index < navigator.getCurrentRoutes().length-1) {
             return null;
         }
@@ -151,36 +160,39 @@ export class ExRouteAdapter {
         }
     }
 }
-
-class ExNavigationBar extends Navigator.NavigationBar {
-    constructor(props){
-        super(props);
-        this.state = {};
-    }
+class ExNavigatorBar extends React.Component {
     render(){
         const route = this.props.router.nextRoute || this.props.router.currentRoute;
+        const renderNavBar = (route.component && route.component.renderNavigationBar) || route.renderNavigationBar || this.props.renderNavigationBar || (props=><Navigator.NavigationBar {...props}/>);
+        const navBar = renderNavBar(this.props);
+
         if (route.props.hideNavBar === false){
-            return super.render();
+            return navBar;
         }
         if (this.props.router.props.hideNavBar || route.props.hideNavBar){
             return null;
         }
-        return super.render();
+        return navBar;
     }
 }
-
 export default class ExRouter extends React.Component {
-    router: Router;
+    router: BaseRouter;
 
     constructor(props){
         super(props);
-        this.onPop = this.onPop.bind(this);
-        this.onPush = this.onPush.bind(this);
         this.onPop = this.onPop.bind(this);
         this.onPush = this.onPush.bind(this);
         this.onReset = this.onReset.bind(this);
         this.onReplace = this.onReplace.bind(this);
         this.onJump = this.onJump.bind(this);
+        this.onActionSheet = this.onActionSheet.bind(this);
+        this.state = {};
+    }
+
+    componentWillUnmount() {
+        if (this === Actions.currentRouter.delegate) {
+            Actions.currentRouter = null;
+        }
     }
 
     onPush(route: Route, props:{ [key: string]: any}):boolean {
@@ -202,6 +214,8 @@ export default class ExRouter extends React.Component {
                 return false;
             }
         }
+        //this.refs.nav.immediatelyResetRouteStack(this.refs.nav.getCurrentRoutes().splice(-1,1));
+        //this.refs.nav.push(new ExRouteAdapter(route, props));
         this.refs.nav.replace(new ExRouteAdapter(route, props));
         return true;
     }
@@ -253,6 +267,40 @@ export default class ExRouter extends React.Component {
         return true;
     }
 
+    onModal(route: Route, props:{ [key: string]: any}):boolean {
+        let element = React.createElement(route.component, Object.assign({}, route.props, props));
+        this.setState({modal: element});
+        return true;
+    }
+
+    onDismiss(){
+        this.setState({modal: null});
+    }
+
+    onRefresh(props:{ [key: string]: any}){
+        this.setState(props);
+    }
+
+    onActionSheet(route: Route, props:{ [key: string]: any}){
+        this.refs.actionsheet.showActionSheetWithOptions({...route.props, ...props}, props.callback);
+    }
+
+    _renderNavigationBar(props){
+        const route = this.props.router.nextRoute || this.props.router.currentRoute;
+        console.log("ROUTE:"+route.name);
+        const renderNavBar = (route.component && route.component.renderNavigationBar) || route.renderNavigationBar || this.props.renderNavigationBar || (props=><Navigator.NavigationBar {...props}/>);
+        const navBar = renderNavBar(props);
+
+        if (route.props.hideNavBar === false){
+            return navBar;
+        }
+        if (this.props.router.props.hideNavBar || route.props.hideNavBar){
+            return null;
+        }
+        return navBar;
+
+    }
+
     render() {
         const router = this.props.router;
         if (!router){
@@ -263,21 +311,29 @@ export default class ExRouter extends React.Component {
 
         const Footer = this.props.footer;
         const footer = Footer ? <Footer {...this.props} {...this.state}/> : null;
-        debug("RENDER ROUTER:",router.name);
-        debug(Object.keys(router.routes));
-        debug(router.stack);
 
+        const routerViewStyle = this.props.routerViewStyle || {};
+
+        debug("RENDER ROUTER:"+router.name);
         return (
-            <View style={styles.transparent}>
-                {header}
-                <ExNavigator ref="nav" initialRouteStack={router.stack.map(route => new ExRouteAdapter(router.routes[route]))}
-                         style={styles.transparent}
-                         sceneStyle={{ paddingTop: 0 }}
-                         renderNavigationBar={props=><ExNavigationBar navigationStyles={Navigator.NavigationBar.StylesIOS} {...props} router={router}/>}
-                    {...this.props}
-                />
-                {footer}
-            </View>
+            <ActionSheet ref="actionsheet">
+                <View style={[styles.transparent, routerViewStyle]}>
+                    {header}
+                    <ExNavigator ref="nav" initialRouteStack={router.stack.map(route => {
+                            debug("REBUILDING STACK!");
+                            const oldProps = router.routes[route].props
+                            router.routes[route].props = {...oldProps, ...parentProps(this.props), ...this.state}
+                            return new ExRouteAdapter(router.routes[route])
+                        })}
+                        style={styles.transparent}
+                        sceneStyle={{ paddingTop: 0, backgroundColor:'transparent' }}
+                        {...this.props}
+                        renderNavigationBar={props=><ExNavigatorBar {...this.props} {...props} {...this.state} router={router}/>}
+                    />
+                    {footer}
+                    {this.state.modal}
+                </View>
+            </ActionSheet>
         );
     }
 
