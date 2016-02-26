@@ -328,7 +328,7 @@ export default class ExRouter extends React.Component {
                         style={styles.transparent}
                         sceneStyle={{ paddingTop: 0, backgroundColor:'transparent' }}
                         {...this.props}
-                        renderNavigationBar={props=><ExNavigatorBar {...props} {...this.state} router={router}/>}
+                        renderNavigationBar={props=><ExNavigatorBar {...this.props} {...props} {...this.state} router={router}/>}
                     />
                     {footer}
                     {this.state.modal}
