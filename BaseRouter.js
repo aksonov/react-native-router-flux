@@ -116,7 +116,7 @@ export default class BaseRouter {
         const schemaName: string = props.schema || 'default';
         const schema = this.schemas[schemaName] || {};
         // pass router data to inner routes
-        const {children, name, header, footer, showNavigationBar, route, component, hideNavBar, sceneConfig, type, ...routerProps}  = this.props;
+        const {children, name, header, footer, showNavigationBar, renderNavigationBar, route, component, hideNavBar, sceneConfig, type, ...routerProps}  = this.props;
         const routeProps = Object.assign({}, schema, routerProps, props);
 
         if (this.routes[routeName]){

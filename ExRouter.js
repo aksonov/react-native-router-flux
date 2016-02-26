@@ -13,7 +13,7 @@ import debug from './debug';
 import ActionSheet from '@exponent/react-native-action-sheet';
 
 function parentProps(props = {}){
-    const {name, sceneConfig, title, children, router, initial, showNavigationBar, hideNavBar, footer, header, ...routerProps} = props;
+    const {name, sceneConfig, title, children, router, initial, showNavigationBar, renderNavigationBar, hideNavBar, footer, header, ...routerProps} = props;
     return routerProps;
 
 }
@@ -104,7 +104,7 @@ export class ExRouteAdapter {
                   style={[ExNavigator.Styles.barLeftButtonText, this.route.props.leftButtonTextStyle]}>{this.route.props.leftTitle}</Text>
             </TouchableOpacity>);
         }
-        
+
         if (index === 0 || index < navigator.getCurrentRoutes().length-1) {
             return null;
         }
@@ -272,10 +272,10 @@ export default class ExRouter extends React.Component {
     }
 
     _renderNavigationBar(props){
-        const navBar = this.props.renderNavigationBar ? this.props.renderNavigationBar(props) :
-            <Navigator.NavigationBar {...props}/>
-
         const route = this.props.router.nextRoute || this.props.router.currentRoute;
+        const renderNavBar = route.renderNavigationBar || this.props.renderNavigationBar || (props=><Navigator.NavigationBar {...props}/>);
+        const navBar = renderNavBar(props);
+
         if (route.props.hideNavBar === false){
             return navBar;
         }
@@ -296,9 +296,9 @@ export default class ExRouter extends React.Component {
 
         const Footer = this.props.footer;
         const footer = Footer ? <Footer {...this.props} {...this.state}/> : null;
-        
+
         const routerViewStyle = this.props.routerViewStyle || {};
-        
+
         debug("RENDER ROUTER:"+router.name);
         return (
             <ActionSheet ref="actionsheet">
