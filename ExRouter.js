@@ -160,7 +160,21 @@ export class ExRouteAdapter {
         }
     }
 }
+class ExNavigatorBar extends React.Component {
+    render(){
+        const route = this.props.router.nextRoute || this.props.router.currentRoute;
+        const renderNavBar = (route.component && route.component.renderNavigationBar) || route.renderNavigationBar || this.props.renderNavigationBar || (props=><Navigator.NavigationBar {...props}/>);
+        const navBar = renderNavBar(this.props);
 
+        if (route.props.hideNavBar === false){
+            return navBar;
+        }
+        if (this.props.router.props.hideNavBar || route.props.hideNavBar){
+            return null;
+        }
+        return navBar;
+    }
+}
 export default class ExRouter extends React.Component {
     router: BaseRouter;
 
@@ -273,6 +287,7 @@ export default class ExRouter extends React.Component {
 
     _renderNavigationBar(props){
         const route = this.props.router.nextRoute || this.props.router.currentRoute;
+        console.log("ROUTE:"+route.name);
         const renderNavBar = (route.component && route.component.renderNavigationBar) || route.renderNavigationBar || this.props.renderNavigationBar || (props=><Navigator.NavigationBar {...props}/>);
         const navBar = renderNavBar(props);
 
@@ -305,6 +320,7 @@ export default class ExRouter extends React.Component {
                 <View style={[styles.transparent, routerViewStyle]}>
                     {header}
                     <ExNavigator ref="nav" initialRouteStack={router.stack.map(route => {
+                            debug("REBUILDING STACK!");
                             const oldProps = router.routes[route].props
                             router.routes[route].props = {...oldProps, ...parentProps(this.props), ...this.state}
                             return new ExRouteAdapter(router.routes[route])
@@ -312,7 +328,7 @@ export default class ExRouter extends React.Component {
                         style={styles.transparent}
                         sceneStyle={{ paddingTop: 0, backgroundColor:'transparent' }}
                         {...this.props}
-                        renderNavigationBar={props=>this._renderNavigationBar({...props, ...this.state, router})}
+                        renderNavigationBar={props=><ExNavigatorBar {...props} {...this.state} router={router}/>}
                     />
                     {footer}
                     {this.state.modal}
