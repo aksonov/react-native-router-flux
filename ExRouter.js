@@ -273,7 +273,7 @@ export default class ExRouter extends React.Component {
 
     _renderNavigationBar(props){
         const route = this.props.router.nextRoute || this.props.router.currentRoute;
-        const renderNavBar = route.renderNavigationBar || this.props.renderNavigationBar || (props=><Navigator.NavigationBar {...props}/>);
+        const renderNavBar = (route.component && route.component.renderNavigationBar) || route.renderNavigationBar || this.props.renderNavigationBar || (props=><Navigator.NavigationBar {...props}/>);
         const navBar = renderNavBar(props);
 
         if (route.props.hideNavBar === false){
