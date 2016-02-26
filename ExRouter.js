@@ -247,10 +247,12 @@ export default class ExRouter extends React.Component {
         const routes = navigator.getCurrentRoutes();
         const exist = routes.filter(el=>el.getName()==route.name);
         if (exist.length){
+            // navigator.jumpTo does not allow us to pass new props to an
+            // existing route, so we do it manually.
+            exist[0].props = props;
             navigator.jumpTo(exist[0]);
         } else {
             navigator.push(new ExRouteAdapter(route, props));
-
         }
         this.setState({selected: route.name});
         return true;
