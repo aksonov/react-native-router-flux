@@ -8,7 +8,7 @@
   "dependencies": {
     "react-native": "^0.20.0",
     "react-native-button": "^1.2.1",
-    "react-native-router-flux": "^2.3.6",
+    "react-native-router-flux": "^2.3.7",
     "react-native-modalbox": "^1.3.0",
     "react-redux": "^4.4.0",
     "redux": "^3.3.1"
