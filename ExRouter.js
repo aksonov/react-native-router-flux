@@ -160,6 +160,22 @@ export class ExRouteAdapter {
         }
     }
 }
+class ExNavigationBar extends Navigator.NavigationBar {
+    constructor(props){
+        super(props);
+        this.state = {};
+    }
+    render(){
+        const route = this.props.router.nextRoute || this.props.router.currentRoute;
+        if (route.props.hideNavBar === false){
+            return super.render();
+        }
+        if (this.props.router.props.hideNavBar || route.props.hideNavBar){
+            return null;
+        }
+        return super.render();
+    }
+}
 class ExNavigatorBar extends React.Component {
     render(){
         const route = this.props.router.nextRoute || this.props.router.currentRoute;
@@ -327,8 +343,8 @@ export default class ExRouter extends React.Component {
                         })}
                         style={styles.transparent}
                         sceneStyle={{ paddingTop: 0, backgroundColor:'transparent' }}
+                        renderNavigationBar={props=><ExNavigationBar {...this.props} {...props} {...this.state} router={router}/>}
                         {...this.props}
-                        renderNavigationBar={props=><ExNavigatorBar {...this.props} {...props} {...this.state} router={router}/>}
                     />
                     {footer}
                     {this.state.modal}
