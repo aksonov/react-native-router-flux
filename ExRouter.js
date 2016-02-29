@@ -167,30 +167,19 @@ class ExNavigationBar extends Navigator.NavigationBar {
     }
     render(){
         const route = this.props.router.nextRoute || this.props.router.currentRoute;
-        if (route.props.hideNavBar === false){
-            return super.render();
-        }
-        if (this.props.router.props.hideNavBar || route.props.hideNavBar){
-            return null;
-        }
-        return super.render();
-    }
-}
-class ExNavigatorBar extends React.Component {
-    render(){
-        const route = this.props.router.nextRoute || this.props.router.currentRoute;
-        const renderNavBar = (route.component && route.component.renderNavigationBar) || route.renderNavigationBar || this.props.renderNavigationBar || (props=><Navigator.NavigationBar {...props}/>);
-        const navBar = renderNavBar(this.props);
+        const renderNavBar = (route.component && route.component.renderNavigationBar) || route.renderNavigationBar || this.props.renderNavigationBar;
+        let res = renderNavBar ? renderNavBar(this.props) : super.render();
 
         if (route.props.hideNavBar === false){
-            return navBar;
+            return res;
         }
         if (this.props.router.props.hideNavBar || route.props.hideNavBar){
             return null;
         }
-        return navBar;
+        return res;
     }
 }
+
 export default class ExRouter extends React.Component {
     router: BaseRouter;
 
@@ -299,22 +288,6 @@ export default class ExRouter extends React.Component {
 
     onActionSheet(route: Route, props:{ [key: string]: any}){
         this.refs.actionsheet.showActionSheetWithOptions({...route.props, ...props}, props.callback);
-    }
-
-    _renderNavigationBar(props){
-        const route = this.props.router.nextRoute || this.props.router.currentRoute;
-        console.log("ROUTE:"+route.name);
-        const renderNavBar = (route.component && route.component.renderNavigationBar) || route.renderNavigationBar || this.props.renderNavigationBar || (props=><Navigator.NavigationBar {...props}/>);
-        const navBar = renderNavBar(props);
-
-        if (route.props.hideNavBar === false){
-            return navBar;
-        }
-        if (this.props.router.props.hideNavBar || route.props.hideNavBar){
-            return null;
-        }
-        return navBar;
-
     }
 
     render() {
