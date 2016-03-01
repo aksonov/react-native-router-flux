@@ -268,7 +268,12 @@ export default class ExRouter extends React.Component {
                 return false;
             }
         }
-        this.refs.nav.pop();
+
+        if (num === 1) {
+            this.refs.nav.pop();
+        } else {
+            this.refs.nav.popBack(num);
+        }
         return true;
     }
 
