@@ -325,7 +325,7 @@ You also can do many other interesting things from here, like saving an history 
 
 **4. Update your component on focus**  
 I'm doing it on `componentDidUpdate` of my component of the route named `payment`.
-If `global.currentRoute` is `payment` and the previous `global.currentRoute` was different, than the component has just been focused.
+If `global.currentRoute` is `payment` and the previous `global.currentRoute` was different, then the component has just been focused.
 ```javascript
   componentDidUpdate(prevProps) {
     const prevRoute = prevProps.global.currentRoute
