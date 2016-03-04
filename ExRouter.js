@@ -191,11 +191,12 @@ export default class ExRouter extends React.Component {
         this.onReplace = this.onReplace.bind(this);
         this.onJump = this.onJump.bind(this);
         this.onActionSheet = this.onActionSheet.bind(this);
+        this.onTransitionToTop = this.onTransitionToTop.bind(this);
         this.state = {};
     }
 
     componentWillUnmount() {
-        if (this === Actions.currentRouter.delegate) {
+        if (Actions.currentRouter && this === Actions.currentRouter.delegate) {
             Actions.currentRouter = null;
         }
     }
@@ -276,6 +277,31 @@ export default class ExRouter extends React.Component {
         } else {
             this.refs.nav.popBack(num);
         }
+        return true;
+    }
+
+    onTransitionToTop(route:Route, props:{ [key: string]: any}) {
+        if (this.props.onTransitionToTop) {
+            const res = this.props.onTransitionToTop(route, props);
+            if (!res) {
+                return false;
+            }
+        }
+        const navigator = this.refs.nav;
+        let router:BaseRouter = route.parent;
+
+        // reset router stack
+        router._stack = [route.name];
+
+        // you can use navigator.transitionToTop or  navigator.immediatelyResetRouteStack + navigator.push
+        // navigator.immediatelyResetRouteStack + navigator.push is more beter ,
+        // if target route's parent(router) stack only have one route  eg ['someroute']
+
+        //navigator.transitionToTop(new ExRouteAdapter(route, props));
+
+        navigator.immediatelyResetRouteStack([]);
+        navigator.push(new ExRouteAdapter(route, props));
+
         return true;
     }
 
