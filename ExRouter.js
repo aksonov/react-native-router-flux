@@ -195,7 +195,7 @@ export default class ExRouter extends React.Component {
     }
 
     componentWillUnmount() {
-        if (this === Actions.currentRouter.delegate) {
+        if (Actions.currentRouter && this === Actions.currentRouter.delegate) {
             Actions.currentRouter = null;
         }
     }
