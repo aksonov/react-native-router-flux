@@ -82,8 +82,9 @@ export class ExRouteAdapter {
     }
 
     getTitle() {
-        debug("TITLE ="+this.route.title+" for route="+this.route.name);
-        return this.title || "";
+        const title = this.route.props.title || this.title || "";
+        debug("TITLE ="+title+" for route="+this.route.name);
+        return title;
     }
 
     getBackButtonTitle(navigator, index, state){
