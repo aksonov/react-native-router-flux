@@ -326,14 +326,15 @@ export default class ExRouter extends React.Component {
 
     render() {
         const router = this.props.router;
+        const route = this.props.router.nextRoute || this.props.router.currentRoute;
         if (!router){
             throw new Error("No router is defined");
         }
         const Header = this.props.header;
-        const header = Header ? <Header {...this.props} {...this.state}/> : null;
+        const header = Header ? <Header {...this.props} {...route.props} {...this.state}/> : null;
 
         const Footer = this.props.footer;
-        const footer = Footer ? <Footer {...this.props} {...this.state}/> : null;
+        const footer = Footer ? <Footer {...this.props} {...route.props} {...this.state}/> : null;
 
         const routerViewStyle = this.props.routerViewStyle || {};
 
