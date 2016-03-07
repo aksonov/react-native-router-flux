@@ -118,16 +118,24 @@ class Actions {
         }
         return res;
     }
-    pop(num: number = 1, props: { [key: string]: any} = {}){
+    pop(num: number = 1, props: { [key: string]: any} = {}, parentRouter: BaseRouter = {}){
         props = filterParam(props);
         if (!isNumeric(num)){
             num = 1;
         }
-        if (!this.currentRouter){
-            throw new Error("No current router is set");
+
+        let router:BaseRouter;
+        if (parentRouter) {
+            router = parentRouter;
         }
-     
-        let router: BaseRouter = this.currentRouter;
+        else {
+            if (!this.currentRouter) {
+                throw new Error("No current router is set");
+            }
+
+            router = this.currentRouter;
+        }
+
         debug("Pop, router="+router.name+" stack length:"+router.stack.length);
         debug("Current route="+router.currentRoute.name+" type="+router.currentRoute.type);
         while (router.stack.length <= 1 || router.currentRoute.type === 'switch'){
@@ -142,7 +150,8 @@ class Actions {
             router.delegate.props.dispatch({...props, type: BEFORE_POP, route:router.currentRoute, name:router.currentRoute.name})
         }
         if (router.pop(num, props)){
-            this.currentRouter = router;
+            if (!parentRouter)
+                this.currentRouter = router;
             if (router.delegate.props && router.delegate.props.dispatch){
                 router.delegate.props.dispatch({...props, type: AFTER_POP, route:router.currentRoute, name:router.currentRoute.name})
             }
