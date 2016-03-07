@@ -126,39 +126,31 @@ class Actions {
         if (!this.currentRouter){
             throw new Error("No current router is set");
         }
-        if (num > 1){
-            for (let i=0;i<num;i++){
-                if (!this.pop()){
-                    return false;
-                }
+     
+        let router: BaseRouter = this.currentRouter;
+        debug("Pop, router="+router.name+" stack length:"+router.stack.length);
+        debug("Current route="+router.currentRoute.name+" type="+router.currentRoute.type);
+        while (router.stack.length <= 1 || router.currentRoute.type === 'switch'){
+            if (router.parentRoute) {
+              router = router.parentRoute.parent;
+              debug("Switching to parent router="+router.name);
+            } else {
+              break;
+            }
+        }
+        if (router.delegate.props && router.delegate.props.dispatch){
+            router.delegate.props.dispatch({...props, type: BEFORE_POP, route:router.currentRoute, name:router.currentRoute.name})
+        }
+        if (router.pop(num, props)){
+            this.currentRouter = router;
+            if (router.delegate.props && router.delegate.props.dispatch){
+                router.delegate.props.dispatch({...props, type: AFTER_POP, route:router.currentRoute, name:router.currentRoute.name})
             }
             return true;
         } else {
-            let router: BaseRouter = this.currentRouter;
-            debug("Pop, router="+router.name+" stack length:"+router.stack.length);
-            debug("Current route="+router.currentRoute.name+" type="+router.currentRoute.type);
-            while (router.stack.length <= 1 || router.currentRoute.type === 'switch'){
-                if (router.parentRoute) {
-                  router = router.parentRoute.parent;
-                  debug("Switching to parent router="+router.name);
-                } else {
-                  break;
-                }
-            }
-            if (router.delegate.props && router.delegate.props.dispatch){
-                router.delegate.props.dispatch({...props, type: BEFORE_POP, route:router.currentRoute, name:router.currentRoute.name})
-            }
-            if (router.pop(1, props)){
-                this.currentRouter = router;
-                if (router.delegate.props && router.delegate.props.dispatch){
-                    router.delegate.props.dispatch({...props, type: AFTER_POP, route:router.currentRoute, name:router.currentRoute.name})
-                }
-                return true;
-            } else {
-                return false;
-            }
-
+            return false;
         }
+
     }
 }
 const actions = new Actions();

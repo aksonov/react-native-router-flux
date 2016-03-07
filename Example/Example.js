@@ -83,7 +83,7 @@ export default class Example extends React.Component {
                     <Route name="error" type="modal" component={Error}/>
                     <Route name="modalBox" type="modal" component={ReactNativeModalBox}/>
                     <Route name="tabbar">
-                        <Router footer={TabBar} showNavigationBar={false}>
+                        <Router footer={TabBar} hideNavBar={true}>
                             <Route name="tab1" schema="tab" title="Tab #1" >
                                 <Router onPop={()=>{console.log("onPop is called!"); return true} }>
                                     <Route name="tab1_1" component={TabView} title="Tab #1_1" />
