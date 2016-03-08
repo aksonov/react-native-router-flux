@@ -118,7 +118,7 @@ class Actions {
         }
         return res;
     }
-    pop(num: number = 1, props: { [key: string]: any} = {}, parentRouter: BaseRouter = {}){
+    pop(num: number = 1, props: { [key: string]: any} = {}, parentRouter: BaseRouter){
         props = filterParam(props);
         if (!isNumeric(num)){
             num = 1;
