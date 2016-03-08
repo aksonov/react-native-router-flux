@@ -45,6 +45,9 @@ export class ExRouteAdapter {
         if (this.route.props.renderLeftButton){
             this.renderLeftButton = this.route.props.renderLeftButton.bind(this.route);
         }
+        if (this.route.props.renderBackButton){
+            this.renderBackButton = this.route.props.renderBackButton.bind(this.route);
+        }
     }
 
     configureScene() {
