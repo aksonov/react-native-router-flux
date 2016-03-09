@@ -129,6 +129,7 @@ export class ExRouteAdapter {
             ExNavigatorStyles.barButtonText,
             ExNavigatorStyles.barBackButtonText,
             navigator.props.barButtonTextStyle,
+            this.route.props.leftButtonTextStyle,
           ]}
                 >
                     {title}
@@ -144,6 +145,7 @@ export class ExRouteAdapter {
                     style={[
             ExNavigatorStyles.barButtonIcon,
             navigator.props.barButtonIconStyle,
+            this.route.props.barButtonIconStyle,
           ]}
                 />
                 {buttonText}
@@ -390,4 +392,3 @@ var styles = StyleSheet.create({
     },
 
 });
-
