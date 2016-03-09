@@ -45,6 +45,9 @@ export class ExRouteAdapter {
         if (this.route.props.renderLeftButton){
             this.renderLeftButton = this.route.props.renderLeftButton.bind(this.route);
         }
+        if (this.route.props.renderBackButton){
+            this.renderBackButton = this.route.props.renderBackButton.bind(this.route);
+        }
     }
 
     configureScene() {
@@ -126,6 +129,7 @@ export class ExRouteAdapter {
             ExNavigatorStyles.barButtonText,
             ExNavigatorStyles.barBackButtonText,
             navigator.props.barButtonTextStyle,
+            this.route.props.leftButtonTextStyle,
           ]}
                 >
                     {title}
@@ -141,6 +145,7 @@ export class ExRouteAdapter {
                     style={[
             ExNavigatorStyles.barButtonIcon,
             navigator.props.barButtonIconStyle,
+            this.route.props.barButtonIconStyle,
           ]}
                 />
                 {buttonText}
@@ -387,4 +392,3 @@ var styles = StyleSheet.create({
     },
 
 });
-
