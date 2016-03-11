@@ -39,6 +39,9 @@ class Actions {
     constructor(){
         this.callback = null;
         this.create = this.create.bind(this);
+        this.iterate = this.iterate.bind(this);
+        this.init = this.init.bind(this);
+
     }
 
     iterate(root: Stack, parentProps = {}, refs = {}) {
@@ -78,6 +81,7 @@ class Actions {
     }
 
     create(routes:Stack){
+        assert(routes, "Routes should be Stack element");
         let refs = {};
         this.iterate(routes, {}, refs);
         return refs

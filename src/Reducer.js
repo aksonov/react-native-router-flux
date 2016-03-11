@@ -91,7 +91,8 @@ function reducer({initialState, routes}){
     assert(initialState.key, "initialState.key should not be null");
     assert(routes, "routes should not be null");
     assert(routes.current, "routes.current should not be null");
-    return function(state = {...initialState, routes}, action){
+    return function(state, action){
+        state = state || {...initialState, routes};
         console.log("ACTION:", action);
         console.log("STATE:", JSON.stringify(state));
         assert(action, "action should be defined");
@@ -99,15 +100,13 @@ function reducer({initialState, routes}){
         assert(state.routes, "state.routes is missed");
         assert(state.routes.current, "state.routes.current should be defined");
 
-        if (action.type === INIT_ACTION){
-            return state;
-        }
         // set current route for pop action
         if (action.type === POP_ACTION){
             action.key = state.routes.current;
         }
-        assert(action.key, "action key should be defined");
-        assert(state.routes[action.key], "missed route data for key="+action.key);
+        if (action.key){
+            assert(state.routes[action.key], "missed route data for key="+action.key);
+        }
 
         switch (action.type) {
             case POP_ACTION:
@@ -127,4 +126,4 @@ function reducer({initialState, routes}){
 
 }
 
-export default reducer
+export default reducer;
