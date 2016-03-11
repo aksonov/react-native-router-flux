@@ -1,7 +1,8 @@
-import {Schema, Route} from './Common';
-import TabBar from './TabBar';
-import Actions from './Actions';
-import Router from './Router';
-import Animations from './Animations';
+import Route from './src/Route';
+import Router from './src/Router';
+import Stack from './src/Stack';
 
-module.exports = {Schema, Route, TabBar, Actions, Router, Animations};
+import getInitialState from './src/State';
+import Reducer from './src/Reducer';
+
+module.exports = {Schema, Route, Router, Stack, Reducer, getInitialState};
