@@ -52,6 +52,7 @@ function update(state,action){
             assert(el.children.length > 1, "Cannot pop because length of stack key="+el.key+" is less than 2 "+el.children.length);
             el.children.pop();
             el.index = el.children.length - 1;
+            newState.routes.current = el.children[el.index-1].key;
             return newState;
 
         case REFRESH_ACTION:
@@ -64,6 +65,7 @@ function update(state,action){
         case PUSH_ACTION:
             el.children.push(newProps);
             el.index = el.children.length - 1;
+            newState.routes.current = action.key;
             return newState;
 
         case JUMP_ACTION:
@@ -73,6 +75,7 @@ function update(state,action){
             assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
             el.children[ind] = newProps;
             el.index = ind;
+            newState.routes.current = action.key;
             return newState;
 
         case REPLACE_ACTION:

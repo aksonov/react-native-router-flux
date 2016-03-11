@@ -56,6 +56,7 @@ describe('Actions', () => {
         expect(state.key).equal("modal");
 
         Actions.messaging();
+        expect(state.routes.current).equal("messaging");
         //Actions.pop();
         Actions.conversations({param1: "Hello world"});
 
