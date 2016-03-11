@@ -41,25 +41,29 @@ class Actions {
         this.create = this.create.bind(this);
         this.iterate = this.iterate.bind(this);
         this.init = this.init.bind(this);
+        this.pop = this.pop.bind(this);
+        this.refresh = this.refresh.bind(this);
 
     }
 
     iterate(root: Stack, parentProps = {}, refs = {}) {
-        assert(root.key, "unique key should be defined");
-        assert([POP_ACTION, REFRESH_ACTION, 'create','init','callback','iterate','current'].indexOf(root.key)==-1, root.key+" is not allowed as key name");
         assert(root.props, "props should be defined for stack");
+        const key = root.key;
+        assert(key, "unique key should be defined " + JSON.stringify(root));
+        assert([POP_ACTION, REFRESH_ACTION, REPLACE_ACTION, PUSH_ACTION, RESET_ACTION, 'create',
+                'init','callback','iterate','current'].indexOf(key)==-1, key+" is not allowed as key name");
         const {children, ...staticProps} = root.props;
         let type = root.props.type || (parentProps.type === 'tabs' ? JUMP_ACTION : PUSH_ACTION);
         if (type === 'switch'){
             type = 'jump';
         }
-        let res = {...staticProps, key:root.key, type, parent:parentProps.key};
+        let res = {...staticProps, key, type, parent:parentProps.key};
         if (root.props.children) {
             const list = root.props.children instanceof Array ? root.props.children: [root.props.children];
             res.children = list.map(c=>this.iterate(c, res, refs).key);
         }
-        assert(!this[root.key], "Key " + root.key + " is already defined!");
-        this[root.key] =
+        assert(!this[key], "Key " + root.key + " is already defined!");
+        this[key] =
             (props={})=> {assert(this.callback, "Actions.callback is not defined!");
             this.callback({key: root.key, type, ...filterParam(props)})};
         refs[res.key]=res;
@@ -68,15 +72,18 @@ class Actions {
     }
 
     pop(props = {}){
+        props = filterParam(props);
         const data = isNumeric(props) ? {num: props} : props;
         this.callback && this.callback({...props, type: POP_ACTION});
     }
 
     init(props = {}){
+        props = filterParam(props);
         this.callback && this.callback({...props, type: INIT_ACTION});
     }
 
     refresh(props = {}){
+        props = filterParam(props);
         this.callback && this.callback({...props, type: REFRESH_ACTION});
     }
 

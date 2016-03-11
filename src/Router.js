@@ -16,61 +16,32 @@ const {
 import Actions from './Actions';
 import getInitialState from './State';
 import Reducer from './Reducer';
+import DefaultRenderer from './DefaultRenderer';
 
-export default class Router extends Component {
+export default class extends Component {
     constructor(props) {
         super(props);
         this._renderNavigation = this._renderNavigation.bind(this);
-        this._renderCard = this._renderCard.bind(this);
-        this._renderScene = this._renderScene.bind(this);
-        this._renderHeader = this._renderHeader.bind(this);
-        const routes = Actions.create(props.children);
+        const routes = this.props.routes || Actions.create(props.children);
         const initialState = getInitialState(routes);
         this.reducer = this.props.reducer || Reducer({initialState, routes});
+        this.component = this.props.component || DefaultRenderer;
+
     }
 
     _renderNavigation(navigationState, onNavigate) {
+        Actions.callback = props=>onNavigate(props);
         if (!navigationState) {
             return null;
         }
+        const Component = this.component;
+        const props = navigationState.routes[navigationState.routes.current];
+
         return (
-            <NavigationAnimatedView
+            <Component
                 navigationState={navigationState}
-                style={styles.animatedView}
-                renderOverlay={this._renderHeader}
-                setTiming={(pos, navState) => {
-          Animated.timing(pos, {toValue: navState.index, duration: 500}).start();
-        }}
-                renderScene={this._renderCard}
-            />
+                onNavigate={onNavigate} data={props}/>
         );
-    }
-
-    _renderHeader(/*NavigationSceneRendererProps*/ props) {
-        if (props.navigationState.hideNavBar){
-            return null;
-        }
-        return (
-            <NavigationHeader
-                {...props}
-                getTitle={state => state.key}
-            />
-        );
-    }
-
-    _renderCard(/*NavigationSceneRendererProps*/ props) {
-        return (
-            <NavigationCard
-                {...props}
-                key={'card_' + props.scene.navigationState.key}
-                renderScene={this._renderScene}
-            />
-        );
-    }
-
-    _renderScene(/*NavigationSceneRendererProps*/ props) {
-        const {component: Component, ...compProps} = props.scene.navigationState;
-        return <Component {...compProps}/>;
     }
 
     render(){
@@ -80,12 +51,3 @@ export default class Router extends Component {
         />
     }
 }
-
-const styles = StyleSheet.create({
-    animatedView: {
-        flex: 1,
-    },
-    scrollView: {
-        marginTop: 64
-    },
-});
