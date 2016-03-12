@@ -6,7 +6,7 @@ var Launch = require('./components/Launch');
 var Register = require('./components/Register');
 var Login = require('./components/Login');
 var Login2 = require('./components/Login2');
-var {Route, Stack, Router, Schema, Actions} = require('react-native-router-flux');
+var {Scene, Router, Schema, Actions} = require('react-native-router-flux');
 var Error = require('./components/Error');
 var Home = require('./components/Home');
 var TabView = require('./components/TabView');
@@ -26,22 +26,22 @@ class Header extends React.Component {
     }
 }
 
-const routes = Actions.create(
-    <Stack key="root" hideNavBar={true}>
-        <Route key="register" component={Register} title="Register"/>
-        <Route key="register2" component={Register} title="Register2" duration={1}/>
-        <Route key="home" component={Home} title="Replace" type="replace"/>
-        <Route key="launch" component={Launch} title="Launch" initial={true}/>
-        <Stack key="login">
-            <Route key="loginModal" component={Login} schema="modal" title="Login"/>
-            <Route key="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
-        </Stack>
-    </Stack>
+const scenes = Actions.create(
+    <Scene key="root" hideNavBar={true}>
+        <Scene key="register" component={Register} title="Register"/>
+        <Scene key="register2" component={Register} title="Register2" duration={1}/>
+        <Scene key="home" component={Home} title="Replace" type="replace"/>
+        <Scene key="launch" component={Launch} title="Launch" initial={true}/>
+        <Scene key="login">
+            <Scene key="loginModal" component={Login} schema="modal" title="Login"/>
+            <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
+        </Scene>
+    </Scene>
 );
 export default class Example extends React.Component {
     render() {
         return (
-                <Router hideNavBar={true} name="root" routes={routes}/>
+                <Router hideNavBar={true} name="root" scenes={scenes}/>
         );
     //    <Schema name="modal" sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
     //    <Schema name="default" sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>

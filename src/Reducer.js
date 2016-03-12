@@ -34,11 +34,11 @@ function findElement(state, key) {
 
 function update(state,action){
     // clone state, TODO: clone effectively?
-    const newProps = {...state.routes[action.key], ...action};
+    const newProps = {...state.scenes[action.key], ...action};
     let newState = Immutable.fromJS(state).toJS();
 
     // change route property
-    newState.routes[action.key] = newProps;
+    newState.scenes[action.key] = newProps;
 
     // get parent
     const parent = newProps.parent;
@@ -54,20 +54,20 @@ function update(state,action){
             assert(el.children.length > 1, "Cannot pop because length of stack key="+el.key+" is less than 2 "+el.children.length);
             el.children.pop();
             el.index = el.children.length - 1;
-            newState.routes.current = el.children[el.index].key;
+            newState.scenes.current = el.children[el.index].key;
             return newState;
 
         case REFRESH_ACTION:
             let ind = -1;
             el.children.forEach((c,i)=>{if (c.key==action.key){ind=i}});
             assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
-            el.children[ind] = getInitialState(newProps, newState.routes);
+            el.children[ind] = getInitialState(newProps, newState.scenes);
             return newState;
 
         case PUSH_ACTION:
-            el.children.push(getInitialState(newProps, newState.routes));
+            el.children.push(getInitialState(newProps, newState.scenes));
             el.index = el.children.length - 1;
-            newState.routes.current = action.key;
+            newState.scenes.current = action.key;
             return newState;
 
         case JUMP_ACTION:
@@ -75,13 +75,13 @@ function update(state,action){
             ind = -1;
             el.children.forEach((c,i)=>{if (c.key==action.key){ind=i}});
             assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
-            el.children[ind] = getInitialState(newProps, newState.routes);
+            el.children[ind] = getInitialState(newProps, newState.scenes);
             el.index = ind;
-            newState.routes.current = action.key;
+            newState.scenes.current = action.key;
             return newState;
 
         case REPLACE_ACTION:
-            newState.children[el.index] = getInitialState(newProps, newState.routes);
+            newState.children[el.index] = getInitialState(newProps, newState.scenes);
             return newState;
 
         default:
@@ -89,26 +89,26 @@ function update(state,action){
     }
 }
 
-function reducer({initialState, routes}){
+function reducer({initialState, scenes}){
     assert(initialState, "initialState should not be null");
     assert(initialState.key, "initialState.key should not be null");
-    assert(routes, "routes should not be null");
-    assert(routes.current, "routes.current should not be null");
+    assert(scenes, "scenes should not be null");
+    assert(scenes.current, "scenes.current should not be null");
     return function(state, action){
-        state = state || {...initialState, routes};
+        state = state || {...initialState, scenes};
         //console.log("ACTION:", action);
         //console.log("STATE:", JSON.stringify(state));
         assert(action, "action should be defined");
         assert(action.type, "action type should be defined");
-        assert(state.routes, "state.routes is missed");
-        assert(state.routes.current, "state.routes.current should be defined");
+        assert(state.scenes, "state.scenes is missed");
+        assert(state.scenes.current, "state.scenes.current should be defined");
 
         // set current route for pop action
         if (action.type === POP_ACTION || action.type === POP_ACTION2){
-            action.key = state.routes.current;
+            action.key = state.scenes.current;
         }
         if (action.key){
-            assert(state.routes[action.key], "missed route data for key="+action.key);
+            assert(state.scenes[action.key], "missed route data for key="+action.key);
         }
 
         switch (action.type) {

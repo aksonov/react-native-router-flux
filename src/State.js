@@ -7,31 +7,31 @@
  *
  */
 
-export function getInitialState(route:{string: any},routes:{string:any}){
+export function getInitialState(route:{string: any},scenes:{string:any}){
     if (!route.children){
         return {...route};
     }
     let {children, ...res} = route;
     let index = 0;
-    route.children.forEach((r,i)=>{if (routes[r].initial) index=i});
+    route.children.forEach((r,i)=>{if (scenes[r].initial) index=i});
 
     if (route.type === 'tabs'){
-        res.children = route.children.map(r=>getInitialState(routes[r],routes));
+        res.children = route.children.map(r=>getInitialState(scenes[r],scenes));
         res.tabs = res.children;
-        routes.current = res.children[index].key;
+        scenes.current = res.children[index].key;
         res.index = index;
     } else {
-        res.children = [getInitialState(routes[route.children[index]],routes)];
-        routes.current = res.children[0].key;
+        res.children = [getInitialState(scenes[route.children[index]],scenes)];
+        scenes.current = res.children[0].key;
         res.index = 0;
     }
     return res;
 }
 
-export default function(routes:{string: any}){
-    for (let route in routes){
-        if (routes.hasOwnProperty(route) && !routes[route].parent){
-            return getInitialState(routes[route], routes);
+export default function(scenes:{string: any}){
+    for (let route in scenes){
+        if (scenes.hasOwnProperty(route) && !scenes[route].parent){
+            return getInitialState(scenes[route], scenes);
         }
     }
 }

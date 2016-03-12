@@ -22,9 +22,9 @@ export default class extends Component {
     constructor(props) {
         super(props);
         this._renderNavigation = this._renderNavigation.bind(this);
-        const routes = this.props.routes || Actions.create(props.children);
-        const initialState = getInitialState(routes);
-        this.reducer = this.props.reducer || Reducer({initialState, routes});
+        const scenes = this.props.scenes || Actions.create(props.children);
+        const initialState = getInitialState(scenes);
+        this.reducer = this.props.reducer || Reducer({initialState, scenes});
         this.component = this.props.component || DefaultRenderer;
 
     }
@@ -35,7 +35,7 @@ export default class extends Component {
             return null;
         }
         const Component = this.component;
-        const props = navigationState.routes[navigationState.routes.current];
+        const props = navigationState.scenes[navigationState.scenes.current];
 
         return (
             <Component

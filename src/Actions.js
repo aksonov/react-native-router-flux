@@ -6,9 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import Stack from './Stack';
 import assert from 'assert';
-
+import Scene from './Scene';
 export const JUMP_ACTION = 'jump';
 export const PUSH_ACTION = 'push';
 export const REPLACE_ACTION = 'replace';
@@ -47,7 +46,7 @@ class Actions {
 
     }
 
-    iterate(root: Stack, parentProps = {}, refs = {}) {
+    iterate(root: Scene, parentProps = {}, refs = {}) {
         assert(root.props, "props should be defined for stack");
         const key = root.key;
         assert(key, "unique key should be defined " + JSON.stringify(root));
@@ -88,10 +87,10 @@ class Actions {
         this.callback && this.callback({...props, type: REFRESH_ACTION});
     }
 
-    create(routes:Stack){
-        assert(routes, "Routes should be Stack element");
+    create(scene:Scene){
+        assert(scene, "roote scene should be defined");
         let refs = {};
-        this.iterate(routes, {}, refs);
+        this.iterate(scene, {}, refs);
         return refs
     }
 }
