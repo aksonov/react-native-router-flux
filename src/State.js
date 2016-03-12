@@ -7,7 +7,7 @@
  *
  */
 
-function getInitialState(route:{string: any},routes:{string:any}){
+export function getInitialState(route:{string: any},routes:{string:any}){
     if (!route.children){
         return {...route};
     }

@@ -12,7 +12,8 @@ import assert from 'assert';
 export const JUMP_ACTION = 'jump';
 export const PUSH_ACTION = 'push';
 export const REPLACE_ACTION = 'replace';
-export const POP_ACTION = 'back';
+export const POP_ACTION2 = 'back';
+export const POP_ACTION = 'BackAction';
 export const REFRESH_ACTION = 'refresh';
 export const RESET_ACTION = 'reset';
 export const INIT_ACTION = 'init';
@@ -50,7 +51,7 @@ class Actions {
         assert(root.props, "props should be defined for stack");
         const key = root.key;
         assert(key, "unique key should be defined " + JSON.stringify(root));
-        assert([POP_ACTION, REFRESH_ACTION, REPLACE_ACTION, PUSH_ACTION, RESET_ACTION, 'create',
+        assert([POP_ACTION, POP_ACTION2, REFRESH_ACTION, REPLACE_ACTION, PUSH_ACTION, RESET_ACTION, 'create',
                 'init','callback','iterate','current'].indexOf(key)==-1, key+" is not allowed as key name");
         const {children, ...staticProps} = root.props;
         let type = root.props.type || (parentProps.type === 'tabs' ? JUMP_ACTION : PUSH_ACTION);

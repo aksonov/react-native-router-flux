@@ -7,9 +7,10 @@
  *
  */
 
-import {PUSH_ACTION, JUMP_ACTION, INIT_ACTION, REPLACE_ACTION, RESET_ACTION, POP_ACTION, REFRESH_ACTION} from './Actions';
+import {PUSH_ACTION, POP_ACTION2, JUMP_ACTION, INIT_ACTION, REPLACE_ACTION, RESET_ACTION, POP_ACTION, REFRESH_ACTION} from './Actions';
 import assert from 'assert';
 import Immutable from 'immutable';
+import {getInitialState} from './State';
 
 function findElement(state, key) {
     if (state.key != key){
@@ -48,6 +49,7 @@ function update(state,action){
     assert(el, "Cannot find element for parent="+parent+" within current state");
 
     switch (action.type){
+        case POP_ACTION2:
         case POP_ACTION:
             assert(el.children.length > 1, "Cannot pop because length of stack key="+el.key+" is less than 2 "+el.children.length);
             el.children.pop();
@@ -59,11 +61,11 @@ function update(state,action){
             let ind = -1;
             el.children.forEach((c,i)=>{if (c.key==action.key){ind=i}});
             assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
-            el.children[ind] = newProps;
+            el.children[ind] = getInitialState(newProps, newState.routes);
             return newState;
 
         case PUSH_ACTION:
-            el.children.push(newProps);
+            el.children.push(getInitialState(newProps, newState.routes));
             el.index = el.children.length - 1;
             newState.routes.current = action.key;
             return newState;
@@ -73,13 +75,13 @@ function update(state,action){
             ind = -1;
             el.children.forEach((c,i)=>{if (c.key==action.key){ind=i}});
             assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
-            el.children[ind] = newProps;
+            el.children[ind] = getInitialState(newProps, newState.routes);
             el.index = ind;
             newState.routes.current = action.key;
             return newState;
 
         case REPLACE_ACTION:
-            newState.children[el.index] = newProps;
+            newState.children[el.index] = getInitialState(newProps, newState.routes);
             return newState;
 
         default:
@@ -94,15 +96,15 @@ function reducer({initialState, routes}){
     assert(routes.current, "routes.current should not be null");
     return function(state, action){
         state = state || {...initialState, routes};
-        console.log("ACTION:", action);
-        console.log("STATE:", JSON.stringify(state));
+        //console.log("ACTION:", action);
+        //console.log("STATE:", JSON.stringify(state));
         assert(action, "action should be defined");
         assert(action.type, "action type should be defined");
         assert(state.routes, "state.routes is missed");
         assert(state.routes.current, "state.routes.current should be defined");
 
         // set current route for pop action
-        if (action.type === POP_ACTION){
+        if (action.type === POP_ACTION || action.type === POP_ACTION2){
             action.key = state.routes.current;
         }
         if (action.key){
@@ -110,13 +112,14 @@ function reducer({initialState, routes}){
         }
 
         switch (action.type) {
+            case POP_ACTION2:
             case POP_ACTION:
             case REFRESH_ACTION:
             case PUSH_ACTION:
             case JUMP_ACTION:
             case REPLACE_ACTION:
                 const newState = update(state, action);
-                console.log("NEW STATE:", JSON.stringify(newState));
+//                console.log("NEW STATE:", JSON.stringify(newState));
                 return newState;
             default:
                 return state;

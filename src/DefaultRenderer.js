@@ -36,7 +36,7 @@ export default class DefaultRenderer extends Component {
                 style={styles.animatedView}
                 renderOverlay={this._renderHeader}
                 setTiming={(pos, navState) => {
-          Animated.timing(pos, {toValue: navState.index, duration: this.props.data.duration || 500}).start();
+          Animated.timing(pos, {toValue: navState.index, duration: this.props.data && this.props.data.duration || 500}).start();
         }}
                 renderScene={this._renderCard}
             />
@@ -50,17 +50,12 @@ export default class DefaultRenderer extends Component {
         return (
             <NavigationHeader
                 {...props}
-                getTitle={state => state.key}
+                getTitle={state => state.title}
             />
         );
     }
 
     _renderCard(/*NavigationSceneRendererProps*/ props) {
-        const Component = props.scene.navigationState.component;
-        if (!Component){
-            return <DefaultRenderer {...this.props} {...props}/> // TODO How to go to nested container?
-        }
-
         return (
             <NavigationCard
                 {...props}
@@ -72,7 +67,12 @@ export default class DefaultRenderer extends Component {
 
     _renderScene(/*NavigationSceneRendererProps*/ props) {
         const Component = props.scene.navigationState.component;
-        return <Component {...props.scene.navigationState}/>;
+        if (!Component){
+            return <DefaultRenderer key={props.scene.navigationState.key} navigationState={props.scene.navigationState}/> // TODO How to go to nested container?
+        } else {
+            return <Component {...props.scene.navigationState}/>;
+        }
+
     }
 
 }

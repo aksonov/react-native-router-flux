@@ -22,6 +22,10 @@ const routesData = <Stack component="Modal" key="modal">
     </Stack>
     <Route key="privacyPolicy" component="PrivacyPolicy" type="modal"/>
     <Route key="termsOfService" component="TermsOfService" type="modal"/>
+    <Stack key="login">
+        <Route key="loginModal1" component="Login1"/>
+        <Route key="loginModal2" component="Login2"/>
+    </Stack>
 </Stack>;
 
 describe('Actions', () => {
@@ -58,7 +62,10 @@ describe('Actions', () => {
         Actions.messaging();
         expect(state.routes.current).equal("messaging");
         //Actions.pop();
-        Actions.conversations({param1: "Hello world"});
+        Actions.login();
+        expect(state.children[1].key).equal("login");
+        expect(state.children[1].children.length).equal(2);
+        expect(state.children[1].children[0].key).equal("loginModal1");
 
     });
 
