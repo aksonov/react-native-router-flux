@@ -7,6 +7,7 @@
  *
  */
 
+import Actions from './Actions';
 import type BaseRouter from './BaseRouter';
 export default class Route {
     name: string;
@@ -41,7 +42,10 @@ export default class Route {
         this.footer = footer;
         this.props = props;
         this.wrapRouter = wrapRouter || type=='switch';
-
+        this.pop = this.pop.bind(this)
     }
 
+    pop(num: number = 1, props: { [key: string]: any} = {}) {
+        Actions.pop(num, props, this.parent);
+    }
 }
