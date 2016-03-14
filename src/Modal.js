@@ -4,7 +4,6 @@ import DefaultRenderer from './DefaultRenderer';
 export default class extends Component {
     render(){
         const children = this.props.navigationState.children;
-        console.log("CHILDREN:",children);
         const state = children[0];
         return <View style={{flex:1}}>
             <DefaultRenderer navigationState={state}  key={state.key} {...state} />

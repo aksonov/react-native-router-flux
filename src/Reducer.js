@@ -86,7 +86,11 @@ function update(state,action){
             return newState;
 
         case REPLACE_ACTION:
-            el.children[el.index] = getInitialState(newProps, newState.scenes);
+            if (el.children && el.children.length){
+                el.children[el.index] = getInitialState(newProps, newState.scenes);
+            } else {
+                el.children = [getInitialState(newProps, newState.scenes)];
+            }
             return newState;
 
         default:
@@ -100,6 +104,7 @@ function reducer({initialState, scenes}){
     assert(scenes, "scenes should not be null");
     assert(scenes.current, "scenes.current should not be null");
     return function(state, action){
+        console.log("ACTION:", action);
         state = state || {...initialState, scenes};
         //console.log("ACTION:", action);
         //console.log("STATE:", JSON.stringify(state));

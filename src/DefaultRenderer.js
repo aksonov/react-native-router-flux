@@ -31,7 +31,17 @@ export default class DefaultRenderer extends Component {
         if (!navigationState) {
             return null;
         }
+        let Component = navigationState.component;
+        if (navigationState.tabs && !Component){
+            Component = TabBar;
+        }
+        if (Component) {
+            return <Component {...navigationState} navigationState={navigationState}/>
+        }
+
         const selected = navigationState.children[navigationState.index];
+        //return <DefaultRenderer key={selected.key} navigationState={selected}/>
+
         return (
             <NavigationAnimatedView
                 navigationState={navigationState}
@@ -68,16 +78,7 @@ export default class DefaultRenderer extends Component {
     }
 
     _renderScene(/*NavigationSceneRendererProps*/ props) {
-        let Component = props.scene.navigationState.component;
-        if (!Component && props.scene.navigationState.tabs){
-            Component = TabBar;
-        }
-        if (!Component){
-            return <DefaultRenderer key={props.scene.navigationState.key} navigationState={props.scene.navigationState}/>
-        } else {
-            return <Component key={props.scene.navigationState.key} {...props.scene.navigationState} navigationState={props.scene.navigationState}/>;
-        }
-
+        return <DefaultRenderer key={props.scene.navigationState.key} navigationState={props.scene.navigationState}/>
     }
 
 }

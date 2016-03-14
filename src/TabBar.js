@@ -25,7 +25,7 @@ export default class extends Component {
     render(){
         const state = this.props.navigationState;
         const selected = state.children[state.index];
-        const hideTabBar = selected.hideTabBar;
+        const hideTabBar = state.hideTabBar || selected.hideTabBar;
         return <View style={{flex:1}}>
                     <NavigationView
                         navigationState={this.props.navigationState}
@@ -40,6 +40,9 @@ export default class extends Component {
             {!hideTabBar && <Tabs style={[{backgroundColor:'white'}, state.tabBarStyle]} onSelect={this.onSelect.bind(this)} {...state} selected={selected.key}>
                     {state.children.map(el=>{
                         const Icon = el.icon;
+                        if (!Icon){
+                            console.error("No icon property is defined for tab="+el.key);
+                        }
                         return <Icon {...el}/>
                     })}
                 </Tabs>}
@@ -77,13 +80,7 @@ class TabView extends Component {
     }
 
     _renderScene(props) {
-        const Component = props.scene.navigationState.component;
-        if (!Component){
-            return <DefaultRenderer key={props.scene.navigationState.key} navigationState={props.scene.navigationState}/> // TODO How to go to nested container?
-        } else {
-            return <Component key={props.scene.navigationState.key} {...props.scene.navigationState}  navigationState={props.scene.navigationState}/>;
-        }
-
+        return <DefaultRenderer key={props.scene.navigationState.key} navigationState={props.scene.navigationState}/>
     }
 
 }
