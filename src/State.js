@@ -15,9 +15,8 @@ export function getInitialState(route:{string: any},scenes:{string:any}){
     let index = 0;
     route.children.forEach((r,i)=>{if (scenes[r].initial) index=i});
 
-    if (route.type === 'tabs'){
+    if (route.tabs){
         res.children = route.children.map(r=>getInitialState(scenes[r],scenes));
-        res.tabs = res.children;
         scenes.current = res.children[index].key;
         res.index = index;
     } else {

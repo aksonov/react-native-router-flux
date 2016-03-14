@@ -9,7 +9,7 @@ const scenesData = <Scene component="Modal" key="modal">
     <Scene key="launch" component="Launch"/>
     <Scene key="sideMenu" component="Drawer" initial={true}>
         <Scene component="CubeBar" key="cubeBar" type="tabs">
-            <Scene key="main" type="tabs">
+            <Scene key="main" tabs={true}>
                 <Scene key="home" component="Home"/>
                 <Scene key="map" component="Map"/>
                 <Scene key="myAccount" component="MyAccount"/>

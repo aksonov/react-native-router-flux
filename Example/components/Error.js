@@ -30,7 +30,7 @@ class Error extends React.Component {
         Animated.timing(this.state.offset, {
             duration: 150,
             toValue: -deviceHeight
-        }).start(Actions.dismiss);
+        }).start(Actions.pop);
     }
 
     render(){

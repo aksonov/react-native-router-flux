@@ -45,12 +45,17 @@ function update(state,action){
     assert(parent, "No parent is defined for route="+action.key);
 
     // find parent in the state
-    const el = findElement(newState, parent);
+    let el = findElement(newState, parent);
     assert(el, "Cannot find element for parent="+parent+" within current state");
 
     switch (action.type){
         case POP_ACTION2:
         case POP_ACTION:
+            // recursive pop parent
+            while (el.children.length <= 1 || el.tabs){
+                el = findElement(newState, el.parent);
+                assert(el, "Cannot find element for parent="+el.parent+" within current state");
+            }
             assert(el.children.length > 1, "Cannot pop because length of stack key="+el.key+" is less than 2 "+el.children.length);
             el.children.pop();
             el.index = el.children.length - 1;
@@ -71,7 +76,7 @@ function update(state,action){
             return newState;
 
         case JUMP_ACTION:
-            assert(el.type === 'tabs', "Parent="+el.key+" is not tab bar, jump action is not valid");
+            assert(el.tabs, "Parent="+el.key+" is not tab bar, jump action is not valid");
             ind = -1;
             el.children.forEach((c,i)=>{if (c.key==action.key){ind=i}});
             assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
@@ -81,7 +86,7 @@ function update(state,action){
             return newState;
 
         case REPLACE_ACTION:
-            newState.children[el.index] = getInitialState(newProps, newState.scenes);
+            el.children[el.index] = getInitialState(newProps, newState.scenes);
             return newState;
 
         default:
@@ -103,12 +108,13 @@ function reducer({initialState, scenes}){
         assert(state.scenes, "state.scenes is missed");
         assert(state.scenes.current, "state.scenes.current should be defined");
 
-        // set current route for pop action
-        if (action.type === POP_ACTION || action.type === POP_ACTION2){
-            action.key = state.scenes.current;
-        }
         if (action.key){
             assert(state.scenes[action.key], "missed route data for key="+action.key);
+        } else {
+            // set current route for pop action or refresh action
+            if (action.type === POP_ACTION || action.type === POP_ACTION2 || action.type === REFRESH_ACTION){
+                action.key = state.scenes.current;
+            }
         }
 
         switch (action.type) {

@@ -16,6 +16,7 @@ const {
 import Actions from './Actions';
 import getInitialState from './State';
 import Reducer from './Reducer';
+import TabBar from './TabBar';
 
 export default class DefaultRenderer extends Component {
     constructor(props) {
@@ -30,13 +31,14 @@ export default class DefaultRenderer extends Component {
         if (!navigationState) {
             return null;
         }
+        const selected = navigationState.children[navigationState.index];
         return (
             <NavigationAnimatedView
                 navigationState={navigationState}
                 style={styles.animatedView}
                 renderOverlay={this._renderHeader}
                 setTiming={(pos, navState) => {
-          Animated.timing(pos, {toValue: navState.index, duration: this.props.data && this.props.data.duration || 500}).start();
+          Animated.timing(pos, {toValue: navState.index, duration: selected.duration || 500}).start();
         }}
                 renderScene={this._renderCard}
             />
@@ -44,7 +46,7 @@ export default class DefaultRenderer extends Component {
     }
 
     _renderHeader(/*NavigationSceneRendererProps*/ props) {
-        if (props.navigationState.hideNavBar){
+        if (props.navigationState.hideNavBar || this.props.hideNavBar){
             return null;
         }
         return (
@@ -66,11 +68,14 @@ export default class DefaultRenderer extends Component {
     }
 
     _renderScene(/*NavigationSceneRendererProps*/ props) {
-        const Component = props.scene.navigationState.component;
+        let Component = props.scene.navigationState.component;
+        if (!Component && props.scene.navigationState.tabs){
+            Component = TabBar;
+        }
         if (!Component){
-            return <DefaultRenderer key={props.scene.navigationState.key} navigationState={props.scene.navigationState}/> // TODO How to go to nested container?
+            return <DefaultRenderer key={props.scene.navigationState.key} navigationState={props.scene.navigationState}/>
         } else {
-            return <Component {...props.scene.navigationState}/>;
+            return <Component key={props.scene.navigationState.key} {...props.scene.navigationState} navigationState={props.scene.navigationState}/>;
         }
 
     }

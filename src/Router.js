@@ -25,7 +25,6 @@ export default class extends Component {
         const scenes = this.props.scenes || Actions.create(props.children);
         const initialState = getInitialState(scenes);
         this.reducer = this.props.reducer || Reducer({initialState, scenes});
-        this.component = this.props.component || DefaultRenderer;
 
     }
 
@@ -34,7 +33,7 @@ export default class extends Component {
         if (!navigationState) {
             return null;
         }
-        const Component = this.component;
+        const Component = navigationState.component || DefaultRenderer;
         const props = navigationState.scenes[navigationState.scenes.current];
 
         return (
