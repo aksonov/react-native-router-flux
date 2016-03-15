@@ -17,6 +17,7 @@ import Actions from './Actions';
 import getInitialState from './State';
 import Reducer from './Reducer';
 import TabBar from './TabBar';
+import NavBar from './NavBar';
 
 export default class DefaultRenderer extends Component {
     constructor(props) {
@@ -56,15 +57,11 @@ export default class DefaultRenderer extends Component {
     }
 
     _renderHeader(/*NavigationSceneRendererProps*/ props) {
-        if (props.navigationState.hideNavBar || this.props.hideNavBar){
-            return null;
-        }
-        return (
-            <NavigationHeader
+        const NavigationBar = props.navigationState.navBar || NavBar;
+        return <NavigationBar
                 {...props}
                 getTitle={state => state.title}
-            />
-        );
+            />;
     }
 
     _renderCard(/*NavigationSceneRendererProps*/ props) {

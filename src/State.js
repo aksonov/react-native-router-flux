@@ -6,6 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
+import assert from 'assert';
 
 export function getInitialState(route:{string: any},scenes:{string:any}){
     if (!route.children){
@@ -13,7 +14,7 @@ export function getInitialState(route:{string: any},scenes:{string:any}){
     }
     let {children, ...res} = route;
     let index = 0;
-    route.children.forEach((r,i)=>{if (scenes[r].initial) index=i});
+    route.children.forEach((r,i)=>{assert(scenes[r], "Empty scene for key="+route.key+" "+JSON.stringify(r)); if (scenes[r].initial) index=i});
 
     if (route.tabs){
         res.children = route.children.map(r=>getInitialState(scenes[r],scenes));

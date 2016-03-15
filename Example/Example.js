@@ -37,12 +37,12 @@ const scenes = Actions.create(
                 <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
             </Scene>
             <Scene key="tabbar" component={TabBar} tabs={true}>
-                <Scene key="tab1"  title="Tab #1" icon={TabIcon}>
-                    <Scene key="tab1_1" component={TabView} title="Tab #1_1"/>
-                    <Scene key="tab1_2" component={TabView} title="Tab #1_2"/>
+                <Scene key="tab1"  title="Tab #1" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
+                    <Scene key="tab1_1" component={TabView} title="Tab #1_1" onRight={()=>alert("Right button")} rightTitle="Right" />
+                    <Scene key="tab1_2" component={TabView} title="Tab #1_2" titleStyle={{color:'black'}}/>
                 </Scene>
                 <Scene key="tab2" initial={true} title="Tab #2" icon={TabIcon}>
-                    <Scene key="tab2_1" component={TabView} title="Tab #2_1"/>
+                    <Scene key="tab2_1" component={TabView} title="Tab #2_1" onLeft={()=>alert("Left button!")} leftTitle="Left"/>
                     <Scene key="tab2_2" component={TabView} title="Tab #2_2"/>
                 </Scene>
                 <Scene key="tab3" component={TabView} title="Tab #3" hideTabBar={true} icon={TabIcon}/>

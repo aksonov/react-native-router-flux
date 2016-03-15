@@ -32,6 +32,15 @@ function findElement(state, key) {
     }
 }
 
+function getCurrent(state){
+    if (!state.children){
+        return state.key;
+    }
+    return getCurrent(state.children[state.index]);
+}
+
+
+
 function update(state,action){
     // clone state, TODO: clone effectively?
     const newProps = {...state.scenes[action.key], ...action};
@@ -59,7 +68,7 @@ function update(state,action){
             assert(el.children.length > 1, "Cannot pop because length of stack key="+el.key+" is less than 2 "+el.children.length);
             el.children.pop();
             el.index = el.children.length - 1;
-            newState.scenes.current = el.children[el.index].key;
+            newState.scenes.current = getCurrent(newState);
             return newState;
 
         case REFRESH_ACTION:
@@ -72,7 +81,7 @@ function update(state,action){
         case PUSH_ACTION:
             el.children.push(getInitialState(newProps, newState.scenes));
             el.index = el.children.length - 1;
-            newState.scenes.current = action.key;
+            newState.scenes.current = getCurrent(newState);
             return newState;
 
         case JUMP_ACTION:
@@ -82,7 +91,7 @@ function update(state,action){
             assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
             el.children[ind] = getInitialState(newProps, newState.scenes);
             el.index = ind;
-            newState.scenes.current = action.key;
+            newState.scenes.current = getCurrent(newState);
             return newState;
 
         case REPLACE_ACTION:
@@ -91,10 +100,11 @@ function update(state,action){
             } else {
                 el.children = [getInitialState(newProps, newState.scenes)];
             }
+            newState.scenes.current = getCurrent(newState);
             return newState;
 
         default:
-            return newState;
+            return state;
     }
 }
 
@@ -104,7 +114,7 @@ function reducer({initialState, scenes}){
     assert(scenes, "scenes should not be null");
     assert(scenes.current, "scenes.current should not be null");
     return function(state, action){
-        console.log("ACTION:", action);
+        //console.log("ACTION:", action);
         state = state || {...initialState, scenes};
         //console.log("ACTION:", action);
         //console.log("STATE:", JSON.stringify(state));

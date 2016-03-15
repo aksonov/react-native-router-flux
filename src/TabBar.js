@@ -2,7 +2,7 @@ import React, {View, Text, Component, NavigationExperimental} from 'react-native
 import Tabs from 'react-native-tabs';
 import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
-
+import NavBar from './NavBar';
 const {
     AnimatedView: NavigationAnimatedView,
     CardStack: NavigationCardStack,
@@ -68,15 +68,7 @@ class TabView extends Component {
         );
     }
     _renderHeader(props) {
-        if (props.navigationState.hideNavBar){
-            return null;
-        }
-        return (
-            <NavigationHeader
-                {...props}
-                getTitle={state => state.title}
-            />
-        );
+        return <NavBar {...props} getTitle={state => state.title} />;
     }
 
     _renderScene(props) {

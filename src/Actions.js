@@ -70,6 +70,7 @@ class Actions {
                 refs[innerKey] = inner;
                 res.children = [innerKey];
             }
+            res.index = 0;
         }
         assert(!this[key], "Key " + root.key + " is already defined!");
         this[key] =
