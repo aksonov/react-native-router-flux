@@ -69,7 +69,9 @@ class Actions {
             router = route.parent;
             debug("Switching to router="+router.name);
         }
-        debug("ROUTER DELEGATE PROPS:"+ router.delegate.props.dispatch)
+        if (router.delegate.props && router.delegate.props.dispatch){      
+          debug("ROUTER DELEGATE PROPS:"+ router.delegate.props.dispatch)
+        }
         const currentRoute = router.routes[name];
         if (router.delegate.props && router.delegate.props.dispatch){
             router.delegate.props.dispatch({...props, type: BEFORE_ROUTE, route:currentRoute, name})
