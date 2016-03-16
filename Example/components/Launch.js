@@ -6,9 +6,6 @@ var Button = require('react-native-button');
 var Actions = require('react-native-router-flux').Actions;
 
 class Launch extends React.Component {
-    componentDidMount(){
-        Actions.login();
-    }
     render(){
         return (
             <View style={styles.container}>

@@ -38,11 +38,8 @@ export default class extends Component {
                         )}
                     />
             {!hideTabBar && <Tabs style={[{backgroundColor:'white'}, state.tabBarStyle]} onSelect={this.onSelect.bind(this)} {...state} selected={selected.key}>
-                    {state.children.map(el=>{
-                        const Icon = el.icon;
-                        if (!Icon){
-                            console.error("No icon property is defined for tab="+el.key);
-                        }
+                    {state.children.filter(el=>el.icon || this.props.tabIcon).map(el=>{
+                        const Icon = el.icon || this.props.tabIcon;
                         return <Icon {...el}/>
                     })}
                 </Tabs>}

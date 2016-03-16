@@ -61,19 +61,15 @@ function update(state,action){
         case POP_ACTION2:
         case POP_ACTION:
             // recursive pop parent
-            while (el.parent && (el.children.length <= 1 || el.tabs)){
+            while (el.children.length <= 1 || el.tabs){
                 el = findElement(newState, el.parent);
                 assert(el, "Cannot find element for parent="+el.parent+" within current state");
             }
-            if (el.children.length > 1){
-                el.children.pop();
-                el.index = el.children.length - 1;
-                newState.scenes.current = getCurrent(newState);
-                return newState;
-            } else {
-                console.log("Cannot pop because no scenes in the stack!");
-                return state;
-            }
+            assert(el.children.length > 1, "Cannot pop because length of stack key="+el.key+" is less than 2 "+el.children.length);
+            el.children.pop();
+            el.index = el.children.length - 1;
+            newState.scenes.current = getCurrent(newState);
+            return newState;
 
         case REFRESH_ACTION:
             let ind = -1;
@@ -94,8 +90,10 @@ function update(state,action){
             el.children.forEach((c,i)=>{if (c.key==action.key){ind=i}});
             assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
             el.children[ind] = getInitialState(newProps, newState.scenes);
+            //console.log("SETTING INDEX TO:", ind, el.key, action.key);
             el.index = ind;
             newState.scenes.current = getCurrent(newState);
+            //console.log("NEW STATE:", newState);
             return newState;
 
         case REPLACE_ACTION:
@@ -118,7 +116,7 @@ function reducer({initialState, scenes}){
     assert(scenes, "scenes should not be null");
     assert(scenes.current, "scenes.current should not be null");
     return function(state, action){
-        //console.log("ACTION:", action);
+        console.log("ACTION:", action);
         state = state || {...initialState, scenes};
         //console.log("ACTION:", action);
         //console.log("STATE:", JSON.stringify(state));

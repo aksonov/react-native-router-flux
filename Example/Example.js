@@ -1,15 +1,12 @@
-'use strict';
-
-var React = require('react-native');
-var {AppRegistry, Navigator, StyleSheet,Text,View} = React;
-var Launch = require('./components/Launch');
-var Register = require('./components/Register');
-var Login = require('./components/Login');
-var Login2 = require('./components/Login2');
-var {Scene, Router, TabBar, Modal, Schema, Actions} = require('react-native-router-flux');
-var Error = require('./components/Error');
-var Home = require('./components/Home');
-var TabView = require('./components/TabView');
+import React, {AppRegistry, Navigator, StyleSheet, Text, View} from 'react-native'
+import Launch from './components/Launch'
+import Register from './components/Register'
+import Login from './components/Login'
+import Login2 from './components/Login2'
+import {Scene, Router, TabBar, Modal, Schema, Actions} from 'react-native-router-flux'
+import Error from './components/Error'
+import Home from './components/Home'
+import TabView from './components/TabView'
 
 class TabIcon extends React.Component {
     render(){
@@ -55,6 +52,6 @@ const scenes = Actions.create(
 );
 export default class Example extends React.Component {
     render() {
-        return <Router hideNavBar={true} name="root" scenes={scenes}/>;
+        return <Router scenes={scenes}/>;
     }
 }
