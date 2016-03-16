@@ -32,7 +32,7 @@ const scenes = Actions.create(
             <Scene key="register2" component={Register} title="Register2" duration={1}/>
             <Scene key="home" component={Home} title="Replace" type="replace"/>
             <Scene key="launch" component={Launch} title="Launch" initial={true}/>
-            <Scene key="login">
+            <Scene key="login" type="replace">
                 <Scene key="loginModal" component={Login} schema="modal" title="Login"/>
                 <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
             </Scene>
