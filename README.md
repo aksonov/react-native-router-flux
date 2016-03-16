@@ -42,7 +42,7 @@ const scenes = Actions.create(
             <Scene key="login" component={Login} title="Login"/>
             <Scene key="register" component={Register} title="Register"/>
             <Scene key="home" component={Home}/>
-        </Scene>
+        </Scene>);
 
 ```
 2. Use `Router` within your root React Native element with created actions from step #1:
@@ -94,7 +94,9 @@ const scenes = Actions.create(
 | renderBackButton | Closure | | optional closure to render back text or button if this route happens to be the previous route |
 | leftButtonStyle | View style | | optional style override for the container of left title / buttons |
 | leftButtonTextStyle | Text style | | optional style override for the left title element |
+| onLeft | Closure | | function will be called when right navBar button is pressed |
 | rightTitle | string | | optional string to display on the right. `onRight` must be provided for this to appear. |
+| onRight | Closure | | function will be called when right navBar button is pressed |
 | renderRightButton | Closure | | optional closure to render the right title / buttons element |
 | rightButtonStyle | View style | | optional style override for the container of right title / buttons |
 | rightButtonTextStyle | Text style | | optional style override for the right title element |
