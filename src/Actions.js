@@ -16,6 +16,7 @@ export const POP_ACTION = 'BackAction';
 export const REFRESH_ACTION = 'refresh';
 export const RESET_ACTION = 'reset';
 export const INIT_ACTION = 'init';
+export const FOCUS_ACTION = 'focus';
 
 function isNumeric(n){
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -50,7 +51,7 @@ class Actions {
         assert(root.props, "props should be defined for stack");
         const key = root.key;
         assert(key, "unique key should be defined " + JSON.stringify(root));
-        assert([POP_ACTION, POP_ACTION2, REFRESH_ACTION, REPLACE_ACTION, PUSH_ACTION, RESET_ACTION, 'create',
+        assert([POP_ACTION, POP_ACTION2, REFRESH_ACTION, REPLACE_ACTION, JUMP_ACTION, PUSH_ACTION, RESET_ACTION, 'create',
                 'init','callback','iterate','current'].indexOf(key)==-1, key+" is not allowed as key name");
         const {children, ...staticProps} = root.props;
         let type = root.props.type || (parentProps.tabs ? JUMP_ACTION : PUSH_ACTION);
@@ -85,6 +86,11 @@ class Actions {
         props = filterParam(props);
         const data = isNumeric(props) ? {num: props} : props;
         this.callback && this.callback({...props, type: POP_ACTION});
+    }
+
+    jump(props = {}){
+        props = filterParam(props);
+        this.callback && this.callback({...props, type: JUMP_ACTION});
     }
 
     init(props = {}){
