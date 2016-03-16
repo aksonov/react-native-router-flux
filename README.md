@@ -53,7 +53,9 @@ const scenes = Actions.create(
 ```
 3. In any app screen:
     * import {Actions} from 'react-native-router-flux'
-    * Actions.ACTION_NAME(PARAMS) will call appropriate action and params will be passed to the scene
+    * Actions.ACTION_NAME(PARAMS) will call appropriate action and params will be passed to the scene.
+    * Actions.pop() will pop the current screen.
+    * Actions.refresh(PARAMS) will update the properties of current screen.
 
 ## Available imports
 - Router
