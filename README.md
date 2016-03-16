@@ -6,7 +6,7 @@ Router for React Native based on new React Native Navigation API.
 - Define your scenes transitions in one central location
 - Use simple syntax to call transitions anywhere in your code (e.g. `Actions.login`)
 - Eliminates the need to pass navigator objects to your screens
-- (new) Ability to show/hide navigation bar as well as customize it for each scene
+- (new) Ability to show/hide navigation bar as well as customize it for each scene or even different state of scene (Edit/Save navbar for edit mode, for example)
 - Support for managing a tab bar, using [react-native-tabs](https://github.com/aksonov/react-native-tabs) (see demo)
 - Support for nested navigators. For example, each tab can have its own navigator, nested in a root navigator.
 - (new) Ability to add own custom scene renderers for action sheet, native TabBarIOS or anything else, see built-in `Modal` renderer (to display popups) as example.
@@ -202,6 +202,9 @@ To display a modal use `Modal` as root renderer, so it will render first element
 ## Redux/Flux
 This component doesn't depend from any redux/flux library. It uses new React Native Navigation API and provide own reducer for its navigation state.
 You may provide own one if you need.
+
+## Custom nav bar for individual scene or even different state of scene (new feature):
+Your scene class could implement _static_ renderNavigationBar(props) method that could return different navbar depending from component props
 
 ## Switch (new feature)
 New feature for 3.x release is custom scene renderer that should be used together with tabs={true} property. It allows to select `tab` scene to show depending from app state.
