@@ -223,3 +223,6 @@ Following example chooses scene depending from sessionID using Redux:
             <Scene key="main" component={Main}>
         </Scene>
 ```
+
+## Support
+Thanks to all who submitted PRs to 2.x release. If you like the component and want to support it, feel free to donate any amount or help with issues.
