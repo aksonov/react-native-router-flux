@@ -26,6 +26,7 @@ Router for React Native based on new React Native Navigation API.
 - Custom scene renderers are used instead of 'custom' types (like 'modal'), so 'modal' scenes are pushed as usual, but custom renderer will render them as popup. No `dismiss`, just usual `pop` to close such popups.
 - No old navigator.sceneConfig support (instead the component uses React Native NavigationAnimatedView for better transitions)
 - No onPush/onPop/etc handlers because they are doesn't need now. If navigation state is changed, container will be re-renderer with changed navigationState property, see `Modal` as Example.
+- No header/footer properties are supported for Scene currently - you may include them into Scene component.
 
 ## Installation
 ```
