@@ -9,7 +9,7 @@ Router for React Native based on new React Native Navigation API.
 - (new) Ability to show/hide navigation bar as well as customize it for each scene or even different state of scene (Edit/Save navbar for edit mode, for example)
 - Support for managing a tab bar, using [react-native-tabs](https://github.com/aksonov/react-native-tabs) (see demo)
 - Support for nested navigators. For example, each tab can have its own navigator, nested in a root navigator.
-- (new) Ability to add own custom scene renderers for action sheet, native TabBarIOS or anything else, see built-in `Modal` renderer (to display popups) as example.
+- (new) Ability to add own custom scene renderers for action sheet, native TabBarIOS or anything else, see built-in `Modal` renderer (to display popups) as example. Feel free to submit PR with custom renderers for ActionSheet, Drawer, etc. Let's make awesome library!
 - (new) Dynamically choose scene to render depending from application state (`Switch` renderer, useful for authentication)
 - (new) Possibility to use own reducer for navigation state.
 
