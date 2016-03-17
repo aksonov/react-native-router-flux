@@ -84,8 +84,8 @@ const scenes = Actions.create(
 |-----------|--------|---------|--------------------------------------------|
 | key | string | required | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
 | component | React.Component | semi-required | The `Component` to be displayed. Not required when defining a nested `Scene`, see example. If it is defined for 'container' scene, it will be used as custom container `renderer` |
-| type | string | optional | Defines how the new screen is added to the navigator stack. One of `push` or `replace`
-| tabs| bool | false | Defines 'TabBar' scene container, so child scenes will be displayed as 'tabs'. If no `component` is defined, built-in `TabBar` is used as renderer.
+| type | string | 'push' or 'jump' | Defines how the new screen is added to the navigator stack. One of `push`, `jump`, `replace`. If parent container is tabbar (tabs=true), jump will be automatically set.
+| tabs| bool | false | Defines 'TabBar' scene container, so child scenes will be displayed as 'tabs'. If no `component` is defined, built-in `TabBar` is used as renderer. All child scenes are wrapped into own navbar.
 | initial | bool | false | Set to `true` if this is the initial scene |
 | title | string | null | The title to be displayed in the navigation bar |
 | navBar | React.Component | | optional custom NavBar for the scene. Check built-in NavBar of the component for reference |
