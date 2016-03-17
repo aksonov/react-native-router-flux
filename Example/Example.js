@@ -21,14 +21,18 @@ class Header extends React.Component {
         return <Text>Header</Text>
     }
 }
+const styles = StyleSheet.create({
+    container: {flex:1, backgroundColor:'white',justifyContent: 'center',
+        alignItems: 'center',}
 
+});
 const scenes = Actions.create(
-    <Scene key="modal" component={Modal}  >
+    <Scene key="modal" component={Modal} >
         <Scene key="root" hideNavBar={true}>
             <Scene key="register" component={Register} title="Register"/>
             <Scene key="register2" component={Register} title="Register2" duration={1}/>
             <Scene key="home" component={Home} title="Replace" type="replace"/>
-            <Scene key="launch" component={Launch} title="Launch" initial={true}/>
+            <Scene key="launch" component={Launch} title="Launch" initial={true}   style={styles.container}/>
             <Scene key="login">
                 <Scene key="loginModal" component={Login} schema="modal" title="Login"/>
                 <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
