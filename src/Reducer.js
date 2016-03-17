@@ -83,11 +83,11 @@ function update(state,action){
             let ind = -1;
             el.children.forEach((c,i)=>{if (c.sceneKey==action.key){ind=i}});
             assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
-            el.children[ind] = getInitialState(newProps, newState.scenes,ind);
+            el.children[ind] = getInitialState(newProps, newState.scenes, ind, action);
             return newState;
 
         case PUSH_ACTION:
-            el.children.push(getInitialState(newProps, newState.scenes,el.children.length));
+            el.children.push(getInitialState(newProps, newState.scenes, el.children.length, action));
             el.index = el.children.length - 1;
             newState.scenes.current = getCurrent(newState);
             return newState;
@@ -97,7 +97,7 @@ function update(state,action){
             ind = -1;
             el.children.forEach((c,i)=>{if (c.sceneKey==action.key){ind=i}});
             assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
-            el.children[ind] = getInitialState(newProps, newState.scenes,ind);
+            el.children[ind] = getInitialState(newProps, newState.scenes, ind, action);
             //console.log("SETTING INDEX TO:", ind, el.key, action.key);
             el.index = ind;
             newState.scenes.current = getCurrent(newState);
@@ -106,9 +106,9 @@ function update(state,action){
 
         case REPLACE_ACTION:
             if (el.children && el.children.length){
-                el.children[el.index] = getInitialState(newProps, newState.scenes, el.index);
+                el.children[el.index] = getInitialState(newProps, newState.scenes, el.index, action);
             } else {
-                el.children = [getInitialState(newProps, newState.scenes)];
+                el.children = [getInitialState(newProps, newState.scenes, 0, action)];
             }
             newState.scenes.current = getCurrent(newState);
             return newState;
@@ -150,7 +150,7 @@ function reducer({initialState, scenes}){
             case JUMP_ACTION:
             case REPLACE_ACTION:
                 const newState = update(state, action);
-                console.log("NEW STATE:", JSON.stringify(newState));
+                //console.log("NEW STATE:", JSON.stringify(newState));
                 return newState;
             default:
                 return state;
