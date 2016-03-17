@@ -8,16 +8,16 @@
  */
 import assert from 'assert';
 
-export function getInitialState(route:{string: any},scenes:{string:any}){
+export function getInitialState(route:{string: any},scenes:{string:any},position=0){
     if (!route.children){
-        return {...route};
+        return {...route, sceneKey:route.key, key:position+'_'+route.key};
     }
     let {children, ...res} = route;
     let index = 0;
     route.children.forEach((r,i)=>{assert(scenes[r], "Empty scene for key="+route.key+" "+JSON.stringify(r)); if (scenes[r].initial) index=i});
 
     if (route.tabs){
-        res.children = route.children.map(r=>getInitialState(scenes[r],scenes));
+        res.children = route.children.map((r,i)=>getInitialState(scenes[r],scenes,i));
         scenes.current = res.children[index].key;
         res.index = index;
     } else {
@@ -25,6 +25,8 @@ export function getInitialState(route:{string: any},scenes:{string:any}){
         scenes.current = res.children[0].key;
         res.index = 0;
     }
+    res.sceneKey = res.key;
+    res.key = position+'_'+res.key;
     return res;
 }
 

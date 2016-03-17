@@ -13,7 +13,7 @@ import Immutable from 'immutable';
 import {getInitialState} from './State';
 
 function findElement(state, key) {
-    if (state.key != key){
+    if (state.sceneKey != key){
         if (state.children){
             let result = undefined;
             state.children.forEach(el=>{
@@ -43,11 +43,15 @@ function getCurrent(state){
 
 function update(state,action){
     // clone state, TODO: clone effectively?
+    if (!state.scenes[action.key] && action.key.indexOf('_')!=-1){
+        action.key = action.key.substring(action.key.indexOf('_')+1);
+        console.log("Transform to key="+action.key);
+    }
     const newProps = {...state.scenes[action.key], ...action};
     let newState = Immutable.fromJS(state).toJS();
 
     // change route property
-    newState.scenes[action.key] = newProps;
+    //newState.scenes[action.key] = newProps;
 
     // get parent
     const parent = newProps.parent;
@@ -55,7 +59,7 @@ function update(state,action){
 
     // find parent in the state
     let el = findElement(newState, parent);
-    assert(el, "Cannot find element for parent="+parent+" within current state");
+    assert(el, "Cannot find element for parent="+parent+" within current state:"+JSON.stringify(newState));
 
     switch (action.type){
         case POP_ACTION2:
@@ -77,13 +81,13 @@ function update(state,action){
 
         case REFRESH_ACTION:
             let ind = -1;
-            el.children.forEach((c,i)=>{if (c.key==action.key){ind=i}});
+            el.children.forEach((c,i)=>{if (c.sceneKey==action.key){ind=i}});
             assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
-            el.children[ind] = getInitialState(newProps, newState.scenes);
+            el.children[ind] = getInitialState(newProps, newState.scenes,ind);
             return newState;
 
         case PUSH_ACTION:
-            el.children.push(getInitialState(newProps, newState.scenes));
+            el.children.push(getInitialState(newProps, newState.scenes,el.children.length));
             el.index = el.children.length - 1;
             newState.scenes.current = getCurrent(newState);
             return newState;
@@ -91,9 +95,9 @@ function update(state,action){
         case JUMP_ACTION:
             assert(el.tabs, "Parent="+el.key+" is not tab bar, jump action is not valid");
             ind = -1;
-            el.children.forEach((c,i)=>{if (c.key==action.key){ind=i}});
+            el.children.forEach((c,i)=>{if (c.sceneKey==action.key){ind=i}});
             assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
-            el.children[ind] = getInitialState(newProps, newState.scenes);
+            el.children[ind] = getInitialState(newProps, newState.scenes,ind);
             //console.log("SETTING INDEX TO:", ind, el.key, action.key);
             el.index = ind;
             newState.scenes.current = getCurrent(newState);
@@ -102,7 +106,7 @@ function update(state,action){
 
         case REPLACE_ACTION:
             if (el.children && el.children.length){
-                el.children[el.index] = getInitialState(newProps, newState.scenes);
+                el.children[el.index] = getInitialState(newProps, newState.scenes, el.index);
             } else {
                 el.children = [getInitialState(newProps, newState.scenes)];
             }
@@ -146,7 +150,7 @@ function reducer({initialState, scenes}){
             case JUMP_ACTION:
             case REPLACE_ACTION:
                 const newState = update(state, action);
-//                console.log("NEW STATE:", JSON.stringify(newState));
+                console.log("NEW STATE:", JSON.stringify(newState));
                 return newState;
             default:
                 return state;
