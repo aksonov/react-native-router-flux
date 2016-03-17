@@ -4,7 +4,7 @@ Router for React Native based on new React Native Navigation API.
 
 ## Features
 - Define your scenes transitions in one central location
-- Use simple syntax to call transitions anywhere in your code (e.g. `Actions.login`)
+- Use simple syntax to call transitions anywhere in your code (e.g. `Actions.login()`)
 - Eliminates the need to pass navigator objects to your screens
 - (new) Ability to show/hide navigation bar as well as customize it for each scene or even different state of scene (Edit/Save navbar for edit mode, for example)
 - Support for managing a tab bar, using [react-native-tabs](https://github.com/aksonov/react-native-tabs) (see demo)
@@ -88,6 +88,7 @@ const scenes = Actions.create(
 | tabs| bool | false | Defines 'TabBar' scene container, so child scenes will be displayed as 'tabs'. If no `component` is defined, built-in `TabBar` is used as renderer.
 | initial | bool | false | Set to `true` if this is the initial scene |
 | title | string | null | The title to be displayed in the navigation bar |
+| navBar | React.Component | | optional custom NavBar for the scene. Check built-in NavBar of the component for reference |
 | hideNavBar | bool | false | hides navigation bar for this scene |
 | hideTabBar | bool | false | hides tab bar for this scene (if built-in TabBar component is used as parent renderer)|
 | navigationBarStyle | View style |  | optional style override for the navigation bar |
