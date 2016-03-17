@@ -61,15 +61,19 @@ function update(state,action){
         case POP_ACTION2:
         case POP_ACTION:
             // recursive pop parent
-            while (el.children.length <= 1 || el.tabs){
+            while (el.parent && (el.children.length <= 1 || el.tabs)){
                 el = findElement(newState, el.parent);
                 assert(el, "Cannot find element for parent="+el.parent+" within current state");
             }
-            assert(el.children.length > 1, "Cannot pop because length of stack key="+el.key+" is less than 2 "+el.children.length);
-            el.children.pop();
-            el.index = el.children.length - 1;
-            newState.scenes.current = getCurrent(newState);
-            return newState;
+            if (el.children.length > 1) {
+                el.children.pop();
+                el.index = el.children.length - 1;
+                newState.scenes.current = getCurrent(newState);
+                return newState;
+            } else {
+                console.log("Cannot do pop");
+                return state;
+            }
 
         case REFRESH_ACTION:
             let ind = -1;
