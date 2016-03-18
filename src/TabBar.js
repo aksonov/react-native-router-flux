@@ -37,7 +37,7 @@ export default class extends Component {
                           />
                         )}
                     />
-            {!hideTabBar && <Tabs style={[{backgroundColor:'white'}, state.tabBarStyle]} onSelect={this.onSelect.bind(this)} {...state} selected={selected.scene}>
+            {!hideTabBar && <Tabs style={[{backgroundColor:'white'}, state.tabBarStyle]} onSelect={this.onSelect.bind(this)} {...state} selected={selected.sceneKey}>
                     {state.children.filter(el=>el.icon || this.props.tabIcon).map(el=>{
                         const Icon = el.icon || this.props.tabIcon;
                         return <Icon {...el}/>
