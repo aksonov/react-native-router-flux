@@ -8,7 +8,7 @@ var Actions = require('react-native-router-flux').Actions;
 class Login extends React.Component {
     render(){
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, this.props.style]}>
                 <Text>Login page: {this.props.data}</Text>
                 <Button onPress={Actions.loginModal}>Login 2</Button>
                 <Button onPress={Actions.pop}>Back</Button>
