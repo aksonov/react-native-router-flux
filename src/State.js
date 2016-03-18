@@ -27,7 +27,6 @@ export function getInitialState(route:{string: any},scenes:{string:any}, positio
         res.index = 0;
     }
     res.sceneKey = res.key;
-    console.log("POSITION:", position);
     res.key = position+'_'+res.key;
     return res;
 }
