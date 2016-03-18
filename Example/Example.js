@@ -3,7 +3,7 @@ import Launch from './components/Launch'
 import Register from './components/Register'
 import Login from './components/Login'
 import Login2 from './components/Login2'
-import {Scene, Router, TabBar, Modal, Schema, Actions} from 'react-native-router-flux'
+import {Scene, Router, Switch, TabBar, Modal, Schema, Actions} from 'react-native-router-flux'
 import Error from './components/Error'
 import Home from './components/Home'
 import TabView from './components/TabView'
@@ -37,7 +37,7 @@ const scenes = Actions.create(
                 <Scene key="loginModal" component={Login} schema="modal" title="Login" style={{backgroundColor:'transparent'}}/>
                 <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
             </Scene>
-            <Scene key="tabbar" component={TabBar} tabs={true}>
+            <Scene key="tabbar" component={Switch} tabs={true} default="tab2" selector={props=>props.default}>
                 <Scene key="tab1"  title="Tab #1" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
                     <Scene key="tab1_1" component={TabView} title="Tab #1_1" onRight={()=>alert("Right button")} rightTitle="Right" />
                     <Scene key="tab1_2" component={TabView} title="Tab #1_2" titleStyle={{color:'black'}}/>
@@ -56,6 +56,6 @@ const scenes = Actions.create(
 );
 export default class Example extends React.Component {
     render() {
-        return <View style={{backgroundColor:'red',flex:1}}><Router scenes={scenes}/></View>;
+        return <Router scenes={scenes}/>;
     }
 }
