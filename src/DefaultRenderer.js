@@ -49,7 +49,7 @@ export default class DefaultRenderer extends Component {
                 style={styles.animatedView}
                 renderOverlay={this._renderHeader}
                 setTiming={(pos, navState) => {
-          Animated.timing(pos, {toValue: navState.index, duration: selected.duration || 500}).start();
+          Animated.timing(pos, {toValue: navState.index, duration: selected.duration || 300}).start();
         }}
                 renderScene={this._renderCard}
             />
