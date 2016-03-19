@@ -27,18 +27,13 @@ const styles = StyleSheet.create({
 
 });
 
-class NavBar extends React.Component {
-    render(){
-        return <View style={{position:'absolute', top:0, height:100, left:0, right:0, backgroundColor:'black'}}><Text>NavBar</Text></View>;
-    }
-}
 const scenes = Actions.create(
     <Scene key="modal" component={Modal} >
         <Scene key="root" hideNavBar={true}>
             <Scene key="register" component={Register} title="Register"/>
             <Scene key="register2" component={Register} title="Register2" duration={1}/>
             <Scene key="home" component={Home} title="Replace" type="replace"/>
-            <Scene key="launch" component={Launch} navBar={NavBar} title="Launch" initial={true} style={{flex:1, backgroundColor:'transparent'}}/>
+            <Scene key="launch" component={Launch} title="Launch" initial={true} style={{flex:1, backgroundColor:'transparent'}}/>
             <Scene key="login" direction="vertical">
                 <Scene key="loginModal" component={Login} schema="modal" title="Login"/>
                 <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
