@@ -8,7 +8,7 @@ var Actions = require('react-native-router-flux').Actions;
 class Launch extends React.Component {
     render(){
         return (
-            <View style={styles.container} {...this.props}>
+            <View {...this.props}  style={[styles.container, this.props.style]}>
                 <Text>Launch page</Text>
                 <Button onPress={()=>Actions.login({data:"Custom data", title:'Custom title' })}>Go to Login page</Button>
                 <Button onPress={Actions.register}>Go to Register page</Button>

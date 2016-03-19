@@ -46,10 +46,10 @@ export default class DefaultRenderer extends Component {
         return (
             <NavigationAnimatedView
                 navigationState={navigationState}
-                style={styles.animatedView}
+                style={[styles.animatedView, navigationState.style]}
                 renderOverlay={this._renderHeader}
                 setTiming={(pos, navState) => {
-          Animated.timing(pos, {toValue: navState.index, duration: selected.duration || 500}).start();
+          Animated.timing(pos, {toValue: navState.index, duration: selected.duration || 250}).start();
         }}
                 renderScene={this._renderCard}
             />
@@ -69,7 +69,9 @@ export default class DefaultRenderer extends Component {
             <NavigationCard
                 {...props}
                 key={'card_' + props.scene.navigationState.key}
+                direction={props.scene.navigationState.direction || 'horizontal'}
                 renderScene={this._renderScene}
+                style={{backgroundColor:'transparent'}}
             />
         );
     }
@@ -83,6 +85,7 @@ export default class DefaultRenderer extends Component {
 const styles = StyleSheet.create({
     animatedView: {
         flex: 1,
+        backgroundColor:'transparent'
     },
 });
 

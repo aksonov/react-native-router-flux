@@ -32,9 +32,9 @@ const scenes = Actions.create(
             <Scene key="register" component={Register} title="Register"/>
             <Scene key="register2" component={Register} title="Register2" duration={1}/>
             <Scene key="home" component={Home} title="Replace" type="replace"/>
-            <Scene key="launch" component={Launch} title="Launch" initial={true}/>
-            <Scene key="login">
-                <Scene key="loginModal" component={Login} schema="modal" title="Login" style={{backgroundColor:'transparent'}}/>
+            <Scene key="launch" component={Launch} title="Launch" initial={true} style={{flex:1, backgroundColor:'transparent'}}/>
+            <Scene key="login" direction="vertical">
+                <Scene key="loginModal" component={Login} schema="modal" title="Login"/>
                 <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
             </Scene>
             <Scene key="tabbar" component={Switch} tabs={true} default="tab2" selector={props=>props.default}>
