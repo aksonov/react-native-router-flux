@@ -54,15 +54,15 @@ export default class extends React.Component {
     render() {
         const state = this.props.navigationState;
         const childrenState = this.props.navigationState.children[state.index];
-        if (state.hideNavBar || childrenState.hideNavBar){
-            return null;
-        }
         if (state.navBar || childrenState.navBar){
             const Component =  childrenState.navBar || state.navBar;
             return <Component {...this.props} {...state}/>
         }
         if (childrenState.component && childrenState.component.renderNavigationBar){
             return childrenState.component.renderNavigationBar({...this.props,...childrenState});
+        }
+        if (state.hideNavBar || childrenState.hideNavBar){
+            return null;
         }
         return (
             <Animated.View
