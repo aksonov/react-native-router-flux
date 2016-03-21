@@ -53,15 +53,18 @@ export default class extends React.Component {
     }
     render() {
         const state = this.props.navigationState;
-        const childrenState = this.props.navigationState.children[state.index];
-        if (state.navBar || childrenState.navBar){
-            const Component =  childrenState.navBar || state.navBar;
-            return <Component {...this.props} {...state}/>
+        let selected = state.children[state.index];
+        while (selected.hasOwnProperty("children")) {
+            selected = selected.children[selected.index]
         }
-        if (childrenState.component && childrenState.component.renderNavigationBar){
-            return childrenState.component.renderNavigationBar({...this.props,...childrenState});
+        if (state.navBar || selected.navBar){
+            const Component =  selected.navBar || state.navBar;
+            return <Component {...this.props} {...state} {...selected}/>
         }
-        if (state.hideNavBar || childrenState.hideNavBar){
+        if (selected.component && selected.component.renderNavigationBar){
+            return selected.component.renderNavigationBar({...this.props,...selected});
+        }
+        if (state.hideNavBar || selected.hideNavBar){
             return null;
         }
         return (
