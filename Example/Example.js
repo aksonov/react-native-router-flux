@@ -38,7 +38,7 @@ const scenes = Actions.create(
                 <Scene key="loginModal" component={Login} schema="modal" title="Login"/>
                 <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
             </Scene>
-            <Scene key="tabbar" component={Switch} tabs={true} default="tab2" selector={props=>props.default}>
+            <Scene key="tabbar" tabs={true} default="tab2" >
                 <Scene key="tab1"  title="Tab #1" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
                     <Scene key="tab1_1" component={TabView} title="Tab #1_1" onRight={()=>alert("Right button")} rightTitle="Right" />
                     <Scene key="tab1_2" component={TabView} title="Tab #1_2" titleStyle={{color:'black'}}/>
@@ -57,6 +57,6 @@ const scenes = Actions.create(
 );
 export default class Example extends React.Component {
     render() {
-        return <Router scenes={scenes}/>;
+        return <Router scenes={scenes} sceneStyle={{backgroundColor:'#F7F7F7'}}/>;
     }
 }
