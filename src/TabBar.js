@@ -40,7 +40,8 @@ export default class extends Component {
                           />
                         )}
                     />
-            {!hideTabBar && state.children.filter(el=>el.icon).length>0 && <Tabs style={[{backgroundColor:'white'}, state.tabBarStyle]} onSelect={this.onSelect.bind(this)} {...state} selected={selected.sceneKey}>
+            {!hideTabBar && state.children.filter(el=>el.icon).length>0 && <Tabs style={[{backgroundColor:'white'}, state.tabBarStyle]} onSelect={this.onSelect.bind(this)} {...state}
+                                                                                 selected={state.children[state.index].sceneKey}>
                     {state.children.filter(el=>el.icon || this.props.tabIcon).map(el=>{
                         const Icon = el.icon || this.props.tabIcon;
                         return <Icon  {...this.props} {...el}/>
