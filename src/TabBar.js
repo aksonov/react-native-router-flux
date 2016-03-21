@@ -25,6 +25,9 @@ export default class extends Component {
     render(){
         const state = this.props.navigationState;
         const selected = state.children[state.index];
+        while (selected.hasOwnProperty("children")) {
+          selected = selected.children[selected.index]
+        }
         const hideTabBar = state.hideTabBar || selected.hideTabBar;
         return <View style={{flex:1}}>
                     <NavigationView
