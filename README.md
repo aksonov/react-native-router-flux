@@ -76,7 +76,8 @@ const scenes = Actions.create(
 | Property | Type | Default | Description |
 |---------------|----------|--------------|----------------------------------------------------------------|
 | scenes | object | null | required scenes for Router|
-| reducer | object | Reducer({initialState:getInitialState(scenes), scenes})| optional user-defined reducer for scenes|
+| reducer | object | Reducer({initialState:getInitialState(scenes), scenes})| optional user-defined reducer for scenes, you may want to use it to intercept all actions and put your custom logic |
+| other props | | | all properties that will be passed to all your scenes |  
 
 ##### Scene:
 
@@ -107,6 +108,7 @@ const scenes = Actions.create(
 | renderRightButton | Closure | | optional closure to render the right title / buttons element |
 | rightButtonStyle | View style | | optional style override for the container of right title / buttons |
 | rightButtonTextStyle | Text style | | optional style override for the right title element |
+| other props | | | all properties that will be passed to your component instance |
 
 ## Example
 ![launch](https://cloud.githubusercontent.com/assets/1321329/11692367/7337cfe2-9e9f-11e5-8515-e8b7a9f230ec.gif)
