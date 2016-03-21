@@ -31,10 +31,11 @@ export function getInitialState(route:{string: any},scenes:{string:any}, positio
     return res;
 }
 
-export default function(scenes:{string: any}){
+export default function(scenes:{string: any}, props){
+    // find 'root' component and get state from it
     for (let route in scenes){
         if (scenes.hasOwnProperty(route) && !scenes[route].parent){
-            return getInitialState(scenes[route], scenes);
+            return getInitialState(scenes[route], scenes, 0, props);
         }
     }
 }

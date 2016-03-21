@@ -21,18 +21,31 @@ import DefaultRenderer from './DefaultRenderer';
 export default class extends Component {
     constructor(props) {
         super(props);
+        this.state = {};
         this._renderNavigation = this._renderNavigation.bind(this);
-        const scenes = this.props.scenes || Actions.create(props.children);
-        const initialState = getInitialState(scenes);
-        this.reducer = this.props.reducer || Reducer({initialState, scenes});
+        this._handleProps = this._handleProps.bind(this);
+    }
 
+    _handleProps(props){
+        const scenesMap = props.scenes || Actions.create(props.children);
+        const {children, style, scenes, reducer,...parentProps} = props;
+        const initialState = getInitialState(scenesMap, parentProps);
+        this.setState({reducer: props.reducer || Reducer({initialState, scenes:scenesMap})});
+    }
+
+    componentWillReceiveProps(props){
+        this._handleProps(props);
+    }
+
+    componentDidMount(){
+        this._handleProps(this.props);
     }
 
     _renderNavigation(navigationState, onNavigate) {
-        Actions.callback = props=>onNavigate(props);
         if (!navigationState) {
             return null;
         }
+        Actions.callback = props=>onNavigate(props);
         const Component = navigationState.component || DefaultRenderer;
         const props = navigationState.scenes[navigationState.scenes.current];
 
@@ -44,8 +57,11 @@ export default class extends Component {
     }
 
     render(){
+        if (!this.state.reducer){
+            return null;
+        }
         return <NavigationRootContainer
-            reducer={this.reducer}
+            reducer={this.state.reducer}
             renderNavigation={this._renderNavigation}
         />
     }

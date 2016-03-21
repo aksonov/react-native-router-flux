@@ -70,6 +70,7 @@ class Actions {
                 const inner = {...res, name:key, key: innerKey, type: PUSH_ACTION, parent:res.key}
                 refs[innerKey] = inner;
                 res.children = [innerKey];
+                delete res.component;
             }
             res.index = 0;
         }
