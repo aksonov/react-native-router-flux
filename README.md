@@ -13,12 +13,8 @@ Router for React Native based on new React Native Navigation API.
 - (new) Dynamically choose scene to render depending from application state (`Switch` renderer, useful for authentication)
 - (new) Possibility to use own reducer for navigation state.
 
-## Beta status
-- This version is beta, for more stable work use 2.x version from `2.x` branch,
-[README for 2.x](https://github.com/aksonov/react-native-router-flux/blob/2.x/README.md)
-- React Native 0.22-rc is supported, it could not work with earlier or later versions
-
 ## IMPORTANT! Breaking changes comparing with 2.x version:
+- React Native 0.22 is required
 - `Router` is root container now and should not be nested. For nested scenes you should use `Scene` element
 - `Route` became `Scene`, now unique `key` attribute is required for each scene (it was `name` attribute before)
 - Define all your scenes on top-level, not within `Router` as before (see Example)
