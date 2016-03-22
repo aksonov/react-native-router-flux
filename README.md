@@ -239,7 +239,7 @@ return <Router scenes={scenes} createReducer={reducerCreate} />;
 ```
 
 ## Custom nav bar for individual scene or even different state of scene (new feature):
-Your scene class could implement _static_ renderNavigationBar(props) method that could return different navbar depending from component props
+Your scene `component` class could implement _static_ renderNavigationBar(props) method that could return different navbar depending from component props
 
 ## Switch (new feature)
 New feature for 3.x release is custom scene renderer that should be used together with tabs={true} property. It allows to select `tab` scene to show depending from app state.
