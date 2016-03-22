@@ -50,7 +50,7 @@ class Actions {
     iterate(root: Scene, parentProps = {}, refs = {}) {
         assert(root.props, "props should be defined for stack");
         const key = root.key;
-        assert(key, "unique key should be defined " + JSON.stringify(root));
+        assert(key, "unique key should be defined ",root);
         assert([POP_ACTION, POP_ACTION2, REFRESH_ACTION, REPLACE_ACTION, JUMP_ACTION, PUSH_ACTION, RESET_ACTION, 'create',
                 'init','callback','iterate','current'].indexOf(key)==-1, key+" is not allowed as key name");
         const {children, ...staticProps} = root.props;
@@ -74,7 +74,9 @@ class Actions {
             }
             res.index = 0;
         }
-        assert(!this[key], "Key " + root.key + " is already defined!");
+        if (this[key]){
+            console.log("Key " + root.key + " is already defined!");
+        }
         this[key] =
             (props={})=> {assert(this.callback, "Actions.callback is not defined!");
             this.callback({key: root.key, type, ...filterParam(props)})};

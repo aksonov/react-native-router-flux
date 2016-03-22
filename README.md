@@ -31,25 +31,23 @@ npm i react-native-router-flux --save
 ```
 
 ## Usage
-1. In top-level index.js, define your scenes using `Scene` element and create actions using `Actions.create(scenes)` like:
-```
-import {Actions, Scene} from 'react-native-router-flux';
+1. In top-level index.js, define your scenes using `Scene` element and pass it to `Router`:
+```javascript
+import {Actions, Scene, Router} from 'react-native-router-flux';
+...
 
-const scenes = Actions.create(
-        <Scene key="root">
-            <Scene key="login" component={Login} title="Login"/>
-            <Scene key="register" component={Register} title="Register"/>
-            <Scene key="home" component={Home}/>
-        </Scene>);
-
-```
-2. Use `Router` within your root React Native element with created actions from step #1:
-```
+class App extends React.Component {
     render(){
-        return <Router scenes={scenes}/>;
+        return <Router>
+            <Scene key="root">
+                <Scene key="login" component={Login} title="Login"/>
+                <Scene key="register" component={Register} title="Register"/>
+                <Scene key="home" component={Home}/>
+            </Scene>
+        </Router>
     }
 ```
-3. In any app screen:
+2. In any app screen:
     * import {Actions} from 'react-native-router-flux'
     * Actions.ACTION_NAME(PARAMS) will call appropriate action and params will be passed to the scene.
     * Actions.pop() will pop the current screen.
@@ -71,10 +69,10 @@ const scenes = Actions.create(
 ##### Router:
 | Property | Type | Default | Description |
 |---------------|----------|--------------|----------------------------------------------------------------|
-| scenes | object | null | required scenes for Router|
 | reducer | object | Reducer({initialState:getInitialState(scenes), scenes})| optional user-defined reducer for scenes, you may want to use it to intercept all actions and put your custom logic |
 | other props | | | all properties that will be passed to all your scenes |  
-
+| children | | required (if no scenes property passed)| Scene root element |
+| scenes | object | optional | scenes for Router created with Actions.create. This will allow to create all actions BEFORE React processing. If you don't need it you may pass Scene root element as children |
 ##### Scene:
 
 | Property | Type | Default | Description |
@@ -92,7 +90,6 @@ const scenes = Actions.create(
 | hideTabBar | bool | false | hides tab bar for this scene (if built-in TabBar component is used as parent renderer)|
 | navigationBarStyle | View style |  | optional style override for the navigation bar |
 | titleStyle | Text style |  | optional style override for the title element |
-| renderTitle | Closure | | optional closure to render the title element |
 | leftTitle | string | | optional string to display on the left if the previous route does not provide `renderBackButton` prop. `renderBackButton` > `leftTitle` > <previous route's `title`> |
 | renderLeftButton | Closure | | optional closure to render the left title / buttons element |
 | renderBackButton | Closure | | optional closure to render back text or button if this route happens to be the previous route |
@@ -128,45 +125,47 @@ class TabIcon extends React.Component {
     }
 }
 
-class Header extends React.Component {
-    render(){
-        return <Text>Header</Text>
+const reducerCreate = params=>{
+    const defaultReducer = Reducer(params);
+    return (state, action)=>{
+        console.log("ACTION:", action);
+        return defaultReducer(state, action);
+    }
+};
+
+export default class Example extends React.Component {
+    render() {
+        return <Router createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}}>
+            <Scene key="modal" component={Modal} >
+                <Scene key="root" hideNavBar={true}>
+                    <Scene key="register" component={Register} title="Register"/>
+                    <Scene key="register2" component={Register} title="Register2" duration={1}/>
+                    <Scene key="home" component={Home} title="Replace" type="replace"/>
+                    <Scene key="launch" component={Launch} title="Launch" initial={true} style={{flex:1, backgroundColor:'transparent'}}/>
+                    <Scene key="login" direction="vertical">
+                        <Scene key="loginModal" component={Login} schema="modal" title="Login"/>
+                        <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
+                    </Scene>
+                    <Scene key="tabbar" tabs={true} default="tab2" >
+                        <Scene key="tab1"  title="Tab #1" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
+                            <Scene key="tab1_1" component={TabView} title="Tab #1_1" onRight={()=>alert("Right button")} rightTitle="Right" />
+                            <Scene key="tab1_2" component={TabView} title="Tab #1_2" titleStyle={{color:'black'}}/>
+                        </Scene>
+                        <Scene key="tab2" initial={true} title="Tab #2" icon={TabIcon}>
+                            <Scene key="tab2_1" component={TabView} title="Tab #2_1" onLeft={()=>alert("Left button!")} leftTitle="Left"/>
+                            <Scene key="tab2_2" component={TabView} title="Tab #2_2"/>
+                        </Scene>
+                        <Scene key="tab3" component={TabView} title="Tab #3" hideTabBar={true} icon={TabIcon}/>
+                        <Scene key="tab4" component={TabView} title="Tab #4" hideNavBar={true} icon={TabIcon}/>
+                        <Scene key="tab5" component={TabView} title="Tab #5" icon={TabIcon} />
+                    </Scene>
+                </Scene>
+                <Scene key="error" component={Error}/>
+            </Scene>
+        </Router>;
     }
 }
 
-const scenes = Actions.create(
-    <Scene key="modal" component={Modal}  >
-        <Scene key="root" hideNavBar={true}>
-            <Scene key="register" component={Register} title="Register"/>
-            <Scene key="register2" component={Register} title="Register2" duration={1}/>
-            <Scene key="home" component={Home} title="Replace" type="replace"/>
-            <Scene key="launch" component={Launch} title="Launch" initial={true}/>
-            <Scene key="login" type="replace">
-                <Scene key="loginModal" component={Login} schema="modal" title="Login"/>
-                <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
-            </Scene>
-            <Scene key="tabbar" component={TabBar} tabs={true}>
-                <Scene key="tab1"  title="Tab #1" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
-                    <Scene key="tab1_1" component={TabView} title="Tab #1_1" onRight={()=>alert("Right button")} rightTitle="Right" />
-                    <Scene key="tab1_2" component={TabView} title="Tab #1_2" titleStyle={{color:'black'}}/>
-                </Scene>
-                <Scene key="tab2" initial={true} title="Tab #2" icon={TabIcon}>
-                    <Scene key="tab2_1" component={TabView} title="Tab #2_1" onLeft={()=>alert("Left button!")} leftTitle="Left"/>
-                    <Scene key="tab2_2" component={TabView} title="Tab #2_2"/>
-                </Scene>
-                <Scene key="tab3" component={TabView} title="Tab #3" hideTabBar={true} icon={TabIcon}/>
-                <Scene key="tab4" component={TabView} title="Tab #4" hideNavBar={true} icon={TabIcon}/>
-                <Scene key="tab5" component={TabView} title="Tab #5" icon={TabIcon}/>
-            </Scene>
-        </Scene>
-        <Scene key="error" component={Error}/>
-    </Scene>
-);
-export default class Example extends React.Component {
-    render() {
-        return <Router scenes={scenes}/>;
-    }
-}
 ```
 
 components/Launch.js (initial screen)
@@ -208,7 +207,20 @@ To display a modal use `Modal` as root renderer, so it will render first element
 
 ## Redux/Flux
 This component doesn't depend from any redux/flux library. It uses new React Native Navigation API and provide own reducer for its navigation state.
-You may provide own one if you need.
+You may provide own one if you need. To avoid creation of initial state, you may pass reducer creator. Example to print all actions:
+```javascript
+const reducerCreate = params=>{
+    const defaultReducer = Reducer(params);
+    return (state, action)=>{
+        console.log("ACTION:", action);
+        return defaultReducer(state, action);
+    }
+};
+
+// within  your App render() method
+return <Router scenes={scenes} createReducer={reducerCreate} />;
+
+```
 
 ## Custom nav bar for individual scene or even different state of scene (new feature):
 Your scene class could implement _static_ renderNavigationBar(props) method that could return different navbar depending from component props
@@ -223,6 +235,47 @@ Following example chooses scene depending from sessionID using Redux:
             <Scene key="signUp" component={SignUp}/>
             <Scene key="main" component={Main}>
         </Scene>
+```
+
+## Drawer (side menu) integration
+Example of Drawer custom renderer based on react-native-drawer. Note that you have to include drawer to static contextTypes of your NavBar to enable show/hide/toggle side menu:
+
+```javascript
+import React from 'react-native';
+import Drawer from 'react-native-drawer';
+import SideMenu from './SideMenu';
+import {DefaultRenderer} from 'react-native-router-flux';
+
+export default class extends React.Component {
+    render(){
+        const children = this.props.navigationState.children;
+        return (
+            //Material Design Style Drawer
+            <Drawer
+                ref="drawer"
+                type="displace"
+                content={<SideMenu />}
+                tapToClose={true}
+                openDrawerOffset={0.2} // 20% gap on the right side of drawer
+                panCloseMask={0.2}
+                negotiatePan={true}
+                tweenHandler={(ratio) => ({
+                     main: { opacity:Math.max(0.54,1-ratio) }
+                })}>
+                <DefaultRenderer navigationState={children[0]} />
+            </Drawer>
+
+        );
+    }
+}
+
+/// then wrap your scenes with Drawer:
+            <Scene key="drawer" component={Drawer}>
+                <Scene key="main">
+                        ....
+                </Scene>
+            </Scene>
+
 ```
 
 ## Support

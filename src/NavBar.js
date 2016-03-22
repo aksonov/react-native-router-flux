@@ -48,8 +48,6 @@ export default class extends React.Component {
         if (state.renderBackButton){
             this._renderBackButton = state.renderBackButton;
         }
-
-
     }
     render() {
         const state = this.props.navigationState;

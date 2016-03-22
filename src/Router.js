@@ -28,10 +28,11 @@ export default class extends Component {
 
     _handleProps(props){
         const scenesMap = props.scenes || Actions.create(props.children);
-        const {children, style, scenes, reducer,...parentProps} = props;
+        const {children, style, scenes, reducer, createReducer, ...parentProps} = props;
         scenesMap.rootProps = parentProps;
         const initialState = getInitialState(scenesMap);
-        this.setState({reducer: props.reducer || Reducer({initialState, scenes:scenesMap})});
+        const ReducerCreator = props.createReducer || Reducer;
+        this.setState({reducer: props.reducer || ReducerCreator({initialState, scenes:scenesMap})});
     }
 
     componentWillReceiveProps(props){
