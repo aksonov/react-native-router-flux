@@ -70,7 +70,7 @@ class App extends React.Component {
 | Property | Type | Default | Description |
 |---------------|----------|--------------|----------------------------------------------------------------|
 | reducer | function | | optional user-defined reducer for scenes, you may want to use it to intercept all actions and put your custom logic |
-| createReducer | function | | function that return reducer function for {initialState, scenes} param| 
+| createReducer | function | | function that return reducer function for {initialState, scenes} param, you may wrap Reducer(param) with your custom reducer, check Flux usage section below| 
 | other props | | | all properties that will be passed to all your scenes |  
 | children | | required (if no scenes property passed)| Scene root element |
 | scenes | object | optional | scenes for Router created with Actions.create. This will allow to create all actions BEFORE React processing. If you don't need it you may pass Scene root element as children |
