@@ -69,7 +69,8 @@ class App extends React.Component {
 ##### Router:
 | Property | Type | Default | Description |
 |---------------|----------|--------------|----------------------------------------------------------------|
-| reducer | object | Reducer({initialState:getInitialState(scenes), scenes})| optional user-defined reducer for scenes, you may want to use it to intercept all actions and put your custom logic |
+| reducer | function | | optional user-defined reducer for scenes, you may want to use it to intercept all actions and put your custom logic |
+| createReducer | function | | function that return reducer function for {initialState, scenes} param| 
 | other props | | | all properties that will be passed to all your scenes |  
 | children | | required (if no scenes property passed)| Scene root element |
 | scenes | object | optional | scenes for Router created with Actions.create. This will allow to create all actions BEFORE React processing. If you don't need it you may pass Scene root element as children |
