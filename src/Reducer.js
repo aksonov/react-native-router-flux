@@ -45,7 +45,7 @@ function update(state,action){
     // clone state, TODO: clone effectively?
     if (!state.scenes[action.key] && action.key.indexOf('_')!=-1){
         action.key = action.key.substring(action.key.indexOf('_')+1);
-        console.log("Transform to key="+action.key);
+        //console.log("Transform to key="+action.key);
     }
     const newProps = {...state.scenes[action.key], ...action};
     let newState = Immutable.fromJS(state).toJS();
@@ -124,7 +124,7 @@ function reducer({initialState, scenes}){
     assert(scenes, "scenes should not be null");
     assert(scenes.current, "scenes.current should not be null");
     return function(state, action){
-        console.log("ACTION:", action);
+        //console.log("ACTION:", action);
         state = state || {...initialState, scenes};
         //console.log("ACTION:", action);
         //console.log("STATE:", JSON.stringify(state));

@@ -11,7 +11,7 @@ import assert from 'assert';
 export function getInitialState(route:{string: any},scenes:{string:any}, position=0, props={}){
     const {key, style, type, ...parentProps} = props;
     if (!route.children){
-        return {...route, sceneKey:route.key, key:position+'_'+route.key, ...parentProps};
+        return { ...scenes.rootProps, ...route, sceneKey:route.key, key:position+'_'+route.key, ...parentProps,};
     }
     let {children, ...res} = {...route, ...parentProps};
     let index = 0;
@@ -35,7 +35,7 @@ export default function(scenes:{string: any}, props){
     // find 'root' component and get state from it
     for (let route in scenes){
         if (scenes.hasOwnProperty(route) && !scenes[route].parent){
-            return getInitialState(scenes[route], scenes, 0, props);
+            return getInitialState(scenes[route], scenes);
         }
     }
 }

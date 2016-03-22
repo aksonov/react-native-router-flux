@@ -29,7 +29,8 @@ export default class extends Component {
     _handleProps(props){
         const scenesMap = props.scenes || Actions.create(props.children);
         const {children, style, scenes, reducer,...parentProps} = props;
-        const initialState = getInitialState(scenesMap, parentProps);
+        scenesMap.rootProps = parentProps;
+        const initialState = getInitialState(scenesMap);
         this.setState({reducer: props.reducer || Reducer({initialState, scenes:scenesMap})});
     }
 
@@ -46,14 +47,7 @@ export default class extends Component {
             return null;
         }
         Actions.callback = props=>onNavigate(props);
-        const Component = navigationState.component || DefaultRenderer;
-        const props = navigationState.scenes[navigationState.scenes.current];
-
-        return (
-            <Component
-                navigationState={navigationState}
-                onNavigate={onNavigate} data={props}/>
-        );
+        return <DefaultRenderer navigationState={navigationState}/>;
     }
 
     render(){

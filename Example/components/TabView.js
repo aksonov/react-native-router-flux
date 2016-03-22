@@ -9,7 +9,7 @@ var Actions = require('react-native-router-flux').Actions;
 class TabView extends React.Component {
     render(){
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, this.props.sceneStyle]}>
                 <Text>Tab {this.props.title}</Text>
                 {this.props.name === "tab1_1" &&
                 <Button onPress={Actions.tab1_2}>next screen for tab1_1</Button>

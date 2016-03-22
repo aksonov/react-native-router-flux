@@ -57,8 +57,7 @@ export default class DefaultRenderer extends Component {
     }
 
     _renderHeader(/*NavigationSceneRendererProps*/ props) {
-        const NavigationBar = props.navigationState.navBar || NavBar;
-        return <NavigationBar
+        return <NavBar
                 {...props}
                 getTitle={state => state.title}
             />;
