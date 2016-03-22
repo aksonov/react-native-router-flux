@@ -48,13 +48,13 @@ class App extends React.Component {
 ```
 Alternatively you could define all your scenes during compile time and use it later within Router:
 ```
-const scenes = Actions.create({
+const scenes = Actions.create(
             <Scene key="root">
                 <Scene key="login" component={Login} title="Login"/>
                 <Scene key="register" component={Register} title="Register"/>
                 <Scene key="home" component={Home}/>
             </Scene>
-});
+);
 ///
 class App extends React.Component {
     render(){
