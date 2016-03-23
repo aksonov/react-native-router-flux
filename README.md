@@ -111,7 +111,7 @@ class App extends React.Component {
 | renderBackButton | Closure | | optional closure to render back text or button if this route happens to be the previous route |
 | leftButtonStyle | View style | | optional style override for the container of left title / buttons |
 | leftButtonTextStyle | Text style | | optional style override for the left title element |
-| onLeft | Closure | | function will be called when right navBar button is pressed |
+| onLeft | Closure | | function will be called when left navBar button is pressed |
 | rightTitle | string | | optional string to display on the right. `onRight` must be provided for this to appear. |
 | onRight | Closure | | function will be called when right navBar button is pressed |
 | renderRightButton | Closure | | optional closure to render the right title / buttons element |
