@@ -225,6 +225,8 @@ To display a modal use `Modal` as root renderer, so it will render first element
 This component doesn't depend from any redux/flux library. It uses new React Native Navigation API and provide own reducer for its navigation state.
 You may provide own one if you need. To avoid creation of initial state, you may pass reducer creator. Example to print all actions:
 ```javascript
+// remember to add the 'Reducer' to your imports along with Router, Scene, ... like so 
+// import { Reducer } from 'react-native-router-flux'
 const reducerCreate = params=>{
     const defaultReducer = Reducer(params);
     return (state, action)=>{
