@@ -39,6 +39,8 @@ function getCurrent(state){
     return getCurrent(state.children[state.index]);
 }
 
+var _uniqPushed = 0;
+
 function update(state,action){
     if (!state.scenes[action.key]) {
         console.log("No scene for key="+action.key);
@@ -67,9 +69,11 @@ function update(state,action){
                 assert(el, "Cannot find element for parent="+el.parent+" within current state");
             }
             if (el.children.length > 1) {
-                el.children.pop();
+                let popped = el.children.pop();
                 el.index = el.children.length - 1;
-                delete newState.scenes[newState.scenes.current];
+                if (popped.ephemeral) {
+                    delete newState.scenes[popped.key];
+                }
                 newState.scenes.current = getCurrent(newState).key;
                 return newState;
             } else {
@@ -79,13 +83,15 @@ function update(state,action){
 
         case REFRESH_ACTION:
             let ind = -1;
-            el.children.forEach((c,i)=>{if (c.sceneKey==action.key){ind=i}});
+            el.children.forEach((c,i)=>{if (c.key==action.key){ind=i}});
             assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
             el.children[ind] = getInitialState(newProps, newState.scenes, ind, action);
             return newState;
 
         case PUSH_TO_CURRENT_ACTION:
             parent = getCurrent(newState).parent;
+            newProps.ephemeral = true;
+            newProps.key = `${_uniqPushed++}$${newProps.key}`;
             newProps.parent = parent;
             el = findElement(newState, parent);
             assert(el, "Cannot find element for parent="+parent+" within current state:"+JSON.stringify(newState));
@@ -95,7 +101,9 @@ function update(state,action){
             el.children.push(getInitialState(newProps, newState.scenes, el.children.length, action));
             el.index = el.children.length - 1;
             newState.scenes.current = getCurrent(newState).key;
-            newState.scenes[newState.scenes.current] = newProps;
+            if (newProps.ephemeral) {
+                newState.scenes[newState.scenes.current] = newProps;
+            }
             return newState;
 
         case JUMP_ACTION:
