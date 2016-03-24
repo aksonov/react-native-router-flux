@@ -67,7 +67,7 @@ export default class extends React.Component {
         }
         return (
             <Animated.View
-                style={[styles.header, state.navigationBarStyle]}>
+                style={[styles.header, state.navigationBarStyle, selected.navigationBarStyle]}>
                 {state.children.map(this._renderTitle, this)}
                 {this._renderBackButton()}
                 {this._renderLeftButton()}
