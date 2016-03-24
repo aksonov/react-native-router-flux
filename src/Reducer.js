@@ -90,14 +90,14 @@ function update(state,action){
 
         case PUSH_TO_CURRENT_ACTION:
             parent = getCurrent(newState).parent;
-            newProps.ephemeral = true;
-            newProps.key = `${_uniqPushed++}$${newProps.key}`;
             newProps.parent = parent;
             el = findElement(newState, parent);
             assert(el, "Cannot find element for parent="+parent+" within current state:"+JSON.stringify(newState));
             // fall through to PUSH_ACTION
 
         case PUSH_ACTION:
+            newProps.ephemeral = true;
+            newProps.key = `${_uniqPushed++}$${newProps.key}`;
             el.children.push(getInitialState(newProps, newState.scenes, el.children.length, action));
             el.index = el.children.length - 1;
             newState.scenes.current = getCurrent(newState).key;
