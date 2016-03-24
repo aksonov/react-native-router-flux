@@ -97,7 +97,10 @@ function update(state,action){
             ind = -1;
             el.children.forEach((c,i)=>{if (c.sceneKey==action.key){ind=i}});
             assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
+            //console.log("SETTING INDEX TO:", ind, el.key, action.key);
             el.index = ind;
+            newState.scenes.current = getCurrent(newState);
+            //console.log("NEW STATE:", newState);
             return newState;
 
         case REPLACE_ACTION:
