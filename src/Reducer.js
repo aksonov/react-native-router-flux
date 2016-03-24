@@ -102,6 +102,7 @@ function update(state,action){
             el.index = el.children.length - 1;
             newState.scenes.current = getCurrent(newState).key;
             if (newProps.ephemeral) {
+                assert(!newState.scenes.hasOwnProperty(newState.scenes.current), "scenes should not contain ephemeral key="+newState.scenes.current);
                 newState.scenes[newState.scenes.current] = newProps;
             }
             return newState;
