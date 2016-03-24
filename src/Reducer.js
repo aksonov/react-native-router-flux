@@ -7,7 +7,7 @@
  *
  */
 
-import {PUSH_ACTION, POP_ACTION2, FOCUS_ACTION, JUMP_ACTION, INIT_ACTION, REPLACE_ACTION, RESET_ACTION, POP_ACTION, REFRESH_ACTION} from './Actions';
+import {PUSH_ACTION, PUSH_TO_CURRENT_ACTION, POP_ACTION2, FOCUS_ACTION, JUMP_ACTION, INIT_ACTION, REPLACE_ACTION, RESET_ACTION, POP_ACTION, REFRESH_ACTION} from './Actions';
 import assert from 'assert';
 import Immutable from 'immutable';
 import {getInitialState} from './State';
@@ -16,13 +16,13 @@ function findElement(state, key) {
     if (state.sceneKey != key){
         if (state.children){
             let result = undefined;
-            state.children.forEach(el=>{
+            for (let el of state.children) {
                 let res = findElement(el, key);
                 if (res){
                     result = res;
-                    return res;
+                    break;
                 }
-            });
+            }
             return result;
         } else {
             return false;
@@ -34,27 +34,24 @@ function findElement(state, key) {
 
 function getCurrent(state){
     if (!state.children){
-        return state.key;
+        return state;
     }
     return getCurrent(state.children[state.index]);
 }
 
-
-
 function update(state,action){
-    // clone state, TODO: clone effectively?
-    if (!state.scenes[action.key] && action.key.indexOf('_')!=-1){
-        action.key = action.key.substring(action.key.indexOf('_')+1);
-        //console.log("Transform to key="+action.key);
+    if (!state.scenes[action.key]) {
+        console.log("No scene for key="+action.key);
+        return state;
     }
-    const newProps = {...state.scenes[action.key], ...action};
+    let newProps = {...state.scenes[action.key], ...action};
     let newState = Immutable.fromJS(state).toJS();
 
     // change route property
     //newState.scenes[action.key] = newProps;
 
     // get parent
-    const parent = newProps.parent;
+    let parent = newProps.parent;
     assert(parent, "No parent is defined for route="+action.key);
 
     // find parent in the state
@@ -72,7 +69,8 @@ function update(state,action){
             if (el.children.length > 1) {
                 el.children.pop();
                 el.index = el.children.length - 1;
-                newState.scenes.current = getCurrent(newState);
+                delete newState.scenes[newState.scenes.current];
+                newState.scenes.current = getCurrent(newState).key;
                 return newState;
             } else {
                 console.log("Cannot do pop");
@@ -86,10 +84,18 @@ function update(state,action){
             el.children[ind] = getInitialState(newProps, newState.scenes, ind, action);
             return newState;
 
+        case PUSH_TO_CURRENT_ACTION:
+            parent = getCurrent(newState).parent;
+            newProps.parent = parent;
+            el = findElement(newState, parent);
+            assert(el, "Cannot find element for parent="+parent+" within current state:"+JSON.stringify(newState));
+            // fall through to PUSH_ACTION
+
         case PUSH_ACTION:
             el.children.push(getInitialState(newProps, newState.scenes, el.children.length, action));
             el.index = el.children.length - 1;
-            newState.scenes.current = getCurrent(newState);
+            newState.scenes.current = getCurrent(newState).key;
+            newState.scenes[newState.scenes.current] = newProps;
             return newState;
 
         case JUMP_ACTION:
@@ -110,7 +116,7 @@ function update(state,action){
             } else {
                 el.children = [getInitialState(newProps, newState.scenes, 0, action)];
             }
-            newState.scenes.current = getCurrent(newState);
+            newState.scenes.current = getCurrent(newState).key;
             return newState;
 
         default:
@@ -146,6 +152,7 @@ function reducer({initialState, scenes}){
             case POP_ACTION2:
             case POP_ACTION:
             case REFRESH_ACTION:
+            case PUSH_TO_CURRENT_ACTION:
             case PUSH_ACTION:
             case JUMP_ACTION:
             case REPLACE_ACTION:
