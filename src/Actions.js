@@ -49,7 +49,7 @@ class Actions {
 
     iterate(root: Scene, parentProps = {}, refs = {}) {
         assert(root.props, "props should be defined for stack");
-        const key = root.key || '_root';
+        const key = root.key || 'root';
         assert(key, "unique key should be defined ",root);
         assert([POP_ACTION, POP_ACTION2, REFRESH_ACTION, REPLACE_ACTION, JUMP_ACTION, PUSH_ACTION, RESET_ACTION, 'create',
                 'init','callback','iterate','current'].indexOf(key)==-1, key+" is not allowed as key name");
@@ -58,7 +58,7 @@ class Actions {
         if (type === 'switch'){
             type = JUMP_ACTION;
         }
-        let res = {name:key, ...staticProps, key, type, parent:parentProps.key};
+        let res = {name:key, ...staticProps, key, sceneKey:key, type, parent:parentProps.key};
         if (root.props.children) {
             const list = root.props.children instanceof Array ? root.props.children: [root.props.children];
             res.children = list.map(c=>this.iterate(c, res, refs).key);

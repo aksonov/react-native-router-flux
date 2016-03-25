@@ -12,6 +12,49 @@ import assert from 'assert';
 import Immutable from 'immutable';
 import {getInitialState} from './State';
 
+function inject(state, action, props, scenes) {
+    const condition = action.type == REFRESH_ACTION ? state.key === props.key || state.sceneKey === action.key : state.sceneKey == props.parent;
+    if (!condition){
+        if (state.children) {
+            let res = state.children.map(el=>inject(el, action, props, scenes));
+            let changed = false;
+            for (let i = 0; i < res.length; i++) {
+                if (res[i] != state.children[i]) {
+                    changed = true;
+                    break;
+                }
+            }
+            return changed ? {...state, children: res} : state;
+        } else {
+            return state;
+        }
+    } else {
+        switch (action.type) {
+            case POP_ACTION2:
+            case POP_ACTION:
+                return {...state, index:state.index-1, children:state.children.slice(0, -1) };
+            case REFRESH_ACTION:
+                return {...state, ...props};
+            case PUSH_ACTION:
+                return {...state, index:state.index+1, children:[...state.children, getInitialState(props, scenes, state.index + 1, action)]};
+            case JUMP_ACTION:
+                assert(state.tabs, "Parent="+state.key+" is not tab bar, jump action is not valid");
+                let ind = -1;
+                state.children.forEach((c,i)=>{if (c.sceneKey==action.key){ind=i}});
+                assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+state.key);
+                return {...state, index:ind};
+            case REPLACE_ACTION:
+                return {...state, children:[...state.children.slice(0,-1), getInitialState(props, scenes, state.index, action)]};
+            default:
+                return state;
+
+        }
+
+        return state;
+    }
+}
+
+
 function findElement(state, key) {
     if (state.sceneKey != key){
         if (state.children){
@@ -34,7 +77,7 @@ function findElement(state, key) {
 
 function getCurrent(state){
     if (!state.children){
-        return state.key;
+        return state;
     }
     return getCurrent(state.children[state.index]);
 }
@@ -42,75 +85,10 @@ function getCurrent(state){
 
 
 function update(state,action){
-    // clone state, TODO: clone effectively?
-    if (!state.scenes[action.key] && action.key.indexOf('_')!=-1){
-        action.key = action.key.substring(action.key.indexOf('_')+1);
-        //console.log("Transform to key="+action.key);
-    }
-    const newProps = {...state.scenes[action.key], ...action};
-    let newState = Immutable.fromJS(state).toJS();
-
-    // change route property
-    //newState.scenes[action.key] = newProps;
-
-    // get parent
-    const parent = newProps.parent;
-    assert(parent, "No parent is defined for route="+action.key);
-
     // find parent in the state
-    let el = findElement(newState, parent);
-    assert(el, "Cannot find element for parent="+parent+" within current state:"+newState.key);
-
-    switch (action.type){
-        case POP_ACTION2:
-        case POP_ACTION:
-            // recursive pop parent
-            while (el.parent && (el.children.length <= 1 || el.tabs)){
-                el = findElement(newState, el.parent);
-                assert(el, "Cannot find element for parent="+el.parent+" within current state");
-            }
-            if (el.children.length > 1) {
-                el.children.pop();
-                el.index = el.children.length - 1;
-                return newState;
-            } else {
-                console.log("Cannot do pop");
-                return state;
-            }
-
-        case REFRESH_ACTION:
-            let ind = -1;
-            el.children.forEach((c,i)=>{if (c.sceneKey==action.key){ind=i}});
-            assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
-            el.children[ind] = getInitialState(newProps, newState.scenes, ind, action);
-            return newState;
-
-        case PUSH_ACTION:
-            el.children.push(getInitialState(newProps, newState.scenes, el.children.length, action));
-            el.index = el.children.length - 1;
-            return newState;
-
-        case JUMP_ACTION:
-            assert(el.tabs, "Parent="+el.key+" is not tab bar, jump action is not valid");
-            ind = -1;
-            el.children.forEach((c,i)=>{if (c.sceneKey==action.key){ind=i}});
-            assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
-            //console.log("SETTING INDEX TO:", ind, el.key, action.key);
-            el.index = ind;
-            //console.log("NEW STATE:", newState);
-            return newState;
-
-        case REPLACE_ACTION:
-            if (el.children && el.children.length){
-                el.children[el.index] = getInitialState(newProps, newState.scenes, el.index, action);
-            } else {
-                el.children = [getInitialState(newProps, newState.scenes, 0, action)];
-            }
-            return newState;
-
-        default:
-            return state;
-    }
+    const props = {...state.scenes[action.key], ...action};
+    assert(props.parent, "No parent is defined for route="+action.key);
+    return inject(state, action, props, state.scenes);
 }
 
 function reducer({initialState, scenes}){
@@ -118,10 +96,7 @@ function reducer({initialState, scenes}){
     assert(initialState.key, "initialState.key should not be null");
     assert(scenes, "scenes should not be null");
     return function(state, action){
-        //console.log("ACTION:", action);
         state = state || {...initialState, scenes};
-        //console.log("ACTION:", action);
-        //console.log("STATE:", JSON.stringify(state));
         assert(action, "action should be defined");
         assert(action.type, "action type should be defined");
         assert(state.scenes, "state.scenes is missed");
@@ -131,10 +106,19 @@ function reducer({initialState, scenes}){
         } else {
             // set current route for pop action or refresh action
             if (action.type === POP_ACTION || action.type === POP_ACTION2 || action.type === REFRESH_ACTION){
-                action.key = getCurrent(state);
+                action = {...getCurrent(state),...action};
             }
+            // recursive pop parent
+            if (action.type === POP_ACTION || action.type === POP_ACTION2) {
+                let parent = action.parent || state.scenes[action.key].parent;
+                let el = findElement(state, parent);
+                while (el.parent && (el.children.length <= 1 || el.tabs)) {
+                    el = findElement(state, el.parent);
+                    assert(el, "Cannot find element for parent=" + el.parent + " within current state");
+                }
+                action.parent = el.sceneKey;
+             }
         }
-
         switch (action.type) {
             case POP_ACTION2:
             case POP_ACTION:
@@ -142,16 +126,12 @@ function reducer({initialState, scenes}){
             case PUSH_ACTION:
             case JUMP_ACTION:
             case REPLACE_ACTION:
-                const newState = update(state, action);
-                //console.log("NEW STATE:", JSON.stringify(newState));
-                return newState;
+                return update(state, action);
             default:
                 return state;
 
         }
     }
-
-
 }
 
 export default reducer;
