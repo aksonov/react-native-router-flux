@@ -83,7 +83,20 @@ function update(state,action){
 
         case REFRESH_ACTION:
             let ind = -1;
-            el.children.forEach((c,i)=>{if (c.key==action.key){ind=i}});
+            for (let i=0; i < el.children.length; i++) {
+                let c = el.children[i];
+                if (c.ephemeral) {
+                    if (c.key === action.key) {
+                        ind = i;
+                        break;
+                    }
+                } else {
+                    if (c.sceneKey === action.key) {
+                        ind = i;
+                        break;
+                    }
+                }
+            }
             assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
             el.children[ind] = getInitialState(newProps, newState.scenes, ind, action);
             return newState;
