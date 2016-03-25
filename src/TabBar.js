@@ -34,7 +34,7 @@ export default class extends Component {
                         navigationState={this.props.navigationState}
                         style={{flex:1}}
                         renderScene={(tabState, index) => (
-                          <TabView
+                          <DefaultRenderer
                             key={tabState.key}
                             navigationState={tabState}
                           />
@@ -51,31 +51,4 @@ export default class extends Component {
             </View>
     }
 }
-
-class TabView extends Component {
-    componentWillMount() {
-        this._renderHeader = this._renderHeader.bind(this);
-        this._renderScene = this._renderScene.bind(this);
-    }
-
-    render() {
-        return (
-            <NavigationCardStack
-                style={{flex:1}}
-                navigationState={this.props.navigationState}
-                renderOverlay={this._renderHeader}
-                renderScene={this._renderScene}
-            />
-        );
-    }
-    _renderHeader(props) {
-        return <NavBar {...props} getTitle={state => state.title} />;
-    }
-
-    _renderScene(props) {
-        return <DefaultRenderer key={props.scene.navigationState.key} navigationState={props.scene.navigationState}/>
-    }
-
-}
-TabView = NavigationContainer.create(TabView);
 

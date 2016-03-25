@@ -48,9 +48,9 @@ export default class DefaultRenderer extends Component {
                 navigationState={navigationState}
                 style={[styles.animatedView, navigationState.style]}
                 renderOverlay={this._renderHeader}
+                direction={navigationState.direction || 'horizontal'}
                 setTiming={(pos, navState) => {
-          Animated.timing(pos, {toValue: navState.index, duration: selected.duration || 250}).start();
-        }}
+          Animated.timing(pos, {toValue: navState.index, duration: navState.duration || navigationState.duration || selected.duration || 250}).start();}}
                 renderScene={this._renderCard}
             />
         );
@@ -69,6 +69,7 @@ export default class DefaultRenderer extends Component {
                 {...props}
                 key={'card_' + props.scene.navigationState.key}
                 direction={props.scene.navigationState.direction || 'horizontal'}
+                panHandlers={props.scene.navigationState.panHandlers }
                 renderScene={this._renderScene}
                 style={{backgroundColor:'transparent'}}
             />

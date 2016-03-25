@@ -49,7 +49,7 @@ class Actions {
 
     iterate(root: Scene, parentProps = {}, refs = {}) {
         assert(root.props, "props should be defined for stack");
-        const key = root.key;
+        const key = root.key || '_root';
         assert(key, "unique key should be defined ",root);
         assert([POP_ACTION, POP_ACTION2, REFRESH_ACTION, REPLACE_ACTION, JUMP_ACTION, PUSH_ACTION, RESET_ACTION, 'create',
                 'init','callback','iterate','current'].indexOf(key)==-1, key+" is not allowed as key name");

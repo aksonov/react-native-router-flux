@@ -53,7 +53,7 @@ export default class Example extends React.Component {
                     <Scene key="launch" component={Launch} title="Launch" initial={true} style={{flex:1, backgroundColor:'transparent'}}/>
                     <Scene key="login" direction="vertical">
                         <Scene key="loginModal" component={Login} schema="modal" title="Login"/>
-                        <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
+                        <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2" panHandlers={null} duration={1}/>
                     </Scene>
                     <Scene key="tabbar" tabs={true} default="tab2" >
                         <Scene key="tab1"  title="Tab #1" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
@@ -62,7 +62,7 @@ export default class Example extends React.Component {
                         </Scene>
                         <Scene key="tab2" initial={true} title="Tab #2" icon={TabIcon}>
                             <Scene key="tab2_1" component={TabView} title="Tab #2_1" onLeft={()=>alert("Left button!")} leftTitle="Left"/>
-                            <Scene key="tab2_2" component={TabView} title="Tab #2_2"/>
+                            <Scene key="tab2_2" component={TabView} title="Tab #2_2" duration={1} panHandlers={null}/>
                         </Scene>
                         <Scene key="tab3" component={TabView} title="Tab #3" hideTabBar={true} icon={TabIcon}/>
                         <Scene key="tab4" component={TabView} title="Tab #4" hideNavBar={true} icon={TabIcon}/>
