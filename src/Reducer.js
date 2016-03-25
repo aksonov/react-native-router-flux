@@ -59,7 +59,7 @@ function update(state,action){
 
     // find parent in the state
     let el = findElement(newState, parent);
-    assert(el, "Cannot find element for parent="+parent+" within current state:"+JSON.stringify(newState));
+    assert(el, "Cannot find element for parent="+parent+" within current state:"+newState.key);
 
     switch (action.type){
         case POP_ACTION2:
@@ -72,7 +72,6 @@ function update(state,action){
             if (el.children.length > 1) {
                 el.children.pop();
                 el.index = el.children.length - 1;
-                newState.scenes.current = getCurrent(newState);
                 return newState;
             } else {
                 console.log("Cannot do pop");
@@ -89,7 +88,6 @@ function update(state,action){
         case PUSH_ACTION:
             el.children.push(getInitialState(newProps, newState.scenes, el.children.length, action));
             el.index = el.children.length - 1;
-            newState.scenes.current = getCurrent(newState);
             return newState;
 
         case JUMP_ACTION:
@@ -99,7 +97,6 @@ function update(state,action){
             assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+el.key);
             //console.log("SETTING INDEX TO:", ind, el.key, action.key);
             el.index = ind;
-            newState.scenes.current = getCurrent(newState);
             //console.log("NEW STATE:", newState);
             return newState;
 
@@ -109,7 +106,6 @@ function update(state,action){
             } else {
                 el.children = [getInitialState(newProps, newState.scenes, 0, action)];
             }
-            newState.scenes.current = getCurrent(newState);
             return newState;
 
         default:
@@ -121,7 +117,6 @@ function reducer({initialState, scenes}){
     assert(initialState, "initialState should not be null");
     assert(initialState.key, "initialState.key should not be null");
     assert(scenes, "scenes should not be null");
-    assert(scenes.current, "scenes.current should not be null");
     return function(state, action){
         //console.log("ACTION:", action);
         state = state || {...initialState, scenes};
@@ -130,14 +125,13 @@ function reducer({initialState, scenes}){
         assert(action, "action should be defined");
         assert(action.type, "action type should be defined");
         assert(state.scenes, "state.scenes is missed");
-        assert(state.scenes.current, "state.scenes.current should be defined");
 
         if (action.key){
             assert(state.scenes[action.key], "missed route data for key="+action.key);
         } else {
             // set current route for pop action or refresh action
             if (action.type === POP_ACTION || action.type === POP_ACTION2 || action.type === REFRESH_ACTION){
-                action.key = state.scenes.current;
+                action.key = getCurrent(state);
             }
         }
 
