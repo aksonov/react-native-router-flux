@@ -36,6 +36,9 @@ function inject(state, action, props, scenes) {
             case REFRESH_ACTION:
                 return {...state, ...props};
             case PUSH_ACTION:
+                if (state.children[state.index].sceneKey == action.key){
+                    return state;
+                }
                 return {...state, index:state.index+1, children:[...state.children, getInitialState(props, scenes, state.index + 1, action)]};
             case JUMP_ACTION:
                 assert(state.tabs, "Parent="+state.key+" is not tab bar, jump action is not valid");
@@ -44,6 +47,9 @@ function inject(state, action, props, scenes) {
                 assert(ind!=-1, "Cannot find route with key="+action.key+" for parent="+state.key);
                 return {...state, index:ind};
             case REPLACE_ACTION:
+                if (state.children[state.index].sceneKey == action.key){
+                    return state;
+                }
                 return {...state, children:[...state.children.slice(0,-1), getInitialState(props, scenes, state.index, action)]};
             default:
                 return state;
