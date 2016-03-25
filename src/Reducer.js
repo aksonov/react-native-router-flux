@@ -106,7 +106,9 @@ function reducer({initialState, scenes}){
         } else {
             // set current route for pop action or refresh action
             if (action.type === POP_ACTION || action.type === POP_ACTION2 || action.type === REFRESH_ACTION){
-                action = {...getCurrent(state),...action};
+                if (!action.key && !action.parent){
+                    action = {...getCurrent(state),...action};
+                }
             }
             // recursive pop parent
             if (action.type === POP_ACTION || action.type === POP_ACTION2) {
