@@ -38,7 +38,7 @@ function inject(state, action, props, scenes) {
                 props.key = state.key;
                 return {...state, ...props};
             case PUSH_ACTION:
-                if (state.children[state.index].sceneKey == action.key){
+                if (state.children[state.index].sceneKey == action.key && !props.clone){
                     return state;
                 }
                 return {...state, index:state.index+1, children:[...state.children, getInitialState(props, scenes, state.index + 1, action)]};
@@ -116,11 +116,8 @@ function reducer({initialState, scenes}){
             assert(scene, "missed route data for key="+action.key);
 
             // clone scene
-            if (action.type === PUSH_ACTION && scene.clone) {
-                let uniqKey = `${_uniqPush++}$${scene.key}`;
-                let clone = {...scene, key: uniqKey, sceneKey: uniqKey, parent: getCurrent(state).parent};
-                state.scenes[uniqKey] = clone;
-                action.key = uniqKey;
+            if (scene.clone) {
+                action.parent = getCurrent(state).parent;
             }
 
         } else {
@@ -139,11 +136,6 @@ function reducer({initialState, scenes}){
                     assert(el, "Cannot find element for parent=" + el.parent + " within current state");
                 }
                 action.parent = el.sceneKey;
-            }
-
-            // remove if clone
-            if (action.clone && action.sceneKey && (action.type === POP_ACTION || action.type === POP_ACTION2)) {
-                delete state.scenes[action.sceneKey];
             }
 
         }
