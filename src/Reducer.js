@@ -99,6 +99,8 @@ function update(state,action){
     return inject(state, action, props, state.scenes);
 }
 
+var _uniqPush = 0;
+
 function reducer({initialState, scenes}){
     assert(initialState, "initialState should not be null");
     assert(initialState.key, "initialState.key should not be null");
@@ -110,7 +112,17 @@ function reducer({initialState, scenes}){
         assert(state.scenes, "state.scenes is missed");
 
         if (action.key){
-            assert(state.scenes[action.key], "missed route data for key="+action.key);
+            let scene = state.scenes[action.key];
+            assert(scene, "missed route data for key="+action.key);
+
+            // clone scene
+            if (action.type === PUSH_ACTION && scene.clone) {
+                let uniqKey = `${_uniqPush++}$${scene.key}`;
+                let clone = {...scene, key: uniqKey, sceneKey: uniqKey, parent: getCurrent(state).parent};
+                state.scenes[uniqKey] = clone;
+                action.key = uniqKey;
+            }
+
         } else {
             // set current route for pop action or refresh action
             if (action.type === POP_ACTION || action.type === POP_ACTION2 || action.type === REFRESH_ACTION){
@@ -127,7 +139,13 @@ function reducer({initialState, scenes}){
                     assert(el, "Cannot find element for parent=" + el.parent + " within current state");
                 }
                 action.parent = el.sceneKey;
-             }
+            }
+
+            // remove if clone
+            if (action.clone && action.sceneKey && (action.type === POP_ACTION || action.type === POP_ACTION2)) {
+                delete state.scenes[action.sceneKey];
+            }
+
         }
         switch (action.type) {
             case POP_ACTION2:
