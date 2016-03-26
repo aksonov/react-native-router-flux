@@ -34,6 +34,8 @@ function inject(state, action, props, scenes) {
             case POP_ACTION:
                 return {...state, index:state.index-1, children:state.children.slice(0, -1) };
             case REFRESH_ACTION:
+                // use key from state.key to avoid losing the index_ prefix during refresh
+                props.key = state.key;
                 return {...state, ...props};
             case PUSH_ACTION:
                 if (state.children[state.index].sceneKey == action.key){
