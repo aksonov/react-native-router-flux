@@ -118,6 +118,7 @@ class App extends React.Component {
 | renderRightButton | Closure | | optional closure to render the right title / buttons element |
 | rightButtonStyle | View style | | optional style override for the container of right title / buttons |
 | rightButtonTextStyle | Text style | | optional style override for the right title element |
+| clone | bool | | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
 | other props | | | all properties that will be passed to your component instance |
 
 ## Example
