@@ -68,7 +68,7 @@ class App extends React.Component {
     * Actions.ACTION_NAME(PARAMS) will call appropriate action and params will be passed to the scene.
     * Actions.pop() will pop the current screen.
     * Actions.refresh(PARAMS) will update the properties of current screen.
-    
+
 ## Available imports
 - Router
 - Scene
@@ -86,7 +86,7 @@ class App extends React.Component {
 | Property | Type | Default | Description |
 |---------------|----------|--------------|----------------------------------------------------------------|
 | reducer | function | | optional user-defined reducer for scenes, you may want to use it to intercept all actions and put your custom logic |
-| createReducer | function | | function that returns a reducer function for {initialState, scenes} param, you may wrap Reducer(param) with your custom reducer, check Flux usage section below| 
+| createReducer | function | | function that returns a reducer function for {initialState, scenes} param, you may wrap Reducer(param) with your custom reducer, check Flux usage section below|
 | other props | | | all properties that will be passed to all your scenes |  
 | children | | required (if no scenes property passed)| Scene root element |
 | scenes | object | optional | scenes for Router created with Actions.create. This will allow to create all actions BEFORE React processing. If you don't need it you may pass Scene root element as children |
@@ -100,7 +100,7 @@ class App extends React.Component {
 | tabs| bool | false | Defines 'TabBar' scene container, so child scenes will be displayed as 'tabs'. If no `component` is defined, built-in `TabBar` is used as renderer. All child scenes are wrapped into own navbar.
 | initial | bool | false | Set to `true` if this is the initial scene |
 | duration | number | 250 | Duration of transition (in ms) |
-| direction | string | 'horizontal' | direction of animation horizontal/vertical | 
+| direction | string | 'horizontal' | direction of animation horizontal/vertical |
 | title | string | null | The title to be displayed in the navigation bar |
 | navBar | React.Component | | optional custom NavBar for the scene. Check built-in NavBar of the component for reference |
 | hideNavBar | bool | false | hides navigation bar for this scene |
@@ -227,7 +227,7 @@ To display a modal use `Modal` as root renderer, so it will render first element
 This component doesn't depend from any redux/flux library. It uses new React Native Navigation API and provide own reducer for its navigation state.
 You may provide own one if you need. To avoid creation of initial state, you may pass reducer creator. Example to print all actions:
 ```javascript
-// remember to add the 'Reducer' to your imports along with Router, Scene, ... like so 
+// remember to add the 'Reducer' to your imports along with Router, Scene, ... like so
 // import { Reducer } from 'react-native-router-flux'
 const reducerCreate = params=>{
     const defaultReducer = Reducer(params);
@@ -258,7 +258,7 @@ Following example chooses scene depending from sessionID using Redux:
 ```
 
 ## Drawer (side menu) integration
-Example of Drawer custom renderer based on react-native-drawer. Note that you have to include drawer to static contextTypes of your NavBar to enable show/hide/toggle side menu:
+Example of Drawer custom renderer based on react-native-drawer. Note that the build-in NavBar component supports toggling of drawer. The Drawer implementation just needs to have a function: toggle();
 
 ```javascript
 import React from 'react-native';
@@ -268,7 +268,8 @@ import {DefaultRenderer} from 'react-native-router-flux';
 
 export default class extends React.Component {
     render(){
-        const children = this.props.navigationState.children;
+        const navigationState = this.props.navigationState;
+        let selected = navigationState.children[navigationState.index];
         return (
             //Material Design Style Drawer
             <Drawer
@@ -282,7 +283,7 @@ export default class extends React.Component {
                 tweenHandler={(ratio) => ({
                      main: { opacity:Math.max(0.54,1-ratio) }
                 })}>
-                <DefaultRenderer navigationState={children[0]} />
+                <DefaultRenderer navigationState={selected}  key={selected.key} {...selected} />
             </Drawer>
 
         );
