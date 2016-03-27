@@ -89,7 +89,7 @@ export default class NavBar extends React.Component {
               var drawer = this.context.drawer;
               drawer.toggle();
             }}>
-                <Image source={backButtonImage)} style={[styles.backButtonImage, this.props.navigationState.barButtonIconStyle]}/>
+                <Image source={backButtonImage} style={[styles.backButtonImage, this.props.navigationState.barButtonIconStyle]}/>
             </TouchableOpacity>
           );
         }else{
