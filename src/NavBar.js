@@ -32,7 +32,7 @@ const {
     Header: NavigationHeader,
     } = NavigationExperimental;
 
-export default class extends React.Component {
+export default class NavBar extends React.Component {
     componentWillMount(){
         const state = this.props.navigationState;
         this._renderRightButton = this._renderRightButton.bind(this);
@@ -78,7 +78,18 @@ export default class extends React.Component {
 
     _renderBackButton() {
         if (this.props.navigationState.index === 0) {
+          if(!!this.context.drawer && typeof this.context.drawer.toggle === 'function'){
+            return (
+              <TouchableOpacity style={[styles.backButton, this.props.navigationState.leftButtonStyle]} onPress={() => {
+                var drawer = this.context.drawer;
+                drawer.toggle();
+              }}>
+                  <Image source={require('./menu_burger.png')} style={[styles.backButtonImage, this.props.navigationState.barButtonIconStyle]}/>
+              </TouchableOpacity>
+            );
+          }else{
             return null;
+          }
         }
         return (
             <TouchableOpacity style={[styles.backButton, this.props.navigationState.leftButtonStyle]} onPress={Actions.pop}>
@@ -151,6 +162,11 @@ export default class extends React.Component {
         );
     }
 
+}
+
+
+NavBar.contextTypes = {
+  drawer: React.PropTypes.object
 }
 
 const styles = StyleSheet.create({
