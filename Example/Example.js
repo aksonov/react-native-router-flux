@@ -8,6 +8,7 @@ import Error from './components/Error'
 import Home from './components/Home'
 import TabView from './components/TabView'
 import EchoView from './components/EchoView'
+import NavigationDrawer from './components/NavigationDrawer'
 
 class TabIcon extends React.Component {
     render(){
@@ -47,7 +48,8 @@ export default class Example extends React.Component {
     render() {
         return <Router createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}}>
             <Scene key="modal" component={Modal} >
-                <Scene key="root" hideNavBar={true}>
+                <Scene key="drawer" component={NavigationDrawer}>
+                  <Scene key="root">
                     <Scene key="echo" clone component={EchoView} />
                     <Scene key="register" component={Register} title="Register"/>
                     <Scene key="register2" component={Register} title="Register2" duration={1}/>
@@ -70,6 +72,7 @@ export default class Example extends React.Component {
                         <Scene key="tab4" component={TabView} title="Tab #4" hideNavBar={true} icon={TabIcon}/>
                         <Scene key="tab5" component={TabView} title="Tab #5" icon={TabIcon} renderRightButton={()=><Right/>}/>
                     </Scene>
+                  </Scene>
                 </Scene>
                 <Scene key="error" component={Error}/>
             </Scene>
