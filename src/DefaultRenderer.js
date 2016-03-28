@@ -43,14 +43,19 @@ export default class DefaultRenderer extends Component {
         const selected = navigationState.children[navigationState.index];
         //return <DefaultRenderer key={selected.key} navigationState={selected}/>
 
+        const DEFAULT_DURATION = 250;
+        const stateDuration = navigationState.duration >= 0 ? navigationState.duration : DEFAULT_DURATION;
+        const duration = selected.duration >= 0 ? selected.duration : stateDuration;
+
         return (
             <NavigationAnimatedView
                 navigationState={navigationState}
                 style={[styles.animatedView, navigationState.style]}
                 renderOverlay={this._renderHeader}
                 direction={navigationState.direction || 'horizontal'}
-                setTiming={(pos, navState) => {
-          Animated.timing(pos, {toValue: navState.index, duration: navState.duration || navigationState.duration || selected.duration || 250}).start();}}
+                setTiming={(pos, navState) =>
+                    Animated.timing(pos, {toValue: navState.index, duration}).start()
+                }
                 renderScene={this._renderCard}
             />
         );
