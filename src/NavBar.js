@@ -78,25 +78,33 @@ export default class NavBar extends React.Component {
     }
 
     _renderBackButton() {
-        if (this.props.navigationState.index === 0) {
-          if(!!this.context.drawer && typeof this.context.drawer.toggle === 'function'){
-            return (
-              <TouchableOpacity style={[styles.backButton, this.props.navigationState.leftButtonStyle]} onPress={() => {
-                var drawer = this.context.drawer;
-                drawer.toggle();
-              }}>
-                  <Image source={require('./menu_burger.png')} style={[styles.backButtonImage, this.props.navigationState.barButtonIconStyle]}/>
-              </TouchableOpacity>
-            );
-          }else{
-            return null;
-          }
-        }
-        return (
-            <TouchableOpacity style={[styles.backButton, this.props.navigationState.leftButtonStyle]} onPress={Actions.pop}>
-                <Image source={require('./back_chevron.png')} style={[styles.backButtonImage, this.props.navigationState.barButtonIconStyle]}/>
+      let backButtonImage;
+
+      if (this.props.navigationState.index === 0) {
+        if(!!this.context.drawer && typeof this.context.drawer.toggle === 'function'){
+
+          backButtonImage = this.props.navigationState.drawerImage || require('./menu_burger.png');
+
+          return (
+            <TouchableOpacity style={[styles.backButton, this.props.navigationState.leftButtonStyle]} onPress={() => {
+              var drawer = this.context.drawer;
+              drawer.toggle();
+            }}>
+                <Image source={backButtonImage} style={[styles.backButtonImage, this.props.navigationState.barButtonIconStyle]}/>
             </TouchableOpacity>
-        );
+          );
+        }else{
+          return null;
+        }
+      }
+
+      backButtonImage = this.props.navigationState.backButtonImage || require('./back_chevron.png');
+
+      return (
+          <TouchableOpacity style={[styles.backButton, this.props.navigationState.leftButtonStyle]} onPress={Actions.pop}>
+              <Image source={backButtonImage} style={[styles.backButtonImage, this.props.navigationState.barButtonIconStyle]}/>
+          </TouchableOpacity>
+      );
     }
 
     _renderRightButton() {

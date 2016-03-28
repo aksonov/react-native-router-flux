@@ -111,6 +111,8 @@ class App extends React.Component {
 | titleStyle | Text style |  | optional style override for the title element |
 | leftTitle | string | | optional string to display on the left if the previous route does not provide `renderBackButton` prop. `renderBackButton` > `leftTitle` > <previous route's `title`> |
 | renderLeftButton | Closure | | optional closure to render the left title / buttons element |
+| drawerImage | Image | `'./menu_burger.png'` | Simple way to override the drawerImage in the navBar |
+| backButtonImage | Image | `'./back_chevron.png'` | Simple way to override the back button in the navBar |
 | renderBackButton | Closure | | optional closure to render back text or button if this route happens to be the previous route |
 | leftButtonStyle | View style | | optional style override for the container of left title / buttons |
 | leftButtonTextStyle | Text style | | optional style override for the left title element |
