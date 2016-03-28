@@ -39,7 +39,7 @@
     "react-native-tabs": "^1.0.2"
   },
   "peerDependencies": {
-    "react-native": "^0.22.0-rc",
+    "react-native": "+0.22.0-rc",
     "react": "^0.14.7"
   },
   "devDependencies": {
