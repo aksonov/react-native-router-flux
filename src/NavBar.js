@@ -51,6 +51,7 @@ export default class NavBar extends React.Component {
     }
     render() {
         const state = this.props.navigationState;
+        const child = state.children[state.index];
         let selected = state.children[state.index];
         while (selected.hasOwnProperty("children")) {
             selected = selected.children[selected.index]
@@ -62,7 +63,7 @@ export default class NavBar extends React.Component {
         if (selected.component && selected.component.renderNavigationBar){
             return selected.component.renderNavigationBar({...this.props,...selected});
         }
-        if (state.hideNavBar || selected.hideNavBar){
+        if (state.hideNavBar || child.hideNavBar || selected.hideNavBar){
             return null;
         }
         return (
