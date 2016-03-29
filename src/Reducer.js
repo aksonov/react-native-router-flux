@@ -53,6 +53,8 @@ function inject(state, action, props, scenes) {
                     return state;
                 }
                 return {...state, children:[...state.children.slice(0,-1), getInitialState(props, scenes, state.index, action)]};
+            case RESET_ACTION:
+                return {...state, index:0, children:[getInitialState(props, scenes, state.index, action)]};
             default:
                 return state;
 
@@ -146,6 +148,7 @@ function reducer({initialState, scenes}){
             case PUSH_ACTION:
             case JUMP_ACTION:
             case REPLACE_ACTION:
+            case RESET_ACTION:
                 return update(state, action);
             default:
                 return state;
