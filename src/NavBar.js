@@ -78,19 +78,19 @@ export default class NavBar extends React.Component {
     }
 
     _renderBackButton() {
-      let backButtonImage;
+      let buttonImage;
 
       if (this.props.navigationState.index === 0) {
         if(!!this.context.drawer && typeof this.context.drawer.toggle === 'function'){
 
-          backButtonImage = this.props.navigationState.drawerImage || require('./menu_burger.png');
+          buttonImage = this.props.navigationState.drawerImage || require('./menu_burger.png');
 
           return (
             <TouchableOpacity style={[styles.backButton, this.props.navigationState.leftButtonStyle]} onPress={() => {
               var drawer = this.context.drawer;
               drawer.toggle();
             }}>
-                <Image source={backButtonImage} style={[styles.backButtonImage, this.props.navigationState.barButtonIconStyle]}/>
+                <Image source={buttonImage} style={[styles.backButtonImage, this.props.navigationState.barButtonIconStyle]}/>
             </TouchableOpacity>
           );
         }else{
@@ -98,11 +98,11 @@ export default class NavBar extends React.Component {
         }
       }
 
-      backButtonImage = this.props.navigationState.backButtonImage || require('./back_chevron.png');
+      buttonImage = this.props.navigationState.backButtonImage || require('./back_chevron.png');
 
       return (
           <TouchableOpacity style={[styles.backButton, this.props.navigationState.leftButtonStyle]} onPress={Actions.pop}>
-              <Image source={backButtonImage} style={[styles.backButtonImage, this.props.navigationState.barButtonIconStyle]}/>
+              <Image source={buttonImage} style={[styles.backButtonImage, this.props.navigationState.barButtonIconStyle]}/>
           </TouchableOpacity>
       );
     }
