@@ -13,6 +13,7 @@ Router for React Native based on new React Native Navigation API.
 - (new) Ability to add own custom scene renderers for action sheet, native TabBarIOS or anything else, see built-in `Modal` renderer (to display popups) as example. Feel free to submit PR with custom renderers for ActionSheet, Drawer, etc. Let's make awesome library!
 - (new) Dynamically choose scene to render depending from application state (`Switch` renderer, useful for authentication)
 - (new) Possibility to use own reducer for navigation state.
+- (new) Add action `reset` to clear the entire history stack. Prevents going 'back'.
 
 ## IMPORTANT! Breaking changes comparing with 2.x version:
 - React Native 0.22 is required
@@ -89,7 +90,7 @@ class App extends React.Component {
 |---------------|----------|--------------|----------------------------------------------------------------|
 | reducer | function | | optional user-defined reducer for scenes, you may want to use it to intercept all actions and put your custom logic |
 | createReducer | function | | function that returns a reducer function for {initialState, scenes} param, you may wrap Reducer(param) with your custom reducer, check Flux usage section below|
-| other props | | | all properties that will be passed to all your scenes |  
+| other props | | | all properties that will be passed to all your scenes |
 | children | | required (if no scenes property passed)| Scene root element |
 | scenes | object | optional | scenes for Router created with Actions.create. This will allow to create all actions BEFORE React processing. If you don't need it you may pass Scene root element as children |
 ##### Scene:
@@ -98,7 +99,7 @@ class App extends React.Component {
 |-----------|--------|---------|--------------------------------------------|
 | key | string | required | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
 | component | React.Component | semi-required | The `Component` to be displayed. Not required when defining a nested `Scene`, see example. If it is defined for 'container' scene, it will be used as custom container `renderer` |
-| type | string | 'push' or 'jump' | Defines how the new screen is added to the navigator stack. One of `push`, `jump`, `replace`. If parent container is tabbar (tabs=true), jump will be automatically set.
+| type | string | 'push' or 'jump' | Defines how the new screen is added to the navigator stack. One of `push`, `jump`, `replace`, `reset`. If parent container is tabbar (tabs=true), jump will be automatically set.
 | tabs| bool | false | Defines 'TabBar' scene container, so child scenes will be displayed as 'tabs'. If no `component` is defined, built-in `TabBar` is used as renderer. All child scenes are wrapped into own navbar.
 | initial | bool | false | Set to `true` if this is the initial scene |
 | duration | number | 250 | Duration of transition (in ms) |
