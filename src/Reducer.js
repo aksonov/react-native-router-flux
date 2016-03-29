@@ -32,6 +32,7 @@ function inject(state, action, props, scenes) {
         switch (action.type) {
             case POP_ACTION2:
             case POP_ACTION:
+                assert(!state.tabs, "pop() operation cannot be run on tab bar (tabs=true)")
                 return {...state, index:state.index-1, children:state.children.slice(0, -1) };
             case REFRESH_ACTION:
                 return {...state, ...props};
