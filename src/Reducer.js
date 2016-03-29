@@ -52,7 +52,8 @@ function inject(state, action, props, scenes) {
                 if (state.children[state.index].sceneKey == action.key){
                     return state;
                 }
-                return {...state, children:[...state.children.slice(0,-1), getInitialState(props, scenes, state.index, action)]};
+                // return {...state, children:[...state.children.slice(0,-1), getInitialState(props, scenes, state.index, action)]};
+                return {...state, index:0, children:[getInitialState(props, scenes, state.index, action)]};
             default:
                 return state;
 
