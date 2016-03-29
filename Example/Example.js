@@ -30,6 +30,7 @@ class Right extends React.Component {
     }}>Right</Text>
     }
 }
+
 const styles = StyleSheet.create({
     container: {flex:1, backgroundColor:'transparent',justifyContent: 'center',
         alignItems: 'center',}
@@ -48,14 +49,13 @@ export default class Example extends React.Component {
     render() {
         return <Router createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}}>
             <Scene key="modal" component={Modal} >
-                <Scene key="drawer" component={NavigationDrawer}>
-                  <Scene key="root">
+                  <Scene key="root" hideNavBar={true}>
                     <Scene key="echo" clone component={EchoView} />
                     <Scene key="register" component={Register} title="Register"/>
                     <Scene key="register2" component={Register} title="Register2" duration={1}/>
                     <Scene key="home" component={Home} title="Replace" type="replace"/>
                     <Scene key="launch" component={Launch} title="Launch" initial={true} style={{flex:1, backgroundColor:'transparent'}}/>
-                    <Scene key="login" direction="vertical">
+                    <Scene key="login" direction="vertical" renderRightButton={()=><ARightBtn/>} >
                         <Scene key="loginModal" component={Login} title="Login"/>
                         <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2" panHandlers={null} duration={1}/>
                     </Scene>
@@ -72,7 +72,6 @@ export default class Example extends React.Component {
                         <Scene key="tab4" component={TabView} title="Tab #4" hideNavBar={true} icon={TabIcon}/>
                         <Scene key="tab5" component={TabView} title="Tab #5" icon={TabIcon} renderRightButton={()=><Right/>}/>
                     </Scene>
-                  </Scene>
                 </Scene>
                 <Scene key="error" component={Error}/>
             </Scene>
