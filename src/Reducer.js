@@ -12,6 +12,20 @@ import assert from 'assert';
 import Immutable from 'immutable';
 import {getInitialState} from './State';
 
+const checkPropertiesEqual = (action, lastAction) => {
+  let isEqual = true;
+  for(let i in action) {
+    if(action.hasOwnProperty(i) && ['key', 'type', 'parent'].indexOf(i) == -1) {//property is passed as argument
+      if(action[i] != lastAction[i]) {
+        isEqual = false;
+      }
+    }
+  }
+
+  return isEqual;
+
+}
+
 function inject(state, action, props, scenes) {
     const condition = action.type == REFRESH_ACTION ? state.key === props.key || state.sceneKey === action.key : state.sceneKey == props.parent;
     if (!condition){
@@ -37,7 +51,7 @@ function inject(state, action, props, scenes) {
             case REFRESH_ACTION:
                 return {...state, ...props};
             case PUSH_ACTION:
-                if (state.children[state.index].sceneKey == action.key && !props.clone){
+                if (state.children[state.index].sceneKey == action.key && !props.clone && checkPropertiesEqual(action, state.children[state.index])){
                     return state;
                 }
                 return {...state, index:state.index+1, children:[...state.children, getInitialState(props, scenes, state.index + 1, action)]};
