@@ -55,7 +55,7 @@ export default class Example extends React.Component {
                     <Scene key="register2" component={Register} title="Register2" duration={1}/>
                     <Scene key="home" component={Home} title="Replace" type="replace"/>
                     <Scene key="launch" component={Launch} title="Launch" initial={true} style={{flex:1, backgroundColor:'transparent'}}/>
-                    <Scene key="login" direction="vertical" renderRightButton={()=><ARightBtn/>} >
+                    <Scene key="login" direction="vertical"  >
                         <Scene key="loginModal" component={Login} title="Login"/>
                         <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2" panHandlers={null} duration={1}/>
                     </Scene>
