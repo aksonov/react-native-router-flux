@@ -34,9 +34,7 @@ function inject(state, action, props, scenes) {
             case POP_ACTION:
                 return {...state, index:state.index-1, children:state.children.slice(0, -1) };
             case REFRESH_ACTION:
-                // use key and parent from state to avoid loss during refresh
-                let {key, parent} = state;
-                return {...state, ...props, key, parent};
+                return {...state, ...props};
             case PUSH_ACTION:
                 if (state.children[state.index].sceneKey == action.key && !props.clone){
                     return state;
@@ -83,6 +81,18 @@ function findElement(state, key) {
     }
 }
 
+function getChildForKey(state, key) {
+    if (state.key === key) {
+        return state;
+    }
+    if (state.children) {
+        for (let child of state.children) {
+            let current = getChildForKey(child, key);
+            if (current) return current;
+        }
+    }
+}
+
 function getCurrent(state){
     if (!state.children){
         return state;
@@ -112,14 +122,19 @@ function reducer({initialState, scenes}){
         assert(state.scenes, "state.scenes is missed");
 
         if (action.key){
-            let scene = state.scenes[action.key];
-            assert(scene, "missed route data for key="+action.key);
-
-            // clone scene
-            if (scene.clone) {
-                action.parent = getCurrent(state).parent;
+            if (action.type === REFRESH_ACTION) {
+                let key = action.key;
+                let child = getChildForKey(state, key);
+                assert(child, "missed child data for key="+key);
+                action = {...child,...action};
+            } else {
+                let scene = state.scenes[action.key];
+                assert(scene, "missed route data for key="+action.key);
+                // clone scene
+                if (scene.clone) {
+                    action.parent = getCurrent(state).parent;
+                }
             }
-
         } else {
             // set current route for pop action or refresh action
             if (action.type === POP_ACTION || action.type === POP_ACTION2 || action.type === REFRESH_ACTION){
