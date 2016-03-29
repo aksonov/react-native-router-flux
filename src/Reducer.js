@@ -61,33 +61,13 @@ function inject(state, action, props, scenes) {
 }
 
 
-function findElement(state, key) {
-    if (state.sceneKey != key){
-        if (state.children){
-            let result = undefined;
-            state.children.forEach(el=>{
-                let res = findElement(el, key);
-                if (res){
-                    result = res;
-                    return res;
-                }
-            });
-            return result;
-        } else {
-            return false;
-        }
-    } else {
-        return state;
-    }
-}
-
-function getChildForKey(state, key) {
-    if (state.key === key) {
+function findElement(state, key, type) {
+    if (type === REFRESH_ACTION ? state.key === key : state.sceneKey === key) {
         return state;
     }
     if (state.children) {
         for (let child of state.children) {
-            let current = getChildForKey(child, key);
+            let current = findElement(child, key, type);
             if (current) return current;
         }
     }
@@ -109,8 +89,6 @@ function update(state,action){
     return inject(state, action, props, state.scenes);
 }
 
-var _uniqPush = 0;
-
 function reducer({initialState, scenes}){
     assert(initialState, "initialState should not be null");
     assert(initialState.key, "initialState.key should not be null");
@@ -124,7 +102,7 @@ function reducer({initialState, scenes}){
         if (action.key){
             if (action.type === REFRESH_ACTION) {
                 let key = action.key;
-                let child = getChildForKey(state, key);
+                let child = findElement(state, key, action.type);
                 assert(child, "missed child data for key="+key);
                 action = {...child,...action};
             } else {
@@ -145,9 +123,9 @@ function reducer({initialState, scenes}){
             // recursive pop parent
             if (action.type === POP_ACTION || action.type === POP_ACTION2) {
                 let parent = action.parent || state.scenes[action.key].parent;
-                let el = findElement(state, parent);
+                let el = findElement(state, parent, action.type);
                 while (el.parent && (el.children.length <= 1 || el.tabs)) {
-                    el = findElement(state, el.parent);
+                    el = findElement(state, el.parent, action.type);
                     assert(el, "Cannot find element for parent=" + el.parent + " within current state");
                 }
                 action.parent = el.sceneKey;
