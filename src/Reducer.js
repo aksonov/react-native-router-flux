@@ -34,9 +34,7 @@ function inject(state, action, props, scenes) {
             case POP_ACTION:
                 return {...state, index:state.index-1, children:state.children.slice(0, -1) };
             case REFRESH_ACTION:
-                // use key and parent from state to avoid loss during refresh
-                let {key, parent} = state;
-                return {...state, ...props, key, parent};
+                return {...state, ...props};
             case PUSH_ACTION:
                 if (state.children[state.index].sceneKey == action.key && !props.clone){
                     return state;
@@ -65,23 +63,15 @@ function inject(state, action, props, scenes) {
 }
 
 
-function findElement(state, key) {
-    if (state.sceneKey != key){
-        if (state.children){
-            let result = undefined;
-            state.children.forEach(el=>{
-                let res = findElement(el, key);
-                if (res){
-                    result = res;
-                    return res;
-                }
-            });
-            return result;
-        } else {
-            return false;
-        }
-    } else {
+function findElement(state, key, type) {
+    if (type === REFRESH_ACTION ? state.key === key : state.sceneKey === key) {
         return state;
+    }
+    if (state.children) {
+        for (let child of state.children) {
+            let current = findElement(child, key, type);
+            if (current) return current;
+        }
     }
 }
 
@@ -101,8 +91,6 @@ function update(state,action){
     return inject(state, action, props, state.scenes);
 }
 
-var _uniqPush = 0;
-
 function reducer({initialState, scenes}){
     assert(initialState, "initialState should not be null");
     assert(initialState.key, "initialState.key should not be null");
@@ -114,14 +102,19 @@ function reducer({initialState, scenes}){
         assert(state.scenes, "state.scenes is missed");
 
         if (action.key){
-            let scene = state.scenes[action.key];
-            assert(scene, "missed route data for key="+action.key);
-
-            // clone scene
-            if (scene.clone) {
-                action.parent = getCurrent(state).parent;
+            if (action.type === REFRESH_ACTION) {
+                let key = action.key;
+                let child = findElement(state, key, action.type);
+                assert(child, "missed child data for key="+key);
+                action = {...child,...action};
+            } else {
+                let scene = state.scenes[action.key];
+                assert(scene, "missed route data for key="+action.key);
+                // clone scene
+                if (scene.clone) {
+                    action.parent = getCurrent(state).parent;
+                }
             }
-
         } else {
             // set current route for pop action or refresh action
             if (action.type === POP_ACTION || action.type === POP_ACTION2 || action.type === REFRESH_ACTION){
@@ -132,9 +125,9 @@ function reducer({initialState, scenes}){
             // recursive pop parent
             if (action.type === POP_ACTION || action.type === POP_ACTION2) {
                 let parent = action.parent || state.scenes[action.key].parent;
-                let el = findElement(state, parent);
+                let el = findElement(state, parent, action.type);
                 while (el.parent && (el.children.length <= 1 || el.tabs)) {
-                    el = findElement(state, el.parent);
+                    el = findElement(state, el.parent, action.type);
                     assert(el, "Cannot find element for parent=" + el.parent + " within current state");
                 }
                 action.parent = el.sceneKey;
