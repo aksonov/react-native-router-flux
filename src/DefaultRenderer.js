@@ -12,6 +12,8 @@ const {
     Card: NavigationCard,
     RootContainer: NavigationRootContainer,
     Header: NavigationHeader,
+    CardStackStyleInterpolator: CardStackStyleInterpolator,
+    LinearPanResponder: LinearPanResponder
     } = NavigationExperimental;
 import Actions from './Actions';
 import getInitialState from './State';
@@ -53,7 +55,7 @@ export default class DefaultRenderer extends Component {
                 style={[styles.animatedView, navigationState.style]}
                 renderOverlay={this._renderHeader}
                 direction={navigationState.direction || 'horizontal'}
-                setTiming={(pos, navState) =>
+                applyAnimation={(pos, navState) =>
                     Animated.timing(pos, {toValue: navState.index, duration}).start()
                 }
                 renderScene={this._renderCard}
@@ -69,14 +71,19 @@ export default class DefaultRenderer extends Component {
     }
 
     _renderCard(/*NavigationSceneRendererProps*/ props) {
+        const isVertical = props.scene.navigationState.direction === 'vertical';
+
+        const style = isVertical ? CardStackStyleInterpolator.forVertical(props) : CardStackStyleInterpolator.forHorizontal(props);
+        const defaultPanHandlers = isVertical ? LinearPanResponder.forVertical(props) : LinearPanResponder.forHorizontal(props);
+        const panHandlers = props.scene.navigationState.panHandlers || defaultPanHandlers;
+
         return (
             <NavigationCard
                 {...props}
                 key={'card_' + props.scene.navigationState.key}
-                direction={props.scene.navigationState.direction || 'horizontal'}
-                panHandlers={props.scene.navigationState.panHandlers }
+                panHandlers={panHandlers}
+                style = {style}
                 renderScene={this._renderScene}
-                style={{backgroundColor:'transparent'}}
             />
         );
     }
