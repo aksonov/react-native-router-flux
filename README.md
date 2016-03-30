@@ -114,6 +114,8 @@ class App extends React.Component {
 | renderLeftButton | Closure | | optional closure to render the left title / buttons element |
 | drawerImage | Image | `'./menu_burger.png'` | Simple way to override the drawerImage in the navBar |
 | backButtonImage | Image | `'./back_chevron.png'` | Simple way to override the back button in the navBar |
+| backTitle | string | | optional string to display with back button |
+| backButtonTextStyle | Text style | | optional style override for the back title element |
 | renderBackButton | Closure | | optional closure to render back text or button if this route happens to be the previous route |
 | leftButtonStyle | View style | | optional style override for the container of left title / buttons |
 | leftButtonTextStyle | Text style | | optional style override for the left title element |
