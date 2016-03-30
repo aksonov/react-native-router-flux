@@ -78,33 +78,31 @@ export default class NavBar extends React.Component {
     }
 
     _renderBackButton() {
-      let buttonImage;
+        const drawer = this.context.drawer;
+        const state = this.props.navigationState;
+        const childState = state.children[state.index];
+        let buttonImage = state.backButtonImage || require('./back_chevron.png');
+        let onPress = Actions.pop;
 
-      if (this.props.navigationState.index === 0) {
-        if(!!this.context.drawer && typeof this.context.drawer.toggle === 'function'){
-
-          buttonImage = this.props.navigationState.drawerImage || require('./menu_burger.png');
-
-          return (
-            <TouchableOpacity style={[styles.backButton, this.props.navigationState.leftButtonStyle]} onPress={() => {
-              var drawer = this.context.drawer;
-              drawer.toggle();
-            }}>
-                <Image source={buttonImage} style={[styles.backButtonImage, this.props.navigationState.barButtonIconStyle]}/>
-            </TouchableOpacity>
-          );
-        }else{
-          return null;
+        if (state.index === 0) {
+            if (!!drawer && typeof drawer.toggle === 'function') {
+                buttonImage = state.drawerImage || require('./menu_burger.png');
+                onPress = drawer.toggle;
+            } else {
+                return null;
+            }
         }
-      }
 
-      buttonImage = this.props.navigationState.backButtonImage || require('./back_chevron.png');
+        let text = childState.backTitle ? <Text style={[styles.barBackButtonText, childState.backButtonTextStyle]}>
+            {childState.backTitle}
+        </Text> : null;
 
-      return (
-          <TouchableOpacity style={[styles.backButton, this.props.navigationState.leftButtonStyle]} onPress={Actions.pop}>
-              <Image source={buttonImage} style={[styles.backButtonImage, this.props.navigationState.barButtonIconStyle]}/>
-          </TouchableOpacity>
-      );
+        return (
+            <TouchableOpacity style={[styles.backButton, state.leftButtonStyle]} onPress={onPress}>
+                <Image source={buttonImage} style={[styles.backButtonImage, state.barButtonIconStyle]}/>
+                {text}
+            </TouchableOpacity>
+        );
     }
 
     _renderRightButton() {
@@ -202,12 +200,13 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
     backButton: {
-        width: 29,
+        width: 100,
         height: 37,
         position: 'absolute',
         bottom: 4,
         left: 2,
         padding: 8,
+        flexDirection: 'row',
     },
     rightButton: {
         width: 100,
@@ -227,12 +226,18 @@ const styles = StyleSheet.create({
     },
     barRightButtonText: {
         color: 'rgb(0, 122, 255)',
-        textAlign:'right',
+        textAlign: 'right',
         fontSize: 17,
+    },
+    barBackButtonText: {
+        color: 'rgb(0, 122, 255)',
+        textAlign: 'left',
+        fontSize: 17,
+        paddingLeft: 6,
     },
     barLeftButtonText: {
         color: 'rgb(0, 122, 255)',
-        textAlign:'left',
+        textAlign: 'left',
         fontSize: 17,
     },
     backButtonImage: {
