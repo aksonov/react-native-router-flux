@@ -1,9 +1,6 @@
-"use strict";
-
-var React = require("react-native");
-var {View, Text, StyleSheet, Animated, Dimensions} = React;
-var Button = require("react-native-button");
-var Actions = require("react-native-router-flux").Actions;
+import React, {View, Text, StyleSheet, Animated, Dimensions} from "react-native";
+import Button from "react-native-button";
+import {Actions} from "react-native-router-flux";
 
 var {
   height: deviceHeight
@@ -22,13 +19,13 @@ var styles = StyleSheet.create({
     },
 });
 
-class Error extends React.Component {
+export default class extends React.Component {
     constructor(props){
-        super (props)
+        super (props);
 
         this.state = {
             offset: new Animated.Value(-deviceHeight)
-        }
+        };
     }
 
     componentDidMount() {
@@ -47,7 +44,7 @@ class Error extends React.Component {
 
     render(){
         return (
-            <Animated.View style={[styles.container, {backgroundColor:'rgba(52,52,52,0.5)'}, 
+            <Animated.View style={[styles.container, {backgroundColor:"rgba(52,52,52,0.5)"},
                                   {transform: [{translateY: this.state.offset}]}]}>
                 <View style={{  width:250,
                                 height:250,
@@ -61,7 +58,3 @@ class Error extends React.Component {
         );
     }
 }
-
-
-module.exports = Error;
-

@@ -1,11 +1,8 @@
-"use strict";
+import React, {View, Text, StyleSheet} from "react-native";
+import Button from "react-native-button";
+import {Actions} from "react-native-router-flux";
 
-var React = require("react-native");
-var {View, Text, StyleSheet, TouchableHighlight} = React;
-var Button = require("react-native-button");
-var Actions = require("react-native-router-flux").Actions;
-
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",

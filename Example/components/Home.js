@@ -1,7 +1,8 @@
-"use strict";
+import React, {View, Text, StyleSheet} from "react-native";
+import Button from "react-native-button";
+import {Actions} from "react-native-router-flux";
 
-var React = require("react-native");
-var styles = React.StyleSheet.create({
+var styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
@@ -22,10 +23,6 @@ var styles = React.StyleSheet.create({
 
 class Home extends React.Component {
     render(){
-        var {View, Text} = React;
-        var Button = require("react-native-button");
-        var Actions = require("react-native-router-flux").Actions;
-
         return (
             <View style={styles.container}>
                 <Text>Replace screen</Text>

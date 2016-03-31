@@ -1,24 +1,8 @@
-"use strict";
+import React, {View, Text, StyleSheet} from "react-native";
+import Button from "react-native-button";
+import {Actions} from "react-native-router-flux";
 
-var React = require("react-native");
-var {View, Text, StyleSheet} = React;
-var Button = require("react-native-button");
-var Actions = require("react-native-router-flux").Actions;
-
-class Login extends React.Component {
-    render(){
-        return (
-            <View style={[styles.container, this.props.style]}>
-                <Text>Login page: {this.props.data}</Text>
-                <Button onPress={Actions.loginModal2}>Login 2</Button>
-                <Button onPress={()=>Actions.refresh({title:"Changed title"})}>Change title</Button>
-                <Button onPress={Actions.pop}>Back</Button>
-            </View>
-        );
-    }
-}
-
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
@@ -38,5 +22,15 @@ var styles = StyleSheet.create({
 });
 
 
-
-module.exports = Login;
+export default class extends React.Component {
+    render(){
+        return (
+            <View style={[styles.container, this.props.style]}>
+                <Text>Login page: {this.props.data}</Text>
+                <Button onPress={Actions.loginModal2}>Login 2</Button>
+                <Button onPress={() => Actions.refresh({title:"Changed title"})}>Change title</Button>
+                <Button onPress={Actions.pop}>Back</Button>
+            </View>
+        );
+    }
+}
