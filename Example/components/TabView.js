@@ -1,13 +1,32 @@
 "use strict";
 
 var React = require("react-native");
-var {View, Text, StyleSheet} = React;
-var Button = require("react-native-button");
-var Actions = require("react-native-router-flux").Actions;
+
+var styles = React.StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#F5FCFF",
+    },
+    welcome: {
+        fontSize: 20,
+        textAlign: "center",
+        margin: 10,
+    },
+    instructions: {
+        textAlign: "center",
+        color: "#333333",
+        marginBottom: 5,
+    },
+});
 
 
 class TabView extends React.Component {
     render(){
+        var {View, Text} = React;
+        var Button = require("react-native-button");
+        var Actions = require("react-native-router-flux").Actions;
         const drawer = this.context.drawer;
         return (
             <View style={[styles.container, this.props.sceneStyle]}>
@@ -19,12 +38,12 @@ class TabView extends React.Component {
                 <Button onPress={Actions.tab2_2}>next screen for tab2_1</Button>
                 }
                 <Button onPress={Actions.pop}>Back</Button>
-                <Button onPress={()=>{drawer.close();Actions.tab1()}}>Switch to tab1</Button>
-                <Button onPress={()=>{drawer.close();Actions.tab2()}}>Switch to tab2</Button>
-                <Button onPress={()=>{drawer.close();Actions.tab3()}}>Switch to tab3</Button>
-                <Button onPress={()=>{drawer.close();Actions.tab4()}}>Switch to tab4</Button>
-                <Button onPress={()=>{drawer.close();Actions.tab5()}}>Switch to tab5</Button>
-                <Button onPress={()=>{drawer.close();Actions.echo()}}>push new scene</Button>
+                <Button onPress={() => {drawer.close();Actions.tab1();}}>Switch to tab1</Button>
+                <Button onPress={() => {drawer.close();Actions.tab2();}}>Switch to tab2</Button>
+                <Button onPress={() => {drawer.close();Actions.tab3();}}>Switch to tab3</Button>
+                <Button onPress={() => {drawer.close();Actions.tab4();}}>Switch to tab4</Button>
+                <Button onPress={() => {drawer.close();Actions.tab5();}}>Switch to tab5</Button>
+                <Button onPress={() => {drawer.close();Actions.echo();}}>push new scene</Button>
             </View>
         );
     }
@@ -33,24 +52,5 @@ class TabView extends React.Component {
 TabView.contextTypes = {
     drawer: React.PropTypes.object
 }
-
-var styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: "center",
-        margin: 10,
-    },
-    instructions: {
-        textAlign: "center",
-        color: '#333333',
-        marginBottom: 5,
-    },
-});
 
 module.exports = TabView;

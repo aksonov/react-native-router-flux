@@ -8,7 +8,7 @@ var styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: '#F5FCFF',
+        backgroundColor: "#F5FCFF",
     },
     welcome: {
         fontSize: 20,
@@ -17,7 +17,7 @@ var styles = StyleSheet.create({
     },
     instructions: {
         textAlign: "center",
-        color: '#333333',
+        color: "#333333",
         marginBottom: 5,
     },
 });

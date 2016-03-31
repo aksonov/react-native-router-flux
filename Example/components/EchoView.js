@@ -1,27 +1,24 @@
-"use strict";
+import React, {View, Text, StyleSheet} from "react-native";
+import Button from "react-native-button";
+import {Actions} from "react-native-router-flux";
 
-var React = require("react-native");
-var {StyleSheet} = React;
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: '#F5FCFF',
+        backgroundColor: "#F5FCFF",
     },
     instructions: {
         textAlign: "center",
-        color: '#333333',
+        color: "#333333",
         marginBottom: 5,
     },
 });
 
 
-class EchoView extends React.Component {
+export default class extends React.Component {
     render(){
-        var {View, Text, StyleSheet} = React;
-        var Button = require("react-native-button");
-        var Actions = require("react-native-router-flux").Actions;
         return (
             <View style={[styles.container, this.props.sceneStyle]}>
                 <Text style={styles.instructions}>key: {this.props.navigationState.key}</Text>
@@ -33,4 +30,3 @@ class EchoView extends React.Component {
     }
 }
 
-module.exports = EchoView;

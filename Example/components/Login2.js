@@ -1,16 +1,16 @@
 "use strict";
 
 var React = require("react-native");
-var {View, Text, StyleSheet} = React;
+var {View, Text} = React;
 var Button = require("react-native-button");
 var Actions = require("react-native-router-flux").Actions;
 
-var styles = StyleSheet.create({
+var styles = React.StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: '#F5FCFF',
+        backgroundColor: "#F5FCFF",
     },
     welcome: {
         fontSize: 20,
@@ -19,7 +19,7 @@ var styles = StyleSheet.create({
     },
     instructions: {
         textAlign: "center",
-        color: '#333333',
+        color: "#333333",
         marginBottom: 5,
     },
 });
@@ -27,6 +27,7 @@ var styles = StyleSheet.create({
 
 class Login extends React.Component {
     render(){
+
         return (
             <View style={styles.container}>
                 <Text>Login2 page: {this.props.data}</Text>
