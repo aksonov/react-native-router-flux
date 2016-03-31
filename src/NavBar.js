@@ -23,8 +23,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import React, {Animated, PixelRatio, Image, StyleSheet, Text, TouchableOpacity, View, NavigationExperimental} from 'react-native';
-import Actions from './Actions';
+import React, {Animated, PixelRatio, Image, StyleSheet, Text, TouchableOpacity, View, NavigationExperimental} from "react-native";
+import Actions from "./Actions";
 const {
     AnimatedView: NavigationAnimatedView,
     Card: NavigationCard,
@@ -81,12 +81,12 @@ export default class NavBar extends React.Component {
         const drawer = this.context.drawer;
         const state = this.props.navigationState;
         const childState = state.children[state.index];
-        let buttonImage = state.backButtonImage || require('./back_chevron.png');
+        let buttonImage = state.backButtonImage || require("./back_chevron.png");
         let onPress = Actions.pop;
 
         if (state.index === 0) {
-            if (!!drawer && typeof drawer.toggle === 'function') {
-                buttonImage = state.drawerImage || require('./menu_burger.png');
+            if (!!drawer && typeof drawer.toggle === "function") {
+                buttonImage = state.drawerImage || require("./menu_burger.png");
                 onPress = drawer.toggle;
             } else {
                 return null;
@@ -178,12 +178,12 @@ NavBar.contextTypes = {
 
 const styles = StyleSheet.create({
     title: {
-        textAlign: 'center',
+        textAlign: "center",
         marginTop: 10,
         fontSize: 18,
-        fontWeight: '500',
+        fontWeight: "500",
         color: '#0A0A0A',
-        position: 'absolute',
+        position: "absolute",
         top: 20,
         left: 0,
         right: 0,
@@ -197,21 +197,21 @@ const styles = StyleSheet.create({
         left: 0,
         borderBottomWidth: 0.5,
         borderBottomColor: '#828287',
-        position: 'absolute',
+        position: "absolute",
     },
     backButton: {
         width: 100,
         height: 37,
-        position: 'absolute',
+        position: "absolute",
         bottom: 4,
         left: 2,
         padding: 8,
-        flexDirection: 'row',
+        flexDirection: "row",
     },
     rightButton: {
         width: 100,
         height: 37,
-        position: 'absolute',
+        position: "absolute",
         bottom: 4,
         right: 2,
         padding: 8,
@@ -219,25 +219,25 @@ const styles = StyleSheet.create({
     leftButton: {
         width: 100,
         height: 37,
-        position: 'absolute',
+        position: "absolute",
         bottom: 4,
         left: 2,
         padding: 8,
     },
     barRightButtonText: {
         color: 'rgb(0, 122, 255)',
-        textAlign: 'right',
+        textAlign: "right",
         fontSize: 17,
     },
     barBackButtonText: {
         color: 'rgb(0, 122, 255)',
-        textAlign: 'left',
+        textAlign: "left",
         fontSize: 17,
         paddingLeft: 6,
     },
     barLeftButtonText: {
         color: 'rgb(0, 122, 255)',
-        textAlign: 'left',
+        textAlign: "left",
         fontSize: 17,
     },
     backButtonImage: {

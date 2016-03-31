@@ -1,9 +1,9 @@
 'use strict';
 
-var NavigationBar = require('react-native-navbar');
-var React = require('react-native');
+var NavigationBar = require("react-native-navbar");
+var React = require("react-native");
 var {StyleSheet,View} = React;
-var {Router, Route, Actions, Animations, Schema} = require('react-native-router-flux');
+var {Router, Route, Actions, Animations, Schema} = require("react-native-router-flux");
 
 class NavBarBase extends React.Component {
     onPrev(){
@@ -17,9 +17,9 @@ class NavBarBase extends React.Component {
     }
     render() {
         return <NavigationBar style={styles.navBar}
-                              titleColor='white'
-                              buttonsColor='white'
-                              statusBar='lightContent'
+                              titleColor="white"
+                              buttonsColor="white"
+                              statusBar="lightContent"
                               prevTitle={this.props.initial ? " " : null}
                               onPrev={this.props.onPrev || Actions.pop}
                               onNext={this.props.onNext || Actions.pop}

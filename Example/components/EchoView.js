@@ -1,9 +1,9 @@
 'use strict';
 
-var React = require('react-native');
+var React = require("react-native");
 var {View, Text, StyleSheet} = React;
-var Button = require('react-native-button');
-var Actions = require('react-native-router-flux').Actions;
+var Button = require("react-native-button");
+var Actions = require("react-native-router-flux").Actions;
 
 
 class EchoView extends React.Component {
@@ -22,12 +22,12 @@ class EchoView extends React.Component {
 var styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
         backgroundColor: '#F5FCFF',
     },
     instructions: {
-        textAlign: 'center',
+        textAlign: "center",
         color: '#333333',
         marginBottom: 5,
     },

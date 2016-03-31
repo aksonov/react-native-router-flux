@@ -1,8 +1,8 @@
-import React, {View, Text, Component, NavigationExperimental} from 'react-native';
-import Tabs from 'react-native-tabs';
-import DefaultRenderer from './DefaultRenderer';
-import Actions from './Actions';
-import NavBar from './NavBar';
+import React, {View, Text, Component, NavigationExperimental} from "react-native";
+import Tabs from "react-native-tabs";
+import DefaultRenderer from "./DefaultRenderer";
+import Actions from "./Actions";
+import NavBar from "./NavBar";
 const {
     AnimatedView: NavigationAnimatedView,
     CardStack: NavigationCardStack,
@@ -40,7 +40,7 @@ export default class extends Component {
                           />
                         )}
                     />
-            {!hideTabBar && state.children.filter(el=>el.icon).length>0 && <Tabs style={[{backgroundColor:'white'}, state.tabBarStyle]} onSelect={this.onSelect.bind(this)} {...state}
+            {!hideTabBar && state.children.filter(el=>el.icon).length>0 && <Tabs style={[{backgroundColor:"white"}, state.tabBarStyle]} onSelect={this.onSelect.bind(this)} {...state}
                                                                                  selected={state.children[state.index].sceneKey}>
                     {state.children.filter(el=>el.icon || this.props.tabIcon).map(el=>{
                         const Icon = el.icon || this.props.tabIcon;

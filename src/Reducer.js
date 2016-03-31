@@ -7,15 +7,15 @@
  *
  */
 
-import {PUSH_ACTION, POP_ACTION2, FOCUS_ACTION, JUMP_ACTION, INIT_ACTION, REPLACE_ACTION, RESET_ACTION, POP_ACTION, REFRESH_ACTION} from './Actions';
-import assert from 'assert';
-import Immutable from 'immutable';
-import {getInitialState} from './State';
+import {PUSH_ACTION, POP_ACTION2, FOCUS_ACTION, JUMP_ACTION, INIT_ACTION, REPLACE_ACTION, RESET_ACTION, POP_ACTION, REFRESH_ACTION} from "./Actions";
+import assert from "assert";
+import Immutable from "immutable";
+import {getInitialState} from "./State";
 
 const checkPropertiesEqual = (action, lastAction) => {
   let isEqual = true;
   for(let i in action) {
-    if(action.hasOwnProperty(i) && ['key', 'type', 'parent'].indexOf(i) == -1) {//property is passed as argument
+    if(action.hasOwnProperty(i) && ["key", "type", "parent"].indexOf(i) == -1) {//property is passed as argument
       if(action[i] != lastAction[i]) {
         isEqual = false;
       }

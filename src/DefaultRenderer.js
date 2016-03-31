@@ -6,18 +6,18 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React, {Component, Animated, StyleSheet, ScrollView, Text, NavigationExperimental} from 'react-native';
+import React, {Component, Animated, StyleSheet, ScrollView, Text, NavigationExperimental} from "react-native";
 const {
     AnimatedView: NavigationAnimatedView,
     Card: NavigationCard,
     RootContainer: NavigationRootContainer,
     Header: NavigationHeader,
     } = NavigationExperimental;
-import Actions from './Actions';
-import getInitialState from './State';
-import Reducer from './Reducer';
-import TabBar from './TabBar';
-import NavBar from './NavBar';
+import Actions from "./Actions";
+import getInitialState from "./State";
+import Reducer from "./Reducer";
+import TabBar from "./TabBar";
+import NavBar from "./NavBar";
 
 export default class DefaultRenderer extends Component {
     constructor(props) {
@@ -52,7 +52,7 @@ export default class DefaultRenderer extends Component {
                 navigationState={navigationState}
                 style={[styles.animatedView, navigationState.style]}
                 renderOverlay={this._renderHeader}
-                direction={navigationState.direction || 'horizontal'}
+                direction={navigationState.direction || "horizontal"}
                 setTiming={(pos, navState) =>
                     Animated.timing(pos, {toValue: navState.index, duration}).start()
                 }
@@ -72,11 +72,11 @@ export default class DefaultRenderer extends Component {
         return (
             <NavigationCard
                 {...props}
-                key={'card_' + props.scene.navigationState.key}
-                direction={props.scene.navigationState.direction || 'horizontal'}
+                key={"card_" + props.scene.navigationState.key}
+                direction={props.scene.navigationState.direction || "horizontal"}
                 panHandlers={props.scene.navigationState.panHandlers }
                 renderScene={this._renderScene}
-                style={{backgroundColor:'transparent'}}
+                style={{backgroundColor:"transparent"}}
             />
         );
     }
@@ -90,7 +90,7 @@ export default class DefaultRenderer extends Component {
 const styles = StyleSheet.create({
     animatedView: {
         flex: 1,
-        backgroundColor:'transparent'
+        backgroundColor:"transparent"
     },
 });
 

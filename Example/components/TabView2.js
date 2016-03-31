@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react-native');
+var React = require("react-native");
 var {View, Text, StyleSheet} = React;
 
 class TabView extends React.Component {
@@ -16,17 +16,17 @@ class TabView extends React.Component {
 var styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
         backgroundColor: '#F5FCFF',
     },
     welcome: {
         fontSize: 20,
-        textAlign: 'center',
+        textAlign: "center",
         margin: 10,
     },
     instructions: {
-        textAlign: 'center',
+        textAlign: "center",
         color: '#333333',
         marginBottom: 5,
     },

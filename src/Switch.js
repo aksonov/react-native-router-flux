@@ -1,6 +1,6 @@
-import React, {Component} from 'react-native';
-import DefaultRenderer from './DefaultRenderer';
-import Actions from './Actions';
+import React, {Component} from "react-native";
+import DefaultRenderer from "./DefaultRenderer";
+import Actions from "./Actions";
 
 export default class extends Component {
     constructor(props){

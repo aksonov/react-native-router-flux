@@ -6,17 +6,17 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import assert from 'assert';
-import Scene from './Scene';
-export const JUMP_ACTION = 'jump';
-export const PUSH_ACTION = 'push';
-export const REPLACE_ACTION = 'replace';
-export const POP_ACTION2 = 'back';
-export const POP_ACTION = 'BackAction';
-export const REFRESH_ACTION = 'refresh';
-export const RESET_ACTION = 'reset';
-export const INIT_ACTION = 'init';
-export const FOCUS_ACTION = 'focus';
+import assert from "assert";
+import Scene from "./Scene";
+export const JUMP_ACTION = "jump";
+export const PUSH_ACTION = "push";
+export const REPLACE_ACTION = "replace";
+export const POP_ACTION2 = "back";
+export const POP_ACTION = "BackAction";
+export const REFRESH_ACTION = "refresh";
+export const RESET_ACTION = "reset";
+export const INIT_ACTION = "init";
+export const FOCUS_ACTION = "focus";
 
 function isNumeric(n){
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -30,7 +30,7 @@ function filterParam(data){
     }
     var proto = (data||{}).constructor.name;
     // avoid passing React Native parameters
-    if (proto != 'Object'){
+    if (proto != "Object"){
         data = {};
     }
     return data;
@@ -49,13 +49,13 @@ class Actions {
 
     iterate(root: Scene, parentProps = {}, refs = {}) {
         assert(root.props, "props should be defined for stack");
-        const key = root.key || 'root';
+        const key = root.key || "root";
         assert(key, "unique key should be defined ",root);
-        assert([POP_ACTION, POP_ACTION2, REFRESH_ACTION, REPLACE_ACTION, JUMP_ACTION, PUSH_ACTION, RESET_ACTION, 'create',
-                'init','callback','iterate','current'].indexOf(key)==-1, key+" is not allowed as key name");
+        assert([POP_ACTION, POP_ACTION2, REFRESH_ACTION, REPLACE_ACTION, JUMP_ACTION, PUSH_ACTION, RESET_ACTION, "create",
+                "init","callback","iterate","current"].indexOf(key)==-1, key+" is not allowed as key name");
         const {children, ...staticProps} = root.props;
         let type = root.props.type || (parentProps.tabs ? JUMP_ACTION : PUSH_ACTION);
-        if (type === 'switch'){
+        if (type === "switch"){
             type = JUMP_ACTION;
         }
         let res = {name:key, ...staticProps, key, sceneKey:key, type, parent:parentProps.key};
@@ -64,9 +64,9 @@ class Actions {
             res.children = list.map(c=>this.iterate(c, res, refs).key);
         } else {
             assert(staticProps.component, "component property is not set for key="+key);
-            // wrap scene if parent is 'tabs'
+            // wrap scene if parent is "tabs"
             if (parentProps.tabs) {
-                const innerKey = res.key + '_';
+                const innerKey = res.key + "_";
                 const inner = {...res, name:key, key: innerKey, type: PUSH_ACTION, parent:res.key}
                 refs[innerKey] = inner;
                 res.children = [innerKey];
