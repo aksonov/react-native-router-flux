@@ -274,33 +274,30 @@ import Drawer from 'react-native-drawer';
 import SideMenu from './SideMenu';
 import {DefaultRenderer} from 'react-native-router-flux';
 
-export default class extends React.Component {
+export default class extends Component {
     render(){
-        const navigationState = this.props.navigationState;
-        let selected = navigationState.children[navigationState.index];
+        const children = this.props.navigationState.children;
         return (
-            //Material Design Style Drawer
             <Drawer
-                ref="drawer"
+                ref="navigation"
                 type="displace"
-                content={<SideMenu />}
+                content={<TabView />}
                 tapToClose={true}
-                openDrawerOffset={0.2} // 20% gap on the right side of drawer
+                openDrawerOffset={0.2}
                 panCloseMask={0.2}
                 negotiatePan={true}
                 tweenHandler={(ratio) => ({
-                     main: { opacity:Math.max(0.54,1-ratio) }
-                })}>
-                <DefaultRenderer navigationState={selected}  key={selected.key} {...selected} />
+                 main: { opacity:Math.max(0.54,1-ratio) }
+            })}>
+                <DefaultRenderer navigationState={children[0]} />
             </Drawer>
-
         );
     }
 }
 
-/// then wrap your scenes with Drawer:
+/// then wrap your tabs scene with Drawer:
             <Scene key="drawer" component={Drawer}>
-                <Scene key="main">
+                <Scene key="main" tabs={true} >
                         ....
                 </Scene>
             </Scene>
