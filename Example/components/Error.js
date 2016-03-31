@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var React = require("react-native");
 var {View, Text, StyleSheet, Animated, Dimensions} = React;
@@ -9,6 +9,18 @@ var {
   height: deviceHeight
 } = Dimensions.get("window");
 
+var styles = StyleSheet.create({
+    container: {
+        position: "absolute",
+        top:0,
+        bottom:0,
+        left:0,
+        right:0,
+        backgroundColor:"transparent",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+});
 
 class Error extends React.Component {
     constructor(props){
@@ -52,17 +64,4 @@ class Error extends React.Component {
 
 
 module.exports = Error;
-
-var styles = StyleSheet.create({
-    container: {
-        position: "absolute",
-        top:0,
-        bottom:0,
-        left:0,
-        right:0,
-        backgroundColor:"transparent",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-});
 

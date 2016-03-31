@@ -1,20 +1,9 @@
-'use strict';
+"use strict";
 
 var React = require("react-native");
 var {View, Text, StyleSheet} = React;
 var Button = require("react-native-button");
 var Actions = require("react-native-router-flux").Actions;
-
-class Home extends React.Component {
-    render(){
-        return (
-            <View style={styles.container}>
-                <Text>Replace screen</Text>
-                <Button onPress={Actions.pop}>Back</Button>
-            </View>
-        );
-    }
-}
 
 var styles = StyleSheet.create({
     container: {
@@ -34,5 +23,16 @@ var styles = StyleSheet.create({
         marginBottom: 5,
     },
 });
+
+class Home extends React.Component {
+    render(){
+        return (
+            <View style={styles.container}>
+                <Text>Replace screen</Text>
+                <Button onPress={Actions.pop}>Back</Button>
+            </View>
+        );
+    }
+}
 
 module.exports = Home;

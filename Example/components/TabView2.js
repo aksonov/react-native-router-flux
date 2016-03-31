@@ -1,17 +1,7 @@
-'use strict';
+"use strict";
 
 var React = require("react-native");
 var {View, Text, StyleSheet} = React;
-
-class TabView extends React.Component {
-    render(){
-        return (
-            <View style={styles.container}>
-                <Text>Tab #{this.props.name}</Text>
-            </View>
-        );
-    }
-}
 
 var styles = StyleSheet.create({
     container: {
@@ -31,5 +21,16 @@ var styles = StyleSheet.create({
         marginBottom: 5,
     },
 });
+
+class TabView extends React.Component {
+    render(){
+        return (
+            <View style={styles.container}>
+                <Text>Tab #{this.props.name}</Text>
+            </View>
+        );
+    }
+}
+
 
 module.exports = TabView;

@@ -1,20 +1,9 @@
-'use strict';
+"use strict";
 
 var React = require("react-native");
 var {View, Text, StyleSheet} = React;
 var Button = require("react-native-button");
 var Actions = require("react-native-router-flux").Actions;
-
-class Login extends React.Component {
-    render(){
-        return (
-            <View style={styles.container}>
-                <Text>Login2 page: {this.props.data}</Text>
-                <Button onPress={Actions.pop}>Back</Button>
-            </View>
-        );
-    }
-}
 
 var styles = StyleSheet.create({
     container: {
@@ -36,5 +25,15 @@ var styles = StyleSheet.create({
 });
 
 
+class Login extends React.Component {
+    render(){
+        return (
+            <View style={styles.container}>
+                <Text>Login2 page: {this.props.data}</Text>
+                <Button onPress={Actions.pop}>Back</Button>
+            </View>
+        );
+    }
+}
 
 module.exports = Login;
