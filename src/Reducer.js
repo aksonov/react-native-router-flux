@@ -7,7 +7,7 @@
  *
  */
 
-import {PUSH_ACTION, POP_ACTION2, FOCUS_ACTION, JUMP_ACTION, INIT_ACTION, REPLACE_ACTION, RESET_ACTION, POP_ACTION, REFRESH_ACTION} from "./Actions";
+import {PUSH_ACTION, POP_ACTION2, POP_TO_TOP, FOCUS_ACTION, JUMP_ACTION, INIT_ACTION, REPLACE_ACTION, RESET_ACTION, POP_ACTION, REFRESH_ACTION} from "./Actions";
 import assert from "assert";
 import Immutable from "immutable";
 import {getInitialState} from "./State";
@@ -48,6 +48,11 @@ function inject(state, action, props, scenes) {
             case POP_ACTION:
                 assert(!state.tabs, "pop() operation cannot be run on tab bar (tabs=true)")
                 return {...state, index:state.index-1, children:state.children.slice(0, -1) };
+            case POP_TO_TOP:
+                assert(state.tabs, "Parent="+state.key+" is not tab bar, popToTop action is not valid");
+                let child = state.children[state.index];
+                let newChild = {...child, ...{children: [child.children[0]], index:0}};
+                return {...state, ...{children:[...state.children.slice(0,state.index), newChild, ...state.children.slice(state.index+1)]}};
             case REFRESH_ACTION:
                 return {...state, ...props};
             case PUSH_ACTION:
@@ -152,6 +157,7 @@ function reducer({initialState, scenes}){
         switch (action.type) {
             case POP_ACTION2:
             case POP_ACTION:
+            case POP_TO_TOP:
             case REFRESH_ACTION:
             case PUSH_ACTION:
             case JUMP_ACTION:

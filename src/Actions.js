@@ -13,6 +13,7 @@ export const PUSH_ACTION = "push";
 export const REPLACE_ACTION = "replace";
 export const POP_ACTION2 = "back";
 export const POP_ACTION = "BackAction";
+export const POP_TO_TOP = 'popToTop';
 export const REFRESH_ACTION = "refresh";
 export const RESET_ACTION = "reset";
 export const INIT_ACTION = "init";
