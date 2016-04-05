@@ -23,8 +23,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import React, {Animated, PixelRatio, Image, StyleSheet, Text, TouchableOpacity, View, NavigationExperimental} from 'react-native';
-import Actions from './Actions';
+import React, {Animated, PixelRatio, Image, StyleSheet, Text, TouchableOpacity, View, NavigationExperimental} from "react-native";
+import Actions from "./Actions";
 const {
     AnimatedView: NavigationAnimatedView,
     Card: NavigationCard,
@@ -32,7 +32,7 @@ const {
     Header: NavigationHeader,
     } = NavigationExperimental;
 
-export default class extends React.Component {
+export default class NavBar extends React.Component {
     componentWillMount(){
         const state = this.props.navigationState;
         this._renderRightButton = this._renderRightButton.bind(this);
@@ -51,6 +51,7 @@ export default class extends React.Component {
     }
     render() {
         const state = this.props.navigationState;
+        const child = state.children[state.index];
         let selected = state.children[state.index];
         while (selected.hasOwnProperty("children")) {
             selected = selected.children[selected.index]
@@ -62,7 +63,7 @@ export default class extends React.Component {
         if (selected.component && selected.component.renderNavigationBar){
             return selected.component.renderNavigationBar({...this.props,...selected});
         }
-        if (state.hideNavBar || selected.hideNavBar){
+        if (state.hideNavBar || child.hideNavBar || selected.hideNavBar){
             return null;
         }
         return (
@@ -77,12 +78,29 @@ export default class extends React.Component {
     }
 
     _renderBackButton() {
-        if (this.props.navigationState.index === 0) {
-            return null;
+        const drawer = this.context.drawer;
+        const state = this.props.navigationState;
+        const childState = state.children[state.index];
+        let buttonImage = state.backButtonImage || require("./back_chevron.png");
+        let onPress = Actions.pop;
+
+        if (state.index === 0) {
+            if (!!drawer && typeof drawer.toggle === "function") {
+                buttonImage = state.drawerImage || require("./menu_burger.png");
+                onPress = drawer.toggle;
+            } else {
+                return null;
+            }
         }
+
+        let text = childState.backTitle ? <Text style={[styles.barBackButtonText, childState.backButtonTextStyle]}>
+            {childState.backTitle}
+        </Text> : null;
+
         return (
-            <TouchableOpacity style={[styles.backButton, this.props.navigationState.leftButtonStyle]} onPress={Actions.pop}>
-                <Image source={require('./back_chevron.png')} style={[styles.backButtonImage, this.props.navigationState.barButtonIconStyle]}/>
+            <TouchableOpacity style={[styles.backButton, state.leftButtonStyle]} onPress={onPress}>
+                <Image source={buttonImage} style={[styles.backButtonImage, state.barButtonIconStyle]}/>
+                {text}
             </TouchableOpacity>
         );
     }
@@ -153,41 +171,47 @@ export default class extends React.Component {
 
 }
 
+
+NavBar.contextTypes = {
+  drawer: React.PropTypes.object
+}
+
 const styles = StyleSheet.create({
     title: {
-        textAlign: 'center',
+        textAlign: "center",
         marginTop: 10,
         fontSize: 18,
-        fontWeight: '500',
-        color: '#0A0A0A',
-        position: 'absolute',
+        fontWeight: "500",
+        color: "#0A0A0A",
+        position: "absolute",
         top: 20,
         left: 0,
         right: 0,
     },
     header: {
-        backgroundColor: '#EFEFF2',
+        backgroundColor: "#EFEFF2",
         paddingTop: 20,
         top: 0,
         height: 64,
         right: 0,
         left: 0,
         borderBottomWidth: 0.5,
-        borderBottomColor: '#828287',
-        position: 'absolute',
+        borderBottomColor: "#828287",
+        position: "absolute",
     },
     backButton: {
-        width: 29,
+        width: 130,
         height: 37,
-        position: 'absolute',
+        position: "absolute",
         bottom: 4,
         left: 2,
         padding: 8,
+        flexDirection: "row",
     },
     rightButton: {
         width: 100,
         height: 37,
-        position: 'absolute',
+        position: "absolute",
         bottom: 4,
         right: 2,
         padding: 8,
@@ -195,19 +219,25 @@ const styles = StyleSheet.create({
     leftButton: {
         width: 100,
         height: 37,
-        position: 'absolute',
+        position: "absolute",
         bottom: 4,
         left: 2,
         padding: 8,
     },
     barRightButtonText: {
         color: 'rgb(0, 122, 255)',
-        textAlign:'right',
+        textAlign: "right",
         fontSize: 17,
+    },
+    barBackButtonText: {
+        color: 'rgb(0, 122, 255)',
+        textAlign: "left",
+        fontSize: 17,
+        paddingLeft: 6,
     },
     barLeftButtonText: {
         color: 'rgb(0, 122, 255)',
-        textAlign:'left',
+        textAlign: "left",
         fontSize: 17,
     },
     backButtonImage: {

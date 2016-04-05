@@ -1,4 +1,4 @@
-# React Native Router [![react-native-router-flux](http://img.shields.io/npm/dm/react-native-router-flux.svg)](https://www.npmjs.org/package/react-native-router-flux)[![Join the chat at https://gitter.im/aksonov/react-native-router-flux](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aksonov/react-native-router-flux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# React Native Router [![react-native-router-flux](http://img.shields.io/npm/dm/react-native-router-flux.svg)](https://www.npmjs.org/package/react-native-router-flux) [![Join the chat at https://gitter.im/aksonov/react-native-router-flux](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aksonov/react-native-router-flux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Codacy Badge](https://api.codacy.com/project/badge/grade/c6d869e2367a4fb491efc9de228c5ac6)](https://www.codacy.com/app/aksonov-github/react-native-router-flux) [![npm version](https://badge.fury.io/js/react-native-router-flux.svg)](http://badge.fury.io/js/react-native-router-flux)
 
 
 Router for React Native based on new React Native Navigation API.
@@ -13,6 +13,7 @@ Router for React Native based on new React Native Navigation API.
 - (new) Ability to add own custom scene renderers for action sheet, native TabBarIOS or anything else, see built-in `Modal` renderer (to display popups) as example. Feel free to submit PR with custom renderers for ActionSheet, Drawer, etc. Let's make awesome library!
 - (new) Dynamically choose scene to render depending from application state (`Switch` renderer, useful for authentication)
 - (new) Possibility to use own reducer for navigation state.
+- (new) Add action `reset` to clear the entire history stack. Prevents going 'back'.
 
 ## IMPORTANT! Breaking changes comparing with 2.x version:
 - React Native 0.22 is required
@@ -37,7 +38,7 @@ npm i react-native-router-flux --save
 import {Actions, Scene, Router} from 'react-native-router-flux';
 
 class App extends React.Component {
-    render(){
+    render() {
         return <Router>
             <Scene key="root">
                 <Scene key="login" component={Login} title="Login"/>
@@ -46,6 +47,7 @@ class App extends React.Component {
             </Scene>
         </Router>
     }
+}
 ```
 Alternatively you could define all your scenes during compile time and use it later within Router:
 ```
@@ -58,9 +60,10 @@ const scenes = Actions.create(
 );
 ///
 class App extends React.Component {
-    render(){
+    render() {
         return <Router scenes={scenes}/>
     }
+}
 ```
 
 2. In any app screen:
@@ -68,7 +71,7 @@ class App extends React.Component {
     * Actions.ACTION_NAME(PARAMS) will call appropriate action and params will be passed to the scene.
     * Actions.pop() will pop the current screen.
     * Actions.refresh(PARAMS) will update the properties of current screen.
-    
+
 ## Available imports
 - Router
 - Scene
@@ -86,8 +89,8 @@ class App extends React.Component {
 | Property | Type | Default | Description |
 |---------------|----------|--------------|----------------------------------------------------------------|
 | reducer | function | | optional user-defined reducer for scenes, you may want to use it to intercept all actions and put your custom logic |
-| createReducer | function | | function that returns a reducer function for {initialState, scenes} param, you may wrap Reducer(param) with your custom reducer, check Flux usage section below| 
-| other props | | | all properties that will be passed to all your scenes |  
+| createReducer | function | | function that returns a reducer function for {initialState, scenes} param, you may wrap Reducer(param) with your custom reducer, check Flux usage section below|
+| other props | | | all properties that will be passed to all your scenes |
 | children | | required (if no scenes property passed)| Scene root element |
 | scenes | object | optional | scenes for Router created with Actions.create. This will allow to create all actions BEFORE React processing. If you don't need it you may pass Scene root element as children |
 ##### Scene:
@@ -96,11 +99,11 @@ class App extends React.Component {
 |-----------|--------|---------|--------------------------------------------|
 | key | string | required | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
 | component | React.Component | semi-required | The `Component` to be displayed. Not required when defining a nested `Scene`, see example. If it is defined for 'container' scene, it will be used as custom container `renderer` |
-| type | string | 'push' or 'jump' | Defines how the new screen is added to the navigator stack. One of `push`, `jump`, `replace`. If parent container is tabbar (tabs=true), jump will be automatically set.
+| type | string | 'push' or 'jump' | Defines how the new screen is added to the navigator stack. One of `push`, `jump`, `replace`, `reset`. If parent container is tabbar (tabs=true), jump will be automatically set.
 | tabs| bool | false | Defines 'TabBar' scene container, so child scenes will be displayed as 'tabs'. If no `component` is defined, built-in `TabBar` is used as renderer. All child scenes are wrapped into own navbar.
 | initial | bool | false | Set to `true` if this is the initial scene |
 | duration | number | 250 | Duration of transition (in ms) |
-| direction | string | 'horizontal' | direction of animation horizontal/vertical | 
+| direction | string | 'horizontal' | direction of animation horizontal/vertical |
 | title | string | null | The title to be displayed in the navigation bar |
 | navBar | React.Component | | optional custom NavBar for the scene. Check built-in NavBar of the component for reference |
 | hideNavBar | bool | false | hides navigation bar for this scene |
@@ -109,6 +112,10 @@ class App extends React.Component {
 | titleStyle | Text style |  | optional style override for the title element |
 | leftTitle | string | | optional string to display on the left if the previous route does not provide `renderBackButton` prop. `renderBackButton` > `leftTitle` > <previous route's `title`> |
 | renderLeftButton | Closure | | optional closure to render the left title / buttons element |
+| drawerImage | Image | `'./menu_burger.png'` | Simple way to override the drawerImage in the navBar |
+| backButtonImage | Image | `'./back_chevron.png'` | Simple way to override the back button in the navBar |
+| backTitle | string | | optional string to display with back button |
+| backButtonTextStyle | Text style | | optional style override for the back title element |
 | renderBackButton | Closure | | optional closure to render back text or button if this route happens to be the previous route |
 | leftButtonStyle | View style | | optional style override for the container of left title / buttons |
 | leftButtonTextStyle | Text style | | optional style override for the left title element |
@@ -119,6 +126,7 @@ class App extends React.Component {
 | rightButtonStyle | View style | | optional style override for the container of right title / buttons |
 | rightButtonTextStyle | Text style | | optional style override for the right title element |
 | clone | bool | | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
+| tabBarStyle | View style |  | optional style override for the Tabs component |
 | other props | | | all properties that will be passed to your component instance |
 
 ## Example
@@ -227,7 +235,7 @@ To display a modal use `Modal` as root renderer, so it will render first element
 This component doesn't depend from any redux/flux library. It uses new React Native Navigation API and provide own reducer for its navigation state.
 You may provide own one if you need. To avoid creation of initial state, you may pass reducer creator. Example to print all actions:
 ```javascript
-// remember to add the 'Reducer' to your imports along with Router, Scene, ... like so 
+// remember to add the 'Reducer' to your imports along with Router, Scene, ... like so
 // import { Reducer } from 'react-native-router-flux'
 const reducerCreate = params=>{
     const defaultReducer = Reducer(params);
@@ -258,7 +266,7 @@ Following example chooses scene depending from sessionID using Redux:
 ```
 
 ## Drawer (side menu) integration
-Example of Drawer custom renderer based on react-native-drawer. Note that you have to include drawer to static contextTypes of your NavBar to enable show/hide/toggle side menu:
+Example of Drawer custom renderer based on react-native-drawer. Note that the build-in NavBar component supports toggling of drawer. The Drawer implementation just needs to have a function: toggle();
 
 ```javascript
 import React from 'react-native';
@@ -266,32 +274,30 @@ import Drawer from 'react-native-drawer';
 import SideMenu from './SideMenu';
 import {DefaultRenderer} from 'react-native-router-flux';
 
-export default class extends React.Component {
+export default class extends Component {
     render(){
         const children = this.props.navigationState.children;
         return (
-            //Material Design Style Drawer
             <Drawer
-                ref="drawer"
+                ref="navigation"
                 type="displace"
-                content={<SideMenu />}
+                content={<TabView />}
                 tapToClose={true}
-                openDrawerOffset={0.2} // 20% gap on the right side of drawer
+                openDrawerOffset={0.2}
                 panCloseMask={0.2}
                 negotiatePan={true}
                 tweenHandler={(ratio) => ({
-                     main: { opacity:Math.max(0.54,1-ratio) }
-                })}>
+                 main: { opacity:Math.max(0.54,1-ratio) }
+            })}>
                 <DefaultRenderer navigationState={children[0]} />
             </Drawer>
-
         );
     }
 }
 
-/// then wrap your scenes with Drawer:
+/// then wrap your tabs scene with Drawer:
             <Scene key="drawer" component={Drawer}>
-                <Scene key="main">
+                <Scene key="main" tabs={true} >
                         ....
                 </Scene>
             </Scene>

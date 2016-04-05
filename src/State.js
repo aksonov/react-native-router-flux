@@ -6,12 +6,12 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import assert from 'assert';
+import assert from "assert";
 
 export function getInitialState(route:{string: any},scenes:{string:any}, position=0, props={}){
     const {key, style, type, ...parentProps} = props;
     if (!route.children){
-        return { ...scenes.rootProps, ...route, key:position+'_'+route.sceneKey, ...parentProps,};
+        return { ...scenes.rootProps, ...route, key:position+"_"+route.sceneKey, ...parentProps,};
     }
     let {children, ...res} = {...route, ...parentProps};
     let index = 0;
@@ -24,12 +24,12 @@ export function getInitialState(route:{string: any},scenes:{string:any}, positio
         res.children = [getInitialState(scenes[route.children[index]],scenes, 0, props)];
         res.index = 0;
     }
-    res.key = position+'_'+res.key;
+    res.key = position+"_"+res.key;
     return res;
 }
 
 export default function(scenes:{string: any}, props){
-    // find 'root' component and get state from it
+    // find "root" component and get state from it
     for (let route in scenes){
         if (scenes.hasOwnProperty(route) && !scenes[route].parent){
             return getInitialState(scenes[route], scenes);
