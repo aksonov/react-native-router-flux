@@ -4,10 +4,10 @@
 Router for React Native based on new React Native Navigation API.
 
 ## Features
-- Define your scenes transitions in one central location
+- Define your scene transitions in one central location
 - Use simple syntax to call transitions anywhere in your code (e.g. `Actions.login()`)
 - Eliminates the need to pass navigator objects to your screens
-- (new) Ability to show/hide navigation bar as well as customize it for each scene or even different state of scene (Edit/Save navbar for edit mode, for example)
+- (new) Ability to show/hide navigation bar as well as customize it for each scene or even a different state of a scene (Edit/Save navbar for edit mode, for example)
 - Support for managing a tab bar, using [react-native-tabs](https://github.com/aksonov/react-native-tabs) (see demo)
 - Support for nested navigators. For example, each tab can have its own navigator, nested in a root navigator.
 - (new) Ability to add own custom scene renderers for action sheet, native TabBarIOS or anything else, see built-in `Modal` renderer (to display popups) as example. Feel free to submit PR with custom renderers for ActionSheet, Drawer, etc. Let's make awesome library!
@@ -68,9 +68,9 @@ class App extends React.Component {
 
 2. In any app screen:
     * import {Actions} from 'react-native-router-flux'
-    * Actions.ACTION_NAME(PARAMS) will call appropriate action and params will be passed to the scene.
+    * Actions.ACTION_NAME(PARAMS) will call the appropriate action and params will be passed to the scene.
     * Actions.pop() will pop the current screen.
-    * Actions.refresh(PARAMS) will update the properties of current screen.
+    * Actions.refresh(PARAMS) will update the properties of the current screen.
 
 ## Available imports
 - Router
@@ -106,7 +106,7 @@ class App extends React.Component {
 | direction | string | 'horizontal' | direction of animation horizontal/vertical |
 | title | string | null | The title to be displayed in the navigation bar |
 | navBar | React.Component | | optional custom NavBar for the scene. Check built-in NavBar of the component for reference |
-| hideNavBar | bool | false | hides navigation bar for this scene |
+| hideNavBar | bool | false | hides the navigation bar for this scene |
 | hideTabBar | bool | false | hides tab bar for this scene (if built-in TabBar component is used as parent renderer)|
 | navigationBarStyle | View style |  | optional style override for the navigation bar |
 | titleStyle | Text style |  | optional style override for the title element |
@@ -229,11 +229,11 @@ module.exports = Launch;
 ```
 
 ## Modals
-To display a modal use `Modal` as root renderer, so it will render first element as `normal` scene and all others as popups (when they are pushed), see Example for more details.
+To display a modal use `Modal` as root renderer, so it will render the first element as `normal` scene and all others as popups (when they are pushed), see Example for more details.
 
 ## Redux/Flux
-This component doesn't depend from any redux/flux library. It uses new React Native Navigation API and provide own reducer for its navigation state.
-You may provide own one if you need. To avoid creation of initial state, you may pass reducer creator. Example to print all actions:
+This component doesn't depend on any redux/flux library. It uses new React Native Navigation API and provide own reducer for its navigation state.
+You may provide your own reducer if needed. To avoid the creation of initial state, you may pass a reducer creator. Example to print all actions:
 ```javascript
 // remember to add the 'Reducer' to your imports along with Router, Scene, ... like so
 // import { Reducer } from 'react-native-router-flux'
