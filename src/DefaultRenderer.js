@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React, {Component, Animated, StyleSheet, ScrollView, Text, NavigationExperimental} from "react-native";
+import React, {Component, Animated, StyleSheet, ScrollView, View, Text, NavigationExperimental} from "react-native";
 const {
     AnimatedView: NavigationAnimatedView,
     Card: NavigationCard,
@@ -37,7 +37,11 @@ export default class DefaultRenderer extends Component {
             Component = TabBar;
         }
         if (Component) {
-            return <Component style={navigationState.sceneStyle} {...navigationState} navigationState={navigationState} />
+            return (
+                <View style={[{flex: 1}, navigationState.sceneStyle]}>
+                    <Component {...navigationState} navigationState={navigationState} />
+                </View>
+            )
         }
 
         const selected = navigationState.children[navigationState.index];
