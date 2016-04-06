@@ -161,7 +161,7 @@ const reducerCreate = params=>{
 
 export default class Example extends React.Component {
     render() {
-        return <Router createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}}>
+        return <Router createReducer={reducerCreate}>
             <Scene key="modal" component={Modal} >
                 <Scene key="root" hideNavBar={true}>
                     <Scene key="register" component={Register} title="Register"/>
