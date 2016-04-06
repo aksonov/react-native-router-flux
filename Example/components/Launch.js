@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 class Launch extends React.Component {
     render(){
         return (
-            <View {...this.props}  style={[styles.container, this.props.sceneStyle]}>
+            <View {...this.props}  style={styles.container}>
                 <Text>Launch page</Text>
                 <Button onPress={()=>Actions.login({data:"Custom data", title:"Custom title" })}>Go to Login page</Button>
                 <Button onPress={Actions.register}>Go to Register page</Button>

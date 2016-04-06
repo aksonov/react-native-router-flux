@@ -127,6 +127,7 @@ class App extends React.Component {
 | rightButtonTextStyle | Text style | | optional style override for the right title element |
 | clone | bool | | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
 | tabBarStyle | View style |  | optional style override for the Tabs component |
+| sceneStyle | View style | { flex: 1 } | optional style override for the Scene's component |
 | other props | | | all properties that will be passed to your component instance |
 
 ## Example
