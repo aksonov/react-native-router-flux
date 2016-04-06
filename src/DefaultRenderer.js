@@ -37,7 +37,7 @@ export default class DefaultRenderer extends Component {
             Component = TabBar;
         }
         if (Component) {
-            return <Component {...navigationState} navigationState={navigationState}/>
+            return <Component style={navigationState.sceneStyle} {...navigationState} navigationState={navigationState} />
         }
 
         const selected = navigationState.children[navigationState.index];
