@@ -70,8 +70,7 @@ export default class NavBar extends React.Component {
             <Animated.View
                 style={[styles.header, state.navigationBarStyle, selected.navigationBarStyle]}>
                 {state.children.map(this._renderTitle, this)}
-                {this._renderBackButton()}
-                {this._renderLeftButton()}
+                {this._renderLeftButton() || this._renderBackButton()}
                 {this._renderRightButton()}
             </Animated.View>
         );
@@ -106,41 +105,38 @@ export default class NavBar extends React.Component {
     }
 
     _renderRightButton() {
+        function tryRender(state) {
+            if (state.onRight && state.rightTitle) {
+                return (
+                    <TouchableOpacity style={[styles.rightButton, state.rightButtonStyle]}
+                                      onPress={state.onRight.bind(null, state)}>
+                        <Text style={[styles.barRightButtonText, state.rightButtonTextStyle]}>{state.rightTitle}</Text>
+                    </TouchableOpacity>
+                );
+            }
+            if ((!!state.onRight ^ !!state.rightTitle)) {
+                console.warn('Both onRight and rightTitle must be specified for the scene: ' + state.name)
+            }
+        }
         const state = this.props.navigationState;
-        const childState = this.props.navigationState.children[this.props.navigationState.index];
-        if (childState.onRight && childState.rightTitle){
-            return (
-                <TouchableOpacity style={[styles.rightButton, childState.rightButtonStyle]} onPress={childState.onRight.bind(null, childState)}>
-                    <Text style={[styles.barRightButtonText, childState.rightButtonTextStyle]}>{childState.rightTitle}</Text>
-                </TouchableOpacity>
-            );
-        }
-        if (state.onRight && state.rightTitle){
-            return (
-                <TouchableOpacity style={[styles.rightButton, state.rightButtonStyle]} onPress={state.onRight.bind(null, state)}>
-                    <Text style={[styles.barRightButtonText, state.rightButtonTextStyle]}>{state.rightTitle}</Text>
-                </TouchableOpacity>
-            );
-        }
+        return tryRender(state) || tryRender(state.children[state.index]);
     }
 
     _renderLeftButton() {
+        function tryRender(state) {
+            if (state.onLeft && state.leftTitle){
+                return (
+                    <TouchableOpacity style={[styles.leftButton, state.leftButtonStyle]} onPress={state.onLeft.bind(null, state)}>
+                        <Text style={[styles.barLeftButtonText, state.leftButtonTextStyle]}>{state.leftTitle}</Text>
+                    </TouchableOpacity>
+                );
+            }
+            if ((!!state.onLeft ^ !!state.leftTitle)) {
+                console.warn('Both onLeft and leftTitle must be specified for the scene: ' + state.name)
+            }
+        }
         const state = this.props.navigationState;
-        const childState = this.props.navigationState.children[this.props.navigationState.index];
-        if (childState.onLeft && childState.leftTitle){
-            return (
-                <TouchableOpacity style={[styles.leftButton, childState.leftButtonStyle]} onPress={childState.onLeft.bind(null, childState)}>
-                    <Text style={[styles.barLeftButtonText, childState.leftButtonTextStyle]}>{childState.leftTitle}</Text>
-                </TouchableOpacity>
-            );
-        }
-        if (state.onLeft && state.leftTitle){
-            return (
-                <TouchableOpacity style={[styles.leftButton, state.leftButtonStyle]} onPress={state.onLeft.bind(null, state)}>
-                    <Text style={[styles.barLeftButtonText, state.leftButtonTextStyle]}>{state.leftTitle}</Text>
-                </TouchableOpacity>
-            );
-        }
+        return tryRender(state) || tryRender(state.children[state.index]);
     }
 
     _renderTitle(childState: NavigationState, index:number) {
