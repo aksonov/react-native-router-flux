@@ -38,10 +38,6 @@
     "immutable": "^3.7.6",
     "react-native-tabs": "^1.0.2"
   },
-  "peerDependencies": {
-    "react-native": "^0.22.0",
-    "react": "^0.14.7"
-  },
   "devDependencies": {
     "babel-cli": "^6.6.5",
     "babel-core": "^6.7.0",
