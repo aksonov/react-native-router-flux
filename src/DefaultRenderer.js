@@ -80,7 +80,6 @@ export default class DefaultRenderer extends Component {
                 direction={props.scene.navigationState.direction || "horizontal"}
                 panHandlers={props.scene.navigationState.panHandlers }
                 renderScene={this._renderScene}
-                style={{backgroundColor:"transparent"}}
             />
         );
     }
