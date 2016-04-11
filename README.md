@@ -102,6 +102,8 @@ class App extends React.Component {
 | type | string | 'push' or 'jump' | Defines how the new screen is added to the navigator stack. One of `push`, `jump`, `replace`, `reset`. If parent container is tabbar (tabs=true), jump will be automatically set.
 | tabs| bool | false | Defines 'TabBar' scene container, so child scenes will be displayed as 'tabs'. If no `component` is defined, built-in `TabBar` is used as renderer. All child scenes are wrapped into own navbar.
 | initial | bool | false | Set to `true` if this is the initial scene |
+| duration | number | | optional. acts as a shortcut to writing an `applyAnimation` function with `Animated.timing` for a given duration (in ms). |
+| direction | string | 'horizontal' | direction of animation horizontal/vertical |
 | applyAnimation | function | | optional if provided overrides the default spring animation |
 | title | string | null | The title to be displayed in the navigation bar |
 | navBar | React.Component | | optional custom NavBar for the scene. Check built-in NavBar of the component for reference |
@@ -165,10 +167,10 @@ export default class Example extends React.Component {
             <Scene key="modal" component={Modal} >
                 <Scene key="root" hideNavBar={true}>
                     <Scene key="register" component={Register} title="Register"/>
-                    <Scene key="register2" component={Register} title="Register2" applyAnimation={(pos, navState) => Animated.timing(pos, {toValue: navState.index, duration: 0}).start()} />
+                    <Scene key="register2" component={Register} title="Register2" duration={1}/>
                     <Scene key="home" component={Home} title="Replace" type="replace"/>
                     <Scene key="launch" component={Launch} title="Launch" initial={true} style={{flex:1, backgroundColor:'transparent'}}/>
-                    <Scene key="login">
+                    <Scene key="login" direction="vertical">
                         <Scene key="loginModal" component={Login} schema="modal" title="Login"/>
                         <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2"/>
                     </Scene>
