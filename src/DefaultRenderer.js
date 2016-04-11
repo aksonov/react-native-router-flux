@@ -64,7 +64,11 @@ export default class DefaultRenderer extends Component {
             if (duration === null || duration === undefined) duration = navigationState.duration;
             if (duration !== null && duration !== undefined) {
                 optionals.applyAnimation = function (pos, navState) {
-                    Animated.timing(pos, {toValue: navState.index, duration}).start();
+                    if (duration === 0) {
+                        pos.setValue(navState.index);
+                    } else {
+                        Animated.timing(pos, {toValue: navState.index, duration}).start();
+                    }
                 };
             }
         }
@@ -90,13 +94,13 @@ export default class DefaultRenderer extends Component {
     _renderCard(/*NavigationSceneRendererProps*/ props) {
         const isVertical = props.scene.navigationState.direction === "vertical";
 
-        const animationStyle = props.scene.navigationState.animationStyle || isVertical ?
+        const animationStyle = props.scene.navigationState.animationStyle || (isVertical ?
           NavigationCardStackStyleInterpolator.forVertical(props) :
-          NavigationCardStackStyleInterpolator.forHorizontal(props);
+          NavigationCardStackStyleInterpolator.forHorizontal(props));
 
-        const panHandlers = props.scene.navigationState.panHandlers || isVertical ?
+        const panHandlers = props.scene.navigationState.panHandlers || (isVertical ?
           NavigationCardStackPanResponder.forVertical(props) :
-          NavigationCardStackPanResponder.forHorizontal(props);
+          NavigationCardStackPanResponder.forHorizontal(props));
 
         return (
             <NavigationCard
