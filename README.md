@@ -102,8 +102,9 @@ class App extends React.Component {
 | type | string | 'push' or 'jump' | Defines how the new screen is added to the navigator stack. One of `push`, `jump`, `replace`, `reset`. If parent container is tabbar (tabs=true), jump will be automatically set.
 | tabs| bool | false | Defines 'TabBar' scene container, so child scenes will be displayed as 'tabs'. If no `component` is defined, built-in `TabBar` is used as renderer. All child scenes are wrapped into own navbar.
 | initial | bool | false | Set to `true` if this is the initial scene |
-| duration | number | 250 | Duration of transition (in ms) |
+| duration | number | | optional. acts as a shortcut to writing an `applyAnimation` function with `Animated.timing` for a given duration (in ms). |
 | direction | string | 'horizontal' | direction of animation horizontal/vertical |
+| applyAnimation | function | | optional if provided overrides the default spring animation |
 | title | string | null | The title to be displayed in the navigation bar |
 | navBar | React.Component | | optional custom NavBar for the scene. Check built-in NavBar of the component for reference |
 | hideNavBar | bool | false | hides the navigation bar for this scene |
