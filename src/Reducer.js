@@ -93,7 +93,7 @@ function inject(state, action, props, scenes) {
 
 
 function findElement(state, key, type) {
-    if (type === REFRESH_ACTION ? state.key === key : state.sceneKey === key) {
+    if ((type === REFRESH_ACTION && state.key === key) || state.sceneKey === key) {
         return state;
     }
     if (state.children) {
