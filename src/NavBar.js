@@ -39,15 +39,6 @@ export default class NavBar extends React.Component {
         this._renderBackButton = this._renderBackButton.bind(this);
         this._renderLeftButton = this._renderLeftButton.bind(this);
         this._renderTitle = this._renderTitle.bind(this);
-        if (state.renderLeftButton){
-            this._renderLeftButton = state.renderLeftButton;
-        }
-        if (state.renderRightButton){
-            this._renderRightButton = state.renderRightButton;
-        }
-        if (state.renderBackButton){
-            this._renderBackButton = state.renderBackButton;
-        }
     }
     render() {
         const state = this.props.navigationState;
@@ -66,12 +57,16 @@ export default class NavBar extends React.Component {
         if (state.hideNavBar || child.hideNavBar || selected.hideNavBar){
             return null;
         }
+
+        let renderLeftButton = selected.renderLeftButton || this._renderLeftButton;
+        let renderRightButton = selected.renderRightButton || this._renderRightButton;
+        let renderBackButton = selected.renderBackButton || this._renderBackButton;
         return (
             <Animated.View
                 style={[styles.header, state.navigationBarStyle, selected.navigationBarStyle]}>
                 {state.children.map(this._renderTitle, this)}
-                {this._renderLeftButton() || this._renderBackButton()}
-                {this._renderRightButton()}
+                {renderLeftButton() || renderBackButton()}
+                {renderRightButton()}
             </Animated.View>
         );
     }
