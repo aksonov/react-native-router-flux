@@ -60,11 +60,14 @@ describe('Actions', () => {
 
         Actions.messaging();
         expect(currentScene.key).equal("messaging");
-        //Actions.pop();
+
         Actions.login();
         expect(state.children[1].key).equal("1_login");
         expect(state.children[1].children.length).equal(1);
         expect(state.children[1].children[0].key).equal("0_loginModal1");
+
+        Actions.pop();
+        expect(state.from.key).equal("1_login");
 
     });
 
