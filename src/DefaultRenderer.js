@@ -27,6 +27,10 @@ export default class DefaultRenderer extends Component {
         this._renderHeader = this._renderHeader.bind(this);
     }
 
+    static childContextTypes = {
+        navigationState: PropTypes.any,
+    };
+
     getChildContext() {
         return {
             navigationState: this.props.navigationState,
@@ -110,14 +114,9 @@ export default class DefaultRenderer extends Component {
 
 }
 
-DefaultRenderer.childContextTypes = {
-    navigationState: PropTypes.any,
-};
-
 const styles = StyleSheet.create({
     animatedView: {
         flex: 1,
         backgroundColor:"transparent"
     },
 });
-
