@@ -5,30 +5,32 @@ import React from 'react-native';
 import Scene from '../src/Scene';
 import createReducer from '../src/Reducer';
 
-const scenesData = <Scene component="Modal" key="modal">
-    <Scene key="launch" component="Launch"/>
-    <Scene key="sideMenu" component="Drawer" initial={true}>
-        <Scene component="CubeBar" key="cubeBar" type="tabs">
-            <Scene key="main" tabs={true}>
-                <Scene key="home" component="Home"/>
-                <Scene key="map" component="Map"/>
-                <Scene key="myAccount" component="MyAccount"/>
-            </Scene>
-            <Scene key="messaging" initial={true}>
-                <Scene key="conversations" component="Conversations"/>
-            </Scene>
-        </Scene>
-    </Scene>
-    <Scene key="privacyPolicy" component="PrivacyPolicy" type="modal"/>
-    <Scene key="termsOfService" component="TermsOfService" type="modal"/>
-    <Scene key="login">
-        <Scene key="loginModal1" component="Login1"/>
-        <Scene key="loginModal2" component="Login2"/>
-    </Scene>
-</Scene>;
-
 describe('Actions', () => {
     it('should create needed actions', () => {
+        let id = 0;
+        const guid = () => id++;
+
+        const scenesData = <Scene component="Modal" key="modal" getInitialState={() => ({ foo: guid() })}>
+            <Scene key="launch" component="Launch"/>
+            <Scene key="sideMenu" component="Drawer" initial={true}>
+                <Scene component="CubeBar" key="cubeBar" type="tabs">
+                    <Scene key="main" tabs={true}>
+                        <Scene key="home" component="Home"/>
+                        <Scene key="map" component="Map"/>
+                        <Scene key="myAccount" component="MyAccount"/>
+                    </Scene>
+                    <Scene key="messaging" initial={true}>
+                        <Scene key="conversations" component="Conversations" getInitialState={() => ({ foo: 'what', bar: guid() })}/>
+                    </Scene>
+                </Scene>
+            </Scene>
+            <Scene key="privacyPolicy" component="PrivacyPolicy" type="modal"/>
+            <Scene key="termsOfService" component="TermsOfService" type="modal"/>
+            <Scene key="login">
+                <Scene key="loginModal1" component="Login1"/>
+                <Scene key="loginModal2" component="Login2"/>
+            </Scene>
+        </Scene>;
         const scenes = Actions.create(scenesData);
         expect(scenes.conversations.component).to.equal("Conversations");
 
@@ -57,6 +59,8 @@ describe('Actions', () => {
         expect(state).equal(undefined);
         Actions.init();
         expect(state.key).equal("0_modal");
+        expect(state.children[0].children[0].children[0].children[0].bar).equal(1);
+        expect(state.children[0].children[0].children[0].children[0].foo).equal('what');
 
         Actions.messaging();
         expect(currentScene.key).equal("messaging");
@@ -69,6 +73,9 @@ describe('Actions', () => {
         Actions.pop();
         expect(state.from.key).equal("1_login");
 
+        Actions.launch();
+        expect(state.children[1].foo).equal(3);
+        expect(state.children[1].bar).equal(undefined);
     });
 
 });

@@ -8,10 +8,34 @@
  */
 import assert from "assert";
 
+function getStateFromScenes(route, scenes, props) {
+    const getters = [];
+    let result = {};
+    let scene = route;
+    while (scene) {
+        if (scene.getInitialState) {
+            getters.push(scene.getInitialState);
+        }
+        scene = scenes[scene.parent];
+    }
+
+    getters.reverse().forEach(fn => {
+        result = {...result, ...fn(props)};
+    });
+
+    return result;
+}
+
 export function getInitialState(route:{string: any},scenes:{string:any}, position=0, props={}){
     const {key, style, type, ...parentProps} = props;
     if (!route.children){
-        return { ...scenes.rootProps, ...route, key:position+"_"+route.sceneKey, ...parentProps,};
+        return {
+            ...scenes.rootProps,
+            ...route,
+            key:position+"_"+route.sceneKey,
+            ...parentProps,
+            ...getStateFromScenes(route, scenes, props),
+        };
     }
     let {children, ...res} = {...route, ...parentProps};
     let index = 0;
