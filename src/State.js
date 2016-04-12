@@ -19,6 +19,10 @@ function getStateFromScenes(route, scenes, props) {
         scene = scenes[scene.parent];
     }
 
+    if (scenes.rootProps && scenes.rootProps.getInitialState) {
+        getters.push(scenes.rootProps.getInitialState);
+    }
+
     getters.reverse().forEach(fn => {
         result = {...result, ...fn(props)};
     });
