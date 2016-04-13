@@ -107,7 +107,7 @@ class Actions {
     }
 
     create(scene:Scene){
-        assert(scene, "roote scene should be defined");
+        assert(scene, "root scene should be defined");
         let refs = {};
         this.iterate(scene, {}, refs);
         return refs
