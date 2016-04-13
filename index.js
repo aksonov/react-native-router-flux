@@ -6,7 +6,6 @@ import getInitialState from './src/State';
 import Reducer from './src/Reducer';
 import TabBar from './src/TabBar';
 import Modal from './src/Modal';
-
 import DefaultRenderer from './src/DefaultRenderer';
 import Switch from './src/Switch';
 

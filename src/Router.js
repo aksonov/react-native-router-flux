@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React, {Component, StyleSheet, ScrollView, Text, NavigationExperimental} from "react-native";
+import React, {Component, NavigationExperimental} from "react-native";
 const {
     AnimatedView: NavigationAnimatedView,
     Card: NavigationCard,
