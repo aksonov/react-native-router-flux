@@ -95,7 +95,10 @@ export default class DefaultRenderer extends Component {
 
     _renderCard(/*NavigationSceneRendererProps*/ props) {
         const { key, direction, panHandlers, getSceneStyle } = props.scene.navigationState;
-        const style = getSceneStyle ? getSceneStyle(props) : null;
+
+        const optionals = {};
+        if (getSceneStyle) optionals.style = getSceneStyle(props);
+
         return (
             <NavigationCard
                 {...props}
@@ -103,7 +106,7 @@ export default class DefaultRenderer extends Component {
                 direction={direction || 'horizontal'}
                 panHandlers={panHandlers}
                 renderScene={this._renderScene}
-                style={style}
+                {...optionals}
             />
         );
     }
