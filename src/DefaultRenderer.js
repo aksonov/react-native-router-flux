@@ -126,6 +126,4 @@ const styles = StyleSheet.create({
     },
 });
 
-const Output = (connect) ? connect()(DefaultRenderer) : DefaultRenderer;
-
-export default Output;
+export default (connect) ? connect()(DefaultRenderer) : DefaultRenderer;
