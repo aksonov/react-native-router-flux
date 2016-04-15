@@ -18,8 +18,9 @@ import getInitialState from "./State";
 import Reducer from "./Reducer";
 import TabBar from "./TabBar";
 import NavBar from "./NavBar";
+import {connect} from "react-redux";
 
-export default class DefaultRenderer extends Component {
+class DefaultRenderer extends Component {
     constructor(props) {
         super(props);
         this._renderCard = this._renderCard.bind(this);
@@ -61,6 +62,10 @@ export default class DefaultRenderer extends Component {
         let style = selected.style || navigationState.style;
         let direction = selected.direction || navigationState.direction || "horizontal";
 
+        if (this.props.dispatch) {
+          this.props.dispatch(Actions.focus(selected));
+        }
+
         let optionals = {};
         if (applyAnimation) {
             optionals.applyAnimation = applyAnimation;
@@ -95,10 +100,7 @@ export default class DefaultRenderer extends Component {
 
     _renderCard(/*NavigationSceneRendererProps*/ props) {
         const { key, direction, panHandlers, getSceneStyle } = props.scene.navigationState;
-
-        const optionals = {};
-        if (getSceneStyle) optionals.style = getSceneStyle(props);
-
+        const style = getSceneStyle ? getSceneStyle(props) : null;
         return (
             <NavigationCard
                 {...props}
@@ -106,7 +108,7 @@ export default class DefaultRenderer extends Component {
                 direction={direction || 'horizontal'}
                 panHandlers={panHandlers}
                 renderScene={this._renderScene}
-                {...optionals}
+                style={style}
             />
         );
     }
@@ -123,3 +125,7 @@ const styles = StyleSheet.create({
         backgroundColor:"transparent"
     },
 });
+
+const Output = (connect) ? connect()(DefaultRenderer) : DefaultRenderer;
+
+export default Output;
