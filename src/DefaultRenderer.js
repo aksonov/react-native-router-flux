@@ -38,6 +38,22 @@ class DefaultRenderer extends Component {
         };
     }
 
+    componentDidMount() {
+      this.dispatchFocusAction(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+      this.dispatchFocusAction(nextProps);
+    }
+
+    dispatchFocusAction({navigationState}) {
+      if (!this.props.dispatch || !navigationState || navigationState.component || navigationState.tabs) {
+        return;
+      }
+      const selected = navigationState.children[navigationState.index];
+      this.props.dispatch(Actions.focus(selected));
+    }
+
     render() {
         const navigationState = this.props.navigationState;
         if (!navigationState) {
@@ -61,10 +77,6 @@ class DefaultRenderer extends Component {
         let applyAnimation = selected.applyAnimation || navigationState.applyAnimation;
         let style = selected.style || navigationState.style;
         let direction = selected.direction || navigationState.direction || "horizontal";
-
-        if (this.props.dispatch) {
-          this.props.dispatch(Actions.focus(selected));
-        }
 
         let optionals = {};
         if (applyAnimation) {
