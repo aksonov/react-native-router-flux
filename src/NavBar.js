@@ -158,7 +158,7 @@ export default class NavBar extends React.Component {
             }),
           },
         ]}>
-                {this.props.getTitle ? this.props.getTitle(childState) : childState.title }
+                {title}
             </Animated.Text>
         );
     }
