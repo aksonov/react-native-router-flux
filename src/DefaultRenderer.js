@@ -18,15 +18,18 @@ import getInitialState from "./State";
 import Reducer from "./Reducer";
 import TabBar from "./TabBar";
 import NavBar from "./NavBar";
-import {connect} from "react-redux";
 
-class DefaultRenderer extends Component {
+export default class DefaultRenderer extends Component {
     constructor(props) {
         super(props);
         this._renderCard = this._renderCard.bind(this);
         this._renderScene = this._renderScene.bind(this);
         this._renderHeader = this._renderHeader.bind(this);
     }
+
+    static contextTypes = {
+        dispatch: PropTypes.func,
+    };
 
     static childContextTypes = {
         navigationState: PropTypes.any,
@@ -47,11 +50,11 @@ class DefaultRenderer extends Component {
     }
 
     dispatchFocusAction({navigationState}) {
-      if (!this.props.dispatch || !navigationState || navigationState.component || navigationState.tabs) {
+      if (!this.context.dispatch || !navigationState || navigationState.component || navigationState.tabs) {
         return;
       }
       const selected = navigationState.children[navigationState.index];
-      this.props.dispatch(Actions.focus(selected));
+      this.context.dispatch(Actions.focus(selected));
     }
 
     render() {
@@ -140,5 +143,3 @@ const styles = StyleSheet.create({
         backgroundColor:"transparent"
     },
 });
-
-export default (connect) ? connect()(DefaultRenderer) : DefaultRenderer;
