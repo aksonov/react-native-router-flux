@@ -9,15 +9,13 @@
 import React, {Component, Animated, PropTypes, StyleSheet, View, NavigationExperimental} from "react-native";
 const {
     AnimatedView: NavigationAnimatedView,
-    Card: NavigationCard,
-    RootContainer: NavigationRootContainer,
-    Header: NavigationHeader,
-    } = NavigationExperimental;
+    Card: NavigationCard
+} = NavigationExperimental;
 
 const {
     CardStackPanResponder: NavigationCardStackPanResponder,
     CardStackStyleInterpolator: NavigationCardStackStyleInterpolator
-    } = NavigationCard;
+} = NavigationCard;
 
 import TabBar from "./TabBar";
 import NavBar from "./NavBar";
@@ -46,13 +44,13 @@ export default class DefaultRenderer extends Component {
             return null;
         }
         let Component = navigationState.component;
-        if (navigationState.tabs && !Component){
+        if (navigationState.tabs && !Component) {
             Component = TabBar;
         }
         if (Component) {
             return (
                 <View style={[{flex: 1}, navigationState.sceneStyle]}>
-                    <Component {...navigationState} navigationState={navigationState} />
+                    <Component {...navigationState} navigationState={navigationState}/>
                 </View>
             )
         }
@@ -93,14 +91,14 @@ export default class DefaultRenderer extends Component {
 
     _renderHeader(/*NavigationSceneRendererProps*/ props) {
         return <NavBar
-                {...props}
-                getTitle={state => state.title}
-            />;
+            {...props}
+            getTitle={state => state.title}
+        />;
     }
 
     _renderCard(/*NavigationSceneRendererProps*/ props) {
-        const { key, direction, getSceneStyle } = props.scene.navigationState;
-        let { panHandlers, animationStyle } = props.scene.navigationState;
+        const {key, direction, getSceneStyle} = props.scene.navigationState;
+        let {panHandlers, animationStyle} = props.scene.navigationState;
 
         let style = {};
         if (getSceneStyle) style = getSceneStyle(props);
@@ -108,15 +106,15 @@ export default class DefaultRenderer extends Component {
         const isVertical = direction === "vertical";
 
         if (!animationStyle) {
-          animationStyle = (isVertical ?
-            NavigationCardStackStyleInterpolator.forVertical(props) :
-            NavigationCardStackStyleInterpolator.forHorizontal(props));
+            animationStyle = (isVertical ?
+                NavigationCardStackStyleInterpolator.forVertical(props) :
+                NavigationCardStackStyleInterpolator.forHorizontal(props));
         }
 
         if (!panHandlers) {
-          panHandlers = panHandlers || (isVertical ?
-            NavigationCardStackPanResponder.forVertical(props) :
-            NavigationCardStackPanResponder.forHorizontal(props));
+            panHandlers = panHandlers || (isVertical ?
+                    NavigationCardStackPanResponder.forVertical(props) :
+                    NavigationCardStackPanResponder.forHorizontal(props));
         }
 
         return (
@@ -140,6 +138,6 @@ export default class DefaultRenderer extends Component {
 const styles = StyleSheet.create({
     animatedView: {
         flex: 1,
-        backgroundColor:"transparent"
+        backgroundColor: "transparent"
     },
 });
