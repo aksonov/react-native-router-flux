@@ -29,6 +29,24 @@ export default class DefaultRenderer extends Component {
         navigationState: PropTypes.any,
     };
 
+    componentDidMount() {
+        this.dispatchFocusAction(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.navigationState !== this.props.navigationState) {
+          this.dispatchFocusAction(nextProps);
+        }
+    }
+
+    dispatchFocusAction({navigationState}) {
+        if (!navigationState || navigationState.component || navigationState.tabs) {
+            return;
+        }
+        const scene = navigationState.children[navigationState.index];
+        Actions.focus({scene});
+    }
+
     getChildContext() {
         return {
             navigationState: this.props.navigationState,
@@ -54,7 +72,6 @@ export default class DefaultRenderer extends Component {
 
         const selected = navigationState.children[navigationState.index];
         //return <DefaultRenderer key={selected.key} navigationState={selected}/>
-        Actions.focus({scene: selected});
 
         let applyAnimation = selected.applyAnimation || navigationState.applyAnimation;
         let style = selected.style || navigationState.style;
