@@ -6,16 +6,13 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React, {Component, Animated, PropTypes, StyleSheet, ScrollView, View, Text, NavigationExperimental} from "react-native";
+import React, {Component, Animated, PropTypes, StyleSheet, View, NavigationExperimental} from "react-native";
 const {
     AnimatedView: NavigationAnimatedView,
     Card: NavigationCard,
     RootContainer: NavigationRootContainer,
     Header: NavigationHeader,
     } = NavigationExperimental;
-import Actions from "./Actions";
-import getInitialState from "./State";
-import Reducer from "./Reducer";
 import TabBar from "./TabBar";
 import NavBar from "./NavBar";
 
@@ -95,7 +92,10 @@ export default class DefaultRenderer extends Component {
 
     _renderCard(/*NavigationSceneRendererProps*/ props) {
         const { key, direction, panHandlers, getSceneStyle } = props.scene.navigationState;
-        const style = getSceneStyle ? getSceneStyle(props) : null;
+
+        const optionals = {};
+        if (getSceneStyle) optionals.style = getSceneStyle(props);
+
         return (
             <NavigationCard
                 {...props}
@@ -103,7 +103,7 @@ export default class DefaultRenderer extends Component {
                 direction={direction || 'horizontal'}
                 panHandlers={panHandlers}
                 renderScene={this._renderScene}
-                style={style}
+                {...optionals}
             />
         );
     }
