@@ -100,6 +100,7 @@ export default class DefaultRenderer extends Component {
         const {key, direction, getSceneStyle} = props.scene.navigationState;
         let {panHandlers, animationStyle} = props.scene.navigationState;
 
+        // Since we always need to pass a style for the direction, we can avoid #526
         let style = {};
         if (getSceneStyle) style = getSceneStyle(props);
 
