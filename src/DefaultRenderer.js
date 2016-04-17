@@ -124,7 +124,6 @@ export default class DefaultRenderer extends Component {
                 style={[animationStyle, style]}
                 panHandlers={panHandlers}
                 renderScene={this._renderScene}
-                {...optionals}
             />
         );
     }
