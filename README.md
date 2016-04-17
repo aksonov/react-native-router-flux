@@ -49,8 +49,8 @@ class App extends React.Component {
     }
 }
 ```
-Alternatively you could define all your scenes during compile time and use it later within Router:
-```
+Alternatively you could define all your scenes during compile time and use it later within `Router`:
+```javascript
 const scenes = Actions.create(
             <Scene key="root">
                 <Scene key="login" component={Login} title="Login"/>
@@ -67,21 +67,21 @@ class App extends React.Component {
 ```
 
 2. In any app screen:
-    * import {Actions} from 'react-native-router-flux'
-    * Actions.ACTION_NAME(PARAMS) will call the appropriate action and params will be passed to the scene.
-    * Actions.pop() will pop the current screen.
-    * Actions.refresh(PARAMS) will update the properties of the current screen.
+    * `import {Actions} from 'react-native-router-flux'`
+    * `Actions.ACTION_NAME(PARAMS)` will call the appropriate action and params will be passed to the scene.
+    * `Actions.pop()` will pop the current screen.
+    * `Actions.refresh(PARAMS)` will update the properties of the current screen.
 
 ## Available imports
-- Router
-- Scene
-- Modal
-- TabBar
-- getInitialState
-- Reducer
-- DefaultRenderer
-- Switch
-- Actions
+- `Router`
+- `Scene`
+- `Modal`
+- `TabBar`
+- `getInitialState`
+- `Reducer`
+- `DefaultRenderer`
+- `Switch`
+- `Actions`
 
 ## Configuration
 
@@ -263,12 +263,12 @@ Your scene `component` class could implement _static_ renderNavigationBar(props)
 New feature for 3.x release is custom scene renderer that should be used together with tabs={true} property. It allows to select `tab` scene to show depending from app state.
 It could be useful for authentication, restricted scenes, etc. Usually you should wrap `Switch` with redux `connect` to pass application state to it:
 Following example chooses scene depending from sessionID using Redux:
-```
-        <Scene key="root" component={connect(state=>({profile:state.profile}))(Switch)} tabs={true}
-               selector={props=>props.profile.sessionID ? "main" : "signUp"}>
-            <Scene key="signUp" component={SignUp}/>
-            <Scene key="main" component={Main}>
-        </Scene>
+```javascript
+<Scene key="root" component={connect(state=>({profile:state.profile}))(Switch)} tabs={true}
+       selector={props=>props.profile.sessionID ? "main" : "signUp"}>
+    <Scene key="signUp" component={SignUp}/>
+    <Scene key="main" component={Main}>
+</Scene>
 ```
 
 ## Drawer (side menu) integration
