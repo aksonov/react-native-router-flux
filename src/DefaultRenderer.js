@@ -15,6 +15,7 @@ const {
     } = NavigationExperimental;
 import TabBar from "./TabBar";
 import NavBar from "./NavBar";
+import Actions from './Actions';
 
 export default class DefaultRenderer extends Component {
     constructor(props) {
@@ -53,6 +54,7 @@ export default class DefaultRenderer extends Component {
 
         const selected = navigationState.children[navigationState.index];
         //return <DefaultRenderer key={selected.key} navigationState={selected}/>
+        Actions.focus({scene: selected});
 
         let applyAnimation = selected.applyAnimation || navigationState.applyAnimation;
         let style = selected.style || navigationState.style;
