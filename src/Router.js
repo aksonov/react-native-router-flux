@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React, {Component, NavigationExperimental} from "react-native";
+import React, {PropTypes, Component, NavigationExperimental} from "react-native";
 const {
     AnimatedView: NavigationAnimatedView,
     Card: NavigationCard,
@@ -19,11 +19,21 @@ import Reducer from "./Reducer";
 import DefaultRenderer from "./DefaultRenderer";
 
 export default class extends Component {
+    static childContextTypes = {
+        dispatch: PropTypes.func,
+    };
+
     constructor(props) {
         super(props);
         this.state = {};
         this._renderNavigation = this._renderNavigation.bind(this);
         this._handleProps = this._handleProps.bind(this);
+    }
+
+    getChildContext() {
+        return {
+            dispatch: this.props.dispatch,
+        };
     }
 
     _handleProps(props){

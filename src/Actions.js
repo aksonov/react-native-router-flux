@@ -44,7 +44,7 @@ class Actions {
         this.init = this.init.bind(this);
         this.pop = this.pop.bind(this);
         this.refresh = this.refresh.bind(this);
-
+        this.FOCUS_ACTION = FOCUS_ACTION;
     }
 
     iterate(root: Scene, parentProps = {}, refs = {}) {
@@ -111,6 +111,10 @@ class Actions {
         let refs = {};
         this.iterate(scene, {}, refs);
         return refs
+    }
+
+    focus(scene){
+        return {type: FOCUS_ACTION, scene};
     }
 }
 

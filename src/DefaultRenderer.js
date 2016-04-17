@@ -24,6 +24,10 @@ export default class DefaultRenderer extends Component {
         this._renderHeader = this._renderHeader.bind(this);
     }
 
+    static contextTypes = {
+        dispatch: PropTypes.func,
+    };
+
     static childContextTypes = {
         navigationState: PropTypes.any,
     };
@@ -32,6 +36,22 @@ export default class DefaultRenderer extends Component {
         return {
             navigationState: this.props.navigationState,
         };
+    }
+
+    componentDidMount() {
+      this.dispatchFocusAction(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+      this.dispatchFocusAction(nextProps);
+    }
+
+    dispatchFocusAction({navigationState}) {
+      if (!this.context.dispatch || !navigationState || navigationState.component || navigationState.tabs) {
+        return;
+      }
+      const selected = navigationState.children[navigationState.index];
+      this.context.dispatch(Actions.focus(selected));
     }
 
     render() {
