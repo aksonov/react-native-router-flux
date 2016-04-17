@@ -13,6 +13,12 @@ const {
     RootContainer: NavigationRootContainer,
     Header: NavigationHeader,
     } = NavigationExperimental;
+
+const {
+    CardStackPanResponder: NavigationCardStackPanResponder,
+    CardStackStyleInterpolator: NavigationCardStackStyleInterpolator
+    } = NavigationCard;
+
 import TabBar from "./TabBar";
 import NavBar from "./NavBar";
 
@@ -56,7 +62,6 @@ export default class DefaultRenderer extends Component {
 
         let applyAnimation = selected.applyAnimation || navigationState.applyAnimation;
         let style = selected.style || navigationState.style;
-        let direction = selected.direction || navigationState.direction || "horizontal";
 
         let optionals = {};
         if (applyAnimation) {
@@ -66,7 +71,11 @@ export default class DefaultRenderer extends Component {
             if (duration === null || duration === undefined) duration = navigationState.duration;
             if (duration !== null && duration !== undefined) {
                 optionals.applyAnimation = function (pos, navState) {
-                    Animated.timing(pos, {toValue: navState.index, duration}).start();
+                    if (duration === 0) {
+                        pos.setValue(navState.index);
+                    } else {
+                        Animated.timing(pos, {toValue: navState.index, duration}).start();
+                    }
                 };
             }
         }
@@ -76,7 +85,6 @@ export default class DefaultRenderer extends Component {
                 navigationState={navigationState}
                 style={[styles.animatedView, style]}
                 renderOverlay={this._renderHeader}
-                direction={direction}
                 renderScene={this._renderCard}
                 {...optionals}
             />
@@ -91,16 +99,31 @@ export default class DefaultRenderer extends Component {
     }
 
     _renderCard(/*NavigationSceneRendererProps*/ props) {
-        const { key, direction, panHandlers, getSceneStyle } = props.scene.navigationState;
+        const { key, direction, getSceneStyle } = props.scene.navigationState;
+        let { panHandlers, animationStyle } = props.scene.navigationState;
 
-        const optionals = {};
-        if (getSceneStyle) optionals.style = getSceneStyle(props);
+        let style = {};
+        if (getSceneStyle) style = getSceneStyle(props);
+
+        const isVertical = direction === "vertical";
+
+        if (!animationStyle) {
+          animationStyle = (isVertical ?
+            NavigationCardStackStyleInterpolator.forVertical(props) :
+            NavigationCardStackStyleInterpolator.forHorizontal(props));
+        }
+
+        if (!panHandlers) {
+          panHandlers = panHandlers || (isVertical ?
+            NavigationCardStackPanResponder.forVertical(props) :
+            NavigationCardStackPanResponder.forHorizontal(props));
+        }
 
         return (
             <NavigationCard
                 {...props}
                 key={'card_' + key}
-                direction={direction || 'horizontal'}
+                style={[animationStyle, style]}
                 panHandlers={panHandlers}
                 renderScene={this._renderScene}
                 {...optionals}
