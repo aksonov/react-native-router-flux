@@ -105,13 +105,13 @@ export default class DefaultRenderer extends Component {
 
         const isVertical = direction === "vertical";
 
-        if (!animationStyle) {
+        if (typeof(animationStyle) === 'undefined') {
             animationStyle = (isVertical ?
                 NavigationCardStackStyleInterpolator.forVertical(props) :
                 NavigationCardStackStyleInterpolator.forHorizontal(props));
         }
 
-        if (!panHandlers) {
+        if (typeof(panHandlers) === 'undefined') {
             panHandlers = panHandlers || (isVertical ?
                     NavigationCardStackPanResponder.forVertical(props) :
                     NavigationCardStackPanResponder.forHorizontal(props));
