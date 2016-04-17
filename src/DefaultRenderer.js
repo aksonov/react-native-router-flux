@@ -6,16 +6,13 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React, {Component, Animated, PropTypes, StyleSheet, ScrollView, View, Text, NavigationExperimental} from "react-native";
+import React, {Component, Animated, PropTypes, StyleSheet, View, NavigationExperimental} from "react-native";
 const {
     AnimatedView: NavigationAnimatedView,
     Card: NavigationCard,
     RootContainer: NavigationRootContainer,
     Header: NavigationHeader,
     } = NavigationExperimental;
-import Actions from "./Actions";
-import getInitialState from "./State";
-import Reducer from "./Reducer";
 import TabBar from "./TabBar";
 import NavBar from "./NavBar";
 
