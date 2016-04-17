@@ -1,8 +1,7 @@
-import React, {View, Text, Component, NavigationExperimental} from "react-native";
+import React, {View, Component, NavigationExperimental} from "react-native";
 import Tabs from "react-native-tabs";
 import DefaultRenderer from "./DefaultRenderer";
 import Actions from "./Actions";
-import NavBar from "./NavBar";
 const {
     AnimatedView: NavigationAnimatedView,
     CardStack: NavigationCardStack,
