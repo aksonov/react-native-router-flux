@@ -237,22 +237,156 @@ To display a modal use `Modal` as root renderer, so it will render the first ele
 
 ## Redux/Flux
 This component doesn't depend on any redux/flux library. It uses new React Native Navigation API and provide own reducer for its navigation state.
-You may provide your own reducer if needed. To avoid the creation of initial state, you may pass a reducer creator. Example to print all actions:
+You may provide your own reducer if needed. To avoid the creation of initial state, you may pass a reducer creator.
+
+The following example will dispatch the `focus` action when a new scene comes into focus. The current scene will be available to components via the `props.scene` property.
+
+##### Step 1
+
+First create a reducer for the routing actions that will be dispatched by RNRF.
+
 ```javascript
-// remember to add the 'Reducer' to your imports along with Router, Scene, ... like so
-// import { Reducer } from 'react-native-router-flux'
-const reducerCreate = params=>{
-    const defaultReducer = Reducer(params);
-    return (state, action)=>{
-        console.log("ACTION:", action);
-        return defaultReducer(state, action);
-    }
+// reducers/routes.js
+
+const initialState = {
+  scene: {},
 };
 
-// within  your App render() method
-return <Router scenes={scenes} createReducer={reducerCreate} />;
+export default function reducer(state = initialState, action = {}) {
+  switch (action.type) {
+    // focus action is dispatched when a new screen comes into focus
+    case "focus":
+      return {
+        ...state,
+        scene: action.scene,
+      };
+
+    // ...other actions
+  }
+}
+```
+
+##### Step 2
+
+Combine this reducer with the rest of the reducers from your app.
+
+```javascript
+// reducers/index.js
+
+import { combineReducers } from 'redux';
+import routes from './routes';
+// ... other reducers
+
+export default combineReducers({
+  routes,
+  // ... other reducers
+});
 
 ```
+
+##### Step 3
+
+Connect the `Router` to your redux dispatching system.
+
+```javascript
+// routes.js
+
+import { Actions, Router, Reducer } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+// other imports...
+
+
+const scenes = Actions.create({
+  <Scene key="Root">
+    {/* create scenes */}
+  </Scene>
+});
+
+class Routes extends React.Component {
+  static propTypes = {
+    dispatch: PropTypes.func,
+  };
+
+  reducerCreate(params) {
+    const defaultReducer = Reducer(params);
+    return (state, action) => {
+      if (action.type === 'focus') {
+        this.props.dispatch(action)
+      }
+      return defaultReducer(state, action);
+    };
+  }
+
+  render () {
+    return (
+      <Router
+        createReducer={this.reducerCreate.bind(this)}
+        scenes={scenes} />
+    );
+  }
+}
+```
+
+##### Step 4
+
+Create your store, wrap your routes with the redux `Provider` component.
+
+
+```js
+// app.js
+
+import Routes from './routes';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import reducers from './reducers';
+// other imports...
+
+// create store...
+const middleware = [/* ...your middleware (i.e. thunk) */];
+const store = compose(
+  applyMiddleware(...middleware)
+)(createStore)(reducers);
+
+
+class App extends React.Component {
+  render () {
+    return (
+      <Provider store={store}>
+        <Routes />
+      </Provider>
+    );
+  }
+}
+
+export default App;
+```
+
+##### Step 5
+
+Now you can access the current scene from any connected component.
+
+```js
+// components/MyComponent.js
+import React, { PropTypes, Text } from 'react-native';
+import { connect } from 'react-redux';
+
+class MyComponent extends React.Component {
+  static propTypes = {
+    routes: PropTypes.object,
+  };
+
+  render () {
+    return (
+      <Text>
+        The current scene is titled {this.props.routes.scene.title}.
+      </Text>
+    );
+  }
+}
+
+export default connect(({routes}) => ({routes}))(MyComponent);
+```
+
 ## Tabbar
 Every tab has its own navigation bar. However, if you do not set its parent `<Scene tabs={true} />` with `hideNavBar={true}`, the tabs' navigation bar will be overrided by their parient.
 
