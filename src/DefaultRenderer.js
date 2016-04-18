@@ -15,6 +15,7 @@ const {
     } = NavigationExperimental;
 import TabBar from "./TabBar";
 import NavBar from "./NavBar";
+import Actions from './Actions';
 
 export default class DefaultRenderer extends Component {
     constructor(props) {
@@ -27,6 +28,24 @@ export default class DefaultRenderer extends Component {
     static childContextTypes = {
         navigationState: PropTypes.any,
     };
+
+    componentDidMount() {
+        this.dispatchFocusAction(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.navigationState !== this.props.navigationState) {
+          this.dispatchFocusAction(nextProps);
+        }
+    }
+
+    dispatchFocusAction({navigationState}) {
+        if (!navigationState || navigationState.component || navigationState.tabs) {
+            return;
+        }
+        const scene = navigationState.children[navigationState.index];
+        Actions.focus({scene});
+    }
 
     getChildContext() {
         return {

@@ -7,7 +7,7 @@
  *
  */
 
-import {PUSH_ACTION, POP_ACTION2, FOCUS_ACTION, JUMP_ACTION, INIT_ACTION, REPLACE_ACTION, RESET_ACTION, POP_ACTION, REFRESH_ACTION} from "./Actions";
+import {PUSH_ACTION, POP_ACTION2, JUMP_ACTION, INIT_ACTION, REPLACE_ACTION, RESET_ACTION, POP_ACTION, REFRESH_ACTION} from "./Actions";
 import assert from "assert";
 import {getInitialState} from "./State";
 

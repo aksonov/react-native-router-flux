@@ -44,14 +44,14 @@ class Actions {
         this.init = this.init.bind(this);
         this.pop = this.pop.bind(this);
         this.refresh = this.refresh.bind(this);
-
+        this.focus = this.focus.bind(this);
     }
 
     iterate(root: Scene, parentProps = {}, refs = {}) {
         assert(root.props, "props should be defined for stack");
         const key = root.key || "root";
         assert(key, "unique key should be defined ",root);
-        assert([POP_ACTION, POP_ACTION2, REFRESH_ACTION, REPLACE_ACTION, JUMP_ACTION, PUSH_ACTION, RESET_ACTION, "create",
+        assert([POP_ACTION, POP_ACTION2, REFRESH_ACTION, REPLACE_ACTION, JUMP_ACTION, PUSH_ACTION, FOCUS_ACTION, RESET_ACTION, "create",
                 "init","callback","iterate","current"].indexOf(key)==-1, key+" is not allowed as key name");
         const {children, ...staticProps} = root.props;
         let type = root.props.type || (parentProps.tabs ? JUMP_ACTION : PUSH_ACTION);
@@ -104,6 +104,11 @@ class Actions {
     refresh(props = {}){
         props = filterParam(props);
         this.callback && this.callback({...props, type: REFRESH_ACTION});
+    }
+
+    focus(props = {}){
+      props = filterParam(props);
+      this.callback && this.callback({...props, type: FOCUS_ACTION});
     }
 
     create(scene:Scene){
