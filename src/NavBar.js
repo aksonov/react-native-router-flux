@@ -135,8 +135,11 @@ export default class NavBar extends React.Component {
     }
 
     _renderTitle(childState: NavigationState, index:number) {
+        const title = childState.getTitle ?
+          childState.getTitle():this.props.getTitle ? this.props.getTitle(childState) : childState.title;
         return (
             <Animated.Text
+                onPress={()=>childState.titleOnPress&&childState.titleOnPress()}
                 key={childState.key}
                 style={[
           styles.title, this.props.navigationState.titleStyle, childState.titleStyle,
@@ -155,7 +158,7 @@ export default class NavBar extends React.Component {
             }),
           },
         ]}>
-                {this.props.getTitle ? this.props.getTitle(childState) : childState.title }
+                {title}
             </Animated.Text>
         );
     }
