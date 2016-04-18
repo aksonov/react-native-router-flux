@@ -262,6 +262,9 @@ export default function reducer(state = initialState, action = {}) {
       };
 
     // ...other actions
+
+    default:
+      return state;
   }
 }
 ```
@@ -323,6 +326,8 @@ class Routes extends React.Component {
     );
   }
 }
+
+export default connect()(Routes);
 ```
 
 ##### Step 4
