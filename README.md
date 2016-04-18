@@ -310,9 +310,7 @@ class Routes extends React.Component {
   reducerCreate(params) {
     const defaultReducer = Reducer(params);
     return (state, action) => {
-      if (action.type === 'focus') {
-        this.props.dispatch(action)
-      }
+      this.props.dispatch(action)
       return defaultReducer(state, action);
     };
   }
