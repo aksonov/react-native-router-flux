@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2015, Facebook, Inc.  All rights reserved.
  *
- * Facebook, Inc. ("Facebook") owns all right, title and interest, including
+ * Facebook, Inc. ("Facebook") owns all right, tltle and interest, including
  * all intellectual property and other proprietary rights, in and to the React
  * Native CustomComponents software (the "Software").  Subject to your
  * compliance with these terms, you are hereby granted a non-exclusive,
@@ -135,6 +135,8 @@ export default class NavBar extends React.Component {
     }
 
     _renderTitle(childState: NavigationState, index:number) {
+        const title = childState.renderTitle ?
+          childState.renderTitle():this.props.getTitle ? this.props.getTitle(childState) : childState.title;
         return (
             <Animated.Text
                 key={childState.key}
@@ -155,7 +157,7 @@ export default class NavBar extends React.Component {
             }),
           },
         ]}>
-                {this.props.getTitle ? this.props.getTitle(childState) : childState.title }
+                {title}
             </Animated.Text>
         );
     }
