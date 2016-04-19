@@ -132,7 +132,7 @@ class App extends React.Component {
 | sceneStyle | View style | { flex: 1 } | optional style override for the Scene's component |
 | other props | | | all properties that will be passed to your component instance |
 | getSceneStyle | function | optional | Optionally override the styles for NavigationCard's Animated.View rendering the scene. |
-
+| renderTitle | function | optional | Optionally closure to render the title
 ## Example
 ![launch](https://cloud.githubusercontent.com/assets/1321329/11692367/7337cfe2-9e9f-11e5-8515-e8b7a9f230ec.gif)
 
