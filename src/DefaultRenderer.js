@@ -9,13 +9,10 @@
 import React, {Component, Animated, PropTypes, StyleSheet, View, NavigationExperimental} from "react-native";
 const {
     AnimatedView: NavigationAnimatedView,
-    Card: NavigationCard
+    Card: NavigationCard,
+    CardStackStyleInterpolator: NavigationCardStackStyleInterpolator,
+    LinearPanResponder: NavigationLinearPanResponder
 } = NavigationExperimental;
-
-const {
-    CardStackPanResponder: NavigationCardStackPanResponder,
-    CardStackStyleInterpolator: NavigationCardStackStyleInterpolator
-} = NavigationCard;
 
 import TabBar from "./TabBar";
 import NavBar from "./NavBar";
@@ -133,8 +130,8 @@ export default class DefaultRenderer extends Component {
 
         if (typeof(panHandlers) === 'undefined') {
             panHandlers = panHandlers || (isVertical ?
-                    NavigationCardStackPanResponder.forVertical(props) :
-                    NavigationCardStackPanResponder.forHorizontal(props));
+                    NavigationLinearPanResponder.forVertical(props) :
+                    NavigationLinearPanResponder.forHorizontal(props));
         }
 
         return (
