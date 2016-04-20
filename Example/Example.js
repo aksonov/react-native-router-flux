@@ -59,7 +59,7 @@ export default class Example extends React.Component {
                         <Scene key="loginModal" component={Login} title="Login"/>
                         <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2" panHandlers={null} duration={1}/>
                     </Scene>
-                    <Scene key="tabbar" component={NavigationDrawer}>
+                    <Scene key="tabbar" component={NavigationDrawer} panHandlers={null}>
                         <Scene key="main" tabs={true} >
                             <Scene key="tab1"  title="Tab #1" icon={TabIcon} navigationBarStyle={{backgroundColor:"red"}} titleStyle={{color:"white"}}>
                                 <Scene key="tab1_1" component={TabView} title="Tab #1_1" onRight={()=>alert("Right button")} rightTitle="Right" />

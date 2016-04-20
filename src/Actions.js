@@ -8,15 +8,15 @@
  */
 import assert from "assert";
 import Scene from "./Scene";
-export const JUMP_ACTION = "jump";
-export const PUSH_ACTION = "push";
-export const REPLACE_ACTION = "replace";
-export const POP_ACTION2 = "back";
-export const POP_ACTION = "BackAction";
-export const REFRESH_ACTION = "refresh";
-export const RESET_ACTION = "reset";
-export const INIT_ACTION = "init";
-export const FOCUS_ACTION = "focus";
+export const JUMP_ACTION = "ROUTER_JUMP";
+export const PUSH_ACTION = "ROUTER_PUSH";
+export const REPLACE_ACTION = "ROUTER_REPLACE";
+export const POP_ACTION2 = "ROUTER_POP2";
+export const POP_ACTION = "ROUTER_POP";
+export const REFRESH_ACTION = "ROUTER_REFRESH";
+export const RESET_ACTION = "ROUTER_RESET";
+export const INIT_ACTION = "ROUTER_INIT";
+export const FOCUS_ACTION = "ROUTER_FOCUS";
 
 function isNumeric(n){
     return !isNaN(parseFloat(n)) && isFinite(n);
