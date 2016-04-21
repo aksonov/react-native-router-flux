@@ -242,6 +242,7 @@ To display a modal use `Modal` as root renderer, so it will render the first ele
 ## Redux/Flux
 This component doesn't depend on any redux/flux library. It uses new React Native Navigation API and provide own reducer for its navigation state.
 You may provide your own reducer if needed. To avoid the creation of initial state, you may pass a reducer creator.
+Also all actions will pass themselves to Redux dispatch method if it is passed (i.e. if Router is `connect`ed with Redux)
 
 The following example will dispatch the `focus` action when a new scene comes into focus. The current scene will be available to components via the `props.scene` property.
 
@@ -293,58 +294,17 @@ export default combineReducers({
 
 ##### Step 3
 
-Connect the `Router` to your redux dispatching system.
-
-```javascript
-// routes.js
-
-import { Actions, Router, Reducer } from 'react-native-router-flux';
-import { connect } from 'react-redux';
-// other imports...
-
-
-const scenes = Actions.create({
-  <Scene key="Root">
-    {/* create scenes */}
-  </Scene>
-});
-
-class Routes extends React.Component {
-  static propTypes = {
-    dispatch: PropTypes.func,
-  };
-
-  reducerCreate(params) {
-    const defaultReducer = Reducer(params);
-    return (state, action) => {
-      this.props.dispatch(action)
-      return defaultReducer(state, action);
-    };
-  }
-
-  render () {
-    return (
-      <Router
-        createReducer={this.reducerCreate.bind(this)}
-        scenes={scenes} />
-    );
-  }
-}
-
-export default connect()(Routes);
-```
-
-##### Step 4
-
-Create your store, wrap your routes with the redux `Provider` component.
+Create your store, wrap your routes with the redux `Provider` component and connect your Router
 
 
 ```js
 // app.js
 
-import Routes from './routes';
+import { Router } from 'react-native-router-flux';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware, compose, connect } from 'redux';
+
+const RouterWithRedux = connect()(Router);
 import reducers from './reducers';
 // other imports...
 
@@ -359,7 +319,9 @@ class App extends React.Component {
   render () {
     return (
       <Provider store={store}>
-        <Routes />
+        <RouterWithRedux>
+            // your scenes here
+        </RouterWithRedux>
       </Provider>
     );
   }
@@ -368,7 +330,7 @@ class App extends React.Component {
 export default App;
 ```
 
-##### Step 5
+##### Step 4
 
 Now you can access the current scene from any connected component.
 

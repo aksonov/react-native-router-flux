@@ -17,6 +17,7 @@ import Actions from "./Actions";
 import getInitialState from "./State";
 import Reducer from "./Reducer";
 import DefaultRenderer from "./DefaultRenderer";
+import Scene from "./Scene";
 
 export default class extends Component {
     constructor(props) {
@@ -27,7 +28,7 @@ export default class extends Component {
     }
 
     _handleProps(props){
-        const scenesMap = props.scenes || Actions.create(props.children);
+        const scenesMap = props.scenes || Actions.create(Array.isArray(props.children) ? <Scene key="__root" {...this.props}>{props.children}</Scene> :  props.children);
         const {children, style, scenes, reducer, createReducer, ...parentProps} = props;
         scenesMap.rootProps = parentProps;
         const initialState = getInitialState(scenesMap);
@@ -47,7 +48,10 @@ export default class extends Component {
         if (!navigationState) {
             return null;
         }
-        Actions.callback = props=>onNavigate(props);
+        Actions.callback = props=>{
+            this.props.dispatch && this.props.dispatch(props);
+            onNavigate(props);
+        }
         return <DefaultRenderer navigationState={navigationState}/>;
     }
 
@@ -57,7 +61,7 @@ export default class extends Component {
         }
         return <NavigationRootContainer
             reducer={this.state.reducer}
-            renderNavigation={this._renderNavigation}
+            renderNavigation={this._renderNavigation.bind(this)}
         />
     }
 }
