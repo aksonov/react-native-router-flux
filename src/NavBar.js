@@ -139,7 +139,7 @@ export default class NavBar extends React.Component {
             <Animated.Text
                 key={childState.key}
                 style={[
-          styles.title, this.props.navigationState.titleStyle, childState.titleStyle,
+          styles.title, this.props.titleStyle, this.props.navigationState.titleStyle, childState.titleStyle,
           {
             opacity: this.props.position.interpolate({
               inputRange: [index - 1, index, index + 1],
