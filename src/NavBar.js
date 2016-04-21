@@ -65,8 +65,8 @@ export default class NavBar extends React.Component {
             <Animated.View
                 style={[styles.header, state.navigationBarStyle, selected.navigationBarStyle]}>
                 {state.children.map(this._renderTitle, this)}
-                {renderLeftButton(selected) || renderBackButton(selected)}
-                {renderRightButton(selected)}
+                {renderBackButton() || renderLeftButton()}
+                {renderRightButton()}
             </Animated.View>
         );
     }
@@ -75,7 +75,7 @@ export default class NavBar extends React.Component {
         const drawer = this.context.drawer;
         const state = this.props.navigationState;
         const childState = state.children[state.index];
-        let buttonImage = state.backButtonImage || require("./back_chevron.png");
+        let buttonImage = childState.backButtonImage || state.backButtonImage || require("./back_chevron.png");
         let onPress = Actions.pop;
 
         if (state.index === 0) {
@@ -87,13 +87,13 @@ export default class NavBar extends React.Component {
             }
         }
 
-        let text = childState.backTitle ? <Text style={[styles.barBackButtonText, childState.backButtonTextStyle]}>
+        let text = childState.backTitle ? <Text style={[styles.barBackButtonText, state.backButtonTextStyle, childState.backButtonTextStyle]}>
             {childState.backTitle}
         </Text> : null;
 
         return (
             <TouchableOpacity style={[styles.backButton, state.leftButtonStyle]} onPress={onPress}>
-                <Image source={buttonImage} style={[styles.backButtonImage, state.barButtonIconStyle]}/>
+                <Image source={buttonImage} style={[styles.backButtonImage, state.barButtonIconStyle, state.leftButtonIconStyle, childState.leftButtonIconStyle]}/>
                 {text}
             </TouchableOpacity>
         );
@@ -101,16 +101,17 @@ export default class NavBar extends React.Component {
 
     _renderRightButton() {
         function tryRender(state) {
-            if (state.onRight && state.rightTitle) {
+            if (state.onRight && (state.rightTitle || state.rightButtonImage)) {
                 return (
                     <TouchableOpacity style={[styles.rightButton, state.rightButtonStyle]}
                                       onPress={state.onRight.bind(null, state)}>
-                        <Text style={[styles.barRightButtonText, state.rightButtonTextStyle]}>{state.rightTitle}</Text>
+                        {state.rightTitle && <Text style={[styles.barRightButtonText, state.rightButtonTextStyle]}>{state.rightTitle}</Text>}
+                        {state.rightButtonImage && <View style={{flex:1, justifyContent:'center', alignItems:'flex-end'}}><Image source={state.rightButtonImage} style={state.rightButtonIconStyle}/></View>}
                     </TouchableOpacity>
                 );
             }
-            if ((!!state.onRight ^ !!state.rightTitle)) {
-                console.warn('Both onRight and rightTitle must be specified for the scene: ' + state.name)
+            if ((!!state.onRight ^ !!(state.rightTitle || state.rightButtonImage))) {
+                console.warn('Both onRight and rightTitle/rightButtonImage must be specified for the scene: ' + state.name)
             }
         }
         const state = this.props.navigationState;
@@ -119,15 +120,16 @@ export default class NavBar extends React.Component {
 
     _renderLeftButton() {
         function tryRender(state) {
-            if (state.onLeft && state.leftTitle){
+            if (state.onLeft && (state.leftTitle || state.leftButtonImage)){
                 return (
                     <TouchableOpacity style={[styles.leftButton, state.leftButtonStyle]} onPress={state.onLeft.bind(null, state)}>
-                        <Text style={[styles.barLeftButtonText, state.leftButtonTextStyle]}>{state.leftTitle}</Text>
+                        {state.leftTitle && <Text style={[styles.barLeftButtonText, state.leftButtonTextStyle]}>{state.leftTitle}</Text>}
+                        {state.leftButtonImage && <View style={{flex:1, justifyContent:'center', alignItems:'flex-start'}}><Image source={state.leftButtonImage} style={state.leftButtonIconStyle}/></View>}
                     </TouchableOpacity>
                 );
             }
-            if ((!!state.onLeft ^ !!state.leftTitle)) {
-                console.warn('Both onLeft and leftTitle must be specified for the scene: ' + state.name)
+            if ((!!state.onLeft ^ !!(state.leftTitle || state.leftButtonImage))) {
+                console.warn('Both onLeft and leftTitle/leftButtonImage must be specified for the scene: ' + state.name)
             }
         }
         const state = this.props.navigationState;
@@ -136,7 +138,7 @@ export default class NavBar extends React.Component {
 
     _renderTitle(childState: NavigationState, index:number) {
         const title = childState.renderTitle ?
-          childState.renderTitle():this.props.getTitle ? this.props.getTitle(childState) : childState.title;
+            childState.renderTitle():this.props.getTitle ? this.props.getTitle(childState) : childState.title;
         return (
             <Animated.Text
                 key={childState.key}
@@ -237,4 +239,7 @@ const styles = StyleSheet.create({
         width: 13,
         height: 21,
     },
+    rightButtonIconStyle: {
+
+    }
 });

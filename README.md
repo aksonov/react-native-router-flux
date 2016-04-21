@@ -119,6 +119,8 @@ class App extends React.Component {
 | backTitle | string | | optional string to display with back button |
 | backButtonTextStyle | Text style | | optional style override for the back title element |
 | renderBackButton | Closure | | optional closure to render back text or button if this route happens to be the previous route |
+| leftButtonImage | Image |  | Image for left button |
+| leftButtonIconStyle | View style |  | Image style for left button |
 | leftButtonStyle | View style | | optional style override for the container of left title / buttons |
 | leftButtonTextStyle | Text style | | optional style override for the left title element |
 | onLeft | Closure | | function will be called when left navBar button is pressed |
@@ -127,6 +129,8 @@ class App extends React.Component {
 | renderRightButton | Closure | | optional closure to render the right title / buttons element |
 | rightButtonStyle | View style | | optional style override for the container of right title / buttons |
 | rightButtonTextStyle | Text style | | optional style override for the right title element |
+| rightButtonImage | Image |  | Image for right button |
+| rightButtonIconStyle | View style |  | Image style for right button |
 | clone | bool | | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
 | tabBarStyle | View style |  | optional style override for the Tabs component |
 | sceneStyle | View style | { flex: 1 } | optional style override for the Scene's component |
