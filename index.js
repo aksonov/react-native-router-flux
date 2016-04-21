@@ -8,5 +8,6 @@ import TabBar from './src/TabBar';
 import Modal from './src/Modal';
 import DefaultRenderer from './src/DefaultRenderer';
 import Switch from './src/Switch';
+import NavBar from './src/NavBar';
 
-module.exports = {DefaultRenderer, Switch, Schema, Modal, Router, TabBar, Scene, Actions, Reducer, getInitialState};
+module.exports = {DefaultRenderer, NavBar, Switch, Schema, Modal, Router, TabBar, Scene, Actions, Reducer, getInitialState};

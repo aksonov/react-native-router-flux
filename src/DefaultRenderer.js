@@ -103,10 +103,14 @@ export default class DefaultRenderer extends Component {
     }
 
     _renderHeader(/*NavigationSceneRendererProps*/ props) {
-        return <NavBar
-                {...props}
-                getTitle={state => state.title}
-            />;
+        const state = props.navigationState;
+        const child = state.children[state.index];
+        let selected = state.children[state.index];
+        while (selected.hasOwnProperty("children")) {
+            selected = selected.children[selected.index]
+        }
+        const Component = state.navBar || selected.navBar || NavBar;
+        return <Component {...props} getTitle={state => state.title}/>
     }
 
     _renderCard(/*NavigationSceneRendererProps*/ props) {

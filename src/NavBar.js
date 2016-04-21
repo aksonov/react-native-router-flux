@@ -47,10 +47,6 @@ export default class NavBar extends React.Component {
         while (selected.hasOwnProperty("children")) {
             selected = selected.children[selected.index]
         }
-        if (state.navBar || selected.navBar){
-            const Component =  selected.navBar || state.navBar;
-            return <Component {...this.props} {...state} {...selected}/>
-        }
         if (selected.component && selected.component.renderNavigationBar){
             return selected.component.renderNavigationBar({...this.props,...selected});
         }
@@ -63,7 +59,7 @@ export default class NavBar extends React.Component {
         let renderBackButton = selected.renderBackButton || this._renderBackButton;
         return (
             <Animated.View
-                style={[styles.header, state.navigationBarStyle, selected.navigationBarStyle]}>
+                style={[styles.header, this.props.navigationBarStyle, state.navigationBarStyle, selected.navigationBarStyle]}>
                 {state.children.map(this._renderTitle, this)}
                 {renderBackButton() || renderLeftButton()}
                 {renderRightButton()}
@@ -75,7 +71,7 @@ export default class NavBar extends React.Component {
         const drawer = this.context.drawer;
         const state = this.props.navigationState;
         const childState = state.children[state.index];
-        let buttonImage = childState.backButtonImage || state.backButtonImage || require("./back_chevron.png");
+        let buttonImage = childState.backButtonImage || state.backButtonImage || this.props.backButtonImage || require("./back_chevron.png");
         let onPress = Actions.pop;
 
         if (state.index === 0) {
@@ -87,13 +83,13 @@ export default class NavBar extends React.Component {
             }
         }
 
-        let text = childState.backTitle ? <Text style={[styles.barBackButtonText, state.backButtonTextStyle, childState.backButtonTextStyle]}>
+        let text = childState.backTitle ? <Text style={[styles.barBackButtonText, this.props.backButtonTextStyle, state.backButtonTextStyle, childState.backButtonTextStyle]}>
             {childState.backTitle}
         </Text> : null;
 
         return (
             <TouchableOpacity style={[styles.backButton, state.leftButtonStyle]} onPress={onPress}>
-                <Image source={buttonImage} style={[styles.backButtonImage, state.barButtonIconStyle, state.leftButtonIconStyle, childState.leftButtonIconStyle]}/>
+                <Image source={buttonImage} style={[styles.backButtonImage, this.props.leftButtonIconStyle, state.barButtonIconStyle, state.leftButtonIconStyle, childState.leftButtonIconStyle]}/>
                 {text}
             </TouchableOpacity>
         );
@@ -115,7 +111,7 @@ export default class NavBar extends React.Component {
             }
         }
         const state = this.props.navigationState;
-        return tryRender(state) || tryRender(state.children[state.index]);
+        return tryRender(state.children[state.index]) || tryRender(state) || tryRender(this.props);
     }
 
     _renderLeftButton() {
@@ -133,7 +129,7 @@ export default class NavBar extends React.Component {
             }
         }
         const state = this.props.navigationState;
-        return tryRender(state) || tryRender(state.children[state.index]);
+        return tryRender(state.children[state.index]) || tryRender(state) || tryRender(this.props);
     }
 
     _renderTitle(childState: NavigationState, index:number) {
