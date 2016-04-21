@@ -1,6 +1,6 @@
 {
   "name": "react-native-router-flux",
-  "version": "3.22.0",
+  "version": "3.24.0",
   "description": "React Native Router using Flux architecture",
   "repository": {
     "type": "git",
@@ -53,7 +53,7 @@
     "react": "^0.14.8",
     "react-addons-test-utils": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-native": "^0.22.2",
+    "react-native": "^0.24.0",
     "react-native-mock": "0.0.6",
     "sinon": "^1.17.3"
   }
