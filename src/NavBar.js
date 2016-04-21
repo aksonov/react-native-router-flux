@@ -63,6 +63,10 @@ export default class NavBar extends React.Component {
         let renderBackButton = selected.renderBackButton || this._renderBackButton;
         return (
             <Animated.View
+                onLayout={(event) => {
+                    var {width, height} = event.nativeEvent.layout;
+                    Actions.refresh({navBarDimensions:{width:width, height:height}});
+                }}
                 style={[styles.header, state.navigationBarStyle, selected.navigationBarStyle]}>
                 {state.children.map(this._renderTitle, this)}
                 {renderBackButton() || renderLeftButton()}
