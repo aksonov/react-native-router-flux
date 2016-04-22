@@ -302,7 +302,8 @@ Create your store, wrap your routes with the redux `Provider` component and conn
 
 import { Router } from 'react-native-router-flux';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose, connect } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { connect } from 'react-redux';
 
 const RouterWithRedux = connect()(Router);
 import reducers from './reducers';
