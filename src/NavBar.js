@@ -54,7 +54,7 @@ export default class NavBar extends React.Component {
         if (selected.component && selected.component.renderNavigationBar){
             return selected.component.renderNavigationBar({...this.props,...selected});
         }
-        if (state.hideNavBar || child.hideNavBar || selected.hideNavBar){
+        if (child.hideNavBar || selected.hideNavBar) {
             return null;
         }
 
