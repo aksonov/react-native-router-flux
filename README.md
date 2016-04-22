@@ -375,6 +375,26 @@ Following example chooses scene depending from sessionID using Redux:
 </Scene>
 ```
 
+## Split your scenes to smaller parts if needed
+Scenes concept is similar to iOS storyboard where you describe all your app screens in one place. However for some large apps, you may want to split it, like iOS app could have several iOS storyboards for different areas of the app. 
+Luckily, you could easy split Scenes using NodeJS built-in require calls:
+```
+            <Router>
+                    {require("./scenesForTabBar")}
+                    {require("./scenesForAnotherPart")}
+            </Router>
+```
+
+scenesForTabBar.js:
+```
+import React from 'react-native';
+import {Scene} from 'react-native-router-flux';
+
+module.exports = <Scene key="tabbar" tabs={true}>
+   // scenes here
+</Scene>;
+```
+
 ## Drawer (side menu) integration
 Example of Drawer custom renderer based on react-native-drawer. Note that the build-in NavBar component supports toggling of drawer. The Drawer implementation just needs to have a function: toggle();
 
