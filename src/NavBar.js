@@ -64,6 +64,7 @@ export default class NavBar extends React.Component {
         return (
             <Animated.View
                 style={[styles.header, this.props.navigationBarStyle, state.navigationBarStyle, selected.navigationBarStyle]}>
+                {this.props.navBarBackground}
                 {state.children.map(this._renderTitle, this)}
                 {renderBackButton() || renderLeftButton()}
                 {renderRightButton()}
