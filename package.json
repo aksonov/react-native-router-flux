@@ -1,6 +1,6 @@
 {
   "name": "react-native-router-flux",
-  "version": "3.22.6",
+  "version": "3.22.7",
   "description": "React Native Router using Flux architecture",
   "repository": {
     "type": "git",

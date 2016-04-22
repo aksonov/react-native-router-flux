@@ -33,6 +33,10 @@ const {
     } = NavigationExperimental;
 
 export default class NavBar extends React.Component {
+    static defaultProps = {
+        drawerImage: require("./menu_burger.png"),
+        backButtonImage: require("./back_chevron.png")
+    };
     componentWillMount(){
         const state = this.props.navigationState;
         this._renderRightButton = this._renderRightButton.bind(this);
@@ -50,7 +54,7 @@ export default class NavBar extends React.Component {
         if (selected.component && selected.component.renderNavigationBar){
             return selected.component.renderNavigationBar({...this.props,...selected});
         }
-        if (state.hideNavBar || child.hideNavBar || selected.hideNavBar){
+        if (state.hideNavBar){
             return null;
         }
 
@@ -68,19 +72,13 @@ export default class NavBar extends React.Component {
     }
 
     _renderBackButton() {
-        const drawer = this.context.drawer;
         const state = this.props.navigationState;
         const childState = state.children[state.index];
-        let buttonImage = childState.backButtonImage || state.backButtonImage || this.props.backButtonImage || require("./back_chevron.png");
+        let buttonImage = childState.backButtonImage || state.backButtonImage || this.props.backButtonImage;
         let onPress = Actions.pop;
 
         if (state.index === 0) {
-            if (!!drawer && typeof drawer.toggle === "function") {
-                buttonImage = state.drawerImage || require("./menu_burger.png");
-                onPress = drawer.toggle;
-            } else {
-                return null;
-            }
+            return null;
         }
 
         let text = childState.backTitle ? <Text style={[styles.barBackButtonText, this.props.backButtonTextStyle, state.backButtonTextStyle, childState.backButtonTextStyle]}>
@@ -89,14 +87,20 @@ export default class NavBar extends React.Component {
 
         return (
             <TouchableOpacity  testID="backNavButton" style={[styles.backButton, state.leftButtonStyle]} onPress={onPress}>
-                <Image source={buttonImage} style={[styles.backButtonImage, this.props.leftButtonIconStyle, state.barButtonIconStyle, state.leftButtonIconStyle, childState.leftButtonIconStyle]}/>
+                {buttonImage && <Image source={buttonImage} style={[styles.backButtonImage, this.props.leftButtonIconStyle, state.barButtonIconStyle, state.leftButtonIconStyle, childState.leftButtonIconStyle]}/>}
                 {text}
             </TouchableOpacity>
         );
     }
 
     _renderRightButton() {
+        const self = this;
+        const state = this.props.navigationState;
         function tryRender(state, name) {
+            if (state.rightButton){
+                const Button = state.rightButton;
+                return <Button {...self.props} {...state} key={"rightNavBarBtn"+name} testID="rightNavButton" style={[styles.rightButton, state.rightButtonStyle]}/>
+            }
             if (state.onRight && (state.rightTitle || state.rightButtonImage)) {
                 return (
                     <TouchableOpacity key={"rightNavBarBtn"+name} testID="rightNavButton" style={[styles.rightButton, state.rightButtonStyle]}
@@ -110,25 +114,41 @@ export default class NavBar extends React.Component {
                 console.warn('Both onRight and rightTitle/rightButtonImage must be specified for the scene: ' + state.name)
             }
         }
-        const state = this.props.navigationState;
         return tryRender(state.children[state.index], "child") || tryRender(state, "cur") || tryRender(this.props, "props");
     }
 
     _renderLeftButton() {
+        const self = this;
+        const drawer = this.context.drawer;
+        const state = this.props.navigationState;
         function tryRender(state, name) {
-            if (state.onLeft && (state.leftTitle || state.leftButtonImage)){
+            let onPress = state.onLeft;
+            let buttonImage = state.leftButtonImage;
+
+            if (state.leftButton){
+                const Button = state.leftButton;
+                return <Button {...self.props} {...state} key={"leftNavBarBtn"+name} testID="leftNavButton" style={[styles.leftButton, state.leftButtonStyle]}/>
+            }
+
+            if (!!drawer && typeof drawer.toggle === "function") {
+                buttonImage = state.drawerImage;
+                if (buttonImage ){
+                    onPress = drawer.toggle;
+                }
+            }
+
+            if (onPress && (state.leftTitle || buttonImage)){
                 return (
-                    <TouchableOpacity key={"leftNavBarBtn"+name} testID="leftNavButton" style={[styles.leftButton, state.leftButtonStyle]} onPress={state.onLeft.bind(null, state)}>
+                    <TouchableOpacity key={"leftNavBarBtn"+name} testID="leftNavButton" style={[styles.leftButton, state.leftButtonStyle]} onPress={onPress.bind(null, state)}>
                         {state.leftTitle && <Text style={[styles.barLeftButtonText, state.leftButtonTextStyle]}>{state.leftTitle}</Text>}
-                        {state.leftButtonImage && <View style={{flex:1, justifyContent:'center', alignItems:'flex-start'}}><Image source={state.leftButtonImage} style={state.leftButtonIconStyle}/></View>}
+                        {buttonImage && <View style={{flex:1, justifyContent:'center', alignItems:'flex-start'}}><Image source={buttonImage} style={state.leftButtonIconStyle}/></View>}
                     </TouchableOpacity>
                 );
             }
-            if ((!!state.onLeft ^ !!(state.leftTitle || state.leftButtonImage))) {
+            if ((!!state.onLeft ^ !!(state.leftTitle || buttonImage))) {
                 console.warn('Both onLeft and leftTitle/leftButtonImage must be specified for the scene: ' + state.name)
             }
         }
-        const state = this.props.navigationState;
         return tryRender(state.children[state.index], "child") || tryRender(state,"cur") || tryRender(this.props, "props");
     }
 
