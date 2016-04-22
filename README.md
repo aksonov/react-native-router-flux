@@ -294,18 +294,55 @@ export default combineReducers({
 
 ##### Step 3
 
+Create a routes
+
+```js
+// routes.js
+import React                  from 'react-native'
+import {
+  Scene,
+  Switch,
+  Modal,
+  Router
+}                             from 'react-native-router-flux'
+import { connect }            from 'react-redux'
+
+// other imports...
+
+const RouterWithRedux = connect()(Router)
+
+class Routes extends React.Component {
+
+  render () {
+    return (
+      <RouterWithRedux>
+        <Scene key="root">
+          <Scene key="login" component={Login} title="Login"/>
+          <Scene key="register" component={Register} title="Register"/>
+          <Scene key="home" component={Home}/>
+        </Scene>
+      </RouterWithRedux>
+    );
+  }
+}
+
+export default Routes
+
+```
+
+##### Step 4
+
 Create your store, wrap your routes with the redux `Provider` component and connect your Router
 
 
 ```js
 // app.js
 
-import { Router } from 'react-native-router-flux';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose, connect } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 
-const RouterWithRedux = connect()(Router);
 import reducers from './reducers';
+import Routes from './routes'
 // other imports...
 
 // create store...
@@ -316,12 +353,10 @@ const store = compose(
 
 
 class App extends React.Component {
-  render () {
+  render() {
     return (
       <Provider store={store}>
-        <RouterWithRedux>
-            // your scenes here
-        </RouterWithRedux>
+          <Routes />
       </Provider>
     );
   }
@@ -330,7 +365,8 @@ class App extends React.Component {
 export default App;
 ```
 
-##### Step 4
+
+##### Step 5
 
 Now you can access the current scene from any connected component.
 
