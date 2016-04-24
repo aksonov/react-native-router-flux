@@ -10,4 +10,5 @@ import DefaultRenderer from './src/DefaultRenderer';
 import Switch from './src/Switch';
 import NavBar from './src/NavBar';
 
-module.exports = {DefaultRenderer, NavBar, Switch, Schema, Modal, Router, TabBar, Scene, Actions, Reducer, getInitialState};
+module.exports = { DefaultRenderer, NavBar, Switch, Schema, Modal, Router, TabBar,
+    Scene, Actions, Reducer, getInitialState };
