@@ -1,13 +1,23 @@
+import Actions from './src/Actions';
+import DefaultRenderer from './src/DefaultRenderer';
+import Modal from './src/Modal';
+import NavBar from './src/NavBar';
+import Reducer from './src/Reducer';
 import Router from './src/Router';
 import Scene from './src/Scene';
-import Actions from './src/Actions';
-import getInitialState from './src/State';
-import Reducer from './src/Reducer';
-import TabBar from './src/TabBar';
-import Modal from './src/Modal';
-import DefaultRenderer from './src/DefaultRenderer';
 import Switch from './src/Switch';
-import NavBar from './src/NavBar';
+import TabBar from './src/TabBar';
+import getInitialState from './src/State';
 
-module.exports = { DefaultRenderer, NavBar, Switch, Modal, Router, TabBar,
-    Scene, Actions, Reducer, getInitialState };
+module.exports = {
+  Actions,
+  DefaultRenderer,
+  Modal,
+  NavBar,
+  Reducer,
+  Router,
+  Scene,
+  Switch,
+  TabBar,
+  getInitialState,
+};
