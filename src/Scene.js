@@ -6,9 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React, { Component } from 'react-native';
+import React from 'react-native';
 
-export default class extends Component {
+export default class extends React.Component {
   render() {
     return null;
   }
