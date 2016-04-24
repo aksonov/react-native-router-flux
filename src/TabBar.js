@@ -45,14 +45,14 @@ export default class extends Component {
                       style={{ flex:1 }}
                       renderScene={this._renderScene}
                     />
-            {!hideTabBar && state.children.filter(el => el.icon).length > 0 && <Tabs style={[{ backgroundColor:'white' }, state.tabBarStyle]} onSelect={this.onSelect.bind(this)} {...state}
+            {!hideTabBar && state.children.filter(el => el.icon).length > 0 && (state.renderTabs ? state.renderTabs(state) : <Tabs style={[{ backgroundColor:'white' }, state.tabBarStyle]} onSelect={this.onSelect.bind(this)} {...state}
               selected={state.children[state.index].sceneKey}
     >
                     {state.children.filter(el => el.icon || this.props.tabIcon).map(el => {
                       const Icon = el.icon || this.props.tabIcon;
                       return <Icon {...this.props} {...el} />;
                     })}
-                </Tabs>}
+                </Tabs>)}
 
             </View>);
   }
