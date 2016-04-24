@@ -6,61 +6,61 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import assert from "assert";
+import assert from 'assert';
 
 function getStateFromScenes(route, scenes, props) {
-    const getters = [];
-    let result = {};
-    let scene = route;
-    while (scene) {
-        if (scene.getInitialState) {
-            getters.push(scene.getInitialState);
-        }
-        scene = scenes[scene.parent];
+  const getters = [];
+  let result = {};
+  let scene = route;
+  while (scene) {
+    if (scene.getInitialState) {
+      getters.push(scene.getInitialState);
     }
+    scene = scenes[scene.parent];
+  }
 
-    if (scenes.rootProps && scenes.rootProps.getInitialState) {
-        getters.push(scenes.rootProps.getInitialState);
-    }
+  if (scenes.rootProps && scenes.rootProps.getInitialState) {
+    getters.push(scenes.rootProps.getInitialState);
+  }
 
-    getters.reverse().forEach(fn => {
-        result = {...result, ...fn(props)};
-    });
+  getters.reverse().forEach(fn => {
+    result = { ...result, ...fn(props) };
+  });
 
-    return result;
+  return result;
 }
 
-export function getInitialState(route:{string: any},scenes:{string:any}, position=0, props={}){
-    const {key, style, type, ...parentProps} = props;
-    if (!route.children){
-        return {
-            ...scenes.rootProps,
-            ...route,
-            key:position+"_"+route.sceneKey,
-            ...parentProps,
-            ...getStateFromScenes(route, scenes, props),
-        };
-    }
-    let {children, ...res} = {...route, ...parentProps};
-    let index = 0;
-    route.children.forEach((r,i)=>{assert(scenes[r], "Empty scene for key="+route.key); if (scenes[r].initial) index=i});
+export function getInitialState(route:{string: any}, scenes:{string:any}, position = 0, props = {}) {
+  const { key, style, type, ...parentProps } = props;
+  if (!route.children) {
+    return {
+      ...scenes.rootProps,
+      ...route,
+      key:position + '_' + route.sceneKey,
+      ...parentProps,
+      ...getStateFromScenes(route, scenes, props),
+    };
+  }
+  let { children, ...res } = { ...route, ...parentProps };
+  let index = 0;
+  route.children.forEach((r, i) => { assert(scenes[r], 'Empty scene for key=' + route.key); if (scenes[r].initial) index = i; });
 
-    if (route.tabs){
-        res.children = route.children.map((r,i)=>getInitialState(scenes[r],scenes,i, props));
-        res.index = index;
-    } else {
-        res.children = [getInitialState(scenes[route.children[index]],scenes, 0, props)];
-        res.index = 0;
-    }
-    res.key = position+"_"+res.key;
-    return res;
+  if (route.tabs) {
+    res.children = route.children.map((r, i) => getInitialState(scenes[r], scenes, i, props));
+    res.index = index;
+  } else {
+    res.children = [getInitialState(scenes[route.children[index]], scenes, 0, props)];
+    res.index = 0;
+  }
+  res.key = position + '_' + res.key;
+  return res;
 }
 
-export default function(scenes:{string: any}, props){
+export default function (scenes:{string: any}, props) {
     // find "root" component and get state from it
-    for (let route in scenes){
-        if (scenes.hasOwnProperty(route) && !scenes[route].parent){
-            return getInitialState(scenes[route], scenes);
-        }
+  for (let route in scenes) {
+    if (scenes.hasOwnProperty(route) && !scenes[route].parent) {
+      return getInitialState(scenes[route], scenes);
     }
+  }
 }
