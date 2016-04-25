@@ -225,7 +225,6 @@ const styles = StyleSheet.create({
     bottom: 4,
     right: 2,
     padding: 8,
-    paddingTop: 20,
   },
   leftButton: {
     width: 100,
@@ -234,7 +233,6 @@ const styles = StyleSheet.create({
     bottom: 4,
     left: 2,
     padding: 8,
-    paddingTop: 20,
   },
   barRightButtonText: {
     color: 'rgb(0, 122, 255)',

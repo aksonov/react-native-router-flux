@@ -117,7 +117,25 @@ export default class DefaultRenderer extends Component {
       return selected.component.renderNavigationBar({ ...this.props, ...selected });
     }
     const Component =  selected.navBar || child.navBar || state.navBar || NavBar;
-    return <Component {...props} {...state} {...child} {...selected} getTitle={state => state.title} />;
+    let navBarProps = {...state, ...child, ...selected};
+    // delete contrary properties
+    if (selected.leftTitle && selected.onLeft){
+      delete navBarProps.leftButton;
+    }
+    if (selected.rightTitle && selected.onRight){
+      delete navBarProps.rightButton;
+    }
+    if (selected.rightButton){
+      delete navBarProps.rightTitle;
+      delete navBarProps.onRight;
+    }
+    if (selected.leftButton){
+      delete navBarProps.leftTitle;
+      delete navBarProps.onLeft;
+    }
+    delete navBarProps.style;
+
+    return <Component {...props} {...navBarProps} getTitle={state => state.title} />;
   }
 
   _renderCard(/* NavigationSceneRendererProps*/ props) {
