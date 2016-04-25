@@ -216,7 +216,6 @@ const styles = StyleSheet.create({
     bottom: 4,
     left: 2,
     padding: 8,
-    paddingTop: 20,
     flexDirection: 'row',
   },
   rightButton: {
