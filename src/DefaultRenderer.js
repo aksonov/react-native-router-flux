@@ -109,6 +109,13 @@ export default class DefaultRenderer extends Component {
     while (selected.hasOwnProperty('children')) {
       selected = selected.children[selected.index];
     }
+    if (state.hideNavBar || selected.hideNavBar || child.hideNavBar) {
+      return null;
+    }
+
+    if (selected.component && selected.component.renderNavigationBar) {
+      return selected.component.renderNavigationBar({ ...this.props, ...selected });
+    }
     const Component = state.navBar || selected.navBar || NavBar;
     return <Component {...props} getTitle={state => state.title} />;
   }

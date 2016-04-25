@@ -51,12 +51,6 @@ export default class NavBar extends React.Component {
     while (selected.hasOwnProperty('children')) {
       selected = selected.children[selected.index];
     }
-    if (selected.component && selected.component.renderNavigationBar) {
-      return selected.component.renderNavigationBar({ ...this.props, ...selected });
-    }
-    if (state.hideNavBar) {
-      return null;
-    }
 
     let renderLeftButton = selected.renderLeftButton || this._renderLeftButton;
     let renderRightButton = selected.renderRightButton || this._renderRightButton;
@@ -65,7 +59,6 @@ export default class NavBar extends React.Component {
             <Animated.View
               style={[styles.header, this.props.navigationBarStyle, state.navigationBarStyle, selected.navigationBarStyle]}
     >
-                {this.props.navBarBackground}
                 {state.children.map(this._renderTitle, this)}
                 {renderBackButton() || renderLeftButton()}
                 {renderRightButton()}
