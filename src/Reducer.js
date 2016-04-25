@@ -27,7 +27,7 @@ const checkPropertiesEqual = (action, lastAction) => {
 
 function inject(state, action, props, scenes) {
   const condition = action.type == REFRESH_ACTION ? state.key === props.key || state.sceneKey === action.key : state.sceneKey == props.parent;
-  console.log("INJECT:", action.key, state.sceneKey, condition);
+  //console.log("INJECT:", action.key, state.sceneKey, condition);
   if (!condition) {
     if (state.children) {
       let res = state.children.map(el => inject(el, action, props, scenes));
@@ -138,6 +138,7 @@ function reducer({ initialState, scenes }) {
         let sceneKey = child.sceneKey;
         if (child.base){
           child = {...state.scenes[child.base], ...child};
+          assert(state.scenes[child.base], "No scene exists for base="+child.base);
           key = state.scenes[child.base].key;
           sceneKey = state.scenes[child.base].sceneKey;
         }

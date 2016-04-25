@@ -45,10 +45,11 @@ export default class NavBar extends React.Component {
     this._renderTitle = this._renderTitle.bind(this);
   }
   render() {
-    const state = this.props.navigationState;
+    let state = this.props.navigationState;
     const child = state.children[state.index];
     let selected = state.children[state.index];
     while (selected.hasOwnProperty('children')) {
+      state = selected;
       selected = selected.children[selected.index];
     }
 
@@ -199,7 +200,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#EFEFF2',
-    paddingTop: 20,
+    paddingTop: 0,
     top: 0,
     height: 64,
     right: 0,
@@ -215,6 +216,7 @@ const styles = StyleSheet.create({
     bottom: 4,
     left: 2,
     padding: 8,
+    paddingTop: 20,
     flexDirection: 'row',
   },
   rightButton: {
@@ -224,6 +226,7 @@ const styles = StyleSheet.create({
     bottom: 4,
     right: 2,
     padding: 8,
+    paddingTop: 20,
   },
   leftButton: {
     width: 100,
@@ -232,6 +235,7 @@ const styles = StyleSheet.create({
     bottom: 4,
     left: 2,
     padding: 8,
+    paddingTop: 20,
   },
   barRightButtonText: {
     color: 'rgb(0, 122, 255)',
