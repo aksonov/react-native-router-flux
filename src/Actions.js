@@ -63,7 +63,8 @@ class Actions {
       const list = root.props.children instanceof Array ? root.props.children : [root.props.children];
       res.children = list.map(c => this.iterate(c, res, refs).key);
     } else {
-      assert(staticProps.component, 'component property is not set for key=' + key);
+      assert((staticProps.type === REFRESH_ACTION && staticProps.base) || staticProps.component,
+        'component property is not set for key=' + key);
             // wrap scene if parent is "tabs"
       if (parentProps.tabs) {
         const innerKey = res.key + '_';

@@ -27,6 +27,7 @@ const checkPropertiesEqual = (action, lastAction) => {
 
 function inject(state, action, props, scenes) {
   const condition = action.type == REFRESH_ACTION ? state.key === props.key || state.sceneKey === action.key : state.sceneKey == props.parent;
+  console.log("INJECT:", action.key, state.sceneKey, condition);
   if (!condition) {
     if (state.children) {
       let res = state.children.map(el => inject(el, action, props, scenes));
@@ -53,9 +54,10 @@ function inject(state, action, props, scenes) {
           children:state.children.slice(0, -1),
         };
       case REFRESH_ACTION:
-        return {
+        return props.base ? {navBar:state.navBar, ...props, key:state.key, from: null} : {
           ...state,
           ...props,
+          key:state.key,
           from: null
         };
       case PUSH_ACTION:
@@ -132,9 +134,16 @@ function reducer({ initialState, scenes }) {
     if (action.key) {
       if (action.type === REFRESH_ACTION) {
         let key = action.key;
-        let child = findElement(state, key, action.type);
+        let child = findElement(state, key, action.type) || state.scenes[key];
+        let sceneKey = child.sceneKey;
+        if (child.base){
+          child = {...state.scenes[child.base], ...child};
+          key = state.scenes[child.base].key;
+          sceneKey = state.scenes[child.base].sceneKey;
+        }
         assert(child, 'missed child data for key=' + key);
-        action = { ...child, ...action };
+        action = { ...child, ...action, sceneKey, key };
+        //console.log("REFRESH ACTION:", action);
       } else {
         let scene = state.scenes[action.key];
         assert(scene, 'missed route data for key=' + action.key);
@@ -170,7 +179,15 @@ function reducer({ initialState, scenes }) {
       case JUMP_ACTION:
       case REPLACE_ACTION:
       case RESET_ACTION:
-        return update(state, action);
+        //console.log("PREVIOUS STATE", state);
+        const newState = update(state, action);
+        //if (newState != state){
+        //  console.log("NEW STATE", newState);
+        //} else {
+        //  console.log("STATE IS NOT CHANGED");
+        //}
+        return newState;
+
       default:
         return state;
 

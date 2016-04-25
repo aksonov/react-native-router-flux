@@ -91,14 +91,14 @@ export default class NavBar extends React.Component {
   _renderRightButton() {
     const self = this;
     const state = this.props.navigationState;
-    function tryRender(state, name) {
+    function tryRender(state) {
       if (state.rightButton) {
         const Button = state.rightButton;
-        return <Button {...self.props} {...state} key={'rightNavBarBtn' + name} testID="rightNavButton" style={[styles.rightButton, state.rightButtonStyle]} />;
+        return <Button {...self.props} {...state} key={'rightNavBarBtn'} testID="rightNavButton" style={[styles.rightButton, state.rightButtonStyle]} />;
       }
       if (state.onRight && (state.rightTitle || state.rightButtonImage)) {
         return (
-                    <TouchableOpacity key={'rightNavBarBtn' + name} testID="rightNavButton" style={[styles.rightButton, state.rightButtonStyle]}
+                    <TouchableOpacity key={'rightNavBarBtn'} testID="rightNavButton" style={[styles.rightButton, state.rightButtonStyle]}
                       onPress={state.onRight.bind(null, state)}
         >
                         {state.rightTitle && <Text style={[styles.barRightButtonText, state.rightButtonTextStyle]}>{state.rightTitle}</Text>}
@@ -110,20 +110,20 @@ export default class NavBar extends React.Component {
         console.warn('Both onRight and rightTitle/rightButtonImage must be specified for the scene: ' + state.name);
       }
     }
-    return tryRender(state.children[state.index], 'child') || tryRender(state, 'cur') || tryRender(this.props, 'props');
+    return tryRender(this.props);
   }
 
   _renderLeftButton() {
     const self = this;
     const drawer = this.context.drawer;
     const state = this.props.navigationState;
-    function tryRender(state, name) {
+    function tryRender(state) {
       let onPress = state.onLeft;
       let buttonImage = state.leftButtonImage;
 
       if (state.leftButton) {
         const Button = state.leftButton;
-        return <Button {...self.props} {...state} key={'leftNavBarBtn' + name} testID="leftNavButton" style={[styles.leftButton, state.leftButtonStyle]} />;
+        return <Button {...self.props} {...state} key={'leftNavBarBtn'} testID="leftNavButton" style={[styles.leftButton, state.leftButtonStyle]} />;
       }
 
       if (!!drawer && typeof drawer.toggle === 'function') {
@@ -135,7 +135,7 @@ export default class NavBar extends React.Component {
 
       if (onPress && (state.leftTitle || buttonImage)) {
         return (
-                    <TouchableOpacity key={'leftNavBarBtn' + name} testID="leftNavButton" style={[styles.leftButton, state.leftButtonStyle]} onPress={onPress.bind(null, state)}>
+                    <TouchableOpacity key={'leftNavBarBtn'} testID="leftNavButton" style={[styles.leftButton, state.leftButtonStyle]} onPress={onPress.bind(null, state)}>
                         {state.leftTitle && <Text style={[styles.barLeftButtonText, state.leftButtonTextStyle]}>{state.leftTitle}</Text>}
                         {buttonImage && <View style={{ flex:1, justifyContent:'center', alignItems:'flex-start' }}><Image source={buttonImage} style={state.leftButtonIconStyle} /></View>}
                     </TouchableOpacity>
@@ -145,7 +145,7 @@ export default class NavBar extends React.Component {
         console.warn('Both onLeft and leftTitle/leftButtonImage must be specified for the scene: ' + state.name);
       }
     }
-    return tryRender(state.children[state.index], 'child') || tryRender(state, 'cur') || tryRender(this.props, 'props');
+    return tryRender(this.props);
   }
 
   _renderTitle(childState: NavigationState, index:number) {

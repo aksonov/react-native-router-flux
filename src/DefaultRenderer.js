@@ -116,8 +116,8 @@ export default class DefaultRenderer extends Component {
     if (selected.component && selected.component.renderNavigationBar) {
       return selected.component.renderNavigationBar({ ...this.props, ...selected });
     }
-    const Component = state.navBar || selected.navBar || NavBar;
-    return <Component {...props} getTitle={state => state.title} />;
+    const Component =  selected.navBar || child.navBar || state.navBar || NavBar;
+    return <Component {...props} {...state} {...child} {...selected} getTitle={state => state.title} />;
   }
 
   _renderCard(/* NavigationSceneRendererProps*/ props) {
