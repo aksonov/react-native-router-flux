@@ -6,28 +6,51 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React, { Component, Animated, PropTypes, StyleSheet, View, NavigationExperimental } from 'react-native';
+import React, {
+  Animated,
+  NavigationExperimental,
+  PropTypes,
+  StyleSheet,
+  View,
+} from 'react-native';
 const {
-    AnimatedView: NavigationAnimatedView,
-    Card: NavigationCard,
-    RootContainer: NavigationRootContainer,
-    Header: NavigationHeader,
-    } = NavigationExperimental;
-import TabBar from './TabBar';
-import NavBar from './NavBar';
+  AnimatedView: NavigationAnimatedView,
+  Card: NavigationCard,
+  RootContainer: NavigationRootContainer,
+  Header: NavigationHeader,
+} = NavigationExperimental;
 import Actions from './Actions';
+import NavBar from './NavBar';
+import TabBar from './TabBar';
 
-export default class DefaultRenderer extends Component {
-  constructor(props) {
-    super(props);
-    this._renderCard = this._renderCard.bind(this);
-    this._renderScene = this._renderScene.bind(this);
-    this._renderHeader = this._renderHeader.bind(this);
-  }
+const propTypes = {
+  navigationState: PropTypes.object,
+};
 
+const styles = StyleSheet.create({
+  animatedView: {
+    flex: 1,
+    backgroundColor: 'transparent',
+  },
+});
+
+class DefaultRenderer extends React.Component {
   static childContextTypes = {
     navigationState: PropTypes.any,
   };
+
+  constructor(props) {
+    super(props);
+    this.renderCard = this.renderCard.bind(this);
+    this.renderScene = this.renderScene.bind(this);
+    this.renderHeader = this.renderHeader.bind(this);
+  }
+
+  getChildContext() {
+    return {
+      navigationState: this.props.navigationState,
+    };
+  }
 
   componentDidMount() {
     this.dispatchFocusAction(this.props);
@@ -47,10 +70,41 @@ export default class DefaultRenderer extends Component {
     Actions.focus({ scene });
   }
 
-  getChildContext() {
-    return {
-      navigationState: this.props.navigationState,
-    };
+  renderHeader(/* NavigationSceneRendererProps*/ props) {
+    const state = props.navigationState;
+    let selected = state.children[state.index];
+    while (selected.hasOwnProperty('children')) {
+      selected = selected.children[selected.index];
+    }
+    const Component = state.navBar || selected.navBar || NavBar;
+    return <Component {...props} getTitle={titleState => titleState.title} />;
+  }
+
+  renderCard(/* NavigationSceneRendererProps*/ props) {
+    const { key, direction, panHandlers, getSceneStyle } = props.scene.navigationState;
+
+    const optionals = {};
+    if (getSceneStyle) optionals.style = getSceneStyle(props);
+
+    return (
+      <NavigationCard
+        {...props}
+        key={`card_${key}`}
+        direction={direction || 'horizontal'}
+        panHandlers={panHandlers}
+        renderScene={this.renderScene}
+        {...optionals}
+      />
+    );
+  }
+
+  renderScene(/* NavigationSceneRendererProps*/ props) {
+    return (
+      <DefaultRenderer
+        key={props.scene.navigationState.key}
+        navigationState={props.scene.navigationState}
+      />
+    );
   }
 
   render() {
@@ -64,20 +118,20 @@ export default class DefaultRenderer extends Component {
     }
     if (Component) {
       return (
-                <View style={[{ flex: 1 }, navigationState.sceneStyle]}>
-                    <Component {...navigationState} navigationState={navigationState} />
-                </View>
-            );
+        <View style={[{ flex: 1 }, navigationState.sceneStyle]}>
+          <Component {...navigationState} navigationState={navigationState} />
+        </View>
+      );
     }
 
     const selected = navigationState.children[navigationState.index];
         // return <DefaultRenderer key={selected.key} navigationState={selected}/>
 
-    let applyAnimation = selected.applyAnimation || navigationState.applyAnimation;
-    let style = selected.style || navigationState.style;
+    const applyAnimation = selected.applyAnimation || navigationState.applyAnimation;
+    const style = selected.style || navigationState.style;
     let direction = selected.direction || navigationState.direction || 'horizontal';
 
-    let optionals = {};
+    const optionals = {};
     if (applyAnimation) {
       optionals.applyAnimation = applyAnimation;
     } else {
@@ -91,55 +145,18 @@ export default class DefaultRenderer extends Component {
     }
 
     return (
-            <NavigationAnimatedView
-              navigationState={navigationState}
-              style={[styles.animatedView, style]}
-              renderOverlay={this._renderHeader}
-              direction={direction}
-              renderScene={this._renderCard}
-              {...optionals}
-            />
-        );
+      <NavigationAnimatedView
+        navigationState={navigationState}
+        style={[styles.animatedView, style]}
+        renderOverlay={this.renderHeader}
+        direction={direction}
+        renderScene={this.renderCard}
+        {...optionals}
+      />
+    );
   }
-
-  _renderHeader(/* NavigationSceneRendererProps*/ props) {
-    const state = props.navigationState;
-    const child = state.children[state.index];
-    let selected = state.children[state.index];
-    while (selected.hasOwnProperty('children')) {
-      selected = selected.children[selected.index];
-    }
-    const Component = state.navBar || selected.navBar || NavBar;
-    return <Component {...props} getTitle={state => state.title} />;
-  }
-
-  _renderCard(/* NavigationSceneRendererProps*/ props) {
-    const { key, direction, panHandlers, getSceneStyle } = props.scene.navigationState;
-
-    const optionals = {};
-    if (getSceneStyle) optionals.style = getSceneStyle(props);
-
-    return (
-            <NavigationCard
-              {...props}
-              key={'card_' + key}
-              direction={direction || 'horizontal'}
-              panHandlers={panHandlers}
-              renderScene={this._renderScene}
-              {...optionals}
-            />
-        );
-  }
-
-  _renderScene(/* NavigationSceneRendererProps*/ props) {
-    return <DefaultRenderer key={props.scene.navigationState.key} navigationState={props.scene.navigationState} />;
-  }
-
 }
 
-const styles = StyleSheet.create({
-  animatedView: {
-    flex: 1,
-    backgroundColor:'transparent'
-  },
-});
+DefaultRenderer.propTypes = propTypes;
+
+export default DefaultRenderer;
