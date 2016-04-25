@@ -55,11 +55,12 @@ export default class NavBar extends React.Component {
     let renderLeftButton = selected.renderLeftButton || this._renderLeftButton;
     let renderRightButton = selected.renderRightButton || this._renderRightButton;
     let renderBackButton = selected.renderBackButton || this._renderBackButton;
+    let renderTitle = selected.renderTitle;
     return (
             <Animated.View
               style={[styles.header, this.props.navigationBarStyle, state.navigationBarStyle, selected.navigationBarStyle]}
     >
-                {state.children.map(this._renderTitle, this)}
+              {selected.renderTitle ? selected.renderTitle(state) : state.children.map(this._renderTitle, this)}
                 {renderBackButton() || renderLeftButton()}
                 {renderRightButton()}
             </Animated.View>
@@ -149,8 +150,8 @@ export default class NavBar extends React.Component {
   }
 
   _renderTitle(childState: NavigationState, index:number) {
-    const title = childState.renderTitle ?
-            childState.renderTitle() : this.props.getTitle ? this.props.getTitle(childState) : childState.title;
+
+    const title = this.props.getTitle ? this.props.getTitle(childState) : childState.title;
     return (
             <Animated.Text
               key={childState.key}
