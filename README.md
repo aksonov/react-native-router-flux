@@ -446,14 +446,14 @@ Note, that existing state of `base` Scene will be reset to initial params define
 Example for 'My Account' page:
 
 ```
-                                            <Scene key="myAccount">
-                                                <Scene key="myAccountBase" component={MyAccount} title="My Account"/>
-                                                <Scene key="viewAccount" type="refresh" base="myAccountBase" />
-                                                <Scene key="editAccount" type="refresh" base="myAccountBase" editMode rightTitle="Save"
-                                                       onRight={()=>Actions.saveAccount()} leftTitle="Cancel" onLeft={()=>Actions.viewAccount()}
-                                                />
-                                                <Scene key="saveAccount" type="refresh" base="myAccountBase" save />
-                                            </Scene>
+        <Scene key="myAccount">
+            <Scene key="myAccountBase" component={MyAccount} title="My Account"/>
+            <Scene key="viewAccount" type="refresh" base="myAccountBase" />
+            <Scene key="editAccount" type="refresh" base="myAccountBase" editMode rightTitle="Save"
+                   onRight={()=>Actions.saveAccount()} leftTitle="Cancel" onLeft={()=>Actions.viewAccount()}
+            />
+            <Scene key="saveAccount" type="refresh" base="myAccountBase" save />
+        </Scene>
 ```
 Sure it could be done using Redux, however it will require more coding and programmatic setting NavBar buttons using `refresh`
 
