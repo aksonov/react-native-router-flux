@@ -123,19 +123,21 @@ export default class DefaultRenderer extends Component {
 
     let navBarProps = {...state, ...child, ...selected};
     // delete contrary properties
-    if (selected.leftTitle && selected.onLeft){
+    if ((selected.leftTitle || selected.leftButtonImage) && selected.onLeft){
       delete navBarProps.leftButton;
     }
-    if (selected.rightTitle && selected.onRight){
+    if ((selected.rightTitle || selected.rightButtonImage) && selected.onRight){
       delete navBarProps.rightButton;
     }
     if (selected.rightButton){
       delete navBarProps.rightTitle;
       delete navBarProps.onRight;
+      delete navBarProps.rightButtonImage;
     }
     if (selected.leftButton){
       delete navBarProps.leftTitle;
       delete navBarProps.onLeft;
+      delete navBarProps.leftButtonImage;
     }
     delete navBarProps.style;
 

@@ -32,13 +32,15 @@ function inject(state, action, props, scenes) {
     if (state.children) {
       let res = state.children.map(el => inject(el, action, props, scenes));
       let changed = false;
+      let changedIndex = -1;
       for (let i = 0; i < res.length; i++) {
         if (res[i] != state.children[i]) {
           changed = true;
+          changedIndex = i;
           break;
         }
       }
-      return changed ? { ...state, children: res } : state;
+      return changed ? { ...state, children: res, index:changedIndex } : state;
     } else {
       return state;
     }
