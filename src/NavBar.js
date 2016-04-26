@@ -23,7 +23,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import React, { Animated, PixelRatio, Image, StyleSheet, Text, TouchableOpacity, View, NavigationExperimental } from 'react-native';
+import React, { Platform, Animated, PixelRatio, Image, StyleSheet, Text, TouchableOpacity, View, NavigationExperimental } from 'react-native';
 import Actions from './Actions';
 const {
     AnimatedView: NavigationAnimatedView,
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#EFEFF2',
     paddingTop: 0,
     top: 0,
-    height: 64,
+    height: Platform.os === 'ios' ? 64 : 44,
     right: 0,
     left: 0,
     borderBottomWidth: 0.5,
