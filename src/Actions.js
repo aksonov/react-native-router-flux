@@ -29,6 +29,21 @@ function filterParam(data) {
   return data;
 }
 
+const reservedKeys = [
+  POP_ACTION,
+  POP_ACTION2,
+  REFRESH_ACTION,
+  REPLACE_ACTION,
+  JUMP_ACTION,
+  PUSH_ACTION,
+  FOCUS_ACTION,
+  RESET_ACTION,
+  'create',
+  'callback',
+  'iterate',
+  'current',
+];
+
 class Actions {
   constructor() {
     this.callback = null;
@@ -43,16 +58,24 @@ class Actions {
     const refs = refsParam;
     assert(root.props, 'props should be defined for stack');
     const key = root.key;
-    assert(key, 'unique key should be defined ', root);
-    assert([POP_ACTION, POP_ACTION2, REFRESH_ACTION, REPLACE_ACTION, JUMP_ACTION, PUSH_ACTION,
-        FOCUS_ACTION, RESET_ACTION, 'create', 'callback', 'iterate', 'current']
-        .indexOf(key) === -1, `${key} is not allowed as key name`);
+    assert(key, 'unique key should be defined ');
+    assert(
+      reservedKeys.indexOf(key) === -1,
+      `'${key}' is not allowed as key name. Reserved keys: [${reservedKeys.join(', ')}]`,
+    );
     const { children, ...staticProps } = root.props;
     let type = root.props.type || (parentProps.tabs ? JUMP_ACTION : PUSH_ACTION);
     if (type === 'switch') {
       type = JUMP_ACTION;
     }
-    const res = { name: key, ...staticProps, key, sceneKey: key, type, parent: parentProps.key };
+    const res = {
+      key,
+      name: key,
+      sceneKey: key,
+      parent: parentProps.key,
+      type,
+      ...staticProps,
+    };
     let list = children || [];
     if (!(list instanceof Array)) {
       list = [list];
