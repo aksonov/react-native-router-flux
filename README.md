@@ -442,7 +442,7 @@ export default class extends Component {
 
 ```
 ## Sub-scenes support
-You could create 'sub-scene' actions by putting them as children for needed `base scene without `component` prop) and call such action anywhere. 'base' Scene will be updated accordingly.
+You could create 'sub-scene' actions by putting them as children for needed 'base' scene without `component` prop and call such action anywhere - 'base' Scene will be updated accordingly.
 Example for 'My Account' screen with edit possibility (`MyAccount` component should call `Actions.editAccount()` to enable edit mode and process `save`, `editMode` properties accordingly - display edit controls, save data, etc.):
 
 ```
