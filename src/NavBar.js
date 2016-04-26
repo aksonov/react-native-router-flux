@@ -83,7 +83,7 @@ export default class NavBar extends React.Component {
         </Text> : null;
 
     return (
-            <TouchableOpacity testID="backNavButton" style={[styles.backButton, state.leftButtonStyle]} onPress={onPress}>
+            <TouchableOpacity testID="backNavButton" style={[styles.backButton, this.props.leftButtonStyle, state.leftButtonStyle, childState.leftButtonStyle]} onPress={onPress}>
                 {buttonImage && <Image source={buttonImage} style={[styles.backButtonImage, this.props.leftButtonIconStyle, state.barButtonIconStyle, state.leftButtonIconStyle, childState.leftButtonIconStyle]} />}
                 {text}
             </TouchableOpacity>
