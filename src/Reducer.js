@@ -7,11 +7,20 @@
  *
  */
 
-import { PUSH_ACTION, POP_ACTION2, JUMP_ACTION, REPLACE_ACTION, RESET_ACTION,
-  POP_ACTION, REFRESH_ACTION } from './Actions';
+import {
+  PUSH_ACTION,
+  POP_ACTION2,
+  JUMP_ACTION,
+  REPLACE_ACTION,
+  RESET_ACTION,
+  POP_ACTION,
+  REFRESH_ACTION,
+} from './Actions';
+
 import assert from 'assert';
 import { getInitialState } from './State';
 
+// WARN: it is not working correct. rewrite it.
 function checkPropertiesEqual(action, lastAction) {
   let isEqual = true;
   for (const key of Object.keys(action)) {
