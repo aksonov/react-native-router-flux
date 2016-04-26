@@ -117,6 +117,10 @@ export default class DefaultRenderer extends Component {
       return selected.component.renderNavigationBar({ ...this.props, ...selected });
     }
     const Component =  selected.navBar || child.navBar || state.navBar || NavBar;
+    //console.log("STATE:", state);
+    //console.log("CHILD:", child);
+    //console.log("SELECTED:", selected);
+
     let navBarProps = {...state, ...child, ...selected};
     // delete contrary properties
     if (selected.leftTitle && selected.onLeft){

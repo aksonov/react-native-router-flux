@@ -49,7 +49,7 @@ class Actions {
 
   iterate(root: Scene, parentProps = {}, refs = {}) {
     assert(root.props, 'props should be defined for stack');
-    const key = root.key || 'root';
+    const key = root.key;
     assert(key, 'unique key should be defined ', root);
     assert([POP_ACTION, POP_ACTION2, REFRESH_ACTION, REPLACE_ACTION, JUMP_ACTION, PUSH_ACTION, FOCUS_ACTION, RESET_ACTION, 'create',
                 'init', 'callback', 'iterate', 'current'].indexOf(key) == -1, key + ' is not allowed as key name');
@@ -59,28 +59,48 @@ class Actions {
       type = JUMP_ACTION;
     }
     let res = { name:key, ...staticProps, key, sceneKey:key, type, parent:parentProps.key };
-    if (root.props.children) {
-      const list = root.props.children instanceof Array ? root.props.children : [root.props.children];
+    let list = root.props.children || [];
+    if (!(list instanceof Array)) {
+      list = [list];
+    }
+    const condition = el=>(!el.props.component && !el.props.children && (!el.props.type || el.props.type === REFRESH_ACTION));
+    // determine sub-states
+    let baseKey = root.key;
+    let subStateParent = parentProps.key;
+    const subStates = list.filter(condition);
+    list = list.filter(el=>!condition(el));
+    if (list.length){
       res.children = list.map(c => this.iterate(c, res, refs).key);
     } else {
-      assert((staticProps.type === REFRESH_ACTION && staticProps.base) || staticProps.component,
-        'component property is not set for key=' + key);
-            // wrap scene if parent is "tabs"
+      assert(staticProps.component, 'component property is not set for key=' + key);
+      // wrap scene if parent is "tabs"
       if (parentProps.tabs) {
         const innerKey = res.key + '_';
-        const inner = { ...res, name:key, key: innerKey, type: PUSH_ACTION, parent:res.key };
+        baseKey = innerKey;
+        subStateParent = res.key;
+        const inner = { ...res, name:key, key: innerKey, sceneKey: innerKey, type: PUSH_ACTION, parent:res.key };
         refs[innerKey] = inner;
         res.children = [innerKey];
         delete res.component;
       }
       res.index = 0;
     }
+    // process substates
+    for (let el of subStates){
+      refs[el.key] = {key:el.key, name:el.key, ...el.props, type: REFRESH_ACTION, base:baseKey, parent:subStateParent};
+      if (this[el.key]) {
+        console.log('Key ' + el.key + ' is already defined!');
+      }
+      this[el.key] =
+        (props = {}) => { assert(this.callback, 'Actions.callback is not defined!');
+          this.callback({ key: el.key, type:REFRESH_ACTION, ...filterParam(props) }); };
+    }
     if (this[key]) {
-      console.log('Key ' + root.key + ' is already defined!');
+      console.log('Key ' + key + ' is already defined!');
     }
     this[key] =
             (props = {}) => { assert(this.callback, 'Actions.callback is not defined!');
-              this.callback({ key: root.key, type, ...filterParam(props) }); };
+              this.callback({ key, type, ...filterParam(props) }); };
     refs[res.key] = res;
 
     return res;

@@ -28,9 +28,10 @@ export default class extends Component {
   }
 
   _handleProps(props) {
-    const scenesMap = props.scenes || Actions.create(Array.isArray(props.children) ? <Scene key="__root" {...this.props}>{props.children}</Scene> : props.children);
+    const scenesMap = props.scenes || Actions.create(Array.isArray(props.children) ? <Scene key="__root" hideNav {...this.props}>{props.children}</Scene> : props.children);
     const { children, style, scenes, reducer, createReducer, ...parentProps } = props;
     scenesMap.rootProps = parentProps;
+    //console.log("SCENE MAPS:", scenesMap);
     const initialState = getInitialState(scenesMap);
     const ReducerCreator = props.createReducer || Reducer;
     this.setState({ reducer: props.reducer || ReducerCreator({ initialState, scenes:scenesMap }) });

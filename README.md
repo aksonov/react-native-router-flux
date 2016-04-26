@@ -17,6 +17,7 @@ Router for React Native based on new React Native Navigation API.
 - (new) Support for different states inside same screen. For example "View My Account" could allow in-place edit of fields and "Save", "Cancel" navigation bar buttons should appear.
 
 ## Change log
+- 3.22.16 simplified syntax for sub-states
 - 3.22.15 introduces support for different states inside the same screen.
 - 3.22.10 simplifies customization of own NavBar. From now you could import built-in NavBar from the component and customize it. You could set it globally to all scenes by setting `navBar` property for `Router` component.
 For all other scenes you may pass rightButton, leftButton for custom buttons or rightTitle & onRight, leftTitle & onLeft for text buttons.
@@ -441,21 +442,18 @@ export default class extends Component {
 
 ```
 ## Sub-scenes support
-You could create 'sub-scene' actions using type='refresh' and base='SCENE_NAME' (without `component` prop) and call such action anywhere. 'base' Scene will be updated accordingly.
-Note, that existing state of `base` Scene will be reset to initial params defined for this scene. Also `tabs` container cannot contain such actions, please define usual stack for them.
-Example for 'My Account' page:
+You could create 'sub-scene' actions by putting them as children for needed `base scene without `component` prop) and call such action anywhere. 'base' Scene will be updated accordingly.
+Example for 'My Account' screen with edit possibility (`MyAccount` component should call `Actions.editAccount()` to enable edit mode and process `save`, `editMode` properties accordingly - display edit controls, save data, etc.):
 
 ```
-        <Scene key="myAccount">
-            <Scene key="myAccountBase" component={MyAccount} title="My Account"/>
-            <Scene key="viewAccount" type="refresh" base="myAccountBase" />
-            <Scene key="editAccount" type="refresh" base="myAccountBase" editMode rightTitle="Save"
-                   onRight={()=>Actions.saveAccount()} leftTitle="Cancel" onLeft={()=>Actions.viewAccount()}
-            />
-            <Scene key="saveAccount" type="refresh" base="myAccountBase" save />
-        </Scene>
+<Scene key="myAccount" component={MyAccount} title="My Account">
+    <Scene key="viewAccount" />
+    <Scene key="editAccount" editMode rightTitle="Save" onRight={()=>Actions.saveAccount()} leftTitle="Cancel" onLeft={()=>Actions.viewAccount()} />
+    <Scene key="saveAccount" save />
+</Scene>
 ```
-Sure it could be done using Redux, however it will require more coding and programmatic setting NavBar buttons using `refresh`
+Note, that almost empty `viewAccount` sub-state here is needed to reset MyAccount to initial params defined for this scene (remove `save`, `editMode` and other properties from original state)
+Sure it could be done using Redux, however it will require more coding and programmatic setting NavBar buttons using `refresh`.
 
 
 ## Production Apps using react-native-router-flux
