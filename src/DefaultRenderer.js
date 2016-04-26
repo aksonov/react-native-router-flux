@@ -141,7 +141,8 @@ export default class DefaultRenderer extends Component {
     }
     delete navBarProps.style;
 
-    return <Component {...props} {...navBarProps} getTitle={state => state.title} />;
+    const getTitle = selected.getTitle || ( state => state.title );
+    return <Component {...props} {...navBarProps} getTitle={getTitle} />;
   }
 
   _renderCard(/* NavigationSceneRendererProps*/ props) {
