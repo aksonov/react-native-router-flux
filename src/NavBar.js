@@ -45,28 +45,23 @@ export default class NavBar extends React.Component {
     this._renderTitle = this._renderTitle.bind(this);
   }
   render() {
-    const state = this.props.navigationState;
+    let state = this.props.navigationState;
     const child = state.children[state.index];
     let selected = state.children[state.index];
     while (selected.hasOwnProperty('children')) {
+      state = selected;
       selected = selected.children[selected.index];
-    }
-    if (selected.component && selected.component.renderNavigationBar) {
-      return selected.component.renderNavigationBar({ ...this.props, ...selected });
-    }
-    if (state.hideNavBar) {
-      return null;
     }
 
     let renderLeftButton = selected.renderLeftButton || this._renderLeftButton;
     let renderRightButton = selected.renderRightButton || this._renderRightButton;
     let renderBackButton = selected.renderBackButton || this._renderBackButton;
+    let renderTitle = selected.renderTitle;
     return (
             <Animated.View
               style={[styles.header, this.props.navigationBarStyle, state.navigationBarStyle, selected.navigationBarStyle]}
     >
-                {this.props.navBarBackground}
-                {state.children.map(this._renderTitle, this)}
+              {selected.renderTitle ? selected.renderTitle(state) : state.children.map(this._renderTitle, this)}
                 {renderBackButton() || renderLeftButton()}
                 {renderRightButton()}
             </Animated.View>
@@ -88,7 +83,7 @@ export default class NavBar extends React.Component {
         </Text> : null;
 
     return (
-            <TouchableOpacity testID="backNavButton" style={[styles.backButton, state.leftButtonStyle]} onPress={onPress}>
+            <TouchableOpacity testID="backNavButton" style={[styles.backButton, this.props.leftButtonStyle, state.leftButtonStyle, childState.leftButtonStyle]} onPress={onPress}>
                 {buttonImage && <Image source={buttonImage} style={[styles.backButtonImage, this.props.leftButtonIconStyle, state.barButtonIconStyle, state.leftButtonIconStyle, childState.leftButtonIconStyle]} />}
                 {text}
             </TouchableOpacity>
@@ -98,14 +93,14 @@ export default class NavBar extends React.Component {
   _renderRightButton() {
     const self = this;
     const state = this.props.navigationState;
-    function tryRender(state, name) {
+    function tryRender(state) {
       if (state.rightButton) {
         const Button = state.rightButton;
-        return <Button {...self.props} {...state} key={'rightNavBarBtn' + name} testID="rightNavButton" style={[styles.rightButton, state.rightButtonStyle]} />;
+        return <Button {...self.props} {...state} key={'rightNavBarBtn'} testID="rightNavButton" style={[styles.rightButton, state.rightButtonStyle]} />;
       }
       if (state.onRight && (state.rightTitle || state.rightButtonImage)) {
         return (
-                    <TouchableOpacity key={'rightNavBarBtn' + name} testID="rightNavButton" style={[styles.rightButton, state.rightButtonStyle]}
+                    <TouchableOpacity key={'rightNavBarBtn'} testID="rightNavButton" style={[styles.rightButton, state.rightButtonStyle]}
                       onPress={state.onRight.bind(null, state)}
         >
                         {state.rightTitle && <Text style={[styles.barRightButtonText, state.rightButtonTextStyle]}>{state.rightTitle}</Text>}
@@ -117,20 +112,20 @@ export default class NavBar extends React.Component {
         console.warn('Both onRight and rightTitle/rightButtonImage must be specified for the scene: ' + state.name);
       }
     }
-    return tryRender(state.children[state.index], 'child') || tryRender(state, 'cur') || tryRender(this.props, 'props');
+    return tryRender(this.props);
   }
 
   _renderLeftButton() {
     const self = this;
     const drawer = this.context.drawer;
     const state = this.props.navigationState;
-    function tryRender(state, name) {
+    function tryRender(state) {
       let onPress = state.onLeft;
       let buttonImage = state.leftButtonImage;
 
       if (state.leftButton) {
         const Button = state.leftButton;
-        return <Button {...self.props} {...state} key={'leftNavBarBtn' + name} testID="leftNavButton" style={[styles.leftButton, state.leftButtonStyle]} />;
+        return <Button {...self.props} {...state} key={'leftNavBarBtn'} testID="leftNavButton" style={[styles.leftButton, state.leftButtonStyle]} />;
       }
 
       if (!!drawer && typeof drawer.toggle === 'function') {
@@ -142,7 +137,7 @@ export default class NavBar extends React.Component {
 
       if (onPress && (state.leftTitle || buttonImage)) {
         return (
-                    <TouchableOpacity key={'leftNavBarBtn' + name} testID="leftNavButton" style={[styles.leftButton, state.leftButtonStyle]} onPress={onPress.bind(null, state)}>
+                    <TouchableOpacity key={'leftNavBarBtn'} testID="leftNavButton" style={[styles.leftButton, state.leftButtonStyle]} onPress={onPress.bind(null, state)}>
                         {state.leftTitle && <Text style={[styles.barLeftButtonText, state.leftButtonTextStyle]}>{state.leftTitle}</Text>}
                         {buttonImage && <View style={{ flex:1, justifyContent:'center', alignItems:'flex-start' }}><Image source={buttonImage} style={state.leftButtonIconStyle} /></View>}
                     </TouchableOpacity>
@@ -152,12 +147,12 @@ export default class NavBar extends React.Component {
         console.warn('Both onLeft and leftTitle/leftButtonImage must be specified for the scene: ' + state.name);
       }
     }
-    return tryRender(state.children[state.index], 'child') || tryRender(state, 'cur') || tryRender(this.props, 'props');
+    return tryRender(this.props);
   }
 
   _renderTitle(childState: NavigationState, index:number) {
-    const title = childState.renderTitle ?
-            childState.renderTitle() : this.props.getTitle ? this.props.getTitle(childState) : childState.title;
+
+    const title = this.props.getTitle ? this.props.getTitle(childState) : childState.title;
     return (
             <Animated.Text
               key={childState.key}
@@ -205,7 +200,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#EFEFF2',
-    paddingTop: 20,
+    paddingTop: 0,
     top: 0,
     height: 64,
     right: 0,

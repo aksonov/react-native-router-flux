@@ -109,9 +109,40 @@ export default class DefaultRenderer extends Component {
     while (selected.hasOwnProperty('children')) {
       selected = selected.children[selected.index];
     }
-    const Component = state.navBar || selected.navBar || NavBar;
-    const getTitle = selected.getTitle || ( state => state.title )
-    return <Component {...props} getTitle={getTitle} />
+    if (state.hideNavBar || selected.hideNavBar || child.hideNavBar) {
+      return null;
+    }
+
+    if (selected.component && selected.component.renderNavigationBar) {
+      return selected.component.renderNavigationBar({ ...this.props, ...selected });
+    }
+    const Component =  selected.navBar || child.navBar || state.navBar || NavBar;
+    //console.log("STATE:", state);
+    //console.log("CHILD:", child);
+    //console.log("SELECTED:", selected);
+
+    let navBarProps = {...state, ...child, ...selected};
+    // delete contrary properties
+    if ((selected.leftTitle || selected.leftButtonImage) && selected.onLeft){
+      delete navBarProps.leftButton;
+    }
+    if ((selected.rightTitle || selected.rightButtonImage) && selected.onRight){
+      delete navBarProps.rightButton;
+    }
+    if (selected.rightButton){
+      delete navBarProps.rightTitle;
+      delete navBarProps.onRight;
+      delete navBarProps.rightButtonImage;
+    }
+    if (selected.leftButton){
+      delete navBarProps.leftTitle;
+      delete navBarProps.onLeft;
+      delete navBarProps.leftButtonImage;
+    }
+    delete navBarProps.style;
+
+    const getTitle = selected.getTitle || ( state => state.title );
+    return <Component {...props} {...navBarProps} getTitle={getTitle} />;
   }
 
   _renderCard(/* NavigationSceneRendererProps*/ props) {
