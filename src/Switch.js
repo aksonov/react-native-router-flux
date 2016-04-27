@@ -9,34 +9,41 @@ export default class extends Component {
     this.state = {};
   }
 
-  updateState(props) {
-    const navState = props.navigationState;
-    const selector = props.selector || console.error('selector should be defined');
-    const selectedKey = selector(props) || console.error('selector should return key');
-    const selected = navState.children.filter(el => el.sceneKey == selectedKey) || console.error('key=' + selectedKey + " doesn't exist");
-    const navigationState = selected[0] || console.error('Cannot find scene with key=' + selectedKey);
-    if (navigationState.key != navState.children[navState.index].key) {
-      Actions[selectedKey]();
-    }
-    this.setState({ navigationState });
-  }
   componentDidMount() {
     this.updateState(this.props);
-
   }
 
   componentWillReceiveProps(props) {
     this.updateState(props);
   }
+
+  updateState(props) {
+    const navState = props.navigationState;
+
+    const selector = props.selector;
+    if (!selector) console.error('Selector should be defined.');
+
+    const selectedKey = selector(props);
+    if (!selectedKey) console.error('Selector should return key.');
+
+    const selected = navState.children.filter(el => el.sceneKey === selectedKey);
+    if (!selected) console.error(`A scene for key “${selectedKey}” does not exist.`);
+
+    const navigationState = selected[0];
+    if (!navigationState) console.error(`Cannot find a scene with key “${selectedKey}”`);
+
+    if (navigationState.key !== navState.children[navState.index].key) {
+      Actions[selectedKey]();
+    }
+
+    this.setState({ navigationState });
+  }
+
   render() {
     if (this.state.navigationState) {
       return <DefaultRenderer navigationState={this.state.navigationState} />;
-    } else {
-      return null;
     }
+
+    return null;
   }
 }
-
-
-
-

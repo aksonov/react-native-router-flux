@@ -4,4 +4,7 @@ module.exports = {
     'react',
   ],
   parser: 'babel-eslint',
+  rules: {
+    'no-console': 0,
+  }
 };
