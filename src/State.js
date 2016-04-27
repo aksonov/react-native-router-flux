@@ -30,20 +30,31 @@ function getStateFromScenes(route, scenes, props) {
   return result;
 }
 
-export function getInitialState(route:{string: any}, scenes:{string:any}, position = 0, props = {}) {
+export function getInitialState(
+  route: {string: any},
+  scenes: {string: any},
+  position = 0,
+  props = {}
+) {
+  // eslint-disable-next-line no-unused-vars
   const { key, style, type, ...parentProps } = props;
   if (!route.children) {
     return {
       ...scenes.rootProps,
       ...route,
-      key:position + '_' + route.sceneKey,
+      key: `position_${route.sceneKey}`,
       ...parentProps,
       ...getStateFromScenes(route, scenes, props),
     };
   }
-  let { children, ...res } = { ...route, ...parentProps };
+  let { ...res } = { ...route, ...parentProps };
   let index = 0;
-  route.children.forEach((r, i) => { assert(scenes[r], 'Empty scene for key=' + route.key); if (scenes[r].initial) index = i; });
+  route.children.forEach((r, i) => {
+    assert(scenes[r], `Empty scene for key=${route.key}`);
+    if (scenes[r].initial) {
+      index = i;
+    }
+  });
 
   if (route.tabs) {
     res.children = route.children.map((r, i) => getInitialState(scenes[r], scenes, i, props));
@@ -52,15 +63,14 @@ export function getInitialState(route:{string: any}, scenes:{string:any}, positi
     res.children = [getInitialState(scenes[route.children[index]], scenes, 0, props)];
     res.index = 0;
   }
-  res.key = position + '_' + res.key;
+  res.key = `${position}_${res.key}`;
   return res;
 }
 
-export default function (scenes:{string: any}, props) {
-    // find "root" component and get state from it
-  for (let route in scenes) {
-    if (scenes.hasOwnProperty(route) && !scenes[route].parent) {
-      return getInitialState(scenes[route], scenes);
-    }
-  }
+export default function (scenes:{string: any}) {
+  // find "root" component and get state from it
+  const rootRoute = Object.keys(scenes).find((route) =>
+    scenes.hasOwnProperty(route) && !scenes[route].parent);
+
+  return getInitialState(scenes[rootRoute], scenes);
 }
