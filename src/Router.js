@@ -51,7 +51,7 @@ export default class extends Component {
     }
     Actions.callback = props => {
       this.props.dispatch && this.props.dispatch(props);
-      onNavigate(props);
+      return onNavigate(props);
     };
     return <DefaultRenderer navigationState={navigationState} />;
   }
