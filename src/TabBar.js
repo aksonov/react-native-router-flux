@@ -3,14 +3,8 @@ import Tabs from 'react-native-tabs';
 import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
 const {
-    AnimatedView: NavigationAnimatedView,
-    CardStack: NavigationCardStack,
-    Container: NavigationContainer,
-    Header: NavigationHeader,
-    Reducer: NavigationReducer,
-    RootContainer: NavigationRootContainer,
-    View: NavigationView,
-    } = NavigationExperimental;
+  View: NavigationView,
+} = NavigationExperimental;
 
 
 export default class extends Component {
