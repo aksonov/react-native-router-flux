@@ -51,7 +51,7 @@ describe('Actions', () => {
 
     // set callback which will extract generated action
     let latestAction = null;
-    Actions.callback = scene => { latestAction = scene; };
+    Actions.callback = action => { latestAction = action; };
 
     // test generated actions
     Actions.conversations({ param1: 'Hello world' });
