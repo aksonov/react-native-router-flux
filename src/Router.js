@@ -6,63 +6,107 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React, { Component, NavigationExperimental } from 'react-native';
-const {
-    AnimatedView: NavigationAnimatedView,
-    Card: NavigationCard,
-    RootContainer: NavigationRootContainer,
-    Header: NavigationHeader,
-    } = NavigationExperimental;
+import React, {
+  Component,
+  NavigationExperimental,
+  PropTypes,
+} from 'react-native';
+
 import Actions from './Actions';
 import getInitialState from './State';
 import Reducer from './Reducer';
 import DefaultRenderer from './DefaultRenderer';
 import Scene from './Scene';
 
-export default class extends Component {
+const {
+  RootContainer: NavigationRootContainer,
+} = NavigationExperimental;
+
+const propTypes = {
+  dispatch: PropTypes.func,
+};
+
+class Router extends Component {
+
   constructor(props) {
     super(props);
     this.state = {};
-    this._renderNavigation = this._renderNavigation.bind(this);
-    this._handleProps = this._handleProps.bind(this);
-  }
-
-  _handleProps(props) {
-    const scenesMap = props.scenes || Actions.create(Array.isArray(props.children) ? <Scene key="__root" hideNav {...this.props}>{props.children}</Scene> : props.children);
-    const { children, style, scenes, reducer, createReducer, ...parentProps } = props;
-    scenesMap.rootProps = parentProps;
-    //console.log("SCENE MAPS:", scenesMap);
-    const initialState = getInitialState(scenesMap);
-    const ReducerCreator = props.createReducer || Reducer;
-    this.setState({ reducer: props.reducer || ReducerCreator({ initialState, scenes:scenesMap }) });
-  }
-
-  componentWillReceiveProps(props) {
-    this._handleProps(props);
+    this.renderNavigation = this.renderNavigation.bind(this);
+    this.handleProps = this.handleProps.bind(this);
   }
 
   componentDidMount() {
-    this._handleProps(this.props);
+    this.handleProps(this.props);
   }
 
-  _renderNavigation(navigationState, onNavigate) {
+  componentWillReceiveProps(props) {
+    this.handleProps(props);
+  }
+
+  handleProps(props) {
+    let scenesMap;
+
+    if (props.scenes) {
+      scenesMap = props.scenes;
+    } else {
+      let scenes = props.children;
+
+      if (Array.isArray(props.children)) {
+        scenes = (
+          <Scene
+            key="__root"
+            hideNav
+            {...this.props}
+          >
+            {props.children}
+          </Scene>
+        );
+      }
+      scenesMap = Actions.create(scenes);
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    const { children, styles, scenes, reducer, createReducer, ...parentProps } = props;
+
+    scenesMap.rootProps = parentProps;
+
+    const initialState = getInitialState(scenesMap);
+    const reducerCreator = props.createReducer || Reducer;
+
+    const routerReducer = props.reducer || (
+      reducerCreator({
+        initialState,
+        scenes: scenesMap,
+      }));
+
+    this.setState({ reducer: routerReducer });
+  }
+
+  renderNavigation(navigationState, onNavigate) {
     if (!navigationState) {
       return null;
     }
+
     Actions.callback = props => {
-      this.props.dispatch && this.props.dispatch(props);
+      if (this.props.dispatch) this.props.dispatch(props);
       return onNavigate(props);
     };
+
     return <DefaultRenderer navigationState={navigationState} />;
   }
 
   render() {
-    if (!this.state.reducer) {
-      return null;
-    }
-    return (<NavigationRootContainer
-      reducer={this.state.reducer}
-      renderNavigation={this._renderNavigation.bind(this)}
-    />);
+    if (!this.state.reducer) return null;
+
+    return (
+      <NavigationRootContainer
+        reducer={this.state.reducer}
+        renderNavigation={this.renderNavigation}
+      />
+    );
   }
 }
+
+Router.propTypes = propTypes;
+
+export default Router;
