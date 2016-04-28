@@ -131,19 +131,19 @@ class Actions {
   }
 
   pop(props = {}) {
-    this.callback({ ...filterParam(props), type: POP_ACTION });
+    return this.callback({ ...filterParam(props), type: POP_ACTION });
   }
 
   jump(props = {}) {
-    this.callback({ ...filterParam(props), type: JUMP_ACTION });
+    return this.callback({ ...filterParam(props), type: JUMP_ACTION });
   }
 
   refresh(props = {}) {
-    this.callback({ ...filterParam(props), type: REFRESH_ACTION });
+    return this.callback({ ...filterParam(props), type: REFRESH_ACTION });
   }
 
   focus(props = {}) {
-    this.callback({ ...filterParam(props), type: FOCUS_ACTION });
+    return this.callback({ ...filterParam(props), type: FOCUS_ACTION });
   }
 
   create(scene:Scene) {
