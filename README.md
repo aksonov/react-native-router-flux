@@ -99,56 +99,56 @@ class App extends React.Component {
 ##### Router:
 | Property | Type | Default | Description |
 |---------------|----------|--------------|----------------------------------------------------------------|
-| reducer | function | | optional user-defined reducer for scenes, you may want to use it to intercept all actions and put your custom logic |
-| createReducer | function | | function that returns a reducer function for {initialState, scenes} param, you may wrap Reducer(param) with your custom reducer, check Flux usage section below|
+| reducer | `function` | | optional user-defined reducer for scenes, you may want to use it to intercept all actions and put your custom logic |
+| createReducer | `function` | | function that returns a reducer function for {initialState, scenes} param, you may wrap Reducer(param) with your custom reducer, check Flux usage section below|
 | other props | | | all properties that will be passed to all your scenes |
 | children | | required (if no scenes property passed)| Scene root element |
-| scenes | object | optional | scenes for Router created with Actions.create. This will allow to create all actions BEFORE React processing. If you don't need it you may pass Scene root element as children |
-| getSceneStyle | function | optional | Optionally override the styles for NavigationCard's Animated.View rendering the scene. |
+| scenes | `object` | optional | scenes for Router created with Actions.create. This will allow to create all actions BEFORE React processing. If you don't need it you may pass Scene root element as children |
+| getSceneStyle | `function` | optional | Optionally override the styles for NavigationCard's Animated.View rendering the scene. |
 ##### Scene:
 
 | Property | Type | Default | Description |
 |-----------|--------|---------|--------------------------------------------|
-| key | string | required | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
-| component | React.Component | semi-required | The `Component` to be displayed. Not required when defining a nested `Scene`, see example. If it is defined for 'container' scene, it will be used as custom container `renderer` |
-| type | string | 'push' or 'jump' | Defines how the new screen is added to the navigator stack. One of `push`, `jump`, `replace`, `reset`. If parent container is tabbar (tabs=true), jump will be automatically set.
-| tabs| bool | false | Defines 'TabBar' scene container, so child scenes will be displayed as 'tabs'. If no `component` is defined, built-in `TabBar` is used as renderer. All child scenes are wrapped into own navbar.
-| initial | bool | false | Set to `true` if this is the initial scene |
-| duration | number | | optional. acts as a shortcut to writing an `applyAnimation` function with `Animated.timing` for a given duration (in ms). |
-| direction | string | 'horizontal' | direction of animation horizontal/vertical |
-| applyAnimation | function | | optional if provided overrides the default spring animation |
-| title | string | null | The title to be displayed in the navigation bar |
-| navBar | React.Component | | optional custom NavBar for the scene. Check built-in NavBar of the component for reference |
-| hideNavBar | bool | false | hides the navigation bar for this scene |
-| hideTabBar | bool | false | hides tab bar for this scene (if built-in TabBar component is used as parent renderer)|
-| navigationBarStyle | View style |  | optional style override for the navigation bar |
-| titleStyle | Text style |  | optional style override for the title element |
-| leftTitle | string | | optional string to display on the left if the previous route does not provide `renderBackButton` prop. `renderBackButton` > `leftTitle` > <previous route's `title`> |
-| renderLeftButton | Closure | | optional closure to render the left title / buttons element |
-| drawerImage | Image | `'./menu_burger.png'` | Simple way to override the drawerImage in the navBar |
-| backButtonImage | Image | `'./back_chevron.png'` | Simple way to override the back button in the navBar |
-| backTitle | string | | optional string to display with back button |
-| backButtonTextStyle | Text style | | optional style override for the back title element |
-| renderBackButton | Closure | | optional closure to render back text or button if this route happens to be the previous route |
-| leftButtonImage | Image |  | Image for left button |
-| leftButtonIconStyle | View style |  | Image style for left button |
-| leftButtonStyle | View style | | optional style override for the container of left title / buttons |
-| leftButtonTextStyle | Text style | | optional style override for the left title element |
-| onLeft | Closure | | function will be called when left navBar button is pressed |
-| rightTitle | string | | optional string to display on the right. `onRight` must be provided for this to appear. |
-| onRight | Closure | | function will be called when right navBar button is pressed |
-| renderRightButton | Closure | | optional closure to render the right title / buttons element |
-| rightButtonStyle | View style | | optional style override for the container of right title / buttons |
-| rightButtonTextStyle | Text style | | optional style override for the right title element |
-| rightButtonImage | Image |  | Image for right button |
-| rightButtonIconStyle | View style |  | Image style for right button |
-| clone | bool | | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
-| tabBarStyle | View style |  | optional style override for the Tabs component |
-| sceneStyle | View style | { flex: 1 } | optional style override for the Scene's component |
+| key | `string` | required | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
+| component | `React.Component` | semi-required | The `Component` to be displayed. Not required when defining a nested `Scene`, see example. If it is defined for 'container' scene, it will be used as custom container `renderer` |
+| type | `string` | 'push' or 'jump' | Defines how the new screen is added to the navigator stack. One of `push`, `jump`, `replace`, `reset`. If parent container is tabbar (tabs=true), jump will be automatically set.
+| tabs| `bool` | false | Defines 'TabBar' scene container, so child scenes will be displayed as 'tabs'. If no `component` is defined, built-in `TabBar` is used as renderer. All child scenes are wrapped into own navbar.
+| initial | `bool` | false | Set to `true` if this is the initial scene |
+| duration | `number` | | optional. acts as a shortcut to writing an `applyAnimation` function with `Animated.timing` for a given duration (in ms). |
+| direction | `string` | 'horizontal' | direction of animation horizontal/vertical |
+| applyAnimation | `function` | | optional if provided overrides the default spring animation |
+| title | `string` | null | The title to be displayed in the navigation bar |
+| navBar | `React.Component` | | optional custom NavBar for the scene. Check built-in NavBar of the component for reference |
+| hideNavBar | `bool` | false | hides the navigation bar for this scene |
+| hideTabBar | `bool` | false | hides tab bar for this scene (if built-in TabBar component is used as parent renderer)|
+| navigationBarStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | optional style override for the navigation bar |
+| titleStyle | [`Text style`](https://facebook.github.io/react-native/docs/text.html#style) |  | optional style override for the title element |
+| leftTitle | `string` | | optional string to display on the left if the previous route does not provide `renderBackButton` prop. `renderBackButton` > `leftTitle` > <previous route's `title`> |
+| renderLeftButton | `function` | | optional closure to render the left title / buttons element |
+| drawerImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `'./menu_burger.png'` | Simple way to override the drawerImage in the navBar |
+| backButtonImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `'./back_chevron.png'` | Simple way to override the back button in the navBar |
+| backTitle | `string` | | optional string to display with back button |
+| backButtonTextStyle | [`Text style`](https://facebook.github.io/react-native/docs/text.html#style) | | optional style override for the back title element |
+| renderBackButton | `function` | | optional closure to render back text or button if this route happens to be the previous route |
+| leftButtonImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) |  | Image for left button |
+| leftButtonIconStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | Image style for left button |
+| leftButtonStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) | | optional style override for the container of left title / buttons |
+| leftButtonTextStyle | [`Text style`](https://facebook.github.io/react-native/docs/text.html#style) | | optional style override for the left title element |
+| onLeft | `function` | | function will be called when left navBar button is pressed |
+| rightTitle | `string` | | optional string to display on the right. `onRight` must be provided for this to appear. |
+| onRight | `function` | | function will be called when right navBar button is pressed |
+| renderRightButton | `function` | | optional closure to render the right title / buttons element |
+| rightButtonStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) | | optional style override for the container of right title / buttons |
+| rightButtonTextStyle | [`Text style`](https://facebook.github.io/react-native/docs/text.html#style) | | optional style override for the right title element |
+| rightButtonImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) |  | Image for right button |
+| rightButtonIconStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | Image style for right button |
+| clone | `bool` | | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
+| tabBarStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | optional style override for the Tabs component |
+| sceneStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) | { flex: 1 } | optional style override for the Scene's component |
 | other props | | | all properties that will be passed to your component instance |
-| getSceneStyle | function | optional | Optionally override the styles for NavigationCard's Animated.View rendering the scene. |
-| getTitle | function | optional | Optionally closure to return a value of the title based on state
-| renderTitle | function | optional | Optionally closure to render the title
+| getSceneStyle | `function` | optional | Optionally override the styles for NavigationCard's Animated.View rendering the scene. |
+| getTitle | `function` | optional | Optionally closure to return a value of the title based on state
+| renderTitle | `function` | optional | Optionally closure to render the title
 
 ## Example
 ![launch](https://cloud.githubusercontent.com/assets/1321329/11692367/7337cfe2-9e9f-11e5-8515-e8b7a9f230ec.gif)
