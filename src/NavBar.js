@@ -107,16 +107,16 @@ const styles = StyleSheet.create({
   },
 });
 
-NavBar.contextTypes = {
+const contextTypes = {
   drawer: React.PropTypes.object,
 };
 
-export default class NavBar extends React.Component {
+const defaultProps = {
+  drawerImage: require('./menu_burger.png'),
+  backButtonImage: require('./back_chevron.png'),
+};
 
-  static defaultProps = {
-    drawerImage: require('./menu_burger.png'),
-    backButtonImage: require('./back_chevron.png'),
-  };
+class NavBar extends React.Component {
 
   constructor(props) {
     super(props);
@@ -368,3 +368,8 @@ export default class NavBar extends React.Component {
     );
   }
 }
+
+NavBar.contextTypes = contextTypes;
+NavBar.defaultProps = defaultProps;
+
+export default NavBar;
