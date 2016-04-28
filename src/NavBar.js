@@ -53,15 +53,15 @@ export default class NavBar extends React.Component {
       selected = selected.children[selected.index];
     }
 
-    let renderLeftButton = selected.renderLeftButton || this._renderLeftButton;
-    let renderRightButton = selected.renderRightButton || this._renderRightButton;
-    let renderBackButton = selected.renderBackButton || this._renderBackButton;
-    let renderTitle = selected.renderTitle;
+    let renderLeftButton = selected.renderLeftButton || selected.component.renderLeftButton || this._renderLeftButton;
+    let renderRightButton = selected.renderRightButton || selected.component.renderRightButton || this._renderRightButton;
+    let renderBackButton = selected.renderBackButton || selected.component.renderBackButton || this._renderBackButton;
+    let renderTitle = selected.renderTitle || selected.component.renderTitle;
     return (
             <Animated.View
               style={[styles.header, this.props.navigationBarStyle, state.navigationBarStyle, selected.navigationBarStyle]}
     >
-              {selected.renderTitle ? selected.renderTitle(state) : state.children.map(this._renderTitle, this)}
+              {renderTitle ? renderTitle(selected) : state.children.map(this._renderTitle, this)}
                 {renderBackButton() || renderLeftButton()}
                 {renderRightButton()}
             </Animated.View>
