@@ -24,6 +24,7 @@
  *
  */
 import React, {
+  PropTypes,
   Platform,
   Animated,
   Image,
@@ -108,7 +109,19 @@ const styles = StyleSheet.create({
 });
 
 const contextTypes = {
-  drawer: React.PropTypes.object,
+  drawer: PropTypes.object,
+};
+
+const propTypes = {
+  navigationState: PropTypes.object,
+  backButtonImage: PropTypes.object,
+  backButtonTextStyle: PropTypes.string,
+  leftButtonStyle: PropTypes.string,
+  leftButtonIconStyle: PropTypes.string,
+  getTitle: PropTypes.func,
+  titleStyle: PropTypes.string,
+  position: PropTypes.number,
+  navigationBarStyle: PropTypes.string,
 };
 
 const defaultProps = {
@@ -371,5 +384,6 @@ class NavBar extends React.Component {
 
 NavBar.contextTypes = contextTypes;
 NavBar.defaultProps = defaultProps;
+NavBar.propTypes = propTypes;
 
 export default NavBar;
