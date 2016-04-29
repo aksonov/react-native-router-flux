@@ -108,10 +108,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const contextTypes = {
-  drawer: PropTypes.object,
-};
-
 const propTypes = {
   navigationState: PropTypes.object,
   backButtonImage: PropTypes.number,
@@ -122,6 +118,10 @@ const propTypes = {
   titleStyle: PropTypes.object,
   position: PropTypes.object,
   navigationBarStyle: PropTypes.object,
+};
+
+const contextTypes = {
+  drawer: PropTypes.object,
 };
 
 const defaultProps = {
@@ -382,8 +382,8 @@ class NavBar extends React.Component {
   }
 }
 
+NavBar.propTypes = propTypes;
 NavBar.contextTypes = contextTypes;
 NavBar.defaultProps = defaultProps;
-NavBar.propTypes = propTypes;
 
 export default NavBar;
