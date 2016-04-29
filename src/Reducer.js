@@ -95,12 +95,24 @@ function inject(state, action, props, scenes) {
       if (state.children[state.index].sceneKey === action.key) {
         return state;
       }
-      return { ...state,
-        children: [...state.children.slice(0, -1),
-          getInitialState(props, scenes, state.index, action)] };
+
+      state.children[state.children.length - 1] = getInitialState(props, scenes, state.index, action);
+
+      return { ...state, children: state.children };
     case RESET_ACTION:
-      return { ...state, index: 0,
-        children: [getInitialState(props, scenes, state.index, action)] };
+      if (state.children[state.index].sceneKey === action.key) {
+        return state;
+      }
+
+      state.children = state.children.splice(0, 1);
+      state.children[0] = getInitialState(props, scenes, state.index, action);
+
+      return {
+        ...state,
+        index: 0,
+        from: null,
+        children: state.children,
+      };
     default:
       return state;
   }
