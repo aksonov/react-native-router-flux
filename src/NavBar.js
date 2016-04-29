@@ -302,7 +302,7 @@ class NavBar extends React.Component {
     return tryRender(this.props);
   }
 
-  renderTitle(childState: NavigationState, index:number) {
+  renderTitle(childState, index:number) {
     const title = this.props.getTitle ? this.props.getTitle(childState) : childState.title;
     return (
       <Animated.Text
