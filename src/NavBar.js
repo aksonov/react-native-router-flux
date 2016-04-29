@@ -114,14 +114,14 @@ const contextTypes = {
 
 const propTypes = {
   navigationState: PropTypes.object,
-  backButtonImage: PropTypes.object,
+  backButtonImage: PropTypes.number,
   backButtonTextStyle: PropTypes.string,
   leftButtonStyle: PropTypes.string,
   leftButtonIconStyle: PropTypes.string,
   getTitle: PropTypes.func,
-  titleStyle: PropTypes.string,
-  position: PropTypes.number,
-  navigationBarStyle: PropTypes.string,
+  titleStyle: PropTypes.object,
+  position: PropTypes.object,
+  navigationBarStyle: PropTypes.object,
 };
 
 const defaultProps = {
