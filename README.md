@@ -371,7 +371,7 @@ export default connect(({routes}) => ({routes}))(MyComponent);
 ```
 
 ## Tabbar
-Every tab has its own navigation bar. However, if you do not set its parent `<Scene tabs={true} />` with `hideNavBar={true}`, the tabs' navigation bar will be overrided by their parient.
+Every tab has its own navigation bar. However, if you do not set its parent `<Scene tabs={true} />` with `hideNavBar={true}`, the tabs' navigation bar will be overrided by their parent.
 
 ## Custom nav bar for individual scene or even different state of scene (new feature):
 Your scene `component` class could implement _static_ renderNavigationBar(props) method that could return different navbar depending from component props
