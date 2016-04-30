@@ -244,6 +244,7 @@ class NavBar extends React.Component {
             must be specified for the scene: ${state.name}`
         );
       }
+      return null;
     }
     return tryRender(this.props);
   }
@@ -311,6 +312,7 @@ class NavBar extends React.Component {
             must be specified for the scene: ${state.name}`
         );
       }
+      return null;
     }
     return tryRender(this.props);
   }
