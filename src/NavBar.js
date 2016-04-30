@@ -307,8 +307,8 @@ class NavBar extends React.Component {
       }
       if ((!!state.onLeft ^ !!(state.leftTitle || buttonImage))) {
         console.warn(
-          'Both onLeft and leftTitle/leftButtonImage must be specified for the scene: ' +
-          state.name
+          `Both onLeft and leftTitle/leftButtonImage
+            must be specified for the scene: ${state.name}`
         );
       }
     }
