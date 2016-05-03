@@ -278,13 +278,13 @@ class NavBar extends React.Component {
       }
 
       if (onPress && (state.leftTitle || buttonImage)) {
-        const onPressBind = onPress.bind(null, state);
+        onPress = onPress.bind(null, state);
         return (
           <TouchableOpacity
             key={'leftNavBarBtn'}
             testID="leftNavButton"
             style={[styles.leftButton, state.leftButtonStyle]}
-            onPress={onPressBind}
+            onPress={onPress}
           >
             {state.leftTitle &&
               <Text
