@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import React from 'react-native';
+import React from 'react';
 
 import Actions from '../src/Actions';
 import Scene from '../src/Scene';

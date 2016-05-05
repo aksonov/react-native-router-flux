@@ -1,4 +1,4 @@
-import React, { Component } from 'react-native';
+import React, { Component } from 'react';
 import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
 

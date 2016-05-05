@@ -25,6 +25,8 @@
  */
 import React, {
   PropTypes,
+} from 'react';
+import {
   Platform,
   Animated,
   Image,
