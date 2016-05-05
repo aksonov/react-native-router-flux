@@ -6,11 +6,13 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React, {
-  Animated,
+ import React, {
   Component,
-  NavigationExperimental,
   PropTypes,
+} from 'react';
+import {
+  Animated,
+  NavigationExperimental,
   View,
 } from 'react-native';
 

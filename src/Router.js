@@ -6,10 +6,12 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React, {
+ import React, {
   Component,
-  NavigationExperimental,
   PropTypes,
+} from 'react';
+import {
+  NavigationExperimental,
 } from 'react-native';
 
 import Actions from './Actions';

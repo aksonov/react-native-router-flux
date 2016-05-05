@@ -1,5 +1,7 @@
 import React, {
   PropTypes,
+} from 'react';
+import {
   View,
 } from 'react-native';
 import DefaultRenderer from './DefaultRenderer';

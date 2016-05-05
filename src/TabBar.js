@@ -1,4 +1,7 @@
-import React, { View, Component, NavigationExperimental } from 'react-native';
+import React, {
+  Component,
+} from 'react';
+import { View, NavigationExperimental } from 'react-native';
 import Tabs from 'react-native-tabs';
 import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
