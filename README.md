@@ -44,7 +44,7 @@ npm i react-native-router-flux --save
 
 ## Usage
 1. In top-level index.js, define your scenes using `Scene` element and pass it to `Router`:
-```javascript
+```jsx
 import {Actions, Scene, Router} from 'react-native-router-flux';
 
 class App extends React.Component {
@@ -60,7 +60,7 @@ class App extends React.Component {
 }
 ```
 Alternatively you could define all your scenes during compile time and use it later within `Router`:
-```javascript
+```jsx
 const scenes = Actions.create(
             <Scene key="root">
                 <Scene key="login" component={Login} title="Login"/>
@@ -153,7 +153,7 @@ class App extends React.Component {
 ## Example
 ![launch](https://cloud.githubusercontent.com/assets/1321329/11692367/7337cfe2-9e9f-11e5-8515-e8b7a9f230ec.gif)
 
-```javascript
+```jsx
 import React, {AppRegistry, Navigator, StyleSheet, Text, View} from 'react-native'
 import Launch from './components/Launch'
 import Register from './components/Register'
@@ -217,7 +217,7 @@ export default class Example extends React.Component {
 
 components/Launch.js (initial screen)
 
-```javascript
+```jsx
 import React, {View, Text, StyleSheet, TouchableHighlight} from 'react-native'
 import Button from 'react-native-button'
 import {Actions} from 'react-native-router-flux'
@@ -310,7 +310,7 @@ export default combineReducers({
 Create your store, wrap your routes with the redux `Provider` component and connect your Router
 
 
-```js
+```jsx
 // app.js
 
 import { Router } from 'react-native-router-flux';
@@ -348,7 +348,7 @@ export default App;
 
 Now you can access the current scene from any connected component.
 
-```js
+```jsx
 // components/MyComponent.js
 import React, { PropTypes, Text } from 'react-native';
 import { connect } from 'react-redux';
@@ -380,7 +380,7 @@ Your scene `component` class could implement _static_ renderNavigationBar(props)
 New feature for 3.x release is custom scene renderer that should be used together with tabs={true} property. It allows to select `tab` scene to show depending from app state.
 It could be useful for authentication, restricted scenes, etc. Usually you should wrap `Switch` with redux `connect` to pass application state to it:
 Following example chooses scene depending from sessionID using Redux:
-```javascript
+```jsx
 <Scene key="root" component={connect(state=>({profile:state.profile}))(Switch)} tabs={true}
        selector={props=>props.profile.sessionID ? "main" : "signUp"}>
     <Scene key="signUp" component={SignUp}/>
@@ -389,9 +389,9 @@ Following example chooses scene depending from sessionID using Redux:
 ```
 
 ## Split your scenes to smaller parts if needed
-Scenes concept is similar to iOS storyboard where you describe all your app screens in one place. However for some large apps, you may want to split it, like iOS app could have several iOS storyboards for different areas of the app. 
+Scenes concept is similar to iOS storyboard where you describe all your app screens in one place. However for some large apps, you may want to split it, like iOS app could have several iOS storyboards for different areas of the app.
 Luckily, you could easy split Scenes using NodeJS built-in require calls:
-```
+```jsx
             <Router>
                     {require("./scenesForTabBar")}
                     {require("./scenesForAnotherPart")}
@@ -399,7 +399,7 @@ Luckily, you could easy split Scenes using NodeJS built-in require calls:
 ```
 
 scenesForTabBar.js:
-```
+```jsx
 import React from 'react-native';
 import {Scene} from 'react-native-router-flux';
 
@@ -411,7 +411,7 @@ module.exports = <Scene key="tabbar" tabs={true}>
 ## Drawer (side menu) integration
 Example of Drawer custom renderer based on react-native-drawer. Note that the build-in NavBar component supports toggling of drawer. The Drawer implementation just needs to have a function: toggle();
 
-```javascript
+```jsx
 import React from 'react-native';
 import Drawer from 'react-native-drawer';
 import SideMenu from './SideMenu';
@@ -450,7 +450,7 @@ export default class extends Component {
 You could create 'sub-scene' actions by putting them as children for needed 'base' scene without `component` prop and call such action anywhere - 'base' Scene will be updated accordingly.
 Example for 'My Account' screen with edit possibility (`MyAccount` component should call `Actions.editAccount()` to enable edit mode and process `save`, `editMode` properties accordingly - display edit controls, save data, etc.):
 
-```
+```jsx
 <Scene key="myAccount" component={MyAccount} title="My Account">
     <Scene key="viewAccount" />
     <Scene key="editAccount" editMode rightTitle="Save" onRight={()=>Actions.saveAccount()} leftTitle="Cancel" onLeft={()=>Actions.viewAccount()} />
