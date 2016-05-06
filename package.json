@@ -6,8 +6,10 @@
     "type": "git",
     "url": "https://github.com/aksonov/react-native-router-flux"
   },
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "compile": "babel -d lib/ src/",
+    "prepublish": "npm run compile",
     "test": "mocha --compilers js:babel-core/register --require react-native-mock/mock",
     "test:watch": "npm run test -- --watch"
   },
