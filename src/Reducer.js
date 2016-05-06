@@ -7,6 +7,8 @@
  *
  */
 
+/* eslint-disable no-param-reassign */
+
 import {
   PUSH_ACTION,
   POP_ACTION2,
@@ -96,7 +98,12 @@ function inject(state, action, props, scenes) {
         return state;
       }
 
-      state.children[state.children.length - 1] = getInitialState(props, scenes, state.index, action);
+      state.children[state.children.length - 1] = getInitialState(
+        props,
+        scenes,
+        state.index,
+        action
+      );
 
       return { ...state, children: state.children };
     case RESET_ACTION:
