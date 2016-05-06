@@ -8,8 +8,10 @@
  */
 import React, {
   Component,
-  NavigationExperimental,
   PropTypes,
+} from 'react';
+import {
+  NavigationExperimental,
 } from 'react-native';
 
 import Actions from './Actions';

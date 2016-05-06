@@ -1,4 +1,5 @@
-import React, {View, Text, StyleSheet} from "react-native";
+import React from 'react';
+import {View, Text, StyleSheet} from "react-native";
 import Button from "react-native-button";
 import {Actions} from "react-native-router-flux";
 
@@ -24,9 +25,6 @@ const styles = StyleSheet.create({
 
 export default class TabView extends React.Component {
     render(){
-        var {View, Text} = React;
-        var Button = require("react-native-button");
-        var Actions = require("react-native-router-flux").Actions;
         const drawer = this.context.drawer;
         return (
             <View style={[styles.container, this.props.sceneStyle]}>

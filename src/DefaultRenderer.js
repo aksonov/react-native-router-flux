@@ -7,10 +7,12 @@
  *
  */
 import React, {
-  Animated,
   Component,
-  NavigationExperimental,
   PropTypes,
+} from 'react';
+import {
+  Animated,
+  NavigationExperimental,
   View,
 } from 'react-native';
 

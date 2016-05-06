@@ -1,4 +1,6 @@
-import React, {Component} from "react-native"
+import React, {
+  Component,
+} from 'react';
 import TabView from "./TabView"
 import Drawer from "react-native-drawer"
 import {DefaultRenderer} from "react-native-router-flux";

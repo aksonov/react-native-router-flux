@@ -1,4 +1,5 @@
-import React, {AppRegistry, Navigator, StyleSheet, Text, View} from 'react-native'
+import React from 'react';
+import {AppRegistry, Navigator, StyleSheet, Text, View} from 'react-native'
 import Launch from './components/Launch'
 import Register from './components/Register'
 import Login from './components/Login'
