@@ -1,7 +1,7 @@
 import React, {
   Component,
 } from 'react';
-import { View, NavigationExperimental } from 'react-native';
+import { PropTypes, View, NavigationExperimental } from 'react-native';
 import Tabs from 'react-native-tabs';
 import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
@@ -9,8 +9,13 @@ const {
   View: NavigationView,
 } = NavigationExperimental;
 
+const propTypes = {
+  tabIcon: PropTypes.element,
+  navigationState: PropTypes.object,
+};
 
-export default class extends Component {
+
+class TabBar extends Component {
 
   constructor(props) {
     super(props);
@@ -21,8 +26,8 @@ export default class extends Component {
   onSelect(el) {
     if (!Actions[el.props.name]) {
       throw new Error(
-        'No action is defined for name=' + el.props.name +
-        ' actions:' + JSON.stringify(Object.keys(Actions)));
+        `No action is defined for name=${el.props.name}
+        actions:${JSON.stringify(Object.keys(Actions))}`);
     }
     Actions[el.props.name]();
   }
@@ -73,3 +78,7 @@ export default class extends Component {
     );
   }
 }
+
+TabBar.propTypes = propTypes;
+
+export default TabBar;
