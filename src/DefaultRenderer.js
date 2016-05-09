@@ -106,7 +106,7 @@ export default class DefaultRenderer extends Component {
     }
 
     if (selected.component && selected.component.renderNavigationBar) {
-      return selected.component.renderNavigationBar({ ...this.props, ...selected });
+      return selected.component.renderNavigationBar({ ...props, ...selected });
     }
 
     const HeaderComponent = selected.navBar || child.navBar || state.navBar || NavBar;
