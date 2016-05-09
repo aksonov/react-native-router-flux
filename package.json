@@ -57,6 +57,7 @@
     "eslint-plugin-react": "^5.0.1",
     "expect": "^1.14.0",
     "mocha": "^2.4.5",
+    "mocha-junit-reporter": "^1.11.1",
     "react": "^0.14.8",
     "react-addons-test-utils": "^0.14.7",
     "react-dom": "^0.14.7",
