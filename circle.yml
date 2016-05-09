@@ -11,5 +11,5 @@ test:
     - mkdir -p $CIRCLE_TEST_REPORTS/eslint
     - touch $CIRCLE_TEST_REPORTS/eslint/eslint.xml
   override:
-    - eslint index.js src/ test/ -o $CIRCLE_TEST_REPORTS/eslint/eslint.xml -f junit
-    - npm test -- --reporter xunit > $CIRCLE_TEST_REPORTS/mocha/junit.xml
+    - node node_modules/eslint/bin/eslint index.js src/ test/ -o $CIRCLE_TEST_REPORTS/eslint/eslint.xml -f junit
+    - MOCHA_FILE=$CIRCLE_TEST_REPORTS/mocha/junit.xml npm test -- --reporter mocha-junit-reporter
