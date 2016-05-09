@@ -122,6 +122,7 @@ const propTypes = {
   titleStyle: PropTypes.object,
   position: PropTypes.object,
   navigationBarStyle: PropTypes.object,
+  renderTitle: PropTypes.any,
 };
 
 const contextTypes = {
