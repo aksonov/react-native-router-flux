@@ -1,0 +1,15 @@
+machine:
+  node:
+    version: 5.11.1
+dependencies:
+  override:
+    - npm install
+test:
+  pre:
+    - mkdir -p $CIRCLE_TEST_REPORTS/mocha
+    - touch $CIRCLE_TEST_REPORTS/mocha/junit.xml
+    - mkdir -p $CIRCLE_TEST_REPORTS/eslint
+    - touch $CIRCLE_TEST_REPORTS/eslint/eslint.xml
+  override:
+    - eslint index.js src/ test/ -o $CIRCLE_TEST_REPORTS/eslint/eslint.xml -f junit
+    - npm test -- --reporter xunit > $CIRCLE_TEST_REPORTS/mocha/junit.xml
