@@ -32,3 +32,6 @@ local.properties
 #
 node_modules/
 npm-debug.log
+
+# build version of the code
+lib/
