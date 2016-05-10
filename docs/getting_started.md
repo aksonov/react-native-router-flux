@@ -66,3 +66,5 @@ Actions.SCENE_KEY()
 Where `SCENE_KEY` must match the `key` prop defined in one of the Scenes of the `Router` component in the root file.
 
 Since the PageTwo component has the key of `pageTwo`, all we need to do is to pass in the function `Actions.pageTwo` into the `<Text>` component so that it executes the page transition when the text is pressed.
+
+That's it for the super simple example! You've just learned how to setup routes and navigate from one page to another.
