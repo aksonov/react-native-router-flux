@@ -41,7 +41,7 @@ export default class extends Component {
 
   render() {
     if (this.state.navigationState) {
-      return <DefaultRenderer navigationState={this.state.navigationState} />;
+      return <DefaultRenderer onNavigate={this.props.onNavigate} navigationState={this.state.navigationState} />;
     }
 
     return null;
