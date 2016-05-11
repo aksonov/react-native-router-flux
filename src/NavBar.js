@@ -23,7 +23,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import React, {Animated, PixelRatio, Image, StyleSheet, Text, TouchableOpacity, View, NavigationExperimental} from "react-native";
+import React, { Component } from 'react';
+import {Animated, PixelRatio, Image, StyleSheet, Text, TouchableOpacity, View, NavigationExperimental} from "react-native";
 import Actions from "./Actions";
 const {
     AnimatedView: NavigationAnimatedView,
@@ -32,7 +33,7 @@ const {
     Header: NavigationHeader,
     } = NavigationExperimental;
 
-export default class NavBar extends React.Component {
+export default class NavBar extends Component {
     componentWillMount(){
         const state = this.props.navigationState;
         this._renderRightButton = this._renderRightButton.bind(this);
