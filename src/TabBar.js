@@ -28,19 +28,14 @@ class TabBar extends React.Component {
     Actions[el.props.name]();
   }
 
-  renderScene(props) {
-    if (props.layout) {
-            // for 0.24+, props is /*NavigationSceneRendererProps*/
-            // (add flow def above when phasing out < 0.24 support)
-      return (
-        <DefaultRenderer
-          key={props.scene.navigationState.key}
-          navigationState={props.scene.navigationState}
-        />
-      );
-    }
-    // for < 0.24
-    return <DefaultRenderer key={props.key} navigationState={props} />;
+  renderScene(/* NavigationSceneRendererProps */ props) {
+    return (
+      <DefaultRenderer
+        key={props.scene.navigationState.key}
+        onNavigate={props.onNavigate}
+        navigationState={props.scene.navigationState}
+      />
+    );
   }
 
   render() {
