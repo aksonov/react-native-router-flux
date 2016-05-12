@@ -65,7 +65,7 @@ export default class DefaultRenderer extends Component {
     }
     const scene = navigationState.children[navigationState.index];
     // (temp or production?) Fix for #664
-    if (navigationState.index == 1) {
+    if (navigationState.index > 0) {
       // Make sure the key names are not the same, or error will be thrown.
       if (scene.key === navigationState.children[navigationState.index-1].key) {
         // Change the new key name (just add current index to end of scene.key)
