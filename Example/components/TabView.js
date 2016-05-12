@@ -1,5 +1,6 @@
 import React from 'react';
-import { PropTypes, StyleSheet, Text, View } from 'react-native';
+import {PropTypes} from "react";
+import {StyleSheet, Text, View} from "react-native";
 import Button from 'react-native-button';
 import { Actions } from 'react-native-router-flux';
 
