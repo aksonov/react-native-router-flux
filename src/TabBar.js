@@ -5,6 +5,7 @@ import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
 import TabbedView from './TabbedView';
 
+console.log("COMPONENT:", Component);
 class TabBar extends Component {
 
   static propTypes = {
@@ -45,7 +46,7 @@ class TabBar extends Component {
           navigationState={this.props.navigationState}
           style={{ flex: 1 }}
           renderScene={this.renderScene}
-        />        
+        />
         {!hideTabBar && state.children.filter(el => el.icon).length > 0 &&
           <Tabs
             style={[{ backgroundColor: 'white' }, state.tabBarStyle]}
