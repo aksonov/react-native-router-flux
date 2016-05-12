@@ -51,7 +51,7 @@ export default class Example extends React.Component {
         return <Router createReducer={reducerCreate}>
             <Scene key="modal" component={Modal} >
                 <Scene key="root" hideNavBar={true}>
-                    <Scene key="echo" clone component={EchoView} hideNavBar={false} />
+                    <Scene key="echo" clone component={EchoView} />
                     <Scene key="register" component={Register} title="Register"/>
                     <Scene key="register2" component={Register} title="Register2" duration={1}/>
                     <Scene key="home" component={Home} title="Replace" type="replace"/>
