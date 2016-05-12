@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { View, StyleSheet } from 'react-native';
-import Tabs from 'react-native-tabs';
 import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
-import TabbedView from './TabbedView';
+import TabNavigator from 'react-native-tab-navigator';
 
 class TabBar extends Component {
 
@@ -12,52 +11,64 @@ class TabBar extends Component {
     tabIcon: PropTypes.any,
   };
 
-  onSelect = (el) => {
-    if (!Actions[el.props.name]) {
+  constructor(props) {
+    super(props);
+    this.onSelect = this.onSelect.bind(this);
+  }
+
+  onSelect(el) {
+    if (!Actions[el.sceneKey]) {
       throw new Error(
-        `No action is defined for name=${el.props.name} ` +
+        `No action is defined for sceneKey=${el.sceneKey} ` +
         `actions: ${JSON.stringify(Object.keys(Actions))}`);
     }
-    Actions[el.props.name]();
-  };
-
-  renderScene(navigationState, index) {
-    return <DefaultRenderer
-      key={navigationState.key}
-      onNavigate={this.props.onNavigate}
-      navigationState={navigationState}
-    />
-  };
+    Actions[el.sceneKey]();
+  }
 
   render() {
     const state = this.props.navigationState;
     let selected = state.children[state.index];
-    while (selected.hasOwnProperty('children')) {
-      selected = selected.children[selected.index];
-    }
+    // @todo not sure about this
+    // while (selected.hasOwnProperty('children')) {
+    //   selected = selected.children[selected.index];
+    // }
     const hideTabBar = state.hideTabBar || selected.hideTabBar;
+
+    // @todo document/correct various tab props
 
     return (
       <View
         style={{ flex: 1 }}
       >
-        <TabbedView
-          navigationState={this.props.navigationState}
-          style={{ flex: 1 }}
-          renderScene={this.renderScene.bind(this)}
-        />
-        {!hideTabBar && state.children.filter(el => el.icon).length > 0 &&
-          <Tabs
-            style={[{ backgroundColor: 'white' }, state.tabBarStyle]}
-            onSelect={this.onSelect} {...state}
-            selected={state.children[state.index].sceneKey}
-          >
-            {state.children.filter(el => el.icon || this.props.tabIcon).map(el => {
-              const Icon = el.icon || this.props.tabIcon;
-              return <Icon {...this.props} {...el} />;
-            })}
-          </Tabs>
-        }
+        <TabNavigator
+          tabBarStyle={this.props.tabBarStyle}
+          sceneStyle={this.props.sceneStyle}
+        >
+          {state.children.map(el => {
+            const isSelected = el.sceneKey === selected.sceneKey;
+            const Icon = el.icon || this.props.tabIcon;
+            return (
+              <TabNavigator.Item
+                key={el.key}
+                selected={isSelected}
+                title={el.title}
+                renderIcon={() => <Icon {...this.props} {...el} />}
+                renderSelectedIcon={() => <Icon {...this.props} {...el} selected={true} />}
+                onPress={() => this.onSelect(el)}
+                tabStyle={el.tabStyle}
+                titleStyle={el.titleStyle}
+                selectedTitleStyle={el.selectedTitleStyle}
+              >
+                <DefaultRenderer
+                  key={el.key}
+                  onNavigate={this.props.onNavigate}
+                  navigationState={el}
+                />
+              </TabNavigator.Item>
+              
+            );
+          })}
+        </TabNavigator>
       </View>
     );
   }
