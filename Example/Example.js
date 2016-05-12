@@ -51,7 +51,7 @@ export default class Example extends React.Component {
         return <Router createReducer={reducerCreate}>
             <Scene key="modal" component={Modal} >
                 <Scene key="root" hideNavBar={true}>
-                    <Scene key="echo" clone component={EchoView} />
+                    <Scene key="echo" clone component={EchoView} hideNavBar={false} />
                     <Scene key="register" component={Register} title="Register"/>
                     <Scene key="register2" component={Register} title="Register2" duration={1}/>
                     <Scene key="home" component={Home} title="Replace" type="replace"/>
@@ -67,12 +67,12 @@ export default class Example extends React.Component {
                                 <Scene key="tab1_2" component={TabView} title="Tab #1_2" titleStyle={{color:"black"}}/>
                             </Scene>
                             <Scene key="tab2" initial={true} title="Tab #2" icon={TabIcon}>
-                                <Scene key="tab2_1" component={TabView} title="Tab #2_1"/>
+                                <Scene key="tab2_1" component={TabView} title="Tab #2_1" renderRightButton={()=><Right/>} />
                                 <Scene key="tab2_2" component={TabView} title="Tab #2_2" onLeft={()=>alert("Left button!")} leftTitle="Left" duration={1} panHandlers={null}/>
                             </Scene>
                             <Scene key="tab3" component={TabView} title="Tab #3" hideTabBar={true} icon={TabIcon}/>
                             <Scene key="tab4" component={TabView} title="Tab #4" hideNavBar={true} icon={TabIcon}/>
-                            <Scene key="tab5" component={TabView} title="Tab #5" icon={TabIcon} renderRightButton={()=><Right/>}/>
+                            <Scene key="tab5" component={TabView} title="Tab #5" hideTabBar={true} hideNavBar={true} icon={TabIcon}/>
                         </Scene>
                     </Scene>
                 </Scene>
