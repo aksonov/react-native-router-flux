@@ -42,7 +42,7 @@ export function getInitialState(
     return {
       ...scenes.rootProps,
       ...route,
-      key: `position_${route.sceneKey}`,
+      key: `${position}_${route.sceneKey}`,
       ...parentProps,
       ...getStateFromScenes(route, scenes, props),
     };
