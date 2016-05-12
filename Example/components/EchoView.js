@@ -9,6 +9,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#F5FCFF",
+        borderWidth: 2,
+        borderColor: 'red',
     },
     instructions: {
         textAlign: "center",
