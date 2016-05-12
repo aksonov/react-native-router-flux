@@ -5,7 +5,6 @@ import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
 import TabbedView from './TabbedView';
 
-console.log("COMPONENT:", Component);
 class TabBar extends Component {
 
   static propTypes = {
@@ -22,7 +21,7 @@ class TabBar extends Component {
     Actions[el.props.name]();
   };
 
-  renderScene = (navigationState, index) => {
+  renderScene(navigationState, index) {
     return <DefaultRenderer
       key={navigationState.key}
       onNavigate={this.props.onNavigate}
@@ -45,7 +44,7 @@ class TabBar extends Component {
         <TabbedView
           navigationState={this.props.navigationState}
           style={{ flex: 1 }}
-          renderScene={this.renderScene}
+          renderScene={this.renderScene.bind(this)}
         />
         {!hideTabBar && state.children.filter(el => el.icon).length > 0 &&
           <Tabs

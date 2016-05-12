@@ -94,7 +94,6 @@ export default class DefaultRenderer extends Component {
           NavigationCardStackPanResponder.forVertical(props) :
           NavigationCardStackPanResponder.forHorizontal(props));
     }
-
     return (
       <NavigationCard
         {...props}
@@ -163,6 +162,7 @@ export default class DefaultRenderer extends Component {
     const { navigationState, onNavigate } = this.props;
 
     if (!navigationState || !onNavigate) {
+      console.error("navigationState and onNavigate property should be not null");
       return null;
     }
 
@@ -171,7 +171,6 @@ export default class DefaultRenderer extends Component {
     if (navigationState.tabs && !SceneComponent) {
       SceneComponent = TabBar;
     }
-
     if (SceneComponent) {
       return (
         <View

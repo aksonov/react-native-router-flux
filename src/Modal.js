@@ -18,7 +18,7 @@ export default function Modal(props: Object) {
 
   return (
     <View style={{ flex: 1 }}>
-      <DefaultRenderer navigationState={state} key={state.key} {...state} />
+      <DefaultRenderer navigationState={state} key={state.key} {...state} onNavigate={props.onNavigate}/>
       {children.length > 1 && children.map((el, i) => {
         if (i > 0 && el.component) {
           const Component = el.component;
