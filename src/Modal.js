@@ -10,6 +10,7 @@ const propTypes = {
   navigationState: PropTypes.shape({
     children: PropTypes.array,
   }),
+  onNavigate: PropTypes.func,
 };
 
 export default function Modal(props: Object) {
