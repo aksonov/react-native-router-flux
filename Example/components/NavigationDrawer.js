@@ -24,7 +24,7 @@ class NavigationDrawer extends React.Component {
           main: { opacity: Math.max(0.54, 1 - ratio) },
         })}
       >
-        <DefaultRenderer navigationState={children[0]} />
+        <DefaultRenderer navigationState={children[0]} onNavigate={this.props.onNavigate} />
       </Drawer>
     );
   }
