@@ -20,6 +20,7 @@ import {
 import TabBar from './TabBar';
 import NavBar from './NavBar';
 import Actions from './Actions';
+import Util from './Util';
 
 const {
   AnimatedView: NavigationAnimatedView,
@@ -106,11 +107,14 @@ export default class DefaultRenderer extends Component {
   }
 
   renderScene(/* NavigationSceneRendererProps */ props) {
+    const hideNavBar = Util.deepestExplicitValueForKey(props.navigationState, 'hideNavBar');
+
     return (
       <DefaultRenderer
         key={props.scene.navigationState.key}
         onNavigate={props.onNavigate}
         navigationState={props.scene.navigationState}
+        hideNavBar={hideNavBar}
       />
     );
   }
@@ -122,7 +126,9 @@ export default class DefaultRenderer extends Component {
     while (selected.hasOwnProperty('children')) {
       selected = selected.children[selected.index];
     }
-    if (state.hideNavBar || selected.hideNavBar || child.hideNavBar) {
+
+    const hideNavBar = Util.deepestExplicitValueForKey(state, 'hideNavBar');
+    if (hideNavBar) {
       return null;
     }
 
@@ -180,6 +186,7 @@ export default class DefaultRenderer extends Component {
             {...navigationState}
             onNavigate={this.props.onNavigate}
             navigationState={navigationState}
+            hideNavBar={this.props.hideNavBar}
           />
         </View>
       );

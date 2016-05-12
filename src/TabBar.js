@@ -1,20 +1,19 @@
 import React, { Component, PropTypes } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
 import TabNavigator from 'react-native-tab-navigator';
+import Util from './Util';
 
 class TabBar extends Component {
 
   static propTypes = {
     navigationState: PropTypes.object,
     tabIcon: PropTypes.any,
+    onNavigate: PropTypes.func,
+    tabBarStyle: View.propTypes.style,
+    tabSceneStyle: View.propTypes.style,
   };
-
-  constructor(props) {
-    super(props);
-    this.onSelect = this.onSelect.bind(this);
-  }
 
   onSelect(el) {
     if (!Actions[el.sceneKey]) {
@@ -27,22 +26,25 @@ class TabBar extends Component {
 
   render() {
     const state = this.props.navigationState;
-    let selected = state.children[state.index];
-    // @todo not sure about this
-    // while (selected.hasOwnProperty('children')) {
-    //   selected = selected.children[selected.index];
-    // }
-    const hideTabBar = state.hideTabBar || selected.hideTabBar;
+    const selected = state.children[state.index];
+    const hideTabBar = Util.deepestExplicitValueForKey(state, 'hideTabBar');
 
-    // @todo document/correct various tab props
+    const tabBarStyle = {};
+    const tabSceneStyle = {};
+
+    if (hideTabBar) {
+      tabBarStyle.opacity = 0;
+      tabBarStyle.height = 0;
+      tabSceneStyle.paddingBottom = 0;
+    }
 
     return (
       <View
         style={{ flex: 1 }}
       >
         <TabNavigator
-          tabBarStyle={this.props.tabBarStyle}
-          sceneStyle={this.props.sceneStyle}
+          tabBarStyle={[this.props.tabBarStyle, tabBarStyle]}
+          sceneStyle={[this.props.tabSceneStyle, tabSceneStyle]}
         >
           {state.children.map(el => {
             const isSelected = el.sceneKey === selected.sceneKey;
@@ -51,13 +53,13 @@ class TabBar extends Component {
               <TabNavigator.Item
                 key={el.key}
                 selected={isSelected}
-                title={el.title}
+                title={el.tabTitle}
                 renderIcon={() => <Icon {...this.props} {...el} />}
-                renderSelectedIcon={() => <Icon {...this.props} {...el} selected={true} />}
+                renderSelectedIcon={() => <Icon {...this.props} {...el} selected />}
                 onPress={() => this.onSelect(el)}
                 tabStyle={el.tabStyle}
-                titleStyle={el.titleStyle}
-                selectedTitleStyle={el.selectedTitleStyle}
+                titleStyle={el.tabTitleStyle}
+                selectedTitleStyle={el.tabSelectedTitleStyle}
               >
                 <DefaultRenderer
                   key={el.key}
@@ -65,7 +67,6 @@ class TabBar extends Component {
                   navigationState={el}
                 />
               </TabNavigator.Item>
-              
             );
           })}
         </TabNavigator>

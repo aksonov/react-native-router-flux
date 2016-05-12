@@ -1,8 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
 
 export default class extends Component {
+
+  static propTypes = {
+    onNavigate: PropTypes.func,
+  };
+
   constructor(props) {
     super(props);
     this.updateState = this.updateState.bind(this);
