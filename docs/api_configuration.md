@@ -12,9 +12,7 @@
 - `Actions`
 - `NavBar`
 
-## Configuration
-
-##### Router:
+## Router:
 | Property | Type | Default | Description |
 |---------------|----------|--------------|----------------------------------------------------------------|
 | reducer | `function` | | optional user-defined reducer for scenes, you may want to use it to intercept all actions and put your custom logic |
@@ -23,7 +21,8 @@
 | children | | required (if no scenes property passed)| Scene root element |
 | scenes | `object` | optional | scenes for Router created with Actions.create. This will allow to create all actions BEFORE React processing. If you don't need it you may pass Scene root element as children |
 | getSceneStyle | `function` | optional | Optionally override the styles for NavigationCard's Animated.View rendering the scene. |
-##### Scene:
+
+## Scene:
 
 | Property | Type | Default | Description |
 |-----------|--------|---------|--------------------------------------------|
