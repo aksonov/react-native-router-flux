@@ -73,7 +73,7 @@ Since the PageTwo component has the key of `pageTwo`, all we need to do is to pa
 
 Now let's try to extend our example so that we can pass data from `PageOne` to `PageTwo`.
 
-In `PageOne.js`, instead of simply passing in `Actions.pageTwo`, we can replace it with `Actions.pageTwo({text: 'Hello World!'})`. In this case, we need to wrap the Action call inside a function to prevent it from executing when this component is rendered. As a result, the render function inside our `PageOne.js` component should look like this:
+In `PageOne.js`, instead of simply passing in `Actions.pageTwo`, we can replace it with `Actions.pageTwo({text: 'Hello World!'})`. In this case, we need to wrap the Action call inside a function to prevent it from executing when this component is rendered. As a result, the render function inside `PageOne.js` should look like this:
 
 ```jsx
 render() {
@@ -105,3 +105,21 @@ Now, if we navigate to the PageTwo Scene as before, we should see:
 This is PageTwo!
 Hello World!
 ```
+
+## Going Forward (or backwards?)
+
+That pretty much concludes this mini-tutorial, we've covered most of the basics here. There are a lot of things you can do to customize `react-native-router-flux`, this is only the beginning.
+
+For example, you may want to programmatically go back to the previous Scene. The included navbar already allows you to do this by pressing on the arrow icon at the upper left corner. But you can also call this function at any point in your app for the same effect:
+
+```js
+Actions.pop()
+```
+
+And should you ever want to refresh the same Scene with new props, you can use:
+
+```js
+Actions.refresh(PARAMS)
+```
+
+Don't be afraid to explore the docs, you'll be surprised at how much you're able to customize with `react-native-router-flux`!
