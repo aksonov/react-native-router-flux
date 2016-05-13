@@ -2,8 +2,7 @@
 
 Check out the following pages:
 
-- [Installation](install.md)
-- [Getting Started](getting_started.md)
+- [Mini-Tutorial](mini_tutorial.md)
 - Available Imports
 - Example
 - Modals
