@@ -1,8 +1,4 @@
-# Getting Started
-
-This document will walk you through the basics of using this router.
-
-## Super Simple Example
+# Mini-Tutorial
 
 ![super_simple.gif](super_simple.gif)
 
