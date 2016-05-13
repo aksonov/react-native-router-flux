@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node_modules/react-native/packager/packager.sh"
+    "start": "node_modules/react-native/packager/packager.sh",
+    "sync-rnrf": "rm -rf ./node_modules/react-native-router-flux; sane '/usr/bin/rsync -v -a --exclude .git --exclude Example --exclude node_modules ../ ./node_modules/react-native-router-flux/' .. --glob='{**/*.json,**/*.js}'"
   },
   "dependencies": {
     "react": "^15.0.2",
@@ -12,5 +13,8 @@
     "react-native-drawer": "^2.2.2",
     "react-native-modalbox": "^1.3.3",
     "react-native-router-flux": "file:../"
+  },
+  "devDependencies": {
+    "sane": "^1.3.4"
   }
 }
