@@ -46,9 +46,18 @@ const reducerCreate = params=>{
     }
 };
 
+// define this based on the styles/dimensions you use
+const sceneStyleFn = function (props) {
+  return {
+    flex: 1,
+    marginTop: props.hideNavBar ? 0 : 64,
+    marginBottom: props.hideTabBar ? 0 : 49.5,
+  };
+}
+
 export default class Example extends React.Component {
     render() {
-        return <Router createReducer={reducerCreate}>
+        return <Router createReducer={reducerCreate} sceneStyleFn={sceneStyleFn}>
             <Scene key="modal" component={Modal} >
                 <Scene key="root" hideNavBar={true}>
                     <Scene key="echo" clone component={EchoView} />
