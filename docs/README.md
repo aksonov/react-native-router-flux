@@ -5,6 +5,7 @@ Router for React Native based on new React Native Navigation API.
 ## Documentation
 
 - [Mini-Tutorial](mini_tutorial.md)
+- [API and Configuration](api_configuration.md)
 - Available Imports
 - Example
 - Modals
