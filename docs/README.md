@@ -6,19 +6,19 @@ Router for React Native based on new React Native Navigation API.
 
 - [Mini-Tutorial](mini_tutorial.md)
 - [API and Configuration](api_configuration.md)
-- Available Imports
-- Example
-- Modals
-- Redux/Flux
-- Tabs
-- Custom Navbar
-- Switch
-- Splitting Up Scenes
-- Drawer/Side Menu
-- Sub-Scenes
-- Configuration/API
-  - Router
-  - Scene
+  - Available Imports
+  - Router API
+  - Scene API
+- [Detailed Example](detailed_example.md)
+- Other Info
+  - Modals
+  - Redux/Flux
+  - Tabs
+  - Custom Navbar
+  - Switch
+  - Splitting Up Scenes
+  - Drawer/Side Menu
+  - Sub-Scenes
 
 ## Features
 
