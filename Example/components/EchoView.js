@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 export default class extends React.Component {
     render(){
         return (
-            <View style={[styles.container, this.props.sceneStyle, !this.props.hideNavBar ? { marginTop: 64 } : null]}>
+            <View style={[styles.container, this.props.sceneStyle, this.props.sceneStyleFn(this.props)]}>
                 <Text style={styles.instructions}>key: {this.props.navigationState.key}</Text>
                 <Text style={styles.instructions}>sceneKey: {this.props.navigationState.sceneKey}</Text>
                 <Button

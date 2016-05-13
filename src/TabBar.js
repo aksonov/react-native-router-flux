@@ -30,12 +30,10 @@ class TabBar extends Component {
     const hideTabBar = Util.deepestExplicitValueForKey(state, 'hideTabBar');
 
     const tabBarStyle = {};
-    const tabSceneStyle = {};
 
     if (hideTabBar) {
       tabBarStyle.opacity = 0;
       tabBarStyle.height = 0;
-      tabSceneStyle.paddingBottom = 0;
     }
 
     return (
@@ -44,7 +42,7 @@ class TabBar extends Component {
       >
         <TabNavigator
           tabBarStyle={[this.props.tabBarStyle, tabBarStyle]}
-          sceneStyle={[this.props.tabSceneStyle, tabSceneStyle]}
+          sceneStyle={[{ paddingBottom: 0 }, this.props.tabSceneStyle]}
         >
           {state.children.map(el => {
             const isSelected = el.sceneKey === selected.sceneKey;

@@ -108,6 +108,7 @@ export default class DefaultRenderer extends Component {
 
   renderScene(/* NavigationSceneRendererProps */ props) {
     const hideNavBar = Util.deepestExplicitValueForKey(props.navigationState, 'hideNavBar');
+    const hideTabBar = Util.deepestExplicitValueForKey(props.navigationState, 'hideTabBar');
 
     return (
       <DefaultRenderer
@@ -115,6 +116,7 @@ export default class DefaultRenderer extends Component {
         onNavigate={props.onNavigate}
         navigationState={props.scene.navigationState}
         hideNavBar={hideNavBar}
+        hideTabBar={hideTabBar}
       />
     );
   }
@@ -165,7 +167,7 @@ export default class DefaultRenderer extends Component {
   }
 
   render() {
-    const { navigationState, onNavigate } = this.props;
+    const { navigationState, onNavigate, sceneStyleFn, hideNavBar, hideTabBar } = this.props;
 
     if (!navigationState || !onNavigate) {
       console.error("navigationState and onNavigate property should be not null");
@@ -184,9 +186,10 @@ export default class DefaultRenderer extends Component {
         >
           <SceneComponent
             {...navigationState}
-            onNavigate={this.props.onNavigate}
+            onNavigate={onNavigate}
             navigationState={navigationState}
-            hideNavBar={this.props.hideNavBar}
+            hideNavBar={hideNavBar}
+            hideTabBar={hideTabBar}
           />
         </View>
       );
