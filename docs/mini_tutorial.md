@@ -73,13 +73,20 @@ Since the PageTwo component has the key of `pageTwo`, all we need to do is to pa
 
 Now let's try to extend our example so that we can pass data from `PageOne` to `PageTwo`.
 
-In `PageOne.js`, instead of simply passing in `Actions.pageTwo`, we can replace it with `Actions.pageTwo({text: 'Hello World!'})`:
+In `PageOne.js`, instead of simply passing in `Actions.pageTwo`, we can replace it with `Actions.pageTwo({text: 'Hello World!'})`. In this case, we need to wrap the Action call inside a function to prevent it from executing when this component is rendered. As a result, the render function inside our `PageOne.js` component should look like this:
 
 ```jsx
-<Text onPress={Actions.pageTwo({text: 'hello world!'})}>This is PageOne!</Text>
+render() {
+  const goToPageTwo = () => Actions.pageTwo({text: 'Hello World!'}); 
+  return (
+    <View style={{margin: 128}}>
+      <Text onPress={goToPageTwo}>This is PageOne!</Text>
+    </View>
+  )
+}
 ```
 
-And in `PageTwo.js`, we can use that data by adding an additional `<Text>` component below the existing one:
+And in `PageTwo.js`, we can use the data being passed in by adding an additional `<Text>` component below the existing one like so:
 
 ```jsx
 render() {
