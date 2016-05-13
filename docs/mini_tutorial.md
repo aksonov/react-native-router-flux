@@ -30,7 +30,7 @@ export default class App extends Component {
 }
 ```
 
-In `react-native-router-flux`, each route (or page) is called a `<Scene>`. Conventionally, your Scenes should be wrapped inside a root scene before being finally wrapped inside a `<Router>` component that is returned in the `render()` function.
+In `react-native-router-flux`, each route (or page) is called a `<Scene>`. Conventionally, your Scenes should be wrapped inside a root Scene before being finally wrapped inside a `<Router>` component that is returned in the `render()` function.
 
 At the very minimum, each `<Scene>` component should have the following props:
 
@@ -65,7 +65,7 @@ To navigate from one route to another, an `Action` must be called. This takes th
 Actions.SCENE_KEY(PARAMS)
 ```
 
-Where `SCENE_KEY` must match the `key` prop defined in one of the Scenes of the `Router` component in the root file. And PARAMS refers to a javascript object that will be passed into the resulting scene as props (more on this later).
+Where `SCENE_KEY` must match the `key` prop defined in one of the Scenes of the `Router` component in the root file. And `PARAMS` refers to a javascript object that will be passed into the resulting scene as props (more on this later).
 
 Since the PageTwo component has the key of `pageTwo`, all we need to do is to pass in the function `Actions.pageTwo` into the `<Text>` component so that it executes the page transition when the text is pressed.
 
