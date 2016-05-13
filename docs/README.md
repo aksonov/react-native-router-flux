@@ -4,14 +4,14 @@ Router for React Native based on new React Native Navigation API.
 
 ## Documentation
 
-- [Mini-Tutorial](mini_tutorial.md)
-- [API and Configuration](api_configuration.md)
+- [Mini-Tutorial](MINI_TUTORIAL.md)
+- [API and Configuration](API_CONFIGURATION.md)
   - Available Imports
   - Router API
   - Scene API
-- [Detailed Example](detailed_example.md)
-- [Redux/Flux](redux_flux.md)
-- [Other Info](other_info.md)
+- [Detailed Example](DETAILED_EXAMPLE.md)
+- [Redux/Flux](REDUX_FLUX.md)
+- [Other Info](OTHER_INFO.md)
   - Modals
   - Tabbar
   - Custom navbar
@@ -19,8 +19,8 @@ Router for React Native based on new React Native Navigation API.
   - Splitting Scenes
   - Drawer (side-menu)
   - Sub-Scenes
-- [Changelog](changelog.md)
-- [Migrating from 2.x](migration.md)
+- [Changelog](CHANGELOG.md)
+- [Migrating from 2.x](MIGRATION.md)
 
 ## Features
 
@@ -50,7 +50,7 @@ Router for React Native based on new React Native Navigation API.
 
 ## Getting Started
 
-Check out the [mini-tutorial](mini_tutorial.md) for a quick walkthrough of the routing system.
+Check out the [mini-tutorial](MINI_TUTORIAL.md) for a quick walkthrough of the routing system.
 
 ## Installation
 ```
