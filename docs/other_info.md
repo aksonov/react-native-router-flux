@@ -1,25 +1,6 @@
+# Other Info
 
-
-## Change log
-- 3.22.20 fix more ESLint errors, fix passing leftButtonStyle property for back button
-- 3.22.18 fix some ESLint errors and ignore pop for root scene
-- 3.22.17 allow jump & push together - now you could call Actions.tab2_2() (`tab2_2` is next scene after `tab2`) even if `tab2` is not active
-- 3.22.16 simplified syntax for sub-states
-- 3.22.15 introduces support for different states inside the same screen.
-- 3.22.10 simplifies customization of own NavBar. From now you could import built-in NavBar from the component and customize it. You could set it globally to all scenes by setting `navBar` property for `Router` component.
-For all other scenes you may pass rightButton, leftButton for custom buttons or rightTitle & onRight, leftTitle & onLeft for text buttons.
-
-## IMPORTANT! Breaking changes comparing with 2.x version:
-- React Native 0.22 is required
-- `Router` is root container now and should not be nested. For nested scenes you should use `Scene` element
-- `Route` became `Scene`, now unique `key` attribute is required for each scene (it was `name` attribute before)
-- Define all your scenes on top-level, not within `Router` as before (see Example)
-- No `Schema` element is supported for now (for simplicity), maybe later it could be added
-- No ActionSheet support
-- Custom scene renderers are used instead of 'custom' types (like 'modal'), so 'modal' scenes are pushed as usual, but custom renderer will render them as popup. No `dismiss`, just usual `pop` to close such popups.
-- No old navigator.sceneConfig support (instead the component uses React Native NavigationAnimatedView for better transitions)
-- No onPush/onPop/etc handlers because they are not needed now. If navigation state is changed, container will be re-rendered with changed navigationState property, see `Modal` as Example.
-- No header/footer properties are supported for Scene currently - you may include them into Scene component.
+This is a place for information that needs to be documented, but aren't long enough to warrant their own file.
 
 ## Modals
 To display a modal use `Modal` as root renderer, so it will render the first element as `normal` scene and all others as popups (when they are pushed), see Example for more details.
