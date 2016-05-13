@@ -24,7 +24,11 @@ Router for React Native based on new React Native Navigation API.
 
 ## Features
 
-`react-native-router-flux` is a routing package that allows you to define scene transitions in one central location without having to pass navigator objects around. You can also call transitions anywhere in your code with a simple syntax (e.g. `Actions.login()`).
+`react-native-router-flux` is a routing package that allows you to:
+
+- Define scene transitions in one central location
+- Without having to pass navigator objects around, and allow you to
+- Call transitions anywhere in your code with a simple syntax (e.g. `Actions.login()`).
 
 ### New Features and Highlights
 
