@@ -19,8 +19,6 @@ Router for React Native based on new React Native Navigation API.
   - Splitting Scenes
   - Drawer (side-menu)
   - Sub-Scenes
-  - Current Production Apps
-  - Support
 - [Changelog](changelog.md)
 - [Migrating from 2.x](migration.md)
 
@@ -102,3 +100,9 @@ And then:
 * `Actions.ACTION_NAME(PARAMS)` will call the appropriate action and params will be passed to the scene.
 * `Actions.pop()` will pop the current screen.
 * `Actions.refresh(PARAMS)` will update the properties of the current screen.
+
+## Production Apps using react-native-router-flux
++ GuavaPass.com ([iOS](https://itunes.apple.com/en/app/guavapass-one-pass-fitness/id1050491044?l=en&mt=8), Android) - offers convenient access to top classes at boutique fitness studios across Asia.
+
+## Support
+Thanks to all who submitted PRs to 2.x release. If you like the component and want to support it, feel free to donate any amount or help with issues.

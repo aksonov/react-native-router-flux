@@ -9,8 +9,6 @@ This is a place for information that needs to be documented, but aren't long eno
 - Splitting Scenes
 - Drawer (side-menu)
 - Sub-Scenes
-- Current Production Apps
-- Support
 
 ## Modals
 To display a modal use `Modal` as root renderer, so it will render the first element as `normal` scene and all others as popups (when they are pushed), see Example for more details.
@@ -104,10 +102,3 @@ Example for 'My Account' screen with edit possibility (`MyAccount` component sho
 ```
 Note, that almost empty `viewAccount` sub-state here is needed to reset MyAccount to initial params defined for this scene (remove `save`, `editMode` and other properties from original state)
 Sure it could be done using Redux, however it will require more coding and programmatic setting NavBar buttons using `refresh`.
-
-
-## Production Apps using react-native-router-flux
-+ GuavaPass.com ([iOS](https://itunes.apple.com/en/app/guavapass-one-pass-fitness/id1050491044?l=en&mt=8), Android) - offers convenient access to top classes at boutique fitness studios across Asia.
-
-## Support
-Thanks to all who submitted PRs to 2.x release. If you like the component and want to support it, feel free to donate any amount or help with issues.
