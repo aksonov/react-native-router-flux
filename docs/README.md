@@ -25,28 +25,21 @@ Router for React Native based on new React Native Navigation API.
 
 ### New Features
 
-- **Highly Customizable Navigation Bar**
-  - Show/hide depending on Scene or even state of Scene.
-  - e.g. Edit/Save navbar for edit mode.
+- **Highly Customizable Navigation Bar** - Show/hide the navbar depending on Scene or even the state of a Scene (e.g. Edit/Save navbar for edit mode).
 
 - **Tab Bar Support** using [react-native-tabs](https://github.com/aksonov/react-native-tabs) (see demo).
 
-- **Nested Navigators**
-  - e.g. Each tab can have its own navigator, nested in a root navigator.
+- **Nested Navigators** (e.g. Each tab can have its own navigator, nested in a root navigator).
 
-- **Custom Scene Renderers** for action sheet, native TabBarIOS or anything else
-  - See built-in `Modal` renderer (to display popups) for example.
-  - **Call for PRs!** let's build some custom renderers for ActionSheet, Drawer, etc. Let's make an awesome library!
+- **Custom Scene Renderers** for action sheet, native TabBarIOS or anything else. See built-in `Modal` renderer (to display popups) for example. *Call for PRs!* let's build some custom renderers for ActionSheet, Drawer, etc. Let's make an awesome library!
 
-- **Dynamic Routing**
-  - choose which scene to render depending on application state (see the `Switch` renderer, useful for authentication)
+- **Dynamic Routing** allows you to choose which scene to render depending on application state (see the `Switch` renderer, useful for authentication).
 
 - **Bring Your Own Reducer** for navigation state.
-- **Reset History Stack**
-  - Use the new `reset` Action for clearing the entire history stack. This will prevent user from going "back".
-- **More Powerful State Control**
-  - Support for having different states while on the same screen.
-  - For example, "View My Account" could allow in-place editing of fields and "Save", "Cancel" navigation bar buttons should appear.
+
+- **Reset History Stack** - The new `reset` Action for clearing the history stack and eliminates the navbar back button.
+
+- **More Powerful State Control** - Support for having different states while on the same screen. For example, "View My Account" could allow in-place editing of fields and "Save", "Cancel" navigation bar buttons should appear.
 
 ## Getting Started
 
