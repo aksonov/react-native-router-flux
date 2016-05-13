@@ -45,6 +45,8 @@ class App extends React.Component {
 ```
 Alternatively you could define all of your scenes during compile time and use it later within `Router`:
 ```jsx
+import {Actions, Scene, Router} from 'react-native-router-flux';
+
 const scenes = Actions.create(
   <Scene key="root">
     <Scene key="login" component={Login} title="Login"/>
@@ -62,11 +64,12 @@ class App extends React.Component {
 }
 ```
 
-On any Scene, you can also call the following functions by first importing the Actions object:
-  * `import {Actions} from 'react-native-router-flux'`
-  
-  And then:
+On any Scene, you can also call the following functions by first importing the `Actions` object:
+```jsx
+`import {Actions} from 'react-native-router-flux'`
+```
+And then:
 
-  * `Actions.ACTION_NAME(PARAMS)` will call the appropriate action and params will be passed to the scene.
-  * `Actions.pop()` will pop the current screen.
-  * `Actions.refresh(PARAMS)` will update the properties of the current screen.
+* `Actions.ACTION_NAME(PARAMS)` will call the appropriate action and params will be passed to the scene.
+* `Actions.pop()` will pop the current screen.
+* `Actions.refresh(PARAMS)` will update the properties of the current screen.
