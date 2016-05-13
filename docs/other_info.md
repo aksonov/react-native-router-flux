@@ -1,6 +1,6 @@
 # Other Info
 
-This is a place for information that needs to be documented, but aren't long enough to warrant their own file.
+This is a place for information that needs to be documented, but aren't long enough to warrant their own file yet.
 
 - Modals
 - Tabbar
