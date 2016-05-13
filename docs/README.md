@@ -43,7 +43,7 @@ class App extends React.Component {
   }
 }
 ```
-Alternatively you could define all of your scenes during compile time and use it later within `Router`:
+Alternatively, you could define all of your scenes during compile time and use it later within `Router`:
 ```jsx
 import {Actions, Scene, Router} from 'react-native-router-flux';
 
@@ -66,7 +66,7 @@ class App extends React.Component {
 
 On any Scene, you can also call the following functions by first importing the `Actions` object:
 ```jsx
-`import {Actions} from 'react-native-router-flux'`
+import {Actions} from 'react-native-router-flux'
 ```
 And then:
 
