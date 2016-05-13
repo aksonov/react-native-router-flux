@@ -21,8 +21,8 @@ export default class App extends Component {
     return (
       <Router>
         <Scene key="root">
-          <Scene key="pageOne" component={PageOne} title="PageOne"/>
-          <Scene key="pageTwo" component={PageTwo} title="PageTwo"/>
+          <Scene key="pageOne" component={PageOne} title="PageOne" initial={true} />
+          <Scene key="pageTwo" component={PageTwo} title="PageTwo" />
         </Scene>
       </Router>
     )
@@ -37,6 +37,8 @@ At the very minimum, each `<Scene>` component should have the following props:
 - **key**: A unique string that can be used to refer to the particular scene.
 - **component**: The component to be rendered for that `Scene` or page.
 - **title**: The string to be displayed in the nav bar at the top of the screen.
+
+Note that the first scene we wish to load has the prop `initial={true}` to indicate that it's the scene that should be initially rendered.
 
 ### PageOne.js
 ```jsx
@@ -58,11 +60,15 @@ export default class PageOne extends Component {
 To navigate from one route to another, an `Action` must be called. This takes the form of:
 
 ```
-Actions.SCENE_KEY()
+Actions.SCENE_KEY(PARAMS)
 ```
 
 Where `SCENE_KEY` must match the `key` prop defined in one of the Scenes of the `Router` component in the root file.
 
 Since the PageTwo component has the key of `pageTwo`, all we need to do is to pass in the function `Actions.pageTwo` into the `<Text>` component so that it executes the page transition when the text is pressed.
+
+Actions.ACTION_NAME(PARAMS) will call the appropriate action and params will be passed to the scene.
+Actions.pop() will pop the current screen.
+Actions.refresh(PARAMS) will update the properties of the current screen.
 
 That's it for the super simple example! You've just learned how to setup routes and navigate from one page to another.
