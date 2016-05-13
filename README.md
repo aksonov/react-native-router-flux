@@ -136,6 +136,7 @@ class App extends React.Component {
 | getTitle | `function` | optional | Optionally closure to return a value of the title based on state |
 | renderTitle | `function` | optional | Optionally closure to render the title |
 | titleStyle | [`Text style`](https://facebook.github.io/react-native/docs/text.html#style) |  | optional style override for the title element |
+| titleNumberOfLines | `number` | optional | Number of lines the title should wrap before truncating with an ellipsis | 
 | **Navigation Bar: Back button** |
 | backTitle | `string` | | optional string to display with back button |
 | renderBackButton | `function` | | optional closure to render back text or button if this route happens to be the previous route |
