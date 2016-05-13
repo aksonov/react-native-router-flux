@@ -40,6 +40,8 @@ At the very minimum, each `<Scene>` component should have the following props:
 
 Note that the first scene we wish to load has the prop `initial={true}` to indicate that it's the scene that should be initially rendered.
 
+## From Page to Page
+
 ### PageOne.js
 ```jsx
 import React, { Component } from 'react';
@@ -63,12 +65,36 @@ To navigate from one route to another, an `Action` must be called. This takes th
 Actions.SCENE_KEY(PARAMS)
 ```
 
-Where `SCENE_KEY` must match the `key` prop defined in one of the Scenes of the `Router` component in the root file.
+Where `SCENE_KEY` must match the `key` prop defined in one of the Scenes of the `Router` component in the root file. And PARAMS refers to a javascript object that will be passed into the resulting scene as props (more on this later).
 
 Since the PageTwo component has the key of `pageTwo`, all we need to do is to pass in the function `Actions.pageTwo` into the `<Text>` component so that it executes the page transition when the text is pressed.
 
-Actions.ACTION_NAME(PARAMS) will call the appropriate action and params will be passed to the scene.
-Actions.pop() will pop the current screen.
-Actions.refresh(PARAMS) will update the properties of the current screen.
+## Passing Information
 
-That's it for the super simple example! You've just learned how to setup routes and navigate from one page to another.
+Now let's try to extend our example so that we can pass data from `PageOne` to `PageTwo`.
+
+In `PageOne.js`, instead of simply passing in `Actions.pageTwo`, we can replace it with `Actions.pageTwo({text: 'Hello World!'})`:
+
+```jsx
+<Text onPress={Actions.pageTwo({text: 'hello world!'})}>This is PageOne!</Text>
+```
+
+And in `PageTwo.js`, we can use that data by adding an additional `<Text>` component below the existing one:
+
+```jsx
+render() {
+  return (
+    <View style={{margin: 128}}>
+      <Text>This is PageTwo!</Text>
+      <Text>{this.props.text}</Text>
+    </View>
+  )
+}
+```
+
+Now, if we navigate to the PageTwo Scene as before, we should see:
+
+```
+This is PageTwo!
+Hello World!
+```
