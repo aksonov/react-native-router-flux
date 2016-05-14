@@ -133,8 +133,8 @@ class App extends React.Component {
 | drawerImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `'./menu_burger.png'` | Simple way to override the drawerImage in the navBar |
 | **Navigation Bar: Title** |
 | title | `string` | null | The title to be displayed in the navigation bar |
-| getTitle | `function` | optional | Optionally closure to return a value of the title based on state |
-| renderTitle | `function` | optional | Optionally closure to render the title |
+| getTitle | `function` | optional | Optional closure to return a value of the title based on state |
+| renderTitle | `function` | optional | Optional closure to render the title |
 | titleStyle | [`Text style`](https://facebook.github.io/react-native/docs/text.html#style) |  | optional style override for the title element |
 | **Navigation Bar: Back button** |
 | backTitle | `string` | | optional string to display with back button |
