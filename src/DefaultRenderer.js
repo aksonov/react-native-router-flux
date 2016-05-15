@@ -14,7 +14,7 @@ import {
   Animated,
   NavigationExperimental,
   View,
-  StyleSheet
+  StyleSheet,
 } from 'react-native';
 
 import TabBar from './TabBar';
@@ -29,7 +29,7 @@ const {
 
 const {
   CardStackPanResponder: NavigationCardStackPanResponder,
-  CardStackStyleInterpolator: NavigationCardStackStyleInterpolator
+  CardStackStyleInterpolator: NavigationCardStackStyleInterpolator,
 } = NavigationCard;
 
 export default class DefaultRenderer extends Component {
@@ -80,9 +80,14 @@ export default class DefaultRenderer extends Component {
     let { panHandlers, animationStyle } = props.scene.navigationState;
 
     // Since we always need to pass a style for the direction, we can avoid #526
-    let style = getSceneStyle ? getSceneStyle(props) : null;
+    let style;
+    if (getSceneStyle) {
+      const hideNavBar = Util.deepestExplicitValueForKey(props.navigationState, 'hideNavBar');
+      const hideTabBar = Util.deepestExplicitValueForKey(props.navigationState, 'hideTabBar');
+      style = getSceneStyle({ ...props, hideNavBar, hideTabBar });
+    }
 
-    const isVertical = direction === "vertical";
+    const isVertical = direction === 'vertical';
 
     if (typeof(animationStyle) === 'undefined') {
       animationStyle = (isVertical ?
@@ -99,7 +104,7 @@ export default class DefaultRenderer extends Component {
       <NavigationCard
         {...props}
         key={`card_${key}`}
-        style={[ animationStyle, style ]}
+        style={[animationStyle, style]}
         panHandlers={panHandlers}
         renderScene={this.renderScene}
       />
@@ -107,16 +112,11 @@ export default class DefaultRenderer extends Component {
   }
 
   renderScene(/* NavigationSceneRendererProps */ props) {
-    const hideNavBar = Util.deepestExplicitValueForKey(props.navigationState, 'hideNavBar');
-    const hideTabBar = Util.deepestExplicitValueForKey(props.navigationState, 'hideTabBar');
-
     return (
       <DefaultRenderer
         key={props.scene.navigationState.key}
         onNavigate={props.onNavigate}
         navigationState={props.scene.navigationState}
-        hideNavBar={hideNavBar}
-        hideTabBar={hideTabBar}
       />
     );
   }
@@ -167,10 +167,10 @@ export default class DefaultRenderer extends Component {
   }
 
   render() {
-    const { navigationState, onNavigate, sceneStyleFn, hideNavBar, hideTabBar } = this.props;
+    const { navigationState, onNavigate } = this.props;
 
     if (!navigationState || !onNavigate) {
-      console.error("navigationState and onNavigate property should be not null");
+      console.error('navigationState and onNavigate property should be not null');
       return null;
     }
 
@@ -182,14 +182,12 @@ export default class DefaultRenderer extends Component {
     if (SceneComponent) {
       return (
         <View
-          style={[ styles.sceneStyle, navigationState.sceneStyle ]}
+          style={[styles.sceneStyle, navigationState.sceneStyle]}
         >
           <SceneComponent
             {...navigationState}
             onNavigate={onNavigate}
             navigationState={navigationState}
-            hideNavBar={hideNavBar}
-            hideTabBar={hideTabBar}
           />
         </View>
       );
@@ -219,7 +217,7 @@ export default class DefaultRenderer extends Component {
     return (
       <NavigationAnimatedView
         navigationState={navigationState}
-        style={[ styles.animatedView, style ]}
+        style={[styles.animatedView, style]}
         renderOverlay={this.renderHeader}
         renderScene={this.renderCard}
         {...optionals}
@@ -233,9 +231,9 @@ export default class DefaultRenderer extends Component {
 const styles = StyleSheet.create({
   animatedView: {
     flex: 1,
-    backgroundColor: "transparent"
+    backgroundColor: 'transparent',
   },
   sceneStyle: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });
