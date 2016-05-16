@@ -114,10 +114,10 @@ const styles = StyleSheet.create({
 
 const propTypes = {
   navigationState: PropTypes.object,
-  backButtonImage: PropTypes.number,
+  backButtonImage: PropTypes.object,
   backButtonTextStyle: PropTypes.string,
-  leftButtonStyle: PropTypes.string,
-  leftButtonIconStyle: PropTypes.string,
+  leftButtonStyle: PropTypes.any,
+  leftButtonIconStyle: PropTypes.any,
   getTitle: PropTypes.func,
   titleStyle: PropTypes.object,
   position: PropTypes.object,
