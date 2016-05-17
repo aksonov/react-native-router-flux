@@ -47,15 +47,17 @@ export default class NavBar extends React.Component {
         while (selected.hasOwnProperty("children")) {
             selected = selected.children[selected.index]
         }
+
+        if (child.hideNavBar || selected.hideNavBar) {
+            return null;
+        }
+
         if (state.navBar || selected.navBar){
             const Component =  selected.navBar || state.navBar;
             return <Component {...this.props} {...state} {...selected}/>
         }
         if (selected.component && selected.component.renderNavigationBar){
             return selected.component.renderNavigationBar({...this.props,...selected});
-        }
-        if (child.hideNavBar || selected.hideNavBar) {
-            return null;
         }
 
         let renderLeftButton = selected.renderLeftButton || this._renderLeftButton;
