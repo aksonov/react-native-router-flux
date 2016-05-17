@@ -325,7 +325,7 @@ class NavBar extends React.Component {
 
   renderTitle(childState, index:number) {
     const title = this.props.getTitle ? this.props.getTitle(childState) : childState.title;
-    const numberOfLines = this.props.titleNumberOfLines ? this.props.titleNumberOfLines : -1;
+    const numberOfLines = Number.isInteger(this.props.titleNumberOfLines) ? this.props.titleNumberOfLines : -1;
     return (
       <Animated.Text
         key={childState.key}
