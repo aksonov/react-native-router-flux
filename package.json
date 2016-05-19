@@ -36,7 +36,7 @@
     }
   ],
   "dependencies": {
-    "react-native-tab-navigator": "joenoon/react-native-tab-navigator#master"
+    "react-native-tab-navigator": "joenoon/react-native-tab-navigator#rnrf-lock"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
