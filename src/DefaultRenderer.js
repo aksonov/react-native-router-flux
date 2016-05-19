@@ -32,6 +32,16 @@ const {
   CardStackStyleInterpolator: NavigationCardStackStyleInterpolator,
 } = NavigationCard;
 
+const styles = StyleSheet.create({
+  animatedView: {
+    flex: 1,
+    backgroundColor: 'transparent',
+  },
+  sceneStyle: {
+    flex: 1,
+  },
+});
+
 export default class DefaultRenderer extends Component {
 
   static propTypes = {
@@ -227,13 +237,3 @@ export default class DefaultRenderer extends Component {
 
 
 }
-
-const styles = StyleSheet.create({
-  animatedView: {
-    flex: 1,
-    backgroundColor: 'transparent',
-  },
-  sceneStyle: {
-    flex: 1,
-  },
-});
