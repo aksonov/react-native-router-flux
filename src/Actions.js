@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import assert from 'assert';
+import { assert } from './Util';
 import Scene from './Scene';
 export const JUMP_ACTION = 'jump';
 export const PUSH_ACTION = 'push';
