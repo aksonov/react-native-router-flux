@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "react": "^15.0.2",
-    "react-native": "0.26.0-rc",
+    "react-native": "^0.26.0",
     "react-native-button": "github:ide/react-native-button",
     "react-native-drawer": "^2.2.2",
     "react-native-modalbox": "^1.3.3",
