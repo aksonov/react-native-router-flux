@@ -20,7 +20,7 @@ import {
 import TabBar from './TabBar';
 import NavBar from './NavBar';
 import Actions from './Actions';
-import Util from './Util';
+import { deepestExplicitValueForKey } from './Util';
 
 const {
   AnimatedView: NavigationAnimatedView,
@@ -82,8 +82,8 @@ export default class DefaultRenderer extends Component {
     // Since we always need to pass a style for the direction, we can avoid #526
     let style;
     if (getSceneStyle) {
-      const hideNavBar = Util.deepestExplicitValueForKey(props.navigationState, 'hideNavBar');
-      const hideTabBar = Util.deepestExplicitValueForKey(props.navigationState, 'hideTabBar');
+      const hideNavBar = deepestExplicitValueForKey(props.navigationState, 'hideNavBar');
+      const hideTabBar = deepestExplicitValueForKey(props.navigationState, 'hideTabBar');
       style = getSceneStyle({ ...props, hideNavBar, hideTabBar });
     }
 
@@ -129,7 +129,7 @@ export default class DefaultRenderer extends Component {
       selected = selected.children[selected.index];
     }
 
-    const hideNavBar = Util.deepestExplicitValueForKey(state, 'hideNavBar');
+    const hideNavBar = deepestExplicitValueForKey(state, 'hideNavBar');
     if (hideNavBar) {
       return null;
     }

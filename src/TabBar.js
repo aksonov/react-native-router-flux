@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
 import TabNavigator from 'react-native-tab-navigator';
-import Util from './Util';
+import { deepestExplicitValueForKey } from './Util';
 
 class TabBar extends Component {
 
@@ -27,7 +27,7 @@ class TabBar extends Component {
   render() {
     const state = this.props.navigationState;
     const selected = state.children[state.index];
-    const hideTabBar = Util.deepestExplicitValueForKey(state, 'hideTabBar');
+    const hideTabBar = deepestExplicitValueForKey(state, 'hideTabBar');
 
     const tabBarStyle = {};
 
