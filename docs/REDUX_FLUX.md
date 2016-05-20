@@ -1,4 +1,4 @@
-# Reactive redux replacement
+# Reactive
  This component is the base for [react-native-reactivity](https://github.com/aksonov/react-native-reactivity) that provides replacement for Redux/Flux without any boilerplate.
 
 # Redux/Flux
