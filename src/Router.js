@@ -53,7 +53,7 @@ class Router extends Component {
     } else {
       let scenes = props.children;
 
-      if (Array.isArray(props.children)) {
+      if (Array.isArray(props.children) || props.children.props.component) {
         scenes = (
           <Scene
             key="__root"
