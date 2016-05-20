@@ -1,7 +1,7 @@
 # Migrating from 2.x
 
 ## Breaking changes comparing with 2.x version:
-- React Native 0.22 is required
+- React Native 0.26 is required
 - `Router` is root container now and should not be nested. For nested scenes you should use `Scene` element
 - `Route` became `Scene`, now unique `key` attribute is required for each scene (it was `name` attribute before)
 - Define all your scenes on top-level, not within `Router` as before (see Example)
