@@ -119,7 +119,7 @@ const propTypes = {
   leftButtonStyle: PropTypes.string,
   leftButtonIconStyle: PropTypes.string,
   getTitle: PropTypes.func,
-  titleStyle: PropTypes.object,
+  titleStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   position: PropTypes.object,
   navigationBarStyle: PropTypes.object,
   renderTitle: PropTypes.any,
