@@ -1,3 +1,6 @@
+# Reactive redux replacement
+ This component is the base for [react-native-reactivity](https://github.com/aksonov/react-native-reactivity) that provides replacement for Redux/Flux without any boilerplate.
+
 # Redux/Flux
 This component doesn't depend on any redux/flux library. It uses new React Native Navigation API and provide own reducer for its navigation state.
 You may provide your own reducer if needed. To avoid the creation of initial state, you may pass a reducer creator.
