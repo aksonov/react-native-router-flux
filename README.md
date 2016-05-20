@@ -10,7 +10,7 @@ Router for React Native based on new React Native Navigation API.
   - Router API
   - Scene API
 - [Detailed Example](docs/DETAILED_EXAMPLE.md)
-- [Redux/Flux](docs/REDUX_FLUX.md)
+- [Reactive/Redux/Flux](docs/REDUX_FLUX.md)
 - [Other Info](docs/OTHER_INFO.md)
   - Modals
   - Tabbar
