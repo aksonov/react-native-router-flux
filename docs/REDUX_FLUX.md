@@ -1,5 +1,5 @@
 # Reactive
- This component is the base for [react-native-reactivity](https://github.com/aksonov/react-native-reactivity) that provides replacement for Redux/Flux without any boilerplate.
+ This component is the base for [react-native-reactive](https://github.com/aksonov/react-native-reactive) that provides replacement for Redux/Flux without any boilerplate.
 
 # Redux/Flux
 This component doesn't depend on any redux/flux library. It uses new React Native Navigation API and provide own reducer for its navigation state.
