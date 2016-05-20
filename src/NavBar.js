@@ -115,13 +115,13 @@ const styles = StyleSheet.create({
 const propTypes = {
   navigationState: PropTypes.object,
   backButtonImage: PropTypes.number,
-  backButtonTextStyle: PropTypes.string,
-  leftButtonStyle: PropTypes.string,
-  leftButtonIconStyle: PropTypes.string,
+  backButtonTextStyle: Text.propTypes.style,
+  leftButtonStyle: View.propTypes.style,
+  leftButtonIconStyle: Image.propTypes.style,
   getTitle: PropTypes.func,
-  titleStyle: PropTypes.object,
+  titleStyle: Text.propTypes.style,
   position: PropTypes.object,
-  navigationBarStyle: PropTypes.object,
+  navigationBarStyle: View.propTypes.style,
   renderTitle: PropTypes.any,
 };
 
