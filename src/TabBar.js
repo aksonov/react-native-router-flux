@@ -1,80 +1,77 @@
-import React, { PropTypes } from 'react';
-import { View, NavigationExperimental } from 'react-native';
-import Tabs from 'react-native-tabs';
+import React, { Component, PropTypes } from 'react';
+import { View } from 'react-native';
 import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
-const {
-  View: NavigationView,
-} = NavigationExperimental;
+import TabNavigator from 'react-native-tab-navigator';
+import { deepestExplicitValueForKey } from './Util';
 
-const propTypes = {
-  navigationState: PropTypes.object,
-  tabIcon: PropTypes.any,
-};
+class TabBar extends Component {
 
-class TabBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onSelect = this.onSelect.bind(this);
-    this.renderScene = this.renderScene.bind(this);
-  }
+  static propTypes = {
+    navigationState: PropTypes.object,
+    tabIcon: PropTypes.any,
+    onNavigate: PropTypes.func,
+    tabBarStyle: View.propTypes.style,
+    tabSceneStyle: View.propTypes.style,
+  };
 
   onSelect(el) {
-    if (!Actions[el.props.name]) {
+    if (!Actions[el.sceneKey]) {
       throw new Error(
-        `No action is defined for name=${el.props.name} ` +
+        `No action is defined for sceneKey=${el.sceneKey} ` +
         `actions: ${JSON.stringify(Object.keys(Actions))}`);
     }
-    Actions[el.props.name]();
-  }
-
-  renderScene(props) {
-    if (props.layout) {
-            // for 0.24+, props is /*NavigationSceneRendererProps*/
-            // (add flow def above when phasing out < 0.24 support)
-      return (
-        <DefaultRenderer
-          key={props.scene.navigationState.key}
-          navigationState={props.scene.navigationState}
-        />
-      );
-    }
-    // for < 0.24
-    return <DefaultRenderer key={props.key} navigationState={props} />;
+    Actions[el.sceneKey]();
   }
 
   render() {
     const state = this.props.navigationState;
-    let selected = state.children[state.index];
-    while (selected.hasOwnProperty('children')) {
-      selected = selected.children[selected.index];
+    const selected = state.children[state.index];
+    const hideTabBar = deepestExplicitValueForKey(state, 'hideTabBar');
+
+    const tabBarStyle = {};
+
+    if (hideTabBar) {
+      tabBarStyle.opacity = 0;
+      tabBarStyle.height = 0;
     }
-    const hideTabBar = state.hideTabBar || selected.hideTabBar;
+
     return (
       <View
         style={{ flex: 1 }}
       >
-        <NavigationView
-          navigationState={this.props.navigationState}
-          style={{ flex: 1 }}
-          renderScene={this.renderScene}
-        />
-          {!hideTabBar && state.children.filter(el => el.icon).length > 0 &&
-            <Tabs
-              style={[{ backgroundColor: 'white' }, state.tabBarStyle]}
-              onSelect={this.onSelect} {...state}
-              selected={state.children[state.index].sceneKey}
-            >
-              {state.children.filter(el => el.icon || this.props.tabIcon).map(el => {
-                const Icon = el.icon || this.props.tabIcon;
-                return <Icon {...this.props} {...el} />;
-              })}
-            </Tabs>}
+        <TabNavigator
+          tabBarStyle={[this.props.tabBarStyle, tabBarStyle]}
+          sceneStyle={[{ paddingBottom: 0 }, this.props.tabSceneStyle]}
+        >
+          {state.children.map(el => {
+            const isSelected = el.sceneKey === selected.sceneKey;
+            const Icon = el.icon || this.props.tabIcon;
+            return (
+              <TabNavigator.Item
+                key={el.key}
+                selected={isSelected}
+                title={el.tabTitle}
+                renderIcon={() => <Icon {...this.props} {...el} />}
+                renderSelectedIcon={() => <Icon {...this.props} {...el} selected />}
+                onPress={() => this.onSelect(el)}
+                tabStyle={el.tabStyle}
+                titleStyle={el.tabTitleStyle}
+                selectedTitleStyle={el.tabSelectedTitleStyle}
+              >
+                <DefaultRenderer
+                  key={el.key}
+                  onNavigate={this.props.onNavigate}
+                  navigationState={el}
+                />
+              </TabNavigator.Item>
+            );
+          })}
+        </TabNavigator>
       </View>
     );
   }
-}
 
-TabBar.propTypes = propTypes;
+}
 
 export default TabBar;

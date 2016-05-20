@@ -94,7 +94,7 @@ class Router extends Component {
       return onNavigate(props);
     };
 
-    return <DefaultRenderer navigationState={navigationState} />;
+    return <DefaultRenderer onNavigate={onNavigate} navigationState={navigationState} />;
   }
 
   render() {
