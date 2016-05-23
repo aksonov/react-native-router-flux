@@ -46,11 +46,12 @@ function inject(state, action, props, scenes) {
             case POP_ACTION2:
             case POP_ACTION:
                 assert(!state.tabs, "pop() operation cannot be run on tab bar (tabs=true)")
+                const scenesToPop = action.data || 1;
                 return {
                     ...state,
-                    index:state.index-1,
-                    from: state.children[state.children.length - 1],
-                    children:state.children.slice(0, -1),
+                    index:state.index - scenesToPop,
+                    from: state.children[state.children.length - scenesToPop],
+                    children:state.children.slice(0, - scenesToPop),
                 };
             case REFRESH_ACTION:
                 return {
