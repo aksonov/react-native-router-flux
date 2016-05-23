@@ -61,6 +61,7 @@ class TabBar extends Component {
               >
                 <DefaultRenderer
                   key={el.key}
+                  selected={isSelected}
                   onNavigate={this.props.onNavigate}
                   navigationState={el}
                 />
