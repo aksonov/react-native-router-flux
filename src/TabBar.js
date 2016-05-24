@@ -21,6 +21,18 @@ class TabBar extends Component {
         `No action is defined for sceneKey=${el.sceneKey} ` +
         `actions: ${JSON.stringify(Object.keys(Actions))}`);
     }
+
+    /*
+      If the prop `popChildrenOnSelect` is set to true on the tab child Scene,
+      then pop all children in the stack to go back to the initial scene for
+      this tab when it is selected again.
+     */
+    if(el.props.popChildrenOnSelect) {
+      el.props.children.forEach((obj) => {
+        Actions.pop();
+      })
+    }
+
     Actions[el.sceneKey]();
   }
 

@@ -51,6 +51,7 @@
 | tabs| `bool` | false | Defines 'TabBar' scene container, so child scenes will be displayed as 'tabs'. If no `component` is defined, built-in `TabBar` is used as renderer. All child scenes are wrapped into own navbar.
 | tabBarStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | optional style override for the Tabs component |
 | hideTabBar | `bool` | false | hides tab bar for this scene (if built-in TabBar component is used as parent renderer)|
+| popChildrenOnSelect | `bool` | false | Pop all children in the stack to go back to the initial scene for this tab when it is selected again. |
 
 ### Navigation Bar
 | Property | Type | Default | Description |
