@@ -26,11 +26,12 @@ class TabBar extends Component {
       If the prop `popChildrenOnSelect` is set to true on the tab child Scene,
       then pop all children in the stack to go back to the initial scene for
       this tab when it is selected again.
-     */
-    if (el.props.popChildrenOnSelect) {
-      el.props.children.forEach(() => {
-        Actions.pop();
-      });
+    */
+
+    if (el.popChildrenOnSelect) {
+     el.children.forEach((obj) => {
+       Actions.pop();
+     });
     }
 
     Actions[el.sceneKey]();
