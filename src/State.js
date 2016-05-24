@@ -47,7 +47,7 @@ export function getInitialState(
       ...getStateFromScenes(route, scenes, props),
     };
   }
-  let { ...res } = { ...route, ...parentProps };
+  const res = { ...route, ...scenes.rootProps, ...parentProps };
   let index = 0;
   route.children.forEach((r, i) => {
     assert(scenes[r], `Empty scene for key=${route.key}`);
