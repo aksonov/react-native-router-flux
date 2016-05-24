@@ -50,7 +50,7 @@
     "chai-as-promised": "^5.2.0",
     "enzyme": "^2.1.0",
     "eslint": "^2.8.0",
-    "eslint-config-airbnb": "^8.0.0",
+    "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-import": "^1.5.0",
     "eslint-plugin-jsx-a11y": "^1.0.2",
     "eslint-plugin-react": "^5.0.1",
@@ -58,10 +58,10 @@
     "mocha": "^2.4.5",
     "mocha-junit-reporter": "^1.11.1",
     "react": "^15.0.2",
-    "react-addons-test-utils": "^0.14.7",
-    "react-dom": "^0.14.7",
+    "react-addons-test-utils": "^15.0.2",
+    "react-dom": "^15.0.2",
     "react-native": "^0.26.0",
-    "react-native-mock": "0.0.6",
+    "react-native-mock": "0.2.0",
     "sinon": "^1.17.3"
   }
 }
