@@ -325,36 +325,50 @@ class NavBar extends React.Component {
 
   renderTitle(childState, index:number) {
     const title = this.props.getTitle ? this.props.getTitle(childState) : childState.title;
-    const numberOfLines = this.props.titleNumberOfLines || -1;
+    const titleNumberOfLines = this.props.titleNumberOfLines;
+    const style = [
+      styles.title,
+      this.props.titleStyle,
+      this.props.navigationState.titleStyle,
+      childState.titleStyle,
+      {
+        opacity: this.props.position.interpolate({
+          inputRange: [index - 1, index, index + 1],
+          outputRange: [0, 1, 0],
+        }),
+        left: this.props.position.interpolate({
+          inputRange: [index - 1, index + 1],
+          outputRange: [200, -200],
+        }),
+        right: this.props.position.interpolate({
+          inputRange: [index - 1, index + 1],
+          outputRange: [-200, 200],
+        }),
+      },
+    ];
 
-    return (
-      <Animated.Text
-        key={childState.key}
-        numberOfLines={numberOfLines}
-        style={[
-          styles.title,
-          this.props.titleStyle,
-          this.props.navigationState.titleStyle,
-          childState.titleStyle,
-          {
-            opacity: this.props.position.interpolate({
-              inputRange: [index - 1, index, index + 1],
-              outputRange: [0, 1, 0],
-            }),
-            left: this.props.position.interpolate({
-              inputRange: [index - 1, index + 1],
-              outputRange: [200, -200],
-            }),
-            right: this.props.position.interpolate({
-              inputRange: [index - 1, index + 1],
-              outputRange: [-200, 200],
-            }),
-          },
-        ]}
-      >
-        {title}
-      </Animated.Text>
-    );
+    if(Number.isInteger(titleNumberOfLines) && titleNumberOfLines >= 1) {
+      console.log(titleNumberOfLines);
+      return (
+        <Animated.Text
+          key={childState.key}
+          style={style}
+          numberOfLines={titleNumberOfLines}
+        >
+          {title}
+        </Animated.Text>
+      );
+    }
+    else {
+      return (
+        <Animated.Text
+          key={childState.key}
+          style={style}
+        >
+          {title}
+        </Animated.Text>
+      );
+    }
   }
 
   render() {
