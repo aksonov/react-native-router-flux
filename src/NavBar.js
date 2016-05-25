@@ -347,7 +347,7 @@ class NavBar extends React.Component {
       },
     ];
 
-    if(Number.isInteger(titleNumberOfLines) && titleNumberOfLines >= 1) {
+    if (Number.isInteger(titleNumberOfLines) && titleNumberOfLines >= 1) {
       console.log(titleNumberOfLines);
       return (
         <Animated.Text
@@ -359,16 +359,15 @@ class NavBar extends React.Component {
         </Animated.Text>
       );
     }
-    else {
-      return (
-        <Animated.Text
-          key={childState.key}
-          style={style}
-        >
-          {title}
-        </Animated.Text>
-      );
-    }
+
+    return (
+      <Animated.Text
+        key={childState.key}
+        style={style}
+      >
+        {title}
+      </Animated.Text>
+    );
   }
 
   render() {
