@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import assert from 'assert';
+import { assert } from './Util';
 
 function getStateFromScenes(route, scenes, props) {
   const getters = [];
@@ -47,7 +47,7 @@ export function getInitialState(
       ...getStateFromScenes(route, scenes, props),
     };
   }
-  let { ...res } = { ...route, ...parentProps };
+  const res = { ...route, ...scenes.rootProps, ...parentProps };
   let index = 0;
   route.children.forEach((r, i) => {
     assert(scenes[r], `Empty scene for key=${route.key}`);

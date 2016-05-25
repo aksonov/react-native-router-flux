@@ -19,7 +19,7 @@ import {
   REFRESH_ACTION,
 } from './Actions';
 
-import assert from 'assert';
+import { assert } from './Util';
 import { getInitialState } from './State';
 
 // WARN: it is not working correct. rewrite it.

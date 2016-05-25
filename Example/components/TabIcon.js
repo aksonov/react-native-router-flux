@@ -1,5 +1,6 @@
 import React from 'react';
-import { PropTypes, Text } from 'react-native';
+import {PropTypes} from "react";
+import {Text} from "react-native";
 
 const propTypes = {
   selected: PropTypes.string,
