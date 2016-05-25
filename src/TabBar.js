@@ -3,7 +3,11 @@ import { View } from 'react-native';
 import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
 import TabNavigator from 'react-native-tab-navigator';
-import { deepestExplicitValueForKey } from './Util';
+import { deepestExplicitValueForKey, assert } from './Util';
+
+const Noop = function (props) {
+  return <View />;
+};
 
 class TabBar extends Component {
 
@@ -48,7 +52,11 @@ class TabBar extends Component {
         >
           {state.children.map(el => {
             const isSelected = el.sceneKey === selected.sceneKey;
-            const Icon = el.icon || this.props.tabIcon;
+            let Icon = el.icon || this.props.tabIcon;
+            if (!Icon) {
+              console.log(`[react-native-router-flux] [warning] icon not supplied for ${el.sceneKey}`);
+              Icon = Noop;
+            }
             return (
               <TabNavigator.Item
                 key={el.key}
