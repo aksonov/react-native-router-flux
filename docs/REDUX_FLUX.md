@@ -1,5 +1,8 @@
-# Reactive
- This component is the base for [react-native-reactive](https://github.com/aksonov/react-native-reactive) that provides replacement for Redux/Flux without any boilerplate.
+# React Native MobX
+ This component is the base for [react-native-mobx](https://github.com/aksonov/react-native-mobx) that provides replacement for Redux/Flux without any boilerplate using [MobX](https://mobxjs.github.io/mobx/).
+ 
+# React Native Reactive
+ [react-native-reactive](https://github.com/aksonov/react-native-reactive) is another reactive alternative with [usage of Calmm-JS](https://github.com/calmm-js/documentation)
 
 # Redux/Flux
 This component doesn't depend on any redux/flux library. It uses new React Native Navigation API and provide own reducer for its navigation state.
