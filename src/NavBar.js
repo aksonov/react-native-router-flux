@@ -348,7 +348,6 @@ class NavBar extends React.Component {
     ];
 
     if (Number.isInteger(titleNumberOfLines) && titleNumberOfLines >= 1) {
-      console.log(titleNumberOfLines);
       return (
         <Animated.Text
           key={childState.key}
