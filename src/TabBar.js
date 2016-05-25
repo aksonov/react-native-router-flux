@@ -18,6 +18,7 @@ class TabBar extends Component {
     tabBarStyle: View.propTypes.style,
     tabBarShadowStyle: View.propTypes.style,
     tabSceneStyle: View.propTypes.style,
+    hidesTabTouch: PropTypes.bool,
   };
 
   onSelect(el) {
@@ -49,6 +50,7 @@ class TabBar extends Component {
           tabBarStyle={[this.props.tabBarStyle, tabBarStyle]}
           tabBarShadowStyle={this.props.tabBarShadowStyle}
           sceneStyle={[{ paddingBottom: 0 }, this.props.tabSceneStyle]}
+          hidesTabTouch={this.props.hidesTabTouch}
         >
           {state.children.map(el => {
             const isSelected = el.sceneKey === selected.sceneKey;
