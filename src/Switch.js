@@ -13,7 +13,7 @@ export default function Switch(props) {
   if (!navigationState) console.error(`Cannot find a scene with key “${selectedKey}”`);
   return (
     <DefaultRenderer
-      onNavigate={this.props.onNavigate}
+      onNavigate={props.onNavigate}
       navigationState={navigationState}
     />
   );
