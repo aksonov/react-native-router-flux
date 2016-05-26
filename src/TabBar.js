@@ -12,6 +12,7 @@ class TabBar extends Component {
     tabIcon: PropTypes.any,
     onNavigate: PropTypes.func,
     tabBarStyle: View.propTypes.style,
+    tabBarShadowStyle: View.propTypes.style,
     tabSceneStyle: View.propTypes.style,
   };
 
@@ -42,6 +43,7 @@ class TabBar extends Component {
       >
         <TabNavigator
           tabBarStyle={[this.props.tabBarStyle, tabBarStyle]}
+          tabBarShadowStyle={this.props.tabBarShadowStyle}
           sceneStyle={[{ paddingBottom: 0 }, this.props.tabSceneStyle]}
         >
           {state.children.map(el => {
