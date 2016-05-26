@@ -50,13 +50,12 @@
 |-----------|--------|---------|--------------------------------------------|
 | tabs| `bool` | false | Defines 'TabBar' scene container, so child scenes will be displayed as 'tabs'. If no `component` is defined, built-in `TabBar` is used as renderer. All child scenes are wrapped into own navbar.
 | tabBarStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | optional style override for the Tabs component |
-| hideTabBar | `bool` | false | hides tab bar for this scene (if built-in TabBar component is used as parent renderer)|
-| hidesTabTouch | `bool` | false | prevent opacity changes on touch |
+| hideTabBar | `bool` | false | hides tab bar for this scene and any following scenes until explicitly reversed (if built-in TabBar component is used as parent renderer)|
 
 ### Navigation Bar
 | Property | Type | Default | Description |
 |-----------|--------|---------|--------------------------------------------|
-| hideNavBar | `bool` | false | hides the navigation bar for this scene |
+| hideNavBar | `bool` | false | hides the navigation bar for this scene and any following scenes until explicitly reversed |
 | navigationBarStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | optional style override for the navigation bar |
 | navBar | `React.Component` | | optional custom NavBar for the scene. Check built-in NavBar of the component for reference |
 | drawerImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `'./menu_burger.png'` | Simple way to override the drawerImage in the navBar |

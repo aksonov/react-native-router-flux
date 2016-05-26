@@ -36,7 +36,8 @@
     }
   ],
   "dependencies": {
-    "react-native-tab-navigator": "0.3.2"
+    "react-native-tabs": "1.0.7",
+    "react-static-container": "1.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",

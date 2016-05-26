@@ -1,85 +1,70 @@
 import React, { Component, PropTypes } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import Tabs from 'react-native-tabs';
 import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
-import TabNavigator from 'react-native-tab-navigator';
+import TabbedView from './TabbedView';
 import { deepestExplicitValueForKey, assert } from './Util';
-
-const Noop = function (props) {
-  return <View />;
-};
 
 class TabBar extends Component {
 
   static propTypes = {
     navigationState: PropTypes.object,
     tabIcon: PropTypes.any,
-    onNavigate: PropTypes.func,
-    tabBarStyle: View.propTypes.style,
-    tabBarShadowStyle: View.propTypes.style,
-    tabSceneStyle: View.propTypes.style,
-    hidesTabTouch: PropTypes.bool,
   };
 
+  constructor(props, context) {
+    super(props, context);
+    this.renderScene = this.renderScene.bind(this);
+  }
+
   onSelect(el) {
-    if (!Actions[el.sceneKey]) {
+    if (!Actions[el.props.name]) {
       throw new Error(
-        `No action is defined for sceneKey=${el.sceneKey} ` +
+        `No action is defined for name=${el.props.name} ` +
         `actions: ${JSON.stringify(Object.keys(Actions))}`);
     }
-    Actions[el.sceneKey]();
+    Actions[el.props.name]();
+  }
+
+  renderScene(navigationState, index) {
+    return <DefaultRenderer
+      key={navigationState.key}
+      onNavigate={this.props.onNavigate}
+      navigationState={navigationState}
+    />
   }
 
   render() {
     const state = this.props.navigationState;
-    const selected = state.children[state.index];
+
     const hideTabBar = deepestExplicitValueForKey(state, 'hideTabBar');
 
-    const tabBarStyle = {};
-
-    if (hideTabBar) {
-      tabBarStyle.opacity = 0;
-      tabBarStyle.height = 0;
+    let selected = state.children[state.index];
+    while (selected.hasOwnProperty('children')) {
+      selected = selected.children[selected.index];
     }
-
     return (
       <View
         style={{ flex: 1 }}
       >
-        <TabNavigator
-          tabBarStyle={[this.props.tabBarStyle, tabBarStyle]}
-          tabBarShadowStyle={this.props.tabBarShadowStyle}
-          sceneStyle={[{ paddingBottom: 0 }, this.props.tabSceneStyle]}
-          hidesTabTouch={this.props.hidesTabTouch}
-        >
-          {state.children.map(el => {
-            const isSelected = el.sceneKey === selected.sceneKey;
-            let Icon = el.icon || this.props.tabIcon;
-            if (!Icon) {
-              console.log(`[react-native-router-flux] [warning] icon not supplied for ${el.sceneKey}`);
-              Icon = Noop;
-            }
-            return (
-              <TabNavigator.Item
-                key={el.key}
-                selected={isSelected}
-                title={el.tabTitle}
-                renderIcon={() => <Icon {...this.props} {...el} />}
-                renderSelectedIcon={() => <Icon {...this.props} {...el} selected />}
-                onPress={() => this.onSelect(el)}
-                tabStyle={el.tabStyle}
-                titleStyle={el.tabTitleStyle}
-                selectedTitleStyle={el.tabSelectedTitleStyle}
-              >
-                <DefaultRenderer
-                  key={el.key}
-                  onNavigate={this.props.onNavigate}
-                  navigationState={el}
-                />
-              </TabNavigator.Item>
-            );
-          })}
-        </TabNavigator>
+        <TabbedView
+          navigationState={this.props.navigationState}
+          style={{ flex: 1 }}
+          renderScene={this.renderScene}
+        />
+        {!hideTabBar && state.children.filter(el => el.icon).length > 0 &&
+          <Tabs
+            style={[{ backgroundColor: 'white' }, state.tabBarStyle]}
+            onSelect={this.onSelect} {...state}
+            selected={state.children[state.index].sceneKey}
+          >
+            {state.children.filter(el => el.icon || this.props.tabIcon).map(el => {
+              const Icon = el.icon || this.props.tabIcon;
+              return <Icon {...this.props} {...el} />;
+            })}
+          </Tabs>
+        }
       </View>
     );
   }
