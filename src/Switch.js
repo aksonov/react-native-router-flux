@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import DefaultRenderer from './DefaultRenderer';
 
 export default function Switch(props) {
@@ -18,3 +18,10 @@ export default function Switch(props) {
     />
   );
 }
+
+Switch.propTypes = {
+  navigationState: PropTypes.object,
+  onNavigate: PropTypes.func,
+  selector: PropTypes.func,
+};
+
