@@ -2,11 +2,22 @@ import React, { Component, PropTypes } from 'react';
 import { View, StyleSheet } from 'react-native';
 import StaticContainer from 'react-static-container';
 
+const styles = StyleSheet.create({
+  scene: {
+    bottom: 0,
+    left: 0,
+    position: 'absolute',
+    right: 0,
+    top: 0,
+  },
+});
+
 class TabbedView extends Component {
-  
+
   static propTypes = {
     navigationState: PropTypes.object.isRequired,
     renderScene: PropTypes.func.isRequired,
+    style: View.propTypes.style,
   };
 
   constructor(props, context) {
@@ -16,7 +27,7 @@ class TabbedView extends Component {
   }
 
   renderScene(navigationState, index) {
-    var isSelected = index === this.props.navigationState.index;
+    const isSelected = index === this.props.navigationState.index;
     return (
       <View
         key={navigationState.key}
@@ -24,8 +35,9 @@ class TabbedView extends Component {
         removeClippedSubviews={!isSelected}
         style={[
           styles.scene,
-          {opacity: isSelected ? 1 : 0},
-        ]}>
+          { opacity: isSelected ? 1 : 0 },
+        ]}
+      >
         <StaticContainer shouldUpdate={isSelected}>
           {this.props.renderScene(navigationState, index)}
         </StaticContainer>
@@ -45,23 +57,12 @@ class TabbedView extends Component {
       scenes.push(this.renderScene(item, i));
     });
     return (
-      <View
-        style={this.props.style}>
+      <View style={this.props.style}>
         {scenes}
       </View>
     );
   }
 
 }
-
-const styles = StyleSheet.create({
-  scene: {
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 0,
-  },
-});
 
 export default TabbedView;

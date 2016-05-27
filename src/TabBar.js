@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import Tabs from 'react-native-tabs';
 import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
 import TabbedView from './TabbedView';
-import { assert } from './Util';
 
 class TabBar extends Component {
 
@@ -28,12 +27,14 @@ class TabBar extends Component {
     Actions[el.props.name]();
   }
 
-  renderScene(navigationState, index) {
-    return <DefaultRenderer
-      key={navigationState.key}
-      onNavigate={this.props.onNavigate}
-      navigationState={navigationState}
-    />
+  renderScene(navigationState) {
+    return (
+      <DefaultRenderer
+        key={navigationState.key}
+        onNavigate={this.props.onNavigate}
+        navigationState={navigationState}
+      />
+    );
   }
 
   render() {
