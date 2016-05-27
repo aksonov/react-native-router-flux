@@ -59,7 +59,7 @@ class TabBar extends Component {
                 onPress={() => this.onSelect(el)}
                 tabStyle={[
                   el.tabStyle,
-                  isSelected ? el.tabSelectedStyle : null
+                  isSelected ? el.tabSelectedStyle : null,
                 ]}
                 titleStyle={el.tabTitleStyle}
                 selectedTitleStyle={el.tabSelectedTitleStyle}
