@@ -10,7 +10,7 @@
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require react-native-mock/mock",
     "test:watch": "npm run test -- --watch",
-    "eslint": "eslint index.js src/ test/ Example/*.js Example/components/; exit 0;"
+    "eslint": "eslint index.js src/ test/; exit 0;"
   },
   "keywords": [
     "react-native",
