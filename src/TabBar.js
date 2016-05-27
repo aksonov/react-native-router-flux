@@ -57,7 +57,10 @@ class TabBar extends Component {
                 renderIcon={() => <Icon {...this.props} {...el} />}
                 renderSelectedIcon={() => <Icon {...this.props} {...el} selected />}
                 onPress={() => this.onSelect(el)}
-                tabStyle={el.tabStyle}
+                tabStyle={[
+                  el.tabStyle,
+                  isSelected ? el.tabSelectedStyle : null
+                ]}
                 titleStyle={el.tabTitleStyle}
                 selectedTitleStyle={el.tabSelectedTitleStyle}
               >
