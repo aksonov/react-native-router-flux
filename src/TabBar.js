@@ -11,6 +11,7 @@ class TabBar extends Component {
   static propTypes = {
     navigationState: PropTypes.object,
     tabIcon: PropTypes.any,
+    onNavigate: PropTypes.func,
   };
 
   constructor(props, context) {
