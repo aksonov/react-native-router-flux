@@ -4,7 +4,7 @@ import Tabs from 'react-native-tabs';
 import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
 import TabbedView from './TabbedView';
-import { deepestExplicitValueForKey, assert } from './Util';
+import { assert } from './Util';
 
 class TabBar extends Component {
 
@@ -38,12 +38,13 @@ class TabBar extends Component {
   render() {
     const state = this.props.navigationState;
 
-    const hideTabBar = deepestExplicitValueForKey(state, 'hideTabBar');
-
     let selected = state.children[state.index];
     while (selected.hasOwnProperty('children')) {
       selected = selected.children[selected.index];
     }
+
+    const hideTabBar = state.hideTabBar || selected.hideTabBar;
+
     return (
       <View
         style={{ flex: 1 }}

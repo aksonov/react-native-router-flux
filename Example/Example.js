@@ -48,11 +48,11 @@ const reducerCreate = params=>{
 };
 
 // define this based on the styles/dimensions you use
-const getSceneStyle = function (props) {
+const getSceneStyle = function (/* NavigationSceneRendererProps */ props) {
   return {
     flex: 1,
-    marginTop: props.hideNavBar ? 0 : 64,
-    marginBottom: props.hideTabBar ? 0 : 49.5,
+    // marginTop: props.scene.navigationState.hideNavBar ? 0 : 64,
+    // marginBottom: props.scene.navigationState.hideTabBar ? 0 : 50,
     backgroundColor: '#fff',
     shadowColor: null,
     shadowOffset: null,
@@ -90,7 +90,7 @@ export default class Example extends React.Component {
     render() {
         return <Router createReducer={reducerCreate} getSceneStyle={getSceneStyle}>
             <Scene key="modal" component={Modal} >
-                <Scene key="root" hideNavBar={true} hideTabBar={true}>
+                <Scene key="root" hideNavBar={true}>
                     <Scene key="echo" clone component={EchoView} />
                     <Scene key="switcher" component={Switch} selector={(props) => {
                         return 'text1';

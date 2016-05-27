@@ -20,7 +20,6 @@ import {
 import TabBar from './TabBar';
 import NavBar from './NavBar';
 import Actions from './Actions';
-import { deepestExplicitValueForKey } from './Util';
 
 const {
   AnimatedView: NavigationAnimatedView,
@@ -92,9 +91,7 @@ export default class DefaultRenderer extends Component {
     // Since we always need to pass a style for the direction, we can avoid #526
     let style;
     if (getSceneStyle) {
-      const hideNavBar = deepestExplicitValueForKey(props.navigationState, 'hideNavBar');
-      const hideTabBar = deepestExplicitValueForKey(props.navigationState, 'hideTabBar');
-      style = getSceneStyle({ ...props, hideNavBar, hideTabBar });
+      style = getSceneStyle(props);
     }
 
     const isVertical = direction === 'vertical';
@@ -139,7 +136,7 @@ export default class DefaultRenderer extends Component {
       selected = selected.children[selected.index];
     }
 
-    const hideNavBar = deepestExplicitValueForKey(state, 'hideNavBar');
+    const hideNavBar = state.hideNavBar || selected.hideNavBar;
     if (hideNavBar) {
       return null;
     }
