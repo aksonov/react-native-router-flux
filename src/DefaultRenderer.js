@@ -89,11 +89,20 @@ export default class DefaultRenderer extends Component {
     const { key, direction, getSceneStyle } = props.scene.navigationState;
     let { panHandlers, animationStyle } = props.scene.navigationState;
 
-    // Since we always need to pass a style for the direction, we can avoid #526
-    let style;
-    if (getSceneStyle) {
-      style = getSceneStyle(props);
+    const state = props.navigationState;
+    const child = state.children[state.index];
+    let selected = state.children[state.index];
+    while (selected.hasOwnProperty('children')) {
+      selected = selected.children[selected.index];
     }
+    const isActive = child === selected;
+    const computedProps = { isActive };
+    if (isActive) {
+      computedProps.hideNavBar = deepestExplicitValueForKey(props.navigationState, 'hideNavBar');
+      computedProps.hideTabBar = deepestExplicitValueForKey(props.navigationState, 'hideTabBar');
+    }
+
+    const style = getSceneStyle ? getSceneStyle(props, computedProps) : null;
 
     const isVertical = direction === 'vertical';
 
@@ -236,6 +245,8 @@ export default class DefaultRenderer extends Component {
         };
       }
     }
+
+    // console.log(`NavigationAnimatedView for ${navigationState.key}`);
 
     return (
       <NavigationAnimatedView
