@@ -20,6 +20,7 @@ import {
 import TabBar from './TabBar';
 import NavBar from './NavBar';
 import Actions from './Actions';
+import { deepestExplicitValueForKey } from './Util';
 
 const {
   AnimatedView: NavigationAnimatedView,
@@ -136,10 +137,19 @@ export default class DefaultRenderer extends Component {
       selected = selected.children[selected.index];
     }
 
-    const hideNavBar = state.hideNavBar || selected.hideNavBar;
-    if (hideNavBar) {
+    if (child !== selected) {
+      // console.log(`SKIPPING renderHeader because ${child.key} !== ${selected.key}`);
       return null;
     }
+
+
+    const hideNavBar = deepestExplicitValueForKey(state, 'hideNavBar');
+    if (hideNavBar) {
+      // console.log(`SKIPPING renderHeader because ${child.key} hideNavBar === true`);
+      return null;
+    }
+
+    // console.log(`renderHeader for ${child.key}`);
 
     if (selected.component && selected.component.renderNavigationBar) {
       return selected.component.renderNavigationBar({ ...props, ...selected });

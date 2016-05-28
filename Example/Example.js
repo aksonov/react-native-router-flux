@@ -91,7 +91,7 @@ export default class Example extends React.Component {
         return <Router createReducer={reducerCreate} getSceneStyle={getSceneStyle}>
             <Scene key="modal" component={Modal} >
                 <Scene key="root" hideNavBar={true}>
-                    <Scene key="echo" clone component={EchoView} />
+                    <Scene key="echo" clone component={EchoView} getTitle={(navState) => navState.key} />
                     <Scene key="switcher" component={Switch} selector={(props) => {
                         return 'text1';
                     }}>
