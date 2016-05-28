@@ -7,7 +7,7 @@
     "sync-rnrf": "rm -rf ./node_modules/react-native-router-flux; sane '/usr/bin/rsync -v -a --exclude .git --exclude Example --exclude node_modules ../ ./node_modules/react-native-router-flux/' .. --glob='{**/*.json,**/*.js}'"
   },
   "dependencies": {
-    "react": "^15.0.2",
+    "react": "15.0.2",
     "react-native": "^0.26.0",
     "react-native-button": "github:ide/react-native-button",
     "react-native-drawer": "^2.2.2",
