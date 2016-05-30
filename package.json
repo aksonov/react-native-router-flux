@@ -1,6 +1,6 @@
 {
   "name": "react-native-router-flux",
-  "version": "3.26.2",
+  "version": "3.26.6",
   "description": "React Native Router using Flux architecture",
   "repository": {
     "type": "git",
@@ -10,7 +10,7 @@
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require react-native-mock/mock",
     "test:watch": "npm run test -- --watch",
-    "eslint": "eslint index.js src/ test/ Example/*.js Example/components/; exit 0;"
+    "eslint": "eslint index.js src/ test/; exit 0;"
   },
   "keywords": [
     "react-native",
@@ -36,7 +36,8 @@
     }
   ],
   "dependencies": {
-    "react-native-tab-navigator": "joenoon/react-native-tab-navigator#rnrf-lock"
+    "react-native-tabs": "1.0.7",
+    "react-static-container": "1.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
@@ -57,10 +58,10 @@
     "expect": "^1.14.0",
     "mocha": "^2.4.5",
     "mocha-junit-reporter": "^1.11.1",
-    "react": "^15.0.2",
-    "react-addons-test-utils": "^15.0.2",
-    "react-dom": "^15.0.2",
-    "react-native": "^0.26.0",
+    "react": "15.0.2",
+    "react-addons-test-utils": "15.0.2",
+    "react-dom": "15.0.2",
+    "react-native": "0.26.x",
     "react-native-mock": "0.2.0",
     "sinon": "^1.17.3"
   }

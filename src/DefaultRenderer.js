@@ -89,13 +89,20 @@ export default class DefaultRenderer extends Component {
     const { key, direction, getSceneStyle } = props.scene.navigationState;
     let { panHandlers, animationStyle } = props.scene.navigationState;
 
-    // Since we always need to pass a style for the direction, we can avoid #526
-    let style;
-    if (getSceneStyle) {
-      const hideNavBar = deepestExplicitValueForKey(props.navigationState, 'hideNavBar');
-      const hideTabBar = deepestExplicitValueForKey(props.navigationState, 'hideTabBar');
-      style = getSceneStyle({ ...props, hideNavBar, hideTabBar });
+    const state = props.navigationState;
+    const child = state.children[state.index];
+    let selected = state.children[state.index];
+    while (selected.hasOwnProperty('children')) {
+      selected = selected.children[selected.index];
     }
+    const isActive = child === selected;
+    const computedProps = { isActive };
+    if (isActive) {
+      computedProps.hideNavBar = deepestExplicitValueForKey(props.navigationState, 'hideNavBar');
+      computedProps.hideTabBar = deepestExplicitValueForKey(props.navigationState, 'hideTabBar');
+    }
+
+    const style = getSceneStyle ? getSceneStyle(props, computedProps) : null;
 
     const isVertical = direction === 'vertical';
 
@@ -139,10 +146,19 @@ export default class DefaultRenderer extends Component {
       selected = selected.children[selected.index];
     }
 
-    const hideNavBar = deepestExplicitValueForKey(state, 'hideNavBar');
-    if (hideNavBar) {
+    if (child !== selected) {
+      // console.log(`SKIPPING renderHeader because ${child.key} !== ${selected.key}`);
       return null;
     }
+
+
+    const hideNavBar = deepestExplicitValueForKey(state, 'hideNavBar');
+    if (hideNavBar) {
+      // console.log(`SKIPPING renderHeader because ${child.key} hideNavBar === true`);
+      return null;
+    }
+
+    // console.log(`renderHeader for ${child.key}`);
 
     if (selected.component && selected.component.renderNavigationBar) {
       return selected.component.renderNavigationBar({ ...props, ...selected });
@@ -229,6 +245,8 @@ export default class DefaultRenderer extends Component {
         };
       }
     }
+
+    // console.log(`NavigationAnimatedView for ${navigationState.key}`);
 
     return (
       <NavigationAnimatedView

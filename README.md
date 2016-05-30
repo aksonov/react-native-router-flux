@@ -52,6 +52,17 @@ Router for React Native based on new React Native Navigation API.
 
 Check out the [mini-tutorial](docs/MINI_TUTORIAL.md) for a quick walkthrough of the routing system.
 
+## Supported configurations
+
+Before instaling please refer to the following table for supported react native series
+
+| React Native - Series | React Native Router Flux - Series | Notes |
+| --- | --- | --- |
+| v0.22.x | v3.22.x |  |
+| v0.23.x,  v0.24.x & v0.25.x | **Not supported** | Please refer to [#636](https://github.com/aksonov/react-native-router-flux/issues/636) for details   |
+| v0.26.x | v3.26.x |  |
+| v0.27.x *Release Candidate* | TBD | Work in progress, currently not supported   |
+
 ## Installation
 ```
 npm i react-native-router-flux --save
