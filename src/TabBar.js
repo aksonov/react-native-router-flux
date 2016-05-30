@@ -35,6 +35,7 @@ class TabBar extends Component {
     if (hideTabBar) {
       tabBarStyle.opacity = 0;
       tabBarStyle.height = 0;
+      tabBarStyle.overflow = 'hidden';
     }
 
     return (
