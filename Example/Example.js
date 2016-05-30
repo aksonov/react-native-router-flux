@@ -10,6 +10,7 @@ import Home from './components/Home'
 import TabView from './components/TabView'
 import EchoView from './components/EchoView'
 import NavigationDrawer from './components/NavigationDrawer'
+import Button from "react-native-button";
 
 class TabIcon extends React.Component {
     render(){
@@ -47,25 +48,59 @@ const reducerCreate = params=>{
 };
 
 // define this based on the styles/dimensions you use
-const getSceneStyle = function (props) {
-  return {
+const getSceneStyle = function (/* NavigationSceneRendererProps */ props, computedProps) {
+  const style = {
     flex: 1,
-    marginTop: props.hideNavBar ? 0 : 64,
-    marginBottom: props.hideTabBar ? 0 : 49.5,
     backgroundColor: '#fff',
     shadowColor: null,
     shadowOffset: null,
     shadowOpacity: null,
     shadowRadius: null,
   };
-}
+  if (computedProps.isActive) {
+    style.marginTop = computedProps.hideNavBar ? 0 : 64;
+    style.marginBottom = computedProps.hideTabBar ? 0 : 50;
+  }
+  return style;
+};
+
+let currentSwitchPage = 'text1';
+
+const SwitcherPage = function (props) {
+    return (
+        <View>
+            <Text style={{marginTop:100,textAlign:'center'}}>current page: {props.text}</Text>
+            <Button
+                onPress={() => {
+                    currentSwitchPage = currentSwitchPage === 'text1' ? 'text2' : 'text1';
+                    Actions.refresh({key: 'switcher'});
+                }}
+            >
+              Switch!
+            </Button>
+            <Button
+                onPress={() => {
+                    Actions.launch({type:'reset'});
+                }}
+            >
+                Exit
+            </Button>
+        </View>
+    );
+};
 
 export default class Example extends React.Component {
     render() {
         return <Router createReducer={reducerCreate} getSceneStyle={getSceneStyle}>
             <Scene key="modal" component={Modal} >
-                <Scene key="root" hideNavBar={true} hideTabBar={true}>
-                    <Scene key="echo" clone component={EchoView} />
+                <Scene key="root" hideNavBar hideTabBar>
+                    <Scene key="echo" clone component={EchoView} getTitle={(navState) => navState.key} />
+                    <Scene key="switcher" component={Switch} selector={(props) => {
+                        return 'text1';
+                    }}>
+                        <Scene key="text1" text="text1" component={(props) => <SwitcherPage {...props} text={currentSwitchPage} />} />
+                        <Scene key="text2" text="text2" component={(props) => <SwitcherPage {...props} text={currentSwitchPage} />} />
+                    </Scene>
                     <Scene key="register" component={Register} title="Register"/>
                     <Scene key="register2" component={Register} title="Register2" duration={1}/>
                     <Scene key="home" component={Home} title="Replace" type="replace"/>
