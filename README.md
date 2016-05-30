@@ -38,7 +38,7 @@ Router for React Native based on new React Native Navigation API.
 
 - **Nested Navigators** (e.g. Each tab can have its own navigator, nested in a root navigator).
 
-- **Custom Scene Renderers** for action sheet, native TabBarIOS or anything else. See built-in `Modal` renderer (to display popups) for example. *Call for PRs!* let's build some custom renderers for ActionSheet, Drawer, etc. Let's make an awesome library!
+- **Custom Scene Renderers** for action sheet, native TabBarIOS or anything else. See built-in `Modal` renderer (to display popups) for example. *Call for PRs!* let's build some custom renderers for ActionSheet, Drawer, etc. Let's make an awesome library! Currently, if you want to use Action Sheets you'll need to use a 3rd party module.
 
 - **Dynamic Routing** allows you to choose which scene to render depending on application state (see the `Switch` renderer, useful for authentication).
 
