@@ -326,43 +326,32 @@ class NavBar extends React.Component {
   renderTitle(childState, index:number) {
     const title = this.props.getTitle ? this.props.getTitle(childState) : childState.title;
     const titleNumberOfLines = this.props.titleNumberOfLines;
-    const style = [
-      styles.title,
-      this.props.titleStyle,
-      this.props.navigationState.titleStyle,
-      childState.titleStyle,
-      {
-        opacity: this.props.position.interpolate({
-          inputRange: [index - 1, index, index + 1],
-          outputRange: [0, 1, 0],
-        }),
-        left: this.props.position.interpolate({
-          inputRange: [index - 1, index + 1],
-          outputRange: [200, -200],
-        }),
-        right: this.props.position.interpolate({
-          inputRange: [index - 1, index + 1],
-          outputRange: [-200, 200],
-        }),
-      },
-    ];
-
-    if (Number.isInteger(titleNumberOfLines) && titleNumberOfLines >= 1) {
-      return (
-        <Animated.Text
-          key={childState.key}
-          style={style}
-          numberOfLines={titleNumberOfLines}
-        >
-          {title}
-        </Animated.Text>
-      );
-    }
+    const hasNumberOfLinesProp = Number.isInteger(titleNumberOfLines) && titleNumberOfLines >= 1;
 
     return (
       <Animated.Text
         key={childState.key}
-        style={style}
+        style={[
+          styles.title,
+          this.props.titleStyle,
+          this.props.navigationState.titleStyle,
+          childState.titleStyle,
+          {
+            opacity: this.props.position.interpolate({
+              inputRange: [index - 1, index, index + 1],
+              outputRange: [0, 1, 0],
+            }),
+            left: this.props.position.interpolate({
+              inputRange: [index - 1, index + 1],
+              outputRange: [200, -200],
+            }),
+            right: this.props.position.interpolate({
+              inputRange: [index - 1, index + 1],
+              outputRange: [-200, 200],
+            }),
+          },
+        ]}
+        {...(hasNumberOfLinesProp ? { numberOfLines: titleNumberOfLines } : {})}
       >
         {title}
       </Animated.Text>
