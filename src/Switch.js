@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import TabBar from './TabBar';
 
 export default function Switch(props) {
@@ -8,13 +8,13 @@ export default function Switch(props) {
   const selectedKey = selector(props);
   if (!selectedKey) console.error('Selector should return key.');
   let index = -1;
-  navState.children.forEach((el, i)=> {
-    if (el.sceneKey === selectedKey){
+  navState.children.forEach((el, i) => {
+    if (el.sceneKey === selectedKey) {
       index = i;
     }
   });
   if (index === -1) console.error(`A scene for key “${selectedKey}” does not exist.`);
-  const navigationState = index !== navState.index ? {...navState, index} : navState;
+  const navigationState = index !== navState.index ? { ...navState, index } : navState;
   return (
     <TabBar
       onNavigate={props.onNavigate}
@@ -22,3 +22,9 @@ export default function Switch(props) {
     />
   );
 }
+
+Switch.propTypes = {
+  navigationState: PropTypes.object,
+  onNavigate: PropTypes.func,
+  selector: PropTypes.func,
+};
