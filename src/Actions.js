@@ -46,7 +46,7 @@ const reservedKeys = [
 
 function getInheritProps(props) {
   // eslint-disable-next-line no-unused-vars
-  const { key, style, type, component, tabs, children, ...parentProps } = props;
+  const { key, style, type, component, tabs, sceneKey, parent, children, ...parentProps } = props;
   return parentProps.passProps ? parentProps : {};
 }
 
