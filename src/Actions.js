@@ -60,7 +60,7 @@ class Actions {
     this.focus = this.focus.bind(this);
   }
 
-  iterate(root: Scene, parentProps = {}, refsParam = {}) {
+  iterate(root: Scene, parentProps = {}, refsParam = {}, wrapBy) {
     const refs = refsParam;
     assert(root.props, 'props should be defined for stack');
     const key = root.key;
@@ -69,12 +69,13 @@ class Actions {
       reservedKeys.indexOf(key) === -1,
       `'${key}' is not allowed as key name. Reserved keys: [${reservedKeys.join(', ')}]`,
     );
-    const { children, ...staticProps } = root.props;
+    const { children, component, ...staticProps } = root.props;
     let type = root.props.type || (parentProps.tabs ? JUMP_ACTION : PUSH_ACTION);
     if (type === 'switch') {
       type = JUMP_ACTION;
     }
     const inheritProps = getInheritProps(parentProps);
+    const componentProps = component ? { component: wrapBy(component) } : {};
     const res = {
       key,
       name: key,
@@ -83,6 +84,7 @@ class Actions {
       type,
       ...inheritProps,
       ...staticProps,
+      ...componentProps,
     };
     let list = children || [];
     if (!(list instanceof Array)) {
@@ -96,9 +98,9 @@ class Actions {
     const subStates = list.filter(condition);
     list = list.filter(el => !condition(el));
     if (list.length) {
-      res.children = list.map(c => this.iterate(c, res, refs).key);
+      res.children = list.map(c => this.iterate(c, res, refs, wrapBy).key);
     } else {
-      assert(staticProps.component, `component property is not set for key=${key}`);
+      assert(component, `component property is not set for key=${key}`);
       // wrap scene if parent is "tabs"
       if (parentProps.tabs) {
         const innerKey = `${res.key}_`;
@@ -154,10 +156,10 @@ class Actions {
     return this.callback({ ...filterParam(props), type: FOCUS_ACTION });
   }
 
-  create(scene:Scene) {
+  create(scene:Scene, wrapBy = x => x) {
     assert(scene, 'root scene should be defined');
     const refs = {};
-    this.iterate(scene, {}, refs);
+    this.iterate(scene, {}, refs, wrapBy);
     return refs;
   }
 }

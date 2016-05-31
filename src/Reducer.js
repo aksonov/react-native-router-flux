@@ -37,7 +37,7 @@ function checkPropertiesEqual(action, lastAction) {
 
 function inject(state, action, props, scenes) {
   const condition = action.type === REFRESH_ACTION ? state.key === props.key ||
-    state.sceneKey === action.key : state.sceneKey === props.parent;
+  state.sceneKey === action.key : state.sceneKey === props.parent;
   // console.log("INJECT:", action.key, state.sceneKey, condition);
   if (!condition) {
     if (state.children) {
@@ -70,8 +70,13 @@ function inject(state, action, props, scenes) {
         children: state.children.slice(0, -1),
       };
     case REFRESH_ACTION:
-      return props.base ? { navBar: state.navBar, ...props, key: state.key, from: null } : {
-        ...state,
+      return props.base ?
+      { navBar: state.navBar,
+        ...scenes.rootProps,
+        ...props,
+        key: state.key,
+        from: null }
+        : { ...state,
         ...props,
         key: state.key,
         from: null,

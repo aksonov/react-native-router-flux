@@ -204,11 +204,6 @@ export default class DefaultRenderer extends Component {
     }
 
     if (SceneComponent) {
-      // optionally wrap component if wrapper is passed
-      if (navigationState.wrapBy && (typeof(navigationState.wrapBy) === 'function')) {
-        SceneComponent = navigationState.wrapBy(SceneComponent);
-      }
-
       return (
         <View
           style={[styles.sceneStyle, navigationState.sceneStyle]}
