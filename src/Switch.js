@@ -1,59 +1,24 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import TabBar from './TabBar';
-import Actions from './Actions';
 
-export default class extends Component {
-
-  static propTypes = {
-    onNavigate: PropTypes.func,
-  };
-
-  constructor(props) {
-    super(props);
-    this.updateState = this.updateState.bind(this);
-    this.state = {};
-  }
-
-  componentDidMount() {
-    this.updateState(this.props);
-  }
-
-  componentWillReceiveProps(props) {
-    this.updateState(props);
-  }
-
-  updateState(props) {
-    const navState = props.navigationState;
-
-    const selector = props.selector;
-    if (!selector) console.error('Selector should be defined.');
-
-    const selectedKey = selector(props);
-    if (!selectedKey) console.error('Selector should return key.');
-
-    const selected = navState.children.filter(el => el.sceneKey === selectedKey);
-    if (!selected) console.error(`A scene for key “${selectedKey}” does not exist.`);
-
-    const navigationState = selected[0];
-    if (!navigationState) console.error(`Cannot find a scene with key “${selectedKey}”`);
-
-    if (navigationState.key !== navState.children[navState.index].key) {
-      Actions[selectedKey]();
+export default function Switch(props) {
+  const navState = props.navigationState;
+  const selector = props.selector;
+  if (!selector) console.error('Selector should be defined.');
+  const selectedKey = selector(props);
+  if (!selectedKey) console.error('Selector should return key.');
+  let index = -1;
+  navState.children.forEach((el, i)=> {
+    if (el.sceneKey === selectedKey){
+      index = i;
     }
-
-    this.setState({ navigationState: navState });
-  }
-
-  render() {
-    if (this.state.navigationState) {
-      return (
-        <TabBar
-          onNavigate={this.props.onNavigate}
-          navigationState={this.state.navigationState}
-        />
-      );
-    }
-
-    return null;
-  }
+  });
+  if (index === -1) console.error(`A scene for key “${selectedKey}” does not exist.`);
+  const navigationState = index !== navState.index ? {...navState, index} : navState;
+  return (
+    <TabBar
+      onNavigate={props.onNavigate}
+      navigationState={navigationState}
+    />
+  );
 }
