@@ -64,7 +64,7 @@ class Router extends Component {
           </Scene>
         );
       }
-      scenesMap = Actions.create(scenes);
+      scenesMap = Actions.create(scenes, props.wrapBy);
     }
 
     // eslint-disable-next-line no-unused-vars
