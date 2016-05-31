@@ -145,7 +145,10 @@ export default class DefaultRenderer extends Component {
     while (selected.hasOwnProperty('children')) {
       selected = selected.children[selected.index];
     }
-
+    if (child !== selected) {
+      // console.log(`SKIPPING renderHeader because ${child.key} !== ${selected.key}`);
+      return null;
+    }
     const hideNavBar = deepestExplicitValueForKey(state, 'hideNavBar');
     if (hideNavBar) {
       // console.log(`SKIPPING renderHeader because ${child.key} hideNavBar === true`);

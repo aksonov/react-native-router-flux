@@ -31,7 +31,7 @@
 | initial | `bool` | false | Set to `true` if this is the initial scene |
 | type | `string` | 'push' or 'jump' | Defines how the new screen is added to the navigator stack. One of `push`, `jump`, `replace`, `reset`. If parent container is tabbar (tabs=true), jump will be automatically set.
 | clone | `bool` | | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
-
+| passProps | `bool` | false | Pass all own props (except style, key, name, component, tabs) to children. Note that passProps is also passed to children. |
 ### Animation
 | Property | Type | Default | Description |
 |-----------|--------|---------|--------------------------------------------|

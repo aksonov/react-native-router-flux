@@ -44,6 +44,12 @@ const reservedKeys = [
   'current',
 ];
 
+function getInheritProps(props) {
+  // eslint-disable-next-line no-unused-vars
+  const { key, style, type, component, tabs, children, ...parentProps } = props;
+  return parentProps.passProps ? parentProps : {};
+}
+
 class Actions {
   constructor() {
     this.callback = null;
@@ -68,12 +74,14 @@ class Actions {
     if (type === 'switch') {
       type = JUMP_ACTION;
     }
+    const inheritProps = getInheritProps(parentProps);
     const res = {
       key,
       name: key,
       sceneKey: key,
       parent: parentProps.key,
       type,
+      ...inheritProps,
       ...staticProps,
     };
     let list = children || [];
