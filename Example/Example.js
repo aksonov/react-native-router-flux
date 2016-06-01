@@ -106,7 +106,7 @@ export default class Example extends React.Component {
                     <Scene key="home" component={Home} title="Replace" type="replace"/>
                     <Scene key="launch" component={Launch} title="Launch" initial={true} />
                     <Scene key="login" direction="vertical"  >
-                        <Scene key="loginModal" component={Login} title="Login"/>
+                        <Scene key="loginModal" direction="vertical" component={Login} title="Login"/>
                         <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2" panHandlers={null} duration={1}/>
                     </Scene>
                     <Scene key="tabbar" component={NavigationDrawer}>
