@@ -164,11 +164,19 @@ export default class DefaultRenderer extends Component {
     const HeaderComponent = selected.navBar || child.navBar || state.navBar || NavBar;
     const navBarProps = { ...state, ...child, ...selected };
 
-    if ((selected.leftTitle || selected.leftButtonImage) && selected.onLeft) {
+    if (selected.component && selected.component.onRight) {
+      navBarProps.onRight = selected.component.onRight;
+    }
+
+    if (selected.component && selected.component.onLeft) {
+      navBarProps.onLeft = selected.component.onLeft;
+    }
+
+    if ((navBarProps.leftTitle || navBarProps.leftButtonImage) && navBarProps.onLeft) {
       delete navBarProps.leftButton;
     }
 
-    if ((selected.rightTitle || selected.rightButtonImage) && selected.onRight) {
+    if ((navBarProps.rightTitle || navBarProps.rightButtonImage) && navBarProps.onRight) {
       delete navBarProps.rightButton;
     }
 
