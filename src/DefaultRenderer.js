@@ -172,13 +172,13 @@ export default class DefaultRenderer extends Component {
       delete navBarProps.rightButton;
     }
 
-    if (selected.rightButton) {
+    if (navBarProps.rightButton) {
       delete navBarProps.rightTitle;
       delete navBarProps.onRight;
       delete navBarProps.rightButtonImage;
     }
 
-    if (selected.leftButton) {
+    if (navBarProps.leftButton) {
       delete navBarProps.leftTitle;
       delete navBarProps.onLeft;
       delete navBarProps.leftButtonImage;
