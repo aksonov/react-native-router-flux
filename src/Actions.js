@@ -76,6 +76,16 @@ class Actions {
     }
     const inheritProps = getInheritProps(parentProps);
     const componentProps = component ? { component: wrapBy(component) } : {};
+    // wrap other components
+    if (wrapBy) {
+      Object.keys(staticProps).forEach(prop => {
+        const componentClass = staticProps[prop];
+        if (componentClass && componentClass.prototype && componentClass.prototype.render) {
+          componentProps[prop] = wrapBy(componentClass);
+          delete staticProps[prop];
+        }
+      });
+    }
     const res = {
       key,
       name: key,
