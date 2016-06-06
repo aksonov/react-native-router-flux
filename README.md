@@ -34,7 +34,7 @@ Router for React Native based on new React Native Navigation API.
 
 - **Highly Customizable Navigation Bar** - Show/hide the navbar depending on Scene or even the state of a Scene (e.g. Edit/Save navbar for edit mode).
 
-- **Tab Bar Support** using [react-native-tab-navigator](https://github.com/exponentjs/react-native-tab-navigator) (see Example app).
+- **Tab Bar Support** using [react-native-tabs](https://github.com/aksonov/react-native-tabs) (see Example app).
 
 - **Nested Navigators** (e.g. Each tab can have its own navigator, nested in a root navigator).
 
