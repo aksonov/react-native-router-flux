@@ -49,6 +49,7 @@ npm i react-native-router-flux --save
 | hideTabBar | bool | false | hides tab bar for this route (if built-in TabBar component is used as footer for parent Router, check Example)|
 | navigationBarStyle | View style |  | optional style override for the navigation bar |
 | titleStyle | Text style |  | optional style override for the title element |
+| titleNumberOfLines | `number` | optional | Number of lines the title should wrap before truncating with an ellipsis | 
 | renderTitle | Closure | | optional closure to render the title element |
 | barButtonIconStyle | Image style |  | optional style override for icon buttons (e.g. back icon) |
 | leftTitle | string | | optional string to display on the left if the previous route does not provide `renderBackButton` prop. `renderBackButton` > `leftTitle` > <previous route's `title`> |

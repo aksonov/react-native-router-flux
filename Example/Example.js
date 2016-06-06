@@ -10,6 +10,7 @@ import Home from './components/Home'
 import TabView from './components/TabView'
 import EchoView from './components/EchoView'
 import NavigationDrawer from './components/NavigationDrawer'
+import Title from './components/Title';
 import Button from "react-native-button";
 
 class TabIcon extends React.Component {
@@ -105,7 +106,10 @@ export default class Example extends React.Component {
                     <Scene key="register2" component={Register} title="Register2" duration={1}/>
                     <Scene key="home" component={Home} title="Replace" type="replace"/>
                     <Scene key="launch" component={Launch} title="Launch" initial={true} />
-                    <Scene key="login" direction="vertical"  >
+                    <Scene key="title">
+                        <Scene key="titlepage" component={Title} title="Hello world!" titleNumberOfLines={1}/>
+                    </Scene>
+                    <Scene key="login" direction="vertical">
                         <Scene key="loginModal" component={Login} title="Login"/>
                         <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2" panHandlers={null} duration={1}/>
                     </Scene>
