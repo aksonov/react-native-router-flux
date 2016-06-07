@@ -59,9 +59,11 @@ Before instaling please refer to the following table for supported react native 
 | React Native - Series | React Native Router Flux - Series | Notes |
 | --- | --- | --- |
 | v0.22.x | v3.22.x |  |
-| v0.23.x,  v0.24.x & v0.25.x | **Not supported** | Please refer to [#636](https://github.com/aksonov/react-native-router-flux/issues/636) for details   |
+| v0.23.x,  v0.24.x & v0.25.x | **Not supported** | Please refer to [#636](https://github.com/aksonov/react-native-router-flux/issues/636) |
 | v0.26.x | v3.26.x |  |
-| v0.27.x *Release Candidate* | TBD | Work in progress, currently not supported   |
+| v0.27.x | Work in progress, currently not supported | Please refer to [#786](https://github.com/aksonov/react-native-router-flux/issues/786)   |
+| v0.28.x *Release Candidate* | currently not supported |  |
+
 
 ## Installation
 ```
