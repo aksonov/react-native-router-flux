@@ -90,7 +90,7 @@ class Actions {
     if (list.length) {
       res.children = list.map(c => this.iterate(c, res, refs).key);
     } else {
-      if (!staticProps.onPress){
+      if (!staticProps.onPress) {
         assert(staticProps.component, `component property is not set for key=${key}`);
       }
       // wrap scene if parent is "tabs"
