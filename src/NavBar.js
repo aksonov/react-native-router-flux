@@ -115,6 +115,8 @@ const styles = StyleSheet.create({
 const propTypes = {
   navigationState: PropTypes.object,
   backButtonImage: PropTypes.number,
+  wrapBy: PropTypes.any,
+  component: PropTypes.any,
   backButtonTextStyle: Text.propTypes.style,
   leftButtonStyle: View.propTypes.style,
   leftButtonIconStyle: Image.propTypes.style,
@@ -199,9 +201,15 @@ class NavBar extends React.Component {
 
   renderRightButton() {
     const self = this;
-    function tryRender(state) {
+    function tryRender(state, wrapBy) {
+      if (!state) {
+        return null;
+      }
       if (state.rightButton) {
-        const Button = state.rightButton;
+        let Button = state.rightButton;
+        if (wrapBy) {
+          Button = wrapBy(Button);
+        }
         return (
           <Button
             {...self.props}
@@ -250,18 +258,21 @@ class NavBar extends React.Component {
       }
       return null;
     }
-    return tryRender(this.props);
+    return tryRender(this.props) || tryRender(this.props.component, this.props.wrapBy);
   }
 
   renderLeftButton() {
     const self = this;
     const drawer = this.context.drawer;
-    function tryRender(state) {
+    function tryRender(state, wrapBy) {
       let onPress = state.onLeft;
       let buttonImage = state.leftButtonImage;
 
       if (state.leftButton) {
-        const Button = state.leftButton;
+        let Button = state.leftButton;
+        if (wrapBy) {
+          Button = wrapBy(Button);
+        }
         return (
           <Button
             {...self.props}
@@ -319,7 +330,7 @@ class NavBar extends React.Component {
       }
       return null;
     }
-    return tryRender(this.props);
+    return tryRender(this.props) || tryRender(this.props.component, this.props.wrapBy);
   }
 
   renderTitle(childState, index:number) {
@@ -383,8 +394,8 @@ class NavBar extends React.Component {
         ]}
       >
         {renderTitle ? renderTitle(selected) : state.children.map(this.renderTitle, this)}
-        {renderBackButton() || renderLeftButton()}
-        {renderRightButton()}
+        {renderBackButton(selected) || renderLeftButton(selected)}
+        {renderRightButton(selected)}
       </Animated.View>
     );
   }
