@@ -21,7 +21,11 @@ class TabBar extends Component {
         `No action is defined for sceneKey=${el.sceneKey} ` +
         `actions: ${JSON.stringify(Object.keys(Actions))}`);
     }
-    Actions[el.sceneKey]();
+    if (!el.onPress) {
+      Actions[el.sceneKey]();
+    } else {
+      el.onPress();
+    }
   }
 
   render() {
