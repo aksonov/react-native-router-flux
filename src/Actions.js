@@ -80,7 +80,7 @@ class Actions {
     if (!(list instanceof Array)) {
       list = [list];
     }
-    const condition = el => (!el.props.component && !el.props.children &&
+    const condition = el => (!el.props.component && !el.props.children && !el.props.onPress &&
     (!el.props.type || el.props.type === REFRESH_ACTION));
     // determine sub-states
     let baseKey = root.key;
@@ -90,7 +90,9 @@ class Actions {
     if (list.length) {
       res.children = list.map(c => this.iterate(c, res, refs).key);
     } else {
-      assert(staticProps.component, `component property is not set for key=${key}`);
+      if (!staticProps.onPress){
+          assert(staticProps.component, `component property is not set for key=${key}`);
+      }
       // wrap scene if parent is "tabs"
       if (parentProps.tabs) {
         const innerKey = `${res.key}_`;
