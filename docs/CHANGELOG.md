@@ -1,4 +1,5 @@
 # Change log
+- 3.26.21 Added onBack, hideBackImage properties
 - 3.26.20 Support for 'modifier' functions inside Refresh actions, like `Actions.refresh({ key: 'drawer', open: value=>!value })`
 - 3.26.0 Support for React Native 0.26
 - 3.22.20 fix more ESLint errors, fix passing leftButtonStyle property for back button

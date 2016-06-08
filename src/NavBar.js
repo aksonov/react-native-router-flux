@@ -156,7 +156,7 @@ class NavBar extends React.Component {
     const childState = state.children[state.index];
     let buttonImage = childState.backButtonImage ||
       state.backButtonImage || this.props.backButtonImage;
-    let onPress = Actions.pop;
+    let onPress = childState.onBack || Actions.pop;
 
     if (state.index === 0) {
       return null;
@@ -186,7 +186,7 @@ class NavBar extends React.Component {
         ]}
         onPress={onPress}
       >
-        {buttonImage &&
+        {buttonImage && !childState.hideBackImage &&
           <Image
             source={buttonImage}
             style={[
@@ -398,7 +398,7 @@ class NavBar extends React.Component {
         ]}
       >
         {renderTitle ? renderTitle(selected) : state.children.map(this.renderTitle, this)}
-        {renderLeftButton(selected) || renderBackButton(selected) }
+        {renderBackButton(selected) || renderLeftButton(selected)}
         {renderRightButton(selected)}
       </Animated.View>
     );
