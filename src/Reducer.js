@@ -12,6 +12,7 @@
 import {
   PUSH_ACTION,
   POP_ACTION2,
+  POP_TO_PARENT_ACTION,
   JUMP_ACTION,
   REPLACE_ACTION,
   RESET_ACTION,
@@ -56,18 +57,22 @@ function inject(state, action, props, scenes) {
     return state;
   }
   let ind;
+  let numPops = 1;
   switch (action.type) {
+    case POP_TO_PARENT_ACTION:
+      numPops = action.numPops;
     case POP_ACTION2:
     case POP_ACTION:
       assert(!state.tabs, 'pop() operation cannot be run on tab bar (tabs=true)');
       if (state.index === 0) {
         return state;
       }
+
       return {
         ...state,
-        index: state.index - 1,
+        index: state.index - numPops,
         from: state.children[state.children.length - 1],
-        children: state.children.slice(0, -1),
+        children: state.children.slice(0, - numPops),
       };
     case REFRESH_ACTION:
       return props.base ?
@@ -203,13 +208,14 @@ function reducer({ initialState, scenes }) {
     } else {
       // set current route for pop action or refresh action
       if (action.type === POP_ACTION || action.type === POP_ACTION2 ||
-        action.type === REFRESH_ACTION) {
+        action.type === REFRESH_ACTION || action.type === POP_TO_PARENT_ACTION) {
         if (!action.key && !action.parent) {
           action = { ...getCurrent(state), ...action };
         }
       }
+
       // recursive pop parent
-      if (action.type === POP_ACTION || action.type === POP_ACTION2) {
+      if (action.type === POP_ACTION || action.type === POP_ACTION2 || action.type === POP_TO_PARENT_ACTION) {
         const parent = action.parent || state.scenes[action.key].parent;
         let el = findElement(state, parent, action.type);
         while (el.parent && (el.children.length <= 1 || el.tabs)) {
@@ -218,10 +224,24 @@ function reducer({ initialState, scenes }) {
         }
         action.parent = el.sceneKey;
       }
+
+      // find the index of the parent to be poped to
+      if(action.type === POP_TO_PARENT_ACTION) {
+        const parentName = action.data;
+        assert(parentName, 'Cannot call popToParent() without a parent name');
+
+        const parentIndex = state.children.findIndex(child => {console.log(child, child.name, parentName, child.name === parentName); return child.name === parentName});
+        console.log(parentIndex);
+        assert(parentIndex > -1, `Scene named "${parentName}" not parent of "${action.name}"`);
+
+        action.numPops = state.index - parentIndex;
+      }
     }
+
     switch (action.type) {
       case POP_ACTION2:
       case POP_ACTION:
+      case POP_TO_PARENT_ACTION:
       case REFRESH_ACTION:
       case PUSH_ACTION:
       case JUMP_ACTION:
