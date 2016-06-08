@@ -154,6 +154,21 @@ class NavBar extends React.Component {
   renderBackButton() {
     const state = this.props.navigationState;
     const childState = state.children[state.index];
+    const BackButton = (childState.component && childState.component.backButton) || state.backButton
+      || childState.backButton;
+    if (BackButton) {
+      return (
+        <BackButton
+          testID="backNavButton"
+          style={[
+            styles.backButton,
+            this.props.leftButtonStyle,
+            state.leftButtonStyle,
+            childState.leftButtonStyle,
+          ]}
+        />
+      );
+    }
     let buttonImage = childState.backButtonImage ||
       state.backButtonImage || this.props.backButtonImage;
     let onPress = childState.onBack || Actions.pop;
@@ -234,23 +249,18 @@ class NavBar extends React.Component {
             onPress={onPress}
           >
             {state.rightTitle &&
-              <Text
-                style={[
-                  styles.barRightButtonText,
-                  state.rightButtonTextStyle]}
-              >
+              <Text style={[styles.barRightButtonText, state.rightButtonTextStyle]}>
                 {state.rightTitle}
               </Text>
             }
             {state.rightButtonImage &&
-              <View
-                style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}
-              >
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
                 <Image
                   source={state.rightButtonImage}
                   style={state.rightButtonIconStyle}
                 />
-              </View>}
+              </View>
+            }
           </TouchableOpacity>
         );
       }
@@ -262,7 +272,7 @@ class NavBar extends React.Component {
       }
       return null;
     }
-    return tryRender(this.props) || tryRender(this.props.component, this.props.wrapBy);
+    return tryRender(this.props.component, this.props.wrapBy) || tryRender(this.props);
   }
 
   renderLeftButton() {
@@ -305,24 +315,18 @@ class NavBar extends React.Component {
             onPress={onPress}
           >
             {state.leftTitle &&
-              <Text
-                style={[
-                  styles.barLeftButtonText,
-                  state.leftButtonTextStyle,
-                ]}
-              >
+              <Text style={[styles.barLeftButtonText, state.leftButtonTextStyle]}>
                 {state.leftTitle}
               </Text>
             }
             {buttonImage &&
-              <View
-                style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}
-              >
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
                 <Image
                   source={buttonImage}
                   style={state.leftButtonIconStyle || styles.defaultImageStyle}
                 />
-              </View>}
+              </View>
+            }
           </TouchableOpacity>
         );
       }
@@ -334,7 +338,7 @@ class NavBar extends React.Component {
       }
       return null;
     }
-    return tryRender(this.props) || tryRender(this.props.component, this.props.wrapBy);
+    return tryRender(this.props.component, this.props.wrapBy) || tryRender(this.props);
   }
 
   renderTitle(childState, index:number) {
