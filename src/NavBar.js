@@ -110,6 +110,10 @@ const styles = StyleSheet.create({
   rightButtonIconStyle: {
 
   },
+  defaultImageStyle: {
+    height: 24,
+    resizeMode: 'contain',
+  },
 });
 
 const propTypes = {
@@ -284,7 +288,7 @@ class NavBar extends React.Component {
         );
       }
 
-      if (!!drawer && typeof drawer.toggle === 'function') {
+      if (!onPress && !!drawer && typeof drawer.toggle === 'function') {
         buttonImage = state.drawerImage;
         if (buttonImage) {
           onPress = drawer.toggle;
@@ -316,7 +320,7 @@ class NavBar extends React.Component {
               >
                 <Image
                   source={buttonImage}
-                  style={state.leftButtonIconStyle}
+                  style={state.leftButtonIconStyle || styles.defaultImageStyle}
                 />
               </View>}
           </TouchableOpacity>
@@ -394,7 +398,7 @@ class NavBar extends React.Component {
         ]}
       >
         {renderTitle ? renderTitle(selected) : state.children.map(this.renderTitle, this)}
-        {renderBackButton(selected) || renderLeftButton(selected)}
+        {renderLeftButton(selected) || renderBackButton(selected) }
         {renderRightButton(selected)}
       </Animated.View>
     );

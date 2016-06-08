@@ -181,7 +181,16 @@ function reducer({ initialState, scenes }) {
           sceneKey = state.scenes[child.base].sceneKey;
         }
         assert(child, `missed child data for key=${key}`);
-        action = { ...child, ...action, sceneKey, key };
+        // evaluate functions within actions to allow conditional set, like switch values
+        const evaluated = {};
+        Object.keys(action).forEach(el => {
+          if (typeof action[el] === 'function' && typeof child[el] !== 'undefined'
+            && typeof child[el] !== typeof action[el]) {
+            evaluated[el] = action[el](child[el], child);
+          }
+        });
+        action = { ...child, ...action, ...evaluated, sceneKey, key };
+
         // console.log("REFRESH ACTION:", action);
       } else {
         const scene = state.scenes[action.key];

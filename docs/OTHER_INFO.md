@@ -58,14 +58,18 @@ Example of Drawer custom renderer based on react-native-drawer. Note that the bu
 import React from 'react-native';
 import Drawer from 'react-native-drawer';
 import SideMenu from './SideMenu';
-import {DefaultRenderer} from 'react-native-router-flux';
+import {Actions, DefaultRenderer} from 'react-native-router-flux';
 
 export default class extends Component {
     render(){
-        const children = this.props.navigationState.children;
+        const state = this.props.navigationState;
+        const children = state.children;
         return (
             <Drawer
                 ref="navigation"
+                open={state.open}
+                onOpen={()=>Actions.refresh({key:state.key, open: true})
+                onClose={()=>Actions.refresh({key:state.key, open: false})
                 type="displace"
                 content={<TabView />}
                 tapToClose={true}
@@ -82,12 +86,14 @@ export default class extends Component {
 }
 
 /// then wrap your tabs scene with Drawer:
-            <Scene key="drawer" component={Drawer}>
+            <Scene key="drawer" component={Drawer} open={false} >
                 <Scene key="main" tabs={true} >
                         ....
                 </Scene>
             </Scene>
 
+// then you could open/hide/toggle drawer anywhere using 'refresh' modifiers:
+          Actions.refresh({key: drawer, open: value => !value };
 ```
 ## Sub-scenes support
 You could create 'sub-scene' actions by putting them as children for needed 'base' scene without `component` prop and call such action anywhere - 'base' Scene will be updated accordingly.
