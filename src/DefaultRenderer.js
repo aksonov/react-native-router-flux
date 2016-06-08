@@ -216,11 +216,7 @@ export default class DefaultRenderer extends Component {
         <View
           style={[styles.sceneStyle, navigationState.sceneStyle]}
         >
-          <SceneComponent
-            {...navigationState}
-            onNavigate={onNavigate}
-            navigationState={navigationState}
-          />
+          <SceneComponent {...this.props} {...navigationState} />
         </View>
       );
     }
