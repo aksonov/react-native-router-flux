@@ -156,16 +156,24 @@ class NavBar extends React.Component {
     const childState = state.children[state.index];
     const BackButton = (childState.component && childState.component.backButton) || state.backButton
       || childState.backButton;
+    const textButtonStyle = [
+      styles.barBackButtonText,
+      this.props.backButtonTextStyle,
+      state.backButtonTextStyle,
+      childState.backButtonTextStyle,
+    ];
+    const style = [
+      styles.backButton,
+      this.props.leftButtonStyle,
+      state.leftButtonStyle,
+      childState.leftButtonStyle,
+    ];
     if (BackButton) {
       return (
         <BackButton
           testID="backNavButton"
-          style={[
-            styles.backButton,
-            this.props.leftButtonStyle,
-            state.leftButtonStyle,
-            childState.leftButtonStyle,
-          ]}
+          textButtonStyle={textButtonStyle}
+          style={style}
         />
       );
     }
@@ -178,14 +186,7 @@ class NavBar extends React.Component {
     }
 
     let text = childState.backTitle ?
-      <Text
-        style={[
-          styles.barBackButtonText,
-          this.props.backButtonTextStyle,
-          state.backButtonTextStyle,
-          childState.backButtonTextStyle,
-        ]}
-      >
+      <Text style={textButtonStyle}>
         {childState.backTitle}
       </Text>
       : null;
@@ -193,12 +194,7 @@ class NavBar extends React.Component {
     return (
       <TouchableOpacity
         testID="backNavButton"
-        style={[
-          styles.backButton,
-          this.props.leftButtonStyle,
-          state.leftButtonStyle,
-          childState.leftButtonStyle,
-        ]}
+        style={style}
         onPress={onPress}
       >
         {buttonImage && !childState.hideBackImage &&
@@ -224,6 +220,9 @@ class NavBar extends React.Component {
       if (!state) {
         return null;
       }
+      const textStyle = [styles.barRightButtonText, self.props.rightButtonTextStyle,
+        state.rightButtonTextStyle];
+      const style = [styles.rightButton, self.props.rightButtonStyle, state.rightButtonStyle];
       if (state.rightButton) {
         let Button = state.rightButton;
         if (wrapBy) {
@@ -235,7 +234,8 @@ class NavBar extends React.Component {
             {...state}
             key={'rightNavBarBtn'}
             testID="rightNavButton"
-            style={[styles.rightButton, state.rightButtonStyle]}
+            style={style}
+            textButtonStyle={textStyle}
           />
         );
       }
@@ -245,11 +245,11 @@ class NavBar extends React.Component {
           <TouchableOpacity
             key={'rightNavBarBtn'}
             testID="rightNavButton"
-            style={[styles.rightButton, state.rightButtonStyle]}
+            style={style}
             onPress={onPress}
           >
             {state.rightTitle &&
-              <Text style={[styles.barRightButtonText, state.rightButtonTextStyle]}>
+              <Text style={textStyle}>
                 {state.rightTitle}
               </Text>
             }
@@ -281,6 +281,9 @@ class NavBar extends React.Component {
     function tryRender(state, wrapBy) {
       let onPress = state.onLeft;
       let buttonImage = state.leftButtonImage;
+      const style = [styles.leftButton, self.props.leftButtonStyle, state.leftButtonStyle];
+      const textStyle = [styles.barLeftButtonText, self.props.leftButtonTextStyle,
+        state.leftButtonTextStyle];
 
       if (state.leftButton) {
         let Button = state.leftButton;
@@ -293,7 +296,8 @@ class NavBar extends React.Component {
             {...state}
             key={'leftNavBarBtn'}
             testID="leftNavButton"
-            style={[styles.leftButton, state.leftButtonStyle]}
+            style={style}
+            textStyle={textStyle}
           />
         );
       }
@@ -311,11 +315,11 @@ class NavBar extends React.Component {
           <TouchableOpacity
             key={'leftNavBarBtn'}
             testID="leftNavButton"
-            style={[styles.leftButton, state.leftButtonStyle]}
+            style={style}
             onPress={onPress}
           >
             {state.leftTitle &&
-              <Text style={[styles.barLeftButtonText, state.leftButtonTextStyle]}>
+              <Text style={textStyle}>
                 {state.leftTitle}
               </Text>
             }
@@ -379,7 +383,7 @@ class NavBar extends React.Component {
       state = selected;
       selected = selected.children[selected.index];
     }
-
+    const navProps = { ...this.props, ...selected };
     const renderLeftButton = selected.renderLeftButton ||
       selected.component.renderLeftButton ||
       this.renderLeftButton;
@@ -401,9 +405,9 @@ class NavBar extends React.Component {
           selected.navigationBarStyle,
         ]}
       >
-        {renderTitle ? renderTitle(selected) : state.children.map(this.renderTitle, this)}
-        {renderBackButton(selected) || renderLeftButton(selected)}
-        {renderRightButton(selected)}
+        {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
+        {renderBackButton(navProps) || renderLeftButton(navProps)}
+        {renderRightButton(navProps)}
       </Animated.View>
     );
   }
