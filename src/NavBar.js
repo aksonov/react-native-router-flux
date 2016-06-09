@@ -281,6 +281,7 @@ class NavBar extends React.Component {
     function tryRender(state, wrapBy) {
       let onPress = state.onLeft;
       let buttonImage = state.leftButtonImage;
+      let menuIcon = state.drawerIcon;
       const style = [styles.leftButton, self.props.leftButtonStyle, state.leftButtonStyle];
       const textStyle = [styles.barLeftButtonText, self.props.leftButtonTextStyle,
         state.leftButtonTextStyle];
@@ -304,8 +305,12 @@ class NavBar extends React.Component {
 
       if (!onPress && !!drawer && typeof drawer.toggle === 'function') {
         buttonImage = state.drawerImage;
-        if (buttonImage) {
+        if (buttonImage || menuIcon) {
           onPress = drawer.toggle;
+        }
+        if (!menuIcon) {
+          menuIcon = (<Image source={buttonImage}
+              style={state.leftButtonIconStyle || styles.defaultImageStyle} />);
         }
       }
 
@@ -325,10 +330,7 @@ class NavBar extends React.Component {
             }
             {buttonImage &&
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-                <Image
-                  source={buttonImage}
-                  style={state.leftButtonIconStyle || styles.defaultImageStyle}
-                />
+                {menuIcon}
               </View>
             }
           </TouchableOpacity>
