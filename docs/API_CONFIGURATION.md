@@ -32,12 +32,19 @@
 | type | `string` | 'push' or 'jump' | Defines how the new screen is added to the navigator stack. One of `push`, `jump`, `replace`, `reset`. If parent container is tabbar (tabs=true), jump will be automatically set.
 | clone | `bool` | | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
 | passProps | `bool` | false | Pass all own props (except style, key, name, component, tabs) to children. Note that passProps is also passed to children. |
+
 ### Animation
 | Property | Type | Default | Description |
 |-----------|--------|---------|--------------------------------------------|
 | duration | `number` | | optional. acts as a shortcut to writing an `applyAnimation` function with `Animated.timing` for a given duration (in ms). |
 | direction | `string` | 'horizontal' | direction of animation horizontal/vertical |
 | applyAnimation | `function` | | optional if provided overrides the default spring animation |
+
+### Gestures
+| Property | Type | Default | Description |
+|-----------|--------|---------|--------------------------------------------|
+| panHandlers | `object` | | optional, provide null to disable swipe back gesture |
+| getPanHandlers | `function` | optional | Optionally override the gesture handlers for scene |
 
 ### Scene styles
 | Property | Type | Default | Description |

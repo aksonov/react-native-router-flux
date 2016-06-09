@@ -86,7 +86,7 @@ export default class DefaultRenderer extends Component {
   }
 
   renderCard(/* NavigationSceneRendererProps */ props) {
-    const { key, direction, getSceneStyle } = props.scene.navigationState;
+    const { key, direction, getSceneStyle, getPanHandlers } = props.scene.navigationState;
     let { panHandlers, animationStyle } = props.scene.navigationState;
 
     const state = props.navigationState;
@@ -113,6 +113,7 @@ export default class DefaultRenderer extends Component {
     }
 
     if (typeof(panHandlers) === 'undefined') {
+      panHandlers = getPanHandlers ? getPanHandlers(props) : undefined;
       panHandlers = panHandlers || (isVertical ?
           NavigationCardStackPanResponder.forVertical(props) :
           NavigationCardStackPanResponder.forHorizontal(props));
