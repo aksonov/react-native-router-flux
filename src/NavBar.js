@@ -309,8 +309,12 @@ class NavBar extends React.Component {
           onPress = drawer.toggle;
         }
         if (!menuIcon) {
-          menuIcon = (<Image source={buttonImage}
-              style={state.leftButtonIconStyle || styles.defaultImageStyle} />);
+          menuIcon = (
+            <Image
+              source={buttonImage}
+              style={state.leftButtonIconStyle || styles.defaultImageStyle}
+            />
+          );
         }
       }
 
