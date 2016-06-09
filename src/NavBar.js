@@ -264,7 +264,8 @@ class NavBar extends React.Component {
           </TouchableOpacity>
         );
       }
-      if ((!!state.onRight ^ !!(state.rightTitle || state.rightButtonImage))) {
+      if ((!!state.onRight ^ !!(typeof(state.rightTitle) !== 'undefined'
+        || typeof(state.rightButtonImage) !== 'undefined'))) {
         console.warn(
           `Both onRight and rightTitle/rightButtonImage
             must be specified for the scene: ${state.name}`
