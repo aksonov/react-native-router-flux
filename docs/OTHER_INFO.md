@@ -52,7 +52,8 @@ module.exports = <Scene key="tabbar" tabs={true}>
 ```
 
 ## Drawer (side menu) integration
-Example of Drawer custom renderer based on react-native-drawer. Note that the build-in NavBar component supports toggling of drawer. The Drawer implementation just needs to have a function: toggle();
+Example of Drawer custom renderer based on react-native-drawer. Note that the build-in NavBar component supports toggling of drawer. The Drawer implementation just needs to have a function: toggle()
+With DefaultRenderer you may build own drawer 'renderer' that transforms current navigation state into drawer. Drawer could check own state (open/close) from navigation state:
 
 ```jsx
 import React from 'react-native';
