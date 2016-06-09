@@ -67,7 +67,7 @@ class Actions {
     assert(key, 'unique key should be defined ');
     assert(
       reservedKeys.indexOf(key) === -1,
-      `'${key}' is not allowed as key name. Reserved keys: [${reservedKeys.join(', ')}]`,
+      `'${key}' is not allowed as key name. Reserved keys: [${reservedKeys.join(', ')}]`
     );
     const { children, component, ...staticProps } = root.props;
     let type = root.props.type || (parentProps.tabs ? JUMP_ACTION : PUSH_ACTION);
@@ -97,9 +97,21 @@ class Actions {
       ...componentProps,
     };
     let list = children || [];
+    const normalized = [];
     if (!(list instanceof Array)) {
       list = [list];
     }
+    list.forEach(item => {
+      if (item instanceof Array) {
+        item.forEach(it => {
+          normalized.push(it);
+        });
+      } else {
+        normalized.push(item);
+      }
+    });
+    list = normalized; // normalize the list of scenes
+
     const condition = el => (!el.props.component && !el.props.children &&
     (!el.props.type || el.props.type === REFRESH_ACTION));
     // determine sub-states
