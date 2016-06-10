@@ -68,9 +68,12 @@ function inject(state, action, props, scenes) {
       if (action.data) {
         assert(typeof(action.data) === 'number', 'The data is the number of scenes you want to pop, it must be Number')
         popNum = action.data
-        assert(popNum % 1 === 0, 'The data is the number of scenes you want to pop, it must be integer.')
-        assert(popNum > 1, 'The data is the number of scenes you want to pop, it must be bigger than 1.')
-        assert(popNum < state.children.length, "The data is the number of scenes you want to pop, it must be smaller than scenes stack's length.")
+        assert(popNum % 1 === 0, 
+          'The data is the number of scenes you want to pop, it must be integer.')
+        assert(popNum > 1, 
+          'The data is the number of scenes you want to pop, it must be bigger than 1.')
+        assert(popNum < state.children.length, 
+          "The data is the number of scenes you want to pop, it must be smaller than scenes stack's length.")
       }
 
       return {
