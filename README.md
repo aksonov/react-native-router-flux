@@ -44,7 +44,7 @@ Router for React Native based on new React Native Navigation API.
 
 - **Bring Your Own Reducer** for navigation state.
 
-- **Reset History Stack** - The new `reset` Action for clearing the history stack and eliminates the navbar back button.
+- **Reset History Stack** - The new [`reset`](docs/API_CONFIGURATION.md#scene)type for clearing the history stack and eliminating the navbar back button.
 
 - **More Powerful State Control** - Support for having different states while on the same screen. For example, "View My Account" could allow in-place editing of fields and "Save", "Cancel" navigation bar buttons should appear.
 
