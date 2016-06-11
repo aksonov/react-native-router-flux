@@ -126,6 +126,7 @@ const propTypes = {
   leftButtonIconStyle: Image.propTypes.style,
   getTitle: PropTypes.func,
   titleStyle: Text.propTypes.style,
+  titleOpacity: PropTypes.number,
   position: PropTypes.object,
   navigationBarStyle: View.propTypes.style,
   renderTitle: PropTypes.any,
@@ -138,6 +139,7 @@ const contextTypes = {
 const defaultProps = {
   drawerImage: _drawerImage,
   backButtonImage: _backButtonImage,
+  titleOpacity: 1,
 };
 
 class NavBar extends React.Component {
@@ -264,8 +266,7 @@ class NavBar extends React.Component {
           </TouchableOpacity>
         );
       }
-      if ((!!state.onRight ^ !!(typeof(state.rightTitle) !== 'undefined'
-        || typeof(state.rightButtonImage) !== 'undefined'))) {
+      if ((!!state.onRight ^ !!(state.rightTitle || state.rightButtonImage))) {
         console.warn(
           `Both onRight and rightTitle/rightButtonImage
             must be specified for the scene: ${state.name}`
@@ -282,7 +283,6 @@ class NavBar extends React.Component {
     function tryRender(state, wrapBy) {
       let onPress = state.onLeft;
       let buttonImage = state.leftButtonImage;
-      let menuIcon = state.drawerIcon;
       const style = [styles.leftButton, self.props.leftButtonStyle, state.leftButtonStyle];
       const textStyle = [styles.barLeftButtonText, self.props.leftButtonTextStyle,
         state.leftButtonTextStyle];
@@ -306,16 +306,8 @@ class NavBar extends React.Component {
 
       if (!onPress && !!drawer && typeof drawer.toggle === 'function') {
         buttonImage = state.drawerImage;
-        if (buttonImage || menuIcon) {
+        if (buttonImage) {
           onPress = drawer.toggle;
-        }
-        if (!menuIcon) {
-          menuIcon = (
-            <Image
-              source={buttonImage}
-              style={state.leftButtonIconStyle || styles.defaultImageStyle}
-            />
-          );
         }
       }
 
@@ -335,7 +327,10 @@ class NavBar extends React.Component {
             }
             {buttonImage &&
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-                {menuIcon}
+                <Image
+                  source={buttonImage}
+                  style={state.leftButtonIconStyle || styles.defaultImageStyle}
+                />
               </View>
             }
           </TouchableOpacity>
@@ -354,6 +349,7 @@ class NavBar extends React.Component {
 
   renderTitle(childState, index:number) {
     const title = this.props.getTitle ? this.props.getTitle(childState) : childState.title;
+    console.log(this.props.titleStyle);
     return (
       <Animated.Text
         key={childState.key}
@@ -365,7 +361,7 @@ class NavBar extends React.Component {
           {
             opacity: this.props.position.interpolate({
               inputRange: [index - 1, index, index + 1],
-              outputRange: [0, 1, 0],
+              outputRange: [0, this.props.titleOpacity, 0],
             }),
             left: this.props.position.interpolate({
               inputRange: [index - 1, index + 1],
