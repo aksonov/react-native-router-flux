@@ -12,14 +12,13 @@ const styles = StyleSheet.create({
     },
 });
 
-
 export default class extends React.Component {
     render(){
-
         return (
             <View style={styles.container}>
                 <Text>Login2 page: {this.props.data}</Text>
                 <Button onPress={Actions.pop}>Back</Button>
+                <Button onPress={Actions.loginModal3}>Login 3</Button>
             </View>
         );
     }
