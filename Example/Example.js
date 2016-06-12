@@ -4,6 +4,7 @@ import Launch from './components/Launch'
 import Register from './components/Register'
 import Login from './components/Login'
 import Login2 from './components/Login2'
+import Login3 from './components/Login3'
 import {Scene, Reducer, Router, Switch, TabBar, Modal, Schema, Actions} from 'react-native-router-flux'
 import Error from './components/Error'
 import Home from './components/Home'
@@ -108,6 +109,7 @@ export default class Example extends React.Component {
                     <Scene key="login" direction="vertical"  >
                         <Scene key="loginModal" direction="vertical" component={Login} title="Login"/>
                         <Scene key="loginModal2" hideNavBar={true} component={Login2} title="Login2" panHandlers={null} duration={1}/>
+                        <Scene key="loginModal3" hideNavBar={true} component={Login3} title="Login3" panHandlers={null} duration={1}/>
                     </Scene>
                     <Scene key="tabbar" component={NavigationDrawer}>
                         <Scene key="main" tabs={true} >
