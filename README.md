@@ -56,7 +56,7 @@ Check out the [mini-tutorial](docs/MINI_TUTORIAL.md) for a quick walkthrough of 
 
 While ExperimentalNavigation API is not stable, RNRF uses separated fork of ExperimentalNavigation API to avoid dependency from React Native version.
 So 3.30 version of RNRF doesn't depend from React Native version, but from that fork (now it is based on 0.26 API).
-You could use this component with RN0.26, RN 0.27 and RN0.28-rc
+You could use this component with RN0.26+
 
 ## Installation
 ```
