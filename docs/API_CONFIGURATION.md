@@ -67,6 +67,7 @@
 | getTitle | `function` | optional | Optionally closure to return a value of the title based on state |
 | renderTitle | `function` | optional | Optionally closure to render the title |
 | titleStyle | [`Text style`](https://facebook.github.io/react-native/docs/text.html#style) |  | optional style override for the title element |
+| titleOpacity | `string` | optional | Set opacity for the title in navigation bar |
 
 #### Navigation Bar: Back button
 | Property | Type | Default | Description |
