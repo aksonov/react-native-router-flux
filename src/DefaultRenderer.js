@@ -12,7 +12,6 @@ import React, {
 } from 'react';
 import {
   Animated,
-  NavigationExperimental,
   View,
   StyleSheet,
 } from 'react-native';
@@ -21,7 +20,7 @@ import TabBar from './TabBar';
 import NavBar from './NavBar';
 import Actions from './Actions';
 import { deepestExplicitValueForKey } from './Util';
-
+import NavigationExperimental from 'react-native-experimental-navigation';
 const {
   AnimatedView: NavigationAnimatedView,
   Card: NavigationCard,

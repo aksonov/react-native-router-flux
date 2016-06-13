@@ -10,9 +10,7 @@ import React, {
   Component,
   PropTypes,
 } from 'react';
-import {
-  NavigationExperimental,
-} from 'react-native';
+import NavigationExperimental from 'react-native-experimental-navigation';
 
 import Actions from './Actions';
 import getInitialState from './State';

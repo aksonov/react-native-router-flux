@@ -54,16 +54,9 @@ Check out the [mini-tutorial](docs/MINI_TUTORIAL.md) for a quick walkthrough of 
 
 ## Supported configurations
 
-Before instaling please refer to the following table for supported react native series
-
-| React Native - Series | React Native Router Flux - Series | Notes |
-| --- | --- | --- |
-| v0.22.x | v3.22.x |  |
-| v0.23.x,  v0.24.x & v0.25.x | **Not supported** | Please refer to [#636](https://github.com/aksonov/react-native-router-flux/issues/636) |
-| v0.26.x | v3.26.x |  |
-| v0.27.x | Work in progress, currently not supported | Please refer to [#786](https://github.com/aksonov/react-native-router-flux/issues/786)   |
-| v0.28.x *Release Candidate* | currently not supported |  |
-
+While ExperimentalNavigation API is not stable, RNRF uses separated fork of ExperimentalNavigation API to avoid dependency from React Native version.
+So 3.30 version of RNRF doesn't depend from React Native version, but from that fork (now it is based on 0.26 API).
+You could use this component with RN0.26, RN 0.27 and RN0.28-rc
 
 ## Installation
 ```
