@@ -47,7 +47,14 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#0A0A0A',
     position: 'absolute',
-    top: Platform.OS === 'ios' || Platform.Version > 19 ? 20 : 0,
+    ...Platform.select({
+      ios: {
+        top: 20,
+      },
+      android: {
+        top: 15,
+      },
+    }),
     left: 0,
     right: 0,
   },
@@ -55,7 +62,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#EFEFF2',
     paddingTop: 0,
     top: 0,
-    height: Platform.OS === 'ios' || Platform.Version > 19 ? 64 : 44,
+    ...Platform.select({
+      ios: {
+        height: 64,
+      },
+      android: {
+        height: 64,
+      },
+    }),
     right: 0,
     left: 0,
     borderBottomWidth: 0.5,
