@@ -70,7 +70,7 @@ function inject(state, action, props, scenes) {
     }
 
     case POP_ACTION2:
-    case POP_ACTION:{
+    case POP_ACTION: {
       assert(!state.tabs, 'pop() operation cannot be run on tab bar (tabs=true)');
       if (state.index === 0) {
         return state;
