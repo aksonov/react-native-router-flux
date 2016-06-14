@@ -13,6 +13,7 @@ export const PUSH_ACTION = 'push';
 export const REPLACE_ACTION = 'replace';
 export const POP_ACTION2 = 'back';
 export const POP_ACTION = 'BackAction';
+export const POP_TO = 'popTo';
 export const REFRESH_ACTION = 'refresh';
 export const RESET_ACTION = 'reset';
 export const FOCUS_ACTION = 'focus';
@@ -32,6 +33,7 @@ function filterParam(data) {
 const reservedKeys = [
   POP_ACTION,
   POP_ACTION2,
+  POP_TO,
   REFRESH_ACTION,
   REPLACE_ACTION,
   JUMP_ACTION,
@@ -160,6 +162,10 @@ class Actions {
     refs[res.key] = res;
 
     return res;
+  }
+
+  popTo(props = {}) {
+    return this.callback({ ...filterParam(props), type: POP_TO });
   }
 
   pop(props = {}) {

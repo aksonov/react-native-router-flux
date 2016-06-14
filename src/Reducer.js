@@ -12,6 +12,7 @@
 import {
   PUSH_ACTION,
   POP_ACTION2,
+  POP_TO,
   JUMP_ACTION,
   REPLACE_ACTION,
   RESET_ACTION,
@@ -56,7 +57,18 @@ function inject(state, action, props, scenes) {
     return state;
   }
   let ind;
+
   switch (action.type) {
+    case POP_TO: {
+      const targetIndex = action.targetIndex;
+
+      return {
+        ...state,
+        index: targetIndex,
+        children: state.children.slice(0, (targetIndex + 1)),
+      };
+    }
+
     case POP_ACTION2:
     case POP_ACTION:
       assert(!state.tabs, 'pop() operation cannot be run on tab bar (tabs=true)');
@@ -65,16 +77,17 @@ function inject(state, action, props, scenes) {
       }
 
       let popNum = 1;
-      if (action.data) {
-        assert(typeof(action.data) === 'number',
+      if (action.popNum) {
+        assert(typeof(action.popNum) === 'number',
           'The data is the number of scenes you want to pop, it must be Number');
-        popNum = action.data;
+        popNum = action.popNum;
         assert(popNum % 1 === 0,
           'The data is the number of scenes you want to pop, it must be integer.');
         assert(popNum > 1,
           'The data is the number of scenes you want to pop, it must be bigger than 1.');
         assert(popNum <= state.index,
-          "The data is the number of scenes you want to pop, it must be smaller than scenes stack's length.");
+          "The data is the number of scenes you want to pop, " + 
+          "it must be smaller than scenes stack's length.");
       }
 
       return {
@@ -217,11 +230,38 @@ function reducer({ initialState, scenes }) {
     } else {
       // set current route for pop action or refresh action
       if (action.type === POP_ACTION || action.type === POP_ACTION2 ||
-        action.type === REFRESH_ACTION) {
+        action.type === REFRESH_ACTION || action.type === POP_TO) {
         if (!action.key && !action.parent) {
           action = { ...getCurrent(state), ...action };
         }
       }
+
+      // Find the parent and index of the future state
+      if (action.type === POP_TO) {
+        const target = action.data;
+        assert(target, 'PopTo() must be called with scene name');
+
+        const targetEl = findElement(state, target, action.type);
+        assert(targetEl, `Cannot find element name named ${target} within current state`);
+
+        // target is a node
+        let parent = targetEl.sceneKey;
+        let targetIndex = 0;
+
+        // target is child of a node
+        if (!targetEl.children) {
+          const targetParent = findElement(state, targetEl.parent, action.type);
+          assert(targetParent, `Cannot find parent for target ${target}`);
+          parent = targetParent.sceneKey;
+
+          targetIndex = targetParent.children.indexOf(targetEl);
+          assert(targetIndex > -1, `${target} does not belong to ${targetParent.sceneKey}`);
+        }
+
+        action.parent = parent;
+        action.targetIndex = targetIndex;
+      }
+
       // recursive pop parent
       if (action.type === POP_ACTION || action.type === POP_ACTION2) {
         const parent = action.parent || state.scenes[action.key].parent;
@@ -233,9 +273,11 @@ function reducer({ initialState, scenes }) {
         action.parent = el.sceneKey;
       }
     }
+
     switch (action.type) {
       case POP_ACTION2:
       case POP_ACTION:
+      case POP_TO:
       case REFRESH_ACTION:
       case PUSH_ACTION:
       case JUMP_ACTION:
