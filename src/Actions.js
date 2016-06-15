@@ -103,13 +103,15 @@ class Actions {
     if (!(list instanceof Array)) {
       list = [list];
     }
-    list.forEach(item => {
-      if (item instanceof Array) {
-        item.forEach(it => {
-          normalized.push(it);
-        });
-      } else {
-        normalized.push(item);
+    list.forEach((item) => {
+      if (item) {
+        if (item instanceof Array) {
+          item.forEach(it => {
+            normalized.push(it);
+          });
+        } else {
+          normalized.push(item);
+        }
       }
     });
     list = normalized; // normalize the list of scenes
