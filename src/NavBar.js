@@ -47,7 +47,14 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#0A0A0A',
     position: 'absolute',
-    top: Platform.OS === 'ios' || Platform.Version > 19 ? 20 : 0,
+    ...Platform.select({
+      ios: {
+        top: 20,
+      },
+      android: {
+        top: 5,
+      },
+    }),
     left: 0,
     right: 0,
   },
@@ -55,7 +62,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#EFEFF2',
     paddingTop: 0,
     top: 0,
-    height: Platform.OS === 'ios' || Platform.Version > 19 ? 64 : 44,
+    ...Platform.select({
+      ios: {
+        height: 64,
+      },
+      android: {
+        height: 54,
+      },
+    }),
     right: 0,
     left: 0,
     borderBottomWidth: 0.5,
@@ -66,7 +80,14 @@ const styles = StyleSheet.create({
     width: 130,
     height: 37,
     position: 'absolute',
-    bottom: 4,
+    ...Platform.select({
+      ios: {
+        top: 22,
+      },
+      android: {
+        top: 10,
+      },
+    }),
     left: 2,
     padding: 8,
     flexDirection: 'row',
@@ -75,7 +96,14 @@ const styles = StyleSheet.create({
     width: 100,
     height: 37,
     position: 'absolute',
-    bottom: 4,
+    ...Platform.select({
+      ios: {
+        top: 22,
+      },
+      android: {
+        top: 10,
+      },
+    }),
     right: 2,
     padding: 8,
   },
@@ -83,7 +111,14 @@ const styles = StyleSheet.create({
     width: 100,
     height: 37,
     position: 'absolute',
-    bottom: 4,
+    ...Platform.select({
+      ios: {
+        top: 20,
+      },
+      android: {
+        top: 8,
+      },
+    }),
     left: 2,
     padding: 8,
   },
