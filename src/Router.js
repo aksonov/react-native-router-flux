@@ -10,7 +10,7 @@ import React, {
   Component,
   PropTypes,
 } from 'react';
-import { BackAndroid } from 'react-native'
+import { BackAndroid } from 'react-native';
 import NavigationExperimental from 'react-native-experimental-navigation';
 
 import Actions from './Actions';
@@ -107,7 +107,7 @@ class Router extends Component {
       catch (err) {
         return false;
       }
-    })
+    });
 
     return (
       <NavigationRootContainer
