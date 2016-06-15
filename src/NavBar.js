@@ -323,6 +323,7 @@ class NavBar extends React.Component {
       const style = [styles.leftButton, self.props.leftButtonStyle, state.leftButtonStyle];
       const textStyle = [styles.barLeftButtonText, self.props.leftButtonTextStyle,
         state.leftButtonTextStyle];
+      const leftButtonStyle = [styles.defaultImageStyle, state.leftButtonIconStyle];
 
       if (state.leftButton) {
         let Button = state.leftButton;
@@ -350,7 +351,7 @@ class NavBar extends React.Component {
           menuIcon = (
             <Image
               source={buttonImage}
-              style={state.leftButtonIconStyle || styles.defaultImageStyle}
+              style={leftButtonStyle}
             />
           );
         }
