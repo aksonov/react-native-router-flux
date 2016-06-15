@@ -103,8 +103,7 @@ class Router extends Component {
       try {
         Actions.pop();
         return true;
-      }
-      catch (err) {
+      } catch (err) {
         return false;
       }
     });
