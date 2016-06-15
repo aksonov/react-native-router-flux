@@ -18,7 +18,7 @@ declare namespace RNRF {
     /**
      * Set to true if this is the initial scene
      */
-    initial: boolean,
+    initial?: boolean,
     /**
      * Defines how the new screen is added to the navigator stack. One of push, jump, replace, reset. If parent container is tabbar (tabs=true), jump will be automatically set.
      */
@@ -196,7 +196,10 @@ declare namespace RNRF {
      * optional style override for the right title element
      */
     rightButtonTextStyle?: React.TextStyle,
-
+    /**
+     * optional wrappert
+     */
+    wrapBy?: ()=>any,
   }
 
   /**
@@ -212,7 +215,47 @@ declare namespace RNRF {
     reducer?: Function,
     createReducer?: Function,
     scenes?: any,
-    getSceneStyle?: Function
+    getSceneStyle?: Function,
+    /**
+     * optional Scene's props that can be used in Router
+     */
+    type?: 'push' | 'jump' | string,
+    clone?: boolean,
+    passProps?: boolean,
+    duration?: number,
+    direction?: 'vertical' | 'horizontal',
+    applyAnimation?: Function,
+    sceneStyle?: React.ViewStyle,
+    getSceneStyle?: Function,
+    tabs?: boolean,
+    tabBarStyle?: React.ViewStyle,
+    hideTabBar?: boolean,
+    hideNavBar?: boolean,
+    navigationBarStyle?: React.ViewStyle,
+    navBar?: React.ReactNode,
+    drawerImage?: React.Image,
+    title?: string,
+    getTitle?: Function,
+    renderTitle?: Function,
+    titleStyle?: React.TextStyle,
+    backTitle?: string,
+    renderBackButton?: Function,
+    backButtonImage?: React.Image,
+    backButtonTextStyle?: React.TextStyle,
+    leftTitle?: string,
+    renderLeftButton?: Function,
+    onLeft?: Function,
+    leftButtonImage?: React.Image,
+    leftButtonIconStyle?: React.ViewStyle,
+    leftButtonStyle?: React.ViewStyle,
+    leftButtonTextStyle?: React.TextStyle,
+    rightTitle?: string,
+    renderRightButton?: Function,
+    onRight?: Function,
+    rightButtonImage?: React.Image,
+    rightButtonIconStyle?: React.ViewStyle,
+    rightButtonStyle?: React.ViewStyle,
+    rightButtonTextStyle?: React.TextStyle
   }
   export class Router extends React.Component<RouterProps, {}>{ }
 
@@ -226,7 +269,7 @@ declare namespace RNRF {
   type props = Object;
 
   interface RNRFActions {
-    pop(props: props): void,
+    pop(props?: props): void,
     jump(props: props): void,
     refresh(props: props): void,
     focus(props: props): void,
