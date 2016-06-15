@@ -70,18 +70,33 @@ function inject(state, action, props, scenes) {
     }
 
     case POP_ACTION2:
-    case POP_ACTION:
+    case POP_ACTION: {
       assert(!state.tabs, 'pop() operation cannot be run on tab bar (tabs=true)');
       if (state.index === 0) {
         return state;
       }
 
+      let popNum = 1;
+      if (action.popNum) {
+        assert(typeof(action.popNum) === 'number',
+          'The data is the number of scenes you want to pop, it must be Number');
+        popNum = action.popNum;
+        assert(popNum % 1 === 0,
+          'The data is the number of scenes you want to pop, it must be integer.');
+        assert(popNum > 1,
+          'The data is the number of scenes you want to pop, it must be bigger than 1.');
+        assert(popNum <= state.index,
+          'The data is the number of scenes you want to pop, ' +
+          "it must be smaller than scenes stack's length.");
+      }
+
       return {
         ...state,
-        index: state.index - 1,
-        from: state.children[state.children.length - 1],
-        children: state.children.slice(0, - 1),
+        index: state.index - popNum,
+        from: state.children[state.children.length - popNum],
+        children: state.children.slice(0, -1 * popNum),
       };
+    }
     case REFRESH_ACTION:
       return props.base ?
       { navBar: state.navBar,
