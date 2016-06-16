@@ -211,7 +211,7 @@ export default class DefaultRenderer extends Component {
     }
 
     if (SceneComponent) {
-      if (navigationState.tabs || ! navigationState.parent) {
+      if (navigationState.tabs || !navigationState.parent) {
         return (
           <SceneComponent {...this.props} {...navigationState} />
         );
