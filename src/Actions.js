@@ -126,7 +126,7 @@ class Actions {
     if (list.length) {
       res.children = list.map(c => this.iterate(c, res, refs, wrapBy).key);
     } else {
-      if (!staticProps.onPress){
+      if (!staticProps.onPress) {
         assert(component, `component property is not set for key=${key}`);
       }
       // wrap scene if parent is "tabs"
