@@ -12,7 +12,6 @@ import React, {
 } from 'react';
 import {
   Animated,
-  NavigationExperimental,
   View,
   StyleSheet,
 } from 'react-native';
@@ -21,7 +20,7 @@ import TabBar from './TabBar';
 import NavBar from './NavBar';
 import Actions from './Actions';
 import { deepestExplicitValueForKey } from './Util';
-
+import NavigationExperimental from 'react-native-experimental-navigation';
 const {
   AnimatedView: NavigationAnimatedView,
   Card: NavigationCard,
@@ -225,11 +224,7 @@ export default class DefaultRenderer extends Component {
         <View
           style={[styles.sceneStyle, navigationState.sceneStyle]}
         >
-          <SceneComponent
-            {...navigationState}
-            onNavigate={onNavigate}
-            navigationState={navigationState}
-          />
+          <SceneComponent {...this.props} {...navigationState} />
         </View>
       );
     }

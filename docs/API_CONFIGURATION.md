@@ -67,6 +67,7 @@
 | getTitle | `function` | optional | Optionally closure to return a value of the title based on state |
 | renderTitle | `function` | optional | Optionally closure to render the title |
 | titleStyle | [`Text style`](https://facebook.github.io/react-native/docs/text.html#style) |  | optional style override for the title element |
+| titleOpacity | `string` | optional | Set opacity for the title in navigation bar |
 
 #### Navigation Bar: Back button
 | Property | Type | Default | Description |
@@ -75,6 +76,8 @@
 | renderBackButton | `function` | | optional closure to render back text or button if this route happens to be the previous route |
 | backButtonImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `'./back_chevron.png'` | Simple way to override the back button in the navBar |
 | backButtonTextStyle | [`Text style`](https://facebook.github.io/react-native/docs/text.html#style) | | optional style override for the back title element |
+| hideBackImage | `boolean` | false | no default back button image will be displayed |
+| onBack | `function` | Actions.pop | actions for back button |
 
 #### Navigation Bar: Left button
 | Property | Type | Default | Description |

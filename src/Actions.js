@@ -13,6 +13,7 @@ export const PUSH_ACTION = 'push';
 export const REPLACE_ACTION = 'replace';
 export const POP_ACTION2 = 'back';
 export const POP_ACTION = 'BackAction';
+export const POP_TO = 'popTo';
 export const REFRESH_ACTION = 'refresh';
 export const RESET_ACTION = 'reset';
 export const FOCUS_ACTION = 'focus';
@@ -32,6 +33,7 @@ function filterParam(data) {
 const reservedKeys = [
   POP_ACTION,
   POP_ACTION2,
+  POP_TO,
   REFRESH_ACTION,
   REPLACE_ACTION,
   JUMP_ACTION,
@@ -67,7 +69,7 @@ class Actions {
     assert(key, 'unique key should be defined ');
     assert(
       reservedKeys.indexOf(key) === -1,
-      `'${key}' is not allowed as key name. Reserved keys: [${reservedKeys.join(', ')}]`,
+      `'${key}' is not allowed as key name. Reserved keys: [${reservedKeys.join(', ')}]`
     );
     const { children, component, ...staticProps } = root.props;
     let type = root.props.type || (parentProps.tabs ? JUMP_ACTION : PUSH_ACTION);
@@ -97,10 +99,28 @@ class Actions {
       ...componentProps,
     };
     let list = children || [];
+    const normalized = [];
     if (!(list instanceof Array)) {
       list = [list];
     }
+<<<<<<< HEAD
     const condition = el => (!el.props.component && !el.props.children && !el.props.onPress &&
+=======
+    list.forEach((item) => {
+      if (item) {
+        if (item instanceof Array) {
+          item.forEach(it => {
+            normalized.push(it);
+          });
+        } else {
+          normalized.push(item);
+        }
+      }
+    });
+    list = normalized; // normalize the list of scenes
+
+    const condition = el => (!el.props.component && !el.props.children &&
+>>>>>>> aksonov/master
     (!el.props.type || el.props.type === REFRESH_ACTION));
     // determine sub-states
     let baseKey = root.key;
@@ -150,6 +170,10 @@ class Actions {
     refs[res.key] = res;
 
     return res;
+  }
+
+  popTo(props = {}) {
+    return this.callback({ ...filterParam(props), type: POP_TO });
   }
 
   pop(props = {}) {

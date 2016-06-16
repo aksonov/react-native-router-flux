@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import Drawer from 'react-native-drawer';
-import { DefaultRenderer } from 'react-native-router-flux';
+import { DefaultRenderer, Actions } from 'react-native-router-flux';
 
 import TabView from './TabView';
 
@@ -10,11 +10,14 @@ const propTypes = {
 
 class NavigationDrawer extends React.Component {
   render() {
-    const children = this.props.navigationState.children;
+    const state = this.props.navigationState;
+    const children = state.children;
     return (
       <Drawer
         ref="navigation"
         type="displace"
+        onOpen={() => Actions.refresh({ key: state.key, open: true })}
+        onClose={() => Actions.refresh({ key: state.key, open: false })}
         content={<TabView />}
         tapToClose
         openDrawerOffset={0.2}
