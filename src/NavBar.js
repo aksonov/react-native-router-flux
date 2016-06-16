@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
 
 const propTypes = {
   navigationState: PropTypes.object,
-  backButtonImage: PropTypes.number,
+  backButtonImage: Image.propTypes.source,
   wrapBy: PropTypes.any,
   component: PropTypes.any,
   backButtonTextStyle: Text.propTypes.style,
