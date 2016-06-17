@@ -2,6 +2,8 @@
 // created by bang88 (https://github.com/bang88)
 
 import * as React from 'react';
+import * as ReactNative from 'react-native';
+
 
 declare namespace RNRF {
 
@@ -52,7 +54,7 @@ declare namespace RNRF {
     /**
      * optional style override for the Scene's component
      */
-    sceneStyle?: React.ViewStyle,
+    sceneStyle?: ReactNative.ViewStyle,
     /**
      * Optionally override the styles for NavigationCard's Animated.View rendering the scene. Receives first argument of NavigationSceneRendererProps and second argument of {hideNavBar,hideTabBar,isActive} (see Example app).
      */
@@ -68,7 +70,7 @@ declare namespace RNRF {
     /**
      * optional style override for the Tabs component
      */
-    tabBarStyle?: React.ViewStyle,
+    tabBarStyle?: ReactNative.ViewStyle,
     /**
      * hides tab bar for this scene and any following scenes until explicitly reversed (if built-in TabBar component is used as parent renderer)
      */
@@ -85,7 +87,7 @@ declare namespace RNRF {
     /**
      * optional style override for the navigation bar
      */
-    navigationBarStyle?: React.ViewStyle,
+    navigationBarStyle?: ReactNative.ViewStyle,
     /**
      * optional custom NavBar for the scene. Check built-in NavBar of the component for reference
      */
@@ -93,7 +95,7 @@ declare namespace RNRF {
     /**
      * Simple way to override the drawerImage in the navBar
      */
-    drawerImage?: React.Image,
+    drawerImage?: ReactNative.Image,
 
     // Navigation Bar: Title
 
@@ -112,7 +114,7 @@ declare namespace RNRF {
     /**
      * optional style override for the title element
      */
-    titleStyle?: React.TextStyle,
+    titleStyle?: ReactNative.TextStyle,
 
     // Navigation Bar: Back button
 
@@ -127,11 +129,11 @@ declare namespace RNRF {
     /**
      * 	'./back_chevron.png'	Simple way to override the back button in the navBar
      */
-    backButtonImage?: React.Image,
+    backButtonImage?: ReactNative.Image,
     /**
      * optional style override for the back title element
      */
-    backButtonTextStyle?: React.TextStyle,
+    backButtonTextStyle?: ReactNative.TextStyle,
 
 
     // Navigation Bar: Left button
@@ -151,19 +153,19 @@ declare namespace RNRF {
     /**
      * Image for left button
      */
-    leftButtonImage?: React.Image,
+    leftButtonImage?: ReactNative.Image,
     /**
      * Image style for left button
      */
-    leftButtonIconStyle?: React.ViewStyle,
+    leftButtonIconStyle?: ReactNative.ViewStyle,
     /**
      * optional style override for the container of left title / buttons
      */
-    leftButtonStyle?: React.ViewStyle,
+    leftButtonStyle?: ReactNative.ViewStyle,
     /**
      * optional style override for the left title element
      */
-    leftButtonTextStyle?: React.TextStyle,
+    leftButtonTextStyle?: ReactNative.TextStyle,
 
 
     // Navigation Bar: Right button
@@ -183,19 +185,19 @@ declare namespace RNRF {
     /**
      * Image for right button
      */
-    rightButtonImage?: React.Image,
+    rightButtonImage?: ReactNative.Image,
     /**
      * Image style for right button
      */
-    rightButtonIconStyle?: React.ViewStyle,
+    rightButtonIconStyle?: ReactNative.ViewStyle,
     /**
      * optional style override for the container of right title / buttons
      */
-    rightButtonStyle?: React.ViewStyle,
+    rightButtonStyle?: ReactNative.ViewStyle,
     /**
      * optional style override for the right title element
      */
-    rightButtonTextStyle?: React.TextStyle,
+    rightButtonTextStyle?: ReactNative.TextStyle,
     /**
      * optional wrappert
      */
@@ -215,7 +217,6 @@ declare namespace RNRF {
     reducer?: Function,
     createReducer?: Function,
     scenes?: any,
-    getSceneStyle?: Function,
     /**
      * optional Scene's props that can be used in Router
      */
@@ -225,55 +226,50 @@ declare namespace RNRF {
     duration?: number,
     direction?: 'vertical' | 'horizontal',
     applyAnimation?: Function,
-    sceneStyle?: React.ViewStyle,
+    sceneStyle?: ReactNative.ViewStyle,
     getSceneStyle?: Function,
     tabs?: boolean,
-    tabBarStyle?: React.ViewStyle,
+    tabBarStyle?: ReactNative.ViewStyle,
     hideTabBar?: boolean,
     hideNavBar?: boolean,
-    navigationBarStyle?: React.ViewStyle,
+    navigationBarStyle?: ReactNative.ViewStyle,
     navBar?: React.ReactNode,
-    drawerImage?: React.Image,
+    drawerImage?: ReactNative.Image,
     title?: string,
     getTitle?: Function,
     renderTitle?: Function,
-    titleStyle?: React.TextStyle,
+    titleStyle?: ReactNative.TextStyle,
     backTitle?: string,
     renderBackButton?: Function,
-    backButtonImage?: React.Image,
-    backButtonTextStyle?: React.TextStyle,
+    backButtonImage?: ReactNative.Image,
+    backButtonTextStyle?: ReactNative.TextStyle,
     leftTitle?: string,
     renderLeftButton?: Function,
     onLeft?: Function,
-    leftButtonImage?: React.Image,
-    leftButtonIconStyle?: React.ViewStyle,
-    leftButtonStyle?: React.ViewStyle,
-    leftButtonTextStyle?: React.TextStyle,
+    leftButtonImage?: ReactNative.Image,
+    leftButtonIconStyle?: ReactNative.ViewStyle,
+    leftButtonStyle?: ReactNative.ViewStyle,
+    leftButtonTextStyle?: ReactNative.TextStyle,
     rightTitle?: string,
     renderRightButton?: Function,
     onRight?: Function,
-    rightButtonImage?: React.Image,
-    rightButtonIconStyle?: React.ViewStyle,
-    rightButtonStyle?: React.ViewStyle,
-    rightButtonTextStyle?: React.TextStyle
+    rightButtonImage?: ReactNative.Image,
+    rightButtonIconStyle?: ReactNative.ViewStyle,
+    rightButtonStyle?: ReactNative.ViewStyle,
+    rightButtonTextStyle?: ReactNative.TextStyle
   }
   export class Router extends React.Component<RouterProps, {}>{ }
 
 
   // Actions
-  type actionCreate = {
-    scence: Scene;
-    wrapBy?: () => any
-  }
-
-  type props = Object;
+   type props = Object;
 
   interface RNRFActions {
     pop(props?: props): void,
     jump(props: props): void,
     refresh(props: props): void,
     focus(props: props): void,
-    create(actionCreate): Object
+    create(scene: React.ReactNode, wrapBy?: () => any): Object
   }
 
   export var Actions: RNRFActions;
@@ -297,13 +293,13 @@ declare namespace RNRF {
   interface NavBarProps extends React.Props<NavBar> {
     navigationState?: Object,
     backButtonImage?: number,
-    backButtonTextStyle?: React.TextStyle,
-    leftButtonStyle?: React.ViewStyle
-    leftButtonIconStyle?: React.ImageStyle,
+    backButtonTextStyle?: ReactNative.TextStyle,
+    leftButtonStyle?: ReactNative.ViewStyle
+    leftButtonIconStyle?: ReactNative.ImageStyle,
     getTitle?: Function,
-    titleStyle?: React.TextStyle,
+    titleStyle?: ReactNative.TextStyle,
     position?: Object,
-    navigationBarStyle?: React.ViewStyle,
+    navigationBarStyle?: ReactNative.ViewStyle,
     renderTitle?: any,
   }
   export class NavBar extends React.Component<NavBarProps, {}>{ }
