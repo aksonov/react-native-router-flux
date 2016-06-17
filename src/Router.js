@@ -10,7 +10,6 @@ import React, {
   Component,
   PropTypes,
 } from 'react';
-import { BackAndroid } from 'react-native';
 import NavigationExperimental from 'react-native-experimental-navigation';
 
 import Actions from './Actions';
@@ -98,15 +97,6 @@ class Router extends Component {
 
   render() {
     if (!this.state.reducer) return null;
-
-    BackAndroid.addEventListener('hardwareBackPress', () => {
-      try {
-        Actions.pop();
-        return true;
-      } catch (err) {
-        return false;
-      }
-    });
 
     return (
       <NavigationRootContainer

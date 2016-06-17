@@ -22,7 +22,6 @@ import {
 
 import { assert } from './Util';
 import { getInitialState } from './State';
-import { Platform } from 'react-native';
 
 // WARN: it is not working correct. rewrite it.
 function checkPropertiesEqual(action, lastAction) {
@@ -73,11 +72,6 @@ function inject(state, action, props, scenes) {
     case POP_ACTION2:
     case POP_ACTION: {
       assert(!state.tabs, 'pop() operation cannot be run on tab bar (tabs=true)');
-
-      if (Platform.OS === 'android') {
-        assert(state.index > 0, 'You are already in the root scene.');
-      }
-
       if (state.index === 0) {
         return state;
       }
