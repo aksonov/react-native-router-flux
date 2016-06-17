@@ -269,7 +269,7 @@ declare namespace RNRF {
     jump(props: props): void,
     refresh(props: props): void,
     focus(props: props): void,
-    create(scene: Scene, wrapBy?: () => any): Object
+    create(scene: React.ReactNode, wrapBy?: () => any): Object
   }
 
   export var Actions: RNRFActions;
