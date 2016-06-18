@@ -36,8 +36,13 @@ class Right extends React.Component {
 
 const styles = StyleSheet.create({
     container: {flex:1, backgroundColor:"transparent",justifyContent: "center",
-        alignItems: "center",}
-
+        alignItems: "center",},
+    tabBarStyle: {
+        backgroundColor: '#eee',
+    },
+    tabBarSelectedItemStyle: {
+        backgroundColor: '#ddd',
+    },
 });
 
 const reducerCreate = params=>{
@@ -112,7 +117,7 @@ export default class Example extends React.Component {
                         <Scene key="loginModal3" hideNavBar={true} component={Login3} title="Login3" panHandlers={null} duration={1}/>
                     </Scene>
                     <Scene key="tabbar" component={NavigationDrawer}>
-                        <Scene key="main" tabs={true} >
+                        <Scene key="main" tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="tab1"  title="Tab #1" icon={TabIcon} navigationBarStyle={{backgroundColor:"red"}} titleStyle={{color:"white"}}>
                                 <Scene key="tab1_1" component={TabView} title="Tab #1_1" onRight={()=>alert("Right button")} rightTitle="Right" />
                                 <Scene key="tab1_2" component={TabView} title="Tab #1_2" titleStyle={{color:"black"}}/>
