@@ -359,7 +359,7 @@ class NavBar extends React.Component {
 
       if (onPress && (state.leftTitle || buttonImage)) {
         onPress = onPress.bind(null, state);
-        if (!menuIcon) {
+        if (!!buttonImage) {
           menuIcon = (
             <Image
               source={buttonImage}
