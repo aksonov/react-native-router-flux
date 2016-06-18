@@ -359,14 +359,6 @@ class NavBar extends React.Component {
 
       if (onPress && (state.leftTitle || buttonImage)) {
         onPress = onPress.bind(null, state);
-        if (!!buttonImage) {
-          menuIcon = (
-            <Image
-              source={buttonImage}
-              style={state.leftButtonIconStyle || styles.defaultImageStyle}
-            />
-          );
-        }
         return (
           <TouchableOpacity
             key={'leftNavBarBtn'}
@@ -381,7 +373,11 @@ class NavBar extends React.Component {
             }
             {buttonImage &&
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-                {menuIcon}
+                {menuIcon || <Image
+                  source={buttonImage}
+                  style={state.leftButtonIconStyle || styles.defaultImageStyle}
+                />
+                }
               </View>
             }
           </TouchableOpacity>
