@@ -25,7 +25,7 @@ class TabBar extends Component {
         `No action is defined for name=${el.props.name} ` +
         `actions: ${JSON.stringify(Object.keys(Actions))}`);
     }
-    if (typeof el.props.onPress === "function") {
+    if (typeof el.props.onPress === 'function') {
       el.props.onPress();
     } else {
       Actions[el.props.name]();
