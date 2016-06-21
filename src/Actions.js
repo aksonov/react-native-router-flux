@@ -8,15 +8,15 @@
  */
 import { assert } from './Util';
 import Scene from './Scene';
-export const JUMP_ACTION = 'jump';
-export const PUSH_ACTION = 'push';
-export const REPLACE_ACTION = 'replace';
-export const POP_ACTION2 = 'back';
-export const POP_ACTION = 'BackAction';
-export const POP_TO = 'popTo';
-export const REFRESH_ACTION = 'refresh';
-export const RESET_ACTION = 'reset';
-export const FOCUS_ACTION = 'focus';
+export const JUMP_ACTION = 'router_jump';
+export const PUSH_ACTION = 'router_push';
+export const REPLACE_ACTION = 'router_replace';
+export const POP_ACTION2 = 'router_back';
+export const POP_ACTION = 'router_BackAction';
+export const POP_TO = 'router_popTo';
+export const REFRESH_ACTION = 'router_refresh';
+export const RESET_ACTION = 'router_reset';
+export const FOCUS_ACTION = 'router_focus';
 
 function filterParam(data) {
   if (data.toString() !== '[object Object]') {
