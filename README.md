@@ -65,7 +65,7 @@ npm i react-native-router-flux --save
 
 ## Usage
 In your top-level `index.js`, define your scenes using the `Scene` component and pass it into the `Router` as children:
-```jsx
+```js
 import {Scene, Router} from 'react-native-router-flux';
 
 class App extends React.Component {
@@ -81,7 +81,7 @@ class App extends React.Component {
 }
 ```
 Alternatively, you could define all of your scenes during compile time and use it later within `Router`:
-```jsx
+```js
 import {Actions, Scene, Router} from 'react-native-router-flux';
 
 const scenes = Actions.create(
@@ -102,7 +102,7 @@ class App extends React.Component {
 ```
 
 On any Scene, you can also call the following functions by first importing the `Actions` object:
-```jsx
+```js
 import {Actions} from 'react-native-router-flux'
 ```
 And then:
