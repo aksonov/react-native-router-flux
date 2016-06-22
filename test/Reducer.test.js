@@ -67,11 +67,11 @@ describe('createReducer', () => {
       type: 'router_push',
       param1: 'Hello world',
     });
-    
+
     currentScene = getCurrent(latestState);
     expect(currentScene.name).equal('conversations');
     expect(currentScene.sceneKey).equal('conversations');
-    expect(currentScene.type).equal('push');
+    expect(currentScene.type).equal('router_push');
     expect(currentScene.param1).equal('Hello world');
 
     latestState = reducer(latestState, {
@@ -82,7 +82,7 @@ describe('createReducer', () => {
     currentScene = getCurrent(latestState);
     expect(currentScene.name).equal('loginModal1');
     expect(currentScene.sceneKey).equal('loginModal1');
-    expect(currentScene.type).equal('push');
+    expect(currentScene.type).equal('router_push');
     expect(currentScene.param2).equal('Hello world2');
 
     latestState = reducer(latestState, {
@@ -93,7 +93,7 @@ describe('createReducer', () => {
     currentScene = getCurrent(latestState);
     expect(currentScene.name).equal('privacyPolicy');
     expect(currentScene.sceneKey).equal('privacyPolicy');
-    expect(currentScene.type).equal('push');
+    expect(currentScene.type).equal('router_push');
     expect(currentScene.param3).equal('Accept policy');
 
     latestState = reducer(latestState, {
