@@ -373,7 +373,11 @@ class NavBar extends React.Component {
             }
             {buttonImage &&
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-                {menuIcon}
+                {menuIcon || <Image
+                  source={buttonImage}
+                  style={state.leftButtonIconStyle || styles.defaultImageStyle}
+                />
+                }
               </View>
             }
           </TouchableOpacity>
