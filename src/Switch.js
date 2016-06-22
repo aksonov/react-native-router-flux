@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import TabBar from './TabBar';
-import assert from 'assert';
+import { assert } from './Util';
 
 export default function Switch(props) {
   const navState = props.navigationState;
