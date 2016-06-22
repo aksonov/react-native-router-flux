@@ -64,9 +64,10 @@ describe('createReducer', () => {
     // Normally actions came from Actions module, but we will generate it manually.
     latestState = reducer(latestState, {
       key: 'conversations',
-      type: 'push',
+      type: 'router_push',
       param1: 'Hello world',
     });
+    
     currentScene = getCurrent(latestState);
     expect(currentScene.name).equal('conversations');
     expect(currentScene.sceneKey).equal('conversations');
@@ -75,7 +76,7 @@ describe('createReducer', () => {
 
     latestState = reducer(latestState, {
       key: 'login', // we go to `login` but first renderable child is `loginModal1`
-      type: 'push',
+      type: 'router_push',
       param2: 'Hello world2',
     });
     currentScene = getCurrent(latestState);
@@ -86,7 +87,7 @@ describe('createReducer', () => {
 
     latestState = reducer(latestState, {
       key: 'privacyPolicy',
-      type: 'push',
+      type: 'router_push',
       param3: 'Accept policy',
     });
     currentScene = getCurrent(latestState);
@@ -97,13 +98,13 @@ describe('createReducer', () => {
 
     latestState = reducer(latestState, {
       key: 'cubeBar', // we go to cubeBar but first renderable child is `conversations`
-      type: 'push',
+      type: 'router_push',
       param1: 'Conversations new param',
     });
     currentScene = getCurrent(latestState);
     expect(currentScene.name).equal('conversations');
     expect(currentScene.sceneKey).equal('conversations');
-    expect(currentScene.type).equal('push');
+    expect(currentScene.type).equal('router_push');
     expect(currentScene.param1).equal('Conversations new param');
   });
 });
