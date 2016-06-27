@@ -69,8 +69,8 @@ export default class extends Component {
             <Drawer
                 ref="navigation"
                 open={state.open}
-                onOpen={()=>Actions.refresh({key:state.key, open: true})
-                onClose={()=>Actions.refresh({key:state.key, open: false})
+                onOpen={()=>Actions.refresh({key:state.key, open: true})}
+                onClose={()=>Actions.refresh({key:state.key, open: false})}
                 type="displace"
                 content={<TabView />}
                 tapToClose={true}
