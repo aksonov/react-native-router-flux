@@ -50,8 +50,6 @@ function fadeInScene(/* NavigationSceneRendererProps */ props) {
 
   const index = scene.index;
   const inputRange = [index - 1, index, index + 1];
-  const width = layout.initWidth;
-  const height = layout.initHeight;
 
   const opacity = position.interpolate({
     inputRange,
@@ -119,6 +117,17 @@ export default class DefaultRenderer extends Component {
     Actions.focus({ scene });
   }
 
+  chooseInterpolator(direction, props) {
+    switch(direction) {
+      case 'vertical':
+        return  NavigationCardStackStyleInterpolator.forVertical(props);
+      case 'fade':
+        return fadeInScene(props);
+      default:
+        return NavigationCardStackStyleInterpolator.forHorizontal(props);
+    }
+  }
+
   renderCard(/* NavigationSceneRendererProps */ props) {
     const { key, direction, getSceneStyle } = props.scene.navigationState;
     let { panHandlers, animationStyle } = props.scene.navigationState;
@@ -139,12 +148,9 @@ export default class DefaultRenderer extends Component {
     const style = getSceneStyle ? getSceneStyle(props, computedProps) : null;
 
     const isVertical = direction === 'vertical';
-    const isFade = direction === 'fade';
 
     if (typeof(animationStyle) === 'undefined') {
-      animationStyle = (isVertical ?
-        NavigationCardStackStyleInterpolator.forVertical(props) :
-        isFade ? fadeInScene(props) : NavigationCardStackStyleInterpolator.forHorizontal(props));
+      animationStyle = this.chooseInterpolator(direction, props);
     }
 
     if (typeof(panHandlers) === 'undefined') {
