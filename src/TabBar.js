@@ -60,6 +60,7 @@ class TabBar extends Component {
           <Tabs
             style={state.tabBarStyle}
             selectedIconStyle={state.tabBarSelectedItemStyle}
+            iconStyle={state.tabBarIconContainerStyle}
             onSelect={this.onSelect} {...state}
             selected={state.children[state.index].sceneKey}
           >
