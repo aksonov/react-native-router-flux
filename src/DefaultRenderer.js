@@ -128,7 +128,7 @@ export default class DefaultRenderer extends Component {
   }
 
   renderCard(/* NavigationSceneRendererProps */ props) {
-    const { key, direction, getSceneStyle } = props.scene.navigationState;
+    const { key, direction, animation, getSceneStyle } = props.scene.navigationState;
     let { panHandlers, animationStyle } = props.scene.navigationState;
 
     const state = props.navigationState;
@@ -148,8 +148,15 @@ export default class DefaultRenderer extends Component {
 
     const isVertical = direction === 'vertical';
 
+    // direction overrides animation if both are supplied
+    const animType = (animation && !direction) ? animation : direction;
+
     if (typeof(animationStyle) === 'undefined') {
-      animationStyle = this.chooseInterpolator(direction, props);
+      animationStyle = this.chooseInterpolator(animType, props);
+    }
+
+    if (typeof(animationStyle) === 'function') {
+      animationStyle = animationStyle(props);
     }
 
     if (typeof(panHandlers) === 'undefined') {
