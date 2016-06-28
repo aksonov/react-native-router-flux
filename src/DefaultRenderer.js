@@ -41,6 +41,41 @@ const styles = StyleSheet.create({
   },
 });
 
+function fadeInScene(/* NavigationSceneRendererProps */ props) {
+  const {
+    layout,
+    position,
+    scene,
+  } = props;
+
+  const index = scene.index;
+  const inputRange = [index - 1, index, index + 1];
+  const width = layout.initWidth;
+  const height = layout.initHeight;
+
+  const opacity = position.interpolate({
+    inputRange,
+    outputRange: [0, 1, 0.3],
+  });
+
+  const scale = position.interpolate({
+    inputRange,
+    outputRange: [1, 1, 0.95],
+  });
+
+  const translateY = 0;
+  const translateX = 0;
+
+  return {
+    opacity,
+    transform: [
+      { scale },
+      { translateX },
+      { translateY },
+    ],
+  };
+}
+
 export default class DefaultRenderer extends Component {
 
   static propTypes = {
@@ -104,11 +139,12 @@ export default class DefaultRenderer extends Component {
     const style = getSceneStyle ? getSceneStyle(props, computedProps) : null;
 
     const isVertical = direction === 'vertical';
+    const isFade = direction === 'fade';
 
     if (typeof(animationStyle) === 'undefined') {
       animationStyle = (isVertical ?
         NavigationCardStackStyleInterpolator.forVertical(props) :
-        NavigationCardStackStyleInterpolator.forHorizontal(props));
+        isFade ? fadeInScene(props) : NavigationCardStackStyleInterpolator.forHorizontal(props));
     }
 
     if (typeof(panHandlers) === 'undefined') {
