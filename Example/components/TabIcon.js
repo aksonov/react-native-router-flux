@@ -1,9 +1,12 @@
-import React from 'react';
-import {PropTypes} from "react";
-import {Text} from "react-native";
+import React, {
+  PropTypes,
+} from 'react';
+import {
+  Text,
+} from 'react-native';
 
 const propTypes = {
-  selected: PropTypes.string,
+  selected: PropTypes.bool,
   title: PropTypes.string,
 };
 
