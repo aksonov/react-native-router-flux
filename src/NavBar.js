@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
     fontSize: 18,
-    fontWeight: '500',
     color: '#0A0A0A',
     position: 'absolute',
     ...Platform.select({
