@@ -9,7 +9,6 @@ export default function Switch(props) {
   if (!selector && !statem) console.error('Selector should be defined.');
   let index = -1;
   if (!selector) {
-    assert(statem.isIn, 'Wrong statem passed');
     // support Statem - Harel statecharts machine!
     navState.children.forEach((el, i) => {
       assert(el.default || el.state,
@@ -17,8 +16,7 @@ export default function Switch(props) {
       if (el.default) {
         index = i;
       } else {
-        assert(el.state.id, 'State doesn\'t have id');
-        if (statem.isIn(el.state.id)) {
+        if (el.state.active) {
           index = i;
         }
       }
