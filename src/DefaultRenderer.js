@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
 
 function fadeInScene(/* NavigationSceneRendererProps */ props) {
   const {
-    layout,
     position,
     scene,
   } = props;
@@ -118,9 +117,9 @@ export default class DefaultRenderer extends Component {
   }
 
   chooseInterpolator(direction, props) {
-    switch(direction) {
+    switch (direction) {
       case 'vertical':
-        return  NavigationCardStackStyleInterpolator.forVertical(props);
+        return NavigationCardStackStyleInterpolator.forVertical(props);
       case 'fade':
         return fadeInScene(props);
       default:
