@@ -41,6 +41,38 @@ const styles = StyleSheet.create({
   },
 });
 
+function fadeInScene(/* NavigationSceneRendererProps */ props) {
+  const {
+    position,
+    scene,
+  } = props;
+
+  const index = scene.index;
+  const inputRange = [index - 1, index, index + 1];
+
+  const opacity = position.interpolate({
+    inputRange,
+    outputRange: [0, 1, 0.3],
+  });
+
+  const scale = position.interpolate({
+    inputRange,
+    outputRange: [1, 1, 0.95],
+  });
+
+  const translateY = 0;
+  const translateX = 0;
+
+  return {
+    opacity,
+    transform: [
+      { scale },
+      { translateX },
+      { translateY },
+    ],
+  };
+}
+
 export default class DefaultRenderer extends Component {
 
   static propTypes = {
@@ -84,8 +116,19 @@ export default class DefaultRenderer extends Component {
     Actions.focus({ scene });
   }
 
+  chooseInterpolator(direction, props) {
+    switch (direction) {
+      case 'vertical':
+        return NavigationCardStackStyleInterpolator.forVertical(props);
+      case 'fade':
+        return fadeInScene(props);
+      default:
+        return NavigationCardStackStyleInterpolator.forHorizontal(props);
+    }
+  }
+
   renderCard(/* NavigationSceneRendererProps */ props) {
-    const { key, direction, getSceneStyle } = props.scene.navigationState;
+    const { key, direction, animation, getSceneStyle } = props.scene.navigationState;
     let { panHandlers, animationStyle } = props.scene.navigationState;
 
     const state = props.navigationState;
@@ -105,10 +148,15 @@ export default class DefaultRenderer extends Component {
 
     const isVertical = direction === 'vertical';
 
+    // direction overrides animation if both are supplied
+    const animType = (animation && !direction) ? animation : direction;
+
     if (typeof(animationStyle) === 'undefined') {
-      animationStyle = (isVertical ?
-        NavigationCardStackStyleInterpolator.forVertical(props) :
-        NavigationCardStackStyleInterpolator.forHorizontal(props));
+      animationStyle = this.chooseInterpolator(animType, props);
+    }
+
+    if (typeof(animationStyle) === 'function') {
+      animationStyle = animationStyle(props);
     }
 
     if (typeof(panHandlers) === 'undefined') {
