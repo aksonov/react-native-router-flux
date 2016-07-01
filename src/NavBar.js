@@ -235,6 +235,7 @@ class NavBar extends React.Component {
         onPress={onPress}
       >
         {buttonImage && !childState.hideBackImage &&
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
           <Image
             source={buttonImage}
             style={[
@@ -245,6 +246,7 @@ class NavBar extends React.Component {
               childState.leftButtonIconStyle,
             ]}
           />
+          </View>
         }
         {text}
       </TouchableOpacity>
