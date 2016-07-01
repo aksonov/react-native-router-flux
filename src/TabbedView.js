@@ -54,7 +54,10 @@ class TabbedView extends Component {
         return;
       }
       this.renderedSceneKeys[key] = true;
-      scenes.push(this.renderScene(item, i));
+      const child = item;
+      child.navigationBarStyle = this.props.navigationState.navigationBarStyle;
+      child.titleStyle = this.props.navigationState.titleStyle;
+      scenes.push(this.renderScene(child, i));
     });
     return (
       <View style={this.props.style}>
