@@ -64,47 +64,46 @@ describe('createReducer', () => {
     // Normally actions came from Actions module, but we will generate it manually.
     latestState = reducer(latestState, {
       key: 'conversations',
-      type: 'REACT_NATIVE_ROUTER_FLUX_PUSH',
+      type: 'push',
       param1: 'Hello world',
     });
-
     currentScene = getCurrent(latestState);
     expect(currentScene.name).equal('conversations');
     expect(currentScene.sceneKey).equal('conversations');
-    expect(currentScene.type).equal('REACT_NATIVE_ROUTER_FLUX_PUSH');
+    expect(currentScene.type).equal('push');
     expect(currentScene.param1).equal('Hello world');
 
     latestState = reducer(latestState, {
       key: 'login', // we go to `login` but first renderable child is `loginModal1`
-      type: 'REACT_NATIVE_ROUTER_FLUX_PUSH',
+      type: 'push',
       param2: 'Hello world2',
     });
     currentScene = getCurrent(latestState);
     expect(currentScene.name).equal('loginModal1');
     expect(currentScene.sceneKey).equal('loginModal1');
-    expect(currentScene.type).equal('REACT_NATIVE_ROUTER_FLUX_PUSH');
+    expect(currentScene.type).equal('push');
     expect(currentScene.param2).equal('Hello world2');
 
     latestState = reducer(latestState, {
       key: 'privacyPolicy',
-      type: 'REACT_NATIVE_ROUTER_FLUX_PUSH',
+      type: 'push',
       param3: 'Accept policy',
     });
     currentScene = getCurrent(latestState);
     expect(currentScene.name).equal('privacyPolicy');
     expect(currentScene.sceneKey).equal('privacyPolicy');
-    expect(currentScene.type).equal('REACT_NATIVE_ROUTER_FLUX_PUSH');
+    expect(currentScene.type).equal('push');
     expect(currentScene.param3).equal('Accept policy');
 
     latestState = reducer(latestState, {
       key: 'cubeBar', // we go to cubeBar but first renderable child is `conversations`
-      type: 'REACT_NATIVE_ROUTER_FLUX_PUSH',
+      type: 'push',
       param1: 'Conversations new param',
     });
     currentScene = getCurrent(latestState);
     expect(currentScene.name).equal('conversations');
     expect(currentScene.sceneKey).equal('conversations');
-    expect(currentScene.type).equal('REACT_NATIVE_ROUTER_FLUX_PUSH');
+    expect(currentScene.type).equal('push');
     expect(currentScene.param1).equal('Conversations new param');
   });
 });
