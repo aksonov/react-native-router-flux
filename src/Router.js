@@ -12,7 +12,7 @@ import React, {
 } from 'react';
 import NavigationExperimental from 'react-native-experimental-navigation';
 
-import Actions from './Actions';
+import Actions, { ActionMap } from './Actions';
 import getInitialState from './State';
 import Reducer from './Reducer';
 import DefaultRenderer from './DefaultRenderer';
@@ -88,8 +88,15 @@ class Router extends Component {
     }
 
     Actions.callback = props => {
-      if (this.props.dispatch) this.props.dispatch(props);
-      return onNavigate(props);
+      const constAction = (props.type && ActionMap[props.type] ? ActionMap[props.type] : null);
+      if (this.props.dispatch) {
+        if (constAction) {
+          this.props.dispatch({ ...props, type: constAction });
+        } else {
+          this.props.dispatch(props);
+        }
+      }
+      return (constAction ? onNavigate({ ...props, type: constAction }) : onNavigate(props));
     };
 
     return <DefaultRenderer onNavigate={onNavigate} navigationState={navigationState} />;

@@ -9,17 +9,8 @@
 
 /* eslint-disable no-param-reassign */
 
-import {
-  PUSH_ACTION,
-  POP_ACTION2,
-  POP_TO,
-  JUMP_ACTION,
-  REPLACE_ACTION,
-  RESET_ACTION,
-  POP_ACTION,
-  REFRESH_ACTION,
-} from './Actions';
-
+import * as ActionConst from './ActionConst';
+import { ActionMap } from './Actions';
 import { assert } from './Util';
 import { getInitialState } from './State';
 
@@ -37,7 +28,7 @@ function checkPropertiesEqual(action, lastAction) {
 }
 
 function inject(state, action, props, scenes) {
-  const condition = action.type === REFRESH_ACTION ? state.key === props.key ||
+  const condition = ActionMap[action.type] === ActionConst.REFRESH ? state.key === props.key ||
   state.sceneKey === action.key : state.sceneKey === props.parent;
   // console.log("INJECT:", action.key, state.sceneKey, condition);
   if (!condition) {
@@ -58,8 +49,8 @@ function inject(state, action, props, scenes) {
   }
   let ind;
 
-  switch (action.type) {
-    case POP_TO: {
+  switch (ActionMap[action.type]) {
+    case ActionConst.POP_TO: {
       const targetIndex = action.targetIndex;
 
       return {
@@ -69,8 +60,8 @@ function inject(state, action, props, scenes) {
       };
     }
 
-    case POP_ACTION2:
-    case POP_ACTION: {
+    case ActionConst.BACK:
+    case ActionConst.BACK_ACTION: {
       assert(!state.tabs, 'pop() operation cannot be run on tab bar (tabs=true)');
       if (state.index === 0) {
         return state;
@@ -97,7 +88,7 @@ function inject(state, action, props, scenes) {
         children: state.children.slice(0, -1 * popNum),
       };
     }
-    case REFRESH_ACTION:
+    case ActionConst.REFRESH:
       return props.base ?
       { navBar: state.navBar,
         ...scenes.rootProps,
@@ -109,7 +100,7 @@ function inject(state, action, props, scenes) {
         key: state.key,
         from: null,
       };
-    case PUSH_ACTION:
+    case ActionConst.PUSH:
       if (state.children[state.index].sceneKey === action.key && !props.clone
         && checkPropertiesEqual(action, state.children[state.index])) {
         return state;
@@ -120,13 +111,13 @@ function inject(state, action, props, scenes) {
         from: null,
         children: [...state.children, getInitialState(props, scenes, state.index + 1, action)],
       };
-    case JUMP_ACTION:
+    case ActionConst.JUMP:
       assert(state.tabs, `Parent=${state.key} is not tab bar, jump action is not valid`);
       ind = -1;
       state.children.forEach((c, i) => { if (c.sceneKey === action.key) { ind = i; } });
       assert(ind !== -1, `Cannot find route with key=${action.key} for parent=${state.key}`);
       return { ...state, index: ind };
-    case REPLACE_ACTION:
+    case ActionConst.REPLACE:
       if (state.children[state.index].sceneKey === action.key) {
         return state;
       }
@@ -139,7 +130,7 @@ function inject(state, action, props, scenes) {
       );
 
       return { ...state, children: state.children };
-    case RESET_ACTION:
+    case ActionConst.RESET:
       if (state.children[state.index].sceneKey === action.key) {
         return state;
       }
@@ -159,7 +150,7 @@ function inject(state, action, props, scenes) {
 }
 
 function findElement(state, key, type) {
-  if ((type === REFRESH_ACTION && state.key === key) || state.sceneKey === key) {
+  if ((ActionMap[type] === ActionConst.REFRESH && state.key === key) || state.sceneKey === key) {
     return state;
   }
   if (state.children) {
@@ -198,7 +189,7 @@ function reducer({ initialState, scenes }) {
     assert(state.scenes, 'state.scenes is missed');
 
     if (action.key) {
-      if (action.type === REFRESH_ACTION) {
+      if (ActionMap[action.type] === ActionConst.REFRESH) {
         let key = action.key;
         let child = findElement(state, key, action.type) || state.scenes[key];
         let sceneKey = child.sceneKey;
@@ -230,15 +221,17 @@ function reducer({ initialState, scenes }) {
       }
     } else {
       // set current route for pop action or refresh action
-      if (action.type === POP_ACTION || action.type === POP_ACTION2 ||
-        action.type === REFRESH_ACTION || action.type === POP_TO) {
+      if (ActionMap[action.type] === ActionConst.BACK_ACTION ||
+          ActionMap[action.type] === ActionConst.BACK ||
+          ActionMap[action.type] === ActionConst.REFRESH ||
+          ActionMap[action.type] === ActionConst.POP_TO) {
         if (!action.key && !action.parent) {
           action = { ...getCurrent(state), ...action };
         }
       }
 
       // Find the parent and index of the future state
-      if (action.type === POP_TO) {
+      if (ActionMap[action.type] === ActionConst.POP_TO) {
         const target = action.data;
         assert(target, 'PopTo() must be called with scene name');
 
@@ -264,7 +257,8 @@ function reducer({ initialState, scenes }) {
       }
 
       // recursive pop parent
-      if (action.type === POP_ACTION || action.type === POP_ACTION2) {
+      if (ActionMap[action.type] === ActionConst.BACK_ACTION ||
+          ActionMap[action.type] === ActionConst.BACK) {
         const parent = action.parent || state.scenes[action.key].parent;
         let el = findElement(state, parent, action.type);
         while (el.parent && (el.children.length <= 1 || el.tabs)) {
@@ -275,15 +269,15 @@ function reducer({ initialState, scenes }) {
       }
     }
 
-    switch (action.type) {
-      case POP_ACTION2:
-      case POP_ACTION:
-      case POP_TO:
-      case REFRESH_ACTION:
-      case PUSH_ACTION:
-      case JUMP_ACTION:
-      case REPLACE_ACTION:
-      case RESET_ACTION:
+    switch (ActionMap[action.type]) {
+      case ActionConst.BACK:
+      case ActionConst.BACK_ACTION:
+      case ActionConst.POP_TO:
+      case ActionConst.REFRESH:
+      case ActionConst.PUSH:
+      case ActionConst.JUMP:
+      case ActionConst.REPLACE:
+      case ActionConst.RESET:
         return update(state, action);
 
       default:
