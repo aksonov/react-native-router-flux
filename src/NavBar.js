@@ -215,7 +215,12 @@ class NavBar extends React.Component {
     }
     let buttonImage = childState.backButtonImage ||
       state.backButtonImage || this.props.backButtonImage;
-    const onPress = childState.onBack || childState.component.onBack || Actions.pop;
+    let onPress = childState.onBack || childState.component.onBack;
+    if (onPress) {
+      onPress = onPress.bind(null, state);
+    } else {
+      onPress = Actions.pop;
+    }
     if (state.index === 0) {
       return null;
     }
@@ -230,7 +235,7 @@ class NavBar extends React.Component {
       <TouchableOpacity
         testID="backNavButton"
         style={style}
-        onPress={() => onPress(state)}
+        onPress={onPress}
       >
         {buttonImage && !childState.hideBackImage &&
           <Image
