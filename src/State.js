@@ -37,12 +37,12 @@ export function getInitialState(
   props = {}
 ) {
   // eslint-disable-next-line no-unused-vars
-  const { key, style, type, ...parentProps } = props;
+  const { parent, key, style, type, ...parentProps } = props;
   if (!route.children) {
     return {
       ...scenes.rootProps,
       ...route,
-      key: `${position}_${route.sceneKey}`,
+      key: `${parent}_${key}_${position}_${route.sceneKey}`,
       ...parentProps,
       ...getStateFromScenes(route, scenes, props),
     };
