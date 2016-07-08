@@ -209,6 +209,7 @@ class NavBar extends React.Component {
         <BackButton
           testID="backNavButton"
           textButtonStyle={textButtonStyle}
+          {...childState}
           style={style}
         />
       );
