@@ -3,6 +3,7 @@ import { expect } from 'chai';
 
 import Scene from '../src/Scene';
 import Actions from '../src/Actions';
+import * as ActionConst from '../src/ActionConst';
 
 import createReducer from '../src/Reducer';
 import getInitialState from '../src/State';
@@ -64,46 +65,47 @@ describe('createReducer', () => {
     // Normally actions came from Actions module, but we will generate it manually.
     latestState = reducer(latestState, {
       key: 'conversations',
-      type: 'push',
+      type: ActionConst.PUSH,
       param1: 'Hello world',
     });
+
     currentScene = getCurrent(latestState);
     expect(currentScene.name).equal('conversations');
     expect(currentScene.sceneKey).equal('conversations');
-    expect(currentScene.type).equal('push');
+    expect(currentScene.type).equal(ActionConst.PUSH);
     expect(currentScene.param1).equal('Hello world');
 
     latestState = reducer(latestState, {
       key: 'login', // we go to `login` but first renderable child is `loginModal1`
-      type: 'push',
+      type: ActionConst.PUSH,
       param2: 'Hello world2',
     });
     currentScene = getCurrent(latestState);
     expect(currentScene.name).equal('loginModal1');
     expect(currentScene.sceneKey).equal('loginModal1');
-    expect(currentScene.type).equal('push');
+    expect(currentScene.type).equal(ActionConst.PUSH);
     expect(currentScene.param2).equal('Hello world2');
 
     latestState = reducer(latestState, {
       key: 'privacyPolicy',
-      type: 'push',
+      type: ActionConst.PUSH,
       param3: 'Accept policy',
     });
     currentScene = getCurrent(latestState);
     expect(currentScene.name).equal('privacyPolicy');
     expect(currentScene.sceneKey).equal('privacyPolicy');
-    expect(currentScene.type).equal('push');
+    expect(currentScene.type).equal(ActionConst.PUSH);
     expect(currentScene.param3).equal('Accept policy');
 
     latestState = reducer(latestState, {
       key: 'cubeBar', // we go to cubeBar but first renderable child is `conversations`
-      type: 'push',
+      type: ActionConst.PUSH,
       param1: 'Conversations new param',
     });
     currentScene = getCurrent(latestState);
     expect(currentScene.name).equal('conversations');
     expect(currentScene.sceneKey).equal('conversations');
-    expect(currentScene.type).equal('push');
+    expect(currentScene.type).equal(ActionConst.PUSH);
     expect(currentScene.param1).equal('Conversations new param');
   });
 });

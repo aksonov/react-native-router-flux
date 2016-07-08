@@ -1,4 +1,5 @@
 import Actions from './src/Actions';
+import * as ActionConst from './src/ActionConst';
 import DefaultRenderer from './src/DefaultRenderer';
 import Modal from './src/Modal';
 import NavBar from './src/NavBar';
@@ -12,6 +13,7 @@ import Util from './src/Util';
 
 export {
   Actions,
+  ActionConst,
   DefaultRenderer,
   Modal,
   NavBar,

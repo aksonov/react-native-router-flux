@@ -10,6 +10,7 @@
 - `DefaultRenderer`
 - `Switch`
 - `Actions`
+- `ActionConst`
 - `NavBar`
 
 ## Router:
@@ -29,9 +30,39 @@
 | key | `string` | required | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
 | component | `React.Component` | semi-required | The `Component` to be displayed. Not required when defining a nested `Scene`, see example. If it is defined for 'container' scene, it will be used as custom container `renderer` |
 | initial | `bool` | false | Set to `true` if this is the initial scene |
-| type | `string` | 'push' or 'jump' | Defines how the new screen is added to the navigator stack. One of `push`, `jump`, `replace`, `reset`. If parent container is tabbar (tabs=true), jump will be automatically set.
+| type | `string` | `ActionConst.PUSH` or `ActionConst.JUMP` | Defines how the new screen is added to the navigator stack. One of `ActionConst.PUSH`, `ActionConst.JUMP`, `ActionConst.REPLACE`, `ActionConst.RESET`. If parent container is tabbar (tabs=true), `ActionConst.JUMP` will be automatically set.
 | clone | `bool` | | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
 | passProps | `bool` | false | Pass all own props (except style, key, name, component, tabs) to children. Note that passProps is also passed to children. |
+
+## ActionConst:
+
+We accept shorthand string literal when defining scene tpye or action params, like:  
+
+```javascript
+Actions.ROUTE_NAME({type: 'reset'});
+<Scene key="myscene" type="replace" >
+```
+
+but it will be converted to const value when pass to reducer.  
+RECOMMENDATION is to always use const instead of string literal for consistency:  
+
+```javascript
+Actions.ROUTE_NAME({type: ActionConst.RESET});
+<Scene key="myscene" type={ActionConst.REPLACE} >
+```
+
+| Property | Type | Value | Shorthand |
+|-----------|--------|---------|-----------------------------------------|
+| ActionConst.JUMP | `string` | 'REACT_NATIVE_ROUTER_FLUX_JUMP' | 'jump' |
+| ActionConst.PUSH | `string` | 'REACT_NATIVE_ROUTER_FLUX_PUSH' | 'push' |
+| ActionConst.REPLACE | `string` | 'REACT_NATIVE_ROUTER_FLUX_REPLACE' | 'replace' |
+| ActionConst.BACK | `string` | 'REACT_NATIVE_ROUTER_FLUX_BACK' | 'back' |
+| ActionConst.BACK_ACTION | `string` | 'REACT_NATIVE_ROUTER_FLUX_BACK_ACTION' | 'BackAction' |
+| ActionConst.POP_TO | `string` | 'REACT_NATIVE_ROUTER_FLUX_POP_TO' | 'popTo' |
+| ActionConst.REFRESH | `string` | 'REACT_NATIVE_ROUTER_FLUX_REFRESH' | 'refresh' |
+| ActionConst.RESET | `string` | 'REACT_NATIVE_ROUTER_FLUX_RESET' | 'reset' |
+| ActionConst.FOCUS | `string` | 'REACT_NATIVE_ROUTER_FLUX_FOCUS' | 'focus' |
+
 ### Animation
 | Property | Type | Default | Description |
 |-----------|--------|---------|--------------------------------------------|
