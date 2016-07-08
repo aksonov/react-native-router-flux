@@ -1,4 +1,7 @@
 ## Detailed Example
+
+for latest example code, please see [Example](https://github.com/aksonov/react-native-router-flux/blob/master/Example/Example.js)
+
 ![launch](https://cloud.githubusercontent.com/assets/1321329/11692367/7337cfe2-9e9f-11e5-8515-e8b7a9f230ec.gif)
 
 ```jsx
@@ -7,7 +10,7 @@ import Launch from './components/Launch'
 import Register from './components/Register'
 import Login from './components/Login'
 import Login2 from './components/Login2'
-import {Scene, Router, TabBar, Modal, Schema, Actions, Reducer} from 'react-native-router-flux'
+import { Scene, Router, TabBar, Modal, Schema, Actions, Reducer, ActionConst } from 'react-native-router-flux'
 import Error from './components/Error'
 import Home from './components/Home'
 import TabView from './components/TabView'
@@ -35,7 +38,7 @@ export default class Example extends React.Component {
                 <Scene key="root" hideNavBar={true}>
                     <Scene key="register" component={Register} title="Register"/>
                     <Scene key="register2" component={Register} title="Register2" duration={1}/>
-                    <Scene key="home" component={Home} title="Replace" type="replace"/>
+                    <Scene key="home" component={Home} title="Replace" type={ActionConst.REPLACE}/>
                     <Scene key="launch" component={Launch} title="Launch" initial={true} style={{flex:1, backgroundColor:'transparent'}}/>
                     <Scene key="login" direction="vertical">
                         <Scene key="loginModal" component={Login} schema="modal" title="Login"/>

@@ -18,6 +18,8 @@ First create a reducer for the routing actions that will be dispatched by RNRF.
 ```javascript
 // reducers/routes.js
 
+import { ActionConst } from 'react-native-router-flux';
+
 const initialState = {
   scene: {},
 };
@@ -25,7 +27,7 @@ const initialState = {
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     // focus action is dispatched when a new screen comes into focus
-    case "focus":
+    case ActionConst.FOCUS:
       return {
         ...state,
         scene: action.scene,
