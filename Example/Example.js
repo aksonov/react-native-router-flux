@@ -18,6 +18,7 @@ import {
   Switch,
   Modal,
   Actions,
+  ActionConst,
 } from 'react-native-router-flux';
 import Error from './components/Error';
 import Home from './components/Home';
@@ -92,7 +93,7 @@ const SwitcherPage = (props) => (
     </Button>
     <Button
       onPress={() => {
-        Actions.launch({ type: 'reset' });
+        Actions.launch({ type: ActionConst.RESET });
       }}
     >
       Exit
@@ -131,7 +132,7 @@ class Example extends Component {
             </Scene>
             <Scene key="register" component={Register} title="Register" />
             <Scene key="register2" component={Register} title="Register2" duration={1} />
-            <Scene key="home" component={Home} title="Replace" type="replace" />
+            <Scene key="home" component={Home} title="Replace" type={ActionConst.REPLACE} />
             <Scene key="launch" component={Launch} title="Launch" initial />
             <Scene key="login" direction="vertical" >
               <Scene key="loginModal" direction="vertical" component={Login} title="Login" />
