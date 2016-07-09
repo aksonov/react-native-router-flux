@@ -72,7 +72,7 @@ export default class extends Component {
                 onOpen={()=>Actions.refresh({key:state.key, open: true})}
                 onClose={()=>Actions.refresh({key:state.key, open: false})}
                 type="displace"
-                content={<TabView />}
+                content={<SideMenu />}
                 tapToClose={true}
                 openDrawerOffset={0.2}
                 panCloseMask={0.2}
