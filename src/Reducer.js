@@ -65,7 +65,7 @@ function inject(state, action, props, scenes) {
     case ActionConst.BACK_ACTION: {
       assert(!state.tabs, 'pop() operation cannot be run on tab bar (tabs=true)');
       if (state.index === 0) {
-        if(Platform.OS === 'android'){
+        if (Platform.OS === 'android') {
           assert(false, 'pop() action is called on a root scene');
         }
         return state;
