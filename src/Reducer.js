@@ -13,6 +13,7 @@ import * as ActionConst from './ActionConst';
 import { ActionMap } from './Actions';
 import { assert } from './Util';
 import { getInitialState } from './State';
+import { Platform } from 'react-native';
 
 // WARN: it is not working correct. rewrite it.
 function checkPropertiesEqual(action, lastAction) {
@@ -64,6 +65,9 @@ function inject(state, action, props, scenes) {
     case ActionConst.BACK_ACTION: {
       assert(!state.tabs, 'pop() operation cannot be run on tab bar (tabs=true)');
       if (state.index === 0) {
+        if(Platform.OS === 'android'){
+          assert(false, 'pop() action is called on a root scene');
+        }
         return state;
       }
 
