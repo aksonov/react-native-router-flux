@@ -108,7 +108,7 @@ import {Actions} from 'react-native-router-flux'
 And then:
 
 * `Actions.ACTION_NAME(PARAMS)` will call the appropriate action and params will be passed to the scene.
-* `Actions.pop()` will pop the current screen.
+* `Actions.pop()` will pop the current screen. It can also take a param `{popNum: [number]}` that allows to pop multiple screens at once.
 * `Actions.refresh(PARAMS)` will update the properties of the current screen.
 
 ## Production Apps using react-native-router-flux
