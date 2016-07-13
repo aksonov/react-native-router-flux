@@ -11,7 +11,65 @@ This is a place for information that needs to be documented, but aren't long eno
 - Sub-Scenes
 
 ## Modals
-To display a modal use `Modal` as root renderer, so it will render the first element as `normal` scene and all others as popups (when they are pushed), see Example for more details.
+To display a modal use `Modal` as root renderer, so it will render the first element as `normal` scene and all others as popups (when they are pushed).
+For example:
+```jsx
+import StatusModal from './components/StatusModal'
+
+<Router>
+  <Scene key="modal" component={Modal} >
+    <Scene key="root">
+      <Scene key="screen1" initial={true} component={Screen1} />
+      <Scene key="screen2" component={Screen2} />
+    </Scene>
+      <Scene key="statusModal" component={StatusModal} />
+  </Scene>
+</Router>
+```
+
+Then in the StatusModal Component we can define what we want it to look like and what props can be passed to it:
+
+```jsx
+class StatusModal extends Component {
+
+  constructor(props) {
+    super(props)
+    // set state with passed in props
+    this.state = {
+      message: props.error,
+      hide: props.hide,
+    }
+    // bind functions
+    this.dismissModal = this.dismissModal.bind(this)
+  }
+
+  dismissModal() {
+    this.setState({hide: true})
+  }
+
+  // show or hide Modal based on 'hide' prop
+  render() {
+    if(this.state.hide){
+      return (
+        <View>
+        </View>
+      )
+    } else {
+        return (
+          <TouchableHighlight style={styles.mainContainer} onPress={this.dismissModal}>
+            <Text style={styles.text}>{this.state.message}</Text>
+          </TouchableHighlight>
+        )
+      }
+  }
+}
+```
+
+Lastly when calling the Modal pass the props defined in the component, for example an error message and a 'hide' prop of false to display the Modal:
+
+`Actions.statusModal({error: "Network failed...", hide: false})`
+
+When the Modal is pressed it will set hide to true and return an empty view.
 
 ## Tabbar
 Every tab has its own navigation bar. However, if you do not set its parent `<Scene tabs={true} />` with `hideNavBar={true}`, the tabs' navigation bar will be overrided by their parent.
