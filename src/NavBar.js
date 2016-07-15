@@ -399,7 +399,13 @@ class NavBar extends React.Component {
   }
 
   renderTitle(childState, index:number) {
-    const title = this.props.getTitle ? this.props.getTitle(childState) : childState.title;
+    let title = this.props.getTitle ? this.props.getTitle(childState) : childState.title;
+    if (title === undefined && childState.component && childState.component.title) {
+      title = childState.component.title;
+    }
+    if (typeof(title) === 'function') {
+      title = title(childState);
+    }
     return (
       <Animated.Text
         key={childState.key}
