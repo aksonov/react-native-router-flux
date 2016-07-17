@@ -46,7 +46,9 @@ class TabBar extends Component {
   render() {
     const state = this.props.navigationState;
 
-    const hideTabBar = this.props.unmountScenes ? true : deepestExplicitValueForKey(state, 'hideTabBar');
+    const hideTabBar = this.props.unmountScenes
+      ? true
+      : deepestExplicitValueForKey(state, 'hideTabBar');
 
     return (
       <View
