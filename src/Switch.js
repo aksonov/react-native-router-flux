@@ -38,7 +38,7 @@ export default function Switch(props) {
     navigationState = {
       ...navigationState,
       children: [navState.children[navigationState.index]],
-      index: 0
+      index: 0,
     };
   }
   return (
