@@ -10,27 +10,29 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#F5FCFF",
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: "center",
-        margin: 10,
-    },
-    instructions: {
-        textAlign: "center",
-        color: "#333333",
-        marginBottom: 5,
-    },
 });
 
+const popToRoot = () => {
+  Actions.popTo("root");
+}
+
+const popToLogin1 = () => {
+  Actions.popTo("loginModal");
+}
+
+const popToLogin2 = () => {
+  Actions.popTo("loginModal2");
+}
 
 export default class extends React.Component {
     render(){
         return (
-            <View style={[styles.container, this.props.style]}>
-                <Text>Login page: {this.props.data}</Text>
-                <Button onPress={Actions.loginModal2}>Login 2</Button>
-                <Button onPress={() => Actions.refresh({title:"Changed title"})}>Change title</Button>
+            <View style={styles.container}>
+                <Text>Login2 page: {this.props.data}</Text>
                 <Button onPress={Actions.pop}>Back</Button>
+                <Button onPress={popToLogin1}>To Login</Button>
+                <Button onPress={popToLogin2}>To Login2</Button>
+                <Button onPress={popToRoot}>To Root</Button>
             </View>
         );
     }

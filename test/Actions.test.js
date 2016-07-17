@@ -1,71 +1,70 @@
 import { expect } from 'chai';
-import Actions from '../src/Actions';
-import getInitialState from '../src/State';
-import React from 'react-native';
-import Scene from '../src/Scene';
-import createReducer from '../src/Reducer';
 
-const scenesData = <Scene component="Modal" key="modal">
-    <Scene key="launch" component="Launch"/>
-    <Scene key="sideMenu" component="Drawer" initial={true}>
-        <Scene component="CubeBar" key="cubeBar" type="tabs">
-            <Scene key="main" tabs={true}>
-                <Scene key="home" component="Home"/>
-                <Scene key="map" component="Map"/>
-                <Scene key="myAccount" component="MyAccount"/>
-            </Scene>
-            <Scene key="messaging" initial={true}>
-                <Scene key="conversations" component="Conversations"/>
-            </Scene>
+import React from 'react';
+
+import Actions from '../src/Actions';
+import Scene from '../src/Scene';
+
+let id = 0;
+const guid = () => id++;
+
+const scenesData = (
+  <Scene
+    key="root"
+    component="Modal"
+    getInitialState={() => ({ foo: guid() })}
+  >
+    <Scene key="launch" component="Launch" />
+    <Scene key="sideMenu" component="Drawer" initial>
+      <Scene component="CubeBar" key="cubeBar" type="tabs">
+        <Scene key="main" tabs>
+          <Scene key="home" component="Home" />
+          <Scene key="map" component="Map" />
+          <Scene key="myAccount" component="MyAccount" />
         </Scene>
+        <Scene key="messaging" initial>
+          <Scene
+            key="conversations"
+            component="Conversations"
+            getInitialState={() => ({ foo: 'what', bar: guid() })}
+          />
+        </Scene>
+      </Scene>
     </Scene>
-    <Scene key="privacyPolicy" component="PrivacyPolicy" type="modal"/>
-    <Scene key="termsOfService" component="TermsOfService" type="modal"/>
+    <Scene key="privacyPolicy" component="PrivacyPolicy" type="modal" />
+    <Scene key="termsOfService" component="TermsOfService" type="modal" />
     <Scene key="login">
-        <Scene key="loginModal1" component="Login1"/>
-        <Scene key="loginModal2" component="Login2"/>
+      <Scene key="loginModal1" component="Login1" />
+      <Scene key="loginModal2" component="Login2" />
     </Scene>
-</Scene>;
+  </Scene>);
+
+let scenes;
 
 describe('Actions', () => {
-    it('should create needed actions', () => {
-        const scenes = Actions.create(scenesData);
-        expect(scenes.conversations.component).to.equal("Conversations");
+  before(() => {
+    scenes = Actions.create(scenesData);
+  });
+  it('should produce needed actions', () => {
+    // check scenes
+    expect(scenes.conversations.component).to.equal('Conversations');
 
-        let currentScene = null;
-        Actions.callback = scene=>{currentScene = scene};
-        Actions.conversations({param1: "Hello world"});
-        expect(currentScene.param1).equal("Hello world");
-        expect(currentScene.key).equal("conversations");
+    // set callback which will extract generated action
+    let latestAction = null;
+    Actions.callback = action => { latestAction = action; };
 
-        Actions.sideMenu({param2: "Hello world2"});
-        expect(currentScene.param1).equal(undefined);
-        expect(currentScene.param2).equal("Hello world2");
-        expect(currentScene.key).equal("sideMenu");
+    // test generated actions
+    Actions.conversations({ param1: 'Hello world' });
+    expect(latestAction.param1).equal('Hello world');
+    expect(latestAction.key).equal('conversations');
 
-        Actions.messaging({param3: "Hello world3"});
-        expect(currentScene.param3).equal("Hello world3");
-        expect(currentScene.key).equal("messaging");
+    Actions.sideMenu({ param2: 'Hello world2' });
+    expect(latestAction.param1).equal(undefined);
+    expect(latestAction.param2).equal('Hello world2');
+    expect(latestAction.key).equal('sideMenu');
 
-        const initialState = getInitialState(scenes);
-        expect(initialState.component).equal("Modal");
-        expect(initialState.index).equal(0);
-
-        const reducer = createReducer({initialState, scenes});
-        let state = undefined;
-        Actions.callback = scene=>state = reducer(state, scene);
-        expect(state).equal(undefined);
-        Actions.init();
-        expect(state.key).equal("modal");
-
-        Actions.messaging();
-        expect(state.scenes.current).equal("messaging");
-        //Actions.pop();
-        Actions.login();
-        expect(state.children[1].key).equal("login");
-        expect(state.children[1].children.length).equal(1);
-        expect(state.children[1].children[0].key).equal("loginModal1");
-
-    });
-
+    Actions.messaging({ param3: 'Hello world3' });
+    expect(latestAction.param3).equal('Hello world3');
+    expect(latestAction.key).equal('messaging');
+  });
 });

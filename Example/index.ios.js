@@ -1,7 +1,8 @@
-'use strict';
+import { AppRegistry } from 'react-native';
 
-var React = require('react-native');
-var {AppRegistry, Navigator, StyleSheet,Text,View} = React;
+// @todo remove when RN upstream is fixed
+console.ignoredYellowBox = ['Warning: Failed propType: SceneView'];
+
 import Example from './Example';
 
-AppRegistry.registerComponent("Example", () => Example);
+AppRegistry.registerComponent('Example', () => Example);

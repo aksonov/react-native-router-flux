@@ -1,42 +1,49 @@
-import React, {Component} from "react-native";
-import DefaultRenderer from "./DefaultRenderer";
-import Actions from "./Actions";
+import React, { PropTypes } from 'react';
+import TabBar from './TabBar';
+import { assert } from './Util';
 
-export default class extends Component {
-    constructor(props){
-        super(props);
-        this.updateState = this.updateState.bind(this);
-        this.state = {};
-    }
-
-    updateState(props){
-        const navState = props.navigationState;
-        const selector = props.selector || console.error("selector should be defined");
-        const selectedKey = selector(props) || console.error("selector should return key");
-        const selected = navState.children.filter(el=>el.sceneKey==selectedKey) || console.error("key="+selectedKey+" doesn't exist");
-        const navigationState = selected[0] || console.error("Cannot find scene with key="+selectedKey);
-        if (navigationState.key != navState.children[navState.index].key){
-            Actions[selectedKey]();
+export default function Switch(props) {
+  const navState = props.navigationState;
+  const selector = props.selector;
+  const statem = props.statem;
+  if (!selector && !statem) console.error('Selector should be defined.');
+  let index = -1;
+  if (!selector) {
+    // support Statem - Harel statecharts machine!
+    navState.children.forEach((el, i) => {
+      assert(el.default || el.state,
+        `Either default or state should be defined for element=${el.key}`);
+      if (el.default) {
+        index = i;
+      } else {
+        if (el.state.active) {
+          index = i;
         }
-        this.setState({navigationState});
-    }
-    componentDidMount(){
-        this.updateState(this.props);
-
-    }
-    
-    componentWillReceiveProps(props){
-        this.updateState(props);
-    }
-    render(){
-        if (this.state.navigationState){
-            return <DefaultRenderer navigationState={this.state.navigationState} />;
-        } else {
-            return null;
-        }
-    }
+      }
+    });
+    assert(index !== -1, 'No default scene is defined');
+  } else {
+    const selectedKey = selector(props);
+    if (!selectedKey) console.error('Selector should return key.');
+    navState.children.forEach((el, i) => {
+      if (el.sceneKey === selectedKey) {
+        index = i;
+      }
+    });
+    if (index === -1) console.error(`A scene for key “${selectedKey}” does not exist.`);
+  }
+  const navigationState = index !== navState.index ? { ...navState, index } : navState;
+  return (
+    <TabBar
+      onNavigate={props.onNavigate}
+      navigationState={navigationState}
+    />
+  );
 }
 
-
-
-
+Switch.propTypes = {
+  navigationState: PropTypes.object,
+  onNavigate: PropTypes.func,
+  selector: PropTypes.func,
+  statem: PropTypes.any,
+};

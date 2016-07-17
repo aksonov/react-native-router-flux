@@ -1,8 +1,23 @@
-import React, {Text} from "react-native";
-export default class extends React.Component {
-    render(){
-        return (
-            <Text style={{color: this.props.selected ? "red" :"black"}}>{this.props.title}</Text>
-        );
-    }
-}
+import React, {
+  PropTypes,
+} from 'react';
+import {
+  Text,
+} from 'react-native';
+
+const propTypes = {
+  selected: PropTypes.bool,
+  title: PropTypes.string,
+};
+
+const TabIcon = (props) => (
+  <Text
+    style={{ color: props.selected ? 'red' : 'black' }}
+  >
+    {props.title}
+  </Text>
+);
+
+TabIcon.propTypes = propTypes;
+
+export default TabIcon;

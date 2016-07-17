@@ -6,112 +6,199 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import assert from "assert";
-import Scene from "./Scene";
-export const JUMP_ACTION = "jump";
-export const PUSH_ACTION = "push";
-export const REPLACE_ACTION = "replace";
-export const POP_ACTION2 = "back";
-export const POP_ACTION = "BackAction";
-export const REFRESH_ACTION = "refresh";
-export const RESET_ACTION = "reset";
-export const INIT_ACTION = "init";
-export const FOCUS_ACTION = "focus";
+import { assert } from './Util';
+import Scene from './Scene';
+import * as ActionConst from './ActionConst';
 
-function isNumeric(n){
-    return !isNaN(parseFloat(n)) && isFinite(n);
+export const ActionMap = {
+  jump: ActionConst.JUMP,
+  push: ActionConst.PUSH,
+  replace: ActionConst.REPLACE,
+  back: ActionConst.BACK,
+  BackAction: ActionConst.BACK_ACTION,
+  popTo: ActionConst.POP_TO,
+  refresh: ActionConst.REFRESH,
+  reset: ActionConst.RESET,
+  focus: ActionConst.FOCUS,
+  [ActionConst.JUMP]: ActionConst.JUMP,
+  [ActionConst.PUSH]: ActionConst.PUSH,
+  [ActionConst.REPLACE]: ActionConst.REPLACE,
+  [ActionConst.BACK]: ActionConst.BACK,
+  [ActionConst.BACK_ACTION]: ActionConst.BACK_ACTION,
+  [ActionConst.POP_TO]: ActionConst.POP_TO,
+  [ActionConst.REFRESH]: ActionConst.REFRESH,
+  [ActionConst.RESET]: ActionConst.RESET,
+  [ActionConst.FOCUS]: ActionConst.FOCUS,
+};
+
+function filterParam(data) {
+  if (data.toString() !== '[object Object]') {
+    return { data };
+  }
+  const proto = (data || {}).constructor.name;
+  // avoid passing React Native parameters
+  if (!data || (proto !== 'Object')) {
+    return {};
+  }
+  return data;
 }
 
-function filterParam(data){
-    if (data.toString()!='[object Object]')
-        return {data: data};
-    if (!data){
-        return {};
-    }
-    var proto = (data||{}).constructor.name;
-    // avoid passing React Native parameters
-    if (proto != "Object"){
-        data = {};
-    }
-    return data;
+const reservedKeys = [
+  'create',
+  'callback',
+  'iterate',
+  'current',
+  ...Object.keys(ActionMap),
+];
+
+function getInheritProps(props) {
+  // eslint-disable-next-line no-unused-vars
+  const { key, style, type, component, tabs, sceneKey, parent, children, ...parentProps } = props;
+  return parentProps.passProps ? parentProps : {};
 }
 
 class Actions {
-    constructor(){
-        this.callback = null;
-        this.create = this.create.bind(this);
-        this.iterate = this.iterate.bind(this);
-        this.init = this.init.bind(this);
-        this.pop = this.pop.bind(this);
-        this.refresh = this.refresh.bind(this);
+  constructor() {
+    this.callback = null;
+    this.create = this.create.bind(this);
+    this.iterate = this.iterate.bind(this);
+    this.pop = this.pop.bind(this);
+    this.refresh = this.refresh.bind(this);
+    this.focus = this.focus.bind(this);
+  }
 
+  iterate(root: Scene, parentProps = {}, refsParam = {}, wrapBy) {
+    const refs = refsParam;
+    assert(root.props, 'props should be defined for stack');
+    const key = root.key;
+    assert(key, 'unique key should be defined ');
+    assert(
+      reservedKeys.indexOf(key) === -1,
+      `'${key}' is not allowed as key name. Reserved keys: [${reservedKeys.join(', ')}]`
+    );
+    const { children, component, ...staticProps } = root.props;
+    let type = root.props.type || (parentProps.tabs ? ActionConst.JUMP : ActionConst.PUSH);
+    if (type === 'switch') {
+      type = ActionConst.JUMP;
     }
-
-    iterate(root: Scene, parentProps = {}, refs = {}) {
-        assert(root.props, "props should be defined for stack");
-        const key = root.key || "root";
-        assert(key, "unique key should be defined ",root);
-        assert([POP_ACTION, POP_ACTION2, REFRESH_ACTION, REPLACE_ACTION, JUMP_ACTION, PUSH_ACTION, RESET_ACTION, "create",
-                "init","callback","iterate","current"].indexOf(key)==-1, key+" is not allowed as key name");
-        const {children, ...staticProps} = root.props;
-        let type = root.props.type || (parentProps.tabs ? JUMP_ACTION : PUSH_ACTION);
-        if (type === "switch"){
-            type = JUMP_ACTION;
+    const inheritProps = getInheritProps(parentProps);
+    const componentProps = component ? { component: wrapBy(component) } : {};
+    // wrap other components
+    if (wrapBy) {
+      Object.keys(staticProps).forEach(prop => {
+        const componentClass = staticProps[prop];
+        if (componentClass && componentClass.prototype && componentClass.prototype.render) {
+          componentProps[prop] = wrapBy(componentClass);
+          delete staticProps[prop];
         }
-        let res = {name:key, ...staticProps, key, sceneKey:key, type, parent:parentProps.key};
-        if (root.props.children) {
-            const list = root.props.children instanceof Array ? root.props.children: [root.props.children];
-            res.children = list.map(c=>this.iterate(c, res, refs).key);
+      });
+    }
+    const res = {
+      key,
+      name: key,
+      sceneKey: key,
+      parent: parentProps.key,
+      type,
+      ...inheritProps,
+      ...staticProps,
+      ...componentProps,
+    };
+    let list = children || [];
+    const normalized = [];
+    if (!(list instanceof Array)) {
+      list = [list];
+    }
+    list.forEach((item) => {
+      if (item) {
+        if (item instanceof Array) {
+          item.forEach(it => {
+            normalized.push(it);
+          });
         } else {
-            assert(staticProps.component, "component property is not set for key="+key);
-            // wrap scene if parent is "tabs"
-            if (parentProps.tabs) {
-                const innerKey = res.key + "_";
-                const inner = {...res, name:key, key: innerKey, type: PUSH_ACTION, parent:res.key}
-                refs[innerKey] = inner;
-                res.children = [innerKey];
-                delete res.component;
-            }
-            res.index = 0;
+          normalized.push(item);
         }
-        if (this[key]){
-            console.log("Key " + root.key + " is already defined!");
-        }
-        this[key] =
-            (props={})=> {assert(this.callback, "Actions.callback is not defined!");
-            this.callback({key: root.key, type, ...filterParam(props)})};
-        refs[res.key]=res;
+      }
+    });
+    list = normalized; // normalize the list of scenes
 
-        return res;
+    const condition = el => (!el.props.component && !el.props.children && !el.props.onPress &&
+    (!el.props.type || ActionMap[el.props.type] === ActionConst.REFRESH));
+    // determine sub-states
+    let baseKey = root.key;
+    let subStateParent = parentProps.key;
+    const subStates = list.filter(condition);
+    list = list.filter(el => !condition(el));
+    if (list.length) {
+      res.children = list.map(c => this.iterate(c, res, refs, wrapBy).key);
+    } else {
+      if (!staticProps.onPress) {
+        assert(component, `component property is not set for key=${key}`);
+      }
+      // wrap scene if parent is "tabs"
+      if (parentProps.tabs) {
+        const innerKey = `${res.key}_`;
+        baseKey = innerKey;
+        subStateParent = res.key;
+        const inner = { ...res, name: key, key: innerKey,
+          sceneKey: innerKey, type: ActionConst.PUSH, parent: res.key };
+        refs[innerKey] = inner;
+        res.children = [innerKey];
+        delete res.component;
+      }
+      res.index = 0;
     }
+    // process substates
+    for (const el of subStates) {
+      refs[el.key] = { key: el.key, name: el.key, ...el.props, type: ActionConst.REFRESH,
+        base: baseKey, parent: subStateParent };
+      if (this[el.key]) {
+        console.log(`Key ${el.key} is already defined!`);
+      }
+      this[el.key] =
+        (props = {}) => {
+          assert(this.callback, 'Actions.callback is not defined!');
+          this.callback({ key: el.key, type: ActionConst.REFRESH, ...filterParam(props) });
+        };
+    }
+    if (this[key]) {
+      console.log(`Key ${key} is already defined!`);
+    }
+    this[key] =
+      (props = {}) => {
+        assert(this.callback, 'Actions.callback is not defined!');
+        this.callback({ key, type, ...filterParam(props) });
+      };
+    refs[res.key] = res;
 
-    pop(props = {}){
-        props = filterParam(props);
-        const data = isNumeric(props) ? {num: props} : props;
-        this.callback && this.callback({...props, type: POP_ACTION});
-    }
+    return res;
+  }
 
-    jump(props = {}){
-        props = filterParam(props);
-        this.callback && this.callback({...props, type: JUMP_ACTION});
-    }
+  popTo(props = {}) {
+    return this.callback({ ...filterParam(props), type: ActionConst.POP_TO });
+  }
 
-    init(props = {}){
-        props = filterParam(props);
-        this.callback && this.callback({...props, type: INIT_ACTION});
-    }
+  pop(props = {}) {
+    return this.callback({ ...filterParam(props), type: ActionConst.BACK_ACTION });
+  }
 
-    refresh(props = {}){
-        props = filterParam(props);
-        this.callback && this.callback({...props, type: REFRESH_ACTION});
-    }
+  jump(props = {}) {
+    return this.callback({ ...filterParam(props), type: ActionConst.JUMP });
+  }
 
-    create(scene:Scene){
-        assert(scene, "roote scene should be defined");
-        let refs = {};
-        this.iterate(scene, {}, refs);
-        return refs
-    }
+  refresh(props = {}) {
+    return this.callback({ ...filterParam(props), type: ActionConst.REFRESH });
+  }
+
+  focus(props = {}) {
+    return this.callback({ ...filterParam(props), type: ActionConst.FOCUS });
+  }
+
+  create(scene:Scene, wrapBy = x => x) {
+    assert(scene, 'root scene should be defined');
+    const refs = {};
+    this.iterate(scene, {}, refs, wrapBy);
+    return refs;
+  }
 }
 
 export default new Actions();

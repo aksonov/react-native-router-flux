@@ -23,132 +23,401 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import React, {Animated, PixelRatio, Image, StyleSheet, Text, TouchableOpacity, View, NavigationExperimental} from "react-native";
-import Actions from "./Actions";
-const {
-    AnimatedView: NavigationAnimatedView,
-    Card: NavigationCard,
-    RootContainer: NavigationRootContainer,
-    Header: NavigationHeader,
-    } = NavigationExperimental;
+import React, {
+  PropTypes,
+} from 'react';
+import {
+  Platform,
+  Animated,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import Actions from './Actions';
+import _drawerImage from './menu_burger.png';
+import _backButtonImage from './back_chevron.png';
 
-export default class NavBar extends React.Component {
-    componentWillMount(){
-        const state = this.props.navigationState;
-        this._renderRightButton = this._renderRightButton.bind(this);
-        this._renderBackButton = this._renderBackButton.bind(this);
-        this._renderLeftButton = this._renderLeftButton.bind(this);
-        this._renderTitle = this._renderTitle.bind(this);
-        if (state.renderLeftButton){
-            this._renderLeftButton = state.renderLeftButton;
-        }
-        if (state.renderRightButton){
-            this._renderRightButton = state.renderRightButton;
-        }
-        if (state.renderBackButton){
-            this._renderBackButton = state.renderBackButton;
-        }
+const styles = StyleSheet.create({
+  title: {
+    textAlign: 'center',
+    marginTop: 10,
+    fontSize: 18,
+    color: '#0A0A0A',
+    position: 'absolute',
+    ...Platform.select({
+      ios: {
+        top: 20,
+      },
+      android: {
+        top: 5,
+      },
+    }),
+    left: 0,
+    right: 0,
+  },
+  header: {
+    backgroundColor: '#EFEFF2',
+    paddingTop: 0,
+    top: 0,
+    ...Platform.select({
+      ios: {
+        height: 64,
+      },
+      android: {
+        height: 54,
+      },
+    }),
+    right: 0,
+    left: 0,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#828287',
+    position: 'absolute',
+  },
+  backButton: {
+    width: 130,
+    height: 37,
+    position: 'absolute',
+    ...Platform.select({
+      ios: {
+        top: 22,
+      },
+      android: {
+        top: 10,
+      },
+    }),
+    left: 2,
+    padding: 8,
+    flexDirection: 'row',
+  },
+  rightButton: {
+    width: 100,
+    height: 37,
+    position: 'absolute',
+    ...Platform.select({
+      ios: {
+        top: 22,
+      },
+      android: {
+        top: 10,
+      },
+    }),
+    right: 2,
+    padding: 8,
+  },
+  leftButton: {
+    width: 100,
+    height: 37,
+    position: 'absolute',
+    ...Platform.select({
+      ios: {
+        top: 20,
+      },
+      android: {
+        top: 8,
+      },
+    }),
+    left: 2,
+    padding: 8,
+  },
+  barRightButtonText: {
+    color: 'rgb(0, 122, 255)',
+    textAlign: 'right',
+    fontSize: 17,
+  },
+  barBackButtonText: {
+    color: 'rgb(0, 122, 255)',
+    textAlign: 'left',
+    fontSize: 17,
+    paddingLeft: 6,
+  },
+  barLeftButtonText: {
+    color: 'rgb(0, 122, 255)',
+    textAlign: 'left',
+    fontSize: 17,
+  },
+  backButtonImage: {
+    width: 13,
+    height: 21,
+  },
+  rightButtonIconStyle: {
+
+  },
+  defaultImageStyle: {
+    height: 24,
+    resizeMode: 'contain',
+  },
+});
+
+const propTypes = {
+  navigationState: PropTypes.object,
+  backButtonImage: Image.propTypes.source,
+  wrapBy: PropTypes.any,
+  component: PropTypes.any,
+  backButtonTextStyle: Text.propTypes.style,
+  leftButtonStyle: View.propTypes.style,
+  leftButtonIconStyle: Image.propTypes.style,
+  getTitle: PropTypes.func,
+  titleStyle: Text.propTypes.style,
+  titleOpacity: PropTypes.number,
+  position: PropTypes.object,
+  navigationBarStyle: View.propTypes.style,
+  renderTitle: PropTypes.any,
+};
+
+const contextTypes = {
+  drawer: PropTypes.object,
+};
+
+const defaultProps = {
+  drawerImage: _drawerImage,
+  backButtonImage: _backButtonImage,
+  titleOpacity: 1,
+};
+
+class NavBar extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.renderRightButton = this.renderRightButton.bind(this);
+    this.renderBackButton = this.renderBackButton.bind(this);
+    this.renderLeftButton = this.renderLeftButton.bind(this);
+    this.renderTitle = this.renderTitle.bind(this);
+  }
+
+  renderBackButton() {
+    const state = this.props.navigationState;
+    const childState = state.children[state.index];
+    const BackButton = (childState.component && childState.component.backButton) || state.backButton
+      || childState.backButton;
+    const textButtonStyle = [
+      styles.barBackButtonText,
+      this.props.backButtonTextStyle,
+      state.backButtonTextStyle,
+      childState.backButtonTextStyle,
+    ];
+    const style = [
+      styles.backButton,
+      this.props.leftButtonStyle,
+      state.leftButtonStyle,
+      childState.leftButtonStyle,
+    ];
+    if (BackButton) {
+      return (
+        <BackButton
+          testID="backNavButton"
+          textButtonStyle={textButtonStyle}
+          {...childState}
+          style={style}
+        />
+      );
     }
-    render() {
-        const state = this.props.navigationState;
-        const child = state.children[state.index];
-        let selected = state.children[state.index];
-        while (selected.hasOwnProperty("children")) {
-            selected = selected.children[selected.index]
+    let buttonImage = childState.backButtonImage ||
+      state.backButtonImage || this.props.backButtonImage;
+    let onPress = childState.onBack || childState.component.onBack;
+    if (onPress) {
+      onPress = onPress.bind(null, state);
+    } else {
+      onPress = Actions.pop;
+    }
+    if (state.index === 0) {
+      return null;
+    }
+
+    let text = childState.backTitle ?
+      <Text style={textButtonStyle}>
+        {childState.backTitle}
+      </Text>
+      : null;
+
+    return (
+      <TouchableOpacity
+        testID="backNavButton"
+        style={style}
+        onPress={onPress}
+      >
+        {buttonImage && !childState.hideBackImage &&
+          <Image
+            source={buttonImage}
+            style={[
+              styles.backButtonImage,
+              this.props.leftButtonIconStyle,
+              state.barButtonIconStyle,
+              state.leftButtonIconStyle,
+              childState.leftButtonIconStyle,
+            ]}
+          />
         }
-        if (state.navBar || selected.navBar){
-            const Component =  selected.navBar || state.navBar;
-            return <Component {...this.props} {...state} {...selected}/>
-        }
-        if (selected.component && selected.component.renderNavigationBar){
-            return selected.component.renderNavigationBar({...this.props,...selected});
-        }
-        if (state.hideNavBar || child.hideNavBar || selected.hideNavBar){
-            return null;
+        {text}
+      </TouchableOpacity>
+    );
+  }
+
+  renderRightButton() {
+    const self = this;
+    function tryRender(state, wrapBy) {
+      if (!state) {
+        return null;
+      }
+      const textStyle = [styles.barRightButtonText, self.props.rightButtonTextStyle,
+        state.rightButtonTextStyle];
+      const style = [styles.rightButton, self.props.rightButtonStyle, state.rightButtonStyle];
+      if (state.rightButton) {
+        let Button = state.rightButton;
+        if (wrapBy) {
+          Button = wrapBy(Button);
         }
         return (
-            <Animated.View
-                style={[styles.header, state.navigationBarStyle, selected.navigationBarStyle]}>
-                {state.children.map(this._renderTitle, this)}
-                {this._renderLeftButton() || this._renderBackButton()}
-                {this._renderRightButton()}
-            </Animated.View>
+          <Button
+            {...self.props}
+            {...state}
+            key={'rightNavBarBtn'}
+            testID="rightNavButton"
+            style={style}
+            textButtonStyle={textStyle}
+          />
         );
-    }
-
-    _renderBackButton() {
-        const drawer = this.context.drawer;
-        const state = this.props.navigationState;
-        const childState = state.children[state.index];
-        let buttonImage = state.backButtonImage || require("./back_chevron.png");
-        let onPress = Actions.pop;
-
-        if (state.index === 0) {
-            if (!!drawer && typeof drawer.toggle === "function") {
-                buttonImage = state.drawerImage || require("./menu_burger.png");
-                onPress = drawer.toggle;
-            } else {
-                return null;
-            }
-        }
-
-        let text = childState.backTitle ? <Text style={[styles.barBackButtonText, childState.backButtonTextStyle]}>
-            {childState.backTitle}
-        </Text> : null;
-
+      }
+      if (state.onRight && (state.rightTitle || state.rightButtonImage)) {
+        const onPress = state.onRight.bind(null, state);
         return (
-            <TouchableOpacity style={[styles.backButton, state.leftButtonStyle]} onPress={onPress}>
-                <Image source={buttonImage} style={[styles.backButtonImage, state.barButtonIconStyle]}/>
-                {text}
-            </TouchableOpacity>
+          <TouchableOpacity
+            key={'rightNavBarBtn'}
+            testID="rightNavButton"
+            style={style}
+            onPress={onPress}
+          >
+            {state.rightTitle &&
+              <Text style={textStyle}>
+                {state.rightTitle}
+              </Text>
+            }
+            {state.rightButtonImage &&
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
+                <Image
+                  source={state.rightButtonImage}
+                  style={state.rightButtonIconStyle}
+                />
+              </View>
+            }
+          </TouchableOpacity>
         );
+      }
+      if ((!!state.onRight ^ !!(typeof(state.rightTitle) !== 'undefined'
+        || typeof(state.rightButtonImage) !== 'undefined'))) {
+        console.warn(
+          `Both onRight and rightTitle/rightButtonImage
+            must be specified for the scene: ${state.name}`
+        );
+      }
+      return null;
     }
+    return tryRender(this.props.component, this.props.wrapBy) || tryRender(this.props);
+  }
 
-    _renderRightButton() {
-        function tryRender(state) {
-            if (state.onRight && state.rightTitle) {
-                return (
-                    <TouchableOpacity style={[styles.rightButton, state.rightButtonStyle]}
-                                      onPress={state.onRight.bind(null, state)}>
-                        <Text style={[styles.barRightButtonText, state.rightButtonTextStyle]}>{state.rightTitle}</Text>
-                    </TouchableOpacity>
-                );
-            }
-            if ((!!state.onRight ^ !!state.rightTitle)) {
-                console.warn('Both onRight and rightTitle must be specified for the scene: ' + state.name)
-            }
+  renderLeftButton() {
+    const self = this;
+    const drawer = this.context.drawer;
+    function tryRender(state, wrapBy) {
+      let onPress = state.onLeft;
+      let buttonImage = state.leftButtonImage;
+      let menuIcon = state.drawerIcon;
+      const style = [styles.leftButton, self.props.leftButtonStyle, state.leftButtonStyle];
+      const textStyle = [styles.barLeftButtonText, self.props.leftButtonTextStyle,
+        state.leftButtonTextStyle];
+      const leftButtonStyle = [styles.defaultImageStyle, state.leftButtonIconStyle];
+
+      if (state.leftButton) {
+        let Button = state.leftButton;
+        if (wrapBy) {
+          Button = wrapBy(Button);
         }
-        const state = this.props.navigationState;
-        return tryRender(state) || tryRender(state.children[state.index]);
-    }
-
-    _renderLeftButton() {
-        function tryRender(state) {
-            if (state.onLeft && state.leftTitle){
-                return (
-                    <TouchableOpacity style={[styles.leftButton, state.leftButtonStyle]} onPress={state.onLeft.bind(null, state)}>
-                        <Text style={[styles.barLeftButtonText, state.leftButtonTextStyle]}>{state.leftTitle}</Text>
-                    </TouchableOpacity>
-                );
-            }
-            if ((!!state.onLeft ^ !!state.leftTitle)) {
-                console.warn('Both onLeft and leftTitle must be specified for the scene: ' + state.name)
-            }
-        }
-        const state = this.props.navigationState;
-        return tryRender(state) || tryRender(state.children[state.index]);
-    }
-
-    _renderTitle(childState: NavigationState, index:number) {
         return (
-            <Animated.Text
-                key={childState.key}
-                style={[
-          styles.title, this.props.navigationState.titleStyle, childState.titleStyle,
+          <Button
+            {...self.props}
+            {...state}
+            key={'leftNavBarBtn'}
+            testID="leftNavButton"
+            style={style}
+            textStyle={textStyle}
+          />
+        );
+      }
+
+      if (!onPress && !!drawer && typeof drawer.toggle === 'function') {
+        buttonImage = state.drawerImage;
+        if (buttonImage || menuIcon) {
+          onPress = drawer.toggle;
+        }
+        if (!menuIcon) {
+          menuIcon = (
+            <Image
+              source={buttonImage}
+              style={leftButtonStyle}
+            />
+          );
+        }
+      }
+
+      if (onPress && (state.leftTitle || buttonImage)) {
+        onPress = onPress.bind(null, state);
+        return (
+          <TouchableOpacity
+            key={'leftNavBarBtn'}
+            testID="leftNavButton"
+            style={style}
+            onPress={onPress}
+          >
+            {state.leftTitle &&
+              <Text style={textStyle}>
+                {state.leftTitle}
+              </Text>
+            }
+            {buttonImage &&
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
+                {menuIcon || <Image
+                  source={buttonImage}
+                  style={state.leftButtonIconStyle || styles.defaultImageStyle}
+                />
+                }
+              </View>
+            }
+          </TouchableOpacity>
+        );
+      }
+      if ((!!state.onLeft ^ !!(state.leftTitle || buttonImage))) {
+        console.warn(
+          `Both onLeft and leftTitle/leftButtonImage
+            must be specified for the scene: ${state.name}`
+        );
+      }
+      return null;
+    }
+    return tryRender(this.props.component, this.props.wrapBy) || tryRender(this.props);
+  }
+
+  renderTitle(childState, index:number) {
+    let title = this.props.getTitle ? this.props.getTitle(childState) : childState.title;
+    if (title === undefined && childState.component && childState.component.title) {
+      title = childState.component.title;
+    }
+    if (typeof(title) === 'function') {
+      title = title(childState);
+    }
+    return (
+      <Animated.Text
+        key={childState.key}
+        style={[
+          styles.title,
+          this.props.titleStyle,
+          this.props.navigationState.titleStyle,
+          childState.titleStyle,
           {
             opacity: this.props.position.interpolate({
               inputRange: [index - 1, index, index + 1],
-              outputRange: [0, 1, 0],
+              outputRange: [0, this.props.titleOpacity, 0],
             }),
             left: this.props.position.interpolate({
               inputRange: [index - 1, index + 1],
@@ -159,85 +428,52 @@ export default class NavBar extends React.Component {
               outputRange: [-200, 200],
             }),
           },
-        ]}>
-                {this.props.getTitle ? this.props.getTitle(childState) : childState.title }
-            </Animated.Text>
-        );
+        ]}
+      >
+        {title}
+      </Animated.Text>
+    );
+  }
+
+  render() {
+    let state = this.props.navigationState;
+    let selected = state.children[state.index];
+    while (selected.hasOwnProperty('children')) {
+      state = selected;
+      selected = selected.children[selected.index];
     }
-
+    const navProps = { ...this.props, ...selected };
+    const renderLeftButton = selected.renderLeftButton ||
+      selected.component.renderLeftButton ||
+      this.renderLeftButton;
+    const renderRightButton = selected.renderRightButton ||
+      selected.component.renderRightButton ||
+      this.renderRightButton;
+    const renderBackButton = selected.renderBackButton ||
+      selected.component.renderBackButton ||
+      this.renderBackButton;
+    const renderTitle = selected.renderTitle ||
+      selected.component.renderTitle ||
+      this.props.renderTitle;
+    return (
+      <Animated.View
+        style={[
+          styles.header,
+          this.props.navigationBarStyle,
+          state.navigationBarStyle,
+          selected.navigationBarStyle,
+        ]}
+      >
+        {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
+        {renderBackButton(navProps) || renderLeftButton(navProps)}
+        {renderRightButton(navProps)}
+      </Animated.View>
+    );
+  }
 }
 
+NavBar.propTypes = propTypes;
+NavBar.contextTypes = contextTypes;
+NavBar.defaultProps = defaultProps;
 
-NavBar.contextTypes = {
-  drawer: React.PropTypes.object
-}
-
-const styles = StyleSheet.create({
-    title: {
-        textAlign: "center",
-        marginTop: 10,
-        fontSize: 18,
-        fontWeight: "500",
-        color: "#0A0A0A",
-        position: "absolute",
-        top: 20,
-        left: 0,
-        right: 0,
-    },
-    header: {
-        backgroundColor: "#EFEFF2",
-        paddingTop: 20,
-        top: 0,
-        height: 64,
-        right: 0,
-        left: 0,
-        borderBottomWidth: 0.5,
-        borderBottomColor: "#828287",
-        position: "absolute",
-    },
-    backButton: {
-        width: 130,
-        height: 37,
-        position: "absolute",
-        bottom: 4,
-        left: 2,
-        padding: 8,
-        flexDirection: "row",
-    },
-    rightButton: {
-        width: 100,
-        height: 37,
-        position: "absolute",
-        bottom: 4,
-        right: 2,
-        padding: 8,
-    },
-    leftButton: {
-        width: 100,
-        height: 37,
-        position: "absolute",
-        bottom: 4,
-        left: 2,
-        padding: 8,
-    },
-    barRightButtonText: {
-        color: 'rgb(0, 122, 255)',
-        textAlign: "right",
-        fontSize: 17,
-    },
-    barBackButtonText: {
-        color: 'rgb(0, 122, 255)',
-        textAlign: "left",
-        fontSize: 17,
-        paddingLeft: 6,
-    },
-    barLeftButtonText: {
-        color: 'rgb(0, 122, 255)',
-        textAlign: "left",
-        fontSize: 17,
-    },
-    backButtonImage: {
-        width: 13,
-        height: 21,
-    },
-});
+export default NavBar;
