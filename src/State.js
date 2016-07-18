@@ -30,6 +30,12 @@ function getStateFromScenes(route, scenes, props) {
   return result;
 }
 
+function getSceneKey(parent, key, position, sceneKey) {
+  return [parent, key, position, sceneKey]
+    .filter(v => typeof(v) !== 'undefined' && v !== null)
+    .join('_');
+}
+
 export function getInitialState(
   route: {string: any},
   scenes: {string: any},
@@ -42,7 +48,7 @@ export function getInitialState(
     return {
       ...scenes.rootProps,
       ...route,
-      key: `${parent}_${key}_${position}_${route.sceneKey}`,
+      key: getSceneKey(parent, key, position, route.sceneKey),
       ...parentProps,
       ...getStateFromScenes(route, scenes, props),
     };
