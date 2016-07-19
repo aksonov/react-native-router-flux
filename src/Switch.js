@@ -32,11 +32,20 @@ export default function Switch(props) {
     });
     if (index === -1) console.error(`A scene for key “${selectedKey}” does not exist.`);
   }
-  const navigationState = index !== navState.index ? { ...navState, index } : navState;
+  let navigationState = index !== navState.index ? { ...navState, index } : navState;
+
+  if (props.unmountScenes) {
+    navigationState = {
+      ...navigationState,
+      children: [navState.children[navigationState.index]],
+      index: 0,
+    };
+  }
   return (
     <TabBar
       onNavigate={props.onNavigate}
       navigationState={navigationState}
+      unmountScenes={props.unmountScenes}
     />
   );
 }
@@ -46,4 +55,5 @@ Switch.propTypes = {
   onNavigate: PropTypes.func,
   selector: PropTypes.func,
   statem: PropTypes.any,
+  unmountScenes: PropTypes.bool,
 };

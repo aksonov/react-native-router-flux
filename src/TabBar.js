@@ -12,6 +12,7 @@ class TabBar extends Component {
     navigationState: PropTypes.object,
     tabIcon: PropTypes.any,
     onNavigate: PropTypes.func,
+    unmountScenes: PropTypes.bool,
   };
 
   constructor(props, context) {
@@ -45,7 +46,9 @@ class TabBar extends Component {
   render() {
     const state = this.props.navigationState;
 
-    const hideTabBar = deepestExplicitValueForKey(state, 'hideTabBar');
+    const hideTabBar = this.props.unmountScenes
+      ? true
+      : deepestExplicitValueForKey(state, 'hideTabBar');
 
     return (
       <View
