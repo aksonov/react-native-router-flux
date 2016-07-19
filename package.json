@@ -38,7 +38,7 @@
   ],
   "dependencies": {
     "react-native-experimental-navigation": "0.26.x",
-    "react-native-tabs": "1.0.7",
+    "react-native-tabs": "^1.0.9",
     "react-static-container": "1.0.1"
   },
   "devDependencies": {
