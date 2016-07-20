@@ -100,6 +100,22 @@ function inject(state, action, props, scenes) {
         key: state.key,
         from: null,
       };
+    case ActionConst.PUSH_OR_POP:
+      ind = state.children.findIndex(el => el.sceneKey === action.key);
+      if (ind !== -1) {
+        return {
+          ...state,
+          index: ind,
+          from: state.children[state.index],
+          children: state.children.slice(0, ind + 1),
+        };
+      }
+      return {
+        ...state,
+        index: state.index + 1,
+        from: null,
+        children: [...state.children, getInitialState(props, scenes, state.index + 1, action)],
+      };
     case ActionConst.PUSH:
       if (state.children[state.index].sceneKey === action.key && !props.clone
         && checkPropertiesEqual(action, state.children[state.index])) {
@@ -275,6 +291,7 @@ function reducer({ initialState, scenes }) {
       case ActionConst.POP_TO:
       case ActionConst.REFRESH:
       case ActionConst.PUSH:
+      case ActionConst.PUSH_OR_POP:
       case ActionConst.JUMP:
       case ActionConst.REPLACE:
       case ActionConst.RESET:
