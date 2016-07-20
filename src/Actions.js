@@ -20,6 +20,7 @@ export const ActionMap = {
   refresh: ActionConst.REFRESH,
   reset: ActionConst.RESET,
   focus: ActionConst.FOCUS,
+  pushOrPop: ActionConst.PUSH_OR_POP,
   [ActionConst.JUMP]: ActionConst.JUMP,
   [ActionConst.PUSH]: ActionConst.PUSH,
   [ActionConst.REPLACE]: ActionConst.REPLACE,
@@ -29,6 +30,7 @@ export const ActionMap = {
   [ActionConst.REFRESH]: ActionConst.REFRESH,
   [ActionConst.RESET]: ActionConst.RESET,
   [ActionConst.FOCUS]: ActionConst.FOCUS,
+  [ActionConst.PUSH_OR_POP]: ActionConst.PUSH_OR_POP,
 };
 
 function filterParam(data) {
