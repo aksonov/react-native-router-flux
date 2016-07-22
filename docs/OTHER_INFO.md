@@ -11,7 +11,65 @@ This is a place for information that needs to be documented, but aren't long eno
 - Sub-Scenes
 
 ## Modals
-To display a modal use `Modal` as root renderer, so it will render the first element as `normal` scene and all others as popups (when they are pushed), see Example for more details.
+To display a modal use `Modal` as root renderer, so it will render the first element as `normal` scene and all others as popups (when they are pushed).
+For example:
+```jsx
+import StatusModal from './components/StatusModal'
+
+<Router>
+  <Scene key="modal" component={Modal} >
+    <Scene key="root">
+      <Scene key="screen1" initial={true} component={Screen1} />
+      <Scene key="screen2" component={Screen2} />
+    </Scene>
+      <Scene key="statusModal" component={StatusModal} />
+  </Scene>
+</Router>
+```
+
+Then in the StatusModal Component we can define what we want it to look like and what props can be passed to it:
+
+```jsx
+class StatusModal extends Component {
+
+  constructor(props) {
+    super(props)
+    // set state with passed in props
+    this.state = {
+      message: props.error,
+      hide: props.hide,
+    }
+    // bind functions
+    this.dismissModal = this.dismissModal.bind(this)
+  }
+
+  dismissModal() {
+    this.setState({hide: true})
+  }
+
+  // show or hide Modal based on 'hide' prop
+  render() {
+    if(this.state.hide){
+      return (
+        <View>
+        </View>
+      )
+    } else {
+        return (
+          <TouchableHighlight style={styles.mainContainer} onPress={this.dismissModal}>
+            <Text style={styles.text}>{this.state.message}</Text>
+          </TouchableHighlight>
+        )
+      }
+  }
+}
+```
+
+Lastly when calling the Modal pass the props defined in the component, for example an error message and a 'hide' prop of false to display the Modal:
+
+`Actions.statusModal({error: "Network failed...", hide: false})`
+
+When the Modal is pressed it will set hide to true and return an empty view.
 
 ## Tabbar
 Every tab has its own navigation bar. However, if you do not set its parent `<Scene tabs={true} />` with `hideNavBar={true}`, the tabs' navigation bar will be overrided by their parent.
@@ -20,12 +78,17 @@ Every tab has its own navigation bar. However, if you do not set its parent `<Sc
 Your scene `component` class could implement _static_ renderNavigationBar(props) method that could return different navbar depending from component props
 
 ## Switch (new feature)
-New feature for 3.x release is custom scene renderer that should be used together with tabs={true} property. It allows to select `tab` scene to show depending from app state.
+New feature for 3.x release is custom scene renderer that should be used together with tabs={true} property. It allows to select `tab` scene to show depending from app state. Add the prop "unmountScenes" to your switch scene if the tabs should be unmounted when switched.
 It could be useful for authentication, restricted scenes, etc. Usually you should wrap `Switch` with redux `connect` to pass application state to it:
 Following example chooses scene depending from sessionID using Redux:
 ```jsx
-<Scene key="root" component={connect(state=>({profile:state.profile}))(Switch)} tabs={true}
-       selector={props=>props.profile.sessionID ? "main" : "signUp"}>
+<Scene
+    key="root"
+    component={connect(state=>({profile:state.profile}))(Switch)}
+    tabs={true}
+    unmountScenes
+    selector={props=>props.profile.sessionID ? "main" : "signUp"}
+    >
     <Scene key="signUp" component={SignUp}/>
     <Scene key="main" component={Main}>
 </Scene>
@@ -69,10 +132,10 @@ export default class extends Component {
             <Drawer
                 ref="navigation"
                 open={state.open}
-                onOpen={()=>Actions.refresh({key:state.key, open: true})
-                onClose={()=>Actions.refresh({key:state.key, open: false})
+                onOpen={()=>Actions.refresh({key:state.key, open: true})}
+                onClose={()=>Actions.refresh({key:state.key, open: false})}
                 type="displace"
-                content={<TabView />}
+                content={<SideMenu />}
                 tapToClose={true}
                 openDrawerOffset={0.2}
                 panCloseMask={0.2}

@@ -12,6 +12,7 @@ class TabBar extends Component {
     navigationState: PropTypes.object,
     tabIcon: PropTypes.any,
     onNavigate: PropTypes.func,
+    unmountScenes: PropTypes.bool,
   };
 
   constructor(props, context) {
@@ -25,7 +26,11 @@ class TabBar extends Component {
         `No action is defined for name=${el.props.name} ` +
         `actions: ${JSON.stringify(Object.keys(Actions))}`);
     }
-    Actions[el.props.name]();
+    if (typeof el.props.onPress === 'function') {
+      el.props.onPress();
+    } else {
+      Actions[el.props.name]();
+    }
   }
 
   renderScene(navigationState) {
@@ -41,7 +46,9 @@ class TabBar extends Component {
   render() {
     const state = this.props.navigationState;
 
-    const hideTabBar = deepestExplicitValueForKey(state, 'hideTabBar');
+    const hideTabBar = this.props.unmountScenes
+      ? true
+      : deepestExplicitValueForKey(state, 'hideTabBar');
 
     return (
       <View
@@ -54,8 +61,9 @@ class TabBar extends Component {
         />
         {!hideTabBar && state.children.filter(el => el.icon).length > 0 &&
           <Tabs
-            style={[{ backgroundColor: 'white' }, state.tabBarStyle]}
-            selectedIconStyle={[{ backgroundColor: 'white' }, state.tabBarSelectedItemStyle]}
+            style={state.tabBarStyle}
+            selectedIconStyle={state.tabBarSelectedItemStyle}
+            iconStyle={state.tabBarIconContainerStyle}
             onSelect={this.onSelect} {...state}
             selected={state.children[state.index].sceneKey}
           >

@@ -1,5 +1,5 @@
 ### Version
-Tell us which versions you are using (react native 0.26 is required for v3): 
+Tell us which versions you are using: 
 
 - react-native-router-flux v3.?.?
 - react-native v0.?.?

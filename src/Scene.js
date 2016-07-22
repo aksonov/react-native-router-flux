@@ -16,6 +16,7 @@ export default class extends React.Component {
   static propTypes = {
     tabBarStyle: View.propTypes.style,
     tabBarSelectedItemStyle: View.propTypes.style,
+    tabBarIconContainerStyle: View.propTypes.style,
     tabBarShadowStyle: View.propTypes.style,
     tabSceneStyle: View.propTypes.style,
     tabStyle: View.propTypes.style,

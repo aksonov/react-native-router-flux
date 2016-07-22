@@ -44,7 +44,7 @@ Router for React Native based on new React Native Navigation API.
 
 - **Bring Your Own Reducer** for navigation state.
 
-- **Reset History Stack** - The new `reset` Action for clearing the history stack and eliminates the navbar back button.
+- **Reset History Stack** - The new [`reset`](docs/API_CONFIGURATION.md#scene)type for clearing the history stack and eliminating the navbar back button.
 
 - **More Powerful State Control** - Support for having different states while on the same screen. For example, "View My Account" could allow in-place editing of fields and "Save", "Cancel" navigation bar buttons should appear.
 
@@ -54,16 +54,9 @@ Check out the [mini-tutorial](docs/MINI_TUTORIAL.md) for a quick walkthrough of 
 
 ## Supported configurations
 
-Before instaling please refer to the following table for supported react native series
-
-| React Native - Series | React Native Router Flux - Series | Notes |
-| --- | --- | --- |
-| v0.22.x | v3.22.x |  |
-| v0.23.x,  v0.24.x & v0.25.x | **Not supported** | Please refer to [#636](https://github.com/aksonov/react-native-router-flux/issues/636) |
-| v0.26.x | v3.26.x |  |
-| v0.27.x | Work in progress, currently not supported | Please refer to [#786](https://github.com/aksonov/react-native-router-flux/issues/786)   |
-| v0.28.x *Release Candidate* | currently not supported |  |
-
+While ExperimentalNavigation API is not stable, RNRF uses separated fork of ExperimentalNavigation API to avoid dependency from React Native version.
+So 3.30 version of RNRF doesn't depend from React Native version, but from that fork (now it is based on 0.26 API).
+You could use this component with RN0.26+
 
 ## Installation
 ```
@@ -72,7 +65,7 @@ npm i react-native-router-flux --save
 
 ## Usage
 In your top-level `index.js`, define your scenes using the `Scene` component and pass it into the `Router` as children:
-```jsx
+```js
 import {Scene, Router} from 'react-native-router-flux';
 
 class App extends React.Component {
@@ -88,7 +81,7 @@ class App extends React.Component {
 }
 ```
 Alternatively, you could define all of your scenes during compile time and use it later within `Router`:
-```jsx
+```js
 import {Actions, Scene, Router} from 'react-native-router-flux';
 
 const scenes = Actions.create(
@@ -109,18 +102,19 @@ class App extends React.Component {
 ```
 
 On any Scene, you can also call the following functions by first importing the `Actions` object:
-```jsx
+```js
 import {Actions} from 'react-native-router-flux'
 ```
 And then:
 
 * `Actions.ACTION_NAME(PARAMS)` will call the appropriate action and params will be passed to the scene.
-* `Actions.pop()` will pop the current screen.
+* `Actions.pop()` will pop the current screen. It can also take a param `{popNum: [number]}` that allows to pop multiple screens at once.
 * `Actions.refresh(PARAMS)` will update the properties of the current screen.
 
 ## Production Apps using react-native-router-flux
 + GuavaPass.com ([iOS](https://itunes.apple.com/en/app/guavapass-one-pass-fitness/id1050491044?l=en&mt=8), Android) - offers convenient access to top classes at boutique fitness studios across Asia.
 + Epic Fail Videos ([iOS](https://itunes.apple.com/us/app/epic-fail-videos-best-fail/id1115219339), [Android](https://play.google.com/store/apps/details?id=com.hazuu.epicfailvideos)) - The best Fail Videos Collection, never miss a laugh with your friends!
++ Junk Free ([iOS](https://itunes.apple.com/us/app/junk-free-by-junk-free-june/id1109940159)) - A simple way to find, share, and save recipes, workouts, and other healthy content with your friends, family and workmates. 
 
 ## Support
 Thanks to all who submitted PRs to 2.x release. If you like the component and want to support it, feel free to donate any amount or help with issues.

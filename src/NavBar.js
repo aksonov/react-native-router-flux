@@ -44,10 +44,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
     fontSize: 18,
-    fontWeight: '500',
     color: '#0A0A0A',
     position: 'absolute',
-    top: Platform.OS === 'ios' || Platform.Version > 19 ? 20 : 0,
+    ...Platform.select({
+      ios: {
+        top: 20,
+      },
+      android: {
+        top: 5,
+      },
+    }),
     left: 0,
     right: 0,
   },
@@ -55,7 +61,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#EFEFF2',
     paddingTop: 0,
     top: 0,
-    height: Platform.OS === 'ios' || Platform.Version > 19 ? 64 : 44,
+    ...Platform.select({
+      ios: {
+        height: 64,
+      },
+      android: {
+        height: 54,
+      },
+    }),
     right: 0,
     left: 0,
     borderBottomWidth: 0.5,
@@ -66,7 +79,14 @@ const styles = StyleSheet.create({
     width: 130,
     height: 37,
     position: 'absolute',
-    bottom: 4,
+    ...Platform.select({
+      ios: {
+        top: 22,
+      },
+      android: {
+        top: 10,
+      },
+    }),
     left: 2,
     padding: 8,
     flexDirection: 'row',
@@ -75,7 +95,14 @@ const styles = StyleSheet.create({
     width: 100,
     height: 37,
     position: 'absolute',
-    bottom: 4,
+    ...Platform.select({
+      ios: {
+        top: 22,
+      },
+      android: {
+        top: 10,
+      },
+    }),
     right: 2,
     padding: 8,
   },
@@ -83,7 +110,14 @@ const styles = StyleSheet.create({
     width: 100,
     height: 37,
     position: 'absolute',
-    bottom: 4,
+    ...Platform.select({
+      ios: {
+        top: 20,
+      },
+      android: {
+        top: 8,
+      },
+    }),
     left: 2,
     padding: 8,
   },
@@ -118,7 +152,7 @@ const styles = StyleSheet.create({
 
 const propTypes = {
   navigationState: PropTypes.object,
-  backButtonImage: PropTypes.number,
+  backButtonImage: Image.propTypes.source,
   wrapBy: PropTypes.any,
   component: PropTypes.any,
   backButtonTextStyle: Text.propTypes.style,
@@ -126,6 +160,7 @@ const propTypes = {
   leftButtonIconStyle: Image.propTypes.style,
   getTitle: PropTypes.func,
   titleStyle: Text.propTypes.style,
+  titleOpacity: PropTypes.number,
   position: PropTypes.object,
   navigationBarStyle: View.propTypes.style,
   renderTitle: PropTypes.any,
@@ -138,6 +173,7 @@ const contextTypes = {
 const defaultProps = {
   drawerImage: _drawerImage,
   backButtonImage: _backButtonImage,
+  titleOpacity: 1,
 };
 
 class NavBar extends React.Component {
@@ -173,14 +209,19 @@ class NavBar extends React.Component {
         <BackButton
           testID="backNavButton"
           textButtonStyle={textButtonStyle}
+          {...childState}
           style={style}
         />
       );
     }
     let buttonImage = childState.backButtonImage ||
       state.backButtonImage || this.props.backButtonImage;
-    let onPress = childState.onBack || Actions.pop;
-
+    let onPress = childState.onBack || childState.component.onBack;
+    if (onPress) {
+      onPress = onPress.bind(null, state);
+    } else {
+      onPress = Actions.pop;
+    }
     if (state.index === 0) {
       return null;
     }
@@ -286,6 +327,7 @@ class NavBar extends React.Component {
       const style = [styles.leftButton, self.props.leftButtonStyle, state.leftButtonStyle];
       const textStyle = [styles.barLeftButtonText, self.props.leftButtonTextStyle,
         state.leftButtonTextStyle];
+      const leftButtonStyle = [styles.defaultImageStyle, state.leftButtonIconStyle];
 
       if (state.leftButton) {
         let Button = state.leftButton;
@@ -313,7 +355,7 @@ class NavBar extends React.Component {
           menuIcon = (
             <Image
               source={buttonImage}
-              style={state.leftButtonIconStyle || styles.defaultImageStyle}
+              style={leftButtonStyle}
             />
           );
         }
@@ -335,7 +377,11 @@ class NavBar extends React.Component {
             }
             {buttonImage &&
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-                {menuIcon}
+                {menuIcon || <Image
+                  source={buttonImage}
+                  style={state.leftButtonIconStyle || styles.defaultImageStyle}
+                />
+                }
               </View>
             }
           </TouchableOpacity>
@@ -353,7 +399,13 @@ class NavBar extends React.Component {
   }
 
   renderTitle(childState, index:number) {
-    const title = this.props.getTitle ? this.props.getTitle(childState) : childState.title;
+    let title = this.props.getTitle ? this.props.getTitle(childState) : childState.title;
+    if (title === undefined && childState.component && childState.component.title) {
+      title = childState.component.title;
+    }
+    if (typeof(title) === 'function') {
+      title = title(childState);
+    }
     return (
       <Animated.Text
         key={childState.key}
@@ -365,7 +417,7 @@ class NavBar extends React.Component {
           {
             opacity: this.props.position.interpolate({
               inputRange: [index - 1, index, index + 1],
-              outputRange: [0, 1, 0],
+              outputRange: [0, this.props.titleOpacity, 0],
             }),
             left: this.props.position.interpolate({
               inputRange: [index - 1, index + 1],
