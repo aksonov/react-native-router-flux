@@ -275,7 +275,7 @@ declare namespace RNRF {
   export var Actions: RNRFActions;
   
   // ActionsConst
-  interface RNRFActionsConst {
+  interface RNRFActionConst {
     JUMP: string,
     PUSH: string,
     PUSH_OR_POP: string,
@@ -287,7 +287,7 @@ declare namespace RNRF {
     RESET: string,
     FOCUS: string,
   }
-  export var ActionsConst: RNRFActionsConst;
+  export var ActionConst: RNRFActionConst;
 
   // DefaultRenderer
   interface DefaultRendererProps extends React.Props<DefaultRenderer> {
