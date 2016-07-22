@@ -53,8 +53,8 @@ export default function Switch(props) {
   let navigationState;
   // If switch then reset history
   if (index !== navState.index) {
+    navState.children[index] = resetHistoryStack(navState.children[index]);
     navigationState = { ...navState, index };
-    navState.children[navState.index] = resetHistoryStack(navState.children[navState.index]);
   } else {
     navigationState = navState;
   }
