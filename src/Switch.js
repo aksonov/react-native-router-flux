@@ -2,6 +2,23 @@ import React, { PropTypes } from 'react';
 import TabBar from './TabBar';
 import { assert } from './Util';
 
+function resetHistoryStack(child) {
+  const newChild = child;
+  newChild.index = 0;
+  for (let j = 0; j < child.children.length; j++) {
+    if (child.children[j].initial) {
+      newChild.index = j;
+      if (!child.tabs) {
+        newChild.children = [child.children[j]];
+      }
+    }
+    if (newChild.children[j].children) {
+      newChild.children[j] = resetHistoryStack(child.children[j]);
+    }
+  }
+  return newChild;
+}
+
 export default function Switch(props) {
   const navState = props.navigationState;
   const selector = props.selector;
@@ -37,16 +54,7 @@ export default function Switch(props) {
   // If switch then reset history
   if (index !== navState.index) {
     navigationState = { ...navState, index };
-    for (let i = 0; i < navState.children.length; i++) {
-      for (let j = 0; j < navState.children[i].children.length; j++) {
-        if (navState.children[i].children[j].initial) {
-          navState.children[i].index = j;
-          if (!navState.children[i].tabs) {
-            navState.children[i].children = [navState.children[i].children[j]];
-          }
-        }
-      }
-    }
+    resetHistoryStack(navState.children[navState.index]);
   } else {
     navigationState = navState;
   }
