@@ -34,13 +34,16 @@ export default function Switch(props) {
   }
 
   let navigationState;
-  // If switch then Reset History Stack
+  // If switch then reset history
   if (index !== navState.index) {
     navigationState = { ...navState, index };
     for (let i = 0; i < navState.children.length; i++) {
       for (let j = 0; j < navState.children[i].children.length; j++) {
         if (navState.children[i].children[j].initial) {
           navState.children[i].index = j;
+          if (!navState.children[i].tabs) {
+            navState.children[i].children = [navState.children[i].children[j]];
+          }
         }
       }
     }
