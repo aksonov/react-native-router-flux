@@ -32,7 +32,21 @@ export default function Switch(props) {
     });
     if (index === -1) console.error(`A scene for key “${selectedKey}” does not exist.`);
   }
-  let navigationState = index !== navState.index ? { ...navState, index } : navState;
+
+  let navigationState;
+  // If switch then Reset History Stack
+  if (index !== navState.index) {
+    navigationState = { ...navState, index };
+    for (let i = 0; i < navState.children.length; i++) {
+      for (let j = 0; j < navState.children[i].children.length; j++) {
+        if (navState.children[i].children[j].initial) {
+          navState.children[i].index = j;
+        }
+      }
+    }
+  } else {
+    navigationState = navState;
+  }
 
   if (props.unmountScenes) {
     navigationState = {
