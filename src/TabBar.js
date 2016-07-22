@@ -13,6 +13,7 @@ class TabBar extends Component {
     tabIcon: PropTypes.any,
     onNavigate: PropTypes.func,
     unmountScenes: PropTypes.bool,
+    pressOpacity: PropTypes.number,
   };
 
   constructor(props, context) {
@@ -66,6 +67,7 @@ class TabBar extends Component {
             iconStyle={state.tabBarIconContainerStyle}
             onSelect={this.onSelect} {...state}
             selected={state.children[state.index].sceneKey}
+            pressOpacity={this.props.pressOpacity}
           >
             {state.children.filter(el => el.icon || this.props.tabIcon).map(el => {
               const Icon = el.icon || this.props.tabIcon;
