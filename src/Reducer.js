@@ -165,7 +165,7 @@ function inject(state, action, props, scenes) {
   }
 }
 
-function findElement(state, key, type) {
+export function findElement(state, key, type) {
   if ((ActionMap[type] === ActionConst.REFRESH && state.key === key) || state.sceneKey === key) {
     return state;
   }
