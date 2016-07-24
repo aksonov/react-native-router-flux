@@ -161,6 +161,7 @@ const propTypes = {
   getTitle: PropTypes.func,
   titleStyle: Text.propTypes.style,
   titleOpacity: PropTypes.number,
+  titleProps: PropTypes.any,
   position: PropTypes.object,
   navigationBarStyle: View.propTypes.style,
   renderTitle: PropTypes.any,
@@ -408,6 +409,7 @@ class NavBar extends React.Component {
     }
     return (
       <Animated.Text
+        {...this.props.titleProps}
         key={childState.key}
         style={[
           styles.title,
