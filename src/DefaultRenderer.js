@@ -128,7 +128,7 @@ export default class DefaultRenderer extends Component {
   }
 
   renderCard(/* NavigationSceneRendererProps */ props) {
-    const { key, direction, animation, getSceneStyle } = props.scene.navigationState;
+    const { key, direction, animation, getSceneStyle, navigationCardStyle } = props.scene.navigationState;
     let { panHandlers, animationStyle } = props.scene.navigationState;
 
     const state = props.navigationState;
@@ -168,7 +168,7 @@ export default class DefaultRenderer extends Component {
       <NavigationCard
         {...props}
         key={`card_${key}`}
-        style={[animationStyle, style]}
+        style={[animationStyle, style, navigationCardStyle]}
         panHandlers={panHandlers}
         renderScene={this.renderScene}
       />
