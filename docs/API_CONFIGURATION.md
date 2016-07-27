@@ -36,15 +36,15 @@
 
 ## ActionConst:
 
-We accept shorthand string literal when defining scene tpye or action params, like:  
+We accept shorthand string literal when defining scene tpye or action params, like:
 
 ```javascript
 Actions.ROUTE_NAME({type: 'reset'});
 <Scene key="myscene" type="replace" >
 ```
 
-but it will be converted to const value when pass to reducer.  
-RECOMMENDATION is to always use const instead of string literal for consistency:  
+but it will be converted to const value when pass to reducer.
+RECOMMENDATION is to always use const instead of string literal for consistency:
 
 ```javascript
 Actions.ROUTE_NAME({type: ActionConst.RESET});
@@ -104,6 +104,7 @@ Actions.ROUTE_NAME({type: ActionConst.RESET});
 | renderTitle | `function` | optional | Optionally closure to render the title |
 | titleStyle | [`Text style`](https://facebook.github.io/react-native/docs/text.html#style) |  | optional style override for the title element |
 | titleOpacity | `string` | optional | Set opacity for the title in navigation bar |
+| titleProps | `object` | null | Any other properties to be set on the title component |
 
 #### Navigation Bar: Back button
 | Property | Type | Default | Description |
