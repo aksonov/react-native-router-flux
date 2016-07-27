@@ -273,6 +273,21 @@ declare namespace RNRF {
   }
 
   export var Actions: RNRFActions;
+  
+  // ActionsConst
+  interface RNRFActionConst {
+    JUMP: string,
+    PUSH: string,
+    PUSH_OR_POP: string,
+    REPLACE: string,
+    BACK: string,
+    BACK_ACTION: string,
+    POP_TO: string,
+    REFRESH: string,
+    RESET: string,
+    FOCUS: string,
+  }
+  export var ActionConst: RNRFActionConst;
 
   // DefaultRenderer
   interface DefaultRendererProps extends React.Props<DefaultRenderer> {
