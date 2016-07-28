@@ -36,7 +36,7 @@
 
 ## ActionConst:
 
-We accept shorthand string literal when defining scene tpye or action params, like:
+We accept shorthand string literal when defining scene type or action params, like:
 
 ```javascript
 Actions.ROUTE_NAME({type: 'reset'});
