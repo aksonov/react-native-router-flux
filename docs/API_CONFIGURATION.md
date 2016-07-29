@@ -72,6 +72,12 @@ Actions.ROUTE_NAME({type: ActionConst.RESET});
 | animationStyle | `function` | | optional interpolation function for scene transitions: `animationStyle={interpolationFunction}` |
 | applyAnimation | `function` | | optional if provided overrides the default spring animation |
 
+### Gestures
+| Property | Type | Default | Description |
+|-----------|--------|---------|--------------------------------------------|
+| panHandlers | `object` | | optional, provide null to disable swipe back gesture |
+| getPanHandlers | `function` | optional | Optionally override the gesture handlers for scene |
+
 ### Scene styles
 | Property | Type | Default | Description |
 |-----------|--------|---------|--------------------------------------------|

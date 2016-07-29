@@ -108,6 +108,12 @@ export default class DefaultRenderer extends Component {
     }
   }
 
+  getPanHandlers(direction, props) {
+    return direction === 'vertical' ?
+      NavigationCardStackPanResponder.forVertical(props) :
+      NavigationCardStackPanResponder.forHorizontal(props);
+  }
+
   dispatchFocusAction({ navigationState }) {
     if (!navigationState || navigationState.component || navigationState.tabs) {
       return;
@@ -128,7 +134,12 @@ export default class DefaultRenderer extends Component {
   }
 
   renderCard(/* NavigationSceneRendererProps */ props) {
-    const { key, direction, animation, getSceneStyle } = props.scene.navigationState;
+    const { key,
+      direction,
+      animation,
+      getSceneStyle,
+      getPanHandlers,
+    } = props.scene.navigationState;
     let { panHandlers, animationStyle } = props.scene.navigationState;
 
     const state = props.navigationState;
@@ -146,8 +157,6 @@ export default class DefaultRenderer extends Component {
 
     const style = getSceneStyle ? getSceneStyle(props, computedProps) : null;
 
-    const isVertical = direction === 'vertical';
-
     // direction overrides animation if both are supplied
     const animType = (animation && !direction) ? animation : direction;
 
@@ -160,9 +169,7 @@ export default class DefaultRenderer extends Component {
     }
 
     if (typeof(panHandlers) === 'undefined') {
-      panHandlers = panHandlers || (isVertical ?
-          NavigationCardStackPanResponder.forVertical(props) :
-          NavigationCardStackPanResponder.forHorizontal(props));
+      panHandlers = getPanHandlers ? getPanHandlers(props) : this.getPanHandlers(direction, props);
     }
     return (
       <NavigationCard
