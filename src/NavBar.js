@@ -205,6 +205,11 @@ class NavBar extends React.Component {
       state.leftButtonStyle,
       childState.leftButtonStyle,
     ];
+
+    if (state.index === 0) {
+      return null;
+    }
+
     if (BackButton) {
       return (
         <BackButton
@@ -222,9 +227,6 @@ class NavBar extends React.Component {
       onPress = onPress.bind(null, state);
     } else {
       onPress = Actions.pop;
-    }
-    if (state.index === 0) {
-      return null;
     }
 
     let text = childState.backTitle ?
