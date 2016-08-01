@@ -78,7 +78,7 @@ Every tab has its own navigation bar. However, if you do not set its parent `<Sc
 Your scene `component` class could implement _static_ renderNavigationBar(props) method that could return different navbar depending from component props
 
 ## Switch (new feature)
-New feature for 3.x release is custom scene renderer that should be used together with tabs={true} property. It allows to select `tab` scene to show depending from app state. Add the prop "unmountScenes" to your switch scene if the tabs should be unmounted when switched.
+New feature for 3.x release is custom scene renderer that should be used together with tabs={true} property. It allows to select sub-scene to show depending from app state. Add the prop "unmountScenes" to your switch scene if any children of the switched-to scene should be unmounted when the switch occurs.
 It could be useful for authentication, restricted scenes, etc. Usually you should wrap `Switch` with redux `connect` to pass application state to it:
 Following example chooses scene depending from sessionID using Redux:
 ```jsx

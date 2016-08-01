@@ -12,7 +12,6 @@ class TabBar extends Component {
     navigationState: PropTypes.object,
     tabIcon: PropTypes.any,
     onNavigate: PropTypes.func,
-    unmountScenes: PropTypes.bool,
     pressOpacity: PropTypes.number,
   };
 
@@ -47,9 +46,7 @@ class TabBar extends Component {
   render() {
     const state = this.props.navigationState;
 
-    const hideTabBar = this.props.unmountScenes
-      ? true
-      : deepestExplicitValueForKey(state, 'hideTabBar');
+    const hideTabBar = deepestExplicitValueForKey(state, 'hideTabBar');
 
     return (
       <View
