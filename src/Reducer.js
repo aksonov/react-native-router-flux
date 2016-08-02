@@ -27,6 +27,25 @@ function checkPropertiesEqual(action, lastAction) {
   return isEqual;
 }
 
+function resetHistoryStack(child) {
+  const newChild = child;
+  newChild.index = 0;
+  child.children.map(
+    (el, i) => {
+      if (el.initial) {
+        newChild.index = i;
+        if (!newChild.tabs) {
+          newChild.children = [el];
+        }
+      }
+      if (el.children) {
+        resetHistoryStack(el);
+      }
+      return newChild;
+    }
+  );
+}
+
 function inject(state, action, props, scenes) {
   const condition = ActionMap[action.type] === ActionConst.REFRESH ? state.key === props.key ||
   state.sceneKey === action.key : state.sceneKey === props.parent;
@@ -128,6 +147,8 @@ function inject(state, action, props, scenes) {
         children: [...state.children, getInitialState(props, scenes, state.index + 1, action)],
       };
     case ActionConst.JUMP:
+      console.log('Key', action.key);
+      console.log('Key', action.switch);
       assert(state.tabs, `Parent=${state.key} is not tab bar, jump action is not valid`);
       ind = -1;
       state.children.forEach((c, i) => { if (c.sceneKey === action.key) { ind = i; } });
@@ -187,25 +208,6 @@ function getCurrent(state) {
     return state;
   }
   return getCurrent(state.children[state.index]);
-}
-
-function resetHistoryStack(child) {
-  const newChild = child;
-  newChild.index = 0;
-  child.children.map(
-    (el, i) => {
-      if (el.initial) {
-        newChild.index = i;
-        if (!child.tabs) {
-          newChild.children = [el];
-        }
-      }
-      if (el.children) {
-        resetHistoryStack(el);
-      }
-    }
-  );
-  return newChild;
 }
 
 function update(state, action) {
