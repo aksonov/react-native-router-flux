@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import DefaultRenderer from './DefaultRenderer';
 import Actions from './Actions';
 
@@ -14,8 +13,8 @@ export default class Switch extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.updateState = this.updateState.bind(this);
     this.state = {};
+    this.updateState = this.updateState.bind(this);
   }
 
   componentDidMount() {
@@ -24,6 +23,13 @@ export default class Switch extends Component {
 
   componentWillReceiveProps(props) {
     this.updateState(props);
+  }
+  
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.navigationState !== nextState.navigationState) {
+      return true;
+    }
+    return false;
   }
 
   updateState(props) {
