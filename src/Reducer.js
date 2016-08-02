@@ -128,8 +128,6 @@ function inject(state, action, props, scenes) {
         children: [...state.children, getInitialState(props, scenes, state.index + 1, action)],
       };
     case ActionConst.JUMP:
-      console.log('Key', action.key);
-      console.log('Key', action.switch);
       assert(state.tabs, `Parent=${state.key} is not tab bar, jump action is not valid`);
       ind = -1;
       state.children.forEach((c, i) => { if (c.sceneKey === action.key) { ind = i; } });
