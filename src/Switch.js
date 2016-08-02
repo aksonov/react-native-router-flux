@@ -43,9 +43,9 @@ export default class Switch extends Component {
 
     if (navigationState.key !== navState.children[navState.index].key) {
       if (props.unmountScenes) {
-        Actions[selectedKey]({ switch: true, unmountScenes: true });
+        Actions[selectedKey]({ unmountScenes: true });
       }
-      Actions[selectedKey]({ switch: true });
+      Actions[selectedKey]();
     }
     this.setState({ navigationState });
   }
@@ -59,7 +59,6 @@ export default class Switch extends Component {
         />
       );
     }
-
     return null;
   }
 }

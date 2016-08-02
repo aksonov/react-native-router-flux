@@ -152,7 +152,7 @@ function inject(state, action, props, scenes) {
       state.children.forEach((c, i) => { if (c.sceneKey === action.key) { ind = i; } });
       assert(ind !== -1, `Cannot find route with key=${action.key} for parent=${state.key}`);
 
-      if (action.switch && action.unmountScenes) {
+      if (action.unmountScenes) {
         resetHistoryStack(state.children[ind]);
       }
       return { ...state, index: ind };
