@@ -22,9 +22,7 @@ export default class Switch extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.navigationState !== nextProps.navigationState) {
-      this.updateState(nextProps);
-    }
+    this.updateState(nextProps);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
