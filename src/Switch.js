@@ -21,8 +21,10 @@ export default class Switch extends Component {
     this.updateState(this.props);
   }
 
-  componentWillReceiveProps(props) {
-    this.updateState(props);
+  componentWillReceiveProps(nextProps) {
+    if (this.state.navigationState !== nextProps.navigationState) {
+      this.updateState(nextProps);
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -47,7 +49,7 @@ export default class Switch extends Component {
     const navigationState = selected[0];
     if (!navigationState) console.error(`Cannot find a scene with key “${selectedKey}”`);
 
-    if (navigationState.key !== navState.children[navState.index].key) {
+    if (navigationState.sceneKey !== navState.children[navState.index].sceneKey) {
       if (props.unmountScenes) {
         Actions[selectedKey]({ unmountScenes: true });
       } else {
