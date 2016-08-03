@@ -21,6 +21,8 @@ import NavBar from './NavBar';
 import Actions from './Actions';
 import { deepestExplicitValueForKey } from './Util';
 import NavigationExperimental from 'react-native-experimental-navigation';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+
 const {
   AnimatedView: NavigationAnimatedView,
   Card: NavigationCard,
@@ -87,6 +89,7 @@ export default class DefaultRenderer extends Component {
   constructor(props) {
     super(props);
 
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
     this.renderCard = this.renderCard.bind(this);
     this.renderScene = this.renderScene.bind(this);
     this.renderHeader = this.renderHeader.bind(this);
@@ -308,6 +311,4 @@ export default class DefaultRenderer extends Component {
       />
     );
   }
-
-
 }
