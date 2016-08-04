@@ -131,7 +131,7 @@ function inject(state, action, props, scenes) {
           ...state,
           index: ind,
           from: state.children[state.index],
-          children: refreshTopChild(tate.children.slice(0, ind + 1), action.refresh),
+          children: refreshTopChild(state.children.slice(0, ind + 1), action.refresh),
         };
       }
       return {
