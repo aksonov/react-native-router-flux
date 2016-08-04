@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import TabBar from './TabBar';
 import Actions from './Actions';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 export default function Switch(props) {
   const navState = props.navigationState;
