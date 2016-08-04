@@ -46,6 +46,11 @@ function resetHistoryStack(child) {
   );
 }
 
+function refreshTopChild(children, refresh){
+  const topChild = children[children.length - 1];
+  return [...children.slice(0, -1), {...topChild, ...refresh}];
+}
+
 function inject(state, action, props, scenes) {
   const condition = ActionMap[action.type] === ActionConst.REFRESH ? state.key === props.key ||
   state.sceneKey === action.key : state.sceneKey === props.parent;
@@ -75,7 +80,7 @@ function inject(state, action, props, scenes) {
       return {
         ...state,
         index: targetIndex,
-        children: state.children.slice(0, (targetIndex + 1)),
+        children: refreshTopChild(state.children.slice(0, (targetIndex + 1)), action.refresh),
       };
     }
 
@@ -104,7 +109,7 @@ function inject(state, action, props, scenes) {
         ...state,
         index: state.index - popNum,
         from: state.children[state.children.length - popNum],
-        children: state.children.slice(0, -1 * popNum),
+        children: refreshTopChild(state.children.slice(0, -1 * popNum), action.refresh),
       };
     }
     case ActionConst.REFRESH:
@@ -126,7 +131,7 @@ function inject(state, action, props, scenes) {
           ...state,
           index: ind,
           from: state.children[state.index],
-          children: state.children.slice(0, ind + 1),
+          children: refreshTopChild(tate.children.slice(0, ind + 1), action.refresh),
         };
       }
       return {
