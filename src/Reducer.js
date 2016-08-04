@@ -27,6 +27,25 @@ function checkPropertiesEqual(action, lastAction) {
   return isEqual;
 }
 
+function resetHistoryStack(child) {
+  const newChild = child;
+  newChild.index = 0;
+  child.children.map(
+    (el, i) => {
+      if (el.initial) {
+        newChild.index = i;
+        if (!newChild.tabs) {
+          newChild.children = [el];
+        }
+      }
+      if (el.children) {
+        resetHistoryStack(el);
+      }
+      return newChild;
+    }
+  );
+}
+
 function inject(state, action, props, scenes) {
   const condition = ActionMap[action.type] === ActionConst.REFRESH ? state.key === props.key ||
   state.sceneKey === action.key : state.sceneKey === props.parent;
@@ -132,6 +151,10 @@ function inject(state, action, props, scenes) {
       ind = -1;
       state.children.forEach((c, i) => { if (c.sceneKey === action.key) { ind = i; } });
       assert(ind !== -1, `Cannot find route with key=${action.key} for parent=${state.key}`);
+
+      if (action.unmountScenes) {
+        resetHistoryStack(state.children[ind]);
+      }
       return { ...state, index: ind };
     case ActionConst.REPLACE:
       if (state.children[state.index].sceneKey === action.key) {
