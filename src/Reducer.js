@@ -46,9 +46,9 @@ function resetHistoryStack(child) {
   );
 }
 
-function refreshTopChild(children, refresh){
+function refreshTopChild(children, refresh) {
   const topChild = children[children.length - 1];
-  return [...children.slice(0, -1), {...topChild, ...refresh}];
+  return [...children.slice(0, -1), { ...topChild, ...refresh }];
 }
 
 function inject(state, action, props, scenes) {
