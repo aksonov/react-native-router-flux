@@ -9,10 +9,11 @@ export default function Switch(props) {
   const statem = props.statem;
   if (!selector && !statem) console.error('Selector should be defined.');
   let index = -1;
+  let selectedKey = undefined;
   if (!selector) {
     // support Statem - Harel statecharts machine!
     navState.children.forEach((el, i) => {
-      if (!(el.default || el.state)){
+      if (!(el.default || el.state)) {
         console.error(`Either default or state should be defined for element=${el.key}`);
       }
       if (el.default) {
@@ -24,7 +25,7 @@ export default function Switch(props) {
       }
     });
   } else {
-    const selectedKey = selector(props);
+    selectedKey = selector(props);
     if (!selectedKey) console.error('Selector should return key.');
     navState.children.forEach((el, i) => {
       if (el.sceneKey === selectedKey) {
@@ -33,6 +34,7 @@ export default function Switch(props) {
     });
   }
   if (index === -1) console.error(`A scene for key “${selectedKey}” does not exist.`);
+  selectedKey = navState.children[index].sceneKey;
 
   let navigationState;
   if (index !== navState.index) {
