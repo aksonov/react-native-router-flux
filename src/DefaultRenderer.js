@@ -14,6 +14,7 @@ import {
   Animated,
   View,
   StyleSheet,
+  Dimensions,
 } from 'react-native';
 
 import TabBar from './TabBar';
@@ -22,6 +23,8 @@ import Actions from './Actions';
 import { deepestExplicitValueForKey } from './Util';
 import NavigationExperimental from 'react-native-experimental-navigation';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const {
   AnimatedView: NavigationAnimatedView,
@@ -71,6 +74,27 @@ function fadeInScene(/* NavigationSceneRendererProps */ props) {
       { scale },
       { translateX },
       { translateY },
+    ],
+  };
+}
+
+function leftToRight(/* NavigationSceneRendererProps */ props) {
+  const {
+    position,
+    scene,
+  } = props;
+
+  const index = scene.index;
+  const inputRange = [index - 1, index, index + 1];
+
+  const translateX = position.interpolate({
+    inputRange,
+    outputRange: [-SCREEN_WIDTH, 0, 0],
+  });
+
+  return {
+    transform: [
+      { translateX },
     ],
   };
 }
@@ -131,6 +155,8 @@ export default class DefaultRenderer extends Component {
         return NavigationCardStackStyleInterpolator.forVertical(props);
       case 'fade':
         return fadeInScene(props);
+      case 'leftToRight':
+        return leftToRight(props);
       default:
         return NavigationCardStackStyleInterpolator.forHorizontal(props);
     }
