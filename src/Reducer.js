@@ -47,8 +47,13 @@ function resetHistoryStack(child) {
 }
 
 function refreshTopChild(children, refresh) {
-  const topChild = children[children.length - 1];
-  return [...children.slice(0, -1), { ...topChild, ...refresh }];
+  if (refresh) {
+    const topChild = children[children.length - 1];
+    return [...children.slice(0, -1), { ...topChild, ...refresh }];
+  }
+  else {
+    return children;
+  }
 }
 
 function inject(state, action, props, scenes) {
