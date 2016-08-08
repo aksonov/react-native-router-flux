@@ -14,7 +14,7 @@ import {
   Animated,
   View,
   StyleSheet,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 
 import TabBar from './TabBar';
@@ -89,7 +89,7 @@ function leftToRight(/* NavigationSceneRendererProps */ props) {
 
   const translateX = position.interpolate({
     inputRange,
-    outputRange: [-SCREEN_WIDTH, 0, 0]
+    outputRange: [-SCREEN_WIDTH, 0, 0],
   });
 
   return {
