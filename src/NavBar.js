@@ -258,12 +258,14 @@ class NavBar extends React.Component {
     );
   }
 
-  renderRightButton() {
+  renderRightButton(navProps) {
     const self = this;
     function tryRender(state, wrapBy) {
       if (!state) {
         return null;
       }
+      const rightTitle = state.getRightTitle ? state.getRightTitle(navProps) : state.rightTitle;
+
       const textStyle = [styles.barRightButtonText, self.props.rightButtonTextStyle,
         state.rightButtonTextStyle];
       const style = [styles.rightButton, self.props.rightButtonStyle, state.rightButtonStyle];
@@ -283,7 +285,7 @@ class NavBar extends React.Component {
           />
         );
       }
-      if (state.onRight && (state.rightTitle || state.rightButtonImage)) {
+      if (state.onRight && (rightTitle || state.rightButtonImage)) {
         const onPress = state.onRight.bind(null, state);
         return (
           <TouchableOpacity
@@ -292,9 +294,9 @@ class NavBar extends React.Component {
             style={style}
             onPress={onPress}
           >
-            {state.rightTitle &&
+            {rightTitle &&
               <Text style={textStyle}>
-                {state.rightTitle}
+                {rightTitle}
               </Text>
             }
             {state.rightButtonImage &&
@@ -308,7 +310,7 @@ class NavBar extends React.Component {
           </TouchableOpacity>
         );
       }
-      if ((!!state.onRight ^ !!(typeof(state.rightTitle) !== 'undefined'
+      if ((!!state.onRight ^ !!(typeof(rightTitle) !== 'undefined'
         || typeof(state.rightButtonImage) !== 'undefined'))) {
         console.warn(
           `Both onRight and rightTitle/rightButtonImage
@@ -320,7 +322,7 @@ class NavBar extends React.Component {
     return tryRender(this.props.component, this.props.wrapBy) || tryRender(this.props);
   }
 
-  renderLeftButton() {
+  renderLeftButton(navProps) {
     const self = this;
     const drawer = this.context.drawer;
     function tryRender(state, wrapBy) {
@@ -331,6 +333,7 @@ class NavBar extends React.Component {
       const textStyle = [styles.barLeftButtonText, self.props.leftButtonTextStyle,
         state.leftButtonTextStyle];
       const leftButtonStyle = [styles.defaultImageStyle, state.leftButtonIconStyle];
+      const leftTitle = state.getLeftTitle ? state.getLeftTitle(navProps) : state.leftTitle;
 
       if (state.leftButton) {
         let Button = state.leftButton;
@@ -364,7 +367,7 @@ class NavBar extends React.Component {
         }
       }
 
-      if (onPress && (state.leftTitle || buttonImage)) {
+      if (onPress && (leftTitle || buttonImage)) {
         onPress = onPress.bind(null, state);
         return (
           <TouchableOpacity
@@ -373,9 +376,9 @@ class NavBar extends React.Component {
             style={style}
             onPress={onPress}
           >
-            {state.leftTitle &&
+            {leftTitle &&
               <Text style={textStyle}>
-                {state.leftTitle}
+                {leftTitle}
               </Text>
             }
             {buttonImage &&
@@ -390,7 +393,7 @@ class NavBar extends React.Component {
           </TouchableOpacity>
         );
       }
-      if ((!!state.onLeft ^ !!(state.leftTitle || buttonImage))) {
+      if ((!!state.onLeft ^ !!(leftTitle || buttonImage))) {
         console.warn(
           `Both onLeft and leftTitle/leftButtonImage
             must be specified for the scene: ${state.name}`
