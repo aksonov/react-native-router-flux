@@ -14,9 +14,10 @@ import NavigationExperimental from 'react-native-experimental-navigation';
 
 import Actions, { ActionMap } from './Actions';
 import getInitialState from './State';
-import Reducer from './Reducer';
+import Reducer, { findElement } from './Reducer';
 import DefaultRenderer from './DefaultRenderer';
 import Scene from './Scene';
+import * as ActionConst from './ActionConst';
 
 const {
   RootContainer: NavigationRootContainer,
@@ -86,7 +87,7 @@ class Router extends Component {
     if (!navigationState) {
       return null;
     }
-
+    Actions.get = key => findElement(navigationState, key, ActionConst.REFRESH);
     Actions.callback = props => {
       const constAction = (props.type && ActionMap[props.type] ? ActionMap[props.type] : null);
       if (this.props.dispatch) {

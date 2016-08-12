@@ -1,15 +1,32 @@
 machine:
   node:
-    version: 5.11.1
+    version: 6.3.1
 dependencies:
   override:
     - npm install
+    - ? |
+        case $CIRCLE_NODE_INDEX in
+          2)
+            cd Example
+            npm install
+            ;;
+        esac
+      :
+        parallel: true
 test:
-  pre:
-    - mkdir -p $CIRCLE_TEST_REPORTS/mocha
-    - touch $CIRCLE_TEST_REPORTS/mocha/junit.xml
-    - mkdir -p $CIRCLE_TEST_REPORTS/eslint
-    - touch $CIRCLE_TEST_REPORTS/eslint/eslint.xml
   override:
-    - node node_modules/eslint/bin/eslint index.js src/ test/ -o $CIRCLE_TEST_REPORTS/eslint/eslint.xml -f junit
-    - MOCHA_FILE=$CIRCLE_TEST_REPORTS/mocha/junit.xml npm test -- --reporter mocha-junit-reporter
+    - ? |
+        case $CIRCLE_NODE_INDEX in
+          0)
+            node node_modules/eslint/bin/eslint index.js src/ test/ -o $CIRCLE_TEST_REPORTS/eslint/eslint.xml -f junit
+            ;;
+          1)
+            MOCHA_FILE=$CIRCLE_TEST_REPORTS/mocha/junit.xml npm test -- --reporter mocha-junit-reporter
+            ;;
+          2)
+            cd Example
+            npm run jest
+            ;;
+        esac
+      :
+        parallel: true

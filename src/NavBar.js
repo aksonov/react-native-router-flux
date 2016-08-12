@@ -161,6 +161,7 @@ const propTypes = {
   getTitle: PropTypes.func,
   titleStyle: Text.propTypes.style,
   titleOpacity: PropTypes.number,
+  titleProps: PropTypes.any,
   position: PropTypes.object,
   navigationBarStyle: View.propTypes.style,
   renderTitle: PropTypes.any,
@@ -204,6 +205,11 @@ class NavBar extends React.Component {
       state.leftButtonStyle,
       childState.leftButtonStyle,
     ];
+
+    if (state.index === 0) {
+      return null;
+    }
+
     if (BackButton) {
       return (
         <BackButton
@@ -221,9 +227,6 @@ class NavBar extends React.Component {
       onPress = onPress.bind(null, state);
     } else {
       onPress = Actions.pop;
-    }
-    if (state.index === 0) {
-      return null;
     }
 
     let text = childState.backTitle ?
@@ -408,6 +411,7 @@ class NavBar extends React.Component {
     }
     return (
       <Animated.Text
+        {...this.props.titleProps}
         key={childState.key}
         style={[
           styles.title,
