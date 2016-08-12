@@ -60,25 +60,25 @@ class Router extends Component {
       backAndroidHandler,
       onBackAndroid,
       onExitApp,
-    } = this.props
+    } = this.props;
     // optional for customizing handler
     if (backAndroidHandler) {
       return backAndroidHandler();
     }
 
     try {
-       Actions.pop();
-       if (onBackAndroid) {
-         onBackAndroid();
-       }
-       return true;
-     } catch (err) {
-       if (onExitApp) {
-         return onExitApp();
-       } else {
-         return false;
-       }
-     }
+      Actions.pop();
+      if (onBackAndroid) {
+       onBackAndroid();
+      }
+      return true;
+    } catch (err) {
+      if (onExitApp) {
+       return onExitApp();
+      }
+
+      return false;
+    }
   }
 
   handleProps(props) {
