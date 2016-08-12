@@ -126,6 +126,7 @@ Actions.ROUTE_NAME({type: ActionConst.RESET});
 | Property | Type | Default | Description |
 |-----------|--------|---------|--------------------------------------------|
 | leftTitle | `string` | | optional string to display on the left if the previous route does not provide `renderBackButton` prop. `renderBackButton` > `leftTitle` > <previous route's `title`> |
+| getLeftTitle | `function` | | optional closure to display on the left if the previous route does not provide `renderBackButton` prop. `renderBackButton` > `getLeftTitle` > <previous route's `title`> |
 | renderLeftButton | `function` | | optional closure to render the left title / buttons element |
 | onLeft | `function` | | function will be called when left navBar button is pressed |
 | leftButtonImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) |  | Image for left button |
@@ -137,6 +138,7 @@ Actions.ROUTE_NAME({type: ActionConst.RESET});
 | Property | Type | Default | Description |
 |-----------|--------|---------|--------------------------------------------|
 | rightTitle | `string` | | optional string to display on the right. `onRight` must be provided for this to appear. |
+| getRightTitle | `function` | | optional closure to display on the right. `onRight` must be provided for this to appear. |
 | renderRightButton | `function` | | optional closure to render the right title / buttons element |
 | onRight | `function` | | function will be called when right navBar button is pressed |
 | rightButtonImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) |  | Image for right button |
