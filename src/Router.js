@@ -69,12 +69,12 @@ class Router extends Component {
     try {
       Actions.pop();
       if (onBackAndroid) {
-       onBackAndroid();
+        onBackAndroid();
       }
       return true;
     } catch (err) {
       if (onExitApp) {
-       return onExitApp();
+        return onExitApp();
       }
 
       return false;
