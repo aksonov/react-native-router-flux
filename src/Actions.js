@@ -154,7 +154,9 @@ class Actions {
       refs[el.key] = { key: el.key, name: el.key, ...el.props, type: ActionConst.REFRESH,
         base: baseKey, parent: subStateParent };
       if (this[el.key]) {
-        console.log(`Key ${el.key} is already defined!`);
+        if (__DEV__) {
+          console.log(`Key ${el.key} is already defined!`);
+        }
       }
       this[el.key] =
         (props = {}) => {
@@ -163,7 +165,9 @@ class Actions {
         };
     }
     if (this[key]) {
-      console.log(`Key ${key} is already defined!`);
+      if (___DEV__) {
+        console.log(`Key ${key} is already defined!`);
+      }
     }
     this[key] =
       (props = {}) => {
