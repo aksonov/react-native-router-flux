@@ -203,4 +203,5 @@ class Actions {
   }
 }
 
+export { Actions as ActionsTest };
 export default new Actions();
