@@ -10,6 +10,7 @@ import React, {
   Component,
   PropTypes,
 } from 'react';
+import { BackAndroid } from 'react-native';
 import NavigationExperimental from 'react-native-experimental-navigation';
 
 import Actions, { ActionMap } from './Actions';
@@ -25,6 +26,9 @@ const {
 
 const propTypes = {
   dispatch: PropTypes.func,
+  backAndroidHandler: PropTypes.func,
+  onBackAndroid: PropTypes.func,
+  onExitApp: PropTypes.func,
 };
 
 class Router extends Component {
@@ -34,14 +38,47 @@ class Router extends Component {
     this.state = {};
     this.renderNavigation = this.renderNavigation.bind(this);
     this.handleProps = this.handleProps.bind(this);
+    this.handleBackAndroid = this.handleBackAndroid.bind(this);
   }
 
   componentDidMount() {
     this.handleProps(this.props);
+
+    BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid);
   }
 
   componentWillReceiveProps(props) {
     this.handleProps(props);
+  }
+
+  componentWillUnmount() {
+    BackAndroid.removeEventListener('hardwareBackPress', this.handleBackAndroid);
+  }
+
+  handleBackAndroid() {
+    const {
+      backAndroidHandler,
+      onBackAndroid,
+      onExitApp,
+    } = this.props;
+    // optional for customizing handler
+    if (backAndroidHandler) {
+      return backAndroidHandler();
+    }
+
+    try {
+      Actions.pop();
+      if (onBackAndroid) {
+        onBackAndroid();
+      }
+      return true;
+    } catch (err) {
+      if (onExitApp) {
+        return onExitApp();
+      }
+
+      return false;
+    }
   }
 
   handleProps(props) {
