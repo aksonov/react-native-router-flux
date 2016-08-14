@@ -28,19 +28,6 @@ import EchoView from './components/EchoView';
 import NavigationDrawer from './components/NavigationDrawer';
 import Button from 'react-native-button';
 
-const Right = () => (
-  <Text
-    style={{
-      width: 80,
-      height: 37,
-      position: 'absolute',
-      bottom: 4,
-      right: 2,
-      padding: 8,
-    }}
-  >Right</Text>
-);
-
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
     alignItems: 'center',
@@ -186,7 +173,7 @@ class Example extends Component {
                     key="tab2_1"
                     component={TabView}
                     title="Tab #2_1"
-                    renderRightButton={() => <Right />}
+                    renderRightButton={() => <Text>Right</Text>}
                   />
                   <Scene
                     key="tab2_2"
