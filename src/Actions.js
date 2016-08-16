@@ -165,7 +165,7 @@ class Actions {
         };
     }
     if (this[key]) {
-      if (___DEV__) {
+      if (__DEV__) {
         console.log(`Key ${key} is already defined!`);
       }
     }
