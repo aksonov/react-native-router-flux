@@ -5,6 +5,8 @@ import React from 'react';
 import Actions from '../src/Actions';
 import Scene from '../src/Scene';
 
+global.__DEV__ = true;
+
 let id = 0;
 const guid = () => id++;
 
