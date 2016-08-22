@@ -164,6 +164,7 @@ const propTypes = {
   titleProps: PropTypes.any,
   position: PropTypes.object,
   navigationBarStyle: View.propTypes.style,
+  navigationBarBackgroundImage: Image.propTypes.source,
   renderTitle: PropTypes.any,
 };
 
@@ -472,7 +473,7 @@ class NavBar extends React.Component {
       selected.component.renderTitle ||
       this.props.renderTitle;
     const navigationBarBackgroundImage = this.props.navigationBarBackgroundImage ||
-      state.navigationBarBackgroundImage
+      state.navigationBarBackgroundImage;
     const contents = (
       <View>
         {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
