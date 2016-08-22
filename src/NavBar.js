@@ -471,6 +471,8 @@ class NavBar extends React.Component {
     const renderTitle = selected.renderTitle ||
       selected.component.renderTitle ||
       this.props.renderTitle;
+    const navigationBarBackgroundImage = this.props.navigationBarBackgroundImage ||
+      state.navigationBarBackgroundImage
     const contents = (
       <View>
         {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
@@ -487,8 +489,8 @@ class NavBar extends React.Component {
           selected.navigationBarStyle,
         ]}
       >
-        {state.navigationBarBackgroundImage ? (
-          <Image source={state.navigationBarBackgroundImage}>
+        {navigationBarBackgroundImage ? (
+          <Image source={navigationBarBackgroundImage}>
             {contents}
           </Image>
         ) : contents}
