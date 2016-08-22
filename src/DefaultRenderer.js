@@ -198,7 +198,7 @@ export default class DefaultRenderer extends Component {
     }
 
     if (typeof(panHandlers) === 'undefined') {
-      panHandlers = getPanHandlers ? 
+      panHandlers = getPanHandlers ?
         getPanHandlers(props, direction) :
         this.getPanHandlers(direction, props);
     }
