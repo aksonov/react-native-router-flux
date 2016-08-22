@@ -477,7 +477,7 @@ class NavBar extends React.Component {
         {renderBackButton(navProps) || renderLeftButton(navProps)}
         {renderRightButton(navProps)}
       </View>
-    )
+    );
     return (
       <Animated.View
         style={[
