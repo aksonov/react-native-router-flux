@@ -123,3 +123,67 @@ class MyComponent extends React.Component {
 
 export default connect(({routes}) => ({routes}))(MyComponent);
 ```
+
+### About `Key xxx is already defined`
+
+There is no way to prevent `Router` re-render IF you wrap it under a `Provider` AND listen updates from `redux`.
+It is a nature by design.
+
+the point how to prevent this, is: **`Router` should render once and just once**
+it means:
+
+If you didn't connect to redux at all, it works fine since your `Router` would not be triggered by any of updates from redux.
+
+Also, you can `connect()` `Router` to `redux` to get a `dispatch()` method props but you can NOT listen to another props.
+
+Thus, the architecture would be:
+
+```jsx
+import {
+    Router,
+    Scene,
+    Actions,
+} from 'react-native-router-flux';
+
+
+// --- child component can connect and listen to props they want.
+const myConnectedMainConponent = connect()(myMainConponent);
+const myConnectedLoginConponent = connect()(myLoginConponent);
+
+// --- Create it via Actions.create(), or it will be re-created for each render of your Router
+const scenes = Actions.create(
+    <Scene key="root">
+        <Scene key="login" component={myLoginConponent} />
+        <Scene key="main" component={myMainConponent} />
+    </Scene>
+);
+
+// --- Create connected Router if you want dispatch() method.
+// --- Or you can just use vanilla Router
+const myConnectedRouter = connect()(Router);
+
+// --- your exported main router
+export default class MyExportedRouter extends React.Component {
+    constructor(props) {
+        super(props);
+    };
+
+    render() {
+        return (
+            <Provider store={store}>
+                <myConnectedRouter scenes={scenes} />
+            </Provider>
+        );
+    }
+}
+```
+
+**Point Taken:**
+
+1. `Router` should render once and just once ( connect to get dispatch method only or not connect at all )
+2. pre create scenes via Actions.create() and pass it into Router
+3. move your app main logic into one of the children of Router 
+
+
+
+
