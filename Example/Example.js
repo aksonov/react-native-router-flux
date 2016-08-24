@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Platform
 } from 'react-native';
 import Launch from './components/Launch';
 import Register from './components/Register';
@@ -59,7 +60,8 @@ const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) 
     shadowRadius: null,
   };
   if (computedProps.isActive) {
-    style.marginTop = computedProps.hideNavBar ? 0 : 64;
+    const top = Platform.OS === 'android' ? 54 : 64;
+    style.marginTop = computedProps.hideNavBar ? 0 : top;
     style.marginBottom = computedProps.hideTabBar ? 0 : 50;
   }
   return style;
