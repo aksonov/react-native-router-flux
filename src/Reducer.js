@@ -121,6 +121,54 @@ function inject(state, action, props, scenes) {
         children: refreshTopChild(state.children.slice(0, -1 * popNum), action.refresh),
       };
     }
+  	case ActionConst.POP_AND_REPLACE: {
+      assert(!state.tabs, 'pop() operation cannot be run on tab bar (tabs=true)');
+
+      assert(state.index > 0, 'You are already in the root scene.');
+  
+      let popNum = 1;
+      if (action.popNum) {
+        assert(typeof(action.popNum) === 'number',
+          'The data is the number of scenes you want to pop, it must be Number');
+        popNum = action.popNum;
+        assert(popNum % 1 === 0,
+          'The data is the number of scenes you want to pop, it must be integer.');
+        assert(popNum > 1,
+          'The data is the number of scenes you want to pop, it must be bigger than 1.');
+        assert(popNum <= state.index,
+          'The data is the number of scenes you want to pop, ' +
+          "it must be smaller than scenes stack's length.");
+      }
+      
+      state = {
+        ...state,
+        index: state.index - popNum,
+        from: state.children[state.children.length - popNum],
+        children: state.children.slice(0, -1 * popNum)
+      };
+
+      if (state.children[state.index].sceneKey === action.key) {
+        return state;
+      }
+
+      let newAction = {
+        duration: 0,  // do not animate - an improvements for the future could be apply from animation and duration
+        ...action
+      };
+      delete newAction.popNum;
+
+      let newProps = { ...props };
+      delete newProps.popNum;
+
+      state.children[state.children.length - 1] = getInitialState(
+        newProps,
+        scenes,
+        state.index,
+        newAction
+      );
+
+      return { ...state, children: state.children };
+    }
     case ActionConst.REFRESH:
       return props.base ?
       { navBar: state.navBar,
@@ -215,7 +263,7 @@ export function findElement(state, key, type) {
   return null;
 }
 
-function getCurrent(state) {
+export function getCurrent(state) {
   if (!state.children) {
     return state;
   }
@@ -276,6 +324,7 @@ function reducer({ initialState, scenes }) {
       // set current route for pop action or refresh action
       if (ActionMap[action.type] === ActionConst.BACK_ACTION ||
           ActionMap[action.type] === ActionConst.BACK ||
+          ActionMap[action.type] === ActionConst.POP_AND_REPLACE ||
           ActionMap[action.type] === ActionConst.REFRESH ||
           ActionMap[action.type] === ActionConst.POP_TO) {
         if (!action.key && !action.parent) {
@@ -311,7 +360,8 @@ function reducer({ initialState, scenes }) {
 
       // recursive pop parent
       if (ActionMap[action.type] === ActionConst.BACK_ACTION ||
-          ActionMap[action.type] === ActionConst.BACK) {
+          ActionMap[action.type] === ActionConst.BACK ||
+          ActionMap[action.type] === ActionConst.POP_AND_REPLACE) {
         const parent = action.parent || state.scenes[action.key].parent;
         let el = findElement(state, parent, action.type);
         while (el.parent && (el.children.length <= 1 || el.tabs)) {
@@ -325,6 +375,7 @@ function reducer({ initialState, scenes }) {
     switch (ActionMap[action.type]) {
       case ActionConst.BACK:
       case ActionConst.BACK_ACTION:
+      case ActionConst.POP_AND_REPLACE:
       case ActionConst.POP_TO:
       case ActionConst.REFRESH:
       case ActionConst.PUSH:
