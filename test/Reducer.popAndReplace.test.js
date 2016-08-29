@@ -81,7 +81,7 @@ describe('popAndReplace', () => {
     expect(currentScene.type).equal(ActionConst.POP_AND_REPLACE);
   });
 
-  it.only('pop 2 and replace on root stack', () => {
+  it('pop 2 and replace on root stack', () => {
 
     latestState = reducer(latestState, {
       key: 'privacyPolicy',
