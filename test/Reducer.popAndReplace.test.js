@@ -42,10 +42,7 @@ const scenesData = (
     </Scene>
   </Scene>);
 
-
-
 describe('popAndReplace', () => {
-
   let latestState;
   let currentScene;
   let reducer;
@@ -58,7 +55,6 @@ describe('popAndReplace', () => {
   });
 
   it('pop and replace on root stack', () => {
-
     latestState = reducer(latestState, {
       key: 'privacyPolicy',
       type: ActionConst.PUSH,
@@ -75,14 +71,12 @@ describe('popAndReplace', () => {
     });
 
     expect(latestState.index).equal(1);
-
     currentScene = getCurrent(latestState);
     expect(currentScene.sceneKey).equal('termsOfService');
     expect(currentScene.type).equal(ActionConst.POP_AND_REPLACE);
   });
 
   it('pop 2 and replace on root stack', () => {
-
     latestState = reducer(latestState, {
       key: 'privacyPolicy',
       type: ActionConst.PUSH,
@@ -96,13 +90,12 @@ describe('popAndReplace', () => {
     latestState = reducer(latestState, {
       key: 'termsOfService',
       type: ActionConst.POP_AND_REPLACE,
-      popNum: 2
+      popNum: 2,
     });
 
     expect(latestState.index).equal(0);
-
     currentScene = getCurrent(latestState);
-    expect(currentScene.popNum).not.exist;
+    expect(currentScene.popNum).equal(undefined);
     expect(currentScene.sceneKey).equal('termsOfService');
     expect(currentScene.type).equal(ActionConst.POP_AND_REPLACE);
   });
@@ -113,7 +106,7 @@ describe('popAndReplace', () => {
         key: 'termsOfService',
         type: ActionConst.POP_AND_REPLACE,
       });
-    } catch(err) {
+    } catch (err) {
       expect(err.message).equal('[react-native-router-flux] You are already in the root scene.');
     }
   });
@@ -128,15 +121,15 @@ describe('popAndReplace', () => {
       latestState = reducer(latestState, {
         key: 'termsOfService',
         type: ActionConst.POP_AND_REPLACE,
-        popNum: 2
+        popNum: 2,
       });
-    } catch(err) {
-      expect(err.message).equal("[react-native-router-flux] The data is the number of scenes you want to pop, it must be smaller than scenes stack's length.");
+    } catch (err) {
+      expect(err.message).equal('[react-native-router-flux] The data is the number of scenes ' +
+        'you want to pop, it must be smaller than scenes stack\'s length.');
     }
   });
 
   it('pop and replace on child stack', () => {
-
     latestState = reducer(latestState, {
       key: 'conversations',
       type: ActionConst.PUSH,
@@ -159,7 +152,6 @@ describe('popAndReplace', () => {
   });
 
   it('pop and replace on root stack from nested child', () => {
-
     latestState = reducer(latestState, {
       key: 'conversations',
       type: ActionConst.PUSH,
@@ -176,7 +168,6 @@ describe('popAndReplace', () => {
     });
 
     expect(latestState.index).equal(0);
-
     currentScene = getCurrent(latestState);
     expect(currentScene.sceneKey).equal('termsOfService');
     expect(currentScene.type).equal(ActionConst.POP_AND_REPLACE);

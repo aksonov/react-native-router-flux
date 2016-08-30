@@ -122,11 +122,10 @@ function inject(state, action, props, scenes) {
       };
     }
     // This action will pop the scene stack and then replace current scene in one go
-  	case ActionConst.POP_AND_REPLACE: {
+    case ActionConst.POP_AND_REPLACE: {
       assert(!state.tabs, 'pop() operation cannot be run on tab bar (tabs=true)');
-
       assert(state.index > 0, 'You are already in the root scene.');
-  
+
       let popNum = 1;
       if (action.popNum) {
         assert(typeof(action.popNum) === 'number',
@@ -140,25 +139,25 @@ function inject(state, action, props, scenes) {
           'The data is the number of scenes you want to pop, ' +
           "it must be smaller than scenes stack's length.");
       }
-      
+
       state = {
         ...state,
         index: state.index - popNum,
         from: state.children[state.children.length - popNum],
-        children: state.children.slice(0, -1 * popNum)
+        children: state.children.slice(0, -1 * popNum),
       };
 
       if (state.children[state.index].sceneKey === action.key) {
         return state;
       }
 
-      let newAction = {
+      const newAction = {
         duration: 0,  // do not animate
-        ...action
+        ...action,
       };
       delete newAction.popNum;
 
-      let newProps = { ...props };
+      const newProps = { ...props };
       delete newProps.popNum;
 
       state.children[state.children.length - 1] = getInitialState(
