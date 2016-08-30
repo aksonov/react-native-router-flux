@@ -100,11 +100,11 @@ const styles = StyleSheet.create({
         top: 22,
       },
       android: {
-        top: 10,
+        // top: 10,
       },
     }),
     right: 2,
-    padding: 8,
+    // padding: 8,
   },
   leftButton: {
     width: 100,
@@ -115,11 +115,11 @@ const styles = StyleSheet.create({
         top: 20,
       },
       android: {
-        top: 8,
+        // top: 8,
       },
     }),
     left: 2,
-    padding: 8,
+    // padding: 8,
   },
   barRightButtonText: {
     color: 'rgb(0, 122, 255)',
