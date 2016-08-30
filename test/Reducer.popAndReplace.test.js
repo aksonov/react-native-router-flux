@@ -157,4 +157,28 @@ describe('popAndReplace', () => {
     expect(currentScene.sceneKey).equal('cloneModalComponent');
     expect(currentScene.type).equal(ActionConst.POP_AND_REPLACE);
   });
+
+  it('pop and replace on root stack from nested child', () => {
+
+    latestState = reducer(latestState, {
+      key: 'conversations',
+      type: ActionConst.PUSH,
+    });
+
+    latestState = reducer(latestState, {
+      key: 'login',
+      type: ActionConst.PUSH,
+    });
+
+    latestState = reducer(latestState, {
+      key: 'termsOfService',
+      type: ActionConst.POP_AND_REPLACE,
+    });
+
+    expect(latestState.index).equal(0);
+
+    currentScene = getCurrent(latestState);
+    expect(currentScene.sceneKey).equal('termsOfService');
+    expect(currentScene.type).equal(ActionConst.POP_AND_REPLACE);
+  });
 });

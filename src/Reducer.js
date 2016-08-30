@@ -121,6 +121,7 @@ function inject(state, action, props, scenes) {
         children: refreshTopChild(state.children.slice(0, -1 * popNum), action.refresh),
       };
     }
+    // This action will pop the scene stack and then replace current scene in one go
   	case ActionConst.POP_AND_REPLACE: {
       assert(!state.tabs, 'pop() operation cannot be run on tab bar (tabs=true)');
 
@@ -152,7 +153,7 @@ function inject(state, action, props, scenes) {
       }
 
       let newAction = {
-        duration: 0,  // do not animate - an improvements for the future could be apply from animation and duration
+        duration: 0,  // do not animate
         ...action
       };
       delete newAction.popNum;
