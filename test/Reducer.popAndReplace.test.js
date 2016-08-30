@@ -5,7 +5,7 @@ import Scene from '../src/Scene';
 import Actions from '../src/Actions';
 import * as ActionConst from '../src/ActionConst';
 
-import createReducer, {getCurrent, findElement} from '../src/Reducer';
+import createReducer, { getCurrent, findElement } from '../src/Reducer';
 import getInitialState from '../src/State';
 
 let id = 0;
