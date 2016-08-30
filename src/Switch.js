@@ -1,59 +1,74 @@
-import React, { Component, PropTypes } from 'react';
-import DefaultRenderer from './DefaultRenderer';
+import React, { PropTypes } from 'react';
+import TabBar from './TabBar';
 import Actions from './Actions';
 
-export default class extends Component {
+export default function Switch(props) {
+  const navState = props.navigationState;
 
-  static propTypes = {
-    onNavigate: PropTypes.func,
-  };
-
-  constructor(props) {
-    super(props);
-    this.updateState = this.updateState.bind(this);
-    this.state = {};
-  }
-
-  componentDidMount() {
-    this.updateState(this.props);
-  }
-
-  componentWillReceiveProps(props) {
-    this.updateState(props);
-  }
-
-  updateState(props) {
-    const navState = props.navigationState;
-
-    const selector = props.selector;
-    if (!selector) console.error('Selector should be defined.');
-
-    const selectedKey = selector(props);
+  const selector = props.selector;
+  const statem = props.statem;
+  if (!selector && !statem) console.error('Selector should be defined.');
+  let index = -1;
+  let selectedKey = undefined;
+  if (!selector) {
+    // support Statem - Harel statecharts machine!
+    navState.children.forEach((el, i) => {
+      if (!(el.default || el.state)) {
+        console.error(`Either default or state should be defined for element=${el.key}`);
+      }
+      if (el.default) {
+        index = i;
+      } else {
+        if (el.state.active) {
+          index = i;
+        }
+      }
+    });
+  } else {
+    selectedKey = selector(props);
     if (!selectedKey) console.error('Selector should return key.');
+    navState.children.forEach((el, i) => {
+      if (el.sceneKey === selectedKey) {
+        index = i;
+      }
+    });
+  }
+  if (index === -1) console.error(`A scene for key “${selectedKey}” does not exist.`);
+  selectedKey = navState.children[index].sceneKey;
 
-    const selected = navState.children.filter(el => el.sceneKey === selectedKey);
-    if (!selected) console.error(`A scene for key “${selectedKey}” does not exist.`);
-
-    const navigationState = selected[0];
-    if (!navigationState) console.error(`Cannot find a scene with key “${selectedKey}”`);
-
-    if (navigationState.key !== navState.children[navState.index].key) {
-      Actions[selectedKey]();
+  let navigationState;
+  if (index !== navState.index) {
+    if (props.unmountScenes) {
+      navigationState = {
+        ...navState,
+        children: [navState.children[navState.index]],
+        index: 0,
+      };
+      setTimeout(() => {
+        Actions[selectedKey]({ unmountScenes: true });
+      }, 1);
+    } else {
+      navigationState = { ...navState, index };
+      setTimeout(() => {
+        Actions[selectedKey]();
+      }, 1);
     }
-
-    this.setState({ navigationState });
+  } else {
+    navigationState = navState;
   }
 
-  render() {
-    if (this.state.navigationState) {
-      return (
-        <DefaultRenderer
-          onNavigate={this.props.onNavigate}
-          navigationState={this.state.navigationState}
-        />
-      );
-    }
-
-    return null;
-  }
+  return (
+    <TabBar
+      onNavigate={props.onNavigate}
+      navigationState={navigationState}
+    />
+  );
 }
+
+Switch.propTypes = {
+  navigationState: PropTypes.object,
+  onNavigate: PropTypes.func,
+  selector: PropTypes.func,
+  statem: PropTypes.any,
+  unmountScenes: PropTypes.bool,
+};
