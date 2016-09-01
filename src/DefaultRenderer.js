@@ -198,7 +198,9 @@ export default class DefaultRenderer extends Component {
     }
 
     if (typeof(panHandlers) === 'undefined') {
-      panHandlers = getPanHandlers ? getPanHandlers(props) : this.getPanHandlers(direction, props);
+      panHandlers = getPanHandlers ?
+        getPanHandlers(props, direction) :
+        this.getPanHandlers(direction, props);
     }
     return (
       <NavigationCard
