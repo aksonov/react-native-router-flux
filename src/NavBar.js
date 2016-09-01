@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   rightButton: {
-    // width: 100,
-    // height: 37,
+    width: 100,
+    height: 37,
     position: 'absolute',
     ...Platform.select({
       ios: {
