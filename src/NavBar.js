@@ -76,24 +76,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   backButton: {
-    width: 130,
-    height: 37,
-    position: 'absolute',
-    ...Platform.select({
-      ios: {
-        top: 22,
-      },
-      android: {
-        top: 10,
-      },
-    }),
-    left: 2,
-    padding: 8,
-    flexDirection: 'row',
-  },
-  rightButton: {
-    width: 100,
-    height: 37,
+    // width: 130,
+    // height: 37,
     position: 'absolute',
     ...Platform.select({
       ios: {
@@ -103,12 +87,28 @@ const styles = StyleSheet.create({
         // top: 10,
       },
     }),
-    right: 2,
+    left: 10,
+    // padding: 8,
+    flexDirection: 'row',
+  },
+  rightButton: {
+    // width: 100,
+    // height: 37,
+    position: 'absolute',
+    ...Platform.select({
+      ios: {
+        top: 22,
+      },
+      android: {
+        // top: 10,
+      },
+    }),
+    right: 10,
     // padding: 8,
   },
   leftButton: {
-    width: 100,
-    height: 37,
+    // width: 100,
+    // height: 37,
     position: 'absolute',
     ...Platform.select({
       ios: {
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
         // top: 8,
       },
     }),
-    left: 2,
+    left: 10,
     // padding: 8,
   },
   barRightButtonText: {
