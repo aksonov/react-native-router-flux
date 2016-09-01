@@ -2,13 +2,11 @@ import { expect } from 'chai';
 
 import React from 'react';
 
-import * as ActionConst from '../src/ActionConst';
-import { ActionsTest } from '../src/Actions';
+import Actions from '../src/Actions';
 import Scene from '../src/Scene';
 
 let id = 0;
 const guid = () => id++;
-const noop = () => {};
 
 const scenesData = (
   <Scene
@@ -41,11 +39,13 @@ const scenesData = (
     </Scene>
   </Scene>);
 
-describe('Actions', () => {
-  it('should produce needed actions', () => {
-    const Actions = new ActionsTest();
-    const scenes = Actions.create(scenesData);
+let scenes;
 
+describe('Actions', () => {
+  before(() => {
+    scenes = Actions.create(scenesData);
+  });
+  it('should produce needed actions', () => {
     // check scenes
     expect(scenes.conversations.component).to.equal('Conversations');
 
@@ -66,132 +66,5 @@ describe('Actions', () => {
     Actions.messaging({ param3: 'Hello world3' });
     expect(latestAction.param3).equal('Hello world3');
     expect(latestAction.key).equal('messaging');
-  });
-
-  it('throws when not providing a root scene', () => {
-    const Actions = new ActionsTest();
-    const scene = void 0;
-    expect(() => Actions.create(scene)).to.throw(Error, 'root scene');
-  });
-
-  it('throws when using a reserved method', () => {
-    const scene = (
-      <Scene key="root" component={noop}>
-        <Scene key="create" component={noop} />
-      </Scene>
-    );
-
-    const Actions = new ActionsTest();
-    expect(() => Actions.create(scene)).to.throw(Error, 'create');
-  });
-
-  it('throws when using an action method', () => {
-    const scene = (
-      <Scene key="root" component={noop}>
-        <Scene key="push" component={noop} />
-      </Scene>
-    );
-
-    const Actions = new ActionsTest();
-    expect(() => Actions.create(scene)).to.throw(Error, 'push');
-  });
-
-  it('wraps child scenes if the parent is tabs', () => {
-    const scene = (
-      <Scene key="root" component={noop}>
-        <Scene key="main" tabs>
-          <Scene key="home" component={noop} />
-          <Scene key="map" component={noop} />
-          <Scene key="myAccount" component={noop} />
-        </Scene>
-      </Scene>
-    );
-    const Actions = new ActionsTest();
-    const scenes = Actions.create(scene);
-
-    const tabKeys = ['home', 'map', 'myAccount'];
-    tabKeys.forEach(key => {
-      expect(scenes[key].component).to.eq(void 0);
-      expect(scenes[key].type).to.eq(ActionConst.JUMP);
-
-      const wrappedKey = scenes[key].children[0];
-      expect(scenes[wrappedKey].component).to.not.eq(void 0);
-      expect(scenes[wrappedKey].type).to.eq(ActionConst.PUSH);
-    });
-  });
-
-  it('provides keys to children of a scene', () => {
-    const scene = (
-      <Scene key="root" component={noop}>
-        <Scene key="home" component={noop} />
-        <Scene key="map" component={noop} />
-        <Scene key="myAccount" component={noop} />
-      </Scene>
-    );
-
-    const Actions = new ActionsTest();
-    const scenes = Actions.create(scene);
-
-    const childrenKeys = ['home', 'map', 'myAccount'];
-    expect(scenes.root.children).to.include.all(...childrenKeys);
-  });
-
-  it('substates have their base set to their parent', () => {
-    const scene = (
-      <Scene key="root" component={noop}>
-        <Scene key="view" type={ActionConst.REFRESH} />
-        <Scene key="edit" type={ActionConst.REFRESH} edit />
-        <Scene key="save" type={ActionConst.REFRESH} save />
-      </Scene>
-    );
-
-    const Actions = new ActionsTest();
-    const scenes = Actions.create(scene);
-
-    const subStates = ['view', 'edit', 'save'];
-    subStates.forEach(key => {
-      expect(scenes[key].base).to.eq('root');
-      expect(scenes[key].parent).to.eq(scenes.root.parent);
-    });
-  });
-
-  it('substates do not need to specify REFRESH type', () => {
-    const scene = (
-      <Scene key="root" component={noop}>
-        <Scene key="view" />
-        <Scene key="edit" edit />
-        <Scene key="save" save />
-      </Scene>
-    );
-
-    const Actions = new ActionsTest();
-    const scenes = Actions.create(scene);
-
-    const subStates = ['view', 'edit', 'save'];
-    subStates.forEach(key => {
-      expect(scenes[key].type).to.eq(ActionConst.REFRESH);
-    });
-  });
-
-  it('allows mixing of substates with children', () => {
-    const scene = (
-      <Scene key="root" component={noop}>
-        <Scene key="view" />
-        <Scene key="edit" edit />
-        <Scene key="save" save />
-        <Scene key="messaging" component={noop}>
-          <Scene key="conversations" component={noop} />
-        </Scene>
-      </Scene>
-    );
-
-    const Actions = new ActionsTest();
-    const scenes = Actions.create(scene);
-
-    const subStates = ['view', 'edit', 'save'];
-    subStates.forEach(key => {
-      expect(scenes[key].type).to.eq(ActionConst.REFRESH);
-    });
-    expect(scenes.messaging.type).to.eq(ActionConst.PUSH);
   });
 });

@@ -7,7 +7,6 @@
  *
  */
 import { assert } from './Util';
-import * as ActionConst from './ActionConst';
 
 function getStateFromScenes(route, scenes, props) {
   const getters = [];
@@ -70,12 +69,6 @@ export function getInitialState(
     res.children = [getInitialState(scenes[route.children[index]], scenes, 0, props)];
     res.index = 0;
   }
-
-  // Copy props to the children of tab routes
-  if (route.type === ActionConst.JUMP) {
-    res.children = res.children.map(child => ({ ...props, ...child }));
-  }
-
   res.key = `${position}_${res.key}`;
   return res;
 }
