@@ -164,6 +164,7 @@ const propTypes = {
   titleProps: PropTypes.any,
   position: PropTypes.object,
   navigationBarStyle: View.propTypes.style,
+  navigationBarBackgroundImage: Image.propTypes.source,
   renderTitle: PropTypes.any,
 };
 
@@ -471,6 +472,15 @@ class NavBar extends React.Component {
     const renderTitle = selected.renderTitle ||
       selected.component.renderTitle ||
       this.props.renderTitle;
+    const navigationBarBackgroundImage = this.props.navigationBarBackgroundImage ||
+      state.navigationBarBackgroundImage;
+    const contents = (
+      <View>
+        {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
+        {renderBackButton(navProps) || renderLeftButton(navProps)}
+        {renderRightButton(navProps)}
+      </View>
+    );
     return (
       <Animated.View
         style={[
@@ -480,9 +490,11 @@ class NavBar extends React.Component {
           selected.navigationBarStyle,
         ]}
       >
-        {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
-        {renderBackButton(navProps) || renderLeftButton(navProps)}
-        {renderRightButton(navProps)}
+        {navigationBarBackgroundImage ? (
+          <Image source={navigationBarBackgroundImage}>
+            {contents}
+          </Image>
+        ) : contents}
       </Animated.View>
     );
   }
