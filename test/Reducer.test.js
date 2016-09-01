@@ -2,8 +2,9 @@ import React from 'react';
 import { expect } from 'chai';
 
 import Scene from '../src/Scene';
-import { ActionsTest } from '../src/Actions';
+import Actions from '../src/Actions';
 import * as ActionConst from '../src/ActionConst';
+
 import createReducer from '../src/Reducer';
 import getInitialState from '../src/State';
 
@@ -53,7 +54,6 @@ describe('createReducer', () => {
     // create scenes and initialState
     // For creating scenes we use external modules.
     // TODO: Think about fully isolated test.
-    const Actions = new ActionsTest();
     const scenes = Actions.create(scenesData);
     const initialState = getInitialState(scenes); // TODO: write test for this.
 
@@ -107,153 +107,5 @@ describe('createReducer', () => {
     expect(currentScene.sceneKey).equal('conversations');
     expect(currentScene.type).equal(ActionConst.PUSH);
     expect(currentScene.param1).equal('Conversations new param');
-  });
-});
-
-describe('passing props from actions', () => {
-  it('passes props for normal scenes', () => {
-    const noop = () => {};
-    const scene = (
-      <Scene key="root" component={noop}>
-        <Scene key="hello" component={noop} initial />
-        <Scene key="world" component={noop} />
-      </Scene>
-    );
-
-    const Actions = new ActionsTest();
-    const scenes = Actions.create(scene);
-    const initialState = getInitialState(scenes);
-    const reducer = createReducer({ initialState, scenes });
-
-    let state = { ...initialState, scenes };
-    let current = getCurrent(state);
-    Actions.callback = action => {
-      state = reducer(state, action);
-      current = getCurrent(state);
-    };
-
-    Actions.hello({ customProp: 'Hello' });
-    expect(current.customProp).to.eq('Hello');
-    Actions.world({ customProp: 'World' });
-    expect(current.customProp).to.eq('World');
-    Actions.hello();
-    expect(current.customProp).to.eq(void 0);
-  });
-
-  it('passes props for tab scenes', () => {
-    const noop = () => {};
-    const scene = (
-      <Scene key="root" component={noop} tabs>
-        <Scene key="home" component={noop} />
-        <Scene key="map" component={noop} />
-      </Scene>
-    );
-
-    const Actions = new ActionsTest();
-    const scenes = Actions.create(scene);
-    const initialState = getInitialState(scenes);
-    const reducer = createReducer({ initialState, scenes });
-
-    let state = { ...initialState, scenes };
-    let current = getCurrent(state);
-    Actions.callback = action => {
-      state = reducer(state, action);
-      current = getCurrent(state);
-    };
-
-    Actions.home({ customProp: 'Home' });
-    expect(current.customProp).to.eq('Home');
-    Actions.map({ customProp: 'Map', anotherProp: 'Another' });
-    expect(current.customProp).to.eq('Map');
-    expect(current.anotherProp).to.eq('Another');
-
-    Actions.home();
-    expect(current.customProp).to.eq(void 0);
-    expect(current.anotherProp).to.eq(void 0);
-  });
-
-  it('passes props for nested tab scenes', () => {
-    const noop = () => {};
-    const scene = (
-      <Scene key="root" component={noop} tabs>
-        <Scene key="home" component={noop} />
-        <Scene key="map" component={noop} tabs>
-          <Scene key="nested" component={noop} />
-          <Scene key="nested2" component={noop} />
-        </Scene>
-      </Scene>
-    );
-
-    const Actions = new ActionsTest();
-    const scenes = Actions.create(scene);
-    const initialState = getInitialState(scenes);
-    const reducer = createReducer({ initialState, scenes });
-
-    let state = { ...initialState, scenes };
-    let current = getCurrent(state);
-    Actions.callback = action => {
-      state = reducer(state, action);
-      current = getCurrent(state);
-    };
-
-    Actions.home({ customProp: 'Home', anotherProp: 'Another' });
-    expect(current.customProp).to.eq('Home');
-    expect(current.anotherProp).to.eq('Another');
-
-    Actions.map();
-    expect(current.customProp).to.eq(void 0);
-    expect(current.anotherProp).to.eq(void 0);
-
-    Actions.nested2({ customProp: 'Custom' });
-    expect(current.customProp).to.eq('Custom');
-    expect(current.anotherProp).to.eq(void 0);
-  });
-
-  it('passes props for very nested tab scenes', () => {
-    const noop = () => {};
-    const scene = (
-      <Scene key="root" component={noop} tabs>
-        <Scene key="home" component={noop} />
-        <Scene key="map" component={noop} tabs>
-          <Scene key="nested" component={noop} />
-          <Scene key="nested2" component={noop} />
-          <Scene key="nestedTabs" component={noop} tabs>
-            <Scene key="nestedTab" component={noop} />
-            <Scene key="nestedTab2" component={noop} />
-          </Scene>
-        </Scene>
-        <Scene key="normal" component={noop} />
-      </Scene>
-    );
-
-    const Actions = new ActionsTest();
-    const scenes = Actions.create(scene);
-    const initialState = getInitialState(scenes);
-    const reducer = createReducer({ initialState, scenes });
-
-    let state = { ...initialState, scenes };
-    let current = getCurrent(state);
-    Actions.callback = action => {
-      state = reducer(state, action);
-      current = getCurrent(state);
-    };
-
-    Actions.home({ customProp: 'Home', anotherProp: 'Another' });
-    expect(current.customProp).to.eq('Home');
-    expect(current.anotherProp).to.eq('Another');
-
-    Actions.map();
-    expect(current.customProp).to.eq(void 0);
-    expect(current.anotherProp).to.eq(void 0);
-
-    Actions.nestedTabs({ customProp: 'Custom' });
-    expect(current.customProp).to.eq('Custom');
-    expect(current.anotherProp).to.eq(void 0);
-
-    Actions.nestedTab2();
-    expect(current.customProp).to.eq(void 0);
-
-    Actions.map({ customProp: 'Custom' });
-    expect(current.customProp).to.eq('Custom');
   });
 });
