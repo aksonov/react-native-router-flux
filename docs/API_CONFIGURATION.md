@@ -67,6 +67,31 @@ Actions.ROUTE_NAME({type: ActionConst.RESET});
 | ActionConst.RESET | `string` | 'REACT_NATIVE_ROUTER_FLUX_RESET' | 'reset' |
 | ActionConst.FOCUS | `string` | 'REACT_NATIVE_ROUTER_FLUX_FOCUS' | 'focus' |
 
+### ActionConst and Scene.type explaination
+
+**ActionConst**
+
+are just a bunch of constants represent real values of various actions/scene.type to avoid future changes.
+you can treat it like redux action.
+
+These can be used directly, for example, Actions.pop() will dispatch correspond action written in the source code, or, you can set those constants in scene type, when you do Actions.main(), it will dispatch action according to your scene type or the default one.
+
+Not every ActionConst can be used the same way ( use as an action or whether it can be set in scene type or not)
+that's why it's just a bunch of constants to mask the actual values.
+
+**Scene.type**
+
+Defines how the new screen is added to the navigator stack. One of push, modal, actionSheet, replace, switch, reset transitionToTop. Default is 'push'.
+And every `Scene.type` string literal has a mapped contant in ActionConst, it is recommended to always use constant.
+
+`replace`: tells navigator to replace current route with new route.  
+`actionSheet`: shows Action Sheet popup, you must pass callback as callback function.  
+`modal`: type inserts its 'component' into route stack after navigator component. It could be used for popup alerts as well for various needed processes before any navigator transitions (like login auth process). it could be dismissed by using Actions.dismiss().   
+`switch`: is used for tab screens.  
+`reset`: is similar to `replace` except it unmounts the componets in the navigator stack.  
+`transitionToTop`: will reset router stack ['route.name'] and with animation, if route has sceneConfig. eg `<Route name="login" schema="modal" component={Login} type="transitionToTop" />`
+
+
 ### Animation
 | Property | Type | Default | Description |
 |-----------|--------|---------|--------------------------------------------|
