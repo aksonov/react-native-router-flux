@@ -282,6 +282,7 @@ declare namespace RNRF {
     REPLACE: string,
     BACK: string,
     BACK_ACTION: string,
+    POP_AND_REPLACE: string,
     POP_TO: string,
     REFRESH: string,
     RESET: string,
