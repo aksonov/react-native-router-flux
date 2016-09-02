@@ -76,6 +76,7 @@ function inject(state, action, props, scenes) {
     return state;
   }
   let ind;
+  let children;
 
   switch (ActionMap[action.type]) {
     case ActionConst.POP_TO: {
@@ -163,13 +164,18 @@ function inject(state, action, props, scenes) {
     case ActionConst.JUMP:
       assert(state.tabs, `Parent=${state.key} is not tab bar, jump action is not valid`);
       ind = -1;
-      state.children.forEach((c, i) => { if (c.sceneKey === action.key) { ind = i; } });
+      children = getInitialState(props, scenes, ind, action);
+      children = Array.isArray(children) ? children : [children];
+      children.forEach((child, i) => {
+        if (child.sceneKey === action.key) ind = i;
+      });
+
       assert(ind !== -1, `Cannot find route with key=${action.key} for parent=${state.key}`);
 
       if (action.unmountScenes) {
         resetHistoryStack(state.children[ind]);
       }
-      return { ...state, index: ind };
+      return { ...state, index: ind, children };
     case ActionConst.REPLACE:
       if (state.children[state.index].sceneKey === action.key) {
         return state;
