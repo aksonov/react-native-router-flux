@@ -42,9 +42,13 @@ import _backButtonImage from './back_chevron.png';
 const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
-    marginTop: 10,
-    fontSize: 18,
     color: '#0A0A0A',
+    fontSize: 18,
+    width: 180,
+    alignSelf: 'center',
+  },
+  titleWrapper: {
+    marginTop: 10,
     position: 'absolute',
     ...Platform.select({
       ios: {
@@ -76,7 +80,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   backButton: {
-    width: 130,
+    width: 100,
     height: 37,
     position: 'absolute',
     ...Platform.select({
@@ -414,32 +418,35 @@ class NavBar extends React.Component {
       title = title(childState);
     }
     return (
-      <Animated.Text
-        {...this.props.titleProps}
-        key={childState.key}
-        style={[
-          styles.title,
-          this.props.titleStyle,
-          this.props.navigationState.titleStyle,
-          childState.titleStyle,
-          {
-            opacity: this.props.position.interpolate({
-              inputRange: [index - 1, index, index + 1],
-              outputRange: [0, this.props.titleOpacity, 0],
-            }),
-            left: this.props.position.interpolate({
-              inputRange: [index - 1, index + 1],
-              outputRange: [200, -200],
-            }),
-            right: this.props.position.interpolate({
-              inputRange: [index - 1, index + 1],
-              outputRange: [-200, 200],
-            }),
-          },
-        ]}
-      >
-        {title}
-      </Animated.Text>
+      <Animated.View key={childState.key} style={styles.titleWrapper}>
+        <Animated.Text
+          lineBreakMode="tail"
+          numberOfLines={1}
+          {...this.props.titleProps}
+          style={[
+            styles.title,
+            this.props.titleStyle,
+            this.props.navigationState.titleStyle,
+            childState.titleStyle,
+            {
+              opacity: this.props.position.interpolate({
+                inputRange: [index - 1, index, index + 1],
+                outputRange: [0, this.props.titleOpacity, 0],
+              }),
+              left: this.props.position.interpolate({
+                inputRange: [index - 1, index + 1],
+                outputRange: [200, -200],
+              }),
+              right: this.props.position.interpolate({
+                inputRange: [index - 1, index + 1],
+                outputRange: [-200, 200],
+              }),
+            },
+          ]}
+        >
+          {title}
+        </Animated.Text>
+      </Animated.View>
     );
   }
 
