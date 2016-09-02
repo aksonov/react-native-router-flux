@@ -64,7 +64,8 @@ export function getInitialState(
   });
 
   if (route.tabs) {
-    res.children = route.children.map((r, i) => getInitialState(scenes[r], scenes, i, props));
+    res.children = route.children.map(
+      (r, i) => getInitialState(scenes[r], scenes, i, { ...props, parentIndex: position }));
     res.index = index;
   } else {
     res.children = [getInitialState(scenes[route.children[index]], scenes, 0, props)];

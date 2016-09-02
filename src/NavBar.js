@@ -207,7 +207,7 @@ class NavBar extends React.Component {
       childState.leftButtonStyle,
     ];
 
-    if (state.index === 0) {
+    if (state.index === 0 && (!state.parentIndex || state.parentIndex === 0)) {
       return null;
     }
 
