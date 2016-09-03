@@ -35,20 +35,20 @@ class Router extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
     this.renderNavigation = this.renderNavigation.bind(this);
     this.handleProps = this.handleProps.bind(this);
     this.handleBackAndroid = this.handleBackAndroid.bind(this);
+    const reducer = this.handleProps(props);
+    this.state = {reducer};
   }
 
   componentDidMount() {
-    this.handleProps(this.props);
-
     BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid);
   }
 
   componentWillReceiveProps(props) {
-    this.handleProps(props);
+    const reducer = this.handleProps(props);
+    this.setState({reducer});
   }
 
   componentWillUnmount() {
@@ -117,7 +117,7 @@ class Router extends Component {
         scenes: scenesMap,
       }));
 
-    this.setState({ reducer: routerReducer });
+    return routerReducer;
   }
 
   renderNavigation(navigationState, onNavigate) {
