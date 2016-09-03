@@ -39,7 +39,7 @@ class Router extends Component {
     this.handleProps = this.handleProps.bind(this);
     this.handleBackAndroid = this.handleBackAndroid.bind(this);
     const reducer = this.handleProps(props);
-    this.state = {reducer};
+    this.state = { reducer };
   }
 
   componentDidMount() {
@@ -48,7 +48,7 @@ class Router extends Component {
 
   componentWillReceiveProps(props) {
     const reducer = this.handleProps(props);
-    this.setState({reducer});
+    this.setState({ reducer });
   }
 
   componentWillUnmount() {
