@@ -174,9 +174,9 @@ exports[`Example renders correctly 1`] = `
                       Launch page
                     </Text>
                     <View
-                      accessibilityComponentType={undefined}
+                      accessibilityComponentType="button"
                       accessibilityLabel={undefined}
-                      accessibilityTraits={undefined}
+                      accessibilityTraits="button"
                       accessible={true}
                       hitSlop={undefined}
                       onLayout={undefined}
@@ -211,9 +211,9 @@ exports[`Example renders correctly 1`] = `
                       </Text>
                     </View>
                     <View
-                      accessibilityComponentType={undefined}
+                      accessibilityComponentType="button"
                       accessibilityLabel={undefined}
-                      accessibilityTraits={undefined}
+                      accessibilityTraits="button"
                       accessible={true}
                       hitSlop={undefined}
                       onLayout={undefined}
@@ -248,9 +248,9 @@ exports[`Example renders correctly 1`] = `
                       </Text>
                     </View>
                     <View
-                      accessibilityComponentType={undefined}
+                      accessibilityComponentType="button"
                       accessibilityLabel={undefined}
-                      accessibilityTraits={undefined}
+                      accessibilityTraits="button"
                       accessible={true}
                       hitSlop={undefined}
                       onLayout={undefined}
@@ -285,9 +285,9 @@ exports[`Example renders correctly 1`] = `
                       </Text>
                     </View>
                     <View
-                      accessibilityComponentType={undefined}
+                      accessibilityComponentType="button"
                       accessibilityLabel={undefined}
-                      accessibilityTraits={undefined}
+                      accessibilityTraits="button"
                       accessible={true}
                       hitSlop={undefined}
                       onLayout={undefined}
@@ -322,9 +322,9 @@ exports[`Example renders correctly 1`] = `
                       </Text>
                     </View>
                     <View
-                      accessibilityComponentType={undefined}
+                      accessibilityComponentType="button"
                       accessibilityLabel={undefined}
-                      accessibilityTraits={undefined}
+                      accessibilityTraits="button"
                       accessible={true}
                       hitSlop={undefined}
                       onLayout={undefined}
@@ -359,9 +359,9 @@ exports[`Example renders correctly 1`] = `
                       </Text>
                     </View>
                     <View
-                      accessibilityComponentType={undefined}
+                      accessibilityComponentType="button"
                       accessibilityLabel={undefined}
-                      accessibilityTraits={undefined}
+                      accessibilityTraits="button"
                       accessible={true}
                       hitSlop={undefined}
                       onLayout={undefined}
@@ -396,9 +396,9 @@ exports[`Example renders correctly 1`] = `
                       </Text>
                     </View>
                     <View
-                      accessibilityComponentType={undefined}
+                      accessibilityComponentType="button"
                       accessibilityLabel={undefined}
-                      accessibilityTraits={undefined}
+                      accessibilityTraits="button"
                       accessible={true}
                       hitSlop={undefined}
                       onLayout={undefined}
