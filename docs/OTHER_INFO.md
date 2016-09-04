@@ -157,7 +157,7 @@ export default class extends Component {
             </Scene>
 
 // then you could open/hide/toggle drawer anywhere using 'refresh' modifiers:
-          Actions.refresh({key: 'drawer', open: value => !value };
+          Actions.refresh({key: 'drawer', open: value => !value });
 ```
 ## Sub-scenes support
 You could create 'sub-scene' actions by putting them as children for needed 'base' scene without `component` prop and call such action anywhere - 'base' Scene will be updated accordingly.
