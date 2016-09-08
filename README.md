@@ -118,6 +118,7 @@ And then:
 + Epic Fail Videos ([iOS](https://itunes.apple.com/us/app/epic-fail-videos-best-fail/id1115219339), [Android](https://play.google.com/store/apps/details?id=com.hazuu.epicfailvideos)) - The best Fail Videos Collection, never miss a laugh with your friends!
 + Junk Free ([iOS](https://itunes.apple.com/us/app/junk-free-by-junk-free-june/id1109940159)) - A simple way to find, share, and save recipes, workouts, and other healthy content with your friends, family and workmates.
 + chozun ([iOS](https://itunes.apple.com/au/app/chozun/id1097365167), [Android](https://play.google.com/store/apps/details?id=com.chozun)) - Your travel companion, matching your lifestyle on the go!
++ Snappatizer ([iOS](https://itunes.apple.com/us/app/snappatizer-find-rank-best/id1147400405?mt=8)) - Find and rank the best food around you.
 
 ## Support
 Thanks to all who submitted PRs to 2.x release. If you like the component and want to support it, feel free to donate any amount or help with issues.
