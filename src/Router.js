@@ -38,13 +38,13 @@ class Router extends Component {
     this.state = {};
     this.renderNavigation = this.renderNavigation.bind(this);
     this.handleProps = this.handleProps.bind(this);
-    this.handleBackAndroid = this.handleBackAndroid.bind(this);
+    // this.handleBackAndroid = this.handleBackAndroid.bind(this);
   }
 
   componentDidMount() {
     this.handleProps(this.props);
 
-    BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid);
+    // BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid);
   }
 
   componentWillReceiveProps(props) {
@@ -52,7 +52,7 @@ class Router extends Component {
   }
 
   componentWillUnmount() {
-    BackAndroid.removeEventListener('hardwareBackPress', this.handleBackAndroid);
+    // BackAndroid.removeEventListener('hardwareBackPress', this.handleBackAndroid);
   }
 
   handleBackAndroid() {
