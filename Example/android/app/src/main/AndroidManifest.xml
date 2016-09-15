@@ -1,16 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example">
+    package="com.aksonov.routerflux.example">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    
     <application
-      android:name=".MainApplication"
+      android:name="com.aksonov.routerflux.example.MainApplication"
       android:allowBackup="true"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
       android:theme="@style/AppTheme">
       <activity
-        android:name=".MainActivity"
+        android:name="com.aksonov.routerflux.example.MainActivity"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
         <intent-filter>
