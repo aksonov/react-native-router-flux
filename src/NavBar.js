@@ -418,7 +418,7 @@ class NavBar extends React.Component {
       title = title(childState);
     }
     return (
-      <Animated.View key={childState.key} style={styles.titleWrapper}>
+      <Animated.View key={childState.key} style={[styles.titleWrapper, this.props.titleWrapperStyle,]}>
         <Animated.Text
           lineBreakMode="tail"
           numberOfLines={1}
