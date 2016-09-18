@@ -9,7 +9,7 @@ import Actions from './Actions';
 import TabbedView from './TabbedView';
 import { deepestExplicitValueForKey } from './Util';
 
-class TabBar extends Component {
+export default class TabBar extends Component {
 
   static propTypes = {
     navigationState: PropTypes.object,
@@ -19,11 +19,6 @@ class TabBar extends Component {
     pressOpacity: PropTypes.number,
     hideOnChildTabs: PropTypes.bool,
   };
-
-  constructor(props, context) {
-    super(props, context);
-    this.renderScene = this.renderScene.bind(this);
-  }
 
   onSelect(el) {
     if (!Actions[el.props.name]) {
@@ -38,15 +33,12 @@ class TabBar extends Component {
     }
   }
 
-  renderScene(navigationState) {
-    return (
-      <DefaultRenderer
-        key={navigationState.key}
-        onNavigate={this.props.onNavigate}
-        navigationState={navigationState}
-      />
-    );
-  }
+  renderScene = (navigationState) =>
+    <DefaultRenderer
+      key={navigationState.key}
+      onNavigate={this.props.onNavigate}
+      navigationState={navigationState}
+    />
 
   render() {
     const state = this.props.navigationState;
@@ -92,5 +84,3 @@ class TabBar extends Component {
   }
 
 }
-
-export default TabBar;

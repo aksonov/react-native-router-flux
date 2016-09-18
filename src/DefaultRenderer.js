@@ -114,9 +114,6 @@ export default class DefaultRenderer extends Component {
     super(props);
 
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-    this.renderCard = this.renderCard.bind(this);
-    this.renderScene = this.renderScene.bind(this);
-    this.renderHeader = this.renderHeader.bind(this);
   }
 
   getChildContext() {
@@ -162,7 +159,7 @@ export default class DefaultRenderer extends Component {
     }
   }
 
-  renderCard(/* NavigationSceneRendererProps */ props) {
+  renderCard = (/* NavigationSceneRendererProps */ props) => {
     const { key,
       direction,
       animation,
@@ -223,7 +220,7 @@ export default class DefaultRenderer extends Component {
     );
   }
 
-  renderHeader(/* NavigationSceneRendererProps */ props) {
+  renderHeader = (/* NavigationSceneRendererProps */ props) => {
     const state = props.navigationState;
     const child = state.children[state.index];
     let selected = state.children[state.index];

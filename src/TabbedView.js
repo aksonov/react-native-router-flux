@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class TabbedView extends Component {
+export default class TabbedView extends Component {
 
   static propTypes = {
     navigationState: PropTypes.object.isRequired,
@@ -20,13 +20,9 @@ class TabbedView extends Component {
     style: View.propTypes.style,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.renderedSceneKeys = {};
-    this.renderScene = this.renderScene.bind(this);
-  }
+  renderedSceneKeys = {}
 
-  renderScene(navigationState, index) {
+  renderScene = (navigationState, index) => {
     const isSelected = index === this.props.navigationState.index;
     return (
       <View
@@ -64,5 +60,3 @@ class TabbedView extends Component {
   }
 
 }
-
-export default TabbedView;

@@ -21,12 +21,8 @@ var styles = StyleSheet.create({
 });
 
 export default class extends React.Component {
-    constructor(props){
-        super (props);
-
-        this.state = {
-            offset: new Animated.Value(-deviceHeight)
-        };
+    state = {
+        offset: new Animated.Value(-deviceHeight)
     }
 
     componentDidMount() {
@@ -36,7 +32,7 @@ export default class extends React.Component {
         }).start();
     }
 
-    closeModal() {
+    closeModal = () => {
         Animated.timing(this.state.offset, {
             duration: 150,
             toValue: -deviceHeight
@@ -53,7 +49,7 @@ export default class extends React.Component {
                                 alignItems: "center",
                                 backgroundColor:"white" }}>
                     <Text>{this.props.data}</Text>
-                    <Button onPress={this.closeModal.bind(this)}>Close</Button>
+                    <Button onPress={this.closeModal}>Close</Button>
                 </View>
             </Animated.View>
         );

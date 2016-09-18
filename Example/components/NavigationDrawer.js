@@ -4,11 +4,11 @@ import { DefaultRenderer, Actions } from 'react-native-router-flux';
 
 import TabView from './TabView';
 
-const propTypes = {
-  navigationState: PropTypes.object,
-};
+export default class NavigationDrawer extends React.Component {
+  static propTypes = {
+    navigationState: PropTypes.object,
+  }
 
-class NavigationDrawer extends React.Component {
   render() {
     const state = this.props.navigationState;
     const children = state.children;
@@ -32,7 +32,3 @@ class NavigationDrawer extends React.Component {
     );
   }
 }
-
-NavigationDrawer.propTypes = propTypes;
-
-export default NavigationDrawer;
