@@ -22,7 +22,7 @@ import StatusModal from './components/StatusModal'
       <Scene key="screen1" initial={true} component={Screen1} />
       <Scene key="screen2" component={Screen2} />
     </Scene>
-      <Scene key="statusModal" component={StatusModal} />
+    <Scene key="statusModal" component={StatusModal} />
   </Scene>
 </Router>
 ```
