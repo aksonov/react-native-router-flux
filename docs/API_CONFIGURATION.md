@@ -121,6 +121,7 @@ And every `Scene.type` string literal has a mapped contant in ActionConst, it is
 | tabBarBackgroundImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) |  | optional background image for the Tabs component |
 | tabBarIconContainerStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | optional style override for the View that contains each tab icon |
 | hideTabBar | `bool` | false | hides tab bar for this scene and any following scenes until explicitly reversed (if built-in TabBar component is used as parent renderer)|
+| hideOnChildTabs | `bool` | false | hides tab bar when another `tabs` scene is added to the navigation stack. |
 | pressOpacity | `number` | 0.2 | the opacity when clicking on the tab |
 
 
