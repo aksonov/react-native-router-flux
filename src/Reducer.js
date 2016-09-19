@@ -340,8 +340,15 @@ function reducer({ initialState, scenes }) {
 
       // Find the parent and index of the future state
       if (ActionMap[action.type] === ActionConst.POP_TO) {
-        const target = action.data;
-        assert(target, 'PopTo() must be called with scene name');
+        /*
+         * if a string is passed as only argument
+         * Actions.filterParam will put it in the data property
+         * otherwise look for the scene property
+         */
+        const target = action.data || action.scene;
+        assert(target, 'PopTo() must be called with a single argument: ' +
+        'either the scene name (string) or an object with within the scene property ' +
+        'carrying the target scene to pop to');
 
         const targetEl = findElement(state, target, action.type);
         assert(targetEl, `Cannot find element name named ${target} within current state`);
