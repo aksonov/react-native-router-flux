@@ -163,6 +163,7 @@ const propTypes = {
   leftButtonStyle: View.propTypes.style,
   leftButtonIconStyle: Image.propTypes.style,
   getTitle: PropTypes.func,
+  titleWrapperStyle: Text.propTypes.style,
   titleStyle: Text.propTypes.style,
   titleOpacity: PropTypes.number,
   titleProps: PropTypes.any,
@@ -418,7 +419,13 @@ class NavBar extends React.Component {
       title = title(childState);
     }
     return (
-      <Animated.View key={childState.key} style={styles.titleWrapper}>
+      <Animated.View
+        key={childState.key}
+        style={[
+          styles.titleWrapper,
+          this.props.titleWrapperStyle,
+        ]}
+      >
         <Animated.Text
           lineBreakMode="tail"
           numberOfLines={1}
