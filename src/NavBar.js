@@ -152,6 +152,13 @@ const styles = StyleSheet.create({
     height: 24,
     resizeMode: 'contain',
   },
+  backgroundImage: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
+    backgroundColor:'transparent',
+    alignItems: 'stretch'
+  }
 });
 
 const propTypes = {
@@ -505,7 +512,7 @@ class NavBar extends React.Component {
         ]}
       >
         {navigationBarBackgroundImage ? (
-          <Image source={navigationBarBackgroundImage}>
+          <Image source={navigationBarBackgroundImage} style={styles.backgroundImage}>
             {contents}
           </Image>
         ) : contents}
