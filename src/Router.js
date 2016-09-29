@@ -55,6 +55,16 @@ class Router extends Component {
     BackAndroid.removeEventListener('hardwareBackPress', this.handleBackAndroid);
   }
 
+  static childContextTypes = {
+      routes: PropTypes.object
+  }
+
+  getChildContext() {
+      return {
+          routes: Actions
+      }
+  }
+
   handleBackAndroid() {
     const {
       backAndroidHandler,
