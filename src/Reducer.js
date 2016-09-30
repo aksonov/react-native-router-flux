@@ -76,7 +76,6 @@ function inject(state, action, props, scenes) {
     return state;
   }
   let ind;
-  let children;
 
   switch (ActionMap[action.type]) {
     case ActionConst.POP_TO: {
@@ -209,28 +208,29 @@ function inject(state, action, props, scenes) {
         from: null,
         children: [...state.children, getInitialState(props, scenes, state.index + 1, action)],
       };
-    case ActionConst.JUMP:
+    case ActionConst.JUMP: {
       assert(state.tabs, `Parent=${state.key} is not tab bar, jump action is not valid`);
-      /* TODO: recursive key search (for sub-tab scenes)*/       
+      /* TODO: recursive key search (for sub-tab scenes)*/
       ind = state.children.findIndex(el => el.sceneKey === action.key);
-      // variant #1      
+      // variant #1
       // get target scene with data passed in Actions.SCENE_KEY(PARAMS)
       const targetSceneWithData = getInitialState(props, scenes, ind, action);
-      // find same scene in state.children 
+      // find same scene in state.children
       const targetSceneInState = state.children[ind];
-      // update child scene from state.children with pased data       
-      state.children[ind] = {...targetSceneInState, ...targetSceneWithData};
+      // update child scene from state.children with pased data
+      state.children[ind] = { ...targetSceneInState, ...targetSceneWithData };
 
       // variant #2 - NOT WORKING
-      // just update target scene in state tree with PARAMS   
+      // just update target scene in state tree with PARAMS
       // state.children[ind] = { ...props, ...state.children[ind] };
-      
+
       assert(ind !== -1, `Cannot find route with key=${action.key} for parent=${state.key}`);
 
       if (action.unmountScenes) {
         resetHistoryStack(state.children[ind]);
       }
       return { ...state, index: ind };
+    }
     case ActionConst.REPLACE:
       if (state.children[state.index].sceneKey === action.key) {
         return state;
