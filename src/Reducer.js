@@ -218,7 +218,7 @@ function inject(state, action, props, scenes) {
       const targetSceneWithData = getInitialState(props, scenes, ind, action);
       // find same scene in state.children 
       const targetSceneInState = state.children[ind];
-      // update child with data       
+      // update child scene from state.children with pased data       
       state.children[ind] = {...targetSceneInState, ...targetSceneWithData};
 
       // variant #2 - NOT WORKING
