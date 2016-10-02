@@ -156,9 +156,9 @@ const styles = StyleSheet.create({
     flex: 1,
     width: undefined,
     height: undefined,
-    backgroundColor:'transparent',
-    alignItems: 'stretch'
-  }
+    backgroundColor: 'transparent',
+    alignItems: 'stretch',
+  },
 });
 
 const propTypes = {
