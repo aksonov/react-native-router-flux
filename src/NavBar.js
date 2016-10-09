@@ -34,10 +34,14 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Dimensions
 } from 'react-native';
 import Actions from './Actions';
 import _drawerImage from './menu_burger.png';
 import _backButtonImage from './back_chevron.png';
+
+const IOS_DEFAULT_HEIGHT = 64;
+const ANDROID_DEFAULT_HEIGHT = 54;
 
 const styles = StyleSheet.create({
   title: {
@@ -67,10 +71,10 @@ const styles = StyleSheet.create({
     top: 0,
     ...Platform.select({
       ios: {
-        height: 64,
+        height: IOS_DEFAULT_HEIGHT,
       },
       android: {
-        height: 54,
+        height: ANDROID_DEFAULT_HEIGHT,
       },
     }),
     right: 0,
@@ -170,6 +174,7 @@ const propTypes = {
   position: PropTypes.object,
   navigationBarStyle: View.propTypes.style,
   navigationBarBackgroundImage: Image.propTypes.source,
+  navigationBarBackgroundImageStyle: Image.propTypes.style,
   renderTitle: PropTypes.any,
 };
 
@@ -488,6 +493,25 @@ class NavBar extends React.Component {
       this.props.renderTitle;
     const navigationBarBackgroundImage = this.props.navigationBarBackgroundImage ||
       state.navigationBarBackgroundImage;
+
+    // by default, we want the background image to stretch over the whole navbar
+    // Note that if you change the overall navbar height, you'll have to change the background height too
+    const navigationBarBackgroundImageStyle = [
+      { ...Platform.select({
+          ios: {
+            height: IOS_DEFAULT_HEIGHT,
+          },
+          android: {
+            height: ANDROID_DEFAULT_HEIGHT,
+          },
+        }),
+        width: Dimensions.get('window').width
+      },
+      this.props.navigationBarBackgroundImageStyle ||
+      state.navigationBarBackgroundImageStyle ||
+      selected.navigationBarBackgroundImageStyle ||
+      {}];
+
     const contents = (
       <View>
         {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
@@ -505,7 +529,7 @@ class NavBar extends React.Component {
         ]}
       >
         {navigationBarBackgroundImage ? (
-          <Image source={navigationBarBackgroundImage}>
+          <Image source={navigationBarBackgroundImage} style={navigationBarBackgroundImageStyle}>
             {contents}
           </Image>
         ) : contents}
