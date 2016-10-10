@@ -154,6 +154,7 @@ const propTypes = {
   wrapBy: PropTypes.any,
   component: PropTypes.any,
   backButtonTextStyle: Text.propTypes.style,
+  rightButtonStyle: View.propTypes.style,
   leftButtonStyle: View.propTypes.style,
   leftButtonIconStyle: Image.propTypes.style,
   getTitle: PropTypes.func,
