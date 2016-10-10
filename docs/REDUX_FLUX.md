@@ -124,12 +124,11 @@ class MyComponent extends React.Component {
 export default connect(({routes}) => ({routes}))(MyComponent);
 ```
 
-Getting access the routes from any connected component using Context.
+*Optional opportunity.* Getting access the routes from any component using Context.
 
 ```jsx
 // components/MyComponent.js
 import React, { PropTypes, Text, View } from 'react-native';
-import { connect } from 'react-redux';
 import Button from 'react-native-button'
 
 class MyComponent extends React.Component {
