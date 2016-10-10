@@ -482,12 +482,15 @@ class NavBar extends React.Component {
 
     const renderLeftButton = wrapByStyle(selected.renderLeftButton, leftButtonStyle) ||
       wrapByStyle(selected.component.renderLeftButton, leftButtonStyle) ||
+      wrapByStyle(state.renderLeftButton, leftButtonStyle) ||
       this.renderLeftButton;
     const renderRightButton = wrapByStyle(selected.renderRightButton, rightButtonStyle) ||
       wrapByStyle(selected.component.renderRightButton, rightButtonStyle) ||
+      wrapByStyle(state.renderRightButton, rightButtonStyle) ||
       this.renderRightButton;
     const renderBackButton = wrapByStyle(selected.renderBackButton, leftButtonStyle) ||
       wrapByStyle(selected.component.renderBackButton, leftButtonStyle) ||
+      wrapByStyle(state.renderBackButton, leftButtonStyle) ||
       this.renderBackButton;
     const renderTitle = selected.renderTitle ||
       selected.component.renderTitle ||
