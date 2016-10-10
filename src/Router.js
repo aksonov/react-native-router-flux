@@ -32,6 +32,9 @@ const propTypes = {
 };
 
 class Router extends Component {
+  static childContextTypes = {
+    routes: PropTypes.object,
+  }
 
   constructor(props) {
     super(props);
@@ -40,6 +43,12 @@ class Router extends Component {
     this.handleBackAndroid = this.handleBackAndroid.bind(this);
     const reducer = this.handleProps(props);
     this.state = { reducer };
+  }
+
+  getChildContext() {
+    return {
+      routes: Actions,
+    };
   }
 
   componentDidMount() {

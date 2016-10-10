@@ -1,6 +1,6 @@
 # React Native MobX
  This component is the base for [react-native-mobx](https://github.com/aksonov/react-native-mobx) that provides replacement for Redux/Flux without any boilerplate using [MobX](https://mobxjs.github.io/mobx/).
- 
+
 # React Native Reactive
  [react-native-reactive](https://github.com/aksonov/react-native-reactive) is another reactive alternative with [usage of Calmm-JS](https://github.com/calmm-js/documentation)
 
@@ -61,7 +61,7 @@ export default combineReducers({
 
 ### Step 3
 
-Create your store, wrap your routes with the redux `Provider` component and connect your Router
+Create your store, wrap your routes with the redux `Provider` component and connect your Router.
 
 
 ```jsx
@@ -124,6 +124,34 @@ class MyComponent extends React.Component {
 export default connect(({routes}) => ({routes}))(MyComponent);
 ```
 
+*Optional opportunity.* Getting access the routes from any component using Context.
+
+```jsx
+// components/MyComponent.js
+import React, { PropTypes, Text, View } from 'react-native';
+import Button from 'react-native-button'
+
+class MyComponent extends React.Component {
+  static contextTypes = {
+    routes: PropTypes.object.isRequired,
+  }
+
+  render () {
+    const {routes} = this.context;
+
+    return (
+      <View>
+          <Button onPress={()=>routes.login({data:"Custom data", title:'Custom title' })}>Go to Login page</Button>
+          <Button onPress={routes.register}>Go to Register page</Button>
+          <Button onPress={routes.back}>Go back</Button>
+      </View>
+    );
+  }
+}
+
+export default MyComponent;
+```
+
 ### About `Key xxx is already defined`
 
 There is no way to prevent `Router` re-render IF you wrap it under a `Provider` AND listen updates from `redux`.
@@ -182,8 +210,4 @@ export default class MyExportedRouter extends React.Component {
 
 1. `Router` should render once and just once ( connect to get dispatch method only or not connect at all )
 2. pre create scenes via Actions.create() and pass it into Router
-3. move your app main logic into one of the children of Router 
-
-
-
-
+3. move your app main logic into one of the children of Router
