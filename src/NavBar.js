@@ -483,7 +483,7 @@ class NavBar extends React.Component {
     const navigationBarBackgroundImage = this.props.navigationBarBackgroundImage ||
       state.navigationBarBackgroundImage;
     const contents = (
-      <View>
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
         {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
         {renderBackButton(navProps) || renderLeftButton(navProps)}
         {renderRightButton(navProps)}
