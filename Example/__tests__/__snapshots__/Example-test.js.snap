@@ -197,7 +197,7 @@ exports[`Example renders correctly 1`] = `
                           Array [
                             Object {
                               "color": "#007aff",
-                              "fontFamily": ".HelveticaNeueInterface-MediumP4",
+                              "fontFamily": "HelveticaNeue-Medium",
                               "fontSize": 17,
                               "fontWeight": "bold",
                               "textAlign": "center"
@@ -234,7 +234,7 @@ exports[`Example renders correctly 1`] = `
                           Array [
                             Object {
                               "color": "#007aff",
-                              "fontFamily": ".HelveticaNeueInterface-MediumP4",
+                              "fontFamily": "HelveticaNeue-Medium",
                               "fontSize": 17,
                               "fontWeight": "bold",
                               "textAlign": "center"
@@ -271,7 +271,7 @@ exports[`Example renders correctly 1`] = `
                           Array [
                             Object {
                               "color": "#007aff",
-                              "fontFamily": ".HelveticaNeueInterface-MediumP4",
+                              "fontFamily": "HelveticaNeue-Medium",
                               "fontSize": 17,
                               "fontWeight": "bold",
                               "textAlign": "center"
@@ -308,7 +308,7 @@ exports[`Example renders correctly 1`] = `
                           Array [
                             Object {
                               "color": "#007aff",
-                              "fontFamily": ".HelveticaNeueInterface-MediumP4",
+                              "fontFamily": "HelveticaNeue-Medium",
                               "fontSize": 17,
                               "fontWeight": "bold",
                               "textAlign": "center"
@@ -345,7 +345,7 @@ exports[`Example renders correctly 1`] = `
                           Array [
                             Object {
                               "color": "#007aff",
-                              "fontFamily": ".HelveticaNeueInterface-MediumP4",
+                              "fontFamily": "HelveticaNeue-Medium",
                               "fontSize": 17,
                               "fontWeight": "bold",
                               "textAlign": "center"
@@ -382,7 +382,7 @@ exports[`Example renders correctly 1`] = `
                           Array [
                             Object {
                               "color": "#007aff",
-                              "fontFamily": ".HelveticaNeueInterface-MediumP4",
+                              "fontFamily": "HelveticaNeue-Medium",
                               "fontSize": 17,
                               "fontWeight": "bold",
                               "textAlign": "center"
@@ -419,7 +419,7 @@ exports[`Example renders correctly 1`] = `
                           Array [
                             Object {
                               "color": "#007aff",
-                              "fontFamily": ".HelveticaNeueInterface-MediumP4",
+                              "fontFamily": "HelveticaNeue-Medium",
                               "fontSize": 17,
                               "fontWeight": "bold",
                               "textAlign": "center"
