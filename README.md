@@ -114,6 +114,7 @@ And then:
 * `Actions.refresh(PARAMS)` will update the properties of the current screen.
 
 ## Production Apps using react-native-router-flux
++ Buddify ([iOS](https://itunes.apple.com/app/id1149011372), [Android](https://play.google.com/store/apps/details?id=com.buddify)) - helps travelers discover fun things to do locally.
 + GuavaPass.com ([iOS](https://itunes.apple.com/en/app/guavapass-one-pass-fitness/id1050491044?l=en&mt=8), Android) - offers convenient access to top classes at boutique fitness studios across Asia.
 + Epic Fail Videos ([iOS](https://itunes.apple.com/us/app/epic-fail-videos-best-fail/id1115219339), [Android](https://play.google.com/store/apps/details?id=com.hazuu.epicfailvideos)) - The best Fail Videos Collection, never miss a laugh with your friends!
 + Junk Free ([iOS](https://itunes.apple.com/us/app/junk-free-by-junk-free-june/id1109940159)) - A simple way to find, share, and save recipes, workouts, and other healthy content with your friends, family and workmates.
