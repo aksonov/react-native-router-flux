@@ -210,20 +210,8 @@ function inject(state, action, props, scenes) {
       };
     case ActionConst.JUMP: {
       assert(state.tabs, `Parent=${state.key} is not tab bar, jump action is not valid`);
-      /* TODO: recursive key search (for sub-tab scenes)*/
-      ind = state.children.findIndex(el => el.sceneKey === action.key);
-      // variant #1
-      // get target scene with data passed in Actions.SCENE_KEY(PARAMS)
-      const targetSceneWithData = getInitialState(props, scenes, ind, action);
-      // find same scene in state.children
-      const targetSceneInState = state.children[ind];
-      // update child scene from state.children with pased data
-      state.children[ind] = { ...targetSceneInState, ...targetSceneWithData };
-
-      // variant #2 - NOT WORKING
-      // just update target scene in state tree with PARAMS
-      // state.children[ind] = { ...props, ...state.children[ind] };
-
+      ind = -1;
+      state.children.forEach((c, i) => { if (c.sceneKey === action.key) { ind = i; } });
       assert(ind !== -1, `Cannot find route with key=${action.key} for parent=${state.key}`);
 
       if (action.unmountScenes) {
