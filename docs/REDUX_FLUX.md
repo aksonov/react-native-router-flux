@@ -67,6 +67,7 @@ Create your store, wrap your routes with the redux `Provider` component and conn
 ```jsx
 // app.js
 
+import React, { Component } from 'react';
 import { Router } from 'react-native-router-flux';
 import { connect, Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -82,7 +83,7 @@ const store = compose(
 )(createStore)(reducers);
 
 
-class App extends React.Component {
+class App extends Component {
   render () {
     return (
       <Provider store={store}>
@@ -103,10 +104,11 @@ Now you can access the current scene from any connected component.
 
 ```jsx
 // components/MyComponent.js
-import React, { PropTypes, Text } from 'react-native';
+import React, { Component, PropTypes } from 'react';
+import { Text } from 'react-native';
 import { connect } from 'react-redux';
 
-class MyComponent extends React.Component {
+class MyComponent extends Component {
   static propTypes = {
     routes: PropTypes.object,
   };
@@ -127,13 +129,14 @@ export default connect(({routes}) => ({routes}))(MyComponent);
 
 ```jsx
 // components/MyComponent.js
-import React, { PropTypes, Text, View } from 'react-native';
+import React, { PropTypes } from 'react';
+import { Text, View } from 'react-native';
 import Button from 'react-native-button'
 
 class MyComponent extends React.Component {
   static contextTypes = {
     routes: PropTypes.object.isRequired,
-  }
+  };
 
   render () {
     const {routes} = this.context;
