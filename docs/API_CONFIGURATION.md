@@ -66,6 +66,7 @@ Actions.ROUTE_NAME({type: ActionConst.RESET});
 | ActionConst.REFRESH | `string` | 'REACT_NATIVE_ROUTER_FLUX_REFRESH' | 'refresh' |
 | ActionConst.RESET | `string` | 'REACT_NATIVE_ROUTER_FLUX_RESET' | 'reset' |
 | ActionConst.FOCUS | `string` | 'REACT_NATIVE_ROUTER_FLUX_FOCUS' | 'focus' |
+| ActionConst.MODIFY_STACK | `string` | 'REACT_NATIVE_ROUTER_FLUX_MODIFY_STACK' | 'modifyStack' |
 
 ### ActionConst and Scene.type explaination
 

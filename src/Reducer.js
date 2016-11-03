@@ -246,6 +246,40 @@ function inject(state, action, props, scenes) {
         from: null,
         children: state.children,
       };
+    case ActionConst.MODIFY_STACK: {
+      const newChildren = [...state.children];
+      let removedIndex = null;
+
+      assert(props.commands, 'Modify stack commands is undefined.');
+      props.commands.forEach(command => {
+        switch (command.type) {
+          case ActionConst.ModifyStackTypes.REMOVE:
+            removedIndex = newChildren.findIndex(c => c.sceneKey === command.sceneKey);
+            assert(removedIndex !== -1,
+              `The sceneKey: ${command.sceneKey} could not be found in the stack - ${command}`);
+            assert(removedIndex < newChildren.length - 1,
+              `You are not allowed to remove current scene - ${command}`);
+            newChildren.splice(removedIndex, 1);
+            break;
+
+          case ActionConst.ModifyStackTypes.INSERT:
+            assert((command.index || 0) < newChildren.length,
+              `You are not allowed change current scene - ${command}`);
+            const sceneState = getInitialState(scenes[command.sceneKey], scenes);
+            newChildren.splice(command.index || removedIndex || 0, 0, sceneState);
+            break;
+
+          default:
+            assert(false, `Unknown modify stack command type ${command.type} - ${command}.`);
+        }
+      });
+      return {
+        ...state,
+        index: newChildren.length - 1,
+        from: null,
+        children: newChildren,
+      };
+    }
     default:
       return state;
   }
@@ -327,7 +361,9 @@ function reducer({ initialState, scenes }) {
           ActionMap[action.type] === ActionConst.BACK ||
           ActionMap[action.type] === ActionConst.POP_AND_REPLACE ||
           ActionMap[action.type] === ActionConst.REFRESH ||
-          ActionMap[action.type] === ActionConst.POP_TO) {
+          ActionMap[action.type] === ActionConst.POP_TO ||
+          ActionMap[action.type] === ActionConst.MODIFY_STACK
+      ) {
         if (!action.key && !action.parent) {
           action = { ...getCurrent(state), ...action };
         }
@@ -369,7 +405,9 @@ function reducer({ initialState, scenes }) {
       // recursive pop parent
       if (ActionMap[action.type] === ActionConst.BACK_ACTION ||
           ActionMap[action.type] === ActionConst.BACK ||
-          ActionMap[action.type] === ActionConst.POP_AND_REPLACE) {
+          ActionMap[action.type] === ActionConst.POP_AND_REPLACE ||
+          ActionMap[action.type] === ActionConst.MODIFY_STACK
+      ) {
         const parent = action.parent || state.scenes[action.key].parent;
         let el = findElement(state, parent, action.type);
         while (el.parent && (el.children.length <= 1 || el.tabs)) {
@@ -391,6 +429,7 @@ function reducer({ initialState, scenes }) {
       case ActionConst.JUMP:
       case ActionConst.REPLACE:
       case ActionConst.RESET:
+      case ActionConst.MODIFY_STACK:
         return update(state, action);
 
       default:

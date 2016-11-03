@@ -22,6 +22,7 @@ export const ActionMap = {
   reset: ActionConst.RESET,
   focus: ActionConst.FOCUS,
   pushOrPop: ActionConst.PUSH_OR_POP,
+  modify: ActionConst.MODIFY_STACK,
   [ActionConst.JUMP]: ActionConst.JUMP,
   [ActionConst.PUSH]: ActionConst.PUSH,
   [ActionConst.REPLACE]: ActionConst.REPLACE,
@@ -33,6 +34,7 @@ export const ActionMap = {
   [ActionConst.RESET]: ActionConst.RESET,
   [ActionConst.FOCUS]: ActionConst.FOCUS,
   [ActionConst.PUSH_OR_POP]: ActionConst.PUSH_OR_POP,
+  [ActionConst.MODIFY_STACK]: ActionConst.MODIFY_STACK,
 };
 
 function filterParam(data) {
@@ -195,6 +197,10 @@ class Actions {
 
   focus(props = {}) {
     return this.callback({ ...filterParam(props), type: ActionConst.FOCUS });
+  }
+
+  modify(props = {}) {
+    return this.callback({ ...filterParam(props), type: ActionConst.MODIFY_STACK });
   }
 
   create(scene:Scene, wrapBy = x => x) {
