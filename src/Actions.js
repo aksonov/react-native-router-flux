@@ -71,7 +71,7 @@ class Actions {
     this.pop = this.pop.bind(this);
     this.refresh = this.refresh.bind(this);
     this.focus = this.focus.bind(this);
-    this.modify = this.modify.bind(this);
+    this.modifyStack = this.modifyStack.bind(this);
   }
 
   iterate(root: Scene, parentProps = {}, refsParam = {}, wrapBy) {
@@ -200,7 +200,7 @@ class Actions {
     return this.callback({ ...filterParam(props), type: ActionConst.FOCUS });
   }
 
-  modify(props = {}) {
+  modifyStack(props = {}) {
     return this.callback({ ...filterParam(props), type: ActionConst.MODIFY_STACK });
   }
 
