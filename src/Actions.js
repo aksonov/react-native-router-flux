@@ -200,8 +200,9 @@ class Actions {
     return this.callback({ ...filterParam(props), type: ActionConst.FOCUS });
   }
 
-  modifyStack(props = {}) {
-    return this.callback({ ...filterParam(props), type: ActionConst.MODIFY_STACK });
+  modifyStack(commands, props = {}) {
+    const commandProps = { ...props, commands };
+    return this.callback({ ...filterParam(commandProps), type: ActionConst.MODIFY_STACK });
   }
 
   create(scene:Scene, wrapBy = x => x) {
