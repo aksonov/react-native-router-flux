@@ -71,6 +71,7 @@ class Actions {
     this.pop = this.pop.bind(this);
     this.refresh = this.refresh.bind(this);
     this.focus = this.focus.bind(this);
+    this.modify = this.modify.bind(this);
   }
 
   iterate(root: Scene, parentProps = {}, refsParam = {}, wrapBy) {
