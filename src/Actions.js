@@ -206,10 +206,10 @@ class Actions {
     return this.callback({ ...filterParam(commandProps), type: ActionConst.MODIFY_STACK });
   }
 
-  replaceStack(fromSceneKey, toSceneKey, props = {}) {
+  replaceStack(sceneKey, withSceneKey, props = {}) {
     return this.modifyStack([
-      { type: ActionConst.ModifyStackTypes.REMOVE, sceneKey: fromSceneKey },
-      { type: ActionConst.ModifyStackTypes.INSERT, sceneKey: toSceneKey },
+      { type: ActionConst.ModifyStackTypes.REMOVE, sceneKey },
+      { type: ActionConst.ModifyStackTypes.INSERT, sceneKey: withSceneKey },
     ], props);
   }
 
