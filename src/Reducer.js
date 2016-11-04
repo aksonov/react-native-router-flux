@@ -252,21 +252,28 @@ function inject(state, action, props, scenes) {
 
       assert(props.commands, 'Modify stack commands is undefined.');
       props.commands.forEach(command => {
+        const findIndex = sceneKey => {
+          const index = newChildren.findIndex(c => c.sceneKey === sceneKey);
+          assert(index !== -1,
+            `The sceneKey: ${sceneKey} could not be found in the stack - ${command}`);
+          return index;
+        };
         switch (command.type) {
           case ActionConst.ModifyStackTypes.REMOVE:
-            removedIndex = newChildren.findIndex(c => c.sceneKey === command.sceneKey);
-            assert(removedIndex !== -1,
-              `The sceneKey: ${command.sceneKey} could not be found in the stack - ${command}`);
+            assert(command.sceneKey || command.index >= 0,
+              `sceneKey or index has to be defined - ${command}`);
+            removedIndex = command.sceneKey ? findIndex(command.sceneKey) : command.index;
             assert(removedIndex < newChildren.length - 1,
               `You are not allowed to remove current scene - ${command}`);
             newChildren.splice(removedIndex, 1);
             break;
 
           case ActionConst.ModifyStackTypes.INSERT:
-            assert((command.index || 0) < newChildren.length,
+            const index = command.beforeSceneKey ? findIndex(command.beforeSceneKey) : command.index;
+            assert((index || 0) < newChildren.length,
               `You are not allowed change current scene - ${command}`);
             const sceneState = getInitialState(scenes[command.sceneKey], scenes);
-            newChildren.splice(command.index || removedIndex || 0, 0, sceneState);
+            newChildren.splice(index || removedIndex || 0, 0, sceneState);
             break;
 
           default:

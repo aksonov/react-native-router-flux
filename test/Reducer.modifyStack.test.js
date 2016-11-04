@@ -55,7 +55,7 @@ describe('modifyStack', () => {
   });
 
   describe('REMOVE', () => {
-    it('REMOVE from root stack', () => {
+    it('from root stack using sceneKey', () => {
       latestState = reducer(latestState, {
         key: 'privacyPolicy',
         type: ActionConst.PUSH,
@@ -80,7 +80,32 @@ describe('modifyStack', () => {
       expect(currentScene.type).equal(ActionConst.PUSH);
     });
 
-    it('REMOVE 2 from root stack', () => {
+    it('from root stack using index', () => {
+      latestState = reducer(latestState, {
+        key: 'privacyPolicy',
+        type: ActionConst.PUSH,
+      });
+
+      latestState = reducer(latestState, {
+        key: 'termsOfService',
+        type: ActionConst.PUSH,
+      });
+
+      latestState = reducer(latestState, {
+        key: 'termsOfService',
+        type: ActionConst.MODIFY_STACK,
+        commands: [
+          {type: ActionConst.ModifyStackTypes.REMOVE, index: 1},
+        ],
+      });
+
+      expect(latestState.index).equal(1);
+      currentScene = getCurrent(latestState);
+      expect(currentScene.sceneKey).equal('termsOfService');
+      expect(currentScene.type).equal(ActionConst.PUSH);
+    });
+
+    it('2 from root stack', () => {
       latestState = reducer(latestState, {
         key: 'privacyPolicy',
         type: ActionConst.PUSH,
@@ -106,7 +131,7 @@ describe('modifyStack', () => {
       expect(currentScene.type).equal(ActionConst.PUSH);
     });
 
-    it('REMOVE current scene not allowed', () => {
+    it('current scene not allowed', () => {
       latestState = reducer(latestState, {
         key: 'privacyPolicy',
         type: ActionConst.PUSH,
@@ -122,7 +147,7 @@ describe('modifyStack', () => {
       expect(() => reducer(latestState, action)).to.throw(/You are not allowed to remove current scene/);
     });
 
-    it('REMOVE cannot find scene in the stack', () => {
+    it('cannot find scene in the stack', () => {
       latestState = reducer(latestState, {
         key: 'privacyPolicy',
         type: ActionConst.PUSH,
@@ -137,10 +162,26 @@ describe('modifyStack', () => {
       };
       expect(() => reducer(latestState, action)).to.throw(/could not be found in the stack/);
     });
+
+    it('cannot no sceneKey or index', () => {
+      latestState = reducer(latestState, {
+        key: 'privacyPolicy',
+        type: ActionConst.PUSH,
+      });
+
+      const action = {
+        key: 'privacyPolicy',
+        type: ActionConst.MODIFY_STACK,
+        commands: [
+          {type: ActionConst.ModifyStackTypes.REMOVE},
+        ],
+      };
+      expect(() => reducer(latestState, action)).to.throw(/sceneKey or index has to be defined/);
+    });
   });
 
   describe('INSERT', () => {
-    it('INSERT to root stack', () => {
+    it('to root stack, no position', () => {
       latestState = reducer(latestState, {
         key: 'privacyPolicy',
         type: ActionConst.PUSH,
@@ -155,12 +196,16 @@ describe('modifyStack', () => {
       });
 
       expect(latestState.index).equal(2);
+      expect(latestState.children[0].sceneKey).equal('termsOfService');
+      expect(latestState.children[1].sceneKey).equal('sideMenu');
+      expect(latestState.children[2].sceneKey).equal('privacyPolicy');
+
       currentScene = getCurrent(latestState);
       expect(currentScene.sceneKey).equal('privacyPolicy');
       expect(currentScene.type).equal(ActionConst.PUSH);
     });
 
-    it('INSERT with index to root stack', () => {
+    it('with index to root stack', () => {
       latestState = reducer(latestState, {
         key: 'privacyPolicy',
         type: ActionConst.PUSH,
@@ -175,12 +220,40 @@ describe('modifyStack', () => {
       });
 
       expect(latestState.index).equal(2);
+      expect(latestState.children[0].sceneKey).equal('sideMenu');
+      expect(latestState.children[1].sceneKey).equal('termsOfService');
+      expect(latestState.children[2].sceneKey).equal('privacyPolicy');
+
       currentScene = getCurrent(latestState);
       expect(currentScene.sceneKey).equal('privacyPolicy');
       expect(currentScene.type).equal(ActionConst.PUSH);
     });
 
-    it('INSERT 2 to root stack', () => {
+    it('with beforeSceneKey to root stack', () => {
+      latestState = reducer(latestState, {
+        key: 'privacyPolicy',
+        type: ActionConst.PUSH,
+      });
+
+      latestState = reducer(latestState, {
+        key: 'privacyPolicy',
+        type: ActionConst.MODIFY_STACK,
+        commands: [
+          { type: ActionConst.ModifyStackTypes.INSERT, sceneKey: 'termsOfService', beforeSceneKey: 'privacyPolicy' },
+        ],
+      });
+
+      expect(latestState.index).equal(2);
+      expect(latestState.children[0].sceneKey).equal('sideMenu');
+      expect(latestState.children[1].sceneKey).equal('termsOfService');
+      expect(latestState.children[2].sceneKey).equal('privacyPolicy');
+
+      currentScene = getCurrent(latestState);
+      expect(currentScene.sceneKey).equal('privacyPolicy');
+      expect(currentScene.type).equal(ActionConst.PUSH);
+    });
+
+    it('2 to root stack', () => {
 
       latestState = reducer(latestState, {
         key: 'privacyPolicy',
@@ -200,7 +273,7 @@ describe('modifyStack', () => {
       expect(currentScene.type).equal(ActionConst.PUSH);
     });
 
-    it('INSERT cannot change current scene', () => {
+    it('cannot change current scene', () => {
       latestState = reducer(latestState, {
         key: 'privacyPolicy',
         type: ActionConst.PUSH,
@@ -218,7 +291,7 @@ describe('modifyStack', () => {
   });
 
   describe('REPLACE', () => {
-    it('REPLACE on root stack', () => {
+    it('on root stack', () => {
       latestState = reducer(latestState, {
         key: 'privacyPolicy',
         type: ActionConst.PUSH,
