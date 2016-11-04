@@ -72,6 +72,7 @@ class Actions {
     this.refresh = this.refresh.bind(this);
     this.focus = this.focus.bind(this);
     this.modifyStack = this.modifyStack.bind(this);
+    this.replaceStack = this.replaceStack.bind(this);
   }
 
   iterate(root: Scene, parentProps = {}, refsParam = {}, wrapBy) {
@@ -203,6 +204,13 @@ class Actions {
   modifyStack(commands, props = {}) {
     const commandProps = { ...props, commands };
     return this.callback({ ...filterParam(commandProps), type: ActionConst.MODIFY_STACK });
+  }
+
+  replaceStack(fromSceneKey, toSceneKey, props = {}) {
+    return this.modifyStack([
+      { type: ActionConst.ModifyStackTypes.REMOVE, sceneKey: fromSceneKey },
+      { type: ActionConst.ModifyStackTypes.INSERT, sceneKey: toSceneKey },
+    ], props);
   }
 
   create(scene:Scene, wrapBy = x => x) {
