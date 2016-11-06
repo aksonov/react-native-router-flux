@@ -214,6 +214,7 @@ class NavBar extends React.Component {
       return (
         <BackButton
           testID="backNavButton"
+          accessibilityLabel="backNavButton"
           textButtonStyle={textButtonStyle}
           {...childState}
           style={style}
@@ -238,6 +239,7 @@ class NavBar extends React.Component {
     return (
       <TouchableOpacity
         testID="backNavButton"
+        accessibilityLabel="backNavButton"
         style={style}
         onPress={onPress}
       >
@@ -280,6 +282,7 @@ class NavBar extends React.Component {
             {...state}
             key={'rightNavBarBtn'}
             testID="rightNavButton"
+            accessibilityLabel={self.props.rightAccessibilityLabel}
             style={style}
             textButtonStyle={textStyle}
           />
@@ -291,6 +294,7 @@ class NavBar extends React.Component {
           <TouchableOpacity
             key={'rightNavBarBtn'}
             testID="rightNavButton"
+            accessibilityLabel={self.props.rightAccessibilityLabel}
             style={style}
             onPress={onPress}
           >
