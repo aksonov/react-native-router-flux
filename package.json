@@ -39,7 +39,7 @@
   "dependencies": {
     "react-addons-pure-render-mixin": "15.0.2",
     "react-native-experimental-navigation": "0.26.x",
-    "react-native-tabs": "git://github.com/EdtechFoundry/react-native-tabs.git#bbd6eb58085df4b5a9dc727657c4f816379bc505",
+    "react-native-tabs": "git://github.com/EdtechFoundry/react-native-tabs.git#c709af985dc51ef0732b1b2aee362c4231ecdeb1",
     "react-static-container": "1.0.1"
   },
   "devDependencies": {
