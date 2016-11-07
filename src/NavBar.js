@@ -35,9 +35,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Actions from '../../node_modules/react-native-router-flux/src/Actions';
-import _drawerImage from '../../node_modules/react-native-router-flux/src/menu_burger.png';
-import _backButtonImage from '../../node_modules/react-native-router-flux/src/back_chevron.png';
+import Actions from './Actions';
+import _drawerImage from './menu_burger.png';
+import _backButtonImage from './back_chevron.png';
 
 const styles = StyleSheet.create({
   title: {
