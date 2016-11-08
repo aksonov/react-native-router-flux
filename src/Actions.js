@@ -72,7 +72,8 @@ class Actions {
     this.refresh = this.refresh.bind(this);
     this.focus = this.focus.bind(this);
     this.modifyStack = this.modifyStack.bind(this);
-    this.replaceStack = this.replaceStack.bind(this);
+    this.replaceInStack = this.replaceInStack.bind(this);
+    this.jumpInStack = this.jumpInStack.bind(this);
   }
 
   iterate(root: Scene, parentProps = {}, refsParam = {}, wrapBy) {
@@ -202,15 +203,21 @@ class Actions {
   }
 
   modifyStack(commands, props = {}) {
-    const commandProps = { ...props, commands };
-    return this.callback({ ...filterParam(commandProps), type: ActionConst.MODIFY_STACK });
+    return this.callback(
+      { ...filterParam({ ...props, commands }), type: ActionConst.MODIFY_STACK });
   }
 
-  replaceStack(sceneKey, withSceneKey, props = {}) {
+  replaceInStack(sceneKey, withSceneKey, props = {}) {
     return this.modifyStack([
       { type: ActionConst.ModifyStackTypes.REMOVE, sceneKey },
       { type: ActionConst.ModifyStackTypes.INSERT, sceneKey: withSceneKey },
     ], props);
+  }
+
+  jumpInStack(sceneKey, props = {}) {
+    return this.modifyStack(
+      [{ sceneKey, type: ActionConst.ModifyStackTypes.JUMP }],
+      { key: sceneKey, ...props });
   }
 
   create(scene:Scene, wrapBy = x => x) {

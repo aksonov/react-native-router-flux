@@ -14,4 +14,5 @@ export const MODIFY_STACK = 'REACT_NATIVE_ROUTER_FLUX_MODIFY_STACK';
 export const ModifyStackTypes = {
   REMOVE: 'REMOVE',
   INSERT: 'INSERT',
+  JUMP: 'JUMP',
 };

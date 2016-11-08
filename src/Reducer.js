@@ -71,7 +71,10 @@ function inject(state, action, props, scenes) {
           break;
         }
       }
-      return changed ? { ...state, children: res, index: changedIndex } : state;
+      if (changed) {
+        return ActionMap[action.type] === ActionConst.MODIFY_STACK ?
+          { ...state, children: res } : { ...state, children: res, index: changedIndex };
+      }
     }
     return state;
   }
@@ -251,6 +254,8 @@ function inject(state, action, props, scenes) {
       let removedIndex = null;
 
       assert(props.commands, 'Modify stack commands is undefined.');
+
+      let jumpIndex = null;
       props.commands.forEach(command => {
         const findIndex = sceneKey => {
           const index = newChildren.findIndex(c => c.sceneKey === sceneKey);
@@ -269,11 +274,25 @@ function inject(state, action, props, scenes) {
             break;
 
           case ActionConst.ModifyStackTypes.INSERT:
-            const index = command.beforeSceneKey ? findIndex(command.beforeSceneKey) : command.index;
+            const index =
+              command.beforeSceneKey ? findIndex(command.beforeSceneKey) : command.index;
             assert((index || 0) < newChildren.length,
               `You are not allowed change current scene - ${command}`);
             const sceneState = getInitialState(scenes[command.sceneKey], scenes);
             newChildren.splice(index || removedIndex || 0, 0, sceneState);
+            break;
+
+          case ActionConst.ModifyStackTypes.JUMP:
+            const tabPage = findElement(state, command.sceneKey);
+            assert(tabPage,
+              `The tab page sceneKey: ${command.sceneKey} ` +
+              `could not be found in the stack - ${command}`);
+            const tabBarPage = findElement(state, tabPage.parent);
+            assert(state === tabBarPage,
+              `The tab page Parent=${tabPage.parent} could not be found in the stack - ${command}`);
+            assert(tabBarPage.tabs,
+              `The tab page Parent=${tabPage.parent} is not tab bar, jump action is not valid`);
+            jumpIndex = tabBarPage.children.findIndex(c => c === tabPage);
             break;
 
           default:
@@ -282,7 +301,7 @@ function inject(state, action, props, scenes) {
       });
       return {
         ...state,
-        index: newChildren.length - 1,
+        index: jumpIndex !== null ? jumpIndex : newChildren.length - 1,
         from: null,
         children: newChildren,
       };
