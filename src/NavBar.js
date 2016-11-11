@@ -468,7 +468,8 @@ class NavBar extends React.Component {
 
     const wrapByStyle = (component, wrapStyle) => {
       if (!component) { return null; }
-      return (props) => <View style={wrapStyle}>{component(props)}</View>;
+      return (props) => (component(props) !== null ?
+        <View style={wrapStyle}>{component(props)}</View> : null);
     };
 
     const leftButtonStyle = [styles.leftButton, { alignItems: 'flex-start' }];
