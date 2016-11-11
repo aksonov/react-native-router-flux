@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   backButton: {
-    width: 100,
     height: 37,
     position: 'absolute',
     ...Platform.select({
@@ -96,7 +95,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   rightButton: {
-    width: 100,
     height: 37,
     position: 'absolute',
     ...Platform.select({
@@ -111,7 +109,6 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   leftButton: {
-    width: 100,
     height: 37,
     position: 'absolute',
     ...Platform.select({
@@ -144,9 +141,6 @@ const styles = StyleSheet.create({
   backButtonImage: {
     width: 13,
     height: 21,
-  },
-  rightButtonIconStyle: {
-
   },
   defaultImageStyle: {
     height: 24,
