@@ -82,7 +82,7 @@ that's why it's just a bunch of constants to mask the actual values.
 **Scene.type**
 
 Defines how the new screen is added to the navigator stack. One of push, modal, actionSheet, replace, switch, reset transitionToTop. Default is 'push'.
-And every `Scene.type` string literal has a mapped contant in ActionConst, it is recommended to always use constant.
+And every `Scene.type` string literal has a mapped constant in ActionConst, it is recommended to always use constant.
 
 `replace`: tells navigator to replace current route with new route.  
 `actionSheet`: shows Action Sheet popup, you must pass callback as callback function.  
