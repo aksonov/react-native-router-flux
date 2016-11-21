@@ -202,6 +202,8 @@ declare namespace RNRF {
      * optional wrappert
      */
     wrapBy?: ()=>any,
+      
+    panHandlers?: null | (()=>any)
   }
 
   /**
