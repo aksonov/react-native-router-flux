@@ -234,8 +234,7 @@ export default class DefaultRenderer extends Component {
       // console.log(`SKIPPING renderHeader because ${child.key} !== ${selected.key}`);
       return null;
     }
-    const hideNavBar = deepestExplicitValueForKey(state, 'hideNavBar');
-    if (hideNavBar) {
+    if (child.hideNavBar) {
       // console.log(`SKIPPING renderHeader because ${child.key} hideNavBar === true`);
       return null;
     }
