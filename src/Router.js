@@ -117,8 +117,9 @@ class Router extends Component {
 
     scenesMap.rootProps = parentProps;
 
+
     const initialState = getInitialState(scenesMap);
-    const reducerCreator = props.createReducer || Reducer;
+    const reducerCreator = props.createReducer || Reducer || null;
 
     const routerReducer = props.reducer || (
       reducerCreator({
@@ -150,7 +151,9 @@ class Router extends Component {
   }
 
   render() {
-    if (!this.state.reducer) return null;
+    if (!this.state.reducer) {
+      return null;
+    }
 
     return (
       <NavigationRootContainer
