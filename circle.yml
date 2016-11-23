@@ -1,18 +1,9 @@
 machine:
   node:
-    version: 6.3.1
+    version: 6.9.1
 dependencies:
   override:
     - npm install
-    - ? |
-        case $CIRCLE_NODE_INDEX in
-          2)
-            cd Example
-            npm install
-            ;;
-        esac
-      :
-        parallel: true
 test:
   override:
     - ? |
@@ -22,10 +13,6 @@ test:
             ;;
           1)
             MOCHA_FILE=$CIRCLE_TEST_REPORTS/mocha/junit.xml npm test -- --reporter mocha-junit-reporter
-            ;;
-          2)
-            cd Example
-            npm run jest
             ;;
         esac
       :
