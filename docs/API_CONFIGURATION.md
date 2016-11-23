@@ -132,7 +132,7 @@ And every `Scene.type` string literal has a mapped constant in ActionConst, it i
 | navigationBarStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | optional style override for the navigation bar |
 | navigationBarBackgroundImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) |  | optional background image for the navigation bar |
 | navBar | `React.Component` | | optional custom NavBar for the scene. Check built-in NavBar of the component for reference |
-| drawerImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `'./menu_burger.png'` | Simple way to override the drawerImage in the navBar |
+| drawerImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `require('./menu_burger.png')` | Simple way to override the drawerImage in the navBar |
 
 #### Navigation Bar: Title
 | Property | Type | Default | Description |
@@ -149,7 +149,7 @@ And every `Scene.type` string literal has a mapped constant in ActionConst, it i
 |-----------|--------|---------|--------------------------------------------|
 | backTitle | `string` | | optional string to display with back button |
 | renderBackButton | `function` | | optional closure to render back text or button if this route happens to be the previous route |
-| backButtonImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `'./back_chevron.png'` | Simple way to override the back button in the navBar |
+| backButtonImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `require('./back_chevron.png')` | Simple way to override the back button in the navBar |
 | backButtonTextStyle | [`Text style`](https://facebook.github.io/react-native/docs/text.html#style) | | optional style override for the back title element |
 | hideBackImage | `boolean` | false | no default back button image will be displayed |
 | onBack | `function` | Actions.pop | actions for back button |
