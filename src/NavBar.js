@@ -419,6 +419,8 @@ class NavBar extends React.Component {
     return (
       <Animated.Text
         {...this.props.titleProps}
+        accessibilityLabel={'title'}
+        testID={'title'}
         key={childState.key}
         style={[
           styles.title,
