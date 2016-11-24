@@ -40,10 +40,12 @@ declare namespace RNRF {
      * optional. acts as a shortcut to writing an applyAnimation function with Animated.timing for a given duration (in ms).
      */
     duration?: number,
+
     /**
-     * direction of animation horizontal/vertical
+     * direction of animation horizontal/vertical/leftToRight
      */
-    direction?: 'vertical' | 'horizontal',
+    direction?: 'vertical' | 'horizontal' | 'leftToRight',
+
     /**
      * optional if provided overrides the default spring animation
      */
