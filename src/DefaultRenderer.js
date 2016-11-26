@@ -189,15 +189,15 @@ export default class DefaultRenderer extends Component {
     // direction overrides animation if both are supplied
     const animType = (animation && !direction) ? animation : direction;
 
-    if (typeof(animationStyle) === 'undefined') {
+    if (typeof (animationStyle) === 'undefined') {
       animationStyle = this.chooseInterpolator(animType, props);
     }
 
-    if (typeof(animationStyle) === 'function') {
+    if (typeof (animationStyle) === 'function') {
       animationStyle = animationStyle(props);
     }
 
-    if (typeof(panHandlers) === 'undefined') {
+    if (typeof (panHandlers) === 'undefined') {
       panHandlers = getPanHandlers ?
         getPanHandlers(props, direction) :
         this.getPanHandlers(direction, props);

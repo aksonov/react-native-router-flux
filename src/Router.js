@@ -134,7 +134,7 @@ class Router extends Component {
       return null;
     }
     Actions.get = key => findElement(navigationState, key, ActionConst.REFRESH);
-    Actions.callback = props => {
+    Actions.callback = (props) => {
       const constAction = (props.type && ActionMap[props.type] ? ActionMap[props.type] : null);
       if (this.props.dispatch) {
         if (constAction) {

@@ -133,7 +133,7 @@ describe('handling actions', () => {
 
     state = { ...initialState, scenes };
     current = getCurrent(state);
-    Actions.callback = action => {
+    Actions.callback = (action) => {
       state = reducer(state, action);
       current = getCurrent(state);
     };
@@ -169,7 +169,7 @@ describe('passing props from actions', () => {
 
     let state = { ...initialState, scenes };
     let current = getCurrent(state);
-    Actions.callback = action => {
+    Actions.callback = (action) => {
       state = reducer(state, action);
       current = getCurrent(state);
     };
@@ -198,7 +198,7 @@ describe('passing props from actions', () => {
 
     let state = { ...initialState, scenes };
     let current = getCurrent(state);
-    Actions.callback = action => {
+    Actions.callback = (action) => {
       state = reducer(state, action);
       current = getCurrent(state);
     };
@@ -232,7 +232,7 @@ describe('passing props from actions', () => {
 
     let state = { ...initialState, scenes };
     let current = getCurrent(state);
-    Actions.callback = action => {
+    Actions.callback = (action) => {
       state = reducer(state, action);
       current = getCurrent(state);
     };
@@ -273,7 +273,7 @@ describe('passing props from actions', () => {
 
     let state = { ...initialState, scenes };
     let current = getCurrent(state);
-    Actions.callback = action => {
+    Actions.callback = (action) => {
       state = reducer(state, action);
       current = getCurrent(state);
     };

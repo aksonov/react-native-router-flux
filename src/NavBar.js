@@ -236,9 +236,9 @@ class NavBar extends React.Component {
     }
 
     let text = childState.backTitle ?
-      <Text style={textButtonStyle}>
+      (<Text style={textButtonStyle}>
         {childState.backTitle}
-      </Text>
+      </Text>)
       : null;
 
     return (
@@ -316,11 +316,11 @@ class NavBar extends React.Component {
           </TouchableOpacity>
         );
       }
-      if ((!!state.onRight ^ !!(typeof(rightTitle) !== 'undefined'
-        || typeof(state.rightButtonImage) !== 'undefined'))) {
+      if ((!!state.onRight ^ !!(typeof (rightTitle) !== 'undefined'
+        || typeof (state.rightButtonImage) !== 'undefined'))) {
         console.warn(
           `Both onRight and rightTitle/rightButtonImage
-            must be specified for the scene: ${state.name}`
+            must be specified for the scene: ${state.name}`,
         );
       }
       return null;
@@ -402,7 +402,7 @@ class NavBar extends React.Component {
       if ((!!state.onLeft ^ !!(leftTitle || buttonImage))) {
         console.warn(
           `Both onLeft and leftTitle/leftButtonImage
-            must be specified for the scene: ${state.name}`
+            must be specified for the scene: ${state.name}`,
         );
       }
       return null;
@@ -415,7 +415,7 @@ class NavBar extends React.Component {
     if (title === undefined && childState.component && childState.component.title) {
       title = childState.component.title;
     }
-    if (typeof(title) === 'function') {
+    if (typeof (title) === 'function') {
       title = title(childState);
     }
     return (
@@ -468,7 +468,7 @@ class NavBar extends React.Component {
 
     const wrapByStyle = (component, wrapStyle) => {
       if (!component) { return null; }
-      return (props) => <View style={wrapStyle}>{component(props)}</View>;
+      return props => <View style={wrapStyle}>{component(props)}</View>;
     };
 
     const leftButtonStyle = [styles.leftButton, { alignItems: 'flex-start' }];

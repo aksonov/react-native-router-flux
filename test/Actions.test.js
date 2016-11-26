@@ -51,7 +51,7 @@ describe('Actions', () => {
 
     // set callback which will extract generated action
     let latestAction = null;
-    Actions.callback = action => { latestAction = action; };
+    Actions.callback = (action) => { latestAction = action; };
 
     // test generated actions
     Actions.conversations({ param1: 'Hello world' });
@@ -110,7 +110,7 @@ describe('Actions', () => {
     const scenes = Actions.create(scene);
 
     const tabKeys = ['home', 'map', 'myAccount'];
-    tabKeys.forEach(key => {
+    tabKeys.forEach((key) => {
       expect(scenes[key].component).to.eq(void 0);
       expect(scenes[key].type).to.eq(ActionConst.JUMP);
 
@@ -149,7 +149,7 @@ describe('Actions', () => {
     const scenes = Actions.create(scene);
 
     const subStates = ['view', 'edit', 'save'];
-    subStates.forEach(key => {
+    subStates.forEach((key) => {
       expect(scenes[key].base).to.eq('root');
       expect(scenes[key].parent).to.eq(scenes.root.parent);
     });
@@ -168,7 +168,7 @@ describe('Actions', () => {
     const scenes = Actions.create(scene);
 
     const subStates = ['view', 'edit', 'save'];
-    subStates.forEach(key => {
+    subStates.forEach((key) => {
       expect(scenes[key].type).to.eq(ActionConst.REFRESH);
     });
   });
@@ -189,7 +189,7 @@ describe('Actions', () => {
     const scenes = Actions.create(scene);
 
     const subStates = ['view', 'edit', 'save'];
-    subStates.forEach(key => {
+    subStates.forEach((key) => {
       expect(scenes[key].type).to.eq(ActionConst.REFRESH);
     });
     expect(scenes.messaging.type).to.eq(ActionConst.PUSH);
