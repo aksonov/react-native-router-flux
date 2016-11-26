@@ -42,7 +42,7 @@ import _backButtonImage from './back_chevron.png';
 const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
-    color: '#0A0A0A',
+    color: '#ffffff',
     fontSize: 18,
     width: 180,
     alignSelf: 'center',
@@ -52,25 +52,25 @@ const styles = StyleSheet.create({
     position: 'absolute',
     ...Platform.select({
       ios: {
-        top: 20,
+        top: 15,
       },
       android: {
-        top: 5,
+        top: 0,
       },
     }),
     left: 0,
     right: 0,
   },
   header: {
-    backgroundColor: '#EFEFF2',
+    backgroundColor: '#333237',
     paddingTop: 0,
     top: 0,
     ...Platform.select({
       ios: {
-        height: 64,
+        height: 54,
       },
       android: {
-        height: 54,
+        height: 44,
       },
     }),
     right: 0,
@@ -85,10 +85,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     ...Platform.select({
       ios: {
-        top: 22,
+        top: 15,
       },
       android: {
-        top: 10,
+        top: 3,
       },
     }),
     left: 2,
@@ -112,18 +112,18 @@ const styles = StyleSheet.create({
   },
   leftButton: {
     width: 100,
-    height: 37,
+    height: 30,
     position: 'absolute',
     ...Platform.select({
       ios: {
-        top: 20,
+        top: 15,
       },
       android: {
-        top: 8,
+        top: 0,
       },
     }),
     left: 2,
-    padding: 8,
+    padding: 2,
   },
   barRightButtonText: {
     color: 'rgb(0, 122, 255)',
