@@ -1,14 +1,24 @@
 machine:
+  pre:
+      - mkdir ~/.yarn-cache
   node:
-    version: 7
+    version: stable
 dependencies:
+  pre:
+    # Install Yarn
+    - sudo apt-key adv --fetch-keys http://dl.yarnpkg.com/debian/pubkey.gpg
+    - echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+    - sudo apt-get update -qq
+    - sudo apt-get install -y -qq yarn=0.17.8-1
+  cache_directories:
+    - ~/.yarn-cache
   override:
-    - npm install
+    - yarn install
     - ? |
         case $CIRCLE_NODE_INDEX in
           2)
             cd Example
-            npm install
+            yarn install
             ;;
         esac
       :
@@ -21,11 +31,11 @@ test:
             node node_modules/eslint/bin/eslint index.js src/ test/ -o $CIRCLE_TEST_REPORTS/eslint/eslint.xml -f junit
             ;;
           1)
-            MOCHA_FILE=$CIRCLE_TEST_REPORTS/mocha/junit.xml npm test -- --reporter mocha-junit-reporter
+            MOCHA_FILE=$CIRCLE_TEST_REPORTS/mocha/junit.xml yarn test -- --reporter mocha-junit-reporter
             ;;
           2)
             cd Example
-            npm run jest
+            yarn run jest
             ;;
         esac
       :
