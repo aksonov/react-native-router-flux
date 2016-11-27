@@ -84,7 +84,7 @@ export function getInitialState(
 export default function (scenes:{string: any}) {
   // find "root" component and get state from it
   const rootRoute = Object.keys(scenes).find(route =>
-    scenes.hasOwnProperty(route) && !scenes[route].parent);
+    ({}).hasOwnProperty.call(scenes, route) && !scenes[route].parent);
 
   return getInitialState(scenes[rootRoute], scenes);
 }

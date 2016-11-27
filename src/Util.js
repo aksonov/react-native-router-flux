@@ -4,11 +4,11 @@ export function deepestExplicitValueForKey(navigationState, key) {
   let current;
   let selected = navigationState;
 
-  while (selected.hasOwnProperty('children')) {
+  while ({}.hasOwnProperty.call(selected, 'children')) {
     if (!selected.tabs) {
       // for pushed children, iterate through each, recording key value,
       // until reaching the selected child
-      for (let i = 0; i < selected.index; i++) {
+      for (let i = 0; i < selected.index; i += 1) {
         if (typeof (selected.children[i][key]) !== 'undefined') {
           current = selected.children[i][key];
         }

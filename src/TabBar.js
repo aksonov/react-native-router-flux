@@ -65,7 +65,7 @@ class TabBar extends Component {
         selected={selected.sceneKey}
         pressOpacity={this.props.pressOpacity}
       >
-        {state.children.filter((el) => el.icon || this.props.tabIcon).map(el => {
+        {state.children.filter(el => el.icon || this.props.tabIcon).map((el) => {
           const Icon = el.icon || this.props.tabIcon;
           return <Icon {...this.props} {...el} />;
         })}

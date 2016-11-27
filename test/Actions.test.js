@@ -6,8 +6,8 @@ import * as ActionConst from '../src/ActionConst';
 import { ActionsTest } from '../src/Actions';
 import Scene from '../src/Scene';
 
-let id = 0;
-const guid = () => id++;
+const id = 0;
+const guid = () => id + 1;
 const noop = () => {};
 
 const scenesData = (
@@ -70,7 +70,7 @@ describe('Actions', () => {
 
   it('throws when not providing a root scene', () => {
     const Actions = new ActionsTest();
-    const scene = void 0;
+    const scene = undefined;
     expect(() => Actions.create(scene)).to.throw(Error, 'root scene');
   });
 
@@ -111,11 +111,11 @@ describe('Actions', () => {
 
     const tabKeys = ['home', 'map', 'myAccount'];
     tabKeys.forEach((key) => {
-      expect(scenes[key].component).to.eq(void 0);
+      expect(scenes[key].component).to.eq(undefined);
       expect(scenes[key].type).to.eq(ActionConst.JUMP);
 
       const wrappedKey = scenes[key].children[0];
-      expect(scenes[wrappedKey].component).to.not.eq(void 0);
+      expect(scenes[wrappedKey].component).to.not.eq(undefined);
       expect(scenes[wrappedKey].type).to.eq(ActionConst.PUSH);
     });
   });

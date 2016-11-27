@@ -226,7 +226,7 @@ class NavBar extends React.Component {
         />
       );
     }
-    let buttonImage = childState.backButtonImage ||
+    const buttonImage = childState.backButtonImage ||
       state.backButtonImage || this.props.backButtonImage;
     let onPress = childState.onBack || childState.component.onBack;
     if (onPress) {
@@ -235,7 +235,7 @@ class NavBar extends React.Component {
       onPress = Actions.pop;
     }
 
-    let text = childState.backTitle ?
+    const text = childState.backTitle ?
       (<Text style={textButtonStyle}>
         {childState.backTitle}
       </Text>)
@@ -460,7 +460,7 @@ class NavBar extends React.Component {
   render() {
     let state = this.props.navigationState;
     let selected = state.children[state.index];
-    while (selected.hasOwnProperty('children')) {
+    while ({}.hasOwnProperty.call(selected, 'children')) {
       state = selected;
       selected = selected.children[selected.index];
     }

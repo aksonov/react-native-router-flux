@@ -16,13 +16,13 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
+import NavigationExperimental from 'react-native-experimental-navigation';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import TabBar from './TabBar';
 import NavBar from './NavBar';
 import Actions from './Actions';
 import { deepestExplicitValueForKey } from './Util';
-import NavigationExperimental from 'react-native-experimental-navigation';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -173,7 +173,7 @@ export default class DefaultRenderer extends Component {
     const state = props.navigationState;
     const child = state.children[state.index];
     let selected = state.children[state.index];
-    while (selected.hasOwnProperty('children')) {
+    while ({}.hasOwnProperty.call(selected, 'children')) {
       selected = selected.children[selected.index];
     }
     let { panHandlers, animationStyle } = selected;
@@ -227,7 +227,7 @@ export default class DefaultRenderer extends Component {
     const state = props.navigationState;
     const child = state.children[state.index];
     let selected = state.children[state.index];
-    while (selected.hasOwnProperty('children')) {
+    while ({}.hasOwnProperty.call(selected, 'children')) {
       selected = selected.children[selected.index];
     }
     if (child !== selected) {

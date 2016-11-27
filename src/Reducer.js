@@ -9,11 +9,11 @@
 
 /* eslint-disable no-param-reassign */
 
+import { Platform } from 'react-native';
 import * as ActionConst from './ActionConst';
 import { ActionMap } from './Actions';
 import { assert } from './Util';
 import { getInitialState } from './State';
-import { Platform } from 'react-native';
 
 // WARN: it is not working correct. rewrite it.
 function checkPropertiesEqual(action, lastAction) {
@@ -64,7 +64,7 @@ function inject(state, action, props, scenes) {
       const res = state.children.map(el => inject(el, action, props, scenes));
       let changed = false;
       let changedIndex = -1;
-      for (let i = 0; i < res.length; i++) {
+      for (let i = 0; i < res.length; i += 1) {
         if (res[i] !== state.children[i]) {
           changed = true;
           changedIndex = i;
