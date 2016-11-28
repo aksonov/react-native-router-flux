@@ -6,6 +6,8 @@ import * as ActionConst from '../src/ActionConst';
 import { ActionsTest } from '../src/Actions';
 import Scene from '../src/Scene';
 
+global.__DEV__ = true;
+
 let id = 0;
 const guid = () => id++;
 const noop = () => {};
