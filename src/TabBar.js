@@ -56,6 +56,13 @@ class TabBar extends Component {
       deepestExplicitValueForKey(state, 'hideTabBar') ||
       (this.props.hideOnChildTabs && deepestExplicitValueForKey(selected, 'tabs'));
 
+    const icons = state.children
+      .filter(el => el.icon || this.props.tabIcon)
+      .map(el => {
+        const Icon = el.icon || this.props.tabIcon;
+        return <Icon {...this.props} {...el} />;
+      });
+
     const contents = (
       <Tabs
         style={state.tabBarStyle}
@@ -65,12 +72,10 @@ class TabBar extends Component {
         selected={selected.sceneKey}
         pressOpacity={this.props.pressOpacity}
       >
-        {state.children.filter(el => el.icon || this.props.tabIcon).map(el => {
-          const Icon = el.icon || this.props.tabIcon;
-          return <Icon {...this.props} {...el} />;
-        })}
+        {icons}
       </Tabs>
     );
+
     return (
       <View
         style={{ flex: 1 }}
@@ -80,7 +85,7 @@ class TabBar extends Component {
           style={{ flex: 1 }}
           renderScene={this.renderScene}
         />
-        {!hideTabBar && state.children.filter(el => el.icon).length > 0 &&
+        {!hideTabBar && icons.length > 0 &&
           (state.tabBarBackgroundImage ? (
             <Image source={state.tabBarBackgroundImage}>
               {contents}
