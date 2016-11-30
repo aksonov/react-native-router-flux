@@ -29,20 +29,22 @@ const propTypes = {
   backAndroidHandler: PropTypes.func,
   onBackAndroid: PropTypes.func,
   onExitApp: PropTypes.func,
+  styles: PropTypes.styles,
+  createReducer: PropTypes.func,
+  reducer: PropTypes.func,
+  children: PropTypes.array,
+  scenes: PropTypes.array,
 };
 
-class Router extends Component {
+export default class Router extends Component {
   static childContextTypes = {
     routes: PropTypes.object,
   }
 
-  constructor(props) {
-    super(props);
-    this.renderNavigation = this.renderNavigation.bind(this);
-    this.handleProps = this.handleProps.bind(this);
-    this.handleBackAndroid = this.handleBackAndroid.bind(this);
-    const reducer = this.handleProps(props);
-    this.state = { reducer };
+  static propTypes = propTypes
+
+  state = {
+    reducer: this.handleProps(),
   }
 
   getChildContext() {
@@ -64,7 +66,7 @@ class Router extends Component {
     BackAndroid.removeEventListener('hardwareBackPress', this.handleBackAndroid);
   }
 
-  handleBackAndroid() {
+  handleBackAndroid = () => {
     const {
       backAndroidHandler,
       onBackAndroid,
@@ -90,8 +92,9 @@ class Router extends Component {
     }
   }
 
-  handleProps(props) {
+  handleProps = () => {
     let scenesMap;
+    const props = this.props;
 
     if (props.scenes) {
       scenesMap = props.scenes;
@@ -129,7 +132,7 @@ class Router extends Component {
     return routerReducer;
   }
 
-  renderNavigation(navigationState, onNavigate) {
+  renderNavigation = (navigationState, onNavigate) => {
     if (!navigationState) {
       return null;
     }
@@ -160,7 +163,3 @@ class Router extends Component {
     );
   }
 }
-
-Router.propTypes = propTypes;
-
-export default Router;

@@ -12,12 +12,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const Register = () => (
+export default Register = () => (
   <View style={styles.container}>
     <Text>Register page</Text>
     <Button onPress={Actions.home}>Replace screen</Button>
     <Button onPress={Actions.pop}>Back</Button>
   </View>
 );
-
-export default Register;

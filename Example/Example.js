@@ -88,7 +88,7 @@ const SwitcherPage = (props) => (
   </View>
 );
 
-class Example extends Component {
+export default class Example extends Component {
   render() {
     return (
       <Router createReducer={reducerCreate} getSceneStyle={getSceneStyle}>
@@ -198,5 +198,3 @@ class Example extends Component {
     );
   }
 }
-
-export default Example;

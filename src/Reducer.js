@@ -278,7 +278,7 @@ function update(state, action) {
   return inject(state, action, props, state.scenes);
 }
 
-function reducer({ initialState, scenes }) {
+export default function reducer({ initialState, scenes }) {
   assert(initialState, 'initialState should not be null');
   assert(initialState.key, 'initialState.key should not be null');
   assert(scenes, 'scenes should not be null');
@@ -399,5 +399,3 @@ function reducer({ initialState, scenes }) {
     }
   };
 }
-
-export default reducer;

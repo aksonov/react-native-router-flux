@@ -177,18 +177,12 @@ const defaultProps = {
   titleOpacity: 1,
 };
 
-class NavBar extends React.Component {
+export default class NavBar extends React.Component {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+  static contextTypes = contextTypes
 
-  constructor(props) {
-    super(props);
-
-    this.renderRightButton = this.renderRightButton.bind(this);
-    this.renderBackButton = this.renderBackButton.bind(this);
-    this.renderLeftButton = this.renderLeftButton.bind(this);
-    this.renderTitle = this.renderTitle.bind(this);
-  }
-
-  renderBackButton() {
+  renderBackButton = () => {
     const state = this.props.navigationState;
     const childState = state.children[state.index];
     const BackButton = (childState.component && childState.component.backButton) || state.backButton
@@ -258,7 +252,7 @@ class NavBar extends React.Component {
     );
   }
 
-  renderRightButton(navProps) {
+  renderRightButton = (navProps) => {
     const self = this;
     function tryRender(state, wrapBy) {
       if (!state) {
@@ -322,7 +316,7 @@ class NavBar extends React.Component {
     return tryRender(this.props.component, this.props.wrapBy) || tryRender(this.props);
   }
 
-  renderLeftButton(navProps) {
+  renderLeftButton = (navProps) => {
     const self = this;
     const drawer = this.context.drawer;
     function tryRender(state, wrapBy) {
@@ -404,7 +398,7 @@ class NavBar extends React.Component {
     return tryRender(this.props.component, this.props.wrapBy) || tryRender(this.props);
   }
 
-  renderTitle(childState, index:number) {
+  renderTitle = (childState, index:number) => {
     let title = this.props.getTitle ? this.props.getTitle(childState) : childState.title;
     if (title === undefined && childState.component && childState.component.title) {
       title = childState.component.title;
@@ -507,9 +501,3 @@ class NavBar extends React.Component {
     );
   }
 }
-
-NavBar.propTypes = propTypes;
-NavBar.contextTypes = contextTypes;
-NavBar.defaultProps = defaultProps;
-
-export default NavBar;
