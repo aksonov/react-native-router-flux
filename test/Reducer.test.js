@@ -5,7 +5,7 @@ import Scene from '../src/Scene';
 import { ActionsTest } from '../src/Actions';
 import * as ActionConst from '../src/ActionConst';
 import createReducer from '../src/Reducer';
-import getInitialState from '../src/State';
+import getInitialStateFromRoot from '../src/State';
 
 // TODO: this function is from Reducer!!! Export it from Reducer or move to some sort of helpers.
 export default function getCurrent(state) {
@@ -56,7 +56,7 @@ describe('createReducer', () => {
     // TODO: Think about fully isolated test.
     const Actions = new ActionsTest();
     const scenes = Actions.create(scenesData);
-    const initialState = getInitialState(scenes); // TODO: write test for this.
+    const initialState = getInitialStateFromRoot(scenes); // TODO: write test for this.
 
     const reducer = createReducer({ initialState, scenes });
 
@@ -128,7 +128,7 @@ describe('handling actions', () => {
 
     Actions = new ActionsTest();
     const scenes = Actions.create(scene);
-    const initialState = getInitialState(scenes);
+    const initialState = getInitialStateFromRoot(scenes);
     const reducer = createReducer({ initialState, scenes });
 
     state = { ...initialState, scenes };
@@ -164,7 +164,7 @@ describe('passing props from actions', () => {
 
     const Actions = new ActionsTest();
     const scenes = Actions.create(scene);
-    const initialState = getInitialState(scenes);
+    const initialState = getInitialStateFromRoot(scenes);
     const reducer = createReducer({ initialState, scenes });
 
     let state = { ...initialState, scenes };
@@ -193,7 +193,7 @@ describe('passing props from actions', () => {
 
     const Actions = new ActionsTest();
     const scenes = Actions.create(scene);
-    const initialState = getInitialState(scenes);
+    const initialState = getInitialStateFromRoot(scenes);
     const reducer = createReducer({ initialState, scenes });
 
     let state = { ...initialState, scenes };
@@ -227,7 +227,7 @@ describe('passing props from actions', () => {
 
     const Actions = new ActionsTest();
     const scenes = Actions.create(scene);
-    const initialState = getInitialState(scenes);
+    const initialState = getInitialStateFromRoot(scenes);
     const reducer = createReducer({ initialState, scenes });
 
     let state = { ...initialState, scenes };
@@ -268,7 +268,7 @@ describe('passing props from actions', () => {
 
     const Actions = new ActionsTest();
     const scenes = Actions.create(scene);
-    const initialState = getInitialState(scenes);
+    const initialState = getInitialStateFromRoot(scenes);
     const reducer = createReducer({ initialState, scenes });
 
     let state = { ...initialState, scenes };

@@ -9,7 +9,7 @@ import Router from './src/Router';
 import Scene from './src/Scene';
 import Switch from './src/Switch';
 import TabBar from './src/TabBar';
-import getInitialState from './src/State';
+import getInitialStateFromRoot from './src/State';
 import Util from './src/Util';
 
 export {
@@ -24,6 +24,6 @@ export {
   Switch,
   TabBar,
   TabbedView,
-  getInitialState,
+  getInitialStateFromRoot,
   Util,
 };
