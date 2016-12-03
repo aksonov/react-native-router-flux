@@ -5,7 +5,6 @@ module.exports = {
   ],
   parser: 'babel-eslint',
   rules: {
-    'class-methods-use-this': 0,
     'import/no-named-as-default': 0,
     'react/forbid-prop-types': 0,
     'no-console': 0,

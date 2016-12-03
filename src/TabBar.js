@@ -25,7 +25,7 @@ class TabBar extends Component {
     this.renderScene = this.renderScene.bind(this);
   }
 
-  onSelect(el) {
+  onSelect = (el) => {
     if (!Actions[el.props.name]) {
       throw new Error(
         `No action is defined for name=${el.props.name} ` +

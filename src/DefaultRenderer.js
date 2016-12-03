@@ -135,13 +135,13 @@ export default class DefaultRenderer extends Component {
     }
   }
 
-  getPanHandlers(direction, props) {
-    return direction === 'vertical' ?
+  getPanHandlers = (direction, props) => (
+    direction === 'vertical' ?
       NavigationCardStackPanResponder.forVertical(props) :
-      NavigationCardStackPanResponder.forHorizontal(props);
-  }
+      NavigationCardStackPanResponder.forHorizontal(props)
+  );
 
-  dispatchFocusAction({ navigationState }) {
+  dispatchFocusAction = ({ navigationState }) => {
     if (!navigationState || navigationState.component || navigationState.tabs) {
       return;
     }
@@ -149,7 +149,7 @@ export default class DefaultRenderer extends Component {
     Actions.focus({ scene });
   }
 
-  chooseInterpolator(direction, props) {
+  chooseInterpolator = (direction, props) => {
     switch (direction) {
       case 'vertical':
         return NavigationCardStackStyleInterpolator.forVertical(props);
@@ -213,17 +213,15 @@ export default class DefaultRenderer extends Component {
     );
   }
 
-  renderScene(/* NavigationSceneRendererProps */ props) {
-    return (
-      <DefaultRenderer
-        key={props.scene.navigationState.key}
-        onNavigate={props.onNavigate}
-        navigationState={props.scene.navigationState}
-      />
-    );
-  }
+  renderScene = /* NavigationSceneRendererProps */ props => (
+    <DefaultRenderer
+      key={props.scene.navigationState.key}
+      onNavigate={props.onNavigate}
+      navigationState={props.scene.navigationState}
+    />
+  );
 
-  renderHeader(/* NavigationSceneRendererProps */ props) {
+  renderHeader = (/* NavigationSceneRendererProps */ props) => {
     const state = props.navigationState;
     const child = state.children[state.index];
     let selected = state.children[state.index];
