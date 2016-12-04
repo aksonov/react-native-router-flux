@@ -92,10 +92,6 @@ function inject(state, action, props, scenes) {
     case ActionConst.BACK_ACTION: {
       assert(!state.tabs, 'pop() operation cannot be run on tab bar (tabs=true)');
 
-      if (Platform.OS === 'android') {
-        assert(state.index > 0, 'You are already in the root scene.');
-      }
-
       if (state.index === 0) {
         return state;
       }
@@ -120,6 +116,19 @@ function inject(state, action, props, scenes) {
         from: state.children[state.children.length - popNum],
         children: refreshTopChild(state.children.slice(0, -1 * popNum), action.refresh),
       };
+    }
+    case ActionConst.ANDROID_BACK: {
+      if (Platform.OS === 'android') {
+        assert(state.index > 0, 'You are already in the root scene.');
+      }
+
+      return {
+        ...state,
+        index: state.index - 1,
+        from: state.children[state.children.length - 1],
+        children: refreshTopChild(state.children.slice(0, -1), action.refresh),
+      };
+
     }
     // This action will pop the scene stack and then replace current scene in one go
     case ActionConst.POP_AND_REPLACE: {
@@ -325,6 +334,7 @@ function reducer({ initialState, scenes }) {
       // set current route for pop action or refresh action
       if (ActionMap[action.type] === ActionConst.BACK_ACTION ||
           ActionMap[action.type] === ActionConst.BACK ||
+          ActionMap[action.type] === ActionConst.ANDROID_BACK ||
           ActionMap[action.type] === ActionConst.POP_AND_REPLACE ||
           ActionMap[action.type] === ActionConst.REFRESH ||
           ActionMap[action.type] === ActionConst.POP_TO) {
@@ -369,6 +379,7 @@ function reducer({ initialState, scenes }) {
       // recursive pop parent
       if (ActionMap[action.type] === ActionConst.BACK_ACTION ||
           ActionMap[action.type] === ActionConst.BACK ||
+          ActionMap[action.type] === ActionConst.ANDROID_BACK ||
           ActionMap[action.type] === ActionConst.POP_AND_REPLACE) {
         const parent = action.parent || state.scenes[action.key].parent;
         let el = findElement(state, parent, action.type);
@@ -391,6 +402,7 @@ function reducer({ initialState, scenes }) {
       case ActionConst.JUMP:
       case ActionConst.REPLACE:
       case ActionConst.RESET:
+      case ActionConst.ANDROID_BACK:
         return update(state, action);
 
       default:

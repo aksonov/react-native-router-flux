@@ -76,7 +76,7 @@ class Router extends Component {
     }
 
     try {
-      Actions.pop();
+      Actions.androidBack();
       if (onBackAndroid) {
         onBackAndroid();
       }
