@@ -7,6 +7,7 @@
  *
  */
 import { assert } from './Util';
+import * as ActionConst from './ActionConst';
 
 function getStateFromScenes(route, scenes, props) {
   const getters = [];
@@ -63,12 +64,19 @@ export function getInitialState(
   });
 
   if (route.tabs) {
-    res.children = route.children.map((r, i) => getInitialState(scenes[r], scenes, i, props));
+    res.children = route.children.map(
+      (r, i) => getInitialState(scenes[r], scenes, i, { ...props, parentIndex: position }));
     res.index = index;
   } else {
     res.children = [getInitialState(scenes[route.children[index]], scenes, 0, props)];
     res.index = 0;
   }
+
+  // Copy props to the children of tab routes
+  if (route.type === ActionConst.JUMP) {
+    res.children = res.children.map(child => ({ ...props, ...child }));
+  }
+
   res.key = `${position}_${res.key}`;
   return res;
 }

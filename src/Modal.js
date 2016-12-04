@@ -28,7 +28,14 @@ export default function Modal(props: Object) {
       {children.length > 1 && children.map((el, i) => {
         if (i > 0 && el.component) {
           const Component = el.component;
-          return <Component key={el.key} {...el} />;
+          return (
+            <Component
+              navigationState={children[i]}
+              key={el.key}
+              {...el}
+              onNavigate={props.onNavigate}
+            />
+          );
         }
 
         return null;

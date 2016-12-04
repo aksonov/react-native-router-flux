@@ -1,0 +1,406 @@
+exports[`Example renders correctly 1`] = `
+<View
+  onLayout={[Function]}
+  style={
+    Array [
+      Object {
+        "backgroundColor": "transparent",
+        "flex": 1,
+      },
+      undefined,
+    ]
+  }>
+  <View
+    style={
+      Object {
+        "flex": 1,
+      }
+    }>
+    <View
+      onMoveShouldSetResponder={[Function]}
+      onMoveShouldSetResponderCapture={[Function]}
+      onResponderEnd={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderReject={[Function]}
+      onResponderRelease={[Function]}
+      onResponderStart={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      onStartShouldSetResponderCapture={[Function]}
+      pointerEvents="auto"
+      style={
+        Object {
+          "backgroundColor": "#fff",
+          "bottom": 0,
+          "flex": 1,
+          "left": 0,
+          "opacity": 1,
+          "position": "absolute",
+          "right": 0,
+          "shadowColor": null,
+          "shadowOffset": null,
+          "shadowOpacity": null,
+          "shadowRadius": null,
+          "top": 0,
+          "transform": Array [
+            Object {
+              "translateX": 0,
+            },
+            Object {
+              "translateY": 0,
+            },
+          ],
+        }
+      }>
+      <View
+        style={
+          Array [
+            Object {
+              "flex": 1,
+            },
+            undefined,
+          ]
+        }>
+        <View
+          style={
+            Object {
+              "flex": 1,
+            }
+          }>
+          <View
+            onLayout={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "flex": 1,
+                },
+                undefined,
+              ]
+            }>
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }>
+              <View
+                onMoveShouldSetResponder={[Function]}
+                onMoveShouldSetResponderCapture={[Function]}
+                onResponderEnd={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderReject={[Function]}
+                onResponderRelease={[Function]}
+                onResponderStart={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                onStartShouldSetResponderCapture={[Function]}
+                pointerEvents="auto"
+                style={
+                  Object {
+                    "backgroundColor": "#fff",
+                    "bottom": 0,
+                    "flex": 1,
+                    "left": 0,
+                    "marginBottom": 0,
+                    "marginTop": 0,
+                    "opacity": 1,
+                    "position": "absolute",
+                    "right": 0,
+                    "shadowColor": null,
+                    "shadowOffset": null,
+                    "shadowOpacity": null,
+                    "shadowRadius": null,
+                    "top": 0,
+                    "transform": Array [
+                      Object {
+                        "translateX": 0,
+                      },
+                      Object {
+                        "translateY": 0,
+                      },
+                    ],
+                  }
+                }>
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "flex": 1,
+                      },
+                      undefined,
+                    ]
+                  }>
+                  <View
+                    component={[Function]}
+                    getSceneStyle={[Function]}
+                    index={0}
+                    initial={true}
+                    name="launch"
+                    navigationState={
+                      Object {
+                        "component": [Function],
+                        "getSceneStyle": [Function],
+                        "index": 0,
+                        "initial": true,
+                        "key": "0_launch",
+                        "name": "launch",
+                        "parent": "root",
+                        "sceneKey": "launch",
+                        "title": "Launch",
+                        "type": "REACT_NATIVE_ROUTER_FLUX_PUSH",
+                      }
+                    }
+                    onNavigate={[Function]}
+                    parent="root"
+                    sceneKey="launch"
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "backgroundColor": "transparent",
+                        "borderColor": "red",
+                        "borderWidth": 2,
+                        "flex": 1,
+                        "justifyContent": "center",
+                      }
+                    }
+                    title="Launch"
+                    type="REACT_NATIVE_ROUTER_FLUX_PUSH">
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      lineBreakMode="tail">
+                      Launch page
+                    </Text>
+                    <TouchableOpacity
+                      accessibilityComponentType="button"
+                      accessibilityTraits="button"
+                      activeOpacity={0.2}
+                      onLongPress={undefined}
+                      onPress={[Function]}
+                      onPressIn={undefined}
+                      onPressOut={undefined}
+                      style={undefined}
+                      testID={undefined}>
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        lineBreakMode="tail"
+                        style={
+                          Array [
+                            Object {
+                              "color": "#007aff",
+                              "fontFamily": "HelveticaNeue-Medium",
+                              "fontSize": 17,
+                              "fontWeight": "bold",
+                              "textAlign": "center",
+                            },
+                            null,
+                            undefined,
+                            null,
+                          ]
+                        }>
+                        Go to Login page
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      accessibilityComponentType="button"
+                      accessibilityTraits="button"
+                      activeOpacity={0.2}
+                      onLongPress={undefined}
+                      onPress={[Function]}
+                      onPressIn={undefined}
+                      onPressOut={undefined}
+                      style={undefined}
+                      testID={undefined}>
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        lineBreakMode="tail"
+                        style={
+                          Array [
+                            Object {
+                              "color": "#007aff",
+                              "fontFamily": "HelveticaNeue-Medium",
+                              "fontSize": 17,
+                              "fontWeight": "bold",
+                              "textAlign": "center",
+                            },
+                            null,
+                            undefined,
+                            null,
+                          ]
+                        }>
+                        Go to Register page
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      accessibilityComponentType="button"
+                      accessibilityTraits="button"
+                      activeOpacity={0.2}
+                      onLongPress={undefined}
+                      onPress={[Function]}
+                      onPressIn={undefined}
+                      onPressOut={undefined}
+                      style={undefined}
+                      testID={undefined}>
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        lineBreakMode="tail"
+                        style={
+                          Array [
+                            Object {
+                              "color": "#007aff",
+                              "fontFamily": "HelveticaNeue-Medium",
+                              "fontSize": 17,
+                              "fontWeight": "bold",
+                              "textAlign": "center",
+                            },
+                            null,
+                            undefined,
+                            null,
+                          ]
+                        }>
+                        Go to Register page without animation
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      accessibilityComponentType="button"
+                      accessibilityTraits="button"
+                      activeOpacity={0.2}
+                      onLongPress={undefined}
+                      onPress={[Function]}
+                      onPressIn={undefined}
+                      onPressOut={undefined}
+                      style={undefined}
+                      testID={undefined}>
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        lineBreakMode="tail"
+                        style={
+                          Array [
+                            Object {
+                              "color": "#007aff",
+                              "fontFamily": "HelveticaNeue-Medium",
+                              "fontSize": 17,
+                              "fontWeight": "bold",
+                              "textAlign": "center",
+                            },
+                            null,
+                            undefined,
+                            null,
+                          ]
+                        }>
+                        Popup error
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      accessibilityComponentType="button"
+                      accessibilityTraits="button"
+                      activeOpacity={0.2}
+                      onLongPress={undefined}
+                      onPress={[Function]}
+                      onPressIn={undefined}
+                      onPressOut={undefined}
+                      style={undefined}
+                      testID={undefined}>
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        lineBreakMode="tail"
+                        style={
+                          Array [
+                            Object {
+                              "color": "#007aff",
+                              "fontFamily": "HelveticaNeue-Medium",
+                              "fontSize": 17,
+                              "fontWeight": "bold",
+                              "textAlign": "center",
+                            },
+                            null,
+                            undefined,
+                            null,
+                          ]
+                        }>
+                        Go to TabBar page
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      accessibilityComponentType="button"
+                      accessibilityTraits="button"
+                      activeOpacity={0.2}
+                      onLongPress={undefined}
+                      onPress={[Function]}
+                      onPressIn={undefined}
+                      onPressOut={undefined}
+                      style={undefined}
+                      testID={undefined}>
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        lineBreakMode="tail"
+                        style={
+                          Array [
+                            Object {
+                              "color": "#007aff",
+                              "fontFamily": "HelveticaNeue-Medium",
+                              "fontSize": 17,
+                              "fontWeight": "bold",
+                              "textAlign": "center",
+                            },
+                            null,
+                            undefined,
+                            null,
+                          ]
+                        }>
+                        Go to switcher page
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      accessibilityComponentType="button"
+                      accessibilityTraits="button"
+                      activeOpacity={0.2}
+                      onLongPress={undefined}
+                      onPress={[Function]}
+                      onPressIn={undefined}
+                      onPressOut={undefined}
+                      style={undefined}
+                      testID={undefined}>
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        lineBreakMode="tail"
+                        style={
+                          Array [
+                            Object {
+                              "color": "#007aff",
+                              "fontFamily": "HelveticaNeue-Medium",
+                              "fontSize": 17,
+                              "fontWeight": "bold",
+                              "textAlign": "center",
+                            },
+                            null,
+                            undefined,
+                            null,
+                          ]
+                        }>
+                        back
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

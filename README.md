@@ -1,5 +1,6 @@
-# React Native Router [![Join the chat at https://gitter.im/aksonov/react-native-router-flux](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aksonov/react-native-router-flux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Codacy Badge](https://api.codacy.com/project/badge/grade/c6d869e2367a4fb491efc9de228c5ac6)](https://www.codacy.com/app/aksonov-github/react-native-router-flux) [![npm version](https://badge.fury.io/js/react-native-router-flux.svg)](http://badge.fury.io/js/react-native-router-flux)
+# React Native Router [![Join the chat at https://gitter.im/aksonov/react-native-router-flux](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aksonov/react-native-router-flux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Codacy Badge](https://api.codacy.com/project/badge/grade/c6d869e2367a4fb491efc9de228c5ac6)](https://www.codacy.com/app/aksonov-github/react-native-router-flux) [![npm version](https://badge.fury.io/js/react-native-router-flux.svg)](http://badge.fury.io/js/react-native-router-flux) [![CircleCI](https://circleci.com/gh/aksonov/react-native-router-flux.svg?style=svg)](https://circleci.com/gh/aksonov/react-native-router-flux)
 
+[![NPM](https://nodei.co/npm/react-native-router-flux.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-native-router-flux/)  
 Router for React Native based on new React Native Navigation API.
 
 ## Documentation
@@ -108,13 +109,19 @@ import {Actions} from 'react-native-router-flux'
 And then:
 
 * `Actions.ACTION_NAME(PARAMS)` will call the appropriate action and params will be passed to the scene.
-* `Actions.pop()` will pop the current screen. It can also take a param `{popNum: [number]}` that allows to pop multiple screens at once.
+* `Actions.pop()` will pop the current screen. It accepts following optional params:
+  * `{popNum: [number]}` allows to pop multiple screens at once
+  * `{refresh: {...propsToSetOnPreviousScene}}` allows to refresh the props of the scene that it pops back to
 * `Actions.refresh(PARAMS)` will update the properties of the current screen.
 
 ## Production Apps using react-native-router-flux
++ Buddify ([iOS](https://itunes.apple.com/app/id1149011372), [Android](https://play.google.com/store/apps/details?id=com.buddify)) - helps travelers discover fun things to do locally.
 + GuavaPass.com ([iOS](https://itunes.apple.com/en/app/guavapass-one-pass-fitness/id1050491044?l=en&mt=8), Android) - offers convenient access to top classes at boutique fitness studios across Asia.
 + Epic Fail Videos ([iOS](https://itunes.apple.com/us/app/epic-fail-videos-best-fail/id1115219339), [Android](https://play.google.com/store/apps/details?id=com.hazuu.epicfailvideos)) - The best Fail Videos Collection, never miss a laugh with your friends!
-+ Junk Free ([iOS](https://itunes.apple.com/us/app/junk-free-by-junk-free-june/id1109940159)) - A simple way to find, share, and save recipes, workouts, and other healthy content with your friends, family and workmates. 
++ Junk Free ([iOS](https://itunes.apple.com/us/app/junk-free-by-junk-free-june/id1109940159)) - A simple way to find, share, and save recipes, workouts, and other healthy content with your friends, family and workmates.
++ chozun ([iOS](https://itunes.apple.com/au/app/chozun/id1097365167), [Android](https://play.google.com/store/apps/details?id=com.chozun)) - Your travel companion, matching your lifestyle on the go!
++ Snappatizer ([iOS](https://itunes.apple.com/us/app/snappatizer-find-rank-best/id1147400405?mt=8)) - Find and rank the best food around you.
++ Look Lock ([GitHub](https://github.com/7kfpun/PhotosReactNative), [iOS](https://itunes.apple.com/us/app/look-lock-show-photos-without/id1151863742), [Android](https://play.google.com/store/apps/details?id=com.kfpun.photos)) - Show photos without worries.
 
 ## Support
 Thanks to all who submitted PRs to 2.x release. If you like the component and want to support it, feel free to donate any amount or help with issues.

@@ -1,18 +1,21 @@
 import React, { PropTypes } from 'react';
 import TabBar from './TabBar';
-import { assert } from './Util';
+import Actions from './Actions';
 
 export default function Switch(props) {
   const navState = props.navigationState;
+
   const selector = props.selector;
   const statem = props.statem;
   if (!selector && !statem) console.error('Selector should be defined.');
   let index = -1;
+  let selectedKey = undefined;
   if (!selector) {
     // support Statem - Harel statecharts machine!
     navState.children.forEach((el, i) => {
-      assert(el.default || el.state,
-        `Either default or state should be defined for element=${el.key}`);
+      if (!(el.default || el.state)) {
+        console.error(`Either default or state should be defined for element=${el.key}`);
+      }
       if (el.default) {
         index = i;
       } else {
@@ -21,31 +24,43 @@ export default function Switch(props) {
         }
       }
     });
-    assert(index !== -1, 'No default scene is defined');
   } else {
-    const selectedKey = selector(props);
+    selectedKey = selector(props);
     if (!selectedKey) console.error('Selector should return key.');
     navState.children.forEach((el, i) => {
       if (el.sceneKey === selectedKey) {
         index = i;
       }
     });
-    if (index === -1) console.error(`A scene for key “${selectedKey}” does not exist.`);
   }
-  let navigationState = index !== navState.index ? { ...navState, index } : navState;
+  if (index === -1) console.error(`A scene for key “${selectedKey}” does not exist.`);
+  selectedKey = navState.children[index].sceneKey;
 
-  if (props.unmountScenes) {
-    navigationState = {
-      ...navigationState,
-      children: [navState.children[navigationState.index]],
-      index: 0,
-    };
+  let navigationState;
+  if (index !== navState.index) {
+    if (props.unmountScenes) {
+      navigationState = {
+        ...navState,
+        children: [navState.children[navState.index]],
+        index: 0,
+      };
+      setTimeout(() => {
+        Actions[selectedKey]({ unmountScenes: true });
+      }, 1);
+    } else {
+      navigationState = { ...navState, index };
+      setTimeout(() => {
+        Actions[selectedKey]();
+      }, 1);
+    }
+  } else {
+    navigationState = navState;
   }
+
   return (
     <TabBar
       onNavigate={props.onNavigate}
       navigationState={navigationState}
-      unmountScenes={props.unmountScenes}
     />
   );
 }
