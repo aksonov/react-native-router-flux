@@ -128,7 +128,6 @@ function inject(state, action, props, scenes) {
         from: state.children[state.children.length - 1],
         children: refreshTopChild(state.children.slice(0, -1), action.refresh),
       };
-
     }
     // This action will pop the scene stack and then replace current scene in one go
     case ActionConst.POP_AND_REPLACE: {
