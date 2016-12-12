@@ -258,10 +258,7 @@ function inject(state, action, props, scenes) {
       let jumpIndex = null;
       props.commands.forEach(command => {
         const findIndex = sceneKey => {
-          const index = newChildren.findIndex(c => c.sceneKey === sceneKey);
-          assert(index !== -1,
-            `The sceneKey: ${sceneKey} could not be found in the stack - ${command}`);
-          return index;
+          return newChildren.findIndex(c => c.sceneKey === sceneKey);
         };
         switch (command.type) {
           case ActionConst.ModifyStackTypes.REMOVE:
@@ -270,7 +267,7 @@ function inject(state, action, props, scenes) {
             removedIndex = command.sceneKey ? findIndex(command.sceneKey) : command.index;
             assert(removedIndex < newChildren.length - 1,
               `You are not allowed to remove current scene - ${command}`);
-            newChildren.splice(removedIndex, 1);
+            removedIndex >= 0 && newChildren.splice(removedIndex, 1);
             break;
 
           case ActionConst.ModifyStackTypes.INSERT:
