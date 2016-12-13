@@ -173,7 +173,7 @@ exports[`Example renders correctly 1`] = `
                     <Text
                       accessible={true}
                       allowFontScaling={true}
-                      lineBreakMode="tail">
+                      ellipsizeMode="tail">
                       Launch page
                     </Text>
                     <TouchableOpacity
@@ -189,7 +189,7 @@ exports[`Example renders correctly 1`] = `
                       <Text
                         accessible={true}
                         allowFontScaling={true}
-                        lineBreakMode="tail"
+                        ellipsizeMode="tail"
                         style={
                           Array [
                             Object {
@@ -220,7 +220,7 @@ exports[`Example renders correctly 1`] = `
                       <Text
                         accessible={true}
                         allowFontScaling={true}
-                        lineBreakMode="tail"
+                        ellipsizeMode="tail"
                         style={
                           Array [
                             Object {
@@ -251,7 +251,7 @@ exports[`Example renders correctly 1`] = `
                       <Text
                         accessible={true}
                         allowFontScaling={true}
-                        lineBreakMode="tail"
+                        ellipsizeMode="tail"
                         style={
                           Array [
                             Object {
@@ -282,7 +282,7 @@ exports[`Example renders correctly 1`] = `
                       <Text
                         accessible={true}
                         allowFontScaling={true}
-                        lineBreakMode="tail"
+                        ellipsizeMode="tail"
                         style={
                           Array [
                             Object {
@@ -313,7 +313,7 @@ exports[`Example renders correctly 1`] = `
                       <Text
                         accessible={true}
                         allowFontScaling={true}
-                        lineBreakMode="tail"
+                        ellipsizeMode="tail"
                         style={
                           Array [
                             Object {
@@ -344,7 +344,7 @@ exports[`Example renders correctly 1`] = `
                       <Text
                         accessible={true}
                         allowFontScaling={true}
-                        lineBreakMode="tail"
+                        ellipsizeMode="tail"
                         style={
                           Array [
                             Object {
@@ -375,7 +375,7 @@ exports[`Example renders correctly 1`] = `
                       <Text
                         accessible={true}
                         allowFontScaling={true}
-                        lineBreakMode="tail"
+                        ellipsizeMode="tail"
                         style={
                           Array [
                             Object {

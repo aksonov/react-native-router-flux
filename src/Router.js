@@ -14,7 +14,7 @@ import { BackAndroid } from 'react-native';
 import NavigationExperimental from 'react-native-experimental-navigation';
 
 import Actions, { ActionMap } from './Actions';
-import getInitialState from './State';
+import getInitialStateFromRoot from './State';
 import Reducer, { findElement } from './Reducer';
 import DefaultRenderer from './DefaultRenderer';
 import Scene from './Scene';
@@ -117,7 +117,7 @@ class Router extends Component {
 
     scenesMap.rootProps = parentProps;
 
-    const initialState = getInitialState(scenesMap);
+    const initialState = getInitialStateFromRoot(scenesMap);
     const reducerCreator = props.createReducer || Reducer;
 
     const routerReducer = props.reducer || (
@@ -134,7 +134,7 @@ class Router extends Component {
       return null;
     }
     Actions.get = key => findElement(navigationState, key, ActionConst.REFRESH);
-    Actions.callback = props => {
+    Actions.callback = (props) => {
       const constAction = (props.type && ActionMap[props.type] ? ActionMap[props.type] : null);
       if (this.props.dispatch) {
         if (constAction) {

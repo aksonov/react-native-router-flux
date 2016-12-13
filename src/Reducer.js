@@ -9,11 +9,11 @@
 
 /* eslint-disable no-param-reassign */
 
+import { Platform } from 'react-native';
 import * as ActionConst from './ActionConst';
 import { ActionMap } from './Actions';
 import { assert } from './Util';
 import { getInitialState } from './State';
-import { Platform } from 'react-native';
 
 // WARN: it is not working correct. rewrite it.
 function checkPropertiesEqual(action, lastAction) {
@@ -43,7 +43,7 @@ function resetHistoryStack(child) {
         resetHistoryStack(el);
       }
       return newChild;
-    }
+    },
   );
 }
 
@@ -64,7 +64,7 @@ function inject(state, action, props, scenes) {
       const res = state.children.map(el => inject(el, action, props, scenes));
       let changed = false;
       let changedIndex = -1;
-      for (let i = 0; i < res.length; i++) {
+      for (let i = 0; i < res.length; i += 1) {
         if (res[i] !== state.children[i]) {
           changed = true;
           changedIndex = i;
@@ -102,7 +102,7 @@ function inject(state, action, props, scenes) {
 
       let popNum = 1;
       if (action.popNum) {
-        assert(typeof(action.popNum) === 'number',
+        assert(typeof (action.popNum) === 'number',
           'The data is the number of scenes you want to pop, it must be Number');
         popNum = action.popNum;
         assert(popNum % 1 === 0,
@@ -128,7 +128,7 @@ function inject(state, action, props, scenes) {
 
       let popNum = 1;
       if (action.popNum) {
-        assert(typeof(action.popNum) === 'number',
+        assert(typeof (action.popNum) === 'number',
           'The data is the number of scenes you want to pop, it must be Number');
         popNum = action.popNum;
         assert(popNum % 1 === 0,
@@ -164,23 +164,23 @@ function inject(state, action, props, scenes) {
         newProps,
         scenes,
         state.index,
-        newAction
+        newAction,
       );
 
       return { ...state, children: state.children };
     }
     case ActionConst.REFRESH:
       return props.base ?
-      { navBar: state.navBar,
-        ...scenes.rootProps,
-        ...props,
-        key: state.key,
-        from: null }
+        { navBar: state.navBar,
+          ...scenes.rootProps,
+          ...props,
+          key: state.key,
+          from: null }
         : { ...state,
-        ...props,
-        key: state.key,
-        from: null,
-      };
+          ...props,
+          key: state.key,
+          from: null,
+        };
     case ActionConst.PUSH_OR_POP:
       ind = state.children.findIndex(el => el.sceneKey === action.key);
       if (ind !== -1) {
@@ -228,7 +228,7 @@ function inject(state, action, props, scenes) {
         props,
         scenes,
         state.index,
-        action
+        action,
       );
 
       return { ...state, children: state.children };
@@ -304,7 +304,7 @@ function reducer({ initialState, scenes }) {
         assert(child, `missed child data for key=${key}`);
         // evaluate functions within actions to allow conditional set, like switch values
         const evaluated = {};
-        Object.keys(action).forEach(el => {
+        Object.keys(action).forEach((el) => {
           if (typeof action[el] === 'function' && typeof child[el] !== 'undefined'
             && typeof child[el] !== typeof action[el]) {
             evaluated[el] = action[el](child[el], child);

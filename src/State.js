@@ -24,7 +24,7 @@ function getStateFromScenes(route, scenes, props) {
     getters.push(scenes.rootProps.getInitialState);
   }
 
-  getters.reverse().forEach(fn => {
+  getters.reverse().forEach((fn) => {
     result = { ...result, ...fn(props) };
   });
 
@@ -33,7 +33,7 @@ function getStateFromScenes(route, scenes, props) {
 
 function getSceneKey(parent, key, position, sceneKey) {
   return [parent, key, position, sceneKey]
-    .filter(v => typeof(v) !== 'undefined' && v !== null)
+    .filter(v => typeof (v) !== 'undefined' && v !== null)
     .join('_');
 }
 
@@ -41,7 +41,7 @@ export function getInitialState(
   route: {string: any},
   scenes: {string: any},
   position = 0,
-  props = {}
+  props = {},
 ) {
   // eslint-disable-next-line no-unused-vars
   const { parent, key, style, type, ...parentProps } = props;
@@ -83,8 +83,8 @@ export function getInitialState(
 
 export default function (scenes:{string: any}) {
   // find "root" component and get state from it
-  const rootRoute = Object.keys(scenes).find((route) =>
-    scenes.hasOwnProperty(route) && !scenes[route].parent);
+  const rootRoute = Object.keys(scenes).find(route =>
+    ({}).hasOwnProperty.call(scenes, route) && !scenes[route].parent);
 
   return getInitialState(scenes[rootRoute], scenes);
 }
