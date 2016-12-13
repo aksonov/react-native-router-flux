@@ -145,11 +145,11 @@ describe('handling actions', () => {
     expect(current.key).to.eq('0_hello_');
   });
 
-  it('switches to a corret tab on JUMP', () => {
+  it('switches to a correct tab on JUMP', () => {
     Actions.main();
     Actions.hello();
 
-    expect(current.key).to.eq('0_hello_');
+    expect(current.key).to.eq('hello_0_hello_');
   });
 });
 
@@ -183,7 +183,7 @@ describe('passing props from actions', () => {
     expect(current.customProp).to.eq(undefined);
   });
 
-  it.skip('passes props for tab scenes', () => {
+  it('passes props for tab scenes', () => {
     const scene = (
       <Scene key="root" component={noop} tabs>
         <Scene key="home" component={noop} />
@@ -214,7 +214,7 @@ describe('passing props from actions', () => {
     expect(current.anotherProp).to.eq(undefined);
   });
 
-  it.skip('passes props for nested tab scenes', () => {
+  it('passes props for nested tab scenes', () => {
     const scene = (
       <Scene key="root" component={noop} tabs>
         <Scene key="home" component={noop} />
@@ -250,7 +250,7 @@ describe('passing props from actions', () => {
     expect(current.anotherProp).to.eq(undefined);
   });
 
-  it.skip('passes props for very nested tab scenes', () => {
+  it('passes props for very nested tab scenes', () => {
     const scene = (
       <Scene key="root" component={noop} tabs>
         <Scene key="home" component={noop} />
