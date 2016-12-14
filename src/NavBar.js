@@ -489,6 +489,23 @@ class NavBar extends React.Component {
         {renderRightButton(navProps)}
       </View>
     );
+
+    let navigationBarBackground = this.props.navigationBarBackground ||
+      state.navigationBarBackground;
+    if(navigationBarBackground) {
+      if(typeof navigationBarBackground === 'function') {
+        navigationBarBackground = navigationBarBackground(contents)
+      }
+    } else {
+      if(navigationBarBackgroundImage) {
+        navigationBarBackground = (
+          <Image source={navigationBarBackgroundImage}>
+            {contents}
+          </Image>
+        )
+      }
+    }
+
     return (
       <Animated.View
         style={[
@@ -498,11 +515,7 @@ class NavBar extends React.Component {
           selected.navigationBarStyle,
         ]}
       >
-        {navigationBarBackgroundImage ? (
-          <Image source={navigationBarBackgroundImage}>
-            {contents}
-          </Image>
-        ) : contents}
+        {navigationBarBackground ? navigationBarBackground : contents}
       </Animated.View>
     );
   }
