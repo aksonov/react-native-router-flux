@@ -254,7 +254,7 @@ export default class DefaultRenderer extends Component {
       <NavigationCard
         {...props}
         key={`card_${key}`}
-        style={[animationStyle, style, styles.navigationCard]}
+        style={[animationStyle, styles.navigationCard, style]}
         panHandlers={panHandlers}
         renderScene={DefaultRenderer.renderScene}
       />
