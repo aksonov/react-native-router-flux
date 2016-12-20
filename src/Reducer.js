@@ -223,10 +223,6 @@ function inject(state, action, props, scenes) {
       return { ...state, index: ind };
     }
     case ActionConst.REPLACE:
-      if (state.children[state.index].sceneKey === action.key) {
-        return state;
-      }
-
       state.children[state.children.length - 1] = getInitialState(
         props,
         scenes,
