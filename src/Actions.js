@@ -22,6 +22,7 @@ export const ActionMap = {
   reset: ActionConst.RESET,
   focus: ActionConst.FOCUS,
   pushOrPop: ActionConst.PUSH_OR_POP,
+  androidBack: ActionConst.ANDROID_BACK,
   [ActionConst.JUMP]: ActionConst.JUMP,
   [ActionConst.PUSH]: ActionConst.PUSH,
   [ActionConst.REPLACE]: ActionConst.REPLACE,
@@ -33,6 +34,7 @@ export const ActionMap = {
   [ActionConst.RESET]: ActionConst.RESET,
   [ActionConst.FOCUS]: ActionConst.FOCUS,
   [ActionConst.PUSH_OR_POP]: ActionConst.PUSH_OR_POP,
+  [ActionConst.ANDROID_BACK]: ActionConst.ANDROID_BACK,
 };
 
 function filterParam(data) {
@@ -203,6 +205,10 @@ class Actions {
 
   focus(props = {}) {
     return this.callback({ ...filterParam(props), type: ActionConst.FOCUS });
+  }
+
+  androidBack(props = {}) {
+    return this.callback({ ...filterParam(props), type: ActionConst.ANDROID_BACK });
   }
 
   create(scene:Scene, wrapBy = x => x) {
