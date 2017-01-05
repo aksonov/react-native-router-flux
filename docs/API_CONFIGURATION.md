@@ -141,6 +141,7 @@ And every `Scene.type` string literal has a mapped constant in ActionConst, it i
 | getTitle | `function` | optional | Optionally closure to return a value of the title based on state |
 | renderTitle | `function` | optional | Optionally closure to render the title |
 | titleStyle | [`Text style`](https://facebook.github.io/react-native/docs/text.html#style) |  | optional style override for the title element |
+| titleWrapperStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | optional style override for the title wrapper |
 | titleOpacity | `string` | optional | Set opacity for the title in navigation bar |
 | titleProps | `object` | null | Any other properties to be set on the title component |
 

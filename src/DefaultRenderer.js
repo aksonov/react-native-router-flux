@@ -16,13 +16,13 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
+import NavigationExperimental from 'react-native-experimental-navigation';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import TabBar from './TabBar';
 import NavBar from './NavBar';
 import Actions from './Actions';
 import { deepestExplicitValueForKey } from './Util';
-import NavigationExperimental from 'react-native-experimental-navigation';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -110,38 +110,13 @@ export default class DefaultRenderer extends Component {
     navigationState: PropTypes.any,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-    this.renderCard = this.renderCard.bind(this);
-    this.renderScene = this.renderScene.bind(this);
-    this.renderHeader = this.renderHeader.bind(this);
-  }
-
-  getChildContext() {
-    return {
-      navigationState: this.props.navigationState,
-    };
-  }
-
-  componentDidMount() {
-    this.dispatchFocusAction(this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.navigationState !== this.props.navigationState) {
-      this.dispatchFocusAction(nextProps);
-    }
-  }
-
-  getPanHandlers(direction, props) {
+  static getPanHandlers(direction, props) {
     return direction === 'vertical' ?
       NavigationCardStackPanResponder.forVertical(props) :
       NavigationCardStackPanResponder.forHorizontal(props);
   }
 
-  dispatchFocusAction({ navigationState }) {
+  static dispatchFocusAction({ navigationState }) {
     if (!navigationState || navigationState.component || navigationState.tabs) {
       return;
     }
@@ -149,7 +124,7 @@ export default class DefaultRenderer extends Component {
     Actions.focus({ scene });
   }
 
-  chooseInterpolator(direction, props) {
+  static chooseInterpolator(direction, props) {
     switch (direction) {
       case 'vertical':
         return NavigationCardStackStyleInterpolator.forVertical(props);
@@ -162,58 +137,7 @@ export default class DefaultRenderer extends Component {
     }
   }
 
-  renderCard(/* NavigationSceneRendererProps */ props) {
-    const { key,
-      direction,
-      animation,
-      getSceneStyle,
-      getPanHandlers,
-    } = props.scene.navigationState;
-
-    const state = props.navigationState;
-    const child = state.children[state.index];
-    let selected = state.children[state.index];
-    while (selected.hasOwnProperty('children')) {
-      selected = selected.children[selected.index];
-    }
-    let { panHandlers, animationStyle } = selected;
-    const isActive = child === selected;
-    const computedProps = { isActive };
-    if (isActive) {
-      computedProps.hideNavBar = deepestExplicitValueForKey(props.navigationState, 'hideNavBar');
-      computedProps.hideTabBar = deepestExplicitValueForKey(props.navigationState, 'hideTabBar');
-    }
-
-    const style = getSceneStyle ? getSceneStyle(props, computedProps) : null;
-
-    // direction overrides animation if both are supplied
-    const animType = (animation && !direction) ? animation : direction;
-
-    if (typeof(animationStyle) === 'undefined') {
-      animationStyle = this.chooseInterpolator(animType, props);
-    }
-
-    if (typeof(animationStyle) === 'function') {
-      animationStyle = animationStyle(props);
-    }
-
-    if (typeof(panHandlers) === 'undefined') {
-      panHandlers = getPanHandlers ?
-        getPanHandlers(props, direction) :
-        this.getPanHandlers(direction, props);
-    }
-    return (
-      <NavigationCard
-        {...props}
-        key={`card_${key}`}
-        style={[animationStyle, style]}
-        panHandlers={panHandlers}
-        renderScene={this.renderScene}
-      />
-    );
-  }
-
-  renderScene(/* NavigationSceneRendererProps */ props) {
+  static renderScene(/* NavigationSceneRendererProps */ props) {
     return (
       <DefaultRenderer
         key={props.scene.navigationState.key}
@@ -223,11 +147,11 @@ export default class DefaultRenderer extends Component {
     );
   }
 
-  renderHeader(/* NavigationSceneRendererProps */ props) {
+  static renderHeader(/* NavigationSceneRendererProps */ props) {
     const state = props.navigationState;
     const child = state.children[state.index];
     let selected = state.children[state.index];
-    while (selected.hasOwnProperty('children')) {
+    while ({}.hasOwnProperty.call(selected, 'children')) {
       selected = selected.children[selected.index];
     }
     if (child !== selected) {
@@ -282,6 +206,79 @@ export default class DefaultRenderer extends Component {
     return <HeaderComponent {...props} {...navBarProps} getTitle={getTitle} />;
   }
 
+  static renderCard(/* NavigationSceneRendererProps */ props) {
+    const { key,
+      direction,
+      animation,
+      getSceneStyle,
+      getPanHandlers,
+    } = props.scene.navigationState;
+
+    const state = props.navigationState;
+    const child = state.children[state.index];
+    let selected = state.children[state.index];
+    while ({}.hasOwnProperty.call(selected, 'children')) {
+      selected = selected.children[selected.index];
+    }
+    let { panHandlers, animationStyle } = selected;
+    const isActive = child === selected;
+    const computedProps = { isActive };
+    if (isActive) {
+      computedProps.hideNavBar = deepestExplicitValueForKey(props.navigationState, 'hideNavBar');
+      computedProps.hideTabBar = deepestExplicitValueForKey(props.navigationState, 'hideTabBar');
+    }
+
+    const style = getSceneStyle ? getSceneStyle(props, computedProps) : null;
+
+    // direction overrides animation if both are supplied
+    const animType = (animation && !direction) ? animation : direction;
+
+    if (typeof (animationStyle) === 'undefined') {
+      animationStyle = DefaultRenderer.chooseInterpolator(animType, props);
+    }
+
+    if (typeof (animationStyle) === 'function') {
+      animationStyle = animationStyle(props);
+    }
+
+    if (typeof (panHandlers) === 'undefined') {
+      panHandlers = getPanHandlers ?
+        getPanHandlers(props, direction) :
+        DefaultRenderer.getPanHandlers(direction, props);
+    }
+    return (
+      <NavigationCard
+        {...props}
+        key={`card_${key}`}
+        style={[animationStyle, style]}
+        panHandlers={panHandlers}
+        renderScene={DefaultRenderer.renderScene}
+      />
+    );
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+  }
+
+  getChildContext() {
+    return {
+      navigationState: this.props.navigationState,
+    };
+  }
+
+  componentDidMount() {
+    DefaultRenderer.dispatchFocusAction(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.navigationState !== this.props.navigationState) {
+      DefaultRenderer.dispatchFocusAction(nextProps);
+    }
+  }
+
   render() {
     const { navigationState, onNavigate } = this.props;
 
@@ -333,8 +330,8 @@ export default class DefaultRenderer extends Component {
       <NavigationAnimatedView
         navigationState={navigationState}
         style={[styles.animatedView, style]}
-        renderOverlay={this.renderHeader}
-        renderScene={this.renderCard}
+        renderOverlay={DefaultRenderer.renderHeader}
+        renderScene={DefaultRenderer.renderCard}
         {...optionals}
       />
     );

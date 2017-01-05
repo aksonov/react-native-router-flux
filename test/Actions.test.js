@@ -6,8 +6,8 @@ import * as ActionConst from '../src/ActionConst';
 import { ActionsTest } from '../src/Actions';
 import Scene from '../src/Scene';
 
-let id = 0;
-const guid = () => id++;
+const id = 0;
+const guid = () => id + 1;
 const noop = () => {};
 
 const scenesData = (
@@ -51,7 +51,7 @@ describe('Actions', () => {
 
     // set callback which will extract generated action
     let latestAction = null;
-    Actions.callback = action => { latestAction = action; };
+    Actions.callback = (action) => { latestAction = action; };
 
     // test generated actions
     Actions.conversations({ param1: 'Hello world' });
@@ -70,7 +70,7 @@ describe('Actions', () => {
 
   it('throws when not providing a root scene', () => {
     const Actions = new ActionsTest();
-    const scene = void 0;
+    const scene = undefined;
     expect(() => Actions.create(scene)).to.throw(Error, 'root scene');
   });
 
@@ -110,12 +110,12 @@ describe('Actions', () => {
     const scenes = Actions.create(scene);
 
     const tabKeys = ['home', 'map', 'myAccount'];
-    tabKeys.forEach(key => {
-      expect(scenes[key].component).to.eq(void 0);
+    tabKeys.forEach((key) => {
+      expect(scenes[key].component).to.eq(undefined);
       expect(scenes[key].type).to.eq(ActionConst.JUMP);
 
       const wrappedKey = scenes[key].children[0];
-      expect(scenes[wrappedKey].component).to.not.eq(void 0);
+      expect(scenes[wrappedKey].component).to.not.eq(undefined);
       expect(scenes[wrappedKey].type).to.eq(ActionConst.PUSH);
     });
   });
@@ -149,7 +149,7 @@ describe('Actions', () => {
     const scenes = Actions.create(scene);
 
     const subStates = ['view', 'edit', 'save'];
-    subStates.forEach(key => {
+    subStates.forEach((key) => {
       expect(scenes[key].base).to.eq('root');
       expect(scenes[key].parent).to.eq(scenes.root.parent);
     });
@@ -168,7 +168,7 @@ describe('Actions', () => {
     const scenes = Actions.create(scene);
 
     const subStates = ['view', 'edit', 'save'];
-    subStates.forEach(key => {
+    subStates.forEach((key) => {
       expect(scenes[key].type).to.eq(ActionConst.REFRESH);
     });
   });
@@ -189,7 +189,7 @@ describe('Actions', () => {
     const scenes = Actions.create(scene);
 
     const subStates = ['view', 'edit', 'save'];
-    subStates.forEach(key => {
+    subStates.forEach((key) => {
       expect(scenes[key].type).to.eq(ActionConst.REFRESH);
     });
     expect(scenes.messaging.type).to.eq(ActionConst.PUSH);
