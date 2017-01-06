@@ -20,13 +20,17 @@ class TabBar extends Component {
     hideOnChildTabs: PropTypes.bool,
   };
 
-  static onSelect(el) {
+  static onSelect(el, selectedSceneKey) {
     if (!Actions[el.props.name]) {
       throw new Error(
         `No action is defined for name=${el.props.name} ` +
         `actions: ${JSON.stringify(Object.keys(Actions))}`);
     }
-    if (typeof el.props.onPress === 'function') {
+    const active = selectedSceneKey == (el.props.name || el.key)
+    if (active && typeof el.props.onActivePress === 'function') {
+      el.props.onActivePress();
+    }
+    else if (typeof el.props.onPress === 'function') {
       el.props.onPress();
     } else {
       Actions[el.props.name]();
@@ -61,7 +65,7 @@ class TabBar extends Component {
         style={state.tabBarStyle}
         selectedIconStyle={state.tabBarSelectedItemStyle}
         iconStyle={state.tabBarIconContainerStyle}
-        onSelect={TabBar.onSelect} {...state}
+        onSelect={(el) => TabBar.onSelect(el, selected.sceneKey)} {...state}
         selected={selected.sceneKey}
         pressOpacity={this.props.pressOpacity}
       >
