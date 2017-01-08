@@ -254,7 +254,7 @@ export interface SceneProps<OwnProps> extends BaseProps, React.TouchableWithoutF
 /**
  * Scene
  */
-export class Scene<OwnProps> extends React.Component<SceneProps<OwnProps> & OwnProps, {}> {
+export class Scene<OwnProps> extends React.Component<SceneProps<OwnProps>, {}> {
 
 }
 
@@ -264,7 +264,7 @@ export interface RouterProps<OwnProps> extends React.Props<Router<OwnProps>>, Ba
   createReducer?: Function;
   scenes?: any;
 }
-export class Router<OwnProps> extends React.Component<RouterProps<OwnProps> & OwnProps, {}>{ }
+export class Router<OwnProps> extends React.Component<RouterProps<OwnProps>, {}>{ }
 
 // Actions
 export interface RNRFActions {
@@ -312,14 +312,14 @@ export interface DefaultRendererProps<OwnProps> extends React.Props<DefaultRende
   navigationState: NavigationState;
   onNavigate: Function;
 }
-export class DefaultRenderer<OwnProps> extends React.Component<DefaultRendererProps<OwnProps> & OwnProps, {}>{ }
+export class DefaultRenderer<OwnProps> extends React.Component<DefaultRendererProps<OwnProps>, {}>{ }
 
 // Modal
 export interface ModalProps<OwnProps> extends React.Props<Modal<OwnProps>> {
   navigationState: NavigationState;
   onNavigate: Function;
 }
-export class Modal<OwnProps> extends React.Component<ModalProps<OwnProps> & OwnProps, {}>{
+export class Modal<OwnProps> extends React.Component<ModalProps<OwnProps>, {}>{
 
 }
 
@@ -336,7 +336,7 @@ export interface NavBarProps<OwnProps> extends React.Props<NavBar<OwnProps>> {
   navigationBarStyle?: ReactNative.ViewStyle;
   renderTitle?: any;
 }
-export class NavBar<OwnProps> extends React.Component<NavBarProps<OwnProps> & OwnProps, {}>{
+export class NavBar<OwnProps> extends React.Component<NavBarProps<OwnProps>, {}>{
 
 }
 
@@ -353,7 +353,7 @@ export interface SwitchProps<OwnProps> extends React.Props<Switch<OwnProps>> {
   onNavigate?: Function;
   selector?: Function;
 }
-export class Switch<OwnProps> extends React.Component<SwitchProps<OwnProps> & OwnProps, {}>{
+export class Switch<OwnProps> extends React.Component<SwitchProps<OwnProps>, {}>{
 
 }
 
@@ -363,7 +363,7 @@ export interface TabBarProps<OwnProps> extends React.Props<TabBar<OwnProps>> {
   tabIcon?: any;
   onNavigate?: Function;
 }
-export class TabBar<OwnProps> extends React.Component<TabBarProps<OwnProps> & OwnProps, {}>{
+export class TabBar<OwnProps> extends React.Component<TabBarProps<OwnProps>, {}>{
 
 }
 
