@@ -7,11 +7,17 @@ import * as ReactNative from 'react-native';
 /**
  * Optionally override the styles for NavigationCard's Animated.View rendering the scene. Receives first argument of NavigationSceneRendererProps and second argument of {hideNavBar,hideTabBar,isActive} (see Example app).
  */
-export type GetSceneStyle = (props?: React.NavigationSceneRendererProps, computedProps?: ComputedProps & BaseProps) => React.ViewStyle;
+export type GetSceneStyle = (props?: React.NavigationSceneRendererProps, computedProps?: ComputedProps & HideNavTab) => React.ViewStyle;
 
 export type ActionConsts = 'jump' | 'push' | 'replace' | 'back' | 'BackAction' | 'popAndReplace' | 'popTo' | 'refresh'| 'reset' | 'focus' | string;
 
-export interface BaseProps {
+export interface AttributesProps<T> extends React.Attributes, React.ClassAttributes<T> { }
+
+export interface ComputedProps {
+  isActive?: boolean;
+}
+
+export interface HideNavTab {
   /**
    * hides the navigation bar for this scene and any following scenes until explicitly reversed
    */
@@ -20,6 +26,10 @@ export interface BaseProps {
    * hides tab bar for this scene and any following scenes until explicitly reversed (if built-in TabBar component is used as parent renderer)
    */
   hideTabBar?: boolean;
+}
+
+export interface BaseProps extends HideNavTab {
+
   /**
    * Defines how the new screen is added to the navigator stack. One of push, jump, replace, reset. If parent container is tabbar (tabs=true), jump will be automatically set.
    */
@@ -213,10 +223,6 @@ export interface BaseProps {
   titleProps?: Object;
 }
 
-export interface ComputedProps {
-  isActive?: boolean;
-}
-
 export type ComponentConstructor<Props> = (props: Props) => JSX.Element | React.ReactNode;
 
 export interface SceneProps<OwnProps> extends BaseProps, React.TouchableWithoutFeedbackProperties {
@@ -259,7 +265,7 @@ export class Scene<OwnProps> extends React.Component<SceneProps<OwnProps>, {}> {
 }
 
 // Router
-export interface RouterProps<OwnProps> extends React.Props<Router<OwnProps>>, BaseProps {
+export interface RouterProps<OwnProps> extends AttributesProps<Router<OwnProps>>, BaseProps {
   reducer?: Function;
   createReducer?: Function;
   scenes?: any;
@@ -308,14 +314,14 @@ export interface NavigationState extends SceneProps<any> {
 }
 
 // DefaultRenderer
-export interface DefaultRendererProps<OwnProps> extends React.Props<DefaultRenderer<OwnProps>> {
+export interface DefaultRendererProps<OwnProps> extends AttributesProps<DefaultRenderer<OwnProps>> {
   navigationState: NavigationState;
   onNavigate: Function;
 }
 export class DefaultRenderer<OwnProps> extends React.Component<DefaultRendererProps<OwnProps>, {}>{ }
 
 // Modal
-export interface ModalProps<OwnProps> extends React.Props<Modal<OwnProps>> {
+export interface ModalProps<OwnProps> extends AttributesProps<Modal<OwnProps>> {
   navigationState: NavigationState;
   onNavigate: Function;
 }
@@ -324,7 +330,7 @@ export class Modal<OwnProps> extends React.Component<ModalProps<OwnProps>, {}>{
 }
 
 // navbar
-export interface NavBarProps<OwnProps> extends React.Props<NavBar<OwnProps>> {
+export interface NavBarProps<OwnProps> extends AttributesProps<NavBar<OwnProps>> {
   navigationState?: NavigationState;
   backButtonImage?: number;
   backButtonTextStyle?: ReactNative.TextStyle;
@@ -348,7 +354,7 @@ export class Reducer {
 }
 
 // Switch
-export interface SwitchProps<OwnProps> extends React.Props<Switch<OwnProps>> {
+export interface SwitchProps<OwnProps> extends AttributesProps<Switch<OwnProps>> {
   navigationState?: NavigationState;
   onNavigate?: Function;
   selector?: Function;
@@ -358,7 +364,7 @@ export class Switch<OwnProps> extends React.Component<SwitchProps<OwnProps>, {}>
 }
 
 // TabBar
-export interface TabBarProps<OwnProps> extends React.Props<TabBar<OwnProps>> {
+export interface TabBarProps<OwnProps> extends AttributesProps<TabBar<OwnProps>> {
   navigationState?: Object;
   tabIcon?: any;
   onNavigate?: Function;
