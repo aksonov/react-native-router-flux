@@ -178,17 +178,18 @@ function inject(state, action, props, scenes) {
       return { ...state, children: state.children };
     }
     case ActionConst.REFRESH:
-      return props.base ?
-        { navBar: state.navBar,
-          ...scenes.rootProps,
-          ...props,
-          key: state.key,
-          from: null }
-        : { ...state,
-          ...props,
-          key: state.key,
-          from: null,
-        };
+      return props.base ? {
+        navBar: state.navBar,
+        ...scenes.rootProps,
+        ...props,
+        key: state.key,
+        from: null }
+      : {
+        ...state,
+        ...props,
+        key: state.key,
+        from: null,
+      };
     case ActionConst.PUSH_OR_POP:
       ind = state.children.findIndex(el => el.sceneKey === action.key);
       if (ind !== -1) {
