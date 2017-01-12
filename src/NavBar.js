@@ -465,8 +465,8 @@ class NavBar extends React.Component {
       return props => <View style={wrapStyle}>{component(props)}</View>;
     };
 
-    const leftButtonStyle = [styles.leftButton, { alignItems: 'flex-start' }, selected.leftButtonStyle, state.leftButtonStyle];
-    const rightButtonStyle = [styles.rightButton, { alignItems: 'flex-end' }, selected.rightButtonStyle, state.rightButtonStyle];
+    const leftButtonStyle = [styles.leftButton, { alignItems: 'flex-start' }, state.leftButtonStyle, selected.leftButtonStyle];
+    const rightButtonStyle = [styles.rightButton, { alignItems: 'flex-end' }, state.rightButtonStyle, selected.rightButtonStyle];
 
     const renderLeftButton = wrapByStyle(selected.renderLeftButton, leftButtonStyle) ||
       wrapByStyle(selected.component.renderLeftButton, leftButtonStyle) ||
