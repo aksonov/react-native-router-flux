@@ -227,10 +227,10 @@ function inject(state, action, props, scenes) {
         if (c.sceneKey === action.key) {
           ind = i;
 
-          const isPass = state.children.filter(scene => scene.passProps && scene.name === c.sceneKey)
+          const isPass = state.children.filter(s => s.passProps && s.name === c.sceneKey);
 
           if (isPass.length) {
-            passProps = true
+            passProps = true;
           }
         }
       });
@@ -246,7 +246,7 @@ function inject(state, action, props, scenes) {
           props,
           scenes,
           state.index,
-          action
+          action,
         );
       }
 
