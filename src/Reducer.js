@@ -227,7 +227,7 @@ function inject(state, action, props, scenes) {
         if (c.sceneKey === action.key) {
           ind = i;
 
-          let isPass = state.children.filter(scene => scene.passProps && scene.name === c.sceneKey)
+          const isPass = state.children.filter(scene => scene.passProps && scene.name === c.sceneKey)
 
           if (isPass.length) {
             passProps = true
