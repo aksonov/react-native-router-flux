@@ -263,7 +263,11 @@ function inject(state, action, props, scenes) {
             removedIndex = command.sceneKey ? findIndex(command.sceneKey) : command.index;
             assert(removedIndex < newChildren.length - 1,
               `You are not allowed to remove current scene - ${command}`);
-            removedIndex >= 0 && newChildren.splice(removedIndex, 1);
+            if (removedIndex >= 0) {
+              newChildren.splice(removedIndex, 1);
+              newChildren[newChildren.length - 1] =
+                getInitialState(props, scenes, newChildren.length - 1, {...action, duration: 0});
+            }
             break;
 
           case ActionConst.ModifyStackTypes.INSERT:
