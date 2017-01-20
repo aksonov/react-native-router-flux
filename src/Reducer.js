@@ -265,8 +265,7 @@ function inject(state, action, props, scenes) {
               `You are not allowed to remove current scene - ${command}`);
             if (removedIndex >= 0) {
               newChildren.splice(removedIndex, 1);
-              newChildren[newChildren.length - 1] =
-                getInitialState(props, scenes, newChildren.length - 1, {...action, duration: 0});
+              newChildren[removedIndex].duration = 0;
             }
             break;
 
