@@ -96,6 +96,10 @@ declare namespace RNRF {
      * Simple way to override the drawerImage in the navBar
      */
     drawerImage?: ReactNative.Image,
+    /**
+    * hides the drawer for this scene and any following scenes until explicitly reversed
+    */
+    open?: boolean,
 
     // Navigation Bar: Title
 
