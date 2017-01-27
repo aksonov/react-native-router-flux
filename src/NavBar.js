@@ -292,7 +292,7 @@ class NavBar extends React.Component {
         );
       }
 
-      if (!onPress && !!drawer && typeof drawer.toggle === 'function' && drawer.props.side == 'right') {
+      if (!onPress && !!drawer && typeof drawer.toggle === 'function' && drawer.props.side === 'right') {
         buttonImage = state.drawerImage;
         if (buttonImage || menuIcon) {
           onPress = drawer.toggle;
@@ -375,7 +375,7 @@ class NavBar extends React.Component {
         );
       }
 
-      if (!onPress && !!drawer && typeof drawer.toggle === 'function' && drawer.props.side == 'left') {
+      if (!onPress && !!drawer && typeof drawer.toggle === 'function' && drawer.props.side === 'left') {
         buttonImage = state.drawerImage;
         if (buttonImage || menuIcon) {
           onPress = drawer.toggle;
