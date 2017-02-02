@@ -164,6 +164,7 @@ const propTypes = {
   position: PropTypes.object,
   navigationBarStyle: View.propTypes.style,
   navigationBarBackgroundImage: Image.propTypes.source,
+  navigationBarBackgroundImageStyle: Image.propTypes.style,
   renderTitle: PropTypes.any,
 };
 
@@ -499,7 +500,7 @@ class NavBar extends React.Component {
         ]}
       >
         {navigationBarBackgroundImage ? (
-          <Image source={navigationBarBackgroundImage}>
+          <Image style={this.props.navigationBarBackgroundImageStyle} source={navigationBarBackgroundImage}>
             {contents}
           </Image>
         ) : contents}
