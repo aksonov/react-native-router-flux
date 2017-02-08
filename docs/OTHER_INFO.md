@@ -184,16 +184,24 @@ export default class NavigationDrawer extends Component {
         );
     }
 }
-
-/// then wrap your tabs scene with Drawer:
+```
+```jsx
+// Where you want to put navigation drawer
+render() {
+    return (
+        <Router
+            // then wrap your tabs scene with Drawer:
             <Scene key="drawer" component={NavigationDrawer} open={false} >
                 <Scene key="main" tabs={true} >
-                        ....
-                </Scene>
+                ....
             </Scene>
-
+        </Scene>
+    );
+}
+```
+```jsx
 // then you could open/hide/toggle drawer anywhere using 'refresh' modifiers:
-          Actions.refresh({key: 'drawer', open: value => !value });
+Actions.refresh({key: 'drawer', open: value => !value });
 ```
 ## Sub-scenes support
 You could create 'sub-scene' actions by putting them as children for needed 'base' scene without `component` prop and call such action anywhere - 'base' Scene will be updated accordingly.
