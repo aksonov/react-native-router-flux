@@ -73,7 +73,7 @@ When the Modal is pressed it will set hide to true and return an empty view.
 
 ## TabBar
 Every tab has its own navigation bar. However, if you do not set its parent `<Scene tabs={true} />` with `hideNavBar={true}`, the tabs' navigation bar will be overrided by their parent.
-  
+
 Customizing `TabBar`:
 
 ```javascript
@@ -160,7 +160,7 @@ import Drawer from 'react-native-drawer';
 import SideMenu from './SideMenu';
 import {Actions, DefaultRenderer} from 'react-native-router-flux';
 
-export default class extends Component {
+export default class NavigationDrawer extends Component {
     render(){
         const state = this.props.navigationState;
         const children = state.children;
@@ -186,7 +186,7 @@ export default class extends Component {
 }
 
 /// then wrap your tabs scene with Drawer:
-            <Scene key="drawer" component={Drawer} open={false} >
+            <Scene key="drawer" component={NavigationDrawer} open={false} >
                 <Scene key="main" tabs={true} >
                         ....
                 </Scene>
