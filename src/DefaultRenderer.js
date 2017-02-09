@@ -220,8 +220,8 @@ export default class DefaultRenderer extends Component {
     while ({}.hasOwnProperty.call(selected, 'children')) {
       selected = selected.children[selected.index];
     }
-    let panHandlers = selected.panHandlers;
-    let animationStyle = props.scene.navigationState.animationStyle
+    let { panHandlers, getPanHandlers } = selected;
+    let { animationStyle } = props.scene.navigationState
     
     const isActive = child === selected;
     const computedProps = { isActive };
