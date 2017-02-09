@@ -221,7 +221,7 @@ export default class DefaultRenderer extends Component {
     }
 
     const { getPanHandlers } = selected;
-    let { panHandlers  } = selected;
+    let { panHandlers } = selected;
     let { animationStyle } = props.scene.navigationState;
 
     const isActive = child === selected;
