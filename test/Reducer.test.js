@@ -5,18 +5,18 @@ import Scene from '../src/Scene';
 import { ActionsTest } from '../src/Actions';
 import * as ActionConst from '../src/ActionConst';
 import createReducer from '../src/Reducer';
-import getInitialState from '../src/State';
+import getInitialStateFromRoot from '../src/State';
 
 // TODO: this function is from Reducer!!! Export it from Reducer or move to some sort of helpers.
-export function getCurrent(state) {
+export default function getCurrent(state) {
   if (!state.children) {
     return state;
   }
   return getCurrent(state.children[state.index]);
 }
 
-let id = 0;
-const guid = () => id++;
+const id = 0;
+const guid = () => id + 1;
 const noop = () => {};
 const scenesData = (
   <Scene
@@ -56,7 +56,7 @@ describe('createReducer', () => {
     // TODO: Think about fully isolated test.
     const Actions = new ActionsTest();
     const scenes = Actions.create(scenesData);
-    const initialState = getInitialState(scenes); // TODO: write test for this.
+    const initialState = getInitialStateFromRoot(scenes); // TODO: write test for this.
 
     const reducer = createReducer({ initialState, scenes });
 
@@ -128,12 +128,12 @@ describe('handling actions', () => {
 
     Actions = new ActionsTest();
     const scenes = Actions.create(scene);
-    const initialState = getInitialState(scenes);
+    const initialState = getInitialStateFromRoot(scenes);
     const reducer = createReducer({ initialState, scenes });
 
     state = { ...initialState, scenes };
     current = getCurrent(state);
-    Actions.callback = action => {
+    Actions.callback = (action) => {
       state = reducer(state, action);
       current = getCurrent(state);
     };
@@ -164,12 +164,12 @@ describe('passing props from actions', () => {
 
     const Actions = new ActionsTest();
     const scenes = Actions.create(scene);
-    const initialState = getInitialState(scenes);
+    const initialState = getInitialStateFromRoot(scenes);
     const reducer = createReducer({ initialState, scenes });
 
     let state = { ...initialState, scenes };
     let current = getCurrent(state);
-    Actions.callback = action => {
+    Actions.callback = (action) => {
       state = reducer(state, action);
       current = getCurrent(state);
     };
@@ -180,7 +180,7 @@ describe('passing props from actions', () => {
     expect(current.customProp).to.eq('World');
 
     Actions.hello();
-    expect(current.customProp).to.eq(void 0);
+    expect(current.customProp).to.eq(undefined);
   });
 
   it.skip('passes props for tab scenes', () => {
@@ -193,12 +193,12 @@ describe('passing props from actions', () => {
 
     const Actions = new ActionsTest();
     const scenes = Actions.create(scene);
-    const initialState = getInitialState(scenes);
+    const initialState = getInitialStateFromRoot(scenes);
     const reducer = createReducer({ initialState, scenes });
 
     let state = { ...initialState, scenes };
     let current = getCurrent(state);
-    Actions.callback = action => {
+    Actions.callback = (action) => {
       state = reducer(state, action);
       current = getCurrent(state);
     };
@@ -210,8 +210,8 @@ describe('passing props from actions', () => {
     expect(current.anotherProp).to.eq('Another');
 
     Actions.home();
-    expect(current.customProp).to.eq(void 0);
-    expect(current.anotherProp).to.eq(void 0);
+    expect(current.customProp).to.eq(undefined);
+    expect(current.anotherProp).to.eq(undefined);
   });
 
   it.skip('passes props for nested tab scenes', () => {
@@ -227,12 +227,12 @@ describe('passing props from actions', () => {
 
     const Actions = new ActionsTest();
     const scenes = Actions.create(scene);
-    const initialState = getInitialState(scenes);
+    const initialState = getInitialStateFromRoot(scenes);
     const reducer = createReducer({ initialState, scenes });
 
     let state = { ...initialState, scenes };
     let current = getCurrent(state);
-    Actions.callback = action => {
+    Actions.callback = (action) => {
       state = reducer(state, action);
       current = getCurrent(state);
     };
@@ -242,12 +242,12 @@ describe('passing props from actions', () => {
     expect(current.anotherProp).to.eq('Another');
 
     Actions.map();
-    expect(current.customProp).to.eq(void 0);
-    expect(current.anotherProp).to.eq(void 0);
+    expect(current.customProp).to.eq(undefined);
+    expect(current.anotherProp).to.eq(undefined);
 
     Actions.nested2({ customProp: 'Custom' });
     expect(current.customProp).to.eq('Custom');
-    expect(current.anotherProp).to.eq(void 0);
+    expect(current.anotherProp).to.eq(undefined);
   });
 
   it.skip('passes props for very nested tab scenes', () => {
@@ -268,12 +268,12 @@ describe('passing props from actions', () => {
 
     const Actions = new ActionsTest();
     const scenes = Actions.create(scene);
-    const initialState = getInitialState(scenes);
+    const initialState = getInitialStateFromRoot(scenes);
     const reducer = createReducer({ initialState, scenes });
 
     let state = { ...initialState, scenes };
     let current = getCurrent(state);
-    Actions.callback = action => {
+    Actions.callback = (action) => {
       state = reducer(state, action);
       current = getCurrent(state);
     };
@@ -283,15 +283,15 @@ describe('passing props from actions', () => {
     expect(current.anotherProp).to.eq('Another');
 
     Actions.map();
-    expect(current.customProp).to.eq(void 0);
-    expect(current.anotherProp).to.eq(void 0);
+    expect(current.customProp).to.eq(undefined);
+    expect(current.anotherProp).to.eq(undefined);
 
     Actions.nestedTabs({ customProp: 'Custom' });
     expect(current.customProp).to.eq('Custom');
-    expect(current.anotherProp).to.eq(void 0);
+    expect(current.anotherProp).to.eq(undefined);
 
     Actions.nestedTab2();
-    expect(current.customProp).to.eq(void 0);
+    expect(current.customProp).to.eq(undefined);
 
     Actions.map({ customProp: 'Custom' });
     expect(current.customProp).to.eq('Custom');

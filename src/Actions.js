@@ -22,6 +22,7 @@ export const ActionMap = {
   reset: ActionConst.RESET,
   focus: ActionConst.FOCUS,
   pushOrPop: ActionConst.PUSH_OR_POP,
+  androidBack: ActionConst.ANDROID_BACK,
   modify: ActionConst.MODIFY_STACK,
   [ActionConst.JUMP]: ActionConst.JUMP,
   [ActionConst.PUSH]: ActionConst.PUSH,
@@ -34,6 +35,7 @@ export const ActionMap = {
   [ActionConst.RESET]: ActionConst.RESET,
   [ActionConst.FOCUS]: ActionConst.FOCUS,
   [ActionConst.PUSH_OR_POP]: ActionConst.PUSH_OR_POP,
+  [ActionConst.ANDROID_BACK]: ActionConst.ANDROID_BACK,
   [ActionConst.MODIFY_STACK]: ActionConst.MODIFY_STACK,
 };
 
@@ -83,7 +85,7 @@ class Actions {
     assert(key, 'unique key should be defined ');
     assert(
       reservedKeys.indexOf(key) === -1,
-      `'${key}' is not allowed as key name. Reserved keys: [${reservedKeys.join(', ')}]`
+      `'${key}' is not allowed as key name. Reserved keys: [${reservedKeys.join(', ')}]`,
     );
     const { children, component, ...staticProps } = root.props;
     let type = root.props.type || (parentProps.tabs ? ActionConst.JUMP : ActionConst.PUSH);
@@ -94,7 +96,7 @@ class Actions {
     const componentProps = component ? { component: wrapBy(component) } : {};
     // wrap other components
     if (wrapBy) {
-      Object.keys(staticProps).forEach(prop => {
+      Object.keys(staticProps).forEach((prop) => {
         const componentClass = staticProps[prop];
         if (componentClass && componentClass.prototype && componentClass.prototype.render) {
           componentProps[prop] = wrapBy(componentClass);
@@ -120,7 +122,7 @@ class Actions {
     list.forEach((item) => {
       if (item) {
         if (item instanceof Array) {
-          item.forEach(it => {
+          item.forEach((it) => {
             normalized.push(it);
           });
         } else {
@@ -148,8 +150,12 @@ class Actions {
         const innerKey = `${res.key}_`;
         baseKey = innerKey;
         subStateParent = res.key;
-        const inner = { ...res, name: key, key: innerKey,
-          sceneKey: innerKey, type: ActionConst.PUSH, parent: res.key };
+        const inner = { ...res,
+          name: key,
+          key: innerKey,
+          sceneKey: innerKey,
+          type: ActionConst.PUSH,
+          parent: res.key };
         refs[innerKey] = inner;
         res.children = [innerKey];
         delete res.component;
@@ -158,8 +164,12 @@ class Actions {
     }
     // process substates
     for (const el of subStates) {
-      refs[el.key] = { key: el.key, name: el.key, ...el.props, type: ActionConst.REFRESH,
-        base: baseKey, parent: subStateParent };
+      refs[el.key] = { key: el.key,
+        name: el.key,
+        ...el.props,
+        type: ActionConst.REFRESH,
+        base: baseKey,
+        parent: subStateParent };
       if (this[el.key]) {
         console.log(`Key ${el.key} is already defined!`);
       }
@@ -200,6 +210,10 @@ class Actions {
 
   focus(props = {}) {
     return this.callback({ ...filterParam(props), type: ActionConst.FOCUS });
+  }
+
+  androidBack(props = {}) {
+    return this.callback({ ...filterParam(props), type: ActionConst.ANDROID_BACK });
   }
 
   modifyStack(commands, props = {}) {
