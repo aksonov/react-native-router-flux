@@ -211,7 +211,6 @@ export default class DefaultRenderer extends Component {
       direction,
       animation,
       getSceneStyle,
-      getPanHandlers,
     } = props.scene.navigationState;
 
     const state = props.navigationState;
