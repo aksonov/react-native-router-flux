@@ -68,6 +68,15 @@ Actions.ROUTE_NAME({type: ActionConst.RESET});
 | ActionConst.FOCUS | `string` | 'REACT_NATIVE_ROUTER_FLUX_FOCUS' | 'focus' |
 | ActionConst.MODIFY_STACK | `string` | 'REACT_NATIVE_ROUTER_FLUX_MODIFY_STACK' | 'modifyStack' |
 
+The modifyStack action is used to execute a sequence of commands that manipulate the hidden scenes in the stack without animation.
+
+| Property | Type | Value | Description |
+|-----------|--------|---------|-----------------------------------------|
+| ActionConst.ModifyStackTypes.REMOVE | `string` | 'REMOVE' | Remove a scene from the stack |
+| ActionConst.ModifyStackTypes.INSERT | `string` | 'INSERT' | Insert a scene into the stack |
+| ActionConst.ModifyStackTypes.JUMP | `string` | 'JUMP' | Jump between tab bars |
+
+
 ### ActionConst and Scene.type explaination
 
 **ActionConst**

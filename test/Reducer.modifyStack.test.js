@@ -147,22 +147,6 @@ describe('modifyStack', () => {
       expect(() => reducer(latestState, action)).to.throw(/You are not allowed to remove current scene/);
     });
 
-    it('cannot find scene in the stack', () => {
-      latestState = reducer(latestState, {
-        key: 'privacyPolicy',
-        type: ActionConst.PUSH,
-      });
-
-      const action = {
-        key: 'privacyPolicy',
-        type: ActionConst.MODIFY_STACK,
-        commands: [
-          {type: ActionConst.ModifyStackTypes.REMOVE, sceneKey: 'termsOfService'},
-        ],
-      };
-      expect(() => reducer(latestState, action)).to.throw(/could not be found in the stack/);
-    });
-
     it('cannot no sceneKey or index', () => {
       latestState = reducer(latestState, {
         key: 'privacyPolicy',
@@ -239,7 +223,11 @@ describe('modifyStack', () => {
         key: 'privacyPolicy',
         type: ActionConst.MODIFY_STACK,
         commands: [
-          { type: ActionConst.ModifyStackTypes.INSERT, sceneKey: 'termsOfService', beforeSceneKey: 'privacyPolicy' },
+          {
+            type: ActionConst.ModifyStackTypes.INSERT,
+            sceneKey: 'termsOfService',
+            beforeSceneKey: 'privacyPolicy',
+          },
         ],
       });
 
