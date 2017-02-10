@@ -73,7 +73,7 @@ When the Modal is pressed it will set hide to true and return an empty view.
 
 ## TabBar
 Every tab has its own navigation bar. However, if you do not set its parent `<Scene tabs={true} />` with `hideNavBar={true}`, the tabs' navigation bar will be overrided by their parent.
-  
+
 Customizing `TabBar`:
 
 ```javascript
@@ -160,7 +160,7 @@ import Drawer from 'react-native-drawer';
 import SideMenu from './SideMenu';
 import {Actions, DefaultRenderer} from 'react-native-router-flux';
 
-export default class extends Component {
+export default class NavigationDrawer extends Component {
     render(){
         const state = this.props.navigationState;
         const children = state.children;
@@ -184,16 +184,24 @@ export default class extends Component {
         );
     }
 }
-
-/// then wrap your tabs scene with Drawer:
-            <Scene key="drawer" component={Drawer} open={false} >
+```
+```jsx
+// Where you want to put navigation drawer
+render() {
+    return (
+        <Router
+            // then wrap your tabs scene with Drawer:
+            <Scene key="drawer" component={NavigationDrawer} open={false} >
                 <Scene key="main" tabs={true} >
-                        ....
-                </Scene>
+                ....
             </Scene>
-
+        </Scene>
+    );
+}
+```
+```jsx
 // then you could open/hide/toggle drawer anywhere using 'refresh' modifiers:
-          Actions.refresh({key: 'drawer', open: value => !value });
+Actions.refresh({key: 'drawer', open: value => !value });
 ```
 ## Sub-scenes support
 You could create 'sub-scene' actions by putting them as children for needed 'base' scene without `component` prop and call such action anywhere - 'base' Scene will be updated accordingly.
