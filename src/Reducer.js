@@ -117,6 +117,10 @@ function inject(state, action, props, scenes) {
       };
     }
     case ActionConst.ANDROID_BACK: {
+      if (state.index === 0) {
+        return state;
+      }
+      
       return {
         ...state,
         index: state.index - 1,
