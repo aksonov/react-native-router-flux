@@ -483,6 +483,8 @@ class NavBar extends React.Component {
       this.props.renderTitle;
     const navigationBarBackgroundImage = this.props.navigationBarBackgroundImage ||
       state.navigationBarBackgroundImage;
+    const navigationBarBackgroundImageStyle = this.props.navigationBarBackgroundImageStyle ||
+      state.navigationBarBackgroundImageStyle;
     const contents = (
       <View>
         {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
