@@ -120,7 +120,6 @@ function inject(state, action, props, scenes) {
       if (state.index === 0) {
         return state;
       }
-      
       return {
         ...state,
         index: state.index - 1,
