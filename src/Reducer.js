@@ -226,6 +226,14 @@ function inject(state, action, props, scenes) {
       if (action.unmountScenes) {
         resetHistoryStack(state.children[ind]);
       }
+
+      state.children[ind] = getInitialState(
+        props,
+        scenes,
+        state.index,
+        action,
+      );
+
       return { ...state, index: ind };
     }
     case ActionConst.REPLACE:
