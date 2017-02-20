@@ -37,6 +37,7 @@
     }
   ],
   "dependencies": {
+    "lodash.isequal": "^4.5.0",
     "react-addons-pure-render-mixin": "15.0.2",
     "react-native-experimental-navigation": "0.26.x",
     "react-native-tabs": "^1.0.9",
