@@ -35,3 +35,6 @@ script:
   - if [ $TEST_SUITE = example-jest ]; then cd Example && yarn run jest && cd ..; fi
 before_cache:
   - if [ $TEST_SUITE = example-jest ]; then rm -rf Example/node_modules/react-native-router-flux/src; fi
+addons:
+    code_climate:
+        repo_token: a2bf832968783c93c977e25624e038120a559ffda488f5c76ec1c304e80a9c6e
