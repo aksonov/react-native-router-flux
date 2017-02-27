@@ -9,21 +9,27 @@
   },
   "dependencies": {
     "clamp": "^1.0.1",
-    "react": "15.3.1",
-    "react-native": "0.37.0",
+    "react": "15.4.2",
+    "react-native": "^0.41.2",
     "react-native-button": "github:ide/react-native-button",
     "react-native-drawer": "^2.2.2",
-    "react-native-router-flux": "file:../"
+    "react-native-router-flux": "^3.37"
   },
   "devDependencies": {
     "babel-jest": "^17.0.2",
     "babel-preset-react-native": "^1.9.0",
     "jest": "17.0.3",
-    "jest-react-native": "17.0.3",
+    "jest-react-native": "^18.0.0",
     "react-test-renderer": "15.3.0",
     "sane": "^1.4.1"
   },
   "jest": {
-    "preset": "jest-react-native"
+    "preset": "react-native",
+    "testRegex": "./test/[^setup].*.js$",
+    "mocksPattern": "./test/mocks/.*.js$",
+    "transformIgnorePatterns": ["node_modules/(?!react-native|native-base|react-clone-referenced-element)"],
+    "setupFiles": [
+        "./test/setup.js"
+    ]
   }
 }
