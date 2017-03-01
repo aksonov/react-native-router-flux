@@ -13,7 +13,7 @@
     "react-native": "^0.41.2",
     "react-native-button": "github:ide/react-native-button",
     "react-native-drawer": "^2.2.2",
-    "react-native-router-flux": "^3.37"
+    "react-native-router-flux": "^3.38"
   },
   "devDependencies": {
     "babel-jest": "^17.0.2",
