@@ -37,6 +37,10 @@
     }
   ],
   "dependencies": {
+    "react": "^15.4.2",
+    "react-addons-pure-render-mixin": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-native": "^0.41.2",
     "react-native-experimental-navigation": "0.26.x",
     "react-native-tabs": "^1.0.9",
     "react-static-container": "1.0.1"
