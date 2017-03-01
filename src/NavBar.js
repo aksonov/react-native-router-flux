@@ -154,6 +154,7 @@ const propTypes = {
   wrapBy: PropTypes.any,
   component: PropTypes.any,
   backButtonTextStyle: Text.propTypes.style,
+  rightButtonStyle: View.propTypes.style,
   leftButtonStyle: View.propTypes.style,
   leftButtonIconStyle: Image.propTypes.style,
   getTitle: PropTypes.func,
@@ -465,17 +466,32 @@ class NavBar extends React.Component {
       return props => <View style={wrapStyle}>{component(props)}</View>;
     };
 
-    const leftButtonStyle = [styles.leftButton, { alignItems: 'flex-start' }];
-    const rightButtonStyle = [styles.rightButton, { alignItems: 'flex-end' }];
+    const leftButtonStyle = [
+      styles.leftButton,
+      { alignItems: 'flex-start' },
+      this.props.leftButtonStyle,
+      state.leftButtonStyle,
+      selected.leftButtonStyle,
+    ];
+    const rightButtonStyle = [
+      styles.rightButton,
+      { alignItems: 'flex-end' },
+      this.props.rightButtonStyle,
+      state.rightButtonStyle,
+      selected.rightButtonStyle,
+    ];
 
     const renderLeftButton = wrapByStyle(selected.renderLeftButton, leftButtonStyle) ||
       wrapByStyle(selected.component.renderLeftButton, leftButtonStyle) ||
+      wrapByStyle(state.renderLeftButton, leftButtonStyle) ||
       this.renderLeftButton;
     const renderRightButton = wrapByStyle(selected.renderRightButton, rightButtonStyle) ||
       wrapByStyle(selected.component.renderRightButton, rightButtonStyle) ||
+      wrapByStyle(state.renderRightButton, rightButtonStyle) ||
       this.renderRightButton;
     const renderBackButton = wrapByStyle(selected.renderBackButton, leftButtonStyle) ||
       wrapByStyle(selected.component.renderBackButton, leftButtonStyle) ||
+      wrapByStyle(state.renderBackButton, leftButtonStyle) ||
       this.renderBackButton;
     const renderTitle = selected.renderTitle ||
       selected.component.renderTitle ||
@@ -483,7 +499,7 @@ class NavBar extends React.Component {
     const navigationBarBackgroundImage = this.props.navigationBarBackgroundImage ||
       state.navigationBarBackgroundImage;
     const contents = (
-      <View>
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
         {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
         {renderBackButton(navProps) || renderLeftButton(navProps)}
         {renderRightButton(navProps)}
