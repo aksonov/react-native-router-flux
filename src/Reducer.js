@@ -220,19 +220,35 @@ function inject(state, action, props, scenes) {
     case ActionConst.JUMP: {
       assert(state.tabs, `Parent=${state.key} is not tab bar, jump action is not valid`);
       ind = -1;
-      state.children.forEach((c, i) => { if (c.sceneKey === action.key) { ind = i; } });
+
+      let passProps = false;
+
+      state.children.forEach((c, i) => {
+        if (c.sceneKey === action.key) {
+          ind = i;
+
+          const isPass = state.children.filter(s => s.passProps && s.name === c.sceneKey);
+
+          if (isPass.length) {
+            passProps = true;
+          }
+        }
+      });
+
       assert(ind !== -1, `Cannot find route with key=${action.key} for parent=${state.key}`);
 
       if (action.unmountScenes) {
         resetHistoryStack(state.children[ind]);
       }
 
-      state.children[ind] = getInitialState(
-        props,
-        scenes,
-        state.index,
-        action,
-      );
+      if (passProps) {
+        state.children[ind] = getInitialState(
+          props,
+          scenes,
+          state.index,
+          action,
+        );
+      }
 
       return { ...state, index: ind };
     }
