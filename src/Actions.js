@@ -23,6 +23,7 @@ export const ActionMap = {
   focus: ActionConst.FOCUS,
   pushOrPop: ActionConst.PUSH_OR_POP,
   androidBack: ActionConst.ANDROID_BACK,
+  modify: ActionConst.MODIFY_STACK,
   [ActionConst.JUMP]: ActionConst.JUMP,
   [ActionConst.PUSH]: ActionConst.PUSH,
   [ActionConst.REPLACE]: ActionConst.REPLACE,
@@ -35,6 +36,7 @@ export const ActionMap = {
   [ActionConst.FOCUS]: ActionConst.FOCUS,
   [ActionConst.PUSH_OR_POP]: ActionConst.PUSH_OR_POP,
   [ActionConst.ANDROID_BACK]: ActionConst.ANDROID_BACK,
+  [ActionConst.MODIFY_STACK]: ActionConst.MODIFY_STACK,
 };
 
 function filterParam(data) {
@@ -71,6 +73,9 @@ class Actions {
     this.pop = this.pop.bind(this);
     this.refresh = this.refresh.bind(this);
     this.focus = this.focus.bind(this);
+    this.modifyStack = this.modifyStack.bind(this);
+    this.replaceInStack = this.replaceInStack.bind(this);
+    this.jumpInStack = this.jumpInStack.bind(this);
   }
 
   iterate(root: Scene, parentProps = {}, refsParam = {}, wrapBy) {
@@ -209,6 +214,24 @@ class Actions {
 
   androidBack(props = {}) {
     return this.callback({ ...filterParam(props), type: ActionConst.ANDROID_BACK });
+  }
+
+  modifyStack(commands, props = {}) {
+    return this.callback(
+      { ...filterParam({ ...props, commands }), type: ActionConst.MODIFY_STACK });
+  }
+
+  replaceInStack(sceneKey, withSceneKey, props = {}) {
+    return this.modifyStack([
+      { type: ActionConst.ModifyStackTypes.REMOVE, sceneKey },
+      { type: ActionConst.ModifyStackTypes.INSERT, sceneKey: withSceneKey },
+    ], props);
+  }
+
+  jumpInStack(sceneKey, props = {}) {
+    return this.modifyStack(
+      [{ sceneKey, type: ActionConst.ModifyStackTypes.JUMP }],
+      { key: sceneKey, ...props });
   }
 
   create(scene:Scene, wrapBy = x => x) {

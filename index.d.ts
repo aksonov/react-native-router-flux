@@ -294,6 +294,7 @@ declare namespace RNRF {
     REFRESH: string,
     RESET: string,
     FOCUS: string,
+    MODIFY_STACK: string,
   }
   export var ActionConst: RNRFActionConst;
 

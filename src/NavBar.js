@@ -480,6 +480,7 @@ class NavBar extends React.Component {
     const renderTitle = selected.renderTitle ||
       selected.component.renderTitle ||
       this.props.renderTitle;
+    const getNavBarContainer = this.props.getNavBarContainer || state.getNavBarContainer;
     const navigationBarBackgroundImage = this.props.navigationBarBackgroundImage ||
       state.navigationBarBackgroundImage;
     const contents = (
@@ -498,11 +499,10 @@ class NavBar extends React.Component {
           selected.navigationBarStyle,
         ]}
       >
-        {navigationBarBackgroundImage ? (
-          <Image source={navigationBarBackgroundImage}>
-            {contents}
-          </Image>
-        ) : contents}
+        {getNavBarContainer ? getNavBarContainer(contents)
+          : navigationBarBackgroundImage ? <Image source={navigationBarBackgroundImage}>contents</Image>
+          : contents
+        }
       </Animated.View>
     );
   }

@@ -71,7 +71,10 @@ function inject(state, action, props, scenes) {
           break;
         }
       }
-      return changed ? { ...state, children: res, index: changedIndex } : state;
+      if (changed) {
+        return ActionMap[action.type] === ActionConst.MODIFY_STACK ?
+          { ...state, children: res } : { ...state, children: res, index: changedIndex };
+      }
     }
     return state;
   }
@@ -237,10 +240,6 @@ function inject(state, action, props, scenes) {
       return { ...state, index: ind };
     }
     case ActionConst.REPLACE:
-      if (state.children[state.index].sceneKey === action.key) {
-        return state;
-      }
-
       state.children[state.children.length - 1] = getInitialState(
         props,
         scenes,
@@ -263,6 +262,63 @@ function inject(state, action, props, scenes) {
         from: null,
         children: state.children,
       };
+    case ActionConst.MODIFY_STACK: {
+      const newChildren = [...state.children];
+      let removedIndex = null;
+
+      assert(props.commands, 'Modify stack commands is undefined.');
+
+      let jumpIndex = null;
+      props.commands.forEach(command => {
+        const findIndex = sceneKey => {
+          return newChildren.findIndex(c => c.sceneKey === sceneKey);
+        };
+        switch (command.type) {
+          case ActionConst.ModifyStackTypes.REMOVE:
+            assert(command.sceneKey || command.index >= 0,
+              `sceneKey or index has to be defined - ${command}`);
+            removedIndex = command.sceneKey ? findIndex(command.sceneKey) : command.index;
+            assert(removedIndex < newChildren.length - 1,
+              `You are not allowed to remove current scene - ${command}`);
+            if (removedIndex >= 0) {
+              newChildren.splice(removedIndex, 1);
+              newChildren[removedIndex].duration = 0;
+            }
+            break;
+
+          case ActionConst.ModifyStackTypes.INSERT:
+            const index =
+              command.beforeSceneKey ? findIndex(command.beforeSceneKey) : command.index;
+            assert((index || 0) < newChildren.length,
+              `You are not allowed change current scene - ${command}`);
+            const sceneState = getInitialState(scenes[command.sceneKey], scenes);
+            newChildren.splice(index || removedIndex || 0, 0, sceneState);
+            break;
+
+          case ActionConst.ModifyStackTypes.JUMP:
+            const tabPage = findElement(state, command.sceneKey);
+            assert(tabPage,
+              `The tab page sceneKey: ${command.sceneKey} ` +
+              `could not be found in the stack - ${command}`);
+            const tabBarPage = findElement(state, tabPage.parent);
+            assert(state === tabBarPage,
+              `The tab page Parent=${tabPage.parent} could not be found in the stack - ${command}`);
+            assert(tabBarPage.tabs,
+              `The tab page Parent=${tabPage.parent} is not tab bar, jump action is not valid`);
+            jumpIndex = tabBarPage.children.findIndex(c => c === tabPage);
+            break;
+
+          default:
+            assert(false, `Unknown modify stack command type ${command.type} - ${command}.`);
+        }
+      });
+      return {
+        ...state,
+        index: jumpIndex !== null ? jumpIndex : newChildren.length - 1,
+        from: null,
+        children: newChildren,
+      };
+    }
     default:
       return state;
   }
@@ -345,7 +401,9 @@ function reducer({ initialState, scenes }) {
           ActionMap[action.type] === ActionConst.ANDROID_BACK ||
           ActionMap[action.type] === ActionConst.POP_AND_REPLACE ||
           ActionMap[action.type] === ActionConst.REFRESH ||
-          ActionMap[action.type] === ActionConst.POP_TO) {
+          ActionMap[action.type] === ActionConst.POP_TO ||
+          ActionMap[action.type] === ActionConst.MODIFY_STACK
+      ) {
         if (!action.key && !action.parent) {
           action = { ...getCurrent(state), ...action };
         }
@@ -388,7 +446,9 @@ function reducer({ initialState, scenes }) {
       if (ActionMap[action.type] === ActionConst.BACK_ACTION ||
           ActionMap[action.type] === ActionConst.BACK ||
           ActionMap[action.type] === ActionConst.ANDROID_BACK ||
-          ActionMap[action.type] === ActionConst.POP_AND_REPLACE) {
+          ActionMap[action.type] === ActionConst.POP_AND_REPLACE ||
+          ActionMap[action.type] === ActionConst.MODIFY_STACK
+      ) {
         const parent = action.parent || state.scenes[action.key].parent;
         let el = findElement(state, parent, action.type);
         while (el.parent && (el.children.length <= 1 || el.tabs)) {
@@ -411,6 +471,7 @@ function reducer({ initialState, scenes }) {
       case ActionConst.REPLACE:
       case ActionConst.RESET:
       case ActionConst.ANDROID_BACK:
+      case ActionConst.MODIFY_STACK:
         return update(state, action);
 
       default:
