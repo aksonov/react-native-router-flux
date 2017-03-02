@@ -262,7 +262,8 @@ declare namespace RNRF {
     rightButtonImage?: ReactNative.Image,
     rightButtonIconStyle?: ReactNative.ViewStyle,
     rightButtonStyle?: ReactNative.ViewStyle,
-    rightButtonTextStyle?: ReactNative.TextStyle
+    rightButtonTextStyle?: ReactNative.TextStyle,
+    backAndroidHandler? : Function
   }
   export class Router extends React.Component<RouterProps, {}>{ }
 
