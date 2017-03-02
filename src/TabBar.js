@@ -36,6 +36,7 @@ class TabBar extends Component {
   constructor(props, context) {
     super(props, context);
     this.renderScene = this.renderScene.bind(this);
+    this.renderTabBar = this.renderTabBar.bind(this);
   }
 
   renderScene(navigationState) {
@@ -48,15 +49,9 @@ class TabBar extends Component {
     );
   }
 
-  render() {
-    const state = this.props.navigationState;
-    const selected = state.children[state.index];
+  renderTabBar(state, selected){
 
-    const hideTabBar = this.props.unmountScenes ||
-      deepestExplicitValueForKey(state, 'hideTabBar') ||
-      (this.props.hideOnChildTabs && deepestExplicitValueForKey(selected, 'tabs'));
-
-    const contents = (
+    let contents = (
       <Tabs
         style={state.tabBarStyle}
         selectedIconStyle={state.tabBarSelectedItemStyle}
@@ -65,12 +60,37 @@ class TabBar extends Component {
         selected={selected.sceneKey}
         pressOpacity={this.props.pressOpacity}
       >
-        {state.children.filter(el => el.icon || this.props.tabIcon).map((el) => {
+        {state.children.filter(el => el.icon || this.props.tabIcon).map(el => {
           const Icon = el.icon || this.props.tabIcon;
           return <Icon {...this.props} {...el} />;
         })}
       </Tabs>
     );
+
+    if(state.tabBarBackgroundImage){
+      contents = <Image style={state.tabBarBackgroundImageStyle} source={state.tabBarBackgroundImage}>
+        {contents}
+      </Image>
+    }
+
+    if(state.floatingTabBar){
+      contents = <View style={{position: 'absolute', left:0, right:0, bottom:0, zIndex: 10 }} >
+        {contents}
+      </View>
+    }
+
+    return contents;
+  }
+
+  render() {
+    const state = this.props.navigationState;
+    const selected = state.children[state.index];
+
+    const hideTabBar = this.props.unmountScenes ||
+      deepestExplicitValueForKey(state, 'hideTabBar') ||
+      (this.props.hideOnChildTabs && deepestExplicitValueForKey(selected, 'tabs'));
+
+
     return (
       <View
         style={{ flex: 1 }}
@@ -80,12 +100,9 @@ class TabBar extends Component {
           style={{ flex: 1 }}
           renderScene={this.renderScene}
         />
+
         {!hideTabBar && state.children.filter(el => el.icon).length > 0 &&
-          (state.tabBarBackgroundImage ? (
-            <Image source={state.tabBarBackgroundImage}>
-              {contents}
-            </Image>
-          ) : contents)
+          this.renderTabBar(state, selected)
         }
       </View>
     );
