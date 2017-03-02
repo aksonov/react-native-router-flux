@@ -75,7 +75,10 @@ declare namespace RNRF {
      * hides tab bar for this scene and any following scenes until explicitly reversed (if built-in TabBar component is used as parent renderer)
      */
     hideTabBar?: boolean,
-
+    /**
+     * icon for a tab
+     */
+    icon?: React.ReactNode;
 
     // Navigation Bar
 
