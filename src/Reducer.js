@@ -34,7 +34,7 @@ function resetHistoryStack(state) {
   if (newState.children) {
     newState.index = 0;
 
-    for (let i = 0; i < newState.children.length; i++) {
+    for (let i = 0; i < newState.children.length; i+=1) {
       const el = newState.children[i];
 
       if (el.initial) {
