@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   titleImage: {
     width: 180,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   titleWrapper: {
     marginTop: 10,
@@ -461,9 +461,9 @@ class NavBar extends React.Component {
 
   renderImageTitle() {
     const navigationBarTitleImage = this.props.navigationBarTitleImage ||
-      state.navigationBarTitleImage;
+      this.state.navigationBarTitleImage;
     const navigationBarTitleImageStyle = this.props.navigationBarTitleImageStyle ||
-        state.navigationBarTitleImageStyle;
+        this.state.navigationBarTitleImageStyle;
     return (
       <Animated.View
         style={[
@@ -471,10 +471,12 @@ class NavBar extends React.Component {
           this.props.titleWrapperStyle,
         ]}
       >
-        <Animated.Image style={[styles.titleImage, navigationBarTitleImageStyle]} source={navigationBarTitleImage}>
-        </Animated.Image>
+        <Animated.Image
+          style={[styles.titleImage, navigationBarTitleImageStyle]}
+          source={navigationBarTitleImage}
+        />
       </Animated.View>
-    )
+    );
   }
 
   render() {
@@ -512,9 +514,16 @@ class NavBar extends React.Component {
       state.navigationBarBackgroundImageStyle;
     const navigationBarTitleImage = this.props.navigationBarTitleImage ||
       state.navigationBarTitleImage;
+    let imageOrTitle = null;
+    if (navigationBarTitleImage) {
+      imageOrTitle = this.renderImageTitle();
+    } else {
+      imageOrTitle = renderTitle ? renderTitle(navProps)
+      : state.children.map(this.renderTitle, this);
+    }
     const contents = (
       <View>
-        {navigationBarTitleImage ? this.renderImageTitle() : (renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this))}
+        {imageOrTitle}
         {renderBackButton(navProps) || renderLeftButton(navProps)}
         {renderRightButton(navProps)}
       </View>
