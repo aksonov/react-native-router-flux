@@ -62,6 +62,9 @@ const styles = StyleSheet.create({
       android: {
         top: 5,
       },
+      windows: {
+        top: 5,
+      },
     }),
     left: 0,
     right: 0,
@@ -75,6 +78,9 @@ const styles = StyleSheet.create({
         height: 64,
       },
       android: {
+        height: 54,
+      },
+      windows: {
         height: 54,
       },
     }),
@@ -94,6 +100,9 @@ const styles = StyleSheet.create({
       android: {
         top: 10,
       },
+      windows: {
+        top: 8,
+      },
     }),
     left: 2,
     padding: 8,
@@ -110,6 +119,9 @@ const styles = StyleSheet.create({
       android: {
         top: 10,
       },
+      windows: {
+        top: 8,
+      },
     }),
     right: 2,
     padding: 8,
@@ -122,6 +134,9 @@ const styles = StyleSheet.create({
         top: 20,
       },
       android: {
+        top: 8,
+      },
+      windows: {
         top: 8,
       },
     }),
