@@ -5,6 +5,7 @@ module.exports = {
   ],
   parser: 'babel-eslint',
   rules: {
+    'react/forbid-prop-types': 0,
     'no-console': 0,
     'import/no-unresolved': [
       2,
@@ -15,6 +16,33 @@ module.exports = {
           '^react-native/',
         ],
       },
+    ],
+    'react/jsx-filename-extension': [
+      1,
+      {
+        extensions: [
+          '.js',
+          '.jsx',
+        ],
+      },
+    ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        'devDependencies': true,
+      }
+    ],
+    'no-bitwise': [
+      'error',
+      {
+        'allow': ['^'],
+      },
+    ],
+    'no-restricted-syntax': [
+      'error',
+      'ForInStatement',
+      'LabeledStatement',
+      'WithStatement',
     ],
   },
   settings: {

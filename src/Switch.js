@@ -9,7 +9,7 @@ export default function Switch(props) {
   const statem = props.statem;
   if (!selector && !statem) console.error('Selector should be defined.');
   let index = -1;
-  let selectedKey = undefined;
+  let selectedKey;
   if (!selector) {
     // support Statem - Harel statecharts machine!
     navState.children.forEach((el, i) => {
@@ -18,10 +18,8 @@ export default function Switch(props) {
       }
       if (el.default) {
         index = i;
-      } else {
-        if (el.state.active) {
-          index = i;
-        }
+      } else if (el.state.active) {
+        index = i;
       }
     });
   } else {

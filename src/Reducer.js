@@ -9,11 +9,11 @@
 
 /* eslint-disable no-param-reassign */
 
+import { Platform } from 'react-native';
 import * as ActionConst from './ActionConst';
 import { ActionMap } from './Actions';
 import { assert } from './Util';
 import { getInitialState } from './State';
-import { Platform } from 'react-native';
 
 // WARN: it is not working correct. rewrite it.
 function checkPropertiesEqual(action, lastAction) {
@@ -70,7 +70,7 @@ function inject(state, action, props, scenes) {
       const res = state.children.map(el => inject(el, action, props, scenes));
       let changed = false;
       let changedIndex = -1;
-      for (let i = 0; i < res.length; i++) {
+      for (let i = 0; i < res.length; i += 1) {
         if (res[i] !== state.children[i]) {
           changed = true;
           changedIndex = i;
@@ -98,17 +98,13 @@ function inject(state, action, props, scenes) {
     case ActionConst.BACK_ACTION: {
       assert(!state.tabs, 'pop() operation cannot be run on tab bar (tabs=true)');
 
-      if (Platform.OS === 'android') {
-        assert(state.index > 0, 'You are already in the root scene.');
-      }
-
       if (state.index === 0) {
         return state;
       }
 
       let popNum = 1;
       if (action.popNum) {
-        assert(typeof(action.popNum) === 'number',
+        assert(typeof (action.popNum) === 'number',
           'The data is the number of scenes you want to pop, it must be Number');
         popNum = action.popNum;
         assert(popNum % 1 === 0,
@@ -127,6 +123,18 @@ function inject(state, action, props, scenes) {
         children: refreshTopChild(state.children.slice(0, -1 * popNum), action.refresh),
       };
     }
+    case ActionConst.ANDROID_BACK: {
+      if (Platform.OS === 'android') {
+        assert(state.index > 0, 'You are already in the root scene.');
+      }
+
+      return {
+        ...state,
+        index: state.index - 1,
+        from: state.children[state.children.length - 1],
+        children: refreshTopChild(state.children.slice(0, -1), action.refresh),
+      };
+    }
     // This action will pop the scene stack and then replace current scene in one go
     case ActionConst.POP_AND_REPLACE: {
       assert(!state.tabs, 'pop() operation cannot be run on tab bar (tabs=true)');
@@ -134,7 +142,7 @@ function inject(state, action, props, scenes) {
 
       let popNum = 1;
       if (action.popNum) {
-        assert(typeof(action.popNum) === 'number',
+        assert(typeof (action.popNum) === 'number',
           'The data is the number of scenes you want to pop, it must be Number');
         popNum = action.popNum;
         assert(popNum % 1 === 0,
@@ -170,19 +178,20 @@ function inject(state, action, props, scenes) {
         newProps,
         scenes,
         state.index,
-        newAction
+        newAction,
       );
 
       return { ...state, children: state.children };
     }
     case ActionConst.REFRESH:
-      return props.base ?
-      { navBar: state.navBar,
+      return props.base ? {
+        navBar: state.navBar,
         ...scenes.rootProps,
         ...props,
         key: state.key,
         from: null }
-        : { ...state,
+      : {
+        ...state,
         ...props,
         key: state.key,
         from: null,
@@ -236,7 +245,7 @@ function inject(state, action, props, scenes) {
         props,
         scenes,
         state.index,
-        action
+        action,
       );
 
       return { ...state, children: state.children };
@@ -312,7 +321,7 @@ function reducer({ initialState, scenes }) {
         assert(child, `missed child data for key=${key}`);
         // evaluate functions within actions to allow conditional set, like switch values
         const evaluated = {};
-        Object.keys(action).forEach(el => {
+        Object.keys(action).forEach((el) => {
           if (typeof action[el] === 'function' && typeof child[el] !== 'undefined'
             && typeof child[el] !== typeof action[el]) {
             evaluated[el] = action[el](child[el], child);
@@ -333,6 +342,7 @@ function reducer({ initialState, scenes }) {
       // set current route for pop action or refresh action
       if (ActionMap[action.type] === ActionConst.BACK_ACTION ||
           ActionMap[action.type] === ActionConst.BACK ||
+          ActionMap[action.type] === ActionConst.ANDROID_BACK ||
           ActionMap[action.type] === ActionConst.POP_AND_REPLACE ||
           ActionMap[action.type] === ActionConst.REFRESH ||
           ActionMap[action.type] === ActionConst.POP_TO) {
@@ -377,6 +387,7 @@ function reducer({ initialState, scenes }) {
       // recursive pop parent
       if (ActionMap[action.type] === ActionConst.BACK_ACTION ||
           ActionMap[action.type] === ActionConst.BACK ||
+          ActionMap[action.type] === ActionConst.ANDROID_BACK ||
           ActionMap[action.type] === ActionConst.POP_AND_REPLACE) {
         const parent = action.parent || state.scenes[action.key].parent;
         let el = findElement(state, parent, action.type);
@@ -399,6 +410,7 @@ function reducer({ initialState, scenes }) {
       case ActionConst.JUMP:
       case ActionConst.REPLACE:
       case ActionConst.RESET:
+      case ActionConst.ANDROID_BACK:
         return update(state, action);
 
       default:

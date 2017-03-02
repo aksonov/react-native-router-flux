@@ -29,6 +29,7 @@ import React, {
 import {
   Platform,
   Animated,
+  I18nManager,
   Image,
   StyleSheet,
   Text,
@@ -47,6 +48,10 @@ const styles = StyleSheet.create({
     width: 180,
     alignSelf: 'center',
   },
+  titleImage: {
+    width: 180,
+    alignSelf: 'center',
+  },
   titleWrapper: {
     marginTop: 10,
     position: 'absolute',
@@ -55,6 +60,9 @@ const styles = StyleSheet.create({
         top: 20,
       },
       android: {
+        top: 5,
+      },
+      windows: {
         top: 5,
       },
     }),
@@ -72,6 +80,9 @@ const styles = StyleSheet.create({
       android: {
         height: 54,
       },
+      windows: {
+        height: 54,
+      },
     }),
     right: 0,
     left: 0,
@@ -80,7 +91,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   backButton: {
-    width: 100,
     height: 37,
     position: 'absolute',
     ...Platform.select({
@@ -89,14 +99,17 @@ const styles = StyleSheet.create({
       },
       android: {
         top: 10,
+      },
+      windows: {
+        top: 8,
       },
     }),
     left: 2,
     padding: 8,
     flexDirection: 'row',
+    transform: [{ scaleX: I18nManager.isRTL ? -1 : 1 }],
   },
   rightButton: {
-    width: 100,
     height: 37,
     position: 'absolute',
     ...Platform.select({
@@ -105,13 +118,15 @@ const styles = StyleSheet.create({
       },
       android: {
         top: 10,
+      },
+      windows: {
+        top: 8,
       },
     }),
     right: 2,
     padding: 8,
   },
   leftButton: {
-    width: 100,
     height: 37,
     position: 'absolute',
     ...Platform.select({
@@ -119,6 +134,9 @@ const styles = StyleSheet.create({
         top: 20,
       },
       android: {
+        top: 8,
+      },
+      windows: {
         top: 8,
       },
     }),
@@ -145,9 +163,6 @@ const styles = StyleSheet.create({
     width: 13,
     height: 21,
   },
-  rightButtonIconStyle: {
-
-  },
   defaultImageStyle: {
     height: 24,
     resizeMode: 'contain',
@@ -170,6 +185,9 @@ const propTypes = {
   position: PropTypes.object,
   navigationBarStyle: View.propTypes.style,
   navigationBarBackgroundImage: Image.propTypes.source,
+  navigationBarBackgroundImageStyle: Image.propTypes.style,
+  navigationBarTitleImage: Image.propTypes.source,
+  navigationBarTitleImageStyle: Image.propTypes.style,
   renderTitle: PropTypes.any,
 };
 
@@ -192,6 +210,7 @@ class NavBar extends React.Component {
     this.renderBackButton = this.renderBackButton.bind(this);
     this.renderLeftButton = this.renderLeftButton.bind(this);
     this.renderTitle = this.renderTitle.bind(this);
+    this.renderImageTitle = this.renderImageTitle.bind(this);
   }
 
   renderBackButton() {
@@ -226,7 +245,7 @@ class NavBar extends React.Component {
         />
       );
     }
-    let buttonImage = childState.backButtonImage ||
+    const buttonImage = childState.backButtonImage ||
       state.backButtonImage || this.props.backButtonImage;
     let onPress = childState.onBack || childState.component.onBack;
     if (onPress) {
@@ -235,10 +254,10 @@ class NavBar extends React.Component {
       onPress = Actions.pop;
     }
 
-    let text = childState.backTitle ?
-      <Text style={textButtonStyle}>
+    const text = childState.backTitle ?
+      (<Text style={textButtonStyle}>
         {childState.backTitle}
-      </Text>
+      </Text>)
       : null;
 
     return (
@@ -266,15 +285,21 @@ class NavBar extends React.Component {
 
   renderRightButton(navProps) {
     const self = this;
+    const drawer = this.context.drawer;
     function tryRender(state, wrapBy) {
       if (!state) {
         return null;
       }
-      const rightTitle = state.getRightTitle ? state.getRightTitle(navProps) : state.rightTitle;
 
+      let onPress = state.onRight;
+      let buttonImage = state.rightButtonImage;
+      let menuIcon = state.drawerIcon;
+      const style = [styles.rightButton, self.props.rightButtonStyle, state.rightButtonStyle];
       const textStyle = [styles.barRightButtonText, self.props.rightButtonTextStyle,
         state.rightButtonTextStyle];
-      const style = [styles.rightButton, self.props.rightButtonStyle, state.rightButtonStyle];
+      const rightButtonStyle = [styles.defaultImageStyle, state.rightButtonIconStyle];
+      const rightTitle = state.getRightTitle ? state.getRightTitle(navProps) : state.rightTitle;
+
       if (state.rightButton) {
         let Button = state.rightButton;
         if (wrapBy) {
@@ -291,8 +316,24 @@ class NavBar extends React.Component {
           />
         );
       }
-      if (state.onRight && (rightTitle || state.rightButtonImage)) {
-        const onPress = state.onRight.bind(null, state);
+
+      if (!onPress && !!drawer && typeof drawer.toggle === 'function' && drawer.props.side === 'right') {
+        buttonImage = state.drawerImage;
+        if (buttonImage || menuIcon) {
+          onPress = drawer.toggle;
+        }
+        if (!menuIcon) {
+          menuIcon = (
+            <Image
+              source={buttonImage}
+              style={rightButtonStyle}
+            />
+          );
+        }
+      }
+
+      if (onPress && (rightTitle || buttonImage)) {
+        onPress = onPress.bind(null, state);
         return (
           <TouchableOpacity
             key={'rightNavBarBtn'}
@@ -305,22 +346,23 @@ class NavBar extends React.Component {
                 {rightTitle}
               </Text>
             }
-            {state.rightButtonImage &&
+            {buttonImage &&
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
-                <Image
-                  source={state.rightButtonImage}
-                  style={state.rightButtonIconStyle}
+                {menuIcon || <Image
+                  source={buttonImage}
+                  style={state.rightButtonIconStyle || styles.defaultImageStyle}
                 />
+                }
               </View>
             }
           </TouchableOpacity>
         );
       }
-      if ((!!state.onRight ^ !!(typeof(rightTitle) !== 'undefined'
-        || typeof(state.rightButtonImage) !== 'undefined'))) {
+      if ((!!state.onRight ^ !!(typeof (rightTitle) !== 'undefined'
+        || typeof (buttonImage) !== 'undefined'))) {
         console.warn(
           `Both onRight and rightTitle/rightButtonImage
-            must be specified for the scene: ${state.name}`
+            must be specified for the scene: ${state.name}`,
         );
       }
       return null;
@@ -358,7 +400,7 @@ class NavBar extends React.Component {
         );
       }
 
-      if (!onPress && !!drawer && typeof drawer.toggle === 'function') {
+      if (!onPress && !!drawer && typeof drawer.toggle === 'function' && drawer.props.side === 'left') {
         buttonImage = state.drawerImage;
         if (buttonImage || menuIcon) {
           onPress = drawer.toggle;
@@ -402,7 +444,7 @@ class NavBar extends React.Component {
       if ((!!state.onLeft ^ !!(leftTitle || buttonImage))) {
         console.warn(
           `Both onLeft and leftTitle/leftButtonImage
-            must be specified for the scene: ${state.name}`
+            must be specified for the scene: ${state.name}`,
         );
       }
       return null;
@@ -415,7 +457,7 @@ class NavBar extends React.Component {
     if (title === undefined && childState.component && childState.component.title) {
       title = childState.component.title;
     }
-    if (typeof(title) === 'function') {
+    if (typeof (title) === 'function') {
       title = title(childState);
     }
     return (
@@ -457,10 +499,30 @@ class NavBar extends React.Component {
     );
   }
 
+  renderImageTitle() {
+    const navigationBarTitleImage = this.props.navigationBarTitleImage ||
+      this.state.navigationBarTitleImage;
+    const navigationBarTitleImageStyle = this.props.navigationBarTitleImageStyle ||
+        this.state.navigationBarTitleImageStyle;
+    return (
+      <Animated.View
+        style={[
+          styles.titleWrapper,
+          this.props.titleWrapperStyle,
+        ]}
+      >
+        <Animated.Image
+          style={[styles.titleImage, navigationBarTitleImageStyle]}
+          source={navigationBarTitleImage}
+        />
+      </Animated.View>
+    );
+  }
+
   render() {
     let state = this.props.navigationState;
     let selected = state.children[state.index];
-    while (selected.hasOwnProperty('children')) {
+    while ({}.hasOwnProperty.call(selected, 'children')) {
       state = selected;
       selected = selected.children[selected.index];
     }
@@ -468,7 +530,7 @@ class NavBar extends React.Component {
 
     const wrapByStyle = (component, wrapStyle) => {
       if (!component) { return null; }
-      return (props) => <View style={wrapStyle}>{component(props)}</View>;
+      return props => <View style={wrapStyle}>{component(props)}</View>;
     };
 
     const leftButtonStyle = [styles.leftButton, { alignItems: 'flex-start' }];
@@ -488,9 +550,20 @@ class NavBar extends React.Component {
       this.props.renderTitle;
     const navigationBarBackgroundImage = this.props.navigationBarBackgroundImage ||
       state.navigationBarBackgroundImage;
+    const navigationBarBackgroundImageStyle = this.props.navigationBarBackgroundImageStyle ||
+      state.navigationBarBackgroundImageStyle;
+    const navigationBarTitleImage = this.props.navigationBarTitleImage ||
+      state.navigationBarTitleImage;
+    let imageOrTitle = null;
+    if (navigationBarTitleImage) {
+      imageOrTitle = this.renderImageTitle();
+    } else {
+      imageOrTitle = renderTitle ? renderTitle(navProps)
+      : state.children.map(this.renderTitle, this);
+    }
     const contents = (
       <View>
-        {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
+        {imageOrTitle}
         {renderBackButton(navProps) || renderLeftButton(navProps)}
         {renderRightButton(navProps)}
       </View>
@@ -505,7 +578,7 @@ class NavBar extends React.Component {
         ]}
       >
         {navigationBarBackgroundImage ? (
-          <Image source={navigationBarBackgroundImage}>
+          <Image style={navigationBarBackgroundImageStyle} source={navigationBarBackgroundImage}>
             {contents}
           </Image>
         ) : contents}
