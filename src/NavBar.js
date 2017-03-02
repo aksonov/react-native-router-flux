@@ -29,6 +29,7 @@ import React, {
 import {
   Platform,
   Animated,
+  I18nManager,
   Image,
   StyleSheet,
   Text,
@@ -97,6 +98,7 @@ const styles = StyleSheet.create({
     left: 2,
     padding: 8,
     flexDirection: 'row',
+    transform: [{ scaleX: I18nManager.isRTL ? -1 : 1 }],
   },
   rightButton: {
     height: 37,
