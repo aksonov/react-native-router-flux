@@ -9,7 +9,6 @@
 
 /* eslint-disable no-param-reassign */
 
-import { Platform } from 'react-native';
 import * as ActionConst from './ActionConst';
 import { ActionMap } from './Actions';
 import { assert } from './Util';
@@ -118,10 +117,9 @@ function inject(state, action, props, scenes) {
       };
     }
     case ActionConst.ANDROID_BACK: {
-      if (Platform.OS === 'android') {
-        assert(state.index > 0, 'You are already in the root scene.');
+      if (state.index === 0) {
+        return state;
       }
-
       return {
         ...state,
         index: state.index - 1,
