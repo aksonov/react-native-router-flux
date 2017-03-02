@@ -131,6 +131,9 @@ And every `Scene.type` string literal has a mapped constant in ActionConst, it i
 | hideNavBar | `bool` | false | hides the navigation bar for this scene and any following scenes until explicitly reversed |
 | navigationBarStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | optional style override for the navigation bar |
 | navigationBarBackgroundImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) |  | optional background image for the navigation bar |
+| navigationBarBackgroundImageStyle | [`Image style`](https://facebook.github.io/react-native/docs/image.html#style) |  | optional style override for the navigation bar background image |
+| navigationBarTitleImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) |  | optional image instead of text title for the navigation bar |
+| navigationBarTitleImageStyle | [`Image style`](https://facebook.github.io/react-native/docs/image.html#style) |  | optional style override for the navigation bar title image |
 | navBar | `React.Component` | | optional custom NavBar for the scene. Check built-in NavBar of the component for reference |
 | drawerImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `require('./menu_burger.png')` | Simple way to override the drawerImage in the navBar |
 

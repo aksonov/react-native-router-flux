@@ -47,6 +47,10 @@ const styles = StyleSheet.create({
     width: 180,
     alignSelf: 'center',
   },
+  titleImage: {
+    width: 180,
+    alignSelf: 'center',
+  },
   titleWrapper: {
     marginTop: 10,
     position: 'absolute',
@@ -164,6 +168,9 @@ const propTypes = {
   position: PropTypes.object,
   navigationBarStyle: View.propTypes.style,
   navigationBarBackgroundImage: Image.propTypes.source,
+  navigationBarBackgroundImageStyle: Image.propTypes.style,
+  navigationBarTitleImage: Image.propTypes.source,
+  navigationBarTitleImageStyle: Image.propTypes.style,
   renderTitle: PropTypes.any,
 };
 
@@ -186,6 +193,7 @@ class NavBar extends React.Component {
     this.renderBackButton = this.renderBackButton.bind(this);
     this.renderLeftButton = this.renderLeftButton.bind(this);
     this.renderTitle = this.renderTitle.bind(this);
+    this.renderImageTitle = this.renderImageTitle.bind(this);
   }
 
   renderBackButton() {
@@ -451,6 +459,26 @@ class NavBar extends React.Component {
     );
   }
 
+  renderImageTitle() {
+    const navigationBarTitleImage = this.props.navigationBarTitleImage ||
+      this.state.navigationBarTitleImage;
+    const navigationBarTitleImageStyle = this.props.navigationBarTitleImageStyle ||
+        this.state.navigationBarTitleImageStyle;
+    return (
+      <Animated.View
+        style={[
+          styles.titleWrapper,
+          this.props.titleWrapperStyle,
+        ]}
+      >
+        <Animated.Image
+          style={[styles.titleImage, navigationBarTitleImageStyle]}
+          source={navigationBarTitleImage}
+        />
+      </Animated.View>
+    );
+  }
+
   render() {
     let state = this.props.navigationState;
     let selected = state.children[state.index];
@@ -482,9 +510,20 @@ class NavBar extends React.Component {
       this.props.renderTitle;
     const navigationBarBackgroundImage = this.props.navigationBarBackgroundImage ||
       state.navigationBarBackgroundImage;
+    const navigationBarBackgroundImageStyle = this.props.navigationBarBackgroundImageStyle ||
+      state.navigationBarBackgroundImageStyle;
+    const navigationBarTitleImage = this.props.navigationBarTitleImage ||
+      state.navigationBarTitleImage;
+    let imageOrTitle = null;
+    if (navigationBarTitleImage) {
+      imageOrTitle = this.renderImageTitle();
+    } else {
+      imageOrTitle = renderTitle ? renderTitle(navProps)
+      : state.children.map(this.renderTitle, this);
+    }
     const contents = (
       <View>
-        {renderTitle ? renderTitle(navProps) : state.children.map(this.renderTitle, this)}
+        {imageOrTitle}
         {renderBackButton(navProps) || renderLeftButton(navProps)}
         {renderRightButton(navProps)}
       </View>
@@ -499,7 +538,7 @@ class NavBar extends React.Component {
         ]}
       >
         {navigationBarBackgroundImage ? (
-          <Image source={navigationBarBackgroundImage}>
+          <Image style={navigationBarBackgroundImageStyle} source={navigationBarBackgroundImage}>
             {contents}
           </Image>
         ) : contents}
