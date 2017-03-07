@@ -82,7 +82,7 @@ class TabBar extends Component {
         />
         {!hideTabBar && state.children.filter(el => el.icon).length > 0 &&
           (state.tabBarBackgroundImage ? (
-            <Image source={state.tabBarBackgroundImage}>
+            <Image source={state.tabBarBackgroundImage} style={state.tabBarBackgroundImageStyle}>
               {contents}
             </Image>
           ) : contents)
