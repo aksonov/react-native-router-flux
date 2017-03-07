@@ -37,6 +37,7 @@
     }
   ],
   "dependencies": {
+    "lodash.isequal": "^4.5.0",
     "react": "^15.4.2",
     "react-addons-pure-render-mixin": "^15.4.2",
     "react-dom": "^15.4.2",
