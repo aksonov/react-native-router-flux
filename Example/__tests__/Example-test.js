@@ -3,6 +3,7 @@ import React from 'react';
 
 import Example from '../Example';
 jest.unmock('Image');
+jest.unmock('RCTEventEmitter');
 
 import renderer from 'react-test-renderer';
 
