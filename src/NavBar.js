@@ -171,6 +171,8 @@ const propTypes = {
   navigationBarBackgroundImageStyle: Image.propTypes.style,
   navigationBarTitleImage: Image.propTypes.source,
   navigationBarTitleImageStyle: Image.propTypes.style,
+  navigationBarShowImageSelection: PropTypes.bool,
+  navigationBarSelecionStyle: View.propTypes.style,
   renderTitle: PropTypes.any,
 };
 
@@ -463,7 +465,11 @@ class NavBar extends React.Component {
     const navigationBarTitleImage = this.props.navigationBarTitleImage ||
       this.state.navigationBarTitleImage;
     const navigationBarTitleImageStyle = this.props.navigationBarTitleImageStyle ||
-        this.state.navigationBarTitleImageStyle;
+      this.state.navigationBarTitleImageStyle;
+    const navigationBarShowImageSelection = this.props.navigationBarShowImageSelection ||
+      this.state.navigationBarShowImageSelection;
+    const navigationBarSelecionStyle = this.props.navigationBarSelecionStyle ||
+      this.state.navigationBarSelecionStyle;
     return (
       <Animated.View
         style={[
@@ -475,6 +481,7 @@ class NavBar extends React.Component {
           style={[styles.titleImage, navigationBarTitleImageStyle]}
           source={navigationBarTitleImage}
         />
+        {navigationBarShowImageSelection && <Animated.View style={navigationBarSelecionStyle} />}
       </Animated.View>
     );
   }
