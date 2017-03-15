@@ -467,9 +467,9 @@ class NavBar extends React.Component {
     const navigationBarTitleImageStyle = this.props.navigationBarTitleImageStyle ||
       this.state.navigationBarTitleImageStyle;
     const navigationBarShowImageSelection = this.props.navigationBarShowImageSelection ||
-      this.state.navigationBarShowImageSelection;
+      this.state.navigationBarShowImageSelection || {};
     const navigationBarSelecionStyle = this.props.navigationBarSelecionStyle ||
-      this.state.navigationBarSelecionStyle;
+      this.state.navigationBarSelecionStyle || false;
     return (
       <Animated.View
         style={[
