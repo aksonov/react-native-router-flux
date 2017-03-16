@@ -64,6 +64,9 @@ You could use this component with RN0.26+
 npm i react-native-router-flux --save
 ```
 
+### For iOS
+In your Podfile / sub-specs of React, add 'RCTLinkingIOS'.
+
 ## Usage
 In your top-level `index.js`, define your scenes using the `Scene` component and pass it into the `Router` as children:
 ```js
