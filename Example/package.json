@@ -1,25 +1,31 @@
 {
-	"name": "Example",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
-	},
-	"dependencies": {
-		"react": "~15.4.1",
-		"react-native": "0.42.3",
-		"react-native-button": "^1.8.2",
-		"react-native-drawer": "^2.3.0",
-		"react-native-router-flux": "^3.38.0"
-	},
-	"devDependencies": {
-		"babel-jest": "19.0.0",
-		"babel-preset-react-native": "1.9.1",
-		"jest": "19.0.2",
-		"react-test-renderer": "~15.4.1"
-	},
-	"jest": {
-		"preset": "react-native"
-	}
+  "name": "Example",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "jest": "jest"
+  },
+  "dependencies": {
+    "react": "~15.4.1",
+    "react-native": "0.42.3",
+    "react-native-button": "^1.8.2",
+    "react-native-drawer": "^2.3.0",
+    "react-native-router-flux": "^3.38.0"
+  },
+  "devDependencies": {
+    "babel-jest": "19.0.0",
+    "babel-preset-react-native": "1.9.1",
+    "jest": "19.0.2",
+    "jest-react-native": "^18.0.0",
+    "react-test-renderer": "~15.4.1"
+  },
+  "jest": {
+    "preset": "react-native",
+    "setupFiles": ["./jest/setup.js"],
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|native-base|react-clone-referenced-element)"
+    ]
+  }
 }
