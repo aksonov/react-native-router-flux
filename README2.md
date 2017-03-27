@@ -352,3 +352,33 @@ P.S.: Remember to check `currentRoute === 'payment'`, otherwise you'll start doS
         </Router>
 ```
 
+##  Inter Routing
+### Routing from one nested route to the other
+* If you are in one nested route and you want to navigate to a route which is in different parent alltogether, this is what you should follow
+```
+  import { Actions as NavigationActions } from 'react-native-router-flux'
+  .
+  .
+  .
+  .
+  <Router>
+    <Scene key="route1" hideNavBar type='reset'>
+      <Scene initial key='subRoute1' component={SubRoute1Screen} title='SubRoute1' type='reset' />
+      <Scene key='subRoute2' component={SubRoute2Screen} title='SubRoute2' />
+      <Scene key='subRoute3' component={SubRoute3Screen} title='SubRoute3' />
+      <Scene key='subRoute4' component={SubRoute4Screen} title='SubRoute4' />
+    </Scene>
+    <Scene key='route2'>
+      <Scene key='subRoute5'>
+        <Scene key='subRoute6' component={SubRoute6Screen} title='SubRoute6' />
+        <Scene key='subRoute7' component={SubRoute7Screen} title='SubRoute7' />
+      </Scene>
+    </Scene>
+  </Router>
+```
+Let's say you are at SubRoute3Screen and you want to navigate to SubRoute7Screen, you have to do the following in SubRoute3Screen:-
+
+NavigationActions.route2();
+NavigationActions.subRoute5();
+NavigationActions.subRoute7();
+
