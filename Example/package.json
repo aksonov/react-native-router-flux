@@ -1,35 +1,25 @@
 {
-  "name": "Example",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node_modules/react-native/packager/packager.sh",
-    "sync-rnrf": "rm -rf ./node_modules/react-native-router-flux; sane '/usr/bin/rsync -v -a --exclude .git --exclude Example --exclude node_modules ../ ./node_modules/react-native-router-flux/' .. --glob='{**/*.json,**/*.js}'",
-    "jest": "jest"
-  },
-  "dependencies": {
-    "clamp": "^1.0.1",
-    "react": "15.4.2",
-    "react-native": "^0.41.2",
-    "react-native-button": "github:ide/react-native-button",
-    "react-native-drawer": "^2.2.2",
-    "react-native-router-flux": "^3.38"
-  },
-  "devDependencies": {
-    "babel-jest": "^17.0.2",
-    "babel-preset-react-native": "^1.9.0",
-    "jest": "17.0.3",
-    "jest-react-native": "^18.0.0",
-    "react-test-renderer": "15.3.0",
-    "sane": "^1.4.1"
-  },
-  "jest": {
-    "preset": "react-native",
-    "testRegex": "./test/[^setup].*.js$",
-    "mocksPattern": "./test/mocks/.*.js$",
-    "transformIgnorePatterns": ["node_modules/(?!react-native|native-base|react-clone-referenced-element)"],
-    "setupFiles": [
-        "./test/setup.js"
-    ]
-  }
+	"name": "Example",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"test": "jest"
+	},
+	"dependencies": {
+		"react": "~15.4.1",
+		"react-native": "0.42.3",
+		"react-native-button": "^1.8.2",
+		"react-native-drawer": "^2.3.0",
+		"react-native-router-flux": "^3.38.0"
+	},
+	"devDependencies": {
+		"babel-jest": "19.0.0",
+		"babel-preset-react-native": "1.9.1",
+		"jest": "19.0.2",
+		"react-test-renderer": "~15.4.1"
+	},
+	"jest": {
+		"preset": "react-native"
+	}
 }
