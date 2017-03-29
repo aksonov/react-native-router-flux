@@ -1,6 +1,7 @@
 import Actions from './src/Actions';
 import * as ActionConst from './src/ActionConst';
 import DefaultRenderer from './src/DefaultRenderer';
+import TabbedView from './src/TabbedView';
 import Modal from './src/Modal';
 import NavBar from './src/NavBar';
 import Reducer from './src/Reducer';
@@ -8,7 +9,7 @@ import Router from './src/Router';
 import Scene from './src/Scene';
 import Switch from './src/Switch';
 import TabBar from './src/TabBar';
-import getInitialState from './src/State';
+import getInitialStateFromRoot from './src/State';
 import Util from './src/Util';
 
 export {
@@ -22,6 +23,7 @@ export {
   Scene,
   Switch,
   TabBar,
-  getInitialState,
+  TabbedView,
+  getInitialStateFromRoot,
   Util,
 };

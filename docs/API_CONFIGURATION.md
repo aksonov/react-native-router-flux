@@ -61,10 +61,36 @@ Actions.ROUTE_NAME({type: ActionConst.RESET});
 | ActionConst.REPLACE | `string` | 'REACT_NATIVE_ROUTER_FLUX_REPLACE' | 'replace' |
 | ActionConst.BACK | `string` | 'REACT_NATIVE_ROUTER_FLUX_BACK' | 'back' |
 | ActionConst.BACK_ACTION | `string` | 'REACT_NATIVE_ROUTER_FLUX_BACK_ACTION' | 'BackAction' |
+| ActionConst.POP_AND_REPLACE | `string` | 'REACT_NATIVE_ROUTER_FLUX_POP_AND_REPLACE' | 'popAndReplace' |
 | ActionConst.POP_TO | `string` | 'REACT_NATIVE_ROUTER_FLUX_POP_TO' | 'popTo' |
 | ActionConst.REFRESH | `string` | 'REACT_NATIVE_ROUTER_FLUX_REFRESH' | 'refresh' |
 | ActionConst.RESET | `string` | 'REACT_NATIVE_ROUTER_FLUX_RESET' | 'reset' |
 | ActionConst.FOCUS | `string` | 'REACT_NATIVE_ROUTER_FLUX_FOCUS' | 'focus' |
+
+### ActionConst and Scene.type explaination
+
+**ActionConst**
+
+are just a bunch of constants represent real values of various actions/scene.type to avoid future changes.
+you can treat it like redux action.
+
+These can be used directly, for example, Actions.pop() will dispatch correspond action written in the source code, or, you can set those constants in scene type, when you do Actions.main(), it will dispatch action according to your scene type or the default one.
+
+Not every ActionConst can be used the same way ( use as an action or whether it can be set in scene type or not)
+that's why it's just a bunch of constants to mask the actual values.
+
+**Scene.type**
+
+Defines how the new screen is added to the navigator stack. One of push, modal, actionSheet, replace, switch, reset transitionToTop. Default is 'push'.
+And every `Scene.type` string literal has a mapped constant in ActionConst, it is recommended to always use constant.
+
+`replace`: tells navigator to replace current route with new route.  
+`actionSheet`: shows Action Sheet popup, you must pass callback as callback function.  
+`modal`: type inserts its 'component' into route stack after navigator component. It could be used for popup alerts as well for various needed processes before any navigator transitions (like login auth process). it could be dismissed by using Actions.dismiss().   
+`switch`: is used for tab screens.  
+`reset`: is similar to `replace` except it unmounts the componets in the navigator stack.  
+`transitionToTop`: will reset router stack ['route.name'] and with animation, if route has sceneConfig. eg `<Route name="login" schema="modal" component={Login} type="transitionToTop" />`
+
 
 ### Animation
 | Property | Type | Default | Description |
@@ -92,8 +118,10 @@ Actions.ROUTE_NAME({type: ActionConst.RESET});
 |-----------|--------|---------|--------------------------------------------|
 | tabs| `bool` | false | Defines 'TabBar' scene container, so child scenes will be displayed as 'tabs'. If no `component` is defined, built-in `TabBar` is used as renderer. All child scenes are wrapped into own navbar.
 | tabBarStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | optional style override for the Tabs component |
+| tabBarBackgroundImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) |  | optional background image for the Tabs component |
 | tabBarIconContainerStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | optional style override for the View that contains each tab icon |
 | hideTabBar | `bool` | false | hides tab bar for this scene and any following scenes until explicitly reversed (if built-in TabBar component is used as parent renderer)|
+| hideOnChildTabs | `bool` | false | hides tab bar when another `tabs` scene is added to the navigation stack. |
 | pressOpacity | `number` | 0.2 | the opacity when clicking on the tab |
 
 
@@ -102,8 +130,12 @@ Actions.ROUTE_NAME({type: ActionConst.RESET});
 |-----------|--------|---------|--------------------------------------------|
 | hideNavBar | `bool` | false | hides the navigation bar for this scene and any following scenes until explicitly reversed |
 | navigationBarStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | optional style override for the navigation bar |
+| navigationBarBackgroundImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) |  | optional background image for the navigation bar |
+| navigationBarBackgroundImageStyle | [`Image style`](https://facebook.github.io/react-native/docs/image.html#style) |  | optional style override for the navigation bar background image |
+| navigationBarTitleImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) |  | optional image instead of text title for the navigation bar |
+| navigationBarTitleImageStyle | [`Image style`](https://facebook.github.io/react-native/docs/image.html#style) |  | optional style override for the navigation bar title image |
 | navBar | `React.Component` | | optional custom NavBar for the scene. Check built-in NavBar of the component for reference |
-| drawerImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `'./menu_burger.png'` | Simple way to override the drawerImage in the navBar |
+| drawerImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `require('./menu_burger.png')` | Simple way to override the drawerImage in the navBar |
 
 #### Navigation Bar: Title
 | Property | Type | Default | Description |
@@ -112,6 +144,7 @@ Actions.ROUTE_NAME({type: ActionConst.RESET});
 | getTitle | `function` | optional | Optionally closure to return a value of the title based on state |
 | renderTitle | `function` | optional | Optionally closure to render the title |
 | titleStyle | [`Text style`](https://facebook.github.io/react-native/docs/text.html#style) |  | optional style override for the title element |
+| titleWrapperStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | optional style override for the title wrapper |
 | titleOpacity | `string` | optional | Set opacity for the title in navigation bar |
 | titleProps | `object` | null | Any other properties to be set on the title component |
 
@@ -120,7 +153,7 @@ Actions.ROUTE_NAME({type: ActionConst.RESET});
 |-----------|--------|---------|--------------------------------------------|
 | backTitle | `string` | | optional string to display with back button |
 | renderBackButton | `function` | | optional closure to render back text or button if this route happens to be the previous route |
-| backButtonImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `'./back_chevron.png'` | Simple way to override the back button in the navBar |
+| backButtonImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `require('./back_chevron.png')` | Simple way to override the back button in the navBar |
 | backButtonTextStyle | [`Text style`](https://facebook.github.io/react-native/docs/text.html#style) | | optional style override for the back title element |
 | hideBackImage | `boolean` | false | no default back button image will be displayed |
 | onBack | `function` | Actions.pop | actions for back button |

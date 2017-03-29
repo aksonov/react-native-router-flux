@@ -14,7 +14,7 @@ import { BackAndroid } from 'react-native';
 import NavigationExperimental from 'react-native-experimental-navigation';
 
 import Actions, { ActionMap } from './Actions';
-import getInitialState from './State';
+import getInitialStateFromRoot from './State';
 import Reducer, { findElement } from './Reducer';
 import DefaultRenderer from './DefaultRenderer';
 import Scene from './Scene';
@@ -32,23 +32,32 @@ const propTypes = {
 };
 
 class Router extends Component {
+  static childContextTypes = {
+    routes: PropTypes.object,
+  }
 
   constructor(props) {
     super(props);
-    this.state = {};
     this.renderNavigation = this.renderNavigation.bind(this);
     this.handleProps = this.handleProps.bind(this);
     this.handleBackAndroid = this.handleBackAndroid.bind(this);
+    const reducer = this.handleProps(props);
+    this.state = { reducer };
+  }
+
+  getChildContext() {
+    return {
+      routes: Actions,
+    };
   }
 
   componentDidMount() {
-    this.handleProps(this.props);
-
     BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid);
   }
 
   componentWillReceiveProps(props) {
-    this.handleProps(props);
+    const reducer = this.handleProps(props);
+    this.setState({ reducer });
   }
 
   componentWillUnmount() {
@@ -67,7 +76,7 @@ class Router extends Component {
     }
 
     try {
-      Actions.pop();
+      Actions.androidBack();
       if (onBackAndroid) {
         onBackAndroid();
       }
@@ -108,7 +117,7 @@ class Router extends Component {
 
     scenesMap.rootProps = parentProps;
 
-    const initialState = getInitialState(scenesMap);
+    const initialState = getInitialStateFromRoot(scenesMap);
     const reducerCreator = props.createReducer || Reducer;
 
     const routerReducer = props.reducer || (
@@ -117,7 +126,7 @@ class Router extends Component {
         scenes: scenesMap,
       }));
 
-    this.setState({ reducer: routerReducer });
+    return routerReducer;
   }
 
   renderNavigation(navigationState, onNavigate) {
@@ -125,7 +134,7 @@ class Router extends Component {
       return null;
     }
     Actions.get = key => findElement(navigationState, key, ActionConst.REFRESH);
-    Actions.callback = props => {
+    Actions.callback = (props) => {
       const constAction = (props.type && ActionMap[props.type] ? ActionMap[props.type] : null);
       if (this.props.dispatch) {
         if (constAction) {

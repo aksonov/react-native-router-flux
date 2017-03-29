@@ -7,6 +7,7 @@
  *
  */
 import { assert } from './Util';
+import * as ActionConst from './ActionConst';
 
 function getStateFromScenes(route, scenes, props) {
   const getters = [];
@@ -23,7 +24,7 @@ function getStateFromScenes(route, scenes, props) {
     getters.push(scenes.rootProps.getInitialState);
   }
 
-  getters.reverse().forEach(fn => {
+  getters.reverse().forEach((fn) => {
     result = { ...result, ...fn(props) };
   });
 
@@ -32,7 +33,7 @@ function getStateFromScenes(route, scenes, props) {
 
 function getSceneKey(parent, key, position, sceneKey) {
   return [parent, key, position, sceneKey]
-    .filter(v => typeof(v) !== 'undefined' && v !== null)
+    .filter(v => typeof (v) !== 'undefined' && v !== null)
     .join('_');
 }
 
@@ -40,7 +41,7 @@ export function getInitialState(
   route: {string: any},
   scenes: {string: any},
   position = 0,
-  props = {}
+  props = {},
 ) {
   // eslint-disable-next-line no-unused-vars
   const { parent, key, style, type, ...parentProps } = props;
@@ -63,20 +64,27 @@ export function getInitialState(
   });
 
   if (route.tabs) {
-    res.children = route.children.map((r, i) => getInitialState(scenes[r], scenes, i, props));
+    res.children = route.children.map(
+      (r, i) => getInitialState(scenes[r], scenes, i, { ...props, parentIndex: position }));
     res.index = index;
   } else {
     res.children = [getInitialState(scenes[route.children[index]], scenes, 0, props)];
     res.index = 0;
   }
+
+  // Copy props to the children of tab routes
+  if (route.type === ActionConst.JUMP) {
+    res.children = res.children.map(child => ({ ...props, ...child }));
+  }
+
   res.key = `${position}_${res.key}`;
   return res;
 }
 
 export default function (scenes:{string: any}) {
   // find "root" component and get state from it
-  const rootRoute = Object.keys(scenes).find((route) =>
-    scenes.hasOwnProperty(route) && !scenes[route].parent);
+  const rootRoute = Object.keys(scenes).find(route =>
+    ({}).hasOwnProperty.call(scenes, route) && !scenes[route].parent);
 
   return getInitialState(scenes[rootRoute], scenes);
 }
