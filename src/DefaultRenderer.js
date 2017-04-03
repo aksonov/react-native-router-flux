@@ -211,7 +211,6 @@ export default class DefaultRenderer extends Component {
       direction,
       animation,
       getSceneStyle,
-      getPanHandlers,
     } = props.scene.navigationState;
 
     const state = props.navigationState;
@@ -220,7 +219,11 @@ export default class DefaultRenderer extends Component {
     while ({}.hasOwnProperty.call(selected, 'children')) {
       selected = selected.children[selected.index];
     }
-    let { panHandlers, animationStyle } = selected;
+
+    const { getPanHandlers } = selected;
+    let { panHandlers } = selected;
+    let { animationStyle } = props.scene.navigationState;
+
     const isActive = child === selected;
     const computedProps = { isActive };
     if (isActive) {

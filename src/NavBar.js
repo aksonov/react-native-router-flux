@@ -29,6 +29,7 @@ import React, {
 import {
   Platform,
   Animated,
+  I18nManager,
   Image,
   StyleSheet,
   Text,
@@ -61,6 +62,9 @@ const styles = StyleSheet.create({
       android: {
         top: 5,
       },
+      windows: {
+        top: 5,
+      },
     }),
     left: 0,
     right: 0,
@@ -74,6 +78,9 @@ const styles = StyleSheet.create({
         height: 64,
       },
       android: {
+        height: 54,
+      },
+      windows: {
         height: 54,
       },
     }),
@@ -93,10 +100,14 @@ const styles = StyleSheet.create({
       android: {
         top: 10,
       },
+      windows: {
+        top: 8,
+      },
     }),
     left: 2,
     padding: 8,
     flexDirection: 'row',
+    transform: [{ scaleX: I18nManager.isRTL ? -1 : 1 }],
   },
   rightButton: {
     height: 37,
@@ -107,6 +118,9 @@ const styles = StyleSheet.create({
       },
       android: {
         top: 10,
+      },
+      windows: {
+        top: 8,
       },
     }),
     right: 2,
@@ -120,6 +134,9 @@ const styles = StyleSheet.create({
         top: 20,
       },
       android: {
+        top: 8,
+      },
+      windows: {
         top: 8,
       },
     }),
@@ -270,15 +287,21 @@ class NavBar extends React.Component {
 
   renderRightButton(navProps) {
     const self = this;
+    const drawer = this.context.drawer;
     function tryRender(state, wrapBy) {
       if (!state) {
         return null;
       }
-      const rightTitle = state.getRightTitle ? state.getRightTitle(navProps) : state.rightTitle;
 
+      let onPress = state.onRight;
+      let buttonImage = state.rightButtonImage;
+      let menuIcon = state.drawerIcon;
+      const style = [styles.rightButton, self.props.rightButtonStyle, state.rightButtonStyle];
       const textStyle = [styles.barRightButtonText, self.props.rightButtonTextStyle,
         state.rightButtonTextStyle];
-      const style = [styles.rightButton, self.props.rightButtonStyle, state.rightButtonStyle];
+      const rightButtonStyle = [styles.defaultImageStyle, state.rightButtonIconStyle];
+      const rightTitle = state.getRightTitle ? state.getRightTitle(navProps) : state.rightTitle;
+
       if (state.rightButton) {
         let Button = state.rightButton;
         if (wrapBy) {
@@ -295,8 +318,24 @@ class NavBar extends React.Component {
           />
         );
       }
-      if (state.onRight && (rightTitle || state.rightButtonImage)) {
-        const onPress = state.onRight.bind(null, state);
+
+      if (!onPress && !!drawer && typeof drawer.toggle === 'function' && drawer.props.side === 'right') {
+        buttonImage = state.drawerImage;
+        if (buttonImage || menuIcon) {
+          onPress = drawer.toggle;
+        }
+        if (!menuIcon) {
+          menuIcon = (
+            <Image
+              source={buttonImage}
+              style={rightButtonStyle}
+            />
+          );
+        }
+      }
+
+      if (onPress && (rightTitle || buttonImage)) {
+        onPress = onPress.bind(null, state);
         return (
           <TouchableOpacity
             key={'rightNavBarBtn'}
@@ -309,19 +348,20 @@ class NavBar extends React.Component {
                 {rightTitle}
               </Text>
             }
-            {state.rightButtonImage &&
+            {buttonImage &&
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
-                <Image
-                  source={state.rightButtonImage}
-                  style={state.rightButtonIconStyle}
+                {menuIcon || <Image
+                  source={buttonImage}
+                  style={state.rightButtonIconStyle || styles.defaultImageStyle}
                 />
+                }
               </View>
             }
           </TouchableOpacity>
         );
       }
       if ((!!state.onRight ^ !!(typeof (rightTitle) !== 'undefined'
-        || typeof (state.rightButtonImage) !== 'undefined'))) {
+        || typeof (buttonImage) !== 'undefined'))) {
         console.warn(
           `Both onRight and rightTitle/rightButtonImage
             must be specified for the scene: ${state.name}`,
@@ -362,7 +402,7 @@ class NavBar extends React.Component {
         );
       }
 
-      if (!onPress && !!drawer && typeof drawer.toggle === 'function') {
+      if (!onPress && !!drawer && typeof drawer.toggle === 'function' && drawer.props.side === 'left') {
         buttonImage = state.drawerImage;
         if (buttonImage || menuIcon) {
           onPress = drawer.toggle;
@@ -462,14 +502,15 @@ class NavBar extends React.Component {
   }
 
   renderImageTitle() {
+    const state = this.props.navigationState;
     const navigationBarTitleImage = this.props.navigationBarTitleImage ||
-      this.state.navigationBarTitleImage;
+      state.navigationBarTitleImage;
     const navigationBarTitleImageStyle = this.props.navigationBarTitleImageStyle ||
-      this.state.navigationBarTitleImageStyle;
+      state.navigationBarTitleImageStyle;
     const navigationBarShowImageSelection = this.props.navigationBarShowImageSelection ||
-      this.state.navigationBarShowImageSelection || {};
+      state.navigationBarShowImageSelection || false;
     const navigationBarSelecionStyle = this.props.navigationBarSelecionStyle ||
-      this.state.navigationBarSelecionStyle || false;
+      state.navigationBarSelecionStyle || {};
     return (
       <Animated.View
         style={[
