@@ -126,7 +126,7 @@ describe('handling actions', () => {
             <Scene key="world_content" component={component} />
             <Scene key="maps" component={component}>
               <Scene key="maps_content" component={component} />
-              <Scene key="map_tabs" component={component} tabs={true}>
+              <Scene key="map_tabs" component={component} tabs>
                 <Scene key="map_tab_1" component={component} />
                 <Scene key="map_tab_2" component={component} />
                 <Scene key="map_tab_3" component={component} />
@@ -180,7 +180,7 @@ describe('handling actions', () => {
     Actions.map_tab_3();
     expect(current.key).to.eq('map_tab_3_0_map_tab_3_');
     expect(current.parentIndex).to.eq(1);
-  })
+  });
 });
 
 describe('passing props from actions', () => {
