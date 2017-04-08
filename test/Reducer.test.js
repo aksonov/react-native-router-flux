@@ -18,6 +18,7 @@ export default function getCurrent(state) {
 const id = 0;
 const guid = () => id + 1;
 const noop = () => {};
+const component = React.Component;
 const scenesData = (
   <Scene
     key="root"
@@ -118,10 +119,20 @@ describe('handling actions', () => {
 
   beforeEach(() => {
     const scene = (
-      <Scene key="root" component={noop}>
+      <Scene key="root" component={component}>
         <Scene key="main" tabs>
-          <Scene key="hello" component={noop} initial />
-          <Scene key="world" component={noop} />
+          <Scene key="hello" component={component} initial />
+          <Scene key="world" component={component}>
+            <Scene key="world_content" component={component} />
+            <Scene key="maps" component={component}>
+              <Scene key="maps_content" component={component} />
+              <Scene key="map_tabs" component={component} tabs>
+                <Scene key="map_tab_1" component={component} />
+                <Scene key="map_tab_2" component={component} />
+                <Scene key="map_tab_3" component={component} />
+              </Scene>
+            </Scene>
+          </Scene>
         </Scene>
       </Scene>
     );
@@ -148,8 +159,27 @@ describe('handling actions', () => {
   it('switches to a correct tab on JUMP', () => {
     Actions.main();
     Actions.hello();
-
     expect(current.key).to.eq('hello_0_hello_');
+  });
+
+  it('maintains scene parentIndex when switching tabs', () => {
+    Actions.world();
+    expect(current.key).to.eq('world_0_world_content');
+
+    Actions.maps({ type: 'push' });
+    expect(current.key).to.eq('maps_0_maps_content');
+
+    Actions.map_tabs();
+    expect(current.key).to.eq('map_tabs_0_map_tab_1_');
+    expect(current.parentIndex).to.eq(1);
+
+    Actions.map_tab_2();
+    expect(current.key).to.eq('map_tab_2_0_map_tab_2_');
+    expect(current.parentIndex).to.eq(1);
+
+    Actions.map_tab_3();
+    expect(current.key).to.eq('map_tab_3_0_map_tab_3_');
+    expect(current.parentIndex).to.eq(1);
   });
 });
 
