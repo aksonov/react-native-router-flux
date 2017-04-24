@@ -38,7 +38,6 @@
   ],
   "dependencies": {
     "lodash.isequal": "^4.5.0",
-    "react": "^15.4.2",
     "react-addons-pure-render-mixin": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-native-experimental-navigation": "0.26.x",
@@ -67,6 +66,7 @@
     "babel-preset-stage-0": "^6.22.0",
     "jest": "19.0.1",
     "react-test-renderer": "15.4.2",
+    "react": "^15.4.2",
     "react-native": "^0.41.2"
   },
   "jest": {
