@@ -134,8 +134,8 @@ describe('handling actions', () => {
             </Scene>
           </Scene>
         </Scene>
-        <Scene key="foo" component={component}/>
-        <Scene key="bar" component={component}/>
+        <Scene key="foo" component={component} />
+        <Scene key="bar" component={component} />
       </Scene>
     );
 
@@ -175,7 +175,7 @@ describe('handling actions', () => {
     expect(current.key).to.eq('map_tabs_0_map_tab_1_');
     expect(current.parentIndex).to.eq(1);
     Actions.foo();
-    Actions.bar({type: 'reset'});
+    Actions.bar({ type: 'reset' });
     expect(current.key).to.eq('bar_0_bar');
   });
 
