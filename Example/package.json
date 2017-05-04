@@ -23,7 +23,7 @@
   },
   "jest": {
     "preset": "react-native",
-    "setupFiles": ["./jest/setup.js"],
+    "setupFiles": ["./node_modules/react-native/jest/setup.js", "./jest-setup.js"],
     "transformIgnorePatterns": [
       "node_modules/(?!react-native|native-base|react-clone-referenced-element)"
     ]
