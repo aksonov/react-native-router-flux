@@ -82,7 +82,7 @@ that's why it's just a bunch of constants to mask the actual values.
 **Scene.type**
 
 Defines how the new screen is added to the navigator stack. One of push, modal, actionSheet, replace, switch, reset transitionToTop. Default is 'push'.
-And every `Scene.type` string literal has a mapped contant in ActionConst, it is recommended to always use constant.
+And every `Scene.type` string literal has a mapped constant in ActionConst, it is recommended to always use constant.
 
 `replace`: tells navigator to replace current route with new route.  
 `actionSheet`: shows Action Sheet popup, you must pass callback as callback function.  
@@ -131,8 +131,13 @@ And every `Scene.type` string literal has a mapped contant in ActionConst, it is
 | hideNavBar | `bool` | false | hides the navigation bar for this scene and any following scenes until explicitly reversed |
 | navigationBarStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | optional style override for the navigation bar |
 | navigationBarBackgroundImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) |  | optional background image for the navigation bar |
+| navigationBarBackgroundImageStyle | [`Image style`](https://facebook.github.io/react-native/docs/image.html#style) |  | optional style override for the navigation bar background image |
+| navigationBarTitleImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) |  | optional image instead of text title for the navigation bar |
+| navigationBarTitleImageStyle | [`Image style`](https://facebook.github.io/react-native/docs/image.html#style) |  | optional style override for the navigation bar title image |
+| navigationBarShowImageSelection | `bool` | false | hides the selection line inside navigation bar when using navigationBarTitleImage |
+| navigationBarSelecionStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | optional style to add a selection line below navigationBarTitleImage |
 | navBar | `React.Component` | | optional custom NavBar for the scene. Check built-in NavBar of the component for reference |
-| drawerImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `'./menu_burger.png'` | Simple way to override the drawerImage in the navBar |
+| drawerImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `require('./menu_burger.png')` | Simple way to override the drawerImage in the navBar |
 
 #### Navigation Bar: Title
 | Property | Type | Default | Description |
@@ -141,6 +146,7 @@ And every `Scene.type` string literal has a mapped contant in ActionConst, it is
 | getTitle | `function` | optional | Optionally closure to return a value of the title based on state |
 | renderTitle | `function` | optional | Optionally closure to render the title |
 | titleStyle | [`Text style`](https://facebook.github.io/react-native/docs/text.html#style) |  | optional style override for the title element |
+| titleWrapperStyle | [`View style`](https://facebook.github.io/react-native/docs/view.html#style) |  | optional style override for the title wrapper |
 | titleOpacity | `string` | optional | Set opacity for the title in navigation bar |
 | titleProps | `object` | null | Any other properties to be set on the title component |
 
@@ -149,7 +155,7 @@ And every `Scene.type` string literal has a mapped contant in ActionConst, it is
 |-----------|--------|---------|--------------------------------------------|
 | backTitle | `string` | | optional string to display with back button |
 | renderBackButton | `function` | | optional closure to render back text or button if this route happens to be the previous route |
-| backButtonImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `'./back_chevron.png'` | Simple way to override the back button in the navBar |
+| backButtonImage | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | `require('./back_chevron.png')` | Simple way to override the back button in the navBar |
 | backButtonTextStyle | [`Text style`](https://facebook.github.io/react-native/docs/text.html#style) | | optional style override for the back title element |
 | hideBackImage | `boolean` | false | no default back button image will be displayed |
 | onBack | `function` | Actions.pop | actions for back button |
