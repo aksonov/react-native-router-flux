@@ -10,22 +10,21 @@
 /* eslint-disable no-param-reassign */
 
 import { Platform } from 'react-native';
+import isEqual from 'lodash.isequal';
 import * as ActionConst from './ActionConst';
 import { ActionMap } from './Actions';
 import { assert } from './Util';
 import { getInitialState } from './State';
 
-// WARN: it is not working correct. rewrite it.
 function checkPropertiesEqual(action, lastAction) {
-  let isEqual = true;
   for (const key of Object.keys(action)) {
     if (['key', 'type', 'parent'].indexOf(key) === -1) {
-      if (action[key] !== lastAction[key]) {
-        isEqual = false;
+      if (!isEqual(action[key], lastAction[key]) && (typeof action[key] !== 'function') && (typeof lastAction[key] !== 'function')) {
+        return false;
       }
     }
   }
-  return isEqual;
+  return true;
 }
 
 function resetHistoryStack(state) {
@@ -234,7 +233,15 @@ function inject(state, action, props, scenes) {
         const rState = resetHistoryStack(state);
         newState = { ...rState, index: ind };
       }
-      return newState;
+
+      state.children[ind] = getInitialState(
+        props,
+        scenes,
+        state.index,
+        { ...action, parentIndex: state.children[ind].parentIndex },
+      );
+
+      return { ...state, index: ind };
     }
     case ActionConst.REPLACE:
       if (state.children[state.index].sceneKey === action.key) {
