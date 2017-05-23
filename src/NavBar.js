@@ -35,7 +35,7 @@ import {
   Text,
   TouchableOpacity,
   View,
-  ViewPropTypes
+  ViewPropTypes,
 } from 'react-native';
 import Actions from './Actions';
 import _drawerImage from './menu_burger.png';
