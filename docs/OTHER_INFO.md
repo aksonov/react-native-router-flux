@@ -126,7 +126,7 @@ Following example chooses scene depending from sessionID using Redux:
     selector={props=>props.profile.sessionID ? "main" : "signUp"}
     >
     <Scene key="signUp" component={SignUp}/>
-    <Scene key="main" component={Main}>
+    <Scene key="main" component={Main}/>
 </Scene>
 ```
 
