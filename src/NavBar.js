@@ -39,6 +39,7 @@ import {
 import Actions from './Actions';
 import _drawerImage from './menu_burger.png';
 import _backButtonImage from './back_chevron.png';
+import _downButtonImage from './down_chevron.png';
 
 const styles = StyleSheet.create({
   title: {
@@ -163,6 +164,11 @@ const styles = StyleSheet.create({
     width: 13,
     height: 21,
   },
+  downButtonImage: {
+    width: 21,
+    height: 13,
+    marginTop: 4,
+  },
   defaultImageStyle: {
     height: 24,
     resizeMode: 'contain',
@@ -200,6 +206,7 @@ const contextTypes = {
 const defaultProps = {
   drawerImage: _drawerImage,
   backButtonImage: _backButtonImage,
+  downButtonImage: _downButtonImage,
   titleOpacity: 1,
 };
 
@@ -247,8 +254,12 @@ class NavBar extends React.Component {
         />
       );
     }
+
+    const backImage = (this.props.direction === 'vertical')
+      ? this.props.downButtonImage
+      : this.props.backButtonImage;
     const buttonImage = childState.backButtonImage ||
-      state.backButtonImage || this.props.backButtonImage;
+      state.backButtonImage || backImage;
     let onPress = childState.onBack || childState.component.onBack;
     if (onPress) {
       onPress = onPress.bind(null, state);
@@ -262,6 +273,10 @@ class NavBar extends React.Component {
       </Text>)
       : null;
 
+    const backButtonImageStyle = this.props.direction === 'vertical'
+      ? styles.downButtonImage
+      : styles.backButtonImage;
+
     return (
       <TouchableOpacity
         testID="backNavButton"
@@ -272,7 +287,7 @@ class NavBar extends React.Component {
           <Image
             source={buttonImage}
             style={[
-              styles.backButtonImage,
+              backButtonImageStyle,
               this.props.leftButtonIconStyle,
               state.barButtonIconStyle,
               state.leftButtonIconStyle,
