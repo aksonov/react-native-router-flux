@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Example renders correctly 1`] = `
 <View
   onLayout={[Function]}
@@ -9,13 +11,15 @@ exports[`Example renders correctly 1`] = `
       },
       undefined,
     ]
-  }>
+  }
+>
   <View
     style={
       Object {
         "flex": 1,
       }
-    }>
+    }
+  >
     <View
       onMoveShouldSetResponder={[Function]}
       onMoveShouldSetResponderCapture={[Function]}
@@ -53,7 +57,8 @@ exports[`Example renders correctly 1`] = `
             },
           ],
         }
-      }>
+      }
+    >
       <View
         style={
           Array [
@@ -62,13 +67,15 @@ exports[`Example renders correctly 1`] = `
             },
             undefined,
           ]
-        }>
+        }
+      >
         <View
           style={
             Object {
               "flex": 1,
             }
-          }>
+          }
+        >
           <View
             onLayout={[Function]}
             style={
@@ -79,13 +86,15 @@ exports[`Example renders correctly 1`] = `
                 },
                 undefined,
               ]
-            }>
+            }
+          >
             <View
               style={
                 Object {
                   "flex": 1,
                 }
-              }>
+              }
+            >
               <View
                 onMoveShouldSetResponder={[Function]}
                 onMoveShouldSetResponderCapture={[Function]}
@@ -125,7 +134,8 @@ exports[`Example renders correctly 1`] = `
                       },
                     ],
                   }
-                }>
+                }
+              >
                 <View
                   style={
                     Array [
@@ -134,7 +144,8 @@ exports[`Example renders correctly 1`] = `
                       },
                       undefined,
                     ]
-                  }>
+                  }
+                >
                   <View
                     component={[Function]}
                     getSceneStyle={[Function]}
@@ -169,23 +180,37 @@ exports[`Example renders correctly 1`] = `
                       }
                     }
                     title="Launch"
-                    type="REACT_NATIVE_ROUTER_FLUX_PUSH">
+                    type="REACT_NATIVE_ROUTER_FLUX_PUSH"
+                  >
                     <Text
                       accessible={true}
                       allowFontScaling={true}
-                      ellipsizeMode="tail">
+                      ellipsizeMode="tail"
+                    >
                       Launch page
                     </Text>
-                    <TouchableOpacity
+                    <View
                       accessibilityComponentType="button"
+                      accessibilityLabel={undefined}
                       accessibilityTraits="button"
-                      activeOpacity={0.2}
-                      onLongPress={undefined}
-                      onPress={[Function]}
-                      onPressIn={undefined}
-                      onPressOut={undefined}
-                      style={undefined}
-                      testID={undefined}>
+                      accessible={true}
+                      hitSlop={undefined}
+                      isTVSelectable={true}
+                      onLayout={undefined}
+                      onResponderGrant={[Function]}
+                      onResponderMove={[Function]}
+                      onResponderRelease={[Function]}
+                      onResponderTerminate={[Function]}
+                      onResponderTerminationRequest={[Function]}
+                      onStartShouldSetResponder={[Function]}
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                      testID={undefined}
+                      tvParallaxProperties={undefined}
+                    >
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -194,29 +219,41 @@ exports[`Example renders correctly 1`] = `
                           Array [
                             Object {
                               "color": "#007aff",
-                              "fontFamily": "HelveticaNeue-Medium",
                               "fontSize": 17,
-                              "fontWeight": "bold",
+                              "fontWeight": "500",
                               "textAlign": "center",
                             },
                             null,
                             undefined,
                             null,
                           ]
-                        }>
+                        }
+                      >
                         Go to Login page
                       </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </View>
+                    <View
                       accessibilityComponentType="button"
+                      accessibilityLabel={undefined}
                       accessibilityTraits="button"
-                      activeOpacity={0.2}
-                      onLongPress={undefined}
-                      onPress={[Function]}
-                      onPressIn={undefined}
-                      onPressOut={undefined}
-                      style={undefined}
-                      testID={undefined}>
+                      accessible={true}
+                      hitSlop={undefined}
+                      isTVSelectable={true}
+                      onLayout={undefined}
+                      onResponderGrant={[Function]}
+                      onResponderMove={[Function]}
+                      onResponderRelease={[Function]}
+                      onResponderTerminate={[Function]}
+                      onResponderTerminationRequest={[Function]}
+                      onStartShouldSetResponder={[Function]}
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                      testID={undefined}
+                      tvParallaxProperties={undefined}
+                    >
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -225,29 +262,41 @@ exports[`Example renders correctly 1`] = `
                           Array [
                             Object {
                               "color": "#007aff",
-                              "fontFamily": "HelveticaNeue-Medium",
                               "fontSize": 17,
-                              "fontWeight": "bold",
+                              "fontWeight": "500",
                               "textAlign": "center",
                             },
                             null,
                             undefined,
                             null,
                           ]
-                        }>
+                        }
+                      >
                         Go to Register page
                       </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </View>
+                    <View
                       accessibilityComponentType="button"
+                      accessibilityLabel={undefined}
                       accessibilityTraits="button"
-                      activeOpacity={0.2}
-                      onLongPress={undefined}
-                      onPress={[Function]}
-                      onPressIn={undefined}
-                      onPressOut={undefined}
-                      style={undefined}
-                      testID={undefined}>
+                      accessible={true}
+                      hitSlop={undefined}
+                      isTVSelectable={true}
+                      onLayout={undefined}
+                      onResponderGrant={[Function]}
+                      onResponderMove={[Function]}
+                      onResponderRelease={[Function]}
+                      onResponderTerminate={[Function]}
+                      onResponderTerminationRequest={[Function]}
+                      onStartShouldSetResponder={[Function]}
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                      testID={undefined}
+                      tvParallaxProperties={undefined}
+                    >
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -256,29 +305,41 @@ exports[`Example renders correctly 1`] = `
                           Array [
                             Object {
                               "color": "#007aff",
-                              "fontFamily": "HelveticaNeue-Medium",
                               "fontSize": 17,
-                              "fontWeight": "bold",
+                              "fontWeight": "500",
                               "textAlign": "center",
                             },
                             null,
                             undefined,
                             null,
                           ]
-                        }>
+                        }
+                      >
                         Go to Register page without animation
                       </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </View>
+                    <View
                       accessibilityComponentType="button"
+                      accessibilityLabel={undefined}
                       accessibilityTraits="button"
-                      activeOpacity={0.2}
-                      onLongPress={undefined}
-                      onPress={[Function]}
-                      onPressIn={undefined}
-                      onPressOut={undefined}
-                      style={undefined}
-                      testID={undefined}>
+                      accessible={true}
+                      hitSlop={undefined}
+                      isTVSelectable={true}
+                      onLayout={undefined}
+                      onResponderGrant={[Function]}
+                      onResponderMove={[Function]}
+                      onResponderRelease={[Function]}
+                      onResponderTerminate={[Function]}
+                      onResponderTerminationRequest={[Function]}
+                      onStartShouldSetResponder={[Function]}
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                      testID={undefined}
+                      tvParallaxProperties={undefined}
+                    >
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -287,29 +348,41 @@ exports[`Example renders correctly 1`] = `
                           Array [
                             Object {
                               "color": "#007aff",
-                              "fontFamily": "HelveticaNeue-Medium",
                               "fontSize": 17,
-                              "fontWeight": "bold",
+                              "fontWeight": "500",
                               "textAlign": "center",
                             },
                             null,
                             undefined,
                             null,
                           ]
-                        }>
+                        }
+                      >
                         Popup error
                       </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </View>
+                    <View
                       accessibilityComponentType="button"
+                      accessibilityLabel={undefined}
                       accessibilityTraits="button"
-                      activeOpacity={0.2}
-                      onLongPress={undefined}
-                      onPress={[Function]}
-                      onPressIn={undefined}
-                      onPressOut={undefined}
-                      style={undefined}
-                      testID={undefined}>
+                      accessible={true}
+                      hitSlop={undefined}
+                      isTVSelectable={true}
+                      onLayout={undefined}
+                      onResponderGrant={[Function]}
+                      onResponderMove={[Function]}
+                      onResponderRelease={[Function]}
+                      onResponderTerminate={[Function]}
+                      onResponderTerminationRequest={[Function]}
+                      onStartShouldSetResponder={[Function]}
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                      testID={undefined}
+                      tvParallaxProperties={undefined}
+                    >
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -318,29 +391,41 @@ exports[`Example renders correctly 1`] = `
                           Array [
                             Object {
                               "color": "#007aff",
-                              "fontFamily": "HelveticaNeue-Medium",
                               "fontSize": 17,
-                              "fontWeight": "bold",
+                              "fontWeight": "500",
                               "textAlign": "center",
                             },
                             null,
                             undefined,
                             null,
                           ]
-                        }>
+                        }
+                      >
                         Go to TabBar page
                       </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </View>
+                    <View
                       accessibilityComponentType="button"
+                      accessibilityLabel={undefined}
                       accessibilityTraits="button"
-                      activeOpacity={0.2}
-                      onLongPress={undefined}
-                      onPress={[Function]}
-                      onPressIn={undefined}
-                      onPressOut={undefined}
-                      style={undefined}
-                      testID={undefined}>
+                      accessible={true}
+                      hitSlop={undefined}
+                      isTVSelectable={true}
+                      onLayout={undefined}
+                      onResponderGrant={[Function]}
+                      onResponderMove={[Function]}
+                      onResponderRelease={[Function]}
+                      onResponderTerminate={[Function]}
+                      onResponderTerminationRequest={[Function]}
+                      onStartShouldSetResponder={[Function]}
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                      testID={undefined}
+                      tvParallaxProperties={undefined}
+                    >
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -349,29 +434,41 @@ exports[`Example renders correctly 1`] = `
                           Array [
                             Object {
                               "color": "#007aff",
-                              "fontFamily": "HelveticaNeue-Medium",
                               "fontSize": 17,
-                              "fontWeight": "bold",
+                              "fontWeight": "500",
                               "textAlign": "center",
                             },
                             null,
                             undefined,
                             null,
                           ]
-                        }>
+                        }
+                      >
                         Go to switcher page
                       </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </View>
+                    <View
                       accessibilityComponentType="button"
+                      accessibilityLabel={undefined}
                       accessibilityTraits="button"
-                      activeOpacity={0.2}
-                      onLongPress={undefined}
-                      onPress={[Function]}
-                      onPressIn={undefined}
-                      onPressOut={undefined}
-                      style={undefined}
-                      testID={undefined}>
+                      accessible={true}
+                      hitSlop={undefined}
+                      isTVSelectable={true}
+                      onLayout={undefined}
+                      onResponderGrant={[Function]}
+                      onResponderMove={[Function]}
+                      onResponderRelease={[Function]}
+                      onResponderTerminate={[Function]}
+                      onResponderTerminationRequest={[Function]}
+                      onStartShouldSetResponder={[Function]}
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                      testID={undefined}
+                      tvParallaxProperties={undefined}
+                    >
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -380,19 +477,19 @@ exports[`Example renders correctly 1`] = `
                           Array [
                             Object {
                               "color": "#007aff",
-                              "fontFamily": "HelveticaNeue-Medium",
                               "fontSize": 17,
-                              "fontWeight": "bold",
+                              "fontWeight": "500",
                               "textAlign": "center",
                             },
                             null,
                             undefined,
                             null,
                           ]
-                        }>
+                        }
+                      >
                         back
                       </Text>
-                    </TouchableOpacity>
+                    </View>
                   </View>
                 </View>
               </View>

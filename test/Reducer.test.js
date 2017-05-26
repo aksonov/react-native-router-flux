@@ -134,6 +134,8 @@ describe('handling actions', () => {
             </Scene>
           </Scene>
         </Scene>
+        <Scene key="foo" component={component} />
+        <Scene key="bar" component={component} />
       </Scene>
     );
 
@@ -160,6 +162,21 @@ describe('handling actions', () => {
     Actions.main();
     Actions.hello();
     expect(current.key).to.eq('hello_0_hello_');
+  });
+
+  it('reset to a correct scene on RESET', () => {
+    Actions.world();
+    expect(current.key).to.eq('world_0_world_content');
+
+    Actions.maps({ type: 'push' });
+    expect(current.key).to.eq('maps_0_maps_content');
+
+    Actions.map_tabs();
+    expect(current.key).to.eq('map_tabs_0_map_tab_1_');
+    expect(current.parentIndex).to.eq(1);
+    Actions.foo();
+    Actions.bar({ type: 'reset' });
+    expect(current.key).to.eq('bar_0_bar');
   });
 
   it('maintains scene parentIndex when switching tabs', () => {
