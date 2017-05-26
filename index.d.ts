@@ -298,6 +298,7 @@ declare namespace RNRF {
     REFRESH: string,
     RESET: string,
     FOCUS: string,
+    ANDROID_BACK: string,
   }
   export var ActionConst: RNRFActionConst;
 
