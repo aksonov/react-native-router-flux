@@ -1,0 +1,47 @@
+Android back action
+====
+This is an example to handle `back button action` in android.
+
+The reducer will throw an error when the back button is clicked on root scenes. You can catch the error, and handle the back action as you want.
+
+# Example
+
+`main.js`
+```Javascript
+import { BackAndroid } from 'react-native'
+
+backButtonPressedOnceToExit = false;
+
+export default class Main extends React.Component {
+...
+  componentWillMount(){
+    BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+  }
+
+  componentWillMount(){
+    BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+    }
+
+  onBackAndroid() {
+    if(backButtonPressedOnceToExit){
+      BackAndroid.exitApp();
+    }else{
+      try {
+          Actions.pop();
+          return true;
+      } catch (err) {
+        backButtonPressedOnceToExit = true;
+        console.info('push again to exit');
+        setTimeout(function () {
+            backButtonPressedOnceToExit = false;
+        }, 2000);
+        return true;
+      }
+    }
+...
+}
+
+
+
+
+```
