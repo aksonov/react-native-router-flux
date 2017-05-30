@@ -168,20 +168,32 @@ class Actions {
       if (this[el.key]) {
         console.log(`Key ${el.key} is already defined!`);
       }
-      this[el.key] =
-        (props = {}) => {
-          assert(this.callback, 'Actions.callback is not defined!');
-          this.callback({ key: el.key, type: ActionConst.REFRESH, ...filterParam(props) });
-        };
+      const setup = (o) => {
+        const call =
+          (props = {}) => {
+            assert(this.callback, 'Actions.callback is not defined!');
+            this.callback({ key: el.key, type: ActionConst.REFRESH, ...filterParam(props) });
+          };
+        Object.setPrototypeOf(o, Object.getPrototypeOf(call));
+        Object.setPrototypeOf(call, o);
+        return call;
+      };
+      this[key] = setup(staticProps);
     }
     if (this[key]) {
       console.log(`Key ${key} is already defined!`);
     }
-    this[key] =
-      (props = {}) => {
-        assert(this.callback, 'Actions.callback is not defined!');
-        this.callback({ key, type, ...filterParam(props) });
-      };
+    const setup = (o) => {
+      const call =
+        (props = {}) => {
+          assert(this.callback, 'Actions.callback is not defined!');
+          this.callback({ key, type, ...filterParam(props) });
+        };
+      Object.setPrototypeOf(o, Object.getPrototypeOf(call));
+      Object.setPrototypeOf(call, o);
+      return call;
+    };
+    this[key] = setup(staticProps);
     refs[res.key] = res;
 
     return res;
