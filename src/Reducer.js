@@ -226,12 +226,20 @@ function inject(state, action, props, scenes) {
         resetHistoryStack(state.children[ind]);
       }
 
-      state.children[ind] = getInitialState(
-        props,
-        scenes,
-        state.index,
-        { ...action, parentIndex: state.children[ind].parentIndex },
-      );
+      const activeChild = state.children[state.index];
+      const incomingChild = state.children[ind];
+
+      const incomingChildHadTabs = incomingChild.tabs;
+      const incomingChildWasActive = incomingChild.children.length > 1;
+      const activeChildIsIncomingChild = activeChild.sceneKey === action.key;
+      if (incomingChildHadTabs || !incomingChildWasActive || activeChildIsIncomingChild) {
+        state.children[ind] = getInitialState(
+          { ...props },
+          scenes,
+          state.index,
+          { ...action, parentIndex: state.children[ind].parentIndex },
+        );
+      }
 
       return { ...state, index: ind };
     }
