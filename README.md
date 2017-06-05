@@ -114,6 +114,10 @@ And then:
   * `{refresh: {...propsToSetOnPreviousScene}}` allows to refresh the props of the scene that it pops back to
 * `Actions.refresh(PARAMS)` will update the properties of the current screen.
 
+## Is Relay supported?
+Yes, it is! You can use `wrapBy` parameter to pass you own relay wrapper for rendering Relay components.
+Check [react-native-router-flux + relay example app](https://github.com/r0b1n/rnrf-relay-example) to find out how it works.
+
 ## Production Apps using react-native-router-flux
 + Buddify ([iOS](https://itunes.apple.com/app/id1149011372), [Android](https://play.google.com/store/apps/details?id=com.buddify)) - helps travelers discover fun things to do locally.
 + GuavaPass.com ([iOS](https://itunes.apple.com/en/app/guavapass-one-pass-fitness/id1050491044?l=en&mt=8), Android) - offers convenient access to top classes at boutique fitness studios across Asia.
