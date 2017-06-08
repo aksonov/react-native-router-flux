@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 import React from 'react';
 import { ViewPropTypes, Text } from 'react-native';
 

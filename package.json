@@ -66,6 +66,10 @@
     "jest": "19.0.1",
     "react-test-renderer": "15.4.2"
   },
+  "peerDependencies": {
+    "react": "^16.0.0-alpha.6",
+    "react-native": ">=0.44"
+  },
   "jest": {
     "preset": "react-native"
   }
