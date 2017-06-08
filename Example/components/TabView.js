@@ -1,11 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import {PropTypes} from "react";
 import {StyleSheet, Text, View, ViewPropTypes} from "react-native";
 import Button from 'react-native-button';
 import { Actions } from 'react-native-router-flux';
 
 const contextTypes = {
-  drawer: React.PropTypes.object,
+  drawer: PropTypes.object,
 };
 
 const propTypes = {
