@@ -23,7 +23,7 @@
 | scenes | `object` | optional | scenes for Router created with Actions.create. This will allow to create all actions BEFORE React processing. If you don't need it you may pass Scene root element as children |
 | getSceneStyle | `function` | optional | Optionally override the styles for NavigationCard's Animated.View rendering the scene. |
 | backAndroidHandler | `function` | optional | Optionally override the handler for `BackAndroid`, return `true` to stay in the app or return `false` to exit the app. Default handler will pop a scene and exit the app at last when the back key is pressed on Android. |
-| onBackAndroid | `function` | optional | Get called after back key is pressed and a scene is poped, won't affect the default behavior. |
+| onBackAndroid | `function` | optional | Get called after back key is pressed and a scene is popped, won't affect the default behavior. |
 | onExitApp | `function` | optional | Optionally override the default action after back key is pressed on root scene. Return `true` to stay, or return `false` to exit the app. |
 
 ## Scene:
@@ -88,7 +88,7 @@ And every `Scene.type` string literal has a mapped constant in ActionConst, it i
 `actionSheet`: shows Action Sheet popup, you must pass callback as callback function.  
 `modal`: type inserts its 'component' into route stack after navigator component. It could be used for popup alerts as well for various needed processes before any navigator transitions (like login auth process). it could be dismissed by using Actions.dismiss().   
 `switch`: is used for tab screens.  
-`reset`: is similar to `replace` except it unmounts the componets in the navigator stack.  
+`reset`: is similar to `replace` except it unmounts the components in the navigator stack.  
 `transitionToTop`: will reset router stack ['route.name'] and with animation, if route has sceneConfig. eg `<Route name="login" schema="modal" component={Login} type="transitionToTop" />`
 
 
