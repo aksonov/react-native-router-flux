@@ -155,9 +155,9 @@ Example of Drawer custom renderer based on react-native-drawer. Note that the bu
 With DefaultRenderer you may build own drawer 'renderer' that transforms current navigation state into drawer. Drawer could check own state (open/close) from navigation state:
 
 ```jsx
-import React from 'react-native';
+import React, {Component} from 'react';
+import {View, Text} from 'react-native';
 import Drawer from 'react-native-drawer';
-import SideMenu from './SideMenu';
 import {Actions, DefaultRenderer} from 'react-native-router-flux';
 
 export default class NavigationDrawer extends Component {
@@ -181,6 +181,18 @@ export default class NavigationDrawer extends Component {
             })}>
                 <DefaultRenderer navigationState={children[0]} onNavigate={this.props.onNavigate} />
             </Drawer>
+        );
+    }
+}
+
+class SideMenu extends Component {
+
+    render() {
+
+        return (
+            <View style={{flex: 1, marginTop: 55, backgroundColor: '#008000'}}>
+                <Text>Here is the menu!!</Text>
+            </View>
         );
     }
 }
