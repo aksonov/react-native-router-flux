@@ -110,7 +110,7 @@ function topToBottom(/* NavigationSceneRendererProps */ props) {
 
   const translateY = position.interpolate({
     inputRange,
-    outputRange: [-SCREEN_HEIGHT, 0, 0],
+    outputRange: [-SCREEN_HEIGHT * 3, 0, 0],
   });
 
   return {
