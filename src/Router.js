@@ -10,7 +10,7 @@ import React, {
   Component,
   PropTypes,
 } from 'react';
-import { BackHandler } from 'react-native';
+import { BackAndroid } from 'react-native';
 import NavigationExperimental from 'react-native-experimental-navigation';
 
 import Actions, { ActionMap } from './Actions';
@@ -52,7 +52,7 @@ class Router extends Component {
   }
 
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackAndroid);
+    BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid);
   }
 
   componentWillReceiveProps(props) {
@@ -61,7 +61,7 @@ class Router extends Component {
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackAndroid);
+    BackAndroid.removeEventListener('hardwareBackPress', this.handleBackAndroid);
   }
 
   handleBackAndroid() {
