@@ -24,6 +24,7 @@ import Actions from './Actions';
 import { deepestExplicitValueForKey } from './Util';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const {
   AnimatedView: NavigationAnimatedView,
@@ -98,6 +99,27 @@ function leftToRight(/* NavigationSceneRendererProps */ props) {
   };
 }
 
+function topToBottom(/* NavigationSceneRendererProps */ props) {
+  const {
+    position,
+    scene,
+  } = props;
+
+  const index = scene.index;
+  const inputRange = [index - 1, index, index + 1];
+
+  const translateY = position.interpolate({
+    inputRange,
+    outputRange: [-SCREEN_HEIGHT * 3, 0, 0],
+  });
+
+  return {
+    transform: [
+      { translateY },
+    ],
+  };
+}
+
 export default class DefaultRenderer extends PureComponent {
 
   static propTypes = {
@@ -131,6 +153,8 @@ export default class DefaultRenderer extends PureComponent {
         return fadeInScene(props);
       case 'leftToRight':
         return leftToRight(props);
+      case 'topToBottom':
+        return topToBottom(props);
       default:
         return NavigationCardStackStyleInterpolator.forHorizontal(props);
     }

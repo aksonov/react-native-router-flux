@@ -96,7 +96,7 @@ And every `Scene.type` string literal has a mapped constant in ActionConst, it i
 | Property | Type | Default | Description |
 |-----------|--------|---------|--------------------------------------------|
 | duration | `number` | | optional. acts as a shortcut to writing an `applyAnimation` function with `Animated.timing` for a given duration (in ms). |
-| direction | `string` | 'horizontal' | direction of animation horizontal/vertical/leftToRight ('horizontal' will be right to left)|
+| direction | `string` | 'horizontal' | direction of animation horizontal/vertical/leftToRight/topToBottom ('horizontal' will be right to left & 'vertical' will be bottom to top)|
 | animation | `string` | | animation options when transitioning: 'fade' currently only option |
 | animationStyle | `function` | | optional interpolation function for scene transitions: `animationStyle={interpolationFunction}` |
 | applyAnimation | `function` | | optional if provided overrides the default spring animation |
