@@ -4,34 +4,32 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest",
-    "jest": "jest"
+    "test": "jest"
   },
   "dependencies": {
+    "autobind-decorator": "^1.4.1",
+    "mobx": "^3.1.16",
+    "mobx-react": "^4.2.1",
+    "react-native-button": "^2.0.0",
+    "react-navigation": "^1.0.0-beta.11",
+    "react-native-router-flux": "github:aksonov/react-native-router-flux#v4",
     "react": "16.0.0-alpha.6",
-    "react-native": "0.44.0",
-    "react-native-button": "^1.8.2",
-    "react-native-drawer": "^2.3.0",
-    "react-native-router-flux": "^3.39.1"
+    "react-native": "0.44.0"
   },
   "devDependencies": {
-    "babel-jest": "19.0.0",
-    "babel-preset-react-native": "1.9.1",
-    "jest": "19.0.2",
-    "jest-react-native": "^18.0.0",
-    "react-test-renderer": "~15.4.1",
-    "lodash.isequal": "^4.5.0",
-    "react-addons-pure-render-mixin": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-native-experimental-navigation": "0.26.x",
-    "react-native-tabs": "^1.0.9",
-    "react-static-container": "1.0.1"
+    "babel-jest": "20.0.3",
+    "babel-preset-react-native": "2.0.0",
+    "babel-preset-react-native-stage-0": "^1.0.1",
+    "jest": "20.0.4",
+    "react-test-renderer": "16.0.0-alpha.12"
   },
   "jest": {
     "preset": "react-native",
-    "setupFiles": ["./node_modules/react-native/jest/setup.js", "./jest-setup.js"],
     "transformIgnorePatterns": [
-      "node_modules/(?!react-native|native-base|react-clone-referenced-element)"
+      "node_modules/(?!(jest-)?react-native|react-navigation)"
+    ],
+    "setupFiles": [
+      "./test/setup.js"
     ]
   }
 }
