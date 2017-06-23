@@ -254,23 +254,24 @@ function processScene(scene: Scene, inheritProps) {
   let initialRouteName, initialRouteParams;
   for (const child of children) {
     assert(child.key, `key should be defined for ${child}`);
-    if (reservedKeys.indexOf(child.key) !== -1) {
-      throw `Scene name cannot be reserved word: ${key}`;
+    if (reservedKeys.indexOf(key) !== -1) {
+      throw `Scene name cannot be reserved word: ${child.key}`;
     }
-    const {component, ...props} = child.props;
-    res[child.key] = {
+    const {component, children, ...props} = child.props;
+    const key = child.key;
+    res[key] = {
       screen: component || processScene(child, parentProps),
-      navigationOptions: createNavigationOptions(props)
+      navigationOptions: createNavigationOptions(child.props)
     };
 
-    // a bit of magic, create all 'actions' inside navigationStore
-    if (!navigationStore[child.key]) {
-      navigationStore[child.key] = new Function('actions', `return function ${child.key}(params){ actions.push('${child.key}', params)}`)(navigationStore);
+    // a bit of magic, create all 'actions'-shortcuts inside navigationStore
+    if (!navigationStore[key]) {
+      navigationStore[key] = new Function('actions', 'props', `return function ${key}(params){ actions.push('${key}', Object.assign({}, props, params))}`)(navigationStore, props);
     }
-    order.push(child.key)
+    order.push(key);
     if (child.props.initial || !initialRouteName) {
-      initialRouteName = child.key;
-      initialRouteParams = child.props;
+      initialRouteName = key;
+      initialRouteParams = props;
     }
   }
   const mode = modal ? 'modal' : 'card';
