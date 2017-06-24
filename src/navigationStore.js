@@ -1,6 +1,7 @@
-import {observable, computed, toJS} from 'mobx';
+import {observable, autorun, computed, toJS} from 'mobx';
 import autobind from 'autobind-decorator';
 import {NavigationActions} from 'react-navigation';
+import {OnEnter, OnExit} from './Util';
 
 function filterParam(data) {
   if (data.toString() !== '[object Object]') {
@@ -18,6 +19,8 @@ function filterParam(data) {
 class NavigationStore {
   _router = null;
   @observable _state;
+  @observable currentScene = '';
+  @observable prevScene = '';
   @computed get state() {
     return toJS(this._state);
   }
@@ -30,8 +33,32 @@ class NavigationStore {
     return this._router;
   }
 
+  constructor(){
+    autorun(()=>{
+      try {
+        if (this.prevScene && this.currentScene !== this.prevScene) {
+          // call onExit handler
+          if (this[this.prevScene + OnExit]) {
+            this[this.prevScene + OnExit]();
+          }
+        }
+        if (this.currentScene && this.currentScene !== this.prevScene) {
+          // call onEnter handler
+          if (this[this.currentScene + OnEnter]) {
+            this[this.currentScene + OnEnter]();
+          }
+        }
+      } catch (e) {
+        console.error("Error handling:" + e);
+
+      }
+    });
+  }
+
   dispatch(action) {
     this._state = this._router.getStateForAction(action, this._state);
+    this.prevScene = this.currentScene;
+    this.currentScene = this.currentState(this._state).routeName;
   }
 
   push(routeName, params) {

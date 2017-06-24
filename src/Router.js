@@ -1,11 +1,10 @@
 import React from 'react';
-import {observable, computed, toJS} from 'mobx';
+import {observable, autorun, computed, toJS} from 'mobx';
 import {observer} from 'mobx-react/native';
 import autobind from 'autobind-decorator';
 import navigationStore from './navigationStore';
 import Scene from './Scene';
-import { assert } from './Util';
-
+import {OnEnter, OnExit,assert } from './Util';
 import {TabNavigator, DrawerNavigator, StackNavigator, NavigationActions, addNavigationHelpers} from 'react-navigation';
 // import StackNavigator from './components/nav/navigators/StackNavigator';
 // import TabNavigator from './components/nav/navigators/TabNavigator';
@@ -257,7 +256,7 @@ function processScene(scene: Scene, inheritProps) {
     if (reservedKeys.indexOf(key) !== -1) {
       throw `Scene name cannot be reserved word: ${child.key}`;
     }
-    const {component, children, ...props} = child.props;
+    const {component, children, onEnter, onExit, ...props} = child.props;
     const key = child.key;
     res[key] = {
       screen: component || processScene(child, parentProps),
@@ -268,6 +267,15 @@ function processScene(scene: Scene, inheritProps) {
     if (!navigationStore[key]) {
       navigationStore[key] = new Function('actions', 'props', `return function ${key}(params){ actions.push('${key}', Object.assign({}, props, params))}`)(navigationStore, props);
     }
+
+    if (onEnter && !navigationStore[key+OnEnter]) {
+      navigationStore[key+OnEnter] = onEnter;
+    }
+
+    if (onExit && !navigationStore[key+OnExit]) {
+      navigationStore[key+OnExit] = onExit;
+    }
+
     order.push(key);
     if (child.props.initial || !initialRouteName) {
       initialRouteName = key;

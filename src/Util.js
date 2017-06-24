@@ -35,7 +35,6 @@ export function assert(expr, failDescription) {
   }
 }
 
-export default {
-  deepestExplicitValueForKey,
-  assert,
-};
+export const OnEnter = 'OnEnter';
+
+export const OnExit = 'OnExit';
