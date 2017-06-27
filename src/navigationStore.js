@@ -18,6 +18,7 @@ function filterParam(data) {
 @autobind
 class NavigationStore {
   _router = null;
+  states = {};
   @observable _state;
   @observable currentScene = '';
   @observable prevScene = '';
@@ -34,18 +35,47 @@ class NavigationStore {
   }
 
   constructor(){
+    console.log("CREATE NAVIGATION STORE");
+    const defaultSuccess = () => {};
+    const defaultFailure = () => {};
+
     autorun(()=>{
       try {
         if (this.prevScene && this.currentScene !== this.prevScene) {
           // call onExit handler
-          if (this[this.prevScene + OnExit]) {
-            this[this.prevScene + OnExit]();
+          const handler = this[this.prevScene + OnExit];
+          if (handler) {
+            try {
+              console.log("RUN onExit handler for state=",this.prevScene);
+              const res = handler();
+              if (res instanceof Promise) {
+                res.then(defaultSuccess, defaultFailure);
+              }
+            } catch (e){
+              console.error("Error during onExit handler:", e);
+            }
           }
         }
         if (this.currentScene && this.currentScene !== this.prevScene) {
+          console.log("CURRENT SCENE:", this.currentScene, " PREV SCENE:", this.prevScene);
+          const handler = this[this.currentScene + OnEnter];
+          const success = this.states[this.currentScene].success || defaultSuccess;
+          const failure = this.states[this.currentScene].failure || defaultFailure;
           // call onEnter handler
-          if (this[this.currentScene + OnEnter]) {
-            this[this.currentScene + OnEnter]();
+          if (handler) {
+            try {
+              console.log("RUN onEnter handler for state=",this.currentScene);
+              const res = handler();
+              if (res instanceof Promise) {
+                res.then(success, failure);
+              } else {
+                success(res);
+              }
+            } catch (e) {
+              console.error("Error during onEnter handler:", e);
+              failure(e);
+            }
+
           }
         }
       } catch (e) {
@@ -56,18 +86,24 @@ class NavigationStore {
   }
 
   dispatch(action) {
-    this._state = this._router.getStateForAction(action, this._state);
+    const newState = this._router.getStateForAction(action, this.state);
+    this._state = newState;
     this.prevScene = this.currentScene;
     this.currentScene = this.currentState(this._state).routeName;
+    console.log("ACTION:", action.routeName);
+    console.log("CHANGE STATE:", JSON.stringify(this.state));
   }
 
-  push(routeName, params) {
+  push(routeName, params = {}) {
     this.dispatch(NavigationActions.navigate({routeName, params: filterParam(params)}));
   }
 
   currentState(state) {
     if (!state) {
       state = this._state;
+      if (!this._state) {
+        console.log("NULL STATE!!!!!!!!!!!!!");
+      }
     }
     if (!state.routes) {
       return state;
