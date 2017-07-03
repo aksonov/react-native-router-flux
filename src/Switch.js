@@ -32,27 +32,19 @@ export default function Switch(props) {
     });
   }
   if (index === -1) console.error(`A scene for key “${selectedKey}” does not exist.`);
-  selectedKey = navState.children[index].sceneKey;
+  let navigationState = { ...navState, index };
 
-  let navigationState;
   if (index !== navState.index) {
     if (props.unmountScenes) {
-      navigationState = {
-        ...navState,
-        children: [navState.children[navState.index]],
-        index: 0,
-      };
       setTimeout(() => {
         Actions[selectedKey]({ unmountScenes: true });
-      }, 1);
+      }, 0);
+      navigationState = { ...navState, children: [navState.children[navState.index]], index: 0 };
     } else {
-      navigationState = { ...navState, index };
       setTimeout(() => {
         Actions[selectedKey]();
-      }, 1);
+      }, 0);
     }
-  } else {
-    navigationState = navState;
   }
 
   return (

@@ -27,23 +27,30 @@ function checkPropertiesEqual(action, lastAction) {
   return true;
 }
 
-function resetHistoryStack(child) {
-  const newChild = child;
-  newChild.index = 0;
-  child.children.map(
-    (el, i) => {
+function resetHistoryStack(state) {
+  const newState = state;
+
+  if (newState.children) {
+    newState.index = 0;
+
+    let i;
+    for (i = 0; i < newState.children.length; i += 1) {
+      const el = newState.children[i];
+
       if (el.initial) {
-        newChild.index = i;
-        if (!newChild.tabs) {
-          newChild.children = [el];
+        newState.index = i;
+
+        if (!newState.tabs) {
+          newState.children = [resetHistoryStack(el)];
+        } else {
+          newState.children[i] = resetHistoryStack(el);
         }
+      } else {
+        newState.children[i] = resetHistoryStack(el);
       }
-      if (el.children) {
-        resetHistoryStack(el);
-      }
-      return newChild;
-    },
-  );
+    }
+  }
+  return newState;
 }
 
 function refreshTopChild(children, refresh) {
@@ -56,7 +63,7 @@ function refreshTopChild(children, refresh) {
 
 function inject(state, action, props, scenes) {
   const condition = ActionMap[action.type] === ActionConst.REFRESH ? state.key === props.key ||
-  state.sceneKey === action.key : state.sceneKey === props.parent;
+    state.sceneKey === action.key : state.sceneKey === props.parent;
   // console.log("INJECT:", action.key, state.sceneKey, condition);
   if (!condition) {
     if (state.children) {
@@ -182,13 +189,14 @@ function inject(state, action, props, scenes) {
         ...scenes.rootProps,
         ...props,
         key: state.key,
-        from: null }
-      : {
-        ...state,
-        ...props,
-        key: state.key,
         from: null,
-      };
+      }
+        : {
+          ...state,
+          ...props,
+          key: state.key,
+          from: null,
+        };
     case ActionConst.PUSH_OR_POP:
       ind = state.children.findIndex(el => el.sceneKey === action.key);
       if (ind !== -1) {
@@ -222,10 +230,6 @@ function inject(state, action, props, scenes) {
       state.children.forEach((c, i) => { if (c.sceneKey === action.key) { ind = i; } });
       assert(ind !== -1, `Cannot find route with key=${action.key} for parent=${state.key}`);
 
-      if (action.unmountScenes) {
-        resetHistoryStack(state.children[ind]);
-      }
-
       const activeChild = state.children[state.index];
       const incomingChild = state.children[ind];
 
@@ -239,6 +243,11 @@ function inject(state, action, props, scenes) {
           state.index,
           { ...action, parentIndex: state.children[ind].parentIndex },
         );
+      }
+      
+      if (action.unmountScenes) {
+        const rState = resetHistoryStack(state);
+        return { ...rState, index: ind };
       }
 
       return { ...state, index: ind };
@@ -348,11 +357,11 @@ function reducer({ initialState, scenes }) {
     } else {
       // set current route for pop action or refresh action
       if (ActionMap[action.type] === ActionConst.BACK_ACTION ||
-          ActionMap[action.type] === ActionConst.BACK ||
-          ActionMap[action.type] === ActionConst.ANDROID_BACK ||
-          ActionMap[action.type] === ActionConst.POP_AND_REPLACE ||
-          ActionMap[action.type] === ActionConst.REFRESH ||
-          ActionMap[action.type] === ActionConst.POP_TO) {
+        ActionMap[action.type] === ActionConst.BACK ||
+        ActionMap[action.type] === ActionConst.ANDROID_BACK ||
+        ActionMap[action.type] === ActionConst.POP_AND_REPLACE ||
+        ActionMap[action.type] === ActionConst.REFRESH ||
+        ActionMap[action.type] === ActionConst.POP_TO) {
         if (!action.key && !action.parent) {
           action = { ...getCurrent(state), ...action };
         }
@@ -367,8 +376,8 @@ function reducer({ initialState, scenes }) {
          */
         const target = action.data || action.scene;
         assert(target, 'PopTo() must be called with a single argument: ' +
-        'either the scene name (string) or an object with within the scene property ' +
-        'carrying the target scene to pop to');
+          'either the scene name (string) or an object with within the scene property ' +
+          'carrying the target scene to pop to');
 
         const targetEl = findElement(state, target, action.type);
         assert(targetEl, `Cannot find element name named ${target} within current state`);
@@ -393,9 +402,9 @@ function reducer({ initialState, scenes }) {
 
       // recursive pop parent
       if (ActionMap[action.type] === ActionConst.BACK_ACTION ||
-          ActionMap[action.type] === ActionConst.BACK ||
-          ActionMap[action.type] === ActionConst.ANDROID_BACK ||
-          ActionMap[action.type] === ActionConst.POP_AND_REPLACE) {
+        ActionMap[action.type] === ActionConst.BACK ||
+        ActionMap[action.type] === ActionConst.ANDROID_BACK ||
+        ActionMap[action.type] === ActionConst.POP_AND_REPLACE) {
         const parent = action.parent || state.scenes[action.key].parent;
         let el = findElement(state, parent, action.type);
         while (el.parent && (el.children.length <= 1 || el.tabs)) {
