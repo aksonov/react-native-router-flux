@@ -8,11 +8,11 @@
     "jest": "jest"
   },
   "dependencies": {
-    "react": "16.0.0-alpha.6",
-    "react-native": "0.44.0",
+    "react": "16.0.0-alpha.12",
+    "react-native": "0.45.0",
     "react-native-button": "^1.8.2",
     "react-native-drawer": "^2.3.0",
-    "react-native-router-flux": "^3.39.1"
+    "react-native-router-flux": "^3.41.0-beta.2"
   },
   "devDependencies": {
     "babel-jest": "19.0.0",
