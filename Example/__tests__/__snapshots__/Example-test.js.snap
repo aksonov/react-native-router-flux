@@ -185,6 +185,7 @@ exports[`Example renders correctly 1`] = `
                     <Text
                       accessible={true}
                       allowFontScaling={true}
+                      disabled={false}
                       ellipsizeMode="tail"
                     >
                       Launch page
@@ -196,6 +197,7 @@ exports[`Example renders correctly 1`] = `
                       accessible={true}
                       hitSlop={undefined}
                       isTVSelectable={true}
+                      nativeID={undefined}
                       onLayout={undefined}
                       onResponderGrant={[Function]}
                       onResponderMove={[Function]}
@@ -214,6 +216,7 @@ exports[`Example renders correctly 1`] = `
                       <Text
                         accessible={true}
                         allowFontScaling={true}
+                        disabled={false}
                         ellipsizeMode="tail"
                         style={
                           Array [
@@ -239,6 +242,7 @@ exports[`Example renders correctly 1`] = `
                       accessible={true}
                       hitSlop={undefined}
                       isTVSelectable={true}
+                      nativeID={undefined}
                       onLayout={undefined}
                       onResponderGrant={[Function]}
                       onResponderMove={[Function]}
@@ -257,6 +261,7 @@ exports[`Example renders correctly 1`] = `
                       <Text
                         accessible={true}
                         allowFontScaling={true}
+                        disabled={false}
                         ellipsizeMode="tail"
                         style={
                           Array [
@@ -282,6 +287,7 @@ exports[`Example renders correctly 1`] = `
                       accessible={true}
                       hitSlop={undefined}
                       isTVSelectable={true}
+                      nativeID={undefined}
                       onLayout={undefined}
                       onResponderGrant={[Function]}
                       onResponderMove={[Function]}
@@ -300,6 +306,7 @@ exports[`Example renders correctly 1`] = `
                       <Text
                         accessible={true}
                         allowFontScaling={true}
+                        disabled={false}
                         ellipsizeMode="tail"
                         style={
                           Array [
@@ -325,6 +332,7 @@ exports[`Example renders correctly 1`] = `
                       accessible={true}
                       hitSlop={undefined}
                       isTVSelectable={true}
+                      nativeID={undefined}
                       onLayout={undefined}
                       onResponderGrant={[Function]}
                       onResponderMove={[Function]}
@@ -343,6 +351,7 @@ exports[`Example renders correctly 1`] = `
                       <Text
                         accessible={true}
                         allowFontScaling={true}
+                        disabled={false}
                         ellipsizeMode="tail"
                         style={
                           Array [
@@ -368,6 +377,7 @@ exports[`Example renders correctly 1`] = `
                       accessible={true}
                       hitSlop={undefined}
                       isTVSelectable={true}
+                      nativeID={undefined}
                       onLayout={undefined}
                       onResponderGrant={[Function]}
                       onResponderMove={[Function]}
@@ -386,6 +396,7 @@ exports[`Example renders correctly 1`] = `
                       <Text
                         accessible={true}
                         allowFontScaling={true}
+                        disabled={false}
                         ellipsizeMode="tail"
                         style={
                           Array [
@@ -411,6 +422,7 @@ exports[`Example renders correctly 1`] = `
                       accessible={true}
                       hitSlop={undefined}
                       isTVSelectable={true}
+                      nativeID={undefined}
                       onLayout={undefined}
                       onResponderGrant={[Function]}
                       onResponderMove={[Function]}
@@ -429,6 +441,7 @@ exports[`Example renders correctly 1`] = `
                       <Text
                         accessible={true}
                         allowFontScaling={true}
+                        disabled={false}
                         ellipsizeMode="tail"
                         style={
                           Array [
@@ -454,6 +467,7 @@ exports[`Example renders correctly 1`] = `
                       accessible={true}
                       hitSlop={undefined}
                       isTVSelectable={true}
+                      nativeID={undefined}
                       onLayout={undefined}
                       onResponderGrant={[Function]}
                       onResponderMove={[Function]}
@@ -472,6 +486,7 @@ exports[`Example renders correctly 1`] = `
                       <Text
                         accessible={true}
                         allowFontScaling={true}
+                        disabled={false}
                         ellipsizeMode="tail"
                         style={
                           Array [

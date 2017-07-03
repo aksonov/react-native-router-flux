@@ -45,7 +45,7 @@
     "babel-jest": "20.0.3",
     "babel-preset-react-native": "2.0.0",
     "babel-preset-react-native-stage-0": "^1.0.1",
-    "chai": "^4.0.2",
+    "chai": "^3.5.0",
     "eslint": "^4.0.0",
     "jest": "20.0.4",
     "react": "16.0.0-alpha.12",
