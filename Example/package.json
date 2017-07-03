@@ -12,7 +12,7 @@
     "react-native": "0.45.0",
     "react-native-button": "^1.8.2",
     "react-native-drawer": "^2.3.0",
-    "react-native-router-flux": "^3.41.0-beta.2"
+    "react-native-router-flux": "^3.41.0"
   },
   "devDependencies": {
     "babel-jest": "19.0.0",
