@@ -123,8 +123,8 @@ function topToBottom(/* NavigationSceneRendererProps */ props) {
 export default class DefaultRenderer extends PureComponent {
 
   static propTypes = {
-    navigationState: PropTypes.object,
-    onNavigate: PropTypes.func,
+    navigationState: PropTypes.object.isRequired,
+    onNavigate: PropTypes.func.isRequired,
   };
 
   static childContextTypes = {
