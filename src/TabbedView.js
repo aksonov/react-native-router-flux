@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ViewPropTypes } from 'react-native';
 import StaticContainer from 'react-static-container';
 
 const styles = StyleSheet.create({
@@ -17,7 +17,7 @@ class TabbedView extends Component {
   static propTypes = {
     navigationState: PropTypes.object.isRequired,
     renderScene: PropTypes.func.isRequired,
-    style: View.propTypes.style,
+    style: ViewPropTypes.style,
   };
 
   constructor(props, context) {

@@ -229,14 +229,28 @@ function inject(state, action, props, scenes) {
       ind = -1;
       state.children.forEach((c, i) => { if (c.sceneKey === action.key) { ind = i; } });
       assert(ind !== -1, `Cannot find route with key=${action.key} for parent=${state.key}`);
-      let newState = { ...state, index: ind };
 
+      const activeChild = state.children[state.index];
+      const incomingChild = state.children[ind];
+
+      const incomingChildHadTabs = incomingChild.tabs;
+      const incomingChildWasActive = incomingChild.children.length > 1;
+      const activeChildIsIncomingChild = activeChild.sceneKey === action.key;
+      if (incomingChildHadTabs || !incomingChildWasActive || activeChildIsIncomingChild) {
+        state.children[ind] = getInitialState(
+          { ...props },
+          scenes,
+          state.index,
+          { ...action, parentIndex: state.children[ind].parentIndex },
+        );
+      }
+      
       if (action.unmountScenes) {
         const rState = resetHistoryStack(state);
-        newState = { ...rState, index: ind };
+        return { ...rState, index: ind };
       }
 
-      return newState;
+      return { ...state, index: ind };
     }
     case ActionConst.REPLACE:
       if (state.children[state.index].sceneKey === action.key) {
@@ -257,7 +271,7 @@ function inject(state, action, props, scenes) {
       }
 
       state.children = state.children.splice(0, 1);
-      state.children[0] = getInitialState(props, scenes, state.index, action);
+      state.children[0] = getInitialState(props, scenes, 0, action);
 
       return {
         ...state,

@@ -19,11 +19,17 @@
     "babel-preset-react-native": "1.9.1",
     "jest": "19.0.2",
     "jest-react-native": "^18.0.0",
-    "react-test-renderer": "~15.4.1"
+    "react-test-renderer": "~15.4.1",
+    "lodash.isequal": "^4.5.0",
+    "react-addons-pure-render-mixin": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-native-experimental-navigation": "0.26.x",
+    "react-native-tabs": "^1.0.9",
+    "react-static-container": "1.0.1"
   },
   "jest": {
     "preset": "react-native",
-    "setupFiles": ["./jest/setup.js"],
+    "setupFiles": ["./node_modules/react-native/jest/setup.js", "./jest-setup.js"],
     "transformIgnorePatterns": [
       "node_modules/(?!react-native|native-base|react-clone-referenced-element)"
     ]
