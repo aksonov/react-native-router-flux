@@ -259,7 +259,7 @@ function(_ref7){var createReducer=_ref7.createReducer,props=_objectWithoutProper
 var scene=props.children;
 var AppNavigator=processScene(scene,props);
 _navigationStore2.default.router=AppNavigator.router;
-_navigationStore2.default.reducer=createReducer(props);
+_navigationStore2.default.reducer=createReducer&&createReducer(props);
 
 return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:264}});
 };
