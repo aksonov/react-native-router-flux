@@ -7,36 +7,39 @@ https://github.com/aksonov/react-native-router-flux/tree/v4
 
 V4 Features:
 
-Based on latest https://reactnavigation.org API
-Separated navigation logic from presentation. You may change now navigation state directly from your business logic code - stores/reducers/etc. navigationStore
-Built-in state machine (former Switch replacement) - each ‘scene’ has onEnter/onExit handlers.
+* Based on latest https://reactnavigation.org API
+* Separated navigation logic from presentation. You may change now navigation state directly from your business logic code - stores/reducers/etc. navigationStore
+* Built-in state machine (former Switch replacement) - each ‘scene’ has onEnter/onExit handlers.
 MobX-powered, all used scenes are wrapped as 'observer' automatically. You may subscribe to navigationStore (former Actions), observe current navigation state, etc. If you are using Redux, skip this.
-Flexible nav bar customization, that is not allowed by react navigation right now:
+* Flexible nav bar customization, that is not allowed by react navigation right now:
 react-community/react-navigation#779
-Drawer support (react
-'Lightbox' support (used by popups like Error alert within Example project)
+* Drawer support (react
+* 'Lightbox' support (used by popups like Error alert within Example project)
+
 Breaking changes (comparing to v3):
 
-No duration/panHandlers support - you have to implement custom navigator now instead and pass it as ‘navigator’ prop:
+1. No duration/panHandlers support - you have to implement custom navigator now instead and pass it as ‘navigator’ prop:
 https://reactnavigation.org/docs/navigators/custom
 
-No support for partial hiding of tab bar for some tabs because of react navigation bug:
+2. No support for partial hiding of tab bar for some tabs because of react navigation bug:
 react-community/react-navigation#1584
 
-No possibility to skip animation during reset/replace:
+3. No possibility to skip animation during reset/replace:
 react-community/react-navigation#1493
 
-Switch is removed - you may use onEnter/onExit handlers for more flexible logic.
+4. `Switch` is removed - you may use onEnter/onExit handlers for more flexible logic.
 
-getSceneStyle is removed (no needed in v4).
+5. `getSceneStyle` is removed (no needed in v4).
 
-Custom reducer (‘createReducer prop for Router) - Redux actions now are passed from React Navigation (‘Navigation/BACK’, ‘Navigation/NAVIGATE’, etc.)
+6. Custom reducer (`createReducer` prop for Router) - Redux actions now are passed from React Navigation (‘Navigation/BACK’, ‘Navigation/NAVIGATE’, etc.)
 
-Drawer is 'drawer' attribute Scene
+7. Drawer is 'drawer' attribute Scene
 
-Modal is 'modal' attribute for Scene
+8. Modal is 'modal' attribute for Scene
 
-No flux 'focus' actions - use onEnter/onExit handlers instead.
+9. No flux 'focus' actions - use onEnter/onExit handlers instead.
+
+10. Possible other stuff.
 
 As you can see React Navigation still contains some issues, but anyway it is more stable than obsolete 'react-native-experimental-navigation' used by v3 now.
 
