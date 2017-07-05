@@ -7,23 +7,8 @@
  *
  */
 import React, { PropTypes } from 'react';
-import { ViewPropTypes, Text } from 'react-native';
 
 export default class extends React.Component {
-
-  // @todo - should all props be documented/specified here?
-
-  static propTypes = {
-    tabBarStyle: ViewPropTypes.style,
-    tabBarSelectedItemStyle: ViewPropTypes.style,
-    tabBarIconContainerStyle: ViewPropTypes.style,
-    tabBarShadowStyle: ViewPropTypes.style,
-    tabSceneStyle: ViewPropTypes.style,
-    tabStyle: ViewPropTypes.style,
-    tabTitleStyle: Text.propTypes.style,
-    tabSelectedTitleStyle: Text.propTypes.style,
-    tabTitle: PropTypes.string,
-  };
 
   render() {
     return null;

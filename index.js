@@ -5,6 +5,9 @@ module.exports = {
   get Actions() {
     return require('./src/navigationStore').default;
   },
+  get ActionConst() {
+    return require('./src/ActionConst').default;
+  },
   get Router() {
     return require('./src/Router').default;
   },

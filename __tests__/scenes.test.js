@@ -15,12 +15,12 @@ class B extends React.Component {
 }
 
 
-const router = Router(<Scene>
+const router = <Router><Scene>
   <Scene key="b">
     <Scene key="a" component={B} param="1"/>
     <Scene key="c" component={B} param="2"/>
   </Scene>
-</Scene>);
+</Scene></Router>;
 
 test('renders correctly', done => {
   renderer.create(router);

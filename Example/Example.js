@@ -13,10 +13,7 @@ import Login2 from './components/Login2';
 import Login3 from './components/Login3';
 import {
   Scene,
-  Reducer,
   Router,
-  Switch,
-  Modal,
   Actions,
   ActionConst,
 } from 'react-native-router-flux';
@@ -25,11 +22,11 @@ import Home from './components/Home';
 import TabView from './components/TabView';
 import TabIcon from './components/TabIcon';
 import EchoView from './components/EchoView';
-import NavigationDrawer from './components/NavigationDrawer';
 import Button from 'react-native-button';
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
+  container: {
+    flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
     alignItems: 'center',
   },
   tabBarStyle: {
@@ -65,67 +62,75 @@ const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) 
   return style;
 };
 
-let currentSwitchPage = 'text1';
-
-const SwitcherPage = (props) => (
-  <View>
-    <Text style={{ marginTop: 100, textAlign: 'center' }}>current page: {props.text}</Text>
-    <Button
-      onPress={() => {
-        currentSwitchPage = currentSwitchPage === 'text1' ? 'text2' : 'text1';
-        Actions.refresh({ key: 'switcher' });
-      }}
-    >
-      Switch!
-    </Button>
-    <Button
-      onPress={() => {
-        Actions.launch({ type: ActionConst.RESET });
-      }}
-    >
-      Exit
-    </Button>
-  </View>
-);
-
 class Example extends Component {
   render() {
     return (
       <Router createReducer={reducerCreate} getSceneStyle={getSceneStyle}>
-        <Scene key="modal" component={Modal} >
-          <Scene key="root" hideNavBar hideTabBar>
-            <Scene key="echo" clone component={EchoView} getTitle={(navState) => navState.key} />
-            <Scene
-              key="switcher"
-              component={Switch}
-              selector={() => { return 'text1'; }}
-            >
+        <Scene key="drawer" drawer contentComponent={TabView}>
+          <Scene key="modal" modal hideNavBar>
+            <Scene key="root" hideNavBar hideTabBar>
+              <Scene key="echo" clone component={EchoView} getTitle={(navState) => navState.key}/>
+              <Scene key="register" back>
+                <Scene key="_register" component={Register} title="Register"/>
+                <Scene key="register2" component={Register} title="Register2"/>
+                <Scene key="home" component={Home} title="Replace" type='replace'/>
+              </Scene>
+              <Scene key="launch" component={Launch} title="Launch" initial/>
               <Scene
-                key="text1"
-                text="text1"
-                component={(props) => <SwitcherPage
-                  {...props}
-                  text={currentSwitchPage}
-                />}
-              />
-              <Scene
-                key="text2"
-                text="text2"
-                component={(props) => <SwitcherPage
-                  {...props}
-                  text={currentSwitchPage}
-                />}
-              />
+                key="tabbar"
+                tabs
+                tabBarStyle={styles.tabBarStyle}
+                activeBackgroundColor='#ddd'
+              >
+                <Scene
+                  key="tab1"
+                  title="Tab #1"
+                  tabBarLabel="TAB #1"
+                  icon={TabIcon}
+                  navigationBarStyle={{backgroundColor: 'red'}}
+                  titleStyle={{color: 'white'}}
+                >
+                  <Scene
+                    key="tab1_1"
+                    component={TabView}
+                    title="Tab #1_1"
+                    onRight={() => alert('Right button')}
+                    rightTitle="Right"
+                  />
+                  <Scene
+                    key="tab1_2"
+                    component={TabView}
+                    title="Tab #1_2"
+                    back
+                    titleStyle={{color: 'black'}}
+                  />
+                </Scene>
+                <Scene key="tab2" initial title="Tab #2" icon={TabIcon}>
+                  <Scene
+                    key="tab2_1"
+                    component={TabView}
+                    title="Tab #2_1"
+                    renderRightButton={() => <Text>Right</Text>}
+                  />
+                  <Scene
+                    key="tab2_2"
+                    component={TabView}
+                    title="Tab #2_2"
+                    back
+                    onBack={() => alert('onBack button!')}
+                    backTitle="Back!"
+                    panHandlers={null}
+                  />
+                </Scene>
+                <Scene key="tab3" component={TabView} title="Tab #3" icon={TabIcon}/>
+                <Scene key="tab4" component={TabView} title="Tab #4" hideNavBar icon={TabIcon}/>
+                <Scene key="tab5" component={TabView} title="Tab #5" icon={TabIcon}/>
+              </Scene>
             </Scene>
-            <Scene key="register" component={Register} title="Register" />
-            <Scene key="register2" component={Register} title="Register2" duration={1} />
-            <Scene key="home" component={Home} title="Replace" type={ActionConst.REPLACE} />
-            <Scene key="launch" component={Launch} title="Launch" initial />
-            <Scene key="login" direction="vertical" >
-              <Scene key="loginModal" direction="vertical" component={Login} title="Login" />
+            <Scene key="login">
+              <Scene key="loginModal" component={Login} title="Login" leftTitle="Cancel" onLeft={Actions.pop}/>
               <Scene
                 key="loginModal2"
-                hideNavBar
                 component={Login2}
                 title="Login2"
                 panHandlers={null}
@@ -140,59 +145,8 @@ class Example extends Component {
                 duration={1}
               />
             </Scene>
-            <Scene key="tabbar" component={NavigationDrawer}>
-              <Scene
-                key="main"
-                tabs
-                tabBarStyle={styles.tabBarStyle}
-                tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
-              >
-                <Scene
-                  key="tab1"
-                  title="Tab #1"
-                  icon={TabIcon}
-                  navigationBarStyle={{ backgroundColor: 'red' }}
-                  titleStyle={{ color: 'white' }}
-                >
-                  <Scene
-                    key="tab1_1"
-                    component={TabView}
-                    title="Tab #1_1"
-                    onRight={() => alert('Right button')}
-                    rightTitle="Right"
-                  />
-                  <Scene
-                    key="tab1_2"
-                    component={TabView}
-                    title="Tab #1_2"
-                    titleStyle={{ color: 'black' }}
-                  />
-                </Scene>
-                <Scene key="tab2" initial title="Tab #2" icon={TabIcon}>
-                  <Scene
-                    key="tab2_1"
-                    component={TabView}
-                    title="Tab #2_1"
-                    renderRightButton={() => <Text>Right</Text>}
-                  />
-                  <Scene
-                    key="tab2_2"
-                    component={TabView}
-                    title="Tab #2_2"
-                    hideBackImage
-                    onBack={() => alert('Left button!')}
-                    backTitle="Left"
-                    duration={1}
-                    panHandlers={null}
-                  />
-                </Scene>
-                <Scene key="tab3" component={TabView} title="Tab #3" hideTabBar icon={TabIcon} />
-                <Scene key="tab4" component={TabView} title="Tab #4" hideNavBar icon={TabIcon} />
-                <Scene key="tab5" component={TabView} title="Tab #5" hideTabBar icon={TabIcon} />
-              </Scene>
-            </Scene>
+            <Scene key="error" component={Error}/>
           </Scene>
-          <Scene key="error" component={Error} />
         </Scene>
       </Router>
     );
