@@ -2,6 +2,7 @@
 
 [![NPM](https://nodei.co/npm/react-native-router-flux.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-native-router-flux/)  
 Router for React Native based on new React Native Navigation API.
+
 Please check latest 4.0.0-beta.* , Example as demo:
 https://github.com/aksonov/react-native-router-flux/tree/v4
 
