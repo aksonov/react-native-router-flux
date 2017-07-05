@@ -1,14 +1,15 @@
 {
   "name": "react-native-router-flux",
-  "version": "4.0.0-alpha.8",
+  "version": "4.0.0-beta.1",
   "description": "React Native Router using Flux architecture",
   "repository": {
     "type": "git",
     "url": "https://github.com/aksonov/react-native-router-flux"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "build": "babel src -d dist --presets react-native-stage-0/decorator-support",
     "test": "jest"
   },
   "dependencies": {

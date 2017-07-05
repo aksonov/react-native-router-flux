@@ -25,6 +25,7 @@ const createAction = (type: string) => (payload: Object = {}) => ({
 class NavigationStore {
   _router = null;
   states = {};
+  reducer = null;
   @observable _state;
   @observable currentScene = '';
   @observable prevScene = '';
@@ -93,7 +94,7 @@ class NavigationStore {
   }
 
   dispatch = (action) => {
-    const newState = this._router.getStateForAction(action, this.state);
+    const newState = this.reducer ? this.reducer(this.state, action) : this._router.getStateForAction(action, this.state);
     // don't allow duplicated scenes or null state
     if (!newState || this.currentState(newState).routeName === this.currentScene) {
       return;
@@ -111,6 +112,9 @@ class NavigationStore {
       }
     }
     res.routeName = routeName;
+    if (res.clone){
+      console.log("STATE:", JSON.stringify(this.state));
+    }
     this.dispatch(createAction(type)({routeName, index:0, actions, params: res}));
   };
 

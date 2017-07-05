@@ -88,80 +88,63 @@ export function renderBackButton(state) {
 }
 
 export function renderLeftButton(state, wrapBy) {
-  const drawer = null;
-    let onPress = state.onLeft;
-    let buttonImage = state.leftButtonImage;
-    let menuIcon = state.drawerIcon;
-    const style = [styles.leftButton, state.leftButtonStyle];
-    const textStyle = [styles.barLeftButtonText, state.leftButtonTextStyle];
-    const leftButtonStyle = [styles.defaultImageStyle, state.leftButtonIconStyle];
-    const leftTitle = state.getLeftTitle ? state.getLeftTitle(navProps) : state.leftTitle;
+  let onPress = state.onLeft;
+  let buttonImage = state.leftButtonImage;
+  let menuIcon = state.drawerIcon;
+  const style = [styles.leftButton, state.leftButtonStyle];
+  const textStyle = [styles.barLeftButtonText, state.leftButtonTextStyle];
+  const leftButtonStyle = [styles.defaultImageStyle, state.leftButtonIconStyle];
+  const leftTitle = state.getLeftTitle ? state.getLeftTitle(navProps) : state.leftTitle;
 
-    if (state.leftButton) {
-      let Button = state.leftButton;
-      if (wrapBy) {
-        Button = wrapBy(Button);
-      }
-      return (
-        <Button
-          {...self.props}
-          {...state}
-          key={'leftNavBarBtn'}
-          testID="leftNavButton"
-          style={style}
-          textStyle={textStyle}
-        />
-      );
+  if (state.leftButton) {
+    let Button = state.leftButton;
+    if (wrapBy) {
+      Button = wrapBy(Button);
     }
+    return (
+      <Button
+        {...state}
+        key={'leftNavBarBtn'}
+        testID="leftNavButton"
+        style={[...style, ...leftButtonStyle]}
+        textStyle={textStyle}
+      />
+    );
+  }
 
-    if (!onPress && !!drawer && typeof drawer.toggle === 'function' && drawer.props.side === 'left') {
-      buttonImage = state.drawerImage;
-      if (buttonImage || menuIcon) {
-        onPress = drawer.toggle;
-      }
-      if (!menuIcon) {
-        menuIcon = (
-          <Image
+  if (onPress && (leftTitle || buttonImage)) {
+    onPress = onPress.bind(null, state);
+    return (
+      <TouchableOpacity
+        key={'leftNavBarBtn'}
+        testID="leftNavButton"
+        style={style}
+        onPress={onPress}
+      >
+        {leftTitle &&
+        <Text style={textStyle}>
+          {leftTitle}
+        </Text>
+        }
+        {!leftTitle && buttonImage &&
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'flex-start'}}>
+          {menuIcon || <Image
             source={buttonImage}
-            style={leftButtonStyle}
+            style={state.leftButtonIconStyle || styles.defaultImageStyle}
           />
-        );
-      }
-    }
-
-    if (onPress && (leftTitle || buttonImage)) {
-      onPress = onPress.bind(null, state);
-      return (
-        <TouchableOpacity
-          key={'leftNavBarBtn'}
-          testID="leftNavButton"
-          style={style}
-          onPress={onPress}
-        >
-          {leftTitle &&
-          <Text style={textStyle}>
-            {leftTitle}
-          </Text>
           }
-          {buttonImage &&
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-            {menuIcon || <Image
-              source={buttonImage}
-              style={state.leftButtonIconStyle || styles.defaultImageStyle}
-            />
-            }
-          </View>
-          }
-        </TouchableOpacity>
-      );
-    }
-    if ((!!state.onLeft ^ !!(leftTitle || buttonImage))) {
-      console.warn(
-        `Both onLeft and leftTitle/leftButtonImage
+        </View>
+        }
+      </TouchableOpacity>
+    );
+  }
+  if ((!!state.onLeft ^ !!(leftTitle || buttonImage))) {
+    console.warn(
+      `Both onLeft and leftTitle/leftButtonImage
             must be specified for the scene: ${state.name}`,
-      );
-    }
-    return null;
+    );
+  }
+  return null;
 }
 
 

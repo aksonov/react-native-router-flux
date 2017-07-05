@@ -41,7 +41,7 @@ const TabView = (props) => {
       <Button onPress={() => { Actions.tab3(); }}>Switch to tab3</Button>
       <Button onPress={() => { Actions.tab4(); }}>Switch to tab4</Button>
       <Button onPress={() => { Actions.tab5(); }}>Switch to tab5</Button>
-      <Button onPress={() => { Actions.echo(); }}>push new scene</Button>
+      <Button onPress={() => { Actions.echo(); }}>push clone scene (EchoView)</Button>
     </View>
   );
 };
