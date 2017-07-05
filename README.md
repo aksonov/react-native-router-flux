@@ -13,7 +13,7 @@ V4 Features:
 * Built-in state machine (former Switch replacement) - each ‘scene’ has onEnter/onExit handlers.
 MobX-powered, all used scenes are wrapped as 'observer' automatically. You may subscribe to navigationStore (former Actions), observe current navigation state, etc. If you are using Redux, skip this.
 * Flexible nav bar customization, that is not allowed by react navigation right now:
-react-community/react-navigation#779
+https://github.com/react-community/react-navigation/issues/779
 * Drawer support (react
 * 'Lightbox' support (used by popups like Error alert within Example project)
 
@@ -23,10 +23,10 @@ Breaking changes (comparing to v3):
 https://reactnavigation.org/docs/navigators/custom
 
 2. No support for partial hiding of tab bar for some tabs because of react navigation bug:
-react-community/react-navigation#1584
+https://github.com/react-community/react-navigation/issues/1584
 
 3. No possibility to skip animation during reset/replace:
-react-community/react-navigation#1493
+https://github.com/react-community/react-navigation/issues/1493
 
 4. `Switch` is removed - you may use onEnter/onExit handlers for more flexible logic.
 
@@ -45,7 +45,7 @@ react-community/react-navigation#1493
 As you can see React Navigation still contains some issues, but anyway it is more stable than obsolete 'react-native-experimental-navigation' used by v3 now.
 
 Here is link about road to v1 (so you can see all issues at one place):
-react-community/react-navigation#723
+https://github.com/react-community/react-navigation/issues/723
 
 ## Documentation (v3)
 
