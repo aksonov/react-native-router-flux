@@ -6,7 +6,8 @@ var _Scene=require('./Scene');var _Scene2=_interopRequireDefault(_Scene);
 var _Util=require('./Util');
 var _reactNavigation=require('react-navigation');
 var _NavBar=require('./NavBar');
-var _LightboxNavigator=require('./LightboxNavigator');var _LightboxNavigator2=_interopRequireDefault(_LightboxNavigator);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}}function _objectWithoutProperties(obj,keys){var target={};for(var i in obj){if(keys.indexOf(i)>=0)continue;if(!Object.prototype.hasOwnProperty.call(obj,i))continue;target[i]=obj[i];}return target;}
+var _LightboxNavigator=require('./LightboxNavigator');var _LightboxNavigator2=_interopRequireDefault(_LightboxNavigator);
+var _menu_burger=require('../images/menu_burger.png');var _menu_burger2=_interopRequireDefault(_menu_burger);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}}function _objectWithoutProperties(obj,keys){var target={};for(var i in obj){if(keys.indexOf(i)>=0)continue;if(!Object.prototype.hasOwnProperty.call(obj,i))continue;target[i]=obj[i];}return target;}
 
 var reservedKeys=[
 'children',
@@ -89,7 +90,7 @@ headerStyle:getValue(navigationParams.headerStyle||headerStyle||navigationBarSty
 headerBackImage:navigationParams.backButtonImage||backButtonImage};
 
 if(NavBar){
-res.header=function(props){return _react2.default.createElement(NavBar,_extends({navigation:navigation},params,{__source:{fileName:_jsxFileName,lineNumber:92}}));};
+res.header=function(props){return _react2.default.createElement(NavBar,_extends({navigation:navigation},params,{__source:{fileName:_jsxFileName,lineNumber:93}}));};
 }
 
 if(tabBarLabel){
@@ -133,7 +134,7 @@ if(!Component){
 return null;
 }
 return(0,_native.observer)(function(_ref3){var navigation=_ref3.navigation,props=_objectWithoutProperties(_ref3,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:136}}));
+return _react2.default.createElement(Component,_extends({},props,navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:137}}));
 });
 }
 
@@ -143,7 +144,7 @@ var AppNavigator=props.navigator;
 return(
 _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({
 dispatch:_navigationStore2.default.dispatch,
-state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:144}}));
+state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:145}}));
 
 
 });
@@ -166,7 +167,7 @@ delete commonProps[pkey];
 }
 
 if(drawer&&!commonProps.left&&!commonProps.leftButtonImage&&!commonProps.leftTitle&&!commonProps.back){
-commonProps.leftButtonImage=require('./menu_burger.png');
+commonProps.leftButtonImage=_menu_burger2.default;
 commonProps.onLeft=_navigationStore2.default.drawerOpen;
 }
 
@@ -261,5 +262,5 @@ var AppNavigator=processScene(scene,props);
 _navigationStore2.default.router=AppNavigator.router;
 _navigationStore2.default.reducer=createReducer&&createReducer(props);
 
-return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:264}});
+return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:265}});
 };

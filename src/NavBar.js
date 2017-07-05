@@ -38,8 +38,8 @@ import {
   ViewPropTypes,
 } from 'react-native';
 import Actions from './navigationStore';
-import _drawerImage from './menu_burger.png';
-import _backButtonImage from './back_chevron.png';
+import _backButtonImage from '../images/back_chevron.png';
+import _drawerImage from '../images/menu_burger.png';
 
 export function renderBackButton(state) {
   const textButtonStyle = [
@@ -50,7 +50,7 @@ export function renderBackButton(state) {
     styles.backButton,
     state.leftButtonStyle,
   ];
-  const buttonImage = state.backButtonImage || require('./back_chevron.png');
+  const buttonImage = state.backButtonImage || _backButtonImage;
   let onPress = state.onBack;
   if (onPress) {
     onPress = onPress.bind(null, state);
@@ -387,7 +387,6 @@ const contextTypes = {
 };
 
 const defaultProps = {
-  drawerImage: _drawerImage,
   backButtonImage: _backButtonImage,
   titleOpacity: 1,
 };

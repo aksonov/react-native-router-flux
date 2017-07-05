@@ -148,7 +148,7 @@ renderLeftButton=renderLeftButton;exports.
 
 
 
-renderRightButton=renderRightButton;var _react=require('react');var _react2=_interopRequireDefault(_react);var _reactNative=require('react-native');var _navigationStore=require('./navigationStore');var _navigationStore2=_interopRequireDefault(_navigationStore);var _menu_burger=require('./menu_burger.png');var _menu_burger2=_interopRequireDefault(_menu_burger);var _back_chevron=require('./back_chevron.png');var _back_chevron2=_interopRequireDefault(_back_chevron);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}function renderBackButton(state){var textButtonStyle=[styles.barBackButtonText,state.backButtonTextStyle];var style=[styles.backButton,state.leftButtonStyle];var buttonImage=state.backButtonImage||require('./back_chevron.png');var onPress=state.onBack;if(onPress){onPress=onPress.bind(null,state);}else{onPress=_navigationStore2.default.pop;}var text=state.backTitle?_react2.default.createElement(_reactNative.Text,{style:textButtonStyle,__source:{fileName:_jsxFileName,lineNumber:62}},state.backTitle):null;return _react2.default.createElement(_reactNative.TouchableOpacity,{testID:'backNavButton',style:{position:'absolute',top:0,left:0,height:50,width:70},onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:68}},_react2.default.createElement(_reactNative.View,{style:style,__source:{fileName:_jsxFileName,lineNumber:73}},buttonImage&&!state.hideBackImage&&_react2.default.createElement(_reactNative.Image,{source:buttonImage,style:[styles.backButtonImage,state.barButtonIconStyle,state.leftButtonIconStyle],__source:{fileName:_jsxFileName,lineNumber:75}}),text));}function renderLeftButton(state,wrapBy){var onPress=state.onLeft;var buttonImage=state.leftButtonImage;var menuIcon=state.drawerIcon;var style=[styles.leftButton,state.leftButtonStyle];var textStyle=[styles.barLeftButtonText,state.leftButtonTextStyle];var leftButtonStyle=[styles.defaultImageStyle,state.leftButtonIconStyle];var leftTitle=state.getLeftTitle?state.getLeftTitle(navProps):state.leftTitle;if(state.leftButton){var Button=state.leftButton;if(wrapBy){Button=wrapBy(Button);}return _react2.default.createElement(Button,_extends({},state,{key:'leftNavBarBtn',testID:'leftNavButton',style:[].concat(style,leftButtonStyle),textStyle:textStyle,__source:{fileName:_jsxFileName,lineNumber:105}}));}if(onPress&&(leftTitle||buttonImage)){onPress=onPress.bind(null,state);return _react2.default.createElement(_reactNative.TouchableOpacity,{key:'leftNavBarBtn',testID:'leftNavButton',style:style,onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:118}},leftTitle&&_react2.default.createElement(_reactNative.Text,{style:textStyle,__source:{fileName:_jsxFileName,lineNumber:125}},leftTitle),!leftTitle&&buttonImage&&_react2.default.createElement(_reactNative.View,{style:{flex:1,justifyContent:'center',alignItems:'flex-start'},__source:{fileName:_jsxFileName,lineNumber:130}},menuIcon||_react2.default.createElement(_reactNative.Image,{source:buttonImage,style:state.leftButtonIconStyle||styles.defaultImageStyle,__source:{fileName:_jsxFileName,lineNumber:131}})));}if(!!state.onLeft^!!(leftTitle||buttonImage)){console.warn('Both onLeft and leftTitle/leftButtonImage\n            must be specified for the scene: '+state.name);}return null;}function renderRightButton(state,wrapBy){
+renderRightButton=renderRightButton;var _react=require('react');var _react2=_interopRequireDefault(_react);var _reactNative=require('react-native');var _navigationStore=require('./navigationStore');var _navigationStore2=_interopRequireDefault(_navigationStore);var _back_chevron=require('../images/back_chevron.png');var _back_chevron2=_interopRequireDefault(_back_chevron);var _menu_burger=require('../images/menu_burger.png');var _menu_burger2=_interopRequireDefault(_menu_burger);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}function renderBackButton(state){var textButtonStyle=[styles.barBackButtonText,state.backButtonTextStyle];var style=[styles.backButton,state.leftButtonStyle];var buttonImage=state.backButtonImage||_back_chevron2.default;var onPress=state.onBack;if(onPress){onPress=onPress.bind(null,state);}else{onPress=_navigationStore2.default.pop;}var text=state.backTitle?_react2.default.createElement(_reactNative.Text,{style:textButtonStyle,__source:{fileName:_jsxFileName,lineNumber:62}},state.backTitle):null;return _react2.default.createElement(_reactNative.TouchableOpacity,{testID:'backNavButton',style:{position:'absolute',top:0,left:0,height:50,width:70},onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:68}},_react2.default.createElement(_reactNative.View,{style:style,__source:{fileName:_jsxFileName,lineNumber:73}},buttonImage&&!state.hideBackImage&&_react2.default.createElement(_reactNative.Image,{source:buttonImage,style:[styles.backButtonImage,state.barButtonIconStyle,state.leftButtonIconStyle],__source:{fileName:_jsxFileName,lineNumber:75}}),text));}function renderLeftButton(state,wrapBy){var onPress=state.onLeft;var buttonImage=state.leftButtonImage;var menuIcon=state.drawerIcon;var style=[styles.leftButton,state.leftButtonStyle];var textStyle=[styles.barLeftButtonText,state.leftButtonTextStyle];var leftButtonStyle=[styles.defaultImageStyle,state.leftButtonIconStyle];var leftTitle=state.getLeftTitle?state.getLeftTitle(navProps):state.leftTitle;if(state.leftButton){var Button=state.leftButton;if(wrapBy){Button=wrapBy(Button);}return _react2.default.createElement(Button,_extends({},state,{key:'leftNavBarBtn',testID:'leftNavButton',style:[].concat(style,leftButtonStyle),textStyle:textStyle,__source:{fileName:_jsxFileName,lineNumber:105}}));}if(onPress&&(leftTitle||buttonImage)){onPress=onPress.bind(null,state);return _react2.default.createElement(_reactNative.TouchableOpacity,{key:'leftNavBarBtn',testID:'leftNavButton',style:style,onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:118}},leftTitle&&_react2.default.createElement(_reactNative.Text,{style:textStyle,__source:{fileName:_jsxFileName,lineNumber:125}},leftTitle),!leftTitle&&buttonImage&&_react2.default.createElement(_reactNative.View,{style:{flex:1,justifyContent:'center',alignItems:'flex-start'},__source:{fileName:_jsxFileName,lineNumber:130}},menuIcon||_react2.default.createElement(_reactNative.Image,{source:buttonImage,style:state.leftButtonIconStyle||styles.defaultImageStyle,__source:{fileName:_jsxFileName,lineNumber:131}})));}if(!!state.onLeft^!!(leftTitle||buttonImage)){console.warn('Both onLeft and leftTitle/leftButtonImage\n            must be specified for the scene: '+state.name);}return null;}function renderRightButton(state,wrapBy){
 var drawer=null;
 if(!state){
 return null;
@@ -387,7 +387,6 @@ drawer:_react.PropTypes.object};
 
 
 var defaultProps={
-drawerImage:_menu_burger2.default,
 backButtonImage:_back_chevron2.default,
 titleOpacity:1};var
 
@@ -432,7 +431,7 @@ _react2.default.createElement(BackButton,_extends({
 testID:'backNavButton',
 textButtonStyle:textButtonStyle},
 childState,{
-style:style,__source:{fileName:_jsxFileName,lineNumber:431}})));
+style:style,__source:{fileName:_jsxFileName,lineNumber:430}})));
 
 
 }
@@ -446,7 +445,7 @@ onPress=_navigationStore2.default.pop;
 }
 
 var text=childState.backTitle?
-_react2.default.createElement(_reactNative.Text,{style:textButtonStyle,__source:{fileName:_jsxFileName,lineNumber:449}},
+_react2.default.createElement(_reactNative.Text,{style:textButtonStyle,__source:{fileName:_jsxFileName,lineNumber:448}},
 childState.backTitle):
 
 null;
@@ -455,7 +454,7 @@ return(
 _react2.default.createElement(_reactNative.TouchableOpacity,{
 testID:'backNavButton',
 style:style,
-onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:455}},
+onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:454}},
 
 buttonImage&&!childState.hideBackImage&&
 _react2.default.createElement(_reactNative.Image,{
@@ -465,7 +464,7 @@ styles.backButtonImage,
 this.props.leftButtonIconStyle,
 state.barButtonIconStyle,
 state.leftButtonIconStyle,
-childState.leftButtonIconStyle],__source:{fileName:_jsxFileName,lineNumber:461}}),
+childState.leftButtonIconStyle],__source:{fileName:_jsxFileName,lineNumber:460}}),
 
 
 
@@ -503,7 +502,7 @@ state,{
 key:'rightNavBarBtn',
 testID:'rightNavButton',
 style:style,
-textButtonStyle:textStyle,__source:{fileName:_jsxFileName,lineNumber:500}})));
+textButtonStyle:textStyle,__source:{fileName:_jsxFileName,lineNumber:499}})));
 
 
 }
@@ -517,7 +516,7 @@ if(!menuIcon){
 menuIcon=
 _react2.default.createElement(_reactNative.Image,{
 source:buttonImage,
-style:rightButtonStyle,__source:{fileName:_jsxFileName,lineNumber:518}});
+style:rightButtonStyle,__source:{fileName:_jsxFileName,lineNumber:517}});
 
 
 }
@@ -530,18 +529,18 @@ _react2.default.createElement(_reactNative.TouchableOpacity,{
 key:'rightNavBarBtn',
 testID:'rightNavButton',
 style:style,
-onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:529}},
+onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:528}},
 
 rightTitle&&
-_react2.default.createElement(_reactNative.Text,{style:textStyle,__source:{fileName:_jsxFileName,lineNumber:536}},
+_react2.default.createElement(_reactNative.Text,{style:textStyle,__source:{fileName:_jsxFileName,lineNumber:535}},
 rightTitle),
 
 
 buttonImage&&
-_react2.default.createElement(_reactNative.View,{style:{flex:1,justifyContent:'center',alignItems:'flex-end'},__source:{fileName:_jsxFileName,lineNumber:541}},
+_react2.default.createElement(_reactNative.View,{style:{flex:1,justifyContent:'center',alignItems:'flex-end'},__source:{fileName:_jsxFileName,lineNumber:540}},
 menuIcon||_react2.default.createElement(_reactNative.Image,{
 source:buttonImage,
-style:state.rightButtonIconStyle||styles.defaultImageStyle,__source:{fileName:_jsxFileName,lineNumber:542}}))));
+style:state.rightButtonIconStyle||styles.defaultImageStyle,__source:{fileName:_jsxFileName,lineNumber:541}}))));
 
 
 
@@ -586,7 +585,7 @@ state,{
 key:'leftNavBarBtn',
 testID:'leftNavButton',
 style:style,
-textStyle:textStyle,__source:{fileName:_jsxFileName,lineNumber:583}})));
+textStyle:textStyle,__source:{fileName:_jsxFileName,lineNumber:582}})));
 
 
 }
@@ -600,7 +599,7 @@ if(!menuIcon){
 menuIcon=
 _react2.default.createElement(_reactNative.Image,{
 source:buttonImage,
-style:leftButtonStyle,__source:{fileName:_jsxFileName,lineNumber:601}});
+style:leftButtonStyle,__source:{fileName:_jsxFileName,lineNumber:600}});
 
 
 }
@@ -613,18 +612,18 @@ _react2.default.createElement(_reactNative.TouchableOpacity,{
 key:'leftNavBarBtn',
 testID:'leftNavButton',
 style:style,
-onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:612}},
+onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:611}},
 
 leftTitle&&
-_react2.default.createElement(_reactNative.Text,{style:textStyle,__source:{fileName:_jsxFileName,lineNumber:619}},
+_react2.default.createElement(_reactNative.Text,{style:textStyle,__source:{fileName:_jsxFileName,lineNumber:618}},
 leftTitle),
 
 
 buttonImage&&
-_react2.default.createElement(_reactNative.View,{style:{flex:1,justifyContent:'center',alignItems:'flex-start'},__source:{fileName:_jsxFileName,lineNumber:624}},
+_react2.default.createElement(_reactNative.View,{style:{flex:1,justifyContent:'center',alignItems:'flex-start'},__source:{fileName:_jsxFileName,lineNumber:623}},
 menuIcon||_react2.default.createElement(_reactNative.Image,{
 source:buttonImage,
-style:state.leftButtonIconStyle||styles.defaultImageStyle,__source:{fileName:_jsxFileName,lineNumber:625}}))));
+style:state.leftButtonIconStyle||styles.defaultImageStyle,__source:{fileName:_jsxFileName,lineNumber:624}}))));
 
 
 
@@ -656,7 +655,7 @@ _react2.default.createElement(_reactNative.Animated.View,{
 key:childState.key,
 style:[
 styles.titleWrapper,
-this.props.titleWrapperStyle],__source:{fileName:_jsxFileName,lineNumber:655}},
+this.props.titleWrapperStyle],__source:{fileName:_jsxFileName,lineNumber:654}},
 
 
 _react2.default.createElement(_reactNative.Animated.Text,_extends({
@@ -679,7 +678,7 @@ outputRange:[200,-200]}),
 
 right:this.props.position.interpolate({
 inputRange:[index-1,index+1],
-outputRange:[-200,200]})}],__source:{fileName:_jsxFileName,lineNumber:662}}),
+outputRange:[-200,200]})}],__source:{fileName:_jsxFileName,lineNumber:661}}),
 
 
 
@@ -704,14 +703,14 @@ return(
 _react2.default.createElement(_reactNative.Animated.View,{
 style:[
 styles.titleWrapper,
-this.props.titleWrapperStyle],__source:{fileName:_jsxFileName,lineNumber:704}},
+this.props.titleWrapperStyle],__source:{fileName:_jsxFileName,lineNumber:703}},
 
 
 _react2.default.createElement(_reactNative.Animated.Image,{
 style:[styles.titleImage,navigationBarTitleImageStyle],
-source:navigationBarTitleImage,__source:{fileName:_jsxFileName,lineNumber:710}}),
+source:navigationBarTitleImage,__source:{fileName:_jsxFileName,lineNumber:709}}),
 
-navigationBarShowImageSelection&&_react2.default.createElement(_reactNative.Animated.View,{style:navigationBarSelecionStyle,__source:{fileName:_jsxFileName,lineNumber:714}})));
+navigationBarShowImageSelection&&_react2.default.createElement(_reactNative.Animated.View,{style:navigationBarSelecionStyle,__source:{fileName:_jsxFileName,lineNumber:713}})));
 
 
 }},{key:'render',value:function render()
@@ -727,7 +726,7 @@ var navProps=_extends({},this.props,selected);
 
 var wrapByStyle=function wrapByStyle(component,wrapStyle){
 if(!component){return null;}
-return function(props){return _react2.default.createElement(_reactNative.View,{style:wrapStyle,__source:{fileName:_jsxFileName,lineNumber:730}},component(props));};
+return function(props){return _react2.default.createElement(_reactNative.View,{style:wrapStyle,__source:{fileName:_jsxFileName,lineNumber:729}},component(props));};
 };
 
 var leftButtonStyle=[styles.leftButton,{alignItems:'flex-start'},this.props.leftButtonStyle,state.leftButtonStyle];
@@ -759,7 +758,7 @@ imageOrTitle=renderTitle?renderTitle(navProps):
 state.children.map(this.renderTitle,this);
 }
 var contents=
-_react2.default.createElement(_reactNative.View,{__source:{fileName:_jsxFileName,lineNumber:762}},
+_react2.default.createElement(_reactNative.View,{__source:{fileName:_jsxFileName,lineNumber:761}},
 imageOrTitle,
 renderBackButton(navProps)||renderLeftButton(navProps),
 renderRightButton(navProps));
@@ -771,11 +770,11 @@ style:[
 styles.header,
 this.props.navigationBarStyle,
 state.navigationBarStyle,
-selected.navigationBarStyle],__source:{fileName:_jsxFileName,lineNumber:769}},
+selected.navigationBarStyle],__source:{fileName:_jsxFileName,lineNumber:768}},
 
 
 navigationBarBackgroundImage?
-_react2.default.createElement(_reactNative.Image,{style:navigationBarBackgroundImageStyle,source:navigationBarBackgroundImage,__source:{fileName:_jsxFileName,lineNumber:778}},
+_react2.default.createElement(_reactNative.Image,{style:navigationBarBackgroundImageStyle,source:navigationBarBackgroundImage,__source:{fileName:_jsxFileName,lineNumber:777}},
 contents):
 
 contents));

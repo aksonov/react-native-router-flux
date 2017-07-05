@@ -7,6 +7,7 @@ import {OnEnter, OnExit,assert } from './Util';
 import {TabNavigator, DrawerNavigator, StackNavigator, NavigationActions, addNavigationHelpers} from 'react-navigation';
 import {renderRightButton, renderLeftButton, renderBackButton} from './NavBar';
 import LightboxNavigator from './LightboxNavigator';
+import _drawerImage from '../images/menu_burger.png';
 
 const reservedKeys = [
   'children',
@@ -166,7 +167,7 @@ function processScene(scene: Scene, inheritProps = {}, clones = []) {
   }
 
   if (drawer && !commonProps.left && !commonProps.leftButtonImage && !commonProps.leftTitle && !commonProps.back) {
-    commonProps.leftButtonImage = require('./menu_burger.png');
+    commonProps.leftButtonImage = _drawerImage;
     commonProps.onLeft = navigationStore.drawerOpen;
   }
 
