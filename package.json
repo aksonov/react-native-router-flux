@@ -23,6 +23,8 @@
     "babel-preset-react-native-stage-0": "^1.0.1",
     "eslint": "^4.0.0",
     "jest": "20.0.4",
+    "react": "16.0.0-alpha.12",
+    "react-native": "0.45.1",
     "react-test-renderer": "16.0.0-alpha.12"
   },
   "peerDependencies": {
