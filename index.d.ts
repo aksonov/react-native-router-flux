@@ -59,7 +59,22 @@ declare namespace RNRF {
      * Optionally override the styles for NavigationCard's Animated.View rendering the scene. Receives first argument of NavigationSceneRendererProps and second argument of {hideNavBar,hideTabBar,isActive} (see Example app).
      */
     getSceneStyle?: Function,
-
+    /**
+     * Optionally override the background image for NavigationBar
+     */
+    navigationBarBackgroundImage?: ReactNative.Image,
+    /**
+     * Optionally override the style of background image for NavigationBar
+     */
+    navigationBarBackgroundImageStyle?: ReactNative.ImageStyle,
+    /**
+     * Optionally override the title image for NavigationBar
+     */
+    navigationBarTitleImage?: ReactNative.Image,
+    /**
+     * Optionally override the style of title image for NavigationBar
+     */
+    navigationBarTitleImageStyle?: ReactNative.ImageStyle,
 
     // Tabs
 
@@ -328,6 +343,10 @@ declare namespace RNRF {
     titleStyle?: ReactNative.TextStyle,
     position?: Object,
     navigationBarStyle?: ReactNative.ViewStyle,
+    navigationBarTitleImage?: ReactNative.Image,
+    navigationBarTitleImageStyle?: ReactNative.ImageStyle
+    navigationBarBackgroundImage?: ReactNative.Image,
+    navigationBarBackgroundImageStyle?: ReactNative.ImageStyle,
     renderTitle?: any,
   }
   export class NavBar extends React.Component<NavBarProps, {}>{ }
