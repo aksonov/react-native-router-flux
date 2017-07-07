@@ -354,7 +354,7 @@ declare namespace RNRF {
 
 
   // Reducer
-  export var Reducer: (state: {}, scence: {}) => any;
+  export var Reducer: ({state: {}, scence: {}}) => any;
 
 
   // Switch
