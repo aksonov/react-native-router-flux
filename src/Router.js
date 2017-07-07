@@ -201,10 +201,10 @@ function processScene(scene: Scene, inheritProps = {}, clones = []) {
     }
     delete props.children;
     if (success) {
-      navigationStore.states[key].success = success instanceof Function ? success : ()=>{console.log(`Success ${key}, go to state=${success}`);navigationStore[success]()};
+      navigationStore.states[key].success = success instanceof Function ? success : props=>{console.log(`Transition to state=${success}`);navigationStore[success](props)};
     }
     if (failure) {
-      navigationStore.states[key].failure = failure instanceof Function ? failure : ()=>{console.log(`Failure ${key}, go to state=${failure}`);navigationStore[failure]();}
+      navigationStore.states[key].failure = failure instanceof Function ? failure : props=>{console.log(`Transition to state=${failure}`);navigationStore[failure](props);}
     }
     //console.log(`KEY ${key} DRAWER ${drawer} TABS ${tabs} WRAP ${wrap}`, JSON.stringify(commonProps));
     const screen = {

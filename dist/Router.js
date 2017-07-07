@@ -201,10 +201,10 @@ _navigationStore2.default.states[key][transition]=props[transition];
 }
 delete props.children;
 if(success){
-_navigationStore2.default.states[key].success=success instanceof Function?success:function(){console.log('Success '+key+', go to state='+success);_navigationStore2.default[success]();};
+_navigationStore2.default.states[key].success=success instanceof Function?success:function(props){console.log('Transition to state='+success);_navigationStore2.default[success](props);};
 }
 if(failure){
-_navigationStore2.default.states[key].failure=failure instanceof Function?failure:function(){console.log('Failure '+key+', go to state='+failure);_navigationStore2.default[failure]();};
+_navigationStore2.default.states[key].failure=failure instanceof Function?failure:function(props){console.log('Transition to state='+failure);_navigationStore2.default[failure](props);};
 }
 
 var screen={

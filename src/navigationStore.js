@@ -1,4 +1,4 @@
-import {observable, autorun, computed, toJS} from 'mobx';
+import {observable, autorun, autorunAsync, computed, toJS} from 'mobx';
 import {NavigationActions} from 'react-navigation';
 import ActionConst from './ActionConst';
 import {OnEnter, OnExit} from './Util';
@@ -45,7 +45,7 @@ class NavigationStore {
     const defaultSuccess = () => {};
     const defaultFailure = () => {};
 
-    autorun(()=>{
+    autorunAsync(async ()=>{
       try {
         if (this.prevScene && this.currentScene !== this.prevScene) {
           // call onExit handler
@@ -69,19 +69,17 @@ class NavigationStore {
           if (handler) {
             try {
               const params = this.currentState().params;
-              console.log("RUN onEnter handler for state=",this.currentScene,' params='+JSON.stringify(params));
-              const res = handler(params);
-              if (res instanceof Promise) {
-                res.then(success, failure);
+              console.log("RUN onEnter handler for state=", this.currentScene, ' params=' + JSON.stringify(params));
+              const res = await handler(params);
+              if (res) {
+                console.log("SUCCESS", res);
+                success(res);
               } else {
-                if (res) {
-                  success(res);
-                } else {
-                  failure();
-                }
+                console.log("FAILURE NULL RES");
+                failure();
               }
             } catch (e) {
-              console.error("Error during onEnter handler:", e);
+              console.log("FAILURE EXCEPTION", e);
               failure(e);
             }
 
