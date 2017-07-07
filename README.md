@@ -169,7 +169,7 @@ And then:
 + BusDue, ([iOS](https://itunes.apple.com/gb/app/busdue/id1185327843?mt=8), [Android](https://play.google.com/store/apps/details?id=com.busdue)) - London bus arrival time app
 
 ## Support
-Thanks to all who submitted PRs to 2.x release. If you like the component and want to support it, feel free to donate any amount or help with issues.
+Thanks to all who submitted PRs to 2.x/3.x releases. If you like the component and want to support it, feel free to donate any amount or help with issues.
 
 
 
