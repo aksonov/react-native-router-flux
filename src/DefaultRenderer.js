@@ -164,6 +164,7 @@ export default class DefaultRenderer extends PureComponent {
     return (
       <DefaultRenderer
         key={props.scene.navigationState.key}
+        position={props.position}
         onNavigate={props.onNavigate}
         navigationState={props.scene.navigationState}
       />
