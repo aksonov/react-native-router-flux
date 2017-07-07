@@ -3140,9 +3140,9 @@ react-native-drawer-layout@1.3.2:
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
 
-react-native-router-flux@4.0.0-beta.2:
-  version "4.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-4.0.0-beta.2.tgz#68ad6289f353b73f6f657db99d6e86ee5c4c8c98"
+react-native-router-flux@4.0.0-beta.3:
+  version "4.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-4.0.0-beta.3.tgz#7153a13e44031fe1017a079f498a848543e335bd"
   dependencies:
     mobx "^3.1.16"
     mobx-react "^4.2.1"
