@@ -21,10 +21,17 @@ const LightboxNavigator = (
 
     // Figure out what to render based on the navigation state and the router:
     const Component = routeConfigs[tabsConfig.initialRouteName].screen;
-    const Popup = index ? routeConfigs[routes[index].routeName].screen : null;
+    let initialIndex = 0;
+    for (let i=0;i<routes.length;i++) {
+      const route = routes[i];
+      if (route.routeName === tabsConfig.initialRouteName) {
+        initialIndex = i;
+      }
+    }
+    const Popup = index !== initialIndex ? routeConfigs[routes[index].routeName].screen : null;
 
     return <View style={{flex:1}}>
-      <Component navigation={{ dispatch, state: routes[0] }} />
+      <Component navigation={{ dispatch, state: routes[initialIndex] }} />
       {Popup && <Popup navigation={{ dispatch, state: routes[index] }} />}
     </View>
   });

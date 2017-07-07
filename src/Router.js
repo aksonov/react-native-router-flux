@@ -1,6 +1,7 @@
 import React from 'react';
 import {observable, autorun, computed, toJS} from 'mobx';
 import {observer} from 'mobx-react/native';
+import {View} from 'react-native';
 import navigationStore from './navigationStore';
 import Scene from './Scene';
 import {OnEnter, OnExit,assert } from './Util';
@@ -134,7 +135,7 @@ function createWrapper(Component) {
     return null;
   }
   return observer(({navigation, ...props}) => {
-    return <Component {...props} {...navigation.state.params} name={navigation.state.routeName} />
+    return <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />
   });
 }
 
@@ -152,7 +153,7 @@ const App = observer(props =>{
 function processScene(scene: Scene, inheritProps = {}, clones = []) {
   assert(scene.props, 'props should be defined');
   if (!scene.props.children) {
-    throw `children property should be defined`;
+    return ;
   }
   const res = {};
   const order = [];
@@ -207,7 +208,7 @@ function processScene(scene: Scene, inheritProps = {}, clones = []) {
     }
     //console.log(`KEY ${key} DRAWER ${drawer} TABS ${tabs} WRAP ${wrap}`, JSON.stringify(commonProps));
     const screen = {
-      screen: createWrapper(component) || processScene(child, commonProps, clones),
+      screen: createWrapper(component) || processScene(child, commonProps, clones) || (lightbox && View),
       navigationOptions: createNavigationOptions({...commonProps, ...child.props, init })
     };
 

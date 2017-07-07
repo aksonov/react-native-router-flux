@@ -1,6 +1,7 @@
 Object.defineProperty(exports,"__esModule",{value:true});var _jsxFileName='src/Router.js';var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _react=require('react');var _react2=_interopRequireDefault(_react);
 var _mobx=require('mobx');
 var _native=require('mobx-react/native');
+var _reactNative=require('react-native');
 var _navigationStore=require('./navigationStore');var _navigationStore2=_interopRequireDefault(_navigationStore);
 var _Scene=require('./Scene');var _Scene2=_interopRequireDefault(_Scene);
 var _Util=require('./Util');
@@ -90,7 +91,7 @@ headerStyle:getValue(navigationParams.headerStyle||headerStyle||navigationBarSty
 headerBackImage:navigationParams.backButtonImage||backButtonImage};
 
 if(NavBar){
-res.header=function(props){return _react2.default.createElement(NavBar,_extends({navigation:navigation},params,{__source:{fileName:_jsxFileName,lineNumber:93}}));};
+res.header=function(props){return _react2.default.createElement(NavBar,_extends({navigation:navigation},params,{__source:{fileName:_jsxFileName,lineNumber:94}}));};
 }
 
 if(tabBarLabel){
@@ -134,7 +135,7 @@ if(!Component){
 return null;
 }
 return(0,_native.observer)(function(_ref3){var navigation=_ref3.navigation,props=_objectWithoutProperties(_ref3,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:137}}));
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:138}}));
 });
 }
 
@@ -144,7 +145,7 @@ var AppNavigator=props.navigator;
 return(
 _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({
 dispatch:_navigationStore2.default.dispatch,
-state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:145}}));
+state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:146}}));
 
 
 });
@@ -152,7 +153,7 @@ state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumb
 function processScene(scene){var inheritProps=arguments.length>1&&arguments[1]!==undefined?arguments[1]:{};var clones=arguments.length>2&&arguments[2]!==undefined?arguments[2]:[];
 (0,_Util.assert)(scene.props,'props should be defined');
 if(!scene.props.children){
-throw'children property should be defined';
+return;
 }
 var res={};
 var order=[];var _scene$props=
@@ -207,7 +208,7 @@ _navigationStore2.default.states[key].failure=failure instanceof Function?failur
 }
 
 var screen={
-screen:createWrapper(component)||processScene(child,commonProps,clones),
+screen:createWrapper(component)||processScene(child,commonProps,clones)||lightbox&&_reactNative.View,
 navigationOptions:createNavigationOptions(_extends({},commonProps,child.props,{init:init}))};
 
 
@@ -262,5 +263,5 @@ var AppNavigator=processScene(scene,props);
 _navigationStore2.default.router=AppNavigator.router;
 _navigationStore2.default.reducer=createReducer&&createReducer(props);
 
-return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:265}});
+return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:266}});
 };

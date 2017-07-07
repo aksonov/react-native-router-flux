@@ -68,8 +68,9 @@ class NavigationStore {
           // call onEnter handler
           if (handler) {
             try {
-              console.log("RUN onEnter handler for state=",this.currentScene);
-              const res = handler();
+              const params = this.currentState().params;
+              console.log("RUN onEnter handler for state=",this.currentScene,' params='+JSON.stringify(params));
+              const res = handler(params);
               if (res instanceof Promise) {
                 res.then(success, failure);
               } else {
