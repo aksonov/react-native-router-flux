@@ -124,10 +124,6 @@ function inject(state, action, props, scenes) {
       };
     }
     case ActionConst.ANDROID_BACK: {
-      if (Platform.OS === 'android') {
-        assert(state.index > 0, 'You are already in the root scene.');
-      }
-
       return {
         ...state,
         index: state.index - 1,
