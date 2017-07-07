@@ -44,6 +44,10 @@ const styles = StyleSheet.create({
   sceneStyle: {
     flex: 1,
   },
+  // the default 'white' backgroundColor causes border flickering issues when animating scenes
+  navigationCard: {
+    backgroundColor: 'transparent',
+  },
 });
 
 function fadeInScene(/* NavigationSceneRendererProps */ props) {
@@ -277,7 +281,7 @@ export default class DefaultRenderer extends PureComponent {
       <NavigationCard
         {...props}
         key={`card_${key}`}
-        style={[animationStyle, style]}
+        style={[animationStyle, styles.navigationCard, style]}
         panHandlers={panHandlers}
         renderScene={DefaultRenderer.renderScene}
       />
