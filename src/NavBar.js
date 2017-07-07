@@ -485,14 +485,12 @@ class NavBar extends React.Component {
                 inputRange: [index - 1, index, index + 1],
                 outputRange: [0, this.props.titleOpacity, 0],
               }),
-              left: this.props.position.interpolate({
-                inputRange: [index - 1, index + 1],
-                outputRange: [200, -200],
-              }),
-              right: this.props.position.interpolate({
-                inputRange: [index - 1, index + 1],
-                outputRange: [-200, 200],
-              }),
+              transform: [{
+                translateX: this.props.position.interpolate({
+                    inputRange: [index - 1, index + 1],
+                    outputRange: [200, -200]
+                })
+            }],
             },
           ]}
         >
