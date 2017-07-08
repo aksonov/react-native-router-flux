@@ -40,7 +40,9 @@ https://github.com/react-community/react-navigation/issues/1493
 
 9. No flux 'focus' actions - use onEnter/onExit handlers instead.
 
-10. Possible other stuff.
+10. 'focused' property is passed to TabIcon now.
+
+11. Possible other stuff.
 
 As you can see React Navigation still contains some issues, but anyway it is more stable than obsolete 'react-native-experimental-navigation' used by v3 now.
 
