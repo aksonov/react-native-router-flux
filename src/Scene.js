@@ -6,7 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { ViewPropTypes, Text } from 'react-native';
 
 export default class extends React.Component {
