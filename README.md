@@ -59,11 +59,11 @@ react-native run-ios
 ## v4 Features
 * Based on latest [React Navigation](https://reactnavigation.org) API
 * Separate navigation logic from presentation. You may change now navigation state directly from your business logic code - stores/reducers/etc. navigationStore
-* Built-in state machine (former Switch replacement) - each ‘scene’ has onEnter/onExit handlers.
-MobX-powered, all used scenes are wrapped as 'observer' automatically. You may subscribe to navigationStore (former Actions), observe current navigation state, etc. If you are using Redux, skip this.
+* Built-in state machine (former Switch replacement) - each ‘scene’ could have onEnter/onExit handlers. onEnter handler could be async. For successful termination of onEnter, `success` handler (if defined) will be executed (if `success` is string then router will navigation to that Scene), in case of handler's failure `failure` (if defined) will be run. It will allow to build authentication, data validation and conditional transitions in very easy way.
+* MobX-powered, all used scenes are wrapped as 'observer' automatically. You may subscribe to navigationStore (former Actions), observe current navigation state, etc. If you are using Redux, skip this.
 * Flexible nav bar customization, that is not allowed by react navigation right now:
 https://github.com/react-community/react-navigation/issues/779
-* Drawer support (react
+* Drawer support (provided by reactnavigation)
 * 'Lightbox' support (used by popups like Error alert within Example project)
 
 ## Breaking changes (compared to v3):
