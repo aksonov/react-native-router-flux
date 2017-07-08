@@ -1,10 +1,11 @@
 # React Native Router [![Join the chat at https://gitter.im/aksonov/react-native-router-flux](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aksonov/react-native-router-flux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Codacy Badge](https://api.codacy.com/project/badge/grade/c6d869e2367a4fb491efc9de228c5ac6)](https://www.codacy.com/app/aksonov-github/react-native-router-flux) [![npm version](https://badge.fury.io/js/react-native-router-flux.svg)](http://badge.fury.io/js/react-native-router-flux) [![CircleCI](https://circleci.com/gh/aksonov/react-native-router-flux.svg?style=svg)](https://circleci.com/gh/aksonov/react-native-router-flux)
 
+[@PAksonov](https://twitter.com/PAksonov)
 [![NPM](https://nodei.co/npm/react-native-router-flux.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-native-router-flux/)  
 
 # Simple React Native Routing
 
-#### WARNING: react-native-router-flux v4 is in beta. Go [here](https://github.com/aksonov/react-native-router-flux/tree/v3) for v3. Docs could be found [here](https://github.com/aksonov/react-native-router-flux/README3.md) 
+#### WARNING: react-native-router-flux v4 is in beta. Go [here](https://github.com/aksonov/react-native-router-flux/tree/v3) for v3. Docs could be found [here](https://github.com/aksonov/react-native-router-flux/blob/master/README3.md) 
 
 ___
 
