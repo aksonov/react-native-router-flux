@@ -27,7 +27,7 @@ class TabBar extends Component {
         `No action is defined for name=${el.props.name} ` +
         `actions: ${JSON.stringify(Object.keys(Actions))}`);
     }
-    const active = selectedSceneKey == (el.props.name || el.key);
+    const active = selectedSceneKey === (el.props.name || el.key);
     if (active && typeof el.props.onActivePress === 'function') {
       el.props.onActivePress();
     } else if (typeof el.props.onPress === 'function') {
@@ -65,7 +65,8 @@ class TabBar extends Component {
         style={state.tabBarStyle}
         selectedIconStyle={state.tabBarSelectedItemStyle}
         iconStyle={state.tabBarIconContainerStyle}
-        onSelect={el => TabBar.onSelect(el, selected.sceneKey)} {...state}
+        onSelect={el => TabBar.onSelect(el, selected.sceneKey)}
+        {...state}
         selected={selected.sceneKey}
         pressOpacity={this.props.pressOpacity}
       >

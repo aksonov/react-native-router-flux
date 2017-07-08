@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     ...Platform.select({
       ios: {
-        top: 22,
+        top: 20,
       },
       android: {
         top: 10,
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     ...Platform.select({
       ios: {
-        top: 22,
+        top: 20,
       },
       android: {
         top: 10,
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         top: 20,
       },
       android: {
-        top: 8,
+        top: 10,
       },
       windows: {
         top: 8,
@@ -176,6 +176,7 @@ const propTypes = {
   component: PropTypes.any,
   backButtonTextStyle: Text.propTypes.style,
   leftButtonStyle: ViewPropTypes.style,
+  rightButtonStyle: ViewPropTypes.style,
   leftButtonIconStyle: Image.propTypes.style,
   getTitle: PropTypes.func,
   titleWrapperStyle: Text.propTypes.style,

@@ -244,7 +244,7 @@ function inject(state, action, props, scenes) {
           { ...action, parentIndex: state.children[ind].parentIndex },
         );
       }
-      
+
       if (action.unmountScenes) {
         const rState = resetHistoryStack(state);
         return { ...rState, index: ind };
