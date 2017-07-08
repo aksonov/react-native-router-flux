@@ -1,15 +1,66 @@
 # React Native Router [![Join the chat at https://gitter.im/aksonov/react-native-router-flux](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aksonov/react-native-router-flux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Codacy Badge](https://api.codacy.com/project/badge/grade/c6d869e2367a4fb491efc9de228c5ac6)](https://www.codacy.com/app/aksonov-github/react-native-router-flux) [![npm version](https://badge.fury.io/js/react-native-router-flux.svg)](http://badge.fury.io/js/react-native-router-flux) [![CircleCI](https://circleci.com/gh/aksonov/react-native-router-flux.svg?style=svg)](https://circleci.com/gh/aksonov/react-native-router-flux)
 
 [![NPM](https://nodei.co/npm/react-native-router-flux.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-native-router-flux/)  
-Router for React Native based on new React Native Navigation API.
 
-Please check latest 4.0.0-beta.* , Example as demo:
-https://github.com/aksonov/react-native-router-flux/tree/v4
+# Simple React Native Routing
 
-V4 Features:
+#### WARNING: react-native-router-flux v4 is in beta. Go [here](https://github.com/aksonov/react-native-router-flux/tree/v3) for v3. Docs could be found [here](https://github.com/aksonov/react-native-router-flux/README3.md) 
 
-* Based on latest https://reactnavigation.org API
-* Separated navigation logic from presentation. You may change now navigation state directly from your business logic code - stores/reducers/etc. navigationStore
+___
+
+Define all your routes in one place...
+
+```js
+class App extends React.Component {
+  render() {
+    return (
+      <Router>
+        <Scene key="root">
+          <Scene key="login" component={Login} title="Login"/>
+          <Scene key="register" component={Register} title="Register"/>
+          <Scene key="home" component={Home}/>
+        </Scene>
+      </Router>
+    );
+  }
+}
+```
+
+...and navigate from scene to scene with a simple, powerful API
+
+```js
+// login.js
+
+// navigate to 'home' as defined in your top-level router
+Actions.home(PARAMS)
+
+// go back (i.e. pop the current screen off the nav stack)
+Actions.pop()
+
+// refresh the current Scene with the specified props
+Actions.refresh({param1: 'hello', param2: 'world'})
+```
+
+
+## Try the example app
+
+![rnrf](https://user-images.githubusercontent.com/3681859/27937441-ef61d932-626b-11e7-885f-1db7dc74b32e.gif)
+
+```bash
+# Get the code
+git clone git@github.com:aksonov/react-native-router-flux.git`
+cd react-native-router-flux/Example
+
+# Install dependencies
+yarn
+
+# Run it
+react-native run-ios
+```
+
+## v4 Features
+* Based on latest [React Navigation](https://reactnavigation.org) API
+* Separate navigation logic from presentation. You may change now navigation state directly from your business logic code - stores/reducers/etc. navigationStore
 * Built-in state machine (former Switch replacement) - each ‘scene’ has onEnter/onExit handlers.
 MobX-powered, all used scenes are wrapped as 'observer' automatically. You may subscribe to navigationStore (former Actions), observe current navigation state, etc. If you are using Redux, skip this.
 * Flexible nav bar customization, that is not allowed by react navigation right now:
@@ -17,146 +68,23 @@ https://github.com/react-community/react-navigation/issues/779
 * Drawer support (react
 * 'Lightbox' support (used by popups like Error alert within Example project)
 
-Breaking changes (comparing to v3):
-
-1. No duration/panHandlers support - you have to implement custom navigator now instead and pass it as ‘navigator’ prop:
+## Breaking changes (compared to v3):
+* No duration/panHandlers support - you have to implement custom navigator now instead and pass it as ‘navigator’ prop:
 https://reactnavigation.org/docs/navigators/custom
-
-2. No support for partial hiding of tab bar for some tabs because of react navigation bug:
+* No support for partial hiding of tab bar for some tabs because of react navigation bug:
 https://github.com/react-community/react-navigation/issues/1584
-
-3. No possibility to skip animation during reset/replace:
+* No possibility to skip animation during reset/replace:
 https://github.com/react-community/react-navigation/issues/1493
+* `Switch` is removed - you may use onEnter/onExit handlers for more flexible logic.
+* `getSceneStyle` is removed (no needed in v4).
+* Custom reducer (`createReducer` prop for Router) - Redux actions now are passed from React Navigation (‘Navigation/BACK’, ‘Navigation/NAVIGATE’, etc.)
+* Drawer is 'drawer' attribute Scene
+* Modal is 'modal' attribute for Scene
+* No flux 'focus' actions - use onEnter/onExit handlers instead.
+* Possible other stuff.
 
-4. `Switch` is removed - you may use onEnter/onExit handlers for more flexible logic.
-
-5. `getSceneStyle` is removed (no needed in v4).
-
-6. Custom reducer (`createReducer` prop for Router) - Redux actions now are passed from React Navigation (‘Navigation/BACK’, ‘Navigation/NAVIGATE’, etc.)
-
-7. Drawer is 'drawer' attribute Scene
-
-8. Modal is 'modal' attribute for Scene
-
-9. No flux 'focus' actions - use onEnter/onExit handlers instead.
-
-10. Possible other stuff.
-
-As you can see React Navigation still contains some issues, but anyway it is more stable than obsolete 'react-native-experimental-navigation' used by v3 now.
-
-Here is link about road to v1 (so you can see all issues at one place):
-https://github.com/react-community/react-navigation/issues/723
-
-## Documentation (v3)
-
-- [Mini-Tutorial](docs/MINI_TUTORIAL.md)
-- [API and Configuration](docs/API_CONFIGURATION.md)
-  - Available Imports
-  - Router API
-  - Scene API
-- [Detailed Example](docs/DETAILED_EXAMPLE.md)
-- [Reactive/Redux/Flux](docs/REDUX_FLUX.md)
-- [Other Info](docs/OTHER_INFO.md)
-  - Modals
-  - Tabbar
-  - Custom navbar
-  - Switch
-  - Splitting Scenes
-  - Drawer (side-menu)
-  - Sub-Scenes
-- [Changelog](docs/CHANGELOG.md)
-- [Migrating from 2.x](docs/MIGRATION.md)
-
-## Features
-
-`react-native-router-flux` is a routing package that allows you to:
-
-- Define scene transitions in one central location
-- Without having to pass navigator objects around, and allow you to
-- Call transitions anywhere in your code with a simple syntax (e.g. `Actions.login({username, password})` or `Actions.profile({profile})` or even `Actions.profile(123)` - all params will be part of `this.props` for given Scene component).
-
-### New Features and Highlights
-
-- **Highly Customizable Navigation Bar** - Show/hide the navbar depending on Scene or even the state of a Scene (e.g. Edit/Save navbar for edit mode).
-
-- **Tab Bar Support** using [react-native-tabs](https://github.com/aksonov/react-native-tabs) (see Example app).
-
-- **Nested Navigators** (e.g. Each tab can have its own navigator, nested in a root navigator).
-
-- **Custom Scene Renderers** for action sheet, native TabBarIOS or anything else. See built-in `Modal` renderer (to display popups) for example. *Call for PRs!* let's build some custom renderers for ActionSheet, Drawer, etc. Let's make an awesome library! Currently, if you want to use Action Sheets you'll need to use a 3rd party module.
-
-- **Dynamic Routing** allows you to choose which scene to render depending on application state (see the `Switch` renderer, useful for authentication).
-
-- **Bring Your Own Reducer** for navigation state.
-
-- **Reset History Stack** - The new [`reset`](docs/API_CONFIGURATION.md#scene)type for clearing the history stack and eliminating the navbar back button.
-
-- **More Powerful State Control** - Support for having different states while on the same screen. For example, "View My Account" could allow in-place editing of fields and "Save", "Cancel" navigation bar buttons should appear.
-
-## Getting Started
-
-Check out the [mini-tutorial](docs/MINI_TUTORIAL.md) for a quick walkthrough of the routing system.
-
-## Supported configurations
-
-While ExperimentalNavigation API is not stable, RNRF uses separated fork of ExperimentalNavigation API to avoid dependency from React Native version.
-So 3.30 version of RNRF doesn't depend from React Native version, but from that fork (now it is based on 0.26 API).
-You could use this component with RN0.26+
-
-## Installation
-```
-npm i react-native-router-flux --save
-```
-
-## Usage
-In your top-level `index.js`, define your scenes using the `Scene` component and pass it into the `Router` as children:
-```js
-import {Scene, Router} from 'react-native-router-flux';
-
-class App extends React.Component {
-  render() {
-    return <Router>
-      <Scene key="root">
-        <Scene key="login" component={Login} title="Login"/>
-        <Scene key="register" component={Register} title="Register"/>
-        <Scene key="home" component={Home}/>
-      </Scene>
-    </Router>
-  }
-}
-```
-Alternatively, you could define all of your scenes during compile time and use it later within `Router`:
-```js
-import {Actions, Scene, Router} from 'react-native-router-flux';
-
-const scenes = Actions.create(
-  <Scene key="root">
-    <Scene key="login" component={Login} title="Login"/>
-    <Scene key="register" component={Register} title="Register"/>
-    <Scene key="home" component={Home}/>
-  </Scene>
-);
-
-/* ... */
-
-class App extends React.Component {
-  render() {
-    return <Router scenes={scenes}/>
-  }
-}
-```
-
-On any Scene, you can also call the following functions by first importing the `Actions` object:
-```js
-import {Actions} from 'react-native-router-flux'
-```
-And then:
-
-* `Actions.ACTION_NAME(PARAMS)` will call the appropriate action and params will be passed to the scene.
-* `Actions.pop()` will pop the current screen. It accepts following optional params:
-  * `{popNum: [number]}` allows to pop multiple screens at once
-  * `{refresh: {...propsToSetOnPreviousScene}}` allows to refresh the props of the scene that it pops back to
-* `Actions.refresh(PARAMS)` will update the properties of the current screen.
+## Migrating from v3
+Coming soon
 
 ## Production Apps using react-native-router-flux
 + Buddify ([iOS](https://itunes.apple.com/app/id1149011372), [Android](https://play.google.com/store/apps/details?id=com.buddify)) - helps travelers discover fun things to do locally.
