@@ -28,38 +28,7 @@ export default class extends React.Component {
     render(){
         return (
             <View style={[styles.container, this.props.sceneStyle]}>
-                <Text style={styles.instructions}>key: {this.props.navigationState.key}</Text>
-                <Text style={styles.instructions}>sceneKey: {this.props.navigationState.sceneKey}</Text>
-                <Button
-                  onPress={() => Actions.echo()}
-                  style={styles.smaller}
-                >
-                  push new scene hideNavBar=inherit hideTabBar=inherit
-                </Button>
-                <Button
-                  onPress={() => Actions.echo({ hideNavBar: true, hideTabBar: true })}
-                  style={styles.smaller}
-                >
-                  push new scene hideNavBar=true hideTabBar=true
-                </Button>
-                <Button
-                  onPress={() => Actions.echo({ hideNavBar: true, hideTabBar: false })}
-                  style={styles.smaller}
-                >
-                  push new scene hideNavBar=true hideTabBar=false
-                </Button>
-                <Button
-                  onPress={() => Actions.echo({ hideNavBar: false, hideTabBar: true })}
-                  style={styles.smaller}
-                >
-                  push new scene hideNavBar=false hideTabBar=true
-                </Button>
-                <Button
-                  onPress={() => Actions.echo({ hideNavBar: false, hideTabBar: false })}
-                  style={styles.smaller}
-                >
-                  push new scene hideNavBar=false hideTabBar=false
-                </Button>
+                <Text style={styles.instructions}>routeName: {this.props.name}</Text>
                 <Button onPress={Actions.pop}>pop</Button>
             </View>
         );

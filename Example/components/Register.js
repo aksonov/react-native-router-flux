@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
 const Register = () => (
   <View style={styles.container}>
     <Text>Register page</Text>
+    <Button onPress={()=>Actions.register2()}>Register2</Button>
     <Button onPress={Actions.home}>Replace screen</Button>
     <Button onPress={Actions.pop}>Back</Button>
   </View>

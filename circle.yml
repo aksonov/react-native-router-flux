@@ -3,4 +3,4 @@ machine:
     version: 7
 dependencies:
   override:
-    - npm install
+    - npm install --dev
