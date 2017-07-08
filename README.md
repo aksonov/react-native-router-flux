@@ -2,9 +2,7 @@
 
 [![NPM](https://nodei.co/npm/react-native-router-flux.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-native-router-flux/)  
 
-# Simple React Native Routing
-
-#### WARNING: react-native-router-flux v4 is in beta. Go [here](https://github.com/aksonov/react-native-router-flux/tree/v3) for v3. Docs could be found [here](https://github.com/aksonov/react-native-router-flux/blob/master/README3.md) 
+#### WARNING: react-native-router-flux v4 is in beta. Go [here](https://github.com/aksonov/react-native-router-flux/tree/v3) for v3. Docs could be found [here](https://github.com/aksonov/react-native-router-flux/blob/master/README3.md)
 
 ___
 
