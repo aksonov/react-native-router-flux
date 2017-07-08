@@ -10,13 +10,13 @@ const propTypes = {
   title: PropTypes.string,
 };
 
-const TabIcon = (props) => (
-  <Text
-    style={{ color: props.selected ? 'red' : 'black' }}
-  >
+const TabIcon = (props) => {
+  return <Text
+    style={{color: props.focused ? 'red' : 'black'}}
+  >TAB
     {props.title}
   </Text>
-);
+};
 
 TabIcon.propTypes = propTypes;
 
