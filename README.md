@@ -44,7 +44,7 @@ https://github.com/react-community/react-navigation/issues/1493
 
 As you can see React Navigation still contains some issues, but anyway it is more stable than obsolete 'react-native-experimental-navigation' used by v3 now.
 
-Here is link about road to v1 (so you can see all issues at one place):
+Here is link about road to React Navigation v1 (so you can see all issues at one place):
 https://github.com/react-community/react-navigation/issues/723
 
 ## Documentation (v3)
