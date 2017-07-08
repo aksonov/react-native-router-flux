@@ -42,11 +42,12 @@
     "react-static-container": "^1.0.1"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "babel-jest": "20.0.3",
     "babel-preset-react-native": "2.0.0",
     "babel-preset-react-native-stage-0": "^1.0.1",
     "chai": "^3.5.0",
-    "eslint": "^4.0.0",
+    "eslint": "^3.1.1",
     "jest": "20.0.4",
     "react": "16.0.0-alpha.12",
     "react-native": "0.45.1",

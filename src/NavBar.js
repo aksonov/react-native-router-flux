@@ -177,6 +177,7 @@ const propTypes = {
   component: PropTypes.any,
   backButtonTextStyle: Text.propTypes.style,
   leftButtonStyle: ViewPropTypes.style,
+  rightButtonStyle: ViewPropTypes.style,
   leftButtonIconStyle: Image.propTypes.style,
   getTitle: PropTypes.func,
   titleWrapperStyle: Text.propTypes.style,

@@ -6,6 +6,7 @@ module.exports = {
   parser: 'babel-eslint',
   rules: {
     'react/forbid-prop-types': 0,
+    'react/require-default-props': 0,
     'no-console': 0,
     'import/no-unresolved': [
       2,
@@ -38,6 +39,7 @@ module.exports = {
         'allow': ['^'],
       },
     ],
+    'max-len': ['error', 150],
     'no-restricted-syntax': [
       'error',
       'ForInStatement',
