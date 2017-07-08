@@ -10,7 +10,8 @@
   "typings": "index.d.ts",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "opencollective postinstall"
   },
   "keywords": [
     "react-native",
@@ -37,6 +38,7 @@
   ],
   "dependencies": {
     "lodash.isequal": "^4.5.0",
+    "opencollective": "^1.0.3",
     "react-native-experimental-navigation": "^0.28.0",
     "react-native-tabs": "^1.0.9",
     "react-static-container": "^1.0.1"
@@ -67,5 +69,10 @@
     "setupFiles": [
       "./test/setup.js"
     ]
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/react-native-router-flux",
+    "logo": "https://opencollective.com/opencollective/logo.txt"
   }
 }
