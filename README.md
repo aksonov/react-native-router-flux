@@ -67,6 +67,7 @@ https://github.com/react-community/react-navigation/issues/779
 * 'Lightbox' support (used by popups like Error alert within Example project)
 
 ## Breaking changes (compared to v3):
+* `Actions.create` (alternative syntax to define scenes) is not available (for simplicity) - just use `<Router>` as top component for your App. You may wrap it with Redux as well.
 * No duration/panHandlers support - you have to implement custom navigator now instead and pass it as ‘navigator’ prop:
 https://reactnavigation.org/docs/navigators/custom
 * No support for partial hiding of tab bar for some tabs because of react navigation bug:
