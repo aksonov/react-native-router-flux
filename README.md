@@ -61,12 +61,12 @@ react-native run-ios
 ## v4 Features
 * Based on latest [React Navigation](https://reactnavigation.org) API
 * Separate navigation logic from presentation. You may change now navigation state directly from your business logic code - stores/reducers/etc. navigationStore
-* Built-in state machine (former Switch replacement) - each ‘scene’ could have onEnter/onExit handlers. onEnter handler could be async. For successful termination of onEnter, `success` handler (if defined) will be executed (if `success` is string then router will navigation to that Scene), in case of handler's failure `failure` (if defined) will be run. It will allow to build authentication, data validation and conditional transitions in very easy way.
+* Built-in state machine (v3 `Switch` replacement) - each ‘scene’ could have onEnter/onExit handlers. onEnter handler could be async. For successful termination of onEnter, `success` handler (if defined) will be executed (if `success` is string then router will navigation to that Scene), in case of handler's failure `failure` (if defined) will be run. It will allow to build authentication, data validation and conditional transitions in very easy way.
 * MobX-powered, all used scenes are wrapped as 'observer' automatically. You may subscribe to navigationStore (former Actions), observe current navigation state, etc. If you are using Redux, skip this.
 * Flexible nav bar customization, that is not allowed by react navigation right now:
 https://github.com/react-community/react-navigation/issues/779
 * Drawer support (provided by reactnavigation)
-* 'Lightbox' support (used by popups like Error alert within Example project)
+* Inheritance of scene attributes allow you to avoid any code/attribute duplications. If you send rightTitle it will be shown in all children.
 
 ## Breaking changes (compared to v3):
 * `Actions.create` (alternative syntax to define scenes) is not available (for simplicity) - just use `<Router>` as top component for your App. You may wrap it with Redux as well.
@@ -77,10 +77,11 @@ https://github.com/react-community/react-navigation/issues/1584
 * No possibility to skip animation during reset/replace:
 https://github.com/react-community/react-navigation/issues/1493
 * `Switch` is removed - you may use onEnter/onExit handlers for more flexible logic.
-* `getSceneStyle` is removed (no needed in v4).
-* Custom reducer (`createReducer` prop for Router) - Redux actions now are passed from React Navigation (‘Navigation/BACK’, ‘Navigation/NAVIGATE’, etc.)
+* `getSceneStyle` is removed (no needed in v4, you may pass any values to Router now and they will be inherited by all scenes).
+* Custom reducer is supported (`createReducer` prop for Router) but Redux actions now are passed directly from React Navigation (‘Navigation/BACK’, ‘Navigation/NAVIGATE’, etc.)
 * Drawer is 'drawer' attribute Scene
-* Modal is 'modal' attribute for Scene
+* Modal is 'lightbox' attribute for Scene (used for popups, like Error)
+* No `position` attribute is supported for custom transitions. For vertical transition add `modal` to parent `Scene`.
 * No flux 'focus' actions - use onEnter/onExit handlers instead.
 * Possible other stuff.
 
