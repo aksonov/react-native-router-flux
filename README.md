@@ -2,6 +2,8 @@
 
 [![NPM](https://nodei.co/npm/react-native-router-flux.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-native-router-flux/)  
 
+[Follow author @PAksonov](https://twitter.com/PAksonov)
+
 #### WARNING: react-native-router-flux v4 is in beta. Go [here](https://github.com/aksonov/react-native-router-flux/tree/v3) for v3. Docs could be found [here](https://github.com/aksonov/react-native-router-flux/blob/master/README3.md)
 
 ___
@@ -84,24 +86,6 @@ https://github.com/react-community/react-navigation/issues/1493
 
 ## Migrating from v3
 Coming soon
-
-## Production Apps using react-native-router-flux
-+ Buddify ([iOS](https://itunes.apple.com/app/id1149011372), [Android](https://play.google.com/store/apps/details?id=com.buddify)) - helps travelers discover fun things to do locally.
-+ GuavaPass.com ([iOS](https://itunes.apple.com/en/app/guavapass-one-pass-fitness/id1050491044?l=en&mt=8), Android) - offers convenient access to top classes at boutique fitness studios across Asia.
-+ Epic Fail Videos ([iOS](https://itunes.apple.com/us/app/epic-fail-videos-best-fail/id1115219339), [Android](https://play.google.com/store/apps/details?id=com.hazuu.epicfailvideos)) - The best Fail Videos Collection, never miss a laugh with your friends!
-+ Junk Free ([iOS](https://itunes.apple.com/us/app/junk-free-by-junk-free-june/id1109940159)) - A simple way to find, share, and save recipes, workouts, and other healthy content with your friends, family and workmates.
-+ chozun ([iOS](https://itunes.apple.com/au/app/chozun/id1097365167), [Android](https://play.google.com/store/apps/details?id=com.chozun)) - Your travel companion, matching your lifestyle on the go!
-+ Snappatizer ([iOS](https://itunes.apple.com/us/app/snappatizer-find-rank-best/id1147400405?mt=8)) - Find and rank the best food around you.
-+ Look Lock ([GitHub](https://github.com/7kfpun/PhotosReactNative), [iOS](https://itunes.apple.com/us/app/look-lock-show-photos-without/id1151863742), [Android](https://play.google.com/store/apps/details?id=com.kfpun.photos)) - Show photos without worries.
-+ BusDue, ([iOS](https://itunes.apple.com/gb/app/busdue/id1185327843?mt=8), [Android](https://play.google.com/store/apps/details?id=com.busdue)) - London bus arrival time app
-
-## Support
-Thanks to all who submitted PRs to 2.x/3.x releases. If you like the component and want to support it, feel free to donate any amount or help with issues.
-
-
-[Follow @PAksonov](https://twitter.com/PAksonov)
-
-
 
 ## Contributors
 
