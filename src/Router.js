@@ -1,7 +1,7 @@
 import React from 'react';
 import {observable, autorun, computed, toJS} from 'mobx';
 import {observer} from 'mobx-react/native';
-import {View} from 'react-native';
+import {View, Image} from 'react-native';
 import navigationStore from './navigationStore';
 import Scene from './Scene';
 import {OnEnter, OnExit,assert } from './Util';
@@ -70,32 +70,39 @@ function getValue(value, params) {
   return value instanceof Function ? value(params) : value;
 }
 
-function createTabBarOptions({tabBarStyle, activeTintColor, inactiveTintColor, activeBackgroundColor, inactiveBackgroundColor, showLabel, labelStyle, tabStyle}) {
-  return {style:tabBarStyle, activeTintColor, inactiveTintColor, activeBackgroundColor, inactiveBackgroundColor, showLabel, labelStyle, tabStyle};
+function createTabBarOptions({tabBarStyle, activeTintColor, inactiveTintColor, activeBackgroundColor, inactiveBackgroundColor, showLabel, labelStyle, tabStyle, ...props}) {
+  return {...props, style:tabBarStyle, activeTintColor, inactiveTintColor, activeBackgroundColor, inactiveBackgroundColor, showLabel, labelStyle, tabStyle};
 }
 function createNavigationOptions(params) {
   const {title, backButtonImage, navTransparent, hideNavBar, hideTabBar, backTitle, right, rightButton, left, leftButton,
-    navigationBarStyle, headerStyle, navBarButtonColor, tabBarLabel, tabBarIcon, icon, getTitle, headerTitle, panHandlers,
-    headerTitleStyle, titleStyle, navBar, onRight, onLeft, rightButtonImage, leftButtonImage, init, back} = params;
+    navigationBarStyle, headerStyle, navBarButtonColor, tabBarLabel, tabBarIcon, icon, getTitle, renderTitle, panHandlers,
+    navigationBarTitleImage, navigationBarTitleImageStyle,
+    headerTitleStyle, titleStyle, navBar, onRight, onLeft, rightButtonImage, leftButtonImage, init, back, ...props} = params;
   let NavBar = navBar;
   return ({navigation, screenProps}) => {
     const navigationParams = navigation.state.params || {};
     const res = {
+      ...props,
       headerTintColor: navBarButtonColor,
-      headerTitleStyle : headerTitleStyle || titleStyle,
+      headerTitleStyle: headerTitleStyle || titleStyle,
       title: getValue((navigationParams.title) || title || getTitle, {navigation, ...navigationParams, ...screenProps}),
       headerBackTitle: getValue((navigationParams.backTitle) || backTitle, {navigation, ...navigationParams, ...screenProps}),
       headerRight: getValue((navigationParams.right) || right || rightButton || params.renderRightButton, {navigation, ...navigationParams, ...screenProps}),
       headerLeft: getValue((navigationParams.left) || left || leftButton || params.renderLeftButton, {navigation, ...navigationParams, ...screenProps}),
+      headerTitle: getValue((navigationParams.renderTitle) || renderTitle || params.renderTitle, { navigation, ...navigationParams, ...screenProps }),
       headerStyle: getValue((navigationParams.headerStyle || headerStyle || navigationBarStyle), {navigation, ...navigationParams, ...screenProps}),
       headerBackImage: navigationParams.backButtonImage || backButtonImage,
     };
     if (NavBar) {
-      res.header = (props) => <NavBar navigation={navigation} {...params} />
+      res.header = (data) => <NavBar navigation={navigation} {...data} {...params} />;
     }
 
     if (panHandlers === null) {
       res.gesturesEnabled = false;
+    }
+
+    if (navigationBarTitleImage) {
+      res.headerTitle = <Image source={navigationBarTitleImage} style={navigationBarTitleImageStyle} />;
     }
 
     if (tabBarLabel) {
@@ -161,7 +168,7 @@ function processScene(scene: Scene, inheritProps = {}, clones = []) {
   }
   const res = {};
   const order = [];
-  const {tabs, modal, lightbox, navigator, wrap, drawerWidth, drawerPosition, contentOptions, contentComponent, lazy, drawer, ...parentProps} = scene.props;
+  const {tabs, modal, lightbox, navigator, wrap, contentComponent, lazy, drawer, ...parentProps} = scene.props;
 
   const commonProps = { ...parentProps, ...inheritProps};
   // add inherit props
@@ -172,7 +179,7 @@ function processScene(scene: Scene, inheritProps = {}, clones = []) {
   }
 
   if (drawer && !commonProps.left && !commonProps.leftButtonImage && !commonProps.leftTitle && !commonProps.back) {
-    commonProps.leftButtonImage = _drawerImage;
+    commonProps.leftButtonImage = commonProps.drawerImage || _drawerImage;
     commonProps.onLeft = navigationStore.drawerOpen;
   }
 
@@ -249,14 +256,14 @@ function processScene(scene: Scene, inheritProps = {}, clones = []) {
   if (lightbox) {
     return LightboxNavigator(res, { mode, initialRouteParams, initialRouteName, navigationOptions: createNavigationOptions(parentProps) });
   } else if (tabs) {
-    return TabNavigator(res, {lazy, initialRouteName, initialRouteParams, order, tabBarOptions:createTabBarOptions(parentProps), navigationOptions: createNavigationOptions(parentProps) });
+    return TabNavigator(res, {lazy, initialRouteName, initialRouteParams, order, ...parentProps, tabBarOptions:createTabBarOptions(parentProps), navigationOptions: createNavigationOptions(parentProps) });
   } else if (drawer) {
-    return DrawerNavigator(res, {initialRouteName, contentComponent, order, backBehavior:'none'});
+    return DrawerNavigator(res, {initialRouteName, contentComponent, order, backBehavior:'none', ...parentProps});
   } else {
     if (navigator){
       return navigator(res, {lazy, initialRouteName, initialRouteParams, order, ...parentProps, navigationOptions: createNavigationOptions(parentProps) });
     } else {
-      return StackNavigator(res, { mode, initialRouteParams, initialRouteName, navigationOptions: createNavigationOptions(parentProps) });
+      return StackNavigator(res, { mode, initialRouteParams, initialRouteName, ...parentProps, navigationOptions: createNavigationOptions(parentProps) });
     }
   }
 }

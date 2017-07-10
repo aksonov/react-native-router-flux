@@ -51,8 +51,8 @@ class Example extends Component {
     return (
       <Router createReducer={reducerCreate}>
         <Scene key="lightbox" lightbox>
-          <Scene key="drawer" drawer contentComponent={TabView}>
-            <Scene key="modal" modal hideNavBar>
+          <Scene key="modal" modal hideNavBar>
+            <Scene key="drawer" drawer contentComponent={TabView} >
               <Scene key="root" hideNavBar hideTabBar>
                 <Scene key="echo" back clone component={EchoView} getTitle={({navigation}) => navigation.state.key}/>
                 <Scene key="register" back>
@@ -113,24 +113,24 @@ class Example extends Component {
                   <Scene key="tab5" component={TabView} title="Tab #5" icon={TabIcon}/>
                 </Scene>
               </Scene>
-              <Scene key="login">
-                <Scene key="loginModal" component={Login} title="Login" leftTitle="Cancel" onLeft={Actions.pop}/>
-                <Scene
-                  key="loginModal2"
-                  component={Login2}
-                  title="Login2"
-                  panHandlers={null}
-                  duration={1}
-                />
-                <Scene
-                  key="loginModal3"
-                  hideNavBar
-                  component={Login3}
-                  title="Login3"
-                  panHandlers={null}
-                  duration={1}
-                />
-              </Scene>
+            </Scene>
+            <Scene key="login">
+              <Scene key="loginModal" component={Login} title="Login" leftTitle="Cancel" onLeft={Actions.pop}/>
+              <Scene
+                key="loginModal2"
+                component={Login2}
+                title="Login2"
+                panHandlers={null}
+                duration={1}
+              />
+              <Scene
+                key="loginModal3"
+                hideNavBar
+                component={Login3}
+                title="Login3"
+                panHandlers={null}
+                duration={1}
+              />
             </Scene>
           </Scene>
           <Scene key="error" component={Error}/>

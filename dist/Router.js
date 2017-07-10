@@ -70,32 +70,39 @@ function getValue(value,params){
 return value instanceof Function?value(params):value;
 }
 
-function createTabBarOptions(_ref){var tabBarStyle=_ref.tabBarStyle,activeTintColor=_ref.activeTintColor,inactiveTintColor=_ref.inactiveTintColor,activeBackgroundColor=_ref.activeBackgroundColor,inactiveBackgroundColor=_ref.inactiveBackgroundColor,showLabel=_ref.showLabel,labelStyle=_ref.labelStyle,tabStyle=_ref.tabStyle;
-return{style:tabBarStyle,activeTintColor:activeTintColor,inactiveTintColor:inactiveTintColor,activeBackgroundColor:activeBackgroundColor,inactiveBackgroundColor:inactiveBackgroundColor,showLabel:showLabel,labelStyle:labelStyle,tabStyle:tabStyle};
+function createTabBarOptions(_ref){var tabBarStyle=_ref.tabBarStyle,activeTintColor=_ref.activeTintColor,inactiveTintColor=_ref.inactiveTintColor,activeBackgroundColor=_ref.activeBackgroundColor,inactiveBackgroundColor=_ref.inactiveBackgroundColor,showLabel=_ref.showLabel,labelStyle=_ref.labelStyle,tabStyle=_ref.tabStyle,props=_objectWithoutProperties(_ref,['tabBarStyle','activeTintColor','inactiveTintColor','activeBackgroundColor','inactiveBackgroundColor','showLabel','labelStyle','tabStyle']);
+return _extends({},props,{style:tabBarStyle,activeTintColor:activeTintColor,inactiveTintColor:inactiveTintColor,activeBackgroundColor:activeBackgroundColor,inactiveBackgroundColor:inactiveBackgroundColor,showLabel:showLabel,labelStyle:labelStyle,tabStyle:tabStyle});
 }
 function createNavigationOptions(params){var
 title=
 
-params.title,backButtonImage=params.backButtonImage,navTransparent=params.navTransparent,hideNavBar=params.hideNavBar,hideTabBar=params.hideTabBar,backTitle=params.backTitle,right=params.right,rightButton=params.rightButton,left=params.left,leftButton=params.leftButton,navigationBarStyle=params.navigationBarStyle,headerStyle=params.headerStyle,navBarButtonColor=params.navBarButtonColor,tabBarLabel=params.tabBarLabel,tabBarIcon=params.tabBarIcon,icon=params.icon,getTitle=params.getTitle,headerTitle=params.headerTitle,panHandlers=params.panHandlers,headerTitleStyle=params.headerTitleStyle,titleStyle=params.titleStyle,navBar=params.navBar,onRight=params.onRight,onLeft=params.onLeft,rightButtonImage=params.rightButtonImage,leftButtonImage=params.leftButtonImage,init=params.init,back=params.back;
+
+params.title,backButtonImage=params.backButtonImage,navTransparent=params.navTransparent,hideNavBar=params.hideNavBar,hideTabBar=params.hideTabBar,backTitle=params.backTitle,right=params.right,rightButton=params.rightButton,left=params.left,leftButton=params.leftButton,navigationBarStyle=params.navigationBarStyle,headerStyle=params.headerStyle,navBarButtonColor=params.navBarButtonColor,tabBarLabel=params.tabBarLabel,tabBarIcon=params.tabBarIcon,icon=params.icon,getTitle=params.getTitle,renderTitle=params.renderTitle,panHandlers=params.panHandlers,navigationBarTitleImage=params.navigationBarTitleImage,navigationBarTitleImageStyle=params.navigationBarTitleImageStyle,headerTitleStyle=params.headerTitleStyle,titleStyle=params.titleStyle,navBar=params.navBar,onRight=params.onRight,onLeft=params.onLeft,rightButtonImage=params.rightButtonImage,leftButtonImage=params.leftButtonImage,init=params.init,back=params.back,props=_objectWithoutProperties(params,['title','backButtonImage','navTransparent','hideNavBar','hideTabBar','backTitle','right','rightButton','left','leftButton','navigationBarStyle','headerStyle','navBarButtonColor','tabBarLabel','tabBarIcon','icon','getTitle','renderTitle','panHandlers','navigationBarTitleImage','navigationBarTitleImageStyle','headerTitleStyle','titleStyle','navBar','onRight','onLeft','rightButtonImage','leftButtonImage','init','back']);
 var NavBar=navBar;
 return function(_ref2){var navigation=_ref2.navigation,screenProps=_ref2.screenProps;
 var navigationParams=navigation.state.params||{};
-var res={
+var res=_extends({},
+props,{
 headerTintColor:navBarButtonColor,
 headerTitleStyle:headerTitleStyle||titleStyle,
 title:getValue(navigationParams.title||title||getTitle,_extends({navigation:navigation},navigationParams,screenProps)),
 headerBackTitle:getValue(navigationParams.backTitle||backTitle,_extends({navigation:navigation},navigationParams,screenProps)),
 headerRight:getValue(navigationParams.right||right||rightButton||params.renderRightButton,_extends({navigation:navigation},navigationParams,screenProps)),
 headerLeft:getValue(navigationParams.left||left||leftButton||params.renderLeftButton,_extends({navigation:navigation},navigationParams,screenProps)),
+headerTitle:getValue(navigationParams.renderTitle||renderTitle||params.renderTitle,_extends({navigation:navigation},navigationParams,screenProps)),
 headerStyle:getValue(navigationParams.headerStyle||headerStyle||navigationBarStyle,_extends({navigation:navigation},navigationParams,screenProps)),
-headerBackImage:navigationParams.backButtonImage||backButtonImage};
+headerBackImage:navigationParams.backButtonImage||backButtonImage});
 
 if(NavBar){
-res.header=function(props){return _react2.default.createElement(NavBar,_extends({navigation:navigation},params,{__source:{fileName:_jsxFileName,lineNumber:94}}));};
+res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},data,params,{__source:{fileName:_jsxFileName,lineNumber:97}}));};
 }
 
 if(panHandlers===null){
 res.gesturesEnabled=false;
+}
+
+if(navigationBarTitleImage){
+res.headerTitle=_react2.default.createElement(_reactNative.Image,{source:navigationBarTitleImage,style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:105}});
 }
 
 if(tabBarLabel){
@@ -139,7 +146,7 @@ if(!Component){
 return null;
 }
 return(0,_native.observer)(function(_ref3){var navigation=_ref3.navigation,props=_objectWithoutProperties(_ref3,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:142}}));
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:149}}));
 });
 }
 
@@ -149,7 +156,7 @@ var AppNavigator=props.navigator;
 return(
 _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({
 dispatch:_navigationStore2.default.dispatch,
-state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:150}}));
+state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:157}}));
 
 
 });
@@ -161,7 +168,7 @@ return;
 }
 var res={};
 var order=[];var _scene$props=
-scene.props,tabs=_scene$props.tabs,modal=_scene$props.modal,lightbox=_scene$props.lightbox,navigator=_scene$props.navigator,wrap=_scene$props.wrap,drawerWidth=_scene$props.drawerWidth,drawerPosition=_scene$props.drawerPosition,contentOptions=_scene$props.contentOptions,contentComponent=_scene$props.contentComponent,lazy=_scene$props.lazy,drawer=_scene$props.drawer,parentProps=_objectWithoutProperties(_scene$props,['tabs','modal','lightbox','navigator','wrap','drawerWidth','drawerPosition','contentOptions','contentComponent','lazy','drawer']);
+scene.props,tabs=_scene$props.tabs,modal=_scene$props.modal,lightbox=_scene$props.lightbox,navigator=_scene$props.navigator,wrap=_scene$props.wrap,contentComponent=_scene$props.contentComponent,lazy=_scene$props.lazy,drawer=_scene$props.drawer,parentProps=_objectWithoutProperties(_scene$props,['tabs','modal','lightbox','navigator','wrap','contentComponent','lazy','drawer']);
 
 var commonProps=_extends({},parentProps,inheritProps);
 
@@ -172,7 +179,7 @@ delete commonProps[pkey];
 }
 
 if(drawer&&!commonProps.left&&!commonProps.leftButtonImage&&!commonProps.leftTitle&&!commonProps.back){
-commonProps.leftButtonImage=_menu_burger2.default;
+commonProps.leftButtonImage=commonProps.drawerImage||_menu_burger2.default;
 commonProps.onLeft=_navigationStore2.default.drawerOpen;
 }
 
@@ -249,14 +256,14 @@ var mode=modal?'modal':'card';
 if(lightbox){
 return(0,_LightboxNavigator2.default)(res,{mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName,navigationOptions:createNavigationOptions(parentProps)});
 }else if(tabs){
-return(0,_reactNavigation.TabNavigator)(res,{lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order,tabBarOptions:createTabBarOptions(parentProps),navigationOptions:createNavigationOptions(parentProps)});
+return(0,_reactNavigation.TabNavigator)(res,_extends({lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},parentProps,{tabBarOptions:createTabBarOptions(parentProps),navigationOptions:createNavigationOptions(parentProps)}));
 }else if(drawer){
-return(0,_reactNavigation.DrawerNavigator)(res,{initialRouteName:initialRouteName,contentComponent:contentComponent,order:order,backBehavior:'none'});
+return(0,_reactNavigation.DrawerNavigator)(res,_extends({initialRouteName:initialRouteName,contentComponent:contentComponent,order:order,backBehavior:'none'},parentProps));
 }else{
 if(navigator){
 return navigator(res,_extends({lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},parentProps,{navigationOptions:createNavigationOptions(parentProps)}));
 }else{
-return(0,_reactNavigation.StackNavigator)(res,{mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName,navigationOptions:createNavigationOptions(parentProps)});
+return(0,_reactNavigation.StackNavigator)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},parentProps,{navigationOptions:createNavigationOptions(parentProps)}));
 }
 }
 }exports.default=
@@ -267,5 +274,5 @@ var AppNavigator=processScene(scene,props);
 _navigationStore2.default.router=AppNavigator.router;
 _navigationStore2.default.reducer=createReducer&&createReducer(props);
 
-return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:270}});
+return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:277}});
 };
