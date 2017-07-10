@@ -72,9 +72,10 @@ https://github.com/react-community/react-navigation/issues/779
 * `Actions.create` (alternative syntax to define scenes) is not available (for simplicity) - just use `<Router>` as top component for your App. You may wrap it with Redux as well.
 * No duration/panHandlers support - you have to implement custom navigator now instead and pass it as ‘navigator’ prop:
 https://reactnavigation.org/docs/navigators/custom
-* No support for partial hiding of tab bar for some tabs because of react navigation bug:
+* No `component` support for scene containers (that contains children `Scene`) - you have to use custom navigator
+* No support for partial hiding of tab bar for some tabs because of react navigation bug (react navigation issue):
 https://github.com/react-community/react-navigation/issues/1584
-* No possibility to skip animation during reset/replace:
+* No possibility to skip animation during reset/replace (react navigation issue):
 https://github.com/react-community/react-navigation/issues/1493
 * `Switch` is removed - you may use onEnter/onExit handlers for more flexible logic.
 * `getSceneStyle` is removed (no needed in v4, you may pass any values to Router now and they will be inherited by all scenes).
