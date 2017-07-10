@@ -1,8 +1,43 @@
-import {observable, autorun, autorunAsync, computed, toJS} from 'mobx';
+import {observable, action, useStrict, autorun, autorunAsync, computed, toJS} from 'mobx';
 import {NavigationActions} from 'react-navigation';
-import ActionConst from './ActionConst';
+import * as ActionConst from './ActionConst';
 import {OnEnter, OnExit} from './Util';
 
+export const ActionMap = {
+  jump: ActionConst.JUMP,
+  push: ActionConst.PUSH,
+  replace: ActionConst.REPLACE,
+  back: ActionConst.BACK,
+  BackAction: ActionConst.BACK_ACTION,
+  popAndReplace: ActionConst.POP_AND_REPLACE,
+  popTo: ActionConst.POP_TO,
+  refresh: ActionConst.REFRESH,
+  reset: ActionConst.RESET,
+  focus: ActionConst.FOCUS,
+  pushOrPop: ActionConst.PUSH_OR_POP,
+  androidBack: ActionConst.ANDROID_BACK,
+  [ActionConst.JUMP]: ActionConst.JUMP,
+  [ActionConst.PUSH]: ActionConst.PUSH,
+  [ActionConst.REPLACE]: ActionConst.REPLACE,
+  [ActionConst.BACK]: ActionConst.BACK,
+  [ActionConst.BACK_ACTION]: ActionConst.BACK_ACTION,
+  [ActionConst.POP_AND_REPLACE]: ActionConst.POP_AND_REPLACE,
+  [ActionConst.POP_TO]: ActionConst.POP_TO,
+  [ActionConst.REFRESH]: ActionConst.REFRESH,
+  [ActionConst.RESET]: ActionConst.RESET,
+  [ActionConst.FOCUS]: ActionConst.FOCUS,
+  [ActionConst.PUSH_OR_POP]: ActionConst.PUSH_OR_POP,
+  [ActionConst.ANDROID_BACK]: ActionConst.ANDROID_BACK,
+};
+
+export const supportedActions = {
+  [ActionConst.PUSH]: NavigationActions.NAVIGATE,
+  [ActionConst.JUMP]: NavigationActions.NAVIGATE,
+  [ActionConst.REPLACE]: NavigationActions.RESET,
+  [ActionConst.BACK]: NavigationActions.BACK,
+  [ActionConst.REFRESH]: NavigationActions.BACK,
+  [ActionConst.RESET]: NavigationActions.RESET,
+};
 function filterParam(data) {
   if (data.toString() !== '[object Object]') {
     return {data};
@@ -92,8 +127,15 @@ class NavigationStore {
     });
   }
 
+  nextState = (state, action) => {
+    return this.reducer ? this.reducer(state, action) : this._router.getStateForAction(action, state);
+  } ;
+
   dispatch = (action) => {
-    const newState = this.reducer ? this.reducer(this.state, action) : this._router.getStateForAction(action, this.state);
+    this.setState(this.nextState(this.state, action));
+  };
+
+  @action setState = (newState) => {
     // don't allow duplicated scenes or null state
     if (!newState || this.currentState(newState).routeName === this.currentScene) {
       return;
@@ -111,10 +153,25 @@ class NavigationStore {
       }
     }
     res.routeName = routeName;
-    if (res.clone){
-      console.log("STATE:", JSON.stringify(this.state));
+    if (supportedActions[type]) {
+      this.dispatch(createAction(supportedActions[type])({routeName, index:0, actions, params: res}));
+    } else {
+      if (type === ActionConst.POP_TO) {
+        let nextScene = '', newState = this._state, currentState = this._state, currentScene = this.currentScene;
+        while (nextScene !== currentScene && newState && nextScene !== routeName) {
+          newState = this.nextState(currentState, NavigationActions.back());
+          if (newState) {
+            nextScene = this.currentState(newState).routeName;
+            if (nextScene !== routeName) {
+              currentState = newState;
+            }
+          }
+        }
+        if (nextScene === routeName) {
+          this.setState(newState);
+        }
+      }
     }
-    this.dispatch(createAction(type)({routeName, index:0, actions, params: res}));
   };
 
   push = (routeName, ...params) => {
@@ -151,6 +208,10 @@ class NavigationStore {
 
   reset = (routeName, ...params) => {
     this.replace(routeName, ...params);
+  };
+
+  popTo = (routeName, ...params) => {
+    this.run(ActionConst.POP_TO, routeName, ...params);
   };
 
   replace = (routeName, ...params) => {
