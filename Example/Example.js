@@ -63,6 +63,7 @@ class Example extends Component {
                 <Scene key="launch" component={Launch} title="Launch" initial/>
                 <Scene
                   key="tabbar"
+                  gestureEnabled={false}
                   tabs
                   tabBarStyle={styles.tabBarStyle}
                   activeBackgroundColor='#ddd'

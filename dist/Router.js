@@ -76,7 +76,7 @@ return{style:tabBarStyle,activeTintColor:activeTintColor,inactiveTintColor:inact
 function createNavigationOptions(params){var
 title=
 
-params.title,backButtonImage=params.backButtonImage,navTransparent=params.navTransparent,hideNavBar=params.hideNavBar,hideTabBar=params.hideTabBar,backTitle=params.backTitle,right=params.right,rightButton=params.rightButton,left=params.left,leftButton=params.leftButton,navigationBarStyle=params.navigationBarStyle,headerStyle=params.headerStyle,navBarButtonColor=params.navBarButtonColor,tabBarLabel=params.tabBarLabel,tabBarIcon=params.tabBarIcon,icon=params.icon,getTitle=params.getTitle,headerTitleStyle=params.headerTitleStyle,titleStyle=params.titleStyle,navBar=params.navBar,onRight=params.onRight,onLeft=params.onLeft,rightButtonImage=params.rightButtonImage,leftButtonImage=params.leftButtonImage,init=params.init,back=params.back;
+params.title,backButtonImage=params.backButtonImage,navTransparent=params.navTransparent,hideNavBar=params.hideNavBar,hideTabBar=params.hideTabBar,backTitle=params.backTitle,right=params.right,rightButton=params.rightButton,left=params.left,leftButton=params.leftButton,navigationBarStyle=params.navigationBarStyle,headerStyle=params.headerStyle,navBarButtonColor=params.navBarButtonColor,tabBarLabel=params.tabBarLabel,tabBarIcon=params.tabBarIcon,icon=params.icon,getTitle=params.getTitle,headerTitle=params.headerTitle,panHandlers=params.panHandlers,headerTitleStyle=params.headerTitleStyle,titleStyle=params.titleStyle,navBar=params.navBar,onRight=params.onRight,onLeft=params.onLeft,rightButtonImage=params.rightButtonImage,leftButtonImage=params.leftButtonImage,init=params.init,back=params.back;
 var NavBar=navBar;
 return function(_ref2){var navigation=_ref2.navigation,screenProps=_ref2.screenProps;
 var navigationParams=navigation.state.params||{};
@@ -92,6 +92,10 @@ headerBackImage:navigationParams.backButtonImage||backButtonImage};
 
 if(NavBar){
 res.header=function(props){return _react2.default.createElement(NavBar,_extends({navigation:navigation},params,{__source:{fileName:_jsxFileName,lineNumber:94}}));};
+}
+
+if(panHandlers===null){
+res.gesturesEnabled=false;
 }
 
 if(tabBarLabel){
@@ -135,7 +139,7 @@ if(!Component){
 return null;
 }
 return(0,_native.observer)(function(_ref3){var navigation=_ref3.navigation,props=_objectWithoutProperties(_ref3,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:138}}));
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:142}}));
 });
 }
 
@@ -145,7 +149,7 @@ var AppNavigator=props.navigator;
 return(
 _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({
 dispatch:_navigationStore2.default.dispatch,
-state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:146}}));
+state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:150}}));
 
 
 });
@@ -263,5 +267,5 @@ var AppNavigator=processScene(scene,props);
 _navigationStore2.default.router=AppNavigator.router;
 _navigationStore2.default.reducer=createReducer&&createReducer(props);
 
-return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:266}});
+return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:270}});
 };

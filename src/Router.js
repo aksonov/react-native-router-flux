@@ -75,7 +75,7 @@ function createTabBarOptions({tabBarStyle, activeTintColor, inactiveTintColor, a
 }
 function createNavigationOptions(params) {
   const {title, backButtonImage, navTransparent, hideNavBar, hideTabBar, backTitle, right, rightButton, left, leftButton,
-    navigationBarStyle, headerStyle, navBarButtonColor, tabBarLabel, tabBarIcon, icon, getTitle,
+    navigationBarStyle, headerStyle, navBarButtonColor, tabBarLabel, tabBarIcon, icon, getTitle, headerTitle, panHandlers,
     headerTitleStyle, titleStyle, navBar, onRight, onLeft, rightButtonImage, leftButtonImage, init, back} = params;
   let NavBar = navBar;
   return ({navigation, screenProps}) => {
@@ -92,6 +92,10 @@ function createNavigationOptions(params) {
     };
     if (NavBar) {
       res.header = (props) => <NavBar navigation={navigation} {...params} />
+    }
+
+    if (panHandlers === null) {
+      res.gesturesEnabled = false;
     }
 
     if (tabBarLabel) {
