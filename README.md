@@ -67,6 +67,7 @@ react-native run-ios
 https://github.com/react-community/react-navigation/issues/779
 * Drawer support (provided by reactnavigation)
 * Inheritance of scene attributes allow you to avoid any code/attribute duplications. If you send rightTitle it will be shown in all children.
+* Access to your app navigations state as simple as `Actions.state`, use `Actions.currentScene` to get name of current scene.
 
 ## Breaking changes (compared to v3):
 * `Actions.create` (alternative syntax to define scenes) is not available (for simplicity) - just use `<Router>` as top component for your App. You may wrap it with Redux as well.
