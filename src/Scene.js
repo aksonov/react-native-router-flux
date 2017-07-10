@@ -6,11 +6,4 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React, { PropTypes } from 'react';
-
-export default class extends React.Component {
-
-  render() {
-    return null;
-  }
-}
+export default () => null;

@@ -1,7 +1,7 @@
-import {observable, action, useStrict, autorun, autorunAsync, computed, toJS} from 'mobx';
-import {NavigationActions} from 'react-navigation';
+import { observable, action, autorunAsync, computed, toJS } from 'mobx';
+import { NavigationActions } from 'react-navigation';
 import * as ActionConst from './ActionConst';
-import {OnEnter, OnExit} from './Util';
+import { OnEnter, OnExit } from './Util';
 
 export const ActionMap = {
   jump: ActionConst.JUMP,
@@ -40,7 +40,7 @@ export const supportedActions = {
 };
 function filterParam(data) {
   if (data.toString() !== '[object Object]') {
-    return {data};
+    return { data };
   }
   const proto = (data || {}).constructor.name;
   // avoid passing React Native parameters
@@ -54,7 +54,6 @@ const createAction = (type: string) => (payload: Object = {}) => ({
   type,
   ...payload,
 });
-
 
 
 class NavigationStore {
@@ -76,11 +75,11 @@ class NavigationStore {
     return this._router;
   }
 
-  constructor(){
+  constructor() {
     const defaultSuccess = () => {};
     const defaultFailure = () => {};
 
-    autorunAsync(async ()=>{
+    autorunAsync(async () => {
       try {
         if (this.prevScene && this.currentScene !== this.prevScene) {
           // call onExit handler
@@ -91,8 +90,8 @@ class NavigationStore {
               if (res instanceof Promise) {
                 res.then(defaultSuccess, defaultFailure);
               }
-            } catch (e){
-              console.error("Error during onExit handler:", e);
+            } catch (e) {
+              console.error('Error during onExit handler:', e);
             }
           }
         }
@@ -104,35 +103,31 @@ class NavigationStore {
           if (handler) {
             try {
               const params = this.currentState().params;
-              console.log("RUN onEnter handler for state=", this.currentScene, ' params=' + JSON.stringify(params));
+              console.log('RUN onEnter handler for state=', this.currentScene, ` params=${JSON.stringify(params)}`);
               const res = await handler(params);
               if (res) {
-                console.log("SUCCESS", res);
+                console.log('SUCCESS', res);
                 success(res);
               } else {
-                console.log("FAILURE NULL RES");
+                console.log('FAILURE NULL RES');
                 failure();
               }
             } catch (e) {
-              console.log("FAILURE EXCEPTION", e);
+              console.log('FAILURE EXCEPTION', e);
               failure(e);
             }
-
           }
         }
       } catch (e) {
-        console.error("Error handling:" + e);
-
+        console.error(`Error handling:${e}`);
       }
     });
   }
 
-  nextState = (state, action) => {
-    return this.reducer ? this.reducer(state, action) : this._router.getStateForAction(action, state);
-  } ;
+  nextState = (state, cmd) => (this.reducer ? this.reducer(state, cmd) : this._router.getStateForAction(cmd, state));
 
-  dispatch = (action) => {
-    this.setState(this.nextState(this.state, action));
+  dispatch = (cmd) => {
+    this.setState(this.nextState(this.state, cmd));
   };
 
   @action setState = (newState) => {
@@ -149,27 +144,28 @@ class NavigationStore {
     let res = {};
     for (const param of params) {
       if (param) {
-        res = {...res, ...filterParam(param)};
+        res = { ...res, ...filterParam(param) };
       }
     }
     res.routeName = routeName;
     if (supportedActions[type]) {
-      this.dispatch(createAction(supportedActions[type])({routeName, index:0, actions, params: res}));
-    } else {
-      if (type === ActionConst.POP_TO) {
-        let nextScene = '', newState = this._state, currentState = this._state, currentScene = this.currentScene;
-        while (nextScene !== currentScene && newState && nextScene !== routeName) {
-          newState = this.nextState(currentState, NavigationActions.back());
-          if (newState) {
-            nextScene = this.currentState(newState).routeName;
-            if (nextScene !== routeName) {
-              currentState = newState;
-            }
+      this.dispatch(createAction(supportedActions[type])({ routeName, index: 0, actions, params: res }));
+    } else if (type === ActionConst.POP_TO) {
+      let nextScene = '';
+      let newState = this._state;
+      let currentState = this._state;
+      const currentScene = this.currentScene;
+      while (nextScene !== currentScene && newState && nextScene !== routeName) {
+        newState = this.nextState(currentState, NavigationActions.back());
+        if (newState) {
+          nextScene = this.currentState(newState).routeName;
+          if (nextScene !== routeName) {
+            currentState = newState;
           }
         }
-        if (nextScene === routeName) {
-          this.setState(newState);
-        }
+      }
+      if (nextScene === routeName) {
+        this.setState(newState);
       }
     }
   };
@@ -179,27 +175,27 @@ class NavigationStore {
   };
 
   drawerOpen = () => {
-    this.dispatch(NavigationActions.navigate({routeName: 'DrawerOpen'}));
+    this.dispatch(NavigationActions.navigate({ routeName: 'DrawerOpen' }));
   };
 
   drawerClose = () => {
-    this.dispatch(NavigationActions.navigate({routeName: 'DrawerClose'}));
+    this.dispatch(NavigationActions.navigate({ routeName: 'DrawerClose' }));
   };
 
-  currentState = (state) => {
+  currentState = (param) => {
+    let state = param;
     if (!state) {
       state = this._state;
     }
     if (!state.routes) {
       return state;
-    } else {
-      return this.currentState(state.routes[state.index]);
     }
+    return this.currentState(state.routes[state.index]);
   };
 
   refresh = (params) => {
     const key = this.currentState(this.state).key;
-    this.dispatch(NavigationActions.setParams({key, params}));
+    this.dispatch(NavigationActions.setParams({ key, params }));
   };
 
   pop = () => {
@@ -218,13 +214,13 @@ class NavigationStore {
     let res = {};
     for (const param of params) {
       if (param) {
-        res = {...res, ...filterParam(param)};
+        res = { ...res, ...filterParam(param) };
       }
     }
     res.routeName = routeName;
     this.run(ActionConst.REPLACE, routeName, [NavigationActions.navigate({
       routeName,
-      params: res
+      params: res,
     })]);
   }
 }

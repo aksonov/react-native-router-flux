@@ -1,7 +1,4 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.Actions=exports.Scene=exports.Router=exports.Reducer=exports.navigationStore=exports.ActionConst=undefined;
-
-
-var _ActionConst=require('./ActionConst');var ActionConst=_interopRequireWildcard(_ActionConst);
+Object.defineProperty(exports,"__esModule",{value:true});exports.Actions=exports.Scene=exports.Router=exports.Reducer=exports.navigationStore=exports.ActionConst=undefined;var _ActionConst=require('./ActionConst');var ActionConst=_interopRequireWildcard(_ActionConst);
 var _navigationStore=require('./navigationStore');var _navigationStore2=_interopRequireDefault(_navigationStore);
 var _Reducer=require('./Reducer');var _Reducer2=_interopRequireDefault(_Reducer);
 var _Router=require('./Router');var _Router2=_interopRequireDefault(_Router);

@@ -1,6 +1,6 @@
 {
   "name": "react-native-router-flux",
-  "version": "4.0.0-beta.6",
+  "version": "4.0.0-beta.7",
   "description": "React Native Router using Flux architecture",
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
     "mobx": "^3.1.16",
     "mobx-react": "^4.2.1",
     "opencollective": "^1.0.3",
+    "prop-types": "^15.5.10",
     "react-native-button": "^2.0.0",
     "react-navigation": "^1.0.0-beta.11"
   },
@@ -24,8 +25,10 @@
     "babel-jest": "20.0.3",
     "babel-preset-react-native": "2.0.0",
     "babel-preset-react-native-stage-0": "^1.0.1",
-    "eslint": "^4.0.0",
+    "eslint": "^3.0.0",
     "jest": "20.0.4",
+    "prettier-eslint": "^6.4.2",
+    "prettier-eslint-cli": "^4.1.1",
     "react": "16.0.0-alpha.12",
     "react-native": "0.45.1",
     "react-test-renderer": "16.0.0-alpha.12"

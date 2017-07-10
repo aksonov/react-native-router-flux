@@ -1,8 +1,8 @@
 /* @flow */
 
 import React from 'react';
-import {createNavigationContainer, createNavigator, StackRouter, TabRouter, TabView, TabBarTop, TabBarBottom} from 'react-navigation';
-import {View, Text} from 'react-native';
+import { createNavigationContainer, createNavigator, TabRouter } from 'react-navigation';
+import { View } from 'react-native';
 
 const LightboxNavigator = (
   routeConfigs,
@@ -15,14 +15,14 @@ const LightboxNavigator = (
     routeConfigs,
     tabsConfig,
     'react-navigation/STACK'
-  )(({navigation, ...props}) => {
+  )(({ navigation }) => {
     const { state, dispatch } = navigation;
     const { routes, index } = state;
 
     // Figure out what to render based on the navigation state and the router:
     const Component = routeConfigs[tabsConfig.initialRouteName].screen;
     let initialIndex = 0;
-    for (let i=0;i<routes.length;i++) {
+    for (let i = 0; i < routes.length; i++) {
       const route = routes[i];
       if (route.routeName === tabsConfig.initialRouteName) {
         initialIndex = i;
@@ -30,10 +30,10 @@ const LightboxNavigator = (
     }
     const Popup = index !== initialIndex ? routeConfigs[routes[index].routeName].screen : null;
 
-    return <View style={{flex:1}}>
+    return (<View style={{ flex: 1 }}>
       <Component navigation={{ dispatch, state: routes[initialIndex] }} />
       {Popup && <Popup navigation={{ dispatch, state: routes[index] }} />}
-    </View>
+    </View>);
   });
 
   return createNavigationContainer(navigator, tabsConfig.containerOptions);

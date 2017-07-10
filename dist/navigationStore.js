@@ -56,7 +56,6 @@ payload);};};var
 
 
 
-
 NavigationStore=(_class=function(){_createClass(NavigationStore,[{key:'state',get:function get()
 
 
@@ -125,14 +124,10 @@ function NavigationStore(){var _this=this;_classCallCheck(this,NavigationStore);
 
 
 
+nextState=function(state,cmd){return _this.reducer?_this.reducer(state,cmd):_this._router.getStateForAction(cmd,state);};this.
 
-
-nextState=function(state,action){
-return _this.reducer?_this.reducer(state,action):_this._router.getStateForAction(action,state);
-};this.
-
-dispatch=function(action){
-_this.setState(_this.nextState(_this.state,action));
+dispatch=function(cmd){
+_this.setState(_this.nextState(_this.state,cmd));
 };_initDefineProp(this,'setState',_descriptor4,this);this.
 
 
@@ -155,9 +150,11 @@ res=_extends({},res,filterParam(param));
 res.routeName=routeName;
 if(supportedActions[type]){
 _this.dispatch(createAction(supportedActions[type])({routeName:routeName,index:0,actions:actions,params:res}));
-}else{
-if(type===ActionConst.POP_TO){
-var nextScene='',newState=_this._state,currentState=_this._state,currentScene=_this.currentScene;
+}else if(type===ActionConst.POP_TO){
+var nextScene='';
+var newState=_this._state;
+var currentState=_this._state;
+var currentScene=_this.currentScene;
 while(nextScene!==currentScene&&newState&&nextScene!==routeName){
 newState=_this.nextState(currentState,_reactNavigation.NavigationActions.back());
 if(newState){
@@ -169,7 +166,6 @@ currentState=newState;
 }
 if(nextScene===routeName){
 _this.setState(newState);
-}
 }
 }
 };this.
@@ -186,15 +182,15 @@ drawerClose=function(){
 _this.dispatch(_reactNavigation.NavigationActions.navigate({routeName:'DrawerClose'}));
 };this.
 
-currentState=function(state){
+currentState=function(param){
+var state=param;
 if(!state){
 state=_this._state;
 }
 if(!state.routes){
 return state;
-}else{
-return _this.currentState(state.routes[state.index]);
 }
+return _this.currentState(state.routes[state.index]);
 };this.
 
 refresh=function(params){
@@ -226,7 +222,7 @@ _this.run(ActionConst.REPLACE,routeName,[_reactNavigation.NavigationActions.navi
 routeName:routeName,
 params:res})]);
 
-};var defaultSuccess=function defaultSuccess(){};var defaultFailure=function defaultFailure(){};(0,_mobx.autorunAsync)(function _callee(){var handler,res,_handler,success,failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.prev=0;if(_this.prevScene&&_this.currentScene!==_this.prevScene){handler=_this[_this.prevScene+_Util.OnExit];if(handler){try{res=handler();if(res instanceof Promise){res.then(defaultSuccess,defaultFailure);}}catch(e){console.error("Error during onExit handler:",e);}}}if(!(_this.currentScene&&_this.currentScene!==_this.prevScene&&_this.states[_this.currentScene])){_context.next=20;break;}_handler=_this[_this.currentScene+_Util.OnEnter];success=_this.states[_this.currentScene].success||defaultSuccess;failure=_this.states[_this.currentScene].failure||defaultFailure;if(!_handler){_context.next=20;break;}_context.prev=7;params=_this.currentState().params;console.log("RUN onEnter handler for state=",_this.currentScene,' params='+JSON.stringify(params));_context.next=12;return regeneratorRuntime.awrap(_handler(params));case 12:_res=_context.sent;if(_res){console.log("SUCCESS",_res);success(_res);}else{console.log("FAILURE NULL RES");failure();}_context.next=20;break;case 16:_context.prev=16;_context.t0=_context['catch'](7);console.log("FAILURE EXCEPTION",_context.t0);failure(_context.t0);case 20:_context.next=25;break;case 22:_context.prev=22;_context.t1=_context['catch'](0);console.error("Error handling:"+_context.t1);case 25:case'end':return _context.stop();}}},null,_this,[[0,22],[7,16]]);});}return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class.prototype,'_state',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor2=_applyDecoratedDescriptor(_class.prototype,'currentScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor3=_applyDecoratedDescriptor(_class.prototype,'prevScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_applyDecoratedDescriptor(_class.prototype,'state',[_mobx.computed],Object.getOwnPropertyDescriptor(_class.prototype,'state'),_class.prototype),_descriptor4=_applyDecoratedDescriptor(_class.prototype,'setState',[_mobx.action],{enumerable:true,initializer:function initializer(){var _this2=this;return function(newState){if(!newState||_this2.currentState(newState).routeName===_this2.currentScene){return;}_this2._state=newState;_this2.prevScene=_this2.currentScene;_this2.currentScene=_this2.currentState(_this2._state).routeName;};}})),_class);exports.default=
+};var defaultSuccess=function defaultSuccess(){};var defaultFailure=function defaultFailure(){};(0,_mobx.autorunAsync)(function _callee(){var handler,res,_handler,success,failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.prev=0;if(_this.prevScene&&_this.currentScene!==_this.prevScene){handler=_this[_this.prevScene+_Util.OnExit];if(handler){try{res=handler();if(res instanceof Promise){res.then(defaultSuccess,defaultFailure);}}catch(e){console.error('Error during onExit handler:',e);}}}if(!(_this.currentScene&&_this.currentScene!==_this.prevScene&&_this.states[_this.currentScene])){_context.next=20;break;}_handler=_this[_this.currentScene+_Util.OnEnter];success=_this.states[_this.currentScene].success||defaultSuccess;failure=_this.states[_this.currentScene].failure||defaultFailure;if(!_handler){_context.next=20;break;}_context.prev=7;params=_this.currentState().params;console.log('RUN onEnter handler for state=',_this.currentScene,' params='+JSON.stringify(params));_context.next=12;return regeneratorRuntime.awrap(_handler(params));case 12:_res=_context.sent;if(_res){console.log('SUCCESS',_res);success(_res);}else{console.log('FAILURE NULL RES');failure();}_context.next=20;break;case 16:_context.prev=16;_context.t0=_context['catch'](7);console.log('FAILURE EXCEPTION',_context.t0);failure(_context.t0);case 20:_context.next=25;break;case 22:_context.prev=22;_context.t1=_context['catch'](0);console.error('Error handling:'+_context.t1);case 25:case'end':return _context.stop();}}},null,_this,[[0,22],[7,16]]);});}return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class.prototype,'_state',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor2=_applyDecoratedDescriptor(_class.prototype,'currentScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor3=_applyDecoratedDescriptor(_class.prototype,'prevScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_applyDecoratedDescriptor(_class.prototype,'state',[_mobx.computed],Object.getOwnPropertyDescriptor(_class.prototype,'state'),_class.prototype),_descriptor4=_applyDecoratedDescriptor(_class.prototype,'setState',[_mobx.action],{enumerable:true,initializer:function initializer(){var _this2=this;return function(newState){if(!newState||_this2.currentState(newState).routeName===_this2.currentScene){return;}_this2._state=newState;_this2.prevScene=_this2.currentScene;_this2.currentScene=_this2.currentState(_this2._state).routeName;};}})),_class);exports.default=
 
 
 
