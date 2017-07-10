@@ -71,8 +71,8 @@ https://github.com/react-community/react-navigation/issues/779
 
 ## Breaking changes (compared to v3):
 * `Actions.create` (alternative syntax to define scenes) is not available (for simplicity) - just use `<Router>` as top component for your App. You may wrap it with Redux as well.
-* No duration/panHandlers support - you have to implement custom navigator now instead and pass it as ‘navigator’ prop:
-https://reactnavigation.org/docs/navigators/custom
+* No `duration`/`panHandlers` support - you have to implement custom navigator now instead and pass it as ‘navigator’ prop
+https://reactnavigation.org/docs/navigators/custom. You could still pass `panHandlers={null}` to disable gestures or `gesturedEnabled={false}`
 * No `component` support for scene containers (that contains children `Scene`) - you have to use custom navigator
 * No support for partial hiding of tab bar for some tabs because of react navigation bug (react navigation issue):
 https://github.com/react-community/react-navigation/issues/1584
@@ -85,6 +85,7 @@ https://github.com/react-community/react-navigation/issues/1493
 * Modal is 'lightbox' attribute for Scene (used for popups, like Error)
 * No `position` attribute is supported for custom transitions. For vertical transition add `modal` to parent `Scene`.
 * No flux 'focus' actions - use onEnter/onExit handlers instead.
+* tabBarSelectedItemStyle is not supported. Instead please use React Navigation TabBar params for tabs Scene: `activeTintColor`, `inactiveTintColor`, etc (https://reactnavigation.org/docs/navigators/tab)
 * Possible other stuff.
 
 ## Migrating from v3
