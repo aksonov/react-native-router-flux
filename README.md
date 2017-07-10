@@ -4,7 +4,7 @@
 
 [Follow author @PAksonov](https://twitter.com/PAksonov)
 
-#### WARNING: react-native-router-flux v4 is in beta. Go [here](https://github.com/aksonov/react-native-router-flux/tree/v3) for v3. Docs could be found [here](https://github.com/aksonov/react-native-router-flux/blob/master/README3.md)
+#### Go [here](https://github.com/aksonov/react-native-router-flux/tree/v3) for v3. Docs could be found [here](https://github.com/aksonov/react-native-router-flux/blob/master/README3.md)
 
 ___
 
