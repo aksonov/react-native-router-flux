@@ -83,6 +83,7 @@ https://github.com/react-community/react-navigation/issues/1493
 * Custom reducer is supported (`createReducer` prop for Router) but Redux actions now are passed directly from React Navigation (‘Navigation/BACK’, ‘Navigation/NAVIGATE’, etc.)
 * Drawer is 'drawer' attribute Scene
 * Modal is 'lightbox' attribute for Scene (used for popups, like Error)
+* Container scenes (that has children) cannot have `component` (or it will be considered as child!). If you want to customize containers, use react navigation custom navigators and pass it as `navigator` prop.
 * No `position` attribute is supported for custom transitions. For vertical transition add `modal` to parent `Scene`.
 * No flux 'focus' actions - use onEnter/onExit handlers instead.
 * tabBarSelectedItemStyle is not supported. Instead please use React Navigation TabBar params for tabs Scene: `activeTintColor`, `inactiveTintColor`, etc (https://reactnavigation.org/docs/navigators/tab)
