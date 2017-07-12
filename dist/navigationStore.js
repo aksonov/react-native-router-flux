@@ -178,7 +178,8 @@ _this.setState(newState);
 };this.
 
 push=function(routeName){for(var _len2=arguments.length,params=Array(_len2>1?_len2-1:0),_key2=1;_key2<_len2;_key2++){params[_key2-1]=arguments[_key2];}
-console.log("PARAMS:",JSON.stringify(params));
+
+
 _this.run.apply(_this,[ActionConst.PUSH,routeName,null].concat(params));
 };this.
 

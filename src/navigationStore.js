@@ -178,7 +178,8 @@ class NavigationStore {
   };
 
   push = (routeName, ...params) => {
-    console.log("PARAMS:", JSON.stringify(params));
+    // NOTE: chokes on clones
+    // console.log("PARAMS:", JSON.stringify(params));
     this.run(ActionConst.PUSH, routeName, null, ...params);
   };
 
