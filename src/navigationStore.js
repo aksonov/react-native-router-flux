@@ -63,9 +63,11 @@ class NavigationStore {
   _state;
   @observable currentScene = '';
   @observable prevScene = '';
+  @observable currentParams;
 
   get state() {
     const scene = this.currentScene;
+    const params = this.currentParams;
     return this._state;
   }
 
@@ -130,6 +132,7 @@ class NavigationStore {
 
   dispatch = (cmd) => {
     this.setState(this.nextState(this.state, cmd));
+
   };
 
   @action setState = (newState) => {
@@ -139,7 +142,9 @@ class NavigationStore {
     }
     this._state = newState;
     this.prevScene = this.currentScene;
-    this.currentScene = this.currentState(this._state).routeName;
+    const state = this.currentState(this._state);
+    this.currentScene = state.routeName;
+    this.currentParams = state.params;
   };
 
   run = (type = ActionConst.PUSH, routeName, actions, ...params) => {
@@ -173,6 +178,7 @@ class NavigationStore {
   };
 
   push = (routeName, ...params) => {
+    console.log("PARAMS:", JSON.stringify(params));
     this.run(ActionConst.PUSH, routeName, null, ...params);
   };
 

@@ -64,7 +64,7 @@ function createNavigationOptions(params){var
 title=
 
 
-params.title,backButtonImage=params.backButtonImage,navTransparent=params.navTransparent,hideNavBar=params.hideNavBar,hideTabBar=params.hideTabBar,backTitle=params.backTitle,right=params.right,rightButton=params.rightButton,left=params.left,leftButton=params.leftButton,navigationBarStyle=params.navigationBarStyle,headerStyle=params.headerStyle,navBarButtonColor=params.navBarButtonColor,tabBarLabel=params.tabBarLabel,tabBarIcon=params.tabBarIcon,icon=params.icon,getTitle=params.getTitle,renderTitle=params.renderTitle,panHandlers=params.panHandlers,navigationBarTitleImage=params.navigationBarTitleImage,navigationBarTitleImageStyle=params.navigationBarTitleImageStyle,component=params.component,headerTitleStyle=params.headerTitleStyle,titleStyle=params.titleStyle,navBar=params.navBar,onRight=params.onRight,onLeft=params.onLeft,rightButtonImage=params.rightButtonImage,leftButtonImage=params.leftButtonImage,init=params.init,back=params.back,props=_objectWithoutProperties(params,['title','backButtonImage','navTransparent','hideNavBar','hideTabBar','backTitle','right','rightButton','left','leftButton','navigationBarStyle','headerStyle','navBarButtonColor','tabBarLabel','tabBarIcon','icon','getTitle','renderTitle','panHandlers','navigationBarTitleImage','navigationBarTitleImageStyle','component','headerTitleStyle','titleStyle','navBar','onRight','onLeft','rightButtonImage','leftButtonImage','init','back']);
+params.title,backButtonImage=params.backButtonImage,navTransparent=params.navTransparent,hideNavBar=params.hideNavBar,hideTabBar=params.hideTabBar,backTitle=params.backTitle,right=params.right,rightButton=params.rightButton,left=params.left,leftButton=params.leftButton,navigationBarStyle=params.navigationBarStyle,headerStyle=params.headerStyle,navBarButtonColor=params.navBarButtonColor,tabBarLabel=params.tabBarLabel,tabBarIcon=params.tabBarIcon,icon=params.icon,getTitle=params.getTitle,renderTitle=params.renderTitle,panHandlers=params.panHandlers,navigationBarTitleImage=params.navigationBarTitleImage,navigationBarTitleImageStyle=params.navigationBarTitleImageStyle,component=params.component,rightTitle=params.rightTitle,leftTitle=params.leftTitle,leftButtonTextStyle=params.leftButtonTextStyle,rightButtonTextStyle=params.rightButtonTextStyle,backButtonTextStyle=params.backButtonTextStyle,headerTitleStyle=params.headerTitleStyle,titleStyle=params.titleStyle,navBar=params.navBar,onRight=params.onRight,onLeft=params.onLeft,rightButtonImage=params.rightButtonImage,leftButtonImage=params.leftButtonImage,init=params.init,back=params.back,props=_objectWithoutProperties(params,['title','backButtonImage','navTransparent','hideNavBar','hideTabBar','backTitle','right','rightButton','left','leftButton','navigationBarStyle','headerStyle','navBarButtonColor','tabBarLabel','tabBarIcon','icon','getTitle','renderTitle','panHandlers','navigationBarTitleImage','navigationBarTitleImageStyle','component','rightTitle','leftTitle','leftButtonTextStyle','rightButtonTextStyle','backButtonTextStyle','headerTitleStyle','titleStyle','navBar','onRight','onLeft','rightButtonImage','leftButtonImage','init','back']);
 var NavBar=navBar;
 if(component&&component.navigationOptions){
 return component.navigationOptions;
@@ -75,12 +75,12 @@ var res=_extends({},
 props,{
 headerTintColor:navBarButtonColor,
 headerTitleStyle:headerTitleStyle||titleStyle,
-title:getValue(navigationParams.title||title||getTitle,_extends({navigation:navigation},navigationParams,screenProps)),
-headerBackTitle:getValue(navigationParams.backTitle||backTitle,_extends({navigation:navigation},navigationParams,screenProps)),
+title:getValue(navigationParams.title||title||getTitle,_extends({navigation:navigation},params,navigationParams,screenProps)),
+headerBackTitle:getValue(navigationParams.backTitle||backTitle,_extends({navigation:navigation},params,navigationParams,screenProps)),
 headerRight:getValue(navigationParams.right||right||rightButton||params.renderRightButton,_extends({navigation:navigation},navigationParams,screenProps)),
-headerLeft:getValue(navigationParams.left||left||leftButton||params.renderLeftButton,_extends({navigation:navigation},navigationParams,screenProps)),
-headerTitle:getValue(navigationParams.renderTitle||renderTitle||params.renderTitle,_extends({navigation:navigation},navigationParams,screenProps)),
-headerStyle:getValue(navigationParams.headerStyle||headerStyle||navigationBarStyle,_extends({navigation:navigation},navigationParams,screenProps)),
+headerLeft:getValue(navigationParams.left||left||leftButton||params.renderLeftButton,_extends({navigation:navigation},params,navigationParams,screenProps)),
+headerTitle:getValue(navigationParams.renderTitle||renderTitle||params.renderTitle,_extends({navigation:navigation},params,navigationParams,screenProps)),
+headerStyle:getValue(navigationParams.headerStyle||headerStyle||navigationBarStyle,_extends({navigation:navigation},params,navigationParams,screenProps)),
 headerBackImage:navigationParams.backButtonImage||backButtonImage});
 
 if(NavBar){
@@ -103,14 +103,14 @@ if(tabBarIcon||icon){
 res.tabBarIcon=tabBarIcon||icon;
 }
 
-if(rightButtonImage||onRight){
+if((rightButtonImage||rightTitle||params.renderRightButton)&&onRight){
 res.headerRight=getValue(navigationParams.right||right||rightButton||params.renderRightButton,_extends({},
 navigationParams,screenProps))||(0,_NavBar.renderRightButton)(_extends({},params,navigationParams));
 }
 
-if(leftButtonImage||onLeft||backButtonImage){
-res.headerLeft=getValue(navigationParams.left||left||leftButton||params.renderLeftButton,_extends({},navigationParams,screenProps))||
-(0,_NavBar.renderLeftButton)(_extends({},params,navigationParams))||(init?null:(0,_NavBar.renderBackButton)(_extends({},params,navigationParams)));
+if(leftButtonImage||backButtonImage||backTitle||leftTitle||params.renderLeftButton||leftButtonTextStyle||backButtonTextStyle||onLeft){
+res.headerLeft=getValue(navigationParams.left||left||leftButton||params.renderLeftButton,_extends({},params,navigationParams,screenProps))||
+(0,_NavBar.renderLeftButton)(_extends({},params,navigationParams))||(init?null:(0,_NavBar.renderBackButton)(_extends({},params,navigationParams,screenProps)));
 }
 
 if(back){
@@ -135,14 +135,16 @@ function createWrapper(Component){
 if(!Component){
 return null;
 }
-return(0,_native.observer)(function(_ref3){var navigation=_ref3.navigation,props=_objectWithoutProperties(_ref3,['navigation']);return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:138}}));});
+return(0,_native.observer)(function(_ref3){var navigation=_ref3.navigation,props=_objectWithoutProperties(_ref3,['navigation']);
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:139}}));
+});
 }
 
 
 var App=(0,_native.observer)(function(props){
 var AppNavigator=props.navigator;
 return(
-_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:145}}));
+_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:147}}));
 
 });
 
@@ -260,7 +262,7 @@ var AppNavigator=processScene(scene,props);
 _navigationStore2.default.router=AppNavigator.router;
 _navigationStore2.default.reducer=createReducer&&createReducer(props);
 
-return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:263}});
+return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:265}});
 };
 Router.propTypes={
 createReducer:_propTypes2.default.func,
