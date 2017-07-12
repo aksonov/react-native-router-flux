@@ -63,9 +63,12 @@ function createTabBarOptions({ tabBarStyle, activeTintColor, inactiveTintColor, 
 function createNavigationOptions(params) {
   const { title, backButtonImage, navTransparent, hideNavBar, hideTabBar, backTitle, right, rightButton, left, leftButton,
     navigationBarStyle, headerStyle, navBarButtonColor, tabBarLabel, tabBarIcon, icon, getTitle, renderTitle, panHandlers,
-    navigationBarTitleImage, navigationBarTitleImageStyle,
+    navigationBarTitleImage, navigationBarTitleImageStyle, component,
     headerTitleStyle, titleStyle, navBar, onRight, onLeft, rightButtonImage, leftButtonImage, init, back, ...props } = params;
   const NavBar = navBar;
+  if (component && component.navigationOptions) {
+    return component.navigationOptions;
+  }
   return ({ navigation, screenProps }) => {
     const navigationParams = navigation.state.params || {};
     const res = {
@@ -170,6 +173,14 @@ function processScene(scene: Scene, inheritProps = {}, clones = []) {
   if (!drawer && !tabs) {
     children.push(...clones);
   }
+  // add all clones
+  for (const child of children) {
+    if (child.props.clone) {
+      if (clones.indexOf(child) === -1) {
+        clones.push(child);
+      }
+    }
+  }
   let initialRouteName;
   let initialRouteParams;
   for (const child of children) {
@@ -178,11 +189,6 @@ function processScene(scene: Scene, inheritProps = {}, clones = []) {
     const init = key === children[0].key;
     assert(reservedKeys.indexOf(key) === -1, `Scene name cannot be reserved word: ${child.key}`);
     const { component, type = 'push', onEnter, onExit, on, failure, success, ...props } = child.props;
-    if (child.props.clone) {
-      if (clones.indexOf(child) === -1) {
-        clones.push(child);
-      }
-    }
     if (!navigationStore.states[key]) {
       navigationStore.states[key] = {};
     }
@@ -201,12 +207,11 @@ function processScene(scene: Scene, inheritProps = {}, clones = []) {
     // console.log(`KEY ${key} DRAWER ${drawer} TABS ${tabs} WRAP ${wrap}`, JSON.stringify(commonProps));
     const screen = {
       screen: createWrapper(component) || processScene(child, commonProps, clones) || (lightbox && View),
-      navigationOptions: createNavigationOptions({ ...commonProps, ...child.props, init }),
+      navigationOptions: createNavigationOptions({ ...commonProps, ...component, ...child.props, init, component }),
     };
 
     // wrap component inside own navbar for tabs/drawer parent controllers
     const wrapNavBar = drawer || tabs || wrap;
-    // console.log("SCENE:", key, wrapNavBar);
     if (component && wrapNavBar) {
       res[key] = { screen: processScene({ key, props: { children: { key: `_${key}`, props: child.props } } }, commonProps, clones) };
     } else {

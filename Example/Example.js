@@ -50,7 +50,7 @@ class Example extends Component {
   render() {
     return (
       <Router createReducer={reducerCreate}>
-        <Scene key="lightbox" lightbox>
+        <Scene key="lightbox" lightbox leftButtonTextStyle={{ color: 'red' }} backButtonTextStyle={{ color:'red' }} >
           <Scene key="modal" modal hideNavBar>
             <Scene key="drawer" drawer contentComponent={TabView} >
               <Scene key="root" hideNavBar hideTabBar>

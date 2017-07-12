@@ -131,8 +131,8 @@ class NavigationStore {
   };
 
   @action setState = (newState) => {
-    // don't allow duplicated scenes or null state
-    if (!newState || this.currentState(newState).routeName === this.currentScene) {
+    // don't allow null state
+    if (!newState) {
       return;
     }
     this._state = newState;
