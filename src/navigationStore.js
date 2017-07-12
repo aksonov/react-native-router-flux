@@ -60,11 +60,13 @@ class NavigationStore {
   _router = null;
   states = {};
   reducer = null;
-  @observable _state;
+  _state;
   @observable currentScene = '';
   @observable prevScene = '';
-  @computed get state() {
-    return toJS(this._state);
+
+  get state() {
+    const scene = this.currentScene;
+    return this._state;
   }
 
   set router(router) {

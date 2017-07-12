@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
 
 class Launch extends React.Component {
   render(){
+    console.log("Launch RENDER");
     return (
       <View {...this.props}  style={styles.container}>
         <Text>Launch page</Text>

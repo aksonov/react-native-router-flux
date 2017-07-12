@@ -63,8 +63,8 @@ function createTabBarOptions({ tabBarStyle, activeTintColor, inactiveTintColor, 
 function createNavigationOptions(params) {
   const { title, backButtonImage, navTransparent, hideNavBar, hideTabBar, backTitle, right, rightButton, left, leftButton,
     navigationBarStyle, headerStyle, navBarButtonColor, tabBarLabel, tabBarIcon, icon, getTitle, renderTitle, panHandlers,
-    navigationBarTitleImage, navigationBarTitleImageStyle, component,
-    headerTitleStyle, titleStyle, navBar, onRight, onLeft, rightButtonImage, leftButtonImage, init, back, ...props } = params;
+    navigationBarTitleImage, navigationBarTitleImageStyle, component, rightTitle, leftTitle, leftButtonTextStyle, rightButtonTextStyle,
+    backButtonTextStyle, headerTitleStyle, titleStyle, navBar, onRight, onLeft, rightButtonImage, leftButtonImage, init, back, ...props } = params;
   const NavBar = navBar;
   if (component && component.navigationOptions) {
     return component.navigationOptions;
@@ -75,12 +75,12 @@ function createNavigationOptions(params) {
       ...props,
       headerTintColor: navBarButtonColor,
       headerTitleStyle: headerTitleStyle || titleStyle,
-      title: getValue((navigationParams.title) || title || getTitle, { navigation, ...navigationParams, ...screenProps }),
-      headerBackTitle: getValue((navigationParams.backTitle) || backTitle, { navigation, ...navigationParams, ...screenProps }),
+      title: getValue((navigationParams.title) || title || getTitle, { navigation, ...params, ...navigationParams, ...screenProps }),
+      headerBackTitle: getValue((navigationParams.backTitle) || backTitle, { navigation, ...params, ...navigationParams, ...screenProps }),
       headerRight: getValue((navigationParams.right) || right || rightButton || params.renderRightButton, { navigation, ...navigationParams, ...screenProps }),
-      headerLeft: getValue((navigationParams.left) || left || leftButton || params.renderLeftButton, { navigation, ...navigationParams, ...screenProps }),
-      headerTitle: getValue((navigationParams.renderTitle) || renderTitle || params.renderTitle, { navigation, ...navigationParams, ...screenProps }),
-      headerStyle: getValue((navigationParams.headerStyle || headerStyle || navigationBarStyle), { navigation, ...navigationParams, ...screenProps }),
+      headerLeft: getValue((navigationParams.left) || left || leftButton || params.renderLeftButton, { navigation, ...params, ...navigationParams, ...screenProps }),
+      headerTitle: getValue((navigationParams.renderTitle) || renderTitle || params.renderTitle, { navigation, ...params, ...navigationParams, ...screenProps }),
+      headerStyle: getValue((navigationParams.headerStyle || headerStyle || navigationBarStyle), { navigation, ...params, ...navigationParams, ...screenProps }),
       headerBackImage: navigationParams.backButtonImage || backButtonImage,
     };
     if (NavBar) {
@@ -103,14 +103,14 @@ function createNavigationOptions(params) {
       res.tabBarIcon = tabBarIcon || icon;
     }
 
-    if (rightButtonImage || onRight) {
-      res.headerRight = getValue((navigationParams.right) || right || rightButton || params.renderRightButton,
+    if ((rightButtonImage || rightTitle || params.renderRightButton) && onRight) {
+      res.headerRight = getValue(navigationParams.right || right || rightButton || params.renderRightButton,
           { ...navigationParams, ...screenProps }) || renderRightButton({ ...params, ...navigationParams });
     }
 
-    if (leftButtonImage || onLeft || backButtonImage) {
-      res.headerLeft = getValue((navigationParams.left) || left || leftButton || params.renderLeftButton, { ...navigationParams, ...screenProps })
-        || renderLeftButton({ ...params, ...navigationParams }) || (init ? null : renderBackButton({ ...params, ...navigationParams }));
+    if (leftButtonImage || backButtonImage || backTitle || leftTitle || params.renderLeftButton || leftButtonTextStyle || backButtonTextStyle || onLeft) {
+      res.headerLeft = getValue(navigationParams.left || left || leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
+        || renderLeftButton({ ...params, ...navigationParams }) || (init ? null : renderBackButton({ ...params, ...navigationParams, ...screenProps }));
     }
 
     if (back) {
@@ -135,7 +135,9 @@ function createWrapper(Component) {
   if (!Component) {
     return null;
   }
-  return observer(({ navigation, ...props }) => <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />);
+  return observer(({ navigation, ...props }) => {
+    return <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />
+  });
 }
 
 
