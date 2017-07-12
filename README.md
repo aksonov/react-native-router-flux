@@ -4,6 +4,8 @@
 
 [Follow author @PAksonov](https://twitter.com/PAksonov)
 
+Please 🌟 my proposal talk for ReactiveConf 2017 [What is RNRNF?](https://gist.github.com/aksonov/e2d7454421e44b1c4c72214d14053410) 
+
 #### Go [here](https://github.com/aksonov/react-native-router-flux/tree/v3) for v3. Docs could be found [here](https://github.com/aksonov/react-native-router-flux/blob/master/README3.md)
 
 ___
