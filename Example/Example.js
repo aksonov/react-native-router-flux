@@ -114,7 +114,7 @@ class Example extends Component {
                 </Scene>
               </Scene>
             </Scene>
-            <Scene key="login" rightTitle="Right" onRight={()=>{}}  >
+            <Scene key="login" >
               <Scene key="loginModal" component={Login} title="Login" leftTitle="Cancel" onLeft={Actions.pop}/>
               <Scene
                 key="loginModal2"

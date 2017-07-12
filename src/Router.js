@@ -103,12 +103,15 @@ function createNavigationOptions(params) {
       res.tabBarIcon = tabBarIcon || icon;
     }
 
-    if ((rightButtonImage || rightTitle || params.renderRightButton) && onRight) {
+    if (rightButtonImage || rightTitle || params.renderRightButton || onRight || navigationParams.onRight
+      || navigationParams.rightTitle || navigationParams.rightButtonImage) {
       res.headerRight = getValue(navigationParams.right || right || rightButton || params.renderRightButton,
           { ...navigationParams, ...screenProps }) || renderRightButton({ ...params, ...navigationParams });
     }
 
-    if (leftButtonImage || backButtonImage || backTitle || leftTitle || params.renderLeftButton || leftButtonTextStyle || backButtonTextStyle || onLeft) {
+    if (leftButtonImage || backButtonImage || backTitle || leftTitle || params.renderLeftButton || leftButtonTextStyle
+      || backButtonTextStyle || onLeft || navigationParams.leftTitle || navigationParams.onLeft || navigationParams.leftButtonImage
+      || navigationParams.backButtonImage || navigationParams.backTitle) {
       res.headerLeft = getValue(navigationParams.left || left || leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
         || renderLeftButton({ ...params, ...navigationParams }) || (init ? null : renderBackButton({ ...params, ...navigationParams, ...screenProps }));
     }
