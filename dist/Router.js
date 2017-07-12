@@ -103,12 +103,15 @@ if(tabBarIcon||icon){
 res.tabBarIcon=tabBarIcon||icon;
 }
 
-if((rightButtonImage||rightTitle||params.renderRightButton)&&onRight){
+if(rightButtonImage||rightTitle||params.renderRightButton||onRight||navigationParams.onRight||
+navigationParams.rightTitle||navigationParams.rightButtonImage){
 res.headerRight=getValue(navigationParams.right||right||rightButton||params.renderRightButton,_extends({},
 navigationParams,screenProps))||(0,_NavBar.renderRightButton)(_extends({},params,navigationParams));
 }
 
-if(leftButtonImage||backButtonImage||backTitle||leftTitle||params.renderLeftButton||leftButtonTextStyle||backButtonTextStyle||onLeft){
+if(leftButtonImage||backButtonImage||backTitle||leftTitle||params.renderLeftButton||leftButtonTextStyle||
+backButtonTextStyle||onLeft||navigationParams.leftTitle||navigationParams.onLeft||navigationParams.leftButtonImage||
+navigationParams.backButtonImage||navigationParams.backTitle){
 res.headerLeft=getValue(navigationParams.left||left||leftButton||params.renderLeftButton,_extends({},params,navigationParams,screenProps))||
 (0,_NavBar.renderLeftButton)(_extends({},params,navigationParams))||(init?null:(0,_NavBar.renderBackButton)(_extends({},params,navigationParams,screenProps)));
 }
@@ -136,7 +139,7 @@ if(!Component){
 return null;
 }
 return(0,_native.observer)(function(_ref3){var navigation=_ref3.navigation,props=_objectWithoutProperties(_ref3,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:139}}));
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:142}}));
 });
 }
 
@@ -144,7 +147,7 @@ return _react2.default.createElement(Component,_extends({},props,{navigation:nav
 var App=(0,_native.observer)(function(props){
 var AppNavigator=props.navigator;
 return(
-_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:147}}));
+_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:150}}));
 
 });
 
@@ -262,7 +265,7 @@ var AppNavigator=processScene(scene,props);
 _navigationStore2.default.router=AppNavigator.router;
 _navigationStore2.default.reducer=createReducer&&createReducer(props);
 
-return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:265}});
+return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:268}});
 };
 Router.propTypes={
 createReducer:_propTypes2.default.func,
