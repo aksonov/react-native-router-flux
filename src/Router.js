@@ -160,10 +160,12 @@ function processScene(scene: Scene, inheritProps = {}, clones = []) {
   const order = [];
   const { tabs, modal, lightbox, navigator, wrap, contentComponent, lazy, drawer, ...parentProps } = scene.props;
 
-  const commonProps = { ...parentProps, ...inheritProps };
+  const commonProps = { ...inheritProps, ...parentProps };
+  delete commonProps.children;
+  delete commonProps.component;
   // add inherit props
   for (const pkey of Object.keys(commonProps)) {
-    if (dontInheritKeys.indexOf(pkey) !== -1) {
+    if (dontInheritKeys.indexOf(pkey) !== -1 && !parentProps[pkey]) {
       delete commonProps[pkey];
     }
   }
@@ -246,17 +248,17 @@ function processScene(scene: Scene, inheritProps = {}, clones = []) {
   }
   const mode = modal ? 'modal' : 'card';
   if (lightbox) {
-    return LightboxNavigator(res, { mode, initialRouteParams, initialRouteName, navigationOptions: createNavigationOptions(parentProps) });
+    return LightboxNavigator(res, { mode, initialRouteParams, initialRouteName, navigationOptions: createNavigationOptions(commonProps) });
   } else if (tabs) {
-    return TabNavigator(res, { lazy, initialRouteName, initialRouteParams, order, ...parentProps,
-      tabBarOptions: createTabBarOptions(parentProps), navigationOptions: createNavigationOptions(parentProps) });
+    return TabNavigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps,
+      tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });
   } else if (drawer) {
-    return DrawerNavigator(res, { initialRouteName, contentComponent, order, backBehavior: 'none', ...parentProps });
+    return DrawerNavigator(res, { initialRouteName, contentComponent, order, backBehavior: 'none', ...commonProps });
   }
   if (navigator) {
-    return navigator(res, { lazy, initialRouteName, initialRouteParams, order, ...parentProps, navigationOptions: createNavigationOptions(parentProps) });
+    return navigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
   }
-  return StackNavigator(res, { mode, initialRouteParams, initialRouteName, ...parentProps, navigationOptions: createNavigationOptions(parentProps) });
+  return StackNavigator(res, { mode, initialRouteParams, initialRouteName,  ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
 }
 
 const Router = ({ createReducer, ...props }) => {
@@ -273,3 +275,4 @@ Router.propTypes = {
 };
 
 export default Router;
+

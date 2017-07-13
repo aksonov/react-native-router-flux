@@ -160,10 +160,12 @@ var res={};
 var order=[];var _scene$props=
 scene.props,tabs=_scene$props.tabs,modal=_scene$props.modal,lightbox=_scene$props.lightbox,navigator=_scene$props.navigator,wrap=_scene$props.wrap,contentComponent=_scene$props.contentComponent,lazy=_scene$props.lazy,drawer=_scene$props.drawer,parentProps=_objectWithoutProperties(_scene$props,['tabs','modal','lightbox','navigator','wrap','contentComponent','lazy','drawer']);
 
-var commonProps=_extends({},parentProps,inheritProps);
+var commonProps=_extends({},inheritProps,parentProps);
+delete commonProps.children;
+delete commonProps.component;
 
 for(var _iterator=Object.keys(commonProps),_isArray=Array.isArray(_iterator),_i=0,_iterator=_isArray?_iterator:_iterator[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref4;if(_isArray){if(_i>=_iterator.length)break;_ref4=_iterator[_i++];}else{_i=_iterator.next();if(_i.done)break;_ref4=_i.value;}var pkey=_ref4;
-if(dontInheritKeys.indexOf(pkey)!==-1){
+if(dontInheritKeys.indexOf(pkey)!==-1&&!parentProps[pkey]){
 delete commonProps[pkey];
 }
 }
@@ -246,17 +248,17 @@ initialRouteParams=_extends({},commonProps,props);
 }
 var mode=modal?'modal':'card';
 if(lightbox){
-return(0,_LightboxNavigator2.default)(res,{mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName,navigationOptions:createNavigationOptions(parentProps)});
+return(0,_LightboxNavigator2.default)(res,{mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName,navigationOptions:createNavigationOptions(commonProps)});
 }else if(tabs){
-return(0,_reactNavigation.TabNavigator)(res,_extends({lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},parentProps,{
-tabBarOptions:createTabBarOptions(parentProps),navigationOptions:createNavigationOptions(parentProps)}));
+return(0,_reactNavigation.TabNavigator)(res,_extends({lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},commonProps,{
+tabBarOptions:createTabBarOptions(commonProps),navigationOptions:createNavigationOptions(commonProps)}));
 }else if(drawer){
-return(0,_reactNavigation.DrawerNavigator)(res,_extends({initialRouteName:initialRouteName,contentComponent:contentComponent,order:order,backBehavior:'none'},parentProps));
+return(0,_reactNavigation.DrawerNavigator)(res,_extends({initialRouteName:initialRouteName,contentComponent:contentComponent,order:order,backBehavior:'none'},commonProps));
 }
 if(navigator){
-return navigator(res,_extends({lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},parentProps,{navigationOptions:createNavigationOptions(parentProps)}));
+return navigator(res,_extends({lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
 }
-return(0,_reactNavigation.StackNavigator)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},parentProps,{navigationOptions:createNavigationOptions(parentProps)}));
+return(0,_reactNavigation.StackNavigator)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
 }
 
 var Router=function Router(_ref8){var createReducer=_ref8.createReducer,props=_objectWithoutProperties(_ref8,['createReducer']);
@@ -265,7 +267,7 @@ var AppNavigator=processScene(scene,props);
 _navigationStore2.default.router=AppNavigator.router;
 _navigationStore2.default.reducer=createReducer&&createReducer(props);
 
-return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:268}});
+return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:270}});
 };
 Router.propTypes={
 createReducer:_propTypes2.default.func,
