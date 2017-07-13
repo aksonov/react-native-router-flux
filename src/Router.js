@@ -195,7 +195,7 @@ function processScene(scene: Scene, inheritProps = {}, clones = []) {
     const key = child.key;
     const init = key === children[0].key;
     assert(reservedKeys.indexOf(key) === -1, `Scene name cannot be reserved word: ${child.key}`);
-    const { component, type = 'push', onEnter, onExit, on, failure, success, ...props } = child.props;
+    const { component, type = tabs || drawer ? 'jump' : 'push', onEnter, onExit, on, failure, success, ...props } = child.props;
     if (!navigationStore.states[key]) {
       navigationStore.states[key] = {};
     }

@@ -130,19 +130,22 @@ class NavigationStore {
 
   nextState = (state, cmd) => (this.reducer ? this.reducer(state, cmd) : this._router.getStateForAction(cmd, state));
 
-  dispatch = (cmd) => {
-    this.setState(this.nextState(this.state, cmd));
+  dispatch = (cmd, type) => {
+    this.setState(this.nextState(this.state, cmd), type);
 
   };
 
-  @action setState = (newState) => {
+  @action setState = (newState, type) => {
     // don't allow null state
     if (!newState) {
       return;
     }
+    const state = this.currentState(newState);
+    if (type === ActionConst.JUMP && state.routeName === this.currentScene) {
+      return;
+    }
     this._state = newState;
     this.prevScene = this.currentScene;
-    const state = this.currentState(this._state);
     this.currentScene = state.routeName;
     this.currentParams = state.params;
   };
@@ -156,7 +159,7 @@ class NavigationStore {
     }
     res.routeName = routeName;
     if (supportedActions[type]) {
-      this.dispatch(createAction(supportedActions[type])({ routeName, index: 0, actions, params: res }));
+      this.dispatch(createAction(supportedActions[type])({ routeName, index: 0, actions, params: res }), type);
     } else if (type === ActionConst.POP_TO) {
       let nextScene = '';
       let newState = this._state;
@@ -178,10 +181,12 @@ class NavigationStore {
   };
 
   push = (routeName, ...params) => {
-    // NOTE: chokes on clones
-    // console.log("PARAMS:", JSON.stringify(params));
     this.run(ActionConst.PUSH, routeName, null, ...params);
   };
+
+  jump = (routeName, ...params) => {
+    this.run(ActionConst.JUMP, routeName, null, ...params);
+  }
 
   drawerOpen = () => {
     this.dispatch(NavigationActions.navigate({ routeName: 'DrawerOpen' }));
