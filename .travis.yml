@@ -30,7 +30,7 @@ before_script:
   - if [ $TEST_SUITE = example-jest ]; then rm -rf Example/node_modules/react-native-router-flux/Example; fi
   - if [ $TEST_SUITE = example-jest ]; then cp -r src/ Example/node_modules/react-native-router-flux/src/; fi
 script:
-  - if [ $TEST_SUITE = eslint ]; then node node_modules/eslint/bin/eslint index.js src/ test/; fi
+  - if [ $TEST_SUITE = eslint ]; then node node_modules/.bin/eslint index.js src/ _tests__/; fi
   - if [ $TEST_SUITE = lib-test ]; then yarn test; fi
   - if [ $TEST_SUITE = example-jest ]; then cd Example && yarn run jest && cd ..; fi
 before_cache:

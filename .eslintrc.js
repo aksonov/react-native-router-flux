@@ -2,9 +2,17 @@ module.exports = {
   extends: 'airbnb',
   plugins: [
     'react',
+    'jest'
   ],
+  env: {
+    "jest/globals": true
+  },
   parser: 'babel-eslint',
   rules: {
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/valid-expect": "error",
     'react/forbid-prop-types': 0,
     'no-console': 0,
     'new-cap': 0,

@@ -1,6 +1,6 @@
 {
   "name": "react-native-router-flux",
-  "version": "4.0.0-beta.7",
+  "version": "4.0.0-beta.8",
   "description": "React Native Router using Flux architecture",
   "repository": {
     "type": "git",
@@ -9,7 +9,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "postinstall": "opencollective postinstall",
+    "postinstall": "./node_modules/.bin/opencollective postinstall",
     "build": "babel src -d dist --presets react-native-stage-0/decorator-support",
     "test": "jest"
   },
@@ -19,13 +19,15 @@
     "opencollective": "^1.0.3",
     "prop-types": "^15.5.10",
     "react-native-button": "^2.0.0",
+    "react-native-router-flux": "4.0.0-beta.7",
     "react-navigation": "^1.0.0-beta.11"
   },
   "devDependencies": {
     "babel-jest": "20.0.3",
     "babel-preset-react-native": "2.0.0",
     "babel-preset-react-native-stage-0": "^1.0.1",
-    "eslint": "^3.0.0",
+    "eslint": "^3.2.0",
+    "eslint-plugin-jest": "^20.0.3",
     "jest": "20.0.4",
     "prettier-eslint": "^6.4.2",
     "prettier-eslint-cli": "^4.1.1",

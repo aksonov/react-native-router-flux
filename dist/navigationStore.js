@@ -63,8 +63,12 @@ NavigationStore=(_class=function(){_createClass(NavigationStore,[{key:'state',ge
 
 
 
+
+
 {
-return(0,_mobx.toJS)(this._state);
+var scene=this.currentScene;
+var params=this.currentParams;
+return this._state;
 }},{key:'router',set:function set(
 
 router){
@@ -75,7 +79,7 @@ this.dispatch(_reactNavigation.NavigationActions.init());
 return this._router;
 }}]);
 
-function NavigationStore(){var _this=this;_classCallCheck(this,NavigationStore);this._router=null;this.states={};this.reducer=null;_initDefineProp(this,'_state',_descriptor,this);_initDefineProp(this,'currentScene',_descriptor2,this);_initDefineProp(this,'prevScene',_descriptor3,this);this.
+function NavigationStore(){var _this=this;_classCallCheck(this,NavigationStore);this._router=null;this.states={};this.reducer=null;_initDefineProp(this,'currentScene',_descriptor,this);_initDefineProp(this,'prevScene',_descriptor2,this);_initDefineProp(this,'currentParams',_descriptor3,this);this.
 
 
 
@@ -128,7 +132,10 @@ nextState=function(state,cmd){return _this.reducer?_this.reducer(state,cmd):_thi
 
 dispatch=function(cmd){
 _this.setState(_this.nextState(_this.state,cmd));
+
 };_initDefineProp(this,'setState',_descriptor4,this);this.
+
+
 
 
 
@@ -171,6 +178,8 @@ _this.setState(newState);
 };this.
 
 push=function(routeName){for(var _len2=arguments.length,params=Array(_len2>1?_len2-1:0),_key2=1;_key2<_len2;_key2++){params[_key2-1]=arguments[_key2];}
+
+
 _this.run.apply(_this,[ActionConst.PUSH,routeName,null].concat(params));
 };this.
 
@@ -222,7 +231,7 @@ _this.run(ActionConst.REPLACE,routeName,[_reactNavigation.NavigationActions.navi
 routeName:routeName,
 params:res})]);
 
-};var defaultSuccess=function defaultSuccess(){};var defaultFailure=function defaultFailure(){};(0,_mobx.autorunAsync)(function _callee(){var handler,res,_handler,success,failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.prev=0;if(_this.prevScene&&_this.currentScene!==_this.prevScene){handler=_this[_this.prevScene+_Util.OnExit];if(handler){try{res=handler();if(res instanceof Promise){res.then(defaultSuccess,defaultFailure);}}catch(e){console.error('Error during onExit handler:',e);}}}if(!(_this.currentScene&&_this.currentScene!==_this.prevScene&&_this.states[_this.currentScene])){_context.next=20;break;}_handler=_this[_this.currentScene+_Util.OnEnter];success=_this.states[_this.currentScene].success||defaultSuccess;failure=_this.states[_this.currentScene].failure||defaultFailure;if(!_handler){_context.next=20;break;}_context.prev=7;params=_this.currentState().params;console.log('RUN onEnter handler for state=',_this.currentScene,' params='+JSON.stringify(params));_context.next=12;return regeneratorRuntime.awrap(_handler(params));case 12:_res=_context.sent;if(_res){console.log('SUCCESS',_res);success(_res);}else{console.log('FAILURE NULL RES');failure();}_context.next=20;break;case 16:_context.prev=16;_context.t0=_context['catch'](7);console.log('FAILURE EXCEPTION',_context.t0);failure(_context.t0);case 20:_context.next=25;break;case 22:_context.prev=22;_context.t1=_context['catch'](0);console.error('Error handling:'+_context.t1);case 25:case'end':return _context.stop();}}},null,_this,[[0,22],[7,16]]);});}return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class.prototype,'_state',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor2=_applyDecoratedDescriptor(_class.prototype,'currentScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor3=_applyDecoratedDescriptor(_class.prototype,'prevScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_applyDecoratedDescriptor(_class.prototype,'state',[_mobx.computed],Object.getOwnPropertyDescriptor(_class.prototype,'state'),_class.prototype),_descriptor4=_applyDecoratedDescriptor(_class.prototype,'setState',[_mobx.action],{enumerable:true,initializer:function initializer(){var _this2=this;return function(newState){if(!newState||_this2.currentState(newState).routeName===_this2.currentScene){return;}_this2._state=newState;_this2.prevScene=_this2.currentScene;_this2.currentScene=_this2.currentState(_this2._state).routeName;};}})),_class);exports.default=
+};var defaultSuccess=function defaultSuccess(){};var defaultFailure=function defaultFailure(){};(0,_mobx.autorunAsync)(function _callee(){var handler,res,_handler,success,failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.prev=0;if(_this.prevScene&&_this.currentScene!==_this.prevScene){handler=_this[_this.prevScene+_Util.OnExit];if(handler){try{res=handler();if(res instanceof Promise){res.then(defaultSuccess,defaultFailure);}}catch(e){console.error('Error during onExit handler:',e);}}}if(!(_this.currentScene&&_this.currentScene!==_this.prevScene&&_this.states[_this.currentScene])){_context.next=20;break;}_handler=_this[_this.currentScene+_Util.OnEnter];success=_this.states[_this.currentScene].success||defaultSuccess;failure=_this.states[_this.currentScene].failure||defaultFailure;if(!_handler){_context.next=20;break;}_context.prev=7;params=_this.currentState().params;console.log('RUN onEnter handler for state=',_this.currentScene,' params='+JSON.stringify(params));_context.next=12;return regeneratorRuntime.awrap(_handler(params));case 12:_res=_context.sent;if(_res){console.log('SUCCESS',_res);success(_res);}else{console.log('FAILURE NULL RES');failure();}_context.next=20;break;case 16:_context.prev=16;_context.t0=_context['catch'](7);console.log('FAILURE EXCEPTION',_context.t0);failure(_context.t0);case 20:_context.next=25;break;case 22:_context.prev=22;_context.t1=_context['catch'](0);console.error('Error handling:'+_context.t1);case 25:case'end':return _context.stop();}}},null,_this,[[0,22],[7,16]]);});}return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class.prototype,'currentScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor2=_applyDecoratedDescriptor(_class.prototype,'prevScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor3=_applyDecoratedDescriptor(_class.prototype,'currentParams',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor4=_applyDecoratedDescriptor(_class.prototype,'setState',[_mobx.action],{enumerable:true,initializer:function initializer(){var _this2=this;return function(newState){if(!newState){return;}_this2._state=newState;_this2.prevScene=_this2.currentScene;var state=_this2.currentState(_this2._state);_this2.currentScene=state.routeName;_this2.currentParams=state.params;};}})),_class);exports.default=
 
 
 

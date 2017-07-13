@@ -50,17 +50,17 @@ class Example extends Component {
   render() {
     return (
       <Router createReducer={reducerCreate}>
-        <Scene key="lightbox" lightbox>
+        <Scene key="lightbox" lightbox leftButtonTextStyle={{ color: 'green' }} backButtonTextStyle={{ color:'red' }} >
           <Scene key="modal" modal hideNavBar>
             <Scene key="drawer" drawer contentComponent={TabView} >
               <Scene key="root" hideNavBar hideTabBar>
                 <Scene key="echo" back clone component={EchoView} getTitle={({navigation}) => navigation.state.key}/>
                 <Scene key="register" back>
-                  <Scene key="_register" component={Register} title="Register"/>
-                  <Scene key="register2" component={Register} title="Register2"/>
-                  <Scene key="home" component={Home} title="Replace" type='replace'/>
+                  <Scene key="_register" component={Register} title="Register" />
+                  <Scene key="register2" component={Register} title="Register2" />
+                  <Scene key="home" component={Home} title="Replace" type='replace' />
                 </Scene>
-                <Scene key="launch" component={Launch} title="Launch" initial/>
+                <Scene key="launch" component={Launch} title="Launch" initial />
                 <Scene
                   key="tabbar"
                   gestureEnabled={false}
@@ -114,12 +114,13 @@ class Example extends Component {
                 </Scene>
               </Scene>
             </Scene>
-            <Scene key="login">
+            <Scene key="login" >
               <Scene key="loginModal" component={Login} title="Login" leftTitle="Cancel" onLeft={Actions.pop}/>
               <Scene
                 key="loginModal2"
                 component={Login2}
                 title="Login2"
+                backTitle="Back"
                 panHandlers={null}
                 duration={1}
               />
