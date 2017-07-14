@@ -6,10 +6,11 @@ import Scene from './Scene';
 import PropTypes from 'prop-types';
 import { OnEnter, OnExit, assert } from './Util';
 import { TabNavigator, DrawerNavigator, StackNavigator, addNavigationHelpers } from 'react-navigation';
-import { renderRightButton, renderLeftButton, renderBackButton } from './NavBar';
+import { LeftButton, RightButton, renderBackButton } from './NavBar';
 import LightboxNavigator from './LightboxNavigator';
 import _drawerImage from '../images/menu_burger.png';
-
+let RightNavBarButton;
+let LeftNavBarButton;
 const reservedKeys = [
   'children',
   'navigate',
@@ -104,16 +105,17 @@ function createNavigationOptions(params) {
     }
 
     if (rightButtonImage || rightTitle || params.renderRightButton || onRight || navigationParams.onRight
-      || navigationParams.rightTitle || navigationParams.rightButtonImage) {
-      res.headerRight = getValue(navigationParams.right || right || rightButton || params.renderRightButton,
-          { ...navigationParams, ...screenProps }) || renderRightButton({ ...params, ...navigationParams });
+      || navigationParams.rightTitle || navigationParams.rightButtonImage || rightButtonTextStyle) {
+      res.headerRight = getValue(navigationParams.right || navigationParams.rightButton || params.renderRightButton,
+          { ...navigationParams, ...screenProps }) || <RightNavBarButton {...params} {...navigationParams} />;
     }
 
     if (leftButtonImage || backButtonImage || backTitle || leftTitle || params.renderLeftButton || leftButtonTextStyle
       || backButtonTextStyle || onLeft || navigationParams.leftTitle || navigationParams.onLeft || navigationParams.leftButtonImage
       || navigationParams.backButtonImage || navigationParams.backTitle) {
-      res.headerLeft = getValue(navigationParams.left || left || leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
-        || renderLeftButton({ ...params, ...navigationParams }) || (init ? null : renderBackButton({ ...params, ...navigationParams, ...screenProps }));
+      res.headerLeft = getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
+        || <LeftNavBarButton {...params} {...navigationParams} />
+        || (init ? null : <LeftNavBarButton {...params} {...navigationParams} {...screenProps} />);
     }
 
     if (back) {
@@ -134,13 +136,13 @@ function createNavigationOptions(params) {
   };
 }
 
-function createWrapper(Component) {
+function createWrapper(Component, wrapBy) {
   if (!Component) {
     return null;
   }
-  return observer(({ navigation, ...props }) => {
-    return <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />
-  });
+  const wrapper = wrapBy || (props => props);
+  return wrapper(({ navigation, ...props }) =>
+    <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />);
 }
 
 
@@ -151,7 +153,7 @@ const App = observer(props => {
   );
 });
 
-function processScene(scene: Scene, inheritProps = {}, clones = []) {
+function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
   assert(scene.props, 'props should be defined');
   if (!scene.props.children) {
     return null;
@@ -213,14 +215,14 @@ function processScene(scene: Scene, inheritProps = {}, clones = []) {
     }
     // console.log(`KEY ${key} DRAWER ${drawer} TABS ${tabs} WRAP ${wrap}`, JSON.stringify(commonProps));
     const screen = {
-      screen: createWrapper(component) || processScene(child, commonProps, clones) || (lightbox && View),
+      screen: createWrapper(component, wrapBy) || processScene(child, commonProps, clones) || (lightbox && View),
       navigationOptions: createNavigationOptions({ ...commonProps, ...component, ...child.props, init, component }),
     };
 
     // wrap component inside own navbar for tabs/drawer parent controllers
     const wrapNavBar = drawer || tabs || wrap;
     if (component && wrapNavBar) {
-      res[key] = { screen: processScene({ key, props: { children: { key: `_${key}`, props: child.props } } }, commonProps, clones) };
+      res[key] = { screen: processScene({ key, props: { children: { key: `_${key}`, props: child.props } } }, commonProps, clones, wrapBy) };
     } else {
       res[key] = screen;
     }
@@ -258,19 +260,21 @@ function processScene(scene: Scene, inheritProps = {}, clones = []) {
   if (navigator) {
     return navigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
   }
-  return StackNavigator(res, { mode, initialRouteParams, initialRouteName,  ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
+  return StackNavigator(res, { mode, initialRouteParams, initialRouteName, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
 }
 
-const Router = ({ createReducer, ...props }) => {
+const Router = ({ createReducer, wrapBy = props => props, ...props }) => {
   const scene: Scene = props.children;
-  const AppNavigator = processScene(scene, props);
+  const AppNavigator = processScene(scene, props, [], wrapBy);
   navigationStore.router = AppNavigator.router;
   navigationStore.reducer = createReducer && createReducer(props);
-
+  RightNavBarButton = wrapBy(RightButton);
+  LeftNavBarButton = wrapBy(LeftButton);
   return <App navigator={AppNavigator} />;
 };
 Router.propTypes = {
   createReducer: PropTypes.func,
+  wrapBy: PropTypes.func,
   children: PropTypes.element,
 };
 

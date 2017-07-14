@@ -1,4 +1,4 @@
-import { observable, action, autorunAsync, computed, toJS } from 'mobx';
+import { observable, action, autorunAsync } from 'mobx';
 import { NavigationActions } from 'react-navigation';
 import * as ActionConst from './ActionConst';
 import { OnEnter, OnExit } from './Util';
@@ -66,8 +66,8 @@ class NavigationStore {
   @observable currentParams;
 
   get state() {
-    const scene = this.currentScene;
-    const params = this.currentParams;
+    const scene = this.currentScene;// eslint-disable-line no-unused-vars
+    const params = this.currentParams;// eslint-disable-line no-unused-vars
     return this._state;
   }
 
@@ -132,7 +132,6 @@ class NavigationStore {
 
   dispatch = (cmd, type) => {
     this.setState(this.nextState(this.state, cmd), type);
-
   };
 
   @action setState = (newState, type) => {
