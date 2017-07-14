@@ -5,8 +5,5 @@ dependencies:
   override:
     - npm install --dev
 test:
-  pre:
-    - mkdir -p $CIRCLE_TEST_REPORTS/eslint
-    - touch $CIRCLE_TEST_REPORTS/eslint/eslint.xml
   override:
-    - node node_modules/eslint/bin/eslint src/ test/ -o $CIRCLE_TEST_REPORTS/eslint/eslint.xml -f junit
+    - npm run eslint
