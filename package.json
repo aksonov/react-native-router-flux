@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "babel-jest": "20.0.3",
+    "babel-eslint": "^6.0.3",
     "babel-preset-react-native": "2.0.0",
     "babel-preset-react-native-stage-0": "^1.0.1",
     "eslint": "^2.8.0",
