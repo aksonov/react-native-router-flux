@@ -103,19 +103,29 @@ function createNavigationOptions(params) {
     if (tabBarIcon || icon) {
       res.tabBarIcon = tabBarIcon || icon;
     }
+    const componentData = {};
+    // copy all component static functions
+    if (component) {
+      for (const key of ['onRight', 'onLeft', 'rightButton', 'leftButton', 'leftTitle', 'rightTitle', 'rightButtonImage',
+        'leftButtonImage']) {
+        if (component[key]) {
+          componentData[key] = component[key];
+        }
+      }
+    }
 
     if (rightButtonImage || rightTitle || params.renderRightButton || onRight || navigationParams.onRight
       || navigationParams.rightTitle || navigationParams.rightButtonImage || rightButtonTextStyle) {
       res.headerRight = getValue(navigationParams.right || navigationParams.rightButton || params.renderRightButton,
-          { ...navigationParams, ...screenProps }) || <RightNavBarButton {...params} {...navigationParams} />;
+          { ...navigationParams, ...screenProps }) || <RightNavBarButton {...params} {...navigationParams} {...componentData} />;
     }
 
     if (leftButtonImage || backButtonImage || backTitle || leftTitle || params.renderLeftButton || leftButtonTextStyle
       || backButtonTextStyle || onLeft || navigationParams.leftTitle || navigationParams.onLeft || navigationParams.leftButtonImage
       || navigationParams.backButtonImage || navigationParams.backTitle) {
       res.headerLeft = getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
-        || <LeftNavBarButton {...params} {...navigationParams} />
-        || (init ? null : <LeftNavBarButton {...params} {...navigationParams} {...screenProps} />);
+        || <LeftNavBarButton {...params} {...navigationParams} {...componentData} />
+        || (init ? null : <LeftNavBarButton {...params} {...navigationParams} {...screenProps} {...componentData} />);
     }
 
     if (back) {

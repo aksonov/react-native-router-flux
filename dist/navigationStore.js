@@ -132,7 +132,6 @@ nextState=function(state,cmd){return _this.reducer?_this.reducer(state,cmd):_thi
 
 dispatch=function(cmd,type){
 _this.setState(_this.nextState(_this.state,cmd),type);
-
 };_initDefineProp(this,'setState',_descriptor4,this);this.
 
 
