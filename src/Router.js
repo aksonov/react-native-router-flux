@@ -124,8 +124,8 @@ function createNavigationOptions(params) {
       || backButtonTextStyle || onLeft || navigationParams.leftTitle || navigationParams.onLeft || navigationParams.leftButtonImage
       || navigationParams.backButtonImage || navigationParams.backTitle) {
       res.headerLeft = getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
-        || <LeftNavBarButton {...params} {...navigationParams} {...componentData} />
-        || (init ? null : <LeftNavBarButton {...params} {...navigationParams} {...screenProps} {...componentData} />);
+        || (onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage) && <LeftNavBarButton {...params} {...navigationParams} {...componentData} />)
+        || (init ? null : renderBackButton({ ...params, ...navigationParams, ...screenProps }));
     }
 
     if (back) {

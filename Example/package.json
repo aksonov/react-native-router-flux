@@ -13,7 +13,7 @@
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.0",
     "react-native-button": "^2.0.0",
-    "react-native-router-flux": "^4.0.0-beta.8",
+    "react-native-router-flux": "4.0.0-beta.10",
     "react-navigation": "^1.0.0-beta.11"
   },
   "devDependencies": {

@@ -20,6 +20,7 @@ export function renderBackButton(state) {
     state.leftButtonStyle,
   ];
   const buttonImage = state.backButtonImage || _backButtonImage;
+  const tintColor = state.tintColor || state.navBarButtonColor || state.headerTintColor;
   let onPress = state.onBack;
   if (onPress) {
     onPress = onPress.bind(null, state);
@@ -46,6 +47,7 @@ export function renderBackButton(state) {
           styles.backButtonImage,
           state.barButtonIconStyle,
           state.leftButtonIconStyle,
+          { tintColor }
         ]}
       />
       }
@@ -128,6 +130,7 @@ export const RightButton = (state) => {
   const textStyle = [styles.barRightButtonText, state.rightButtonTextStyle];
   const rightButtonStyle = [styles.defaultImageStyle, state.rightButtonIconStyle];
   const rightTitle = state.getRightTitle ? state.getRightTitle(state) : getValue(state.rightTitle, state);
+  const tintColor = state.tintColor || state.navBarButtonColor || state.headerTintColor;
 
   if (state.rightButton || state.right) {
     const Button = state.rightButton || state.right;
@@ -173,7 +176,7 @@ export const RightButton = (state) => {
         {!rightTitle && buttonImage && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
           {menuIcon || <Image
             source={buttonImage}
-            style={state.rightButtonIconStyle || styles.defaultImageStyle}
+            style={[state.rightButtonIconStyle || styles.defaultImageStyle, { tintColor }]}
           />
           }
         </View>

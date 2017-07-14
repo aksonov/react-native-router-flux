@@ -49,7 +49,7 @@ const reducerCreate = params => {
 class Example extends Component {
   render() {
     return (
-      <Router createReducer={reducerCreate}>
+      <Router createReducer={reducerCreate} tintColor='red'>
         <Scene key="lightbox" lightbox leftButtonTextStyle={{ color: 'green' }} backButtonTextStyle={{ color:'red' }} >
           <Scene key="modal" modal hideNavBar>
             <Scene key="drawer" drawer contentComponent={TabView} >

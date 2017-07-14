@@ -124,8 +124,8 @@ if(leftButtonImage||backButtonImage||backTitle||leftTitle||params.renderLeftButt
 backButtonTextStyle||onLeft||navigationParams.leftTitle||navigationParams.onLeft||navigationParams.leftButtonImage||
 navigationParams.backButtonImage||navigationParams.backTitle){
 res.headerLeft=getValue(navigationParams.left||navigationParams.leftButton||params.renderLeftButton,_extends({},params,navigationParams,screenProps))||
-_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:127}}))||(
-init?null:_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,screenProps,componentData,{__source:{fileName:_jsxFileName,lineNumber:128}})));
+onLeft&&(leftTitle||navigationParams.leftTitle||leftButtonImage)&&_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:127}}))||(
+init?null:(0,_NavBar.renderBackButton)(_extends({},params,navigationParams,screenProps)));
 }
 
 if(back){

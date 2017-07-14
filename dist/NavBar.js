@@ -20,6 +20,7 @@ styles.backButton,
 state.leftButtonStyle];
 
 var buttonImage=state.backButtonImage||_back_chevron2.default;
+var tintColor=state.tintColor||state.navBarButtonColor||state.headerTintColor;
 var onPress=state.onBack;
 if(onPress){
 onPress=onPress.bind(null,state);
@@ -28,7 +29,7 @@ onPress=_navigationStore2.default.pop;
 }
 
 var text=state.backTitle?
-_react2.default.createElement(_reactNative.Text,{style:textButtonStyle,__source:{fileName:_jsxFileName,lineNumber:31}},
+_react2.default.createElement(_reactNative.Text,{style:textButtonStyle,__source:{fileName:_jsxFileName,lineNumber:32}},
 state.backTitle):
 
 null;
@@ -37,15 +38,16 @@ return(
 _react2.default.createElement(_reactNative.TouchableOpacity,{
 testID:'backNavButton',
 style:{position:'absolute',top:0,left:0,height:50,width:70},
-onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:37}},
+onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:38}},
 
-_react2.default.createElement(_reactNative.View,{style:style,__source:{fileName:_jsxFileName,lineNumber:42}},
+_react2.default.createElement(_reactNative.View,{style:style,__source:{fileName:_jsxFileName,lineNumber:43}},
 buttonImage&&!state.hideBackImage&&_react2.default.createElement(_reactNative.Image,{
 source:buttonImage,
 style:[
 styles.backButtonImage,
 state.barButtonIconStyle,
-state.leftButtonIconStyle],__source:{fileName:_jsxFileName,lineNumber:43}}),
+state.leftButtonIconStyle,
+{tintColor:tintColor}],__source:{fileName:_jsxFileName,lineNumber:44}}),
 
 
 
@@ -73,7 +75,7 @@ state,{
 key:'leftNavBarBtn',
 testID:'leftNavButton',
 style:[].concat(style,leftButtonStyle),
-textStyle:textStyle,__source:{fileName:_jsxFileName,lineNumber:71}})));
+textStyle:textStyle,__source:{fileName:_jsxFileName,lineNumber:73}})));
 
 
 }
@@ -85,16 +87,16 @@ _react2.default.createElement(_reactNative.TouchableOpacity,{
 key:'leftNavBarBtn',
 testID:'leftNavButton',
 style:style,
-onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:84}},
+onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:86}},
 
-leftTitle&&_react2.default.createElement(_reactNative.Text,{style:textStyle,__source:{fileName:_jsxFileName,lineNumber:90}},
+leftTitle&&_react2.default.createElement(_reactNative.Text,{style:textStyle,__source:{fileName:_jsxFileName,lineNumber:92}},
 leftTitle),
 
 
-!leftTitle&&buttonImage&&_react2.default.createElement(_reactNative.View,{style:{flex:1,justifyContent:'center',alignItems:'flex-start'},__source:{fileName:_jsxFileName,lineNumber:94}},
+!leftTitle&&buttonImage&&_react2.default.createElement(_reactNative.View,{style:{flex:1,justifyContent:'center',alignItems:'flex-start'},__source:{fileName:_jsxFileName,lineNumber:96}},
 menuIcon||_react2.default.createElement(_reactNative.Image,{
 source:buttonImage,
-style:[state.leftButtonIconStyle||styles.defaultImageStyle,{tintColor:tintColor}],__source:{fileName:_jsxFileName,lineNumber:95}}))));
+style:[state.leftButtonIconStyle||styles.defaultImageStyle,{tintColor:tintColor}],__source:{fileName:_jsxFileName,lineNumber:97}}))));
 
 
 
@@ -128,6 +130,7 @@ var style=[styles.rightButton,state.rightButtonStyle];
 var textStyle=[styles.barRightButtonText,state.rightButtonTextStyle];
 var rightButtonStyle=[styles.defaultImageStyle,state.rightButtonIconStyle];
 var rightTitle=state.getRightTitle?state.getRightTitle(state):getValue(state.rightTitle,state);
+var tintColor=state.tintColor||state.navBarButtonColor||state.headerTintColor;
 
 if(state.rightButton||state.right){
 var Button=state.rightButton||state.right;
@@ -137,7 +140,7 @@ state,{
 key:'rightNavBarBtn',
 testID:'rightNavButton',
 style:style,
-textButtonStyle:textStyle,__source:{fileName:_jsxFileName,lineNumber:135}})));
+textButtonStyle:textStyle,__source:{fileName:_jsxFileName,lineNumber:138}})));
 
 
 }
@@ -151,7 +154,7 @@ if(!menuIcon){
 menuIcon=
 _react2.default.createElement(_reactNative.Image,{
 source:buttonImage,
-style:rightButtonStyle,__source:{fileName:_jsxFileName,lineNumber:152}});
+style:rightButtonStyle,__source:{fileName:_jsxFileName,lineNumber:155}});
 
 
 }
@@ -164,16 +167,16 @@ _react2.default.createElement(_reactNative.TouchableOpacity,{
 key:'rightNavBarBtn',
 testID:'rightNavButton',
 style:style,
-onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:163}},
+onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:166}},
 
-rightTitle&&_react2.default.createElement(_reactNative.Text,{style:textStyle,__source:{fileName:_jsxFileName,lineNumber:169}},
+rightTitle&&_react2.default.createElement(_reactNative.Text,{style:textStyle,__source:{fileName:_jsxFileName,lineNumber:172}},
 rightTitle),
 
 
-!rightTitle&&buttonImage&&_react2.default.createElement(_reactNative.View,{style:{flex:1,justifyContent:'center',alignItems:'flex-end'},__source:{fileName:_jsxFileName,lineNumber:173}},
+!rightTitle&&buttonImage&&_react2.default.createElement(_reactNative.View,{style:{flex:1,justifyContent:'center',alignItems:'flex-end'},__source:{fileName:_jsxFileName,lineNumber:176}},
 menuIcon||_react2.default.createElement(_reactNative.Image,{
 source:buttonImage,
-style:state.rightButtonIconStyle||styles.defaultImageStyle,__source:{fileName:_jsxFileName,lineNumber:174}}))));
+style:[state.rightButtonIconStyle||styles.defaultImageStyle,{tintColor:tintColor}],__source:{fileName:_jsxFileName,lineNumber:177}}))));
 
 
 
