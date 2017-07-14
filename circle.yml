@@ -4,3 +4,7 @@ machine:
 dependencies:
   override:
     - npm install --dev
+test:
+  override:
+    - npm run eslint
+    - npm test

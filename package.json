@@ -1,16 +1,18 @@
 {
   "name": "react-native-router-flux",
-  "version": "4.0.0-beta.8",
+  "version": "4.0.0-beta.9",
   "description": "React Native Router using Flux architecture",
   "repository": {
     "type": "git",
     "url": "https://github.com/aksonov/react-native-router-flux"
   },
+  "license": "ISC",
   "main": "dist/index.js",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "postinstall": "./node_modules/.bin/opencollective postinstall",
     "build": "babel src -d dist --presets react-native-stage-0/decorator-support",
+    "eslint": "./node_modules/.bin/eslint src/ __tests__/",
     "test": "jest"
   },
   "dependencies": {
@@ -19,15 +21,20 @@
     "opencollective": "^1.0.3",
     "prop-types": "^15.5.10",
     "react-native-button": "^2.0.0",
-    "react-native-router-flux": "4.0.0-beta.7",
     "react-navigation": "^1.0.0-beta.11"
   },
   "devDependencies": {
     "babel-jest": "20.0.3",
+    "babel-eslint": "^6.0.3",
     "babel-preset-react-native": "2.0.0",
     "babel-preset-react-native-stage-0": "^1.0.1",
-    "eslint": "^3.2.0",
+    "eslint": "^2.8.0",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.5.0",
     "eslint-plugin-jest": "^20.0.3",
+    "eslint-plugin-jsx-a11y": "^1.0.2",
+    "eslint-plugin-react": "^5.0.1",
+    "estraverse-fb": "^1.3.2",
     "jest": "20.0.4",
     "prettier-eslint": "^6.4.2",
     "prettier-eslint-cli": "^4.1.1",

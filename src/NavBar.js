@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import Actions from './navigationStore';
 import _backButtonImage from '../images/back_chevron.png';
-
 export function renderBackButton(state) {
   const textButtonStyle = [
     styles.barBackButtonText,
@@ -56,20 +55,18 @@ export function renderBackButton(state) {
   );
 }
 
-export function renderLeftButton(state, wrapBy) {
+export const LeftButton = (state) => {
   let onPress = state.onLeft;
-  const buttonImage = state.leftButtonImage;
+  const buttonImage = getValue(state.leftButtonImage, state);
   const menuIcon = state.drawerIcon;
   const style = [styles.leftButton, state.leftButtonStyle];
   const textStyle = [styles.barLeftButtonText, state.leftButtonTextStyle];
   const leftButtonStyle = [styles.defaultImageStyle, state.leftButtonIconStyle];
-  const leftTitle = state.getLeftTitle ? state.getLeftTitle(state) : state.leftTitle;
+  const leftTitle = state.getLeftTitle ? state.getLeftTitle(state) : getValue(state.leftTitle, state);
+  const tintColor = state.tintColor || state.navBarButtonColor || state.headerTintColor;
 
   if (state.leftButton) {
-    let Button = state.leftButton;
-    if (wrapBy) {
-      Button = wrapBy(Button);
-    }
+    const Button = state.leftButton || state.left;
     return (
       <Button
         {...state}
@@ -97,7 +94,7 @@ export function renderLeftButton(state, wrapBy) {
         {!leftTitle && buttonImage && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
           {menuIcon || <Image
             source={buttonImage}
-            style={state.leftButtonIconStyle || styles.defaultImageStyle}
+            style={[state.leftButtonIconStyle || styles.defaultImageStyle, { tintColor }]}
           />
           }
         </View>
@@ -112,28 +109,28 @@ export function renderLeftButton(state, wrapBy) {
     );
   }
   return null;
+};
+
+function getValue(value, params) {
+  return value instanceof Function ? value(params) : value;
 }
 
-
-export function renderRightButton(state, wrapBy) {
+export const RightButton = (state) => {
   const drawer = null;
   if (!state) {
     return null;
   }
 
   let onPress = state.onRight;
-  let buttonImage = state.rightButtonImage;
+  let buttonImage = getValue(state.rightButtonImage, state);
   let menuIcon = state.drawerIcon;
   const style = [styles.rightButton, state.rightButtonStyle];
   const textStyle = [styles.barRightButtonText, state.rightButtonTextStyle];
   const rightButtonStyle = [styles.defaultImageStyle, state.rightButtonIconStyle];
-  const rightTitle = state.getRightTitle ? state.getRightTitle(state) : state.rightTitle;
+  const rightTitle = state.getRightTitle ? state.getRightTitle(state) : getValue(state.rightTitle, state);
 
-  if (state.rightButton) {
-    let Button = state.rightButton;
-    if (wrapBy) {
-      Button = wrapBy(Button);
-    }
+  if (state.rightButton || state.right) {
+    const Button = state.rightButton || state.right;
     return (
       <Button
         {...state}
@@ -173,7 +170,7 @@ export function renderRightButton(state, wrapBy) {
           {rightTitle}
         </Text>
         }
-        {buttonImage && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
+        {!rightTitle && buttonImage && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
           {menuIcon || <Image
             source={buttonImage}
             style={state.rightButtonIconStyle || styles.defaultImageStyle}
@@ -192,9 +189,7 @@ export function renderRightButton(state, wrapBy) {
     );
   }
   return null;
-}
-
-
+};
 const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
