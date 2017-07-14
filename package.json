@@ -29,6 +29,7 @@
     "babel-preset-react-native-stage-0": "^1.0.1",
     "eslint": "^3.2.0",
     "eslint-plugin-jest": "^20.0.3",
+    "eslint-plugin-react": "^3.16.1",
     "jest": "20.0.4",
     "prettier-eslint": "^6.4.2",
     "prettier-eslint-cli": "^4.1.1",

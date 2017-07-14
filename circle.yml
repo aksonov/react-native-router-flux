@@ -7,3 +7,4 @@ dependencies:
 test:
   override:
     - npm run eslint
+    - npm test
