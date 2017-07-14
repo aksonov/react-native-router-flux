@@ -11,8 +11,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "postinstall": "./node_modules/.bin/opencollective postinstall",
     "build": "babel src -d dist --presets react-native-stage-0/decorator-support",
-    "test": "jest",
-    "eslint": "./node_modules/.bin/eslint src/ __tests__/"
+    "eslint": "./node_modules/.bin/eslint src/ __tests__/",
+    "test": "jest"
   },
   "dependencies": {
     "mobx": "^3.1.16",
@@ -20,20 +20,18 @@
     "opencollective": "^1.0.3",
     "prop-types": "^15.5.10",
     "react-native-button": "^2.0.0",
-    "react-native-router-flux": "4.0.0-beta.7",
     "react-navigation": "^1.0.0-beta.11"
   },
   "devDependencies": {
-    "babel-eslint": "^3.1.30",
     "babel-jest": "20.0.3",
     "babel-preset-react-native": "2.0.0",
     "babel-preset-react-native-stage-0": "^1.0.1",
-    "eslint": "^3.2.0",
-    "eslint-config-airbnb": "^15.0.2",
-    "eslint-plugin-import": "^2.7.0",
+    "eslint": "^2.8.0",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.5.0",
+    "eslint-plugin-jsx-a11y": "^1.0.2",
+    "eslint-plugin-react": "^5.0.1",
     "eslint-plugin-jest": "^20.0.3",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^3.16.1",
     "jest": "20.0.4",
     "prettier-eslint": "^6.4.2",
     "prettier-eslint-cli": "^4.1.1",
