@@ -177,7 +177,7 @@ delete commonProps.children;
 delete commonProps.component;
 
 for(var _iterator=Object.keys(commonProps),_isArray=Array.isArray(_iterator),_i2=0,_iterator=_isArray?_iterator:_iterator[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref4;if(_isArray){if(_i2>=_iterator.length)break;_ref4=_iterator[_i2++];}else{_i2=_iterator.next();if(_i2.done)break;_ref4=_i2.value;}var pkey=_ref4;
-if(dontInheritKeys.indexOf(pkey)!==-1&&!parentProps[pkey]){
+if(dontInheritKeys.includes(pkey)&&!parentProps[pkey]){
 delete commonProps[pkey];
 }
 }

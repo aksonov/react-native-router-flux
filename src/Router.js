@@ -177,7 +177,7 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
   delete commonProps.component;
   // add inherit props
   for (const pkey of Object.keys(commonProps)) {
-    if (dontInheritKeys.indexOf(pkey) !== -1 && !parentProps[pkey]) {
+    if (dontInheritKeys.includes(pkey) && !parentProps[pkey]) {
       delete commonProps[pkey];
     }
   }
