@@ -253,7 +253,7 @@ function processScene(scene: Scene, inheritProps = {}, clones = []) {
     return TabNavigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps,
       tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });
   } else if (drawer) {
-    return DrawerNavigator(res, { initialRouteName, contentComponent, order, backBehavior: 'none', ...commonProps });
+    return DrawerNavigator(res, { initialRouteName, contentComponent, order, ...commonProps });
   }
   if (navigator) {
     return navigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });

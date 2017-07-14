@@ -64,6 +64,7 @@ export function renderLeftButton(state, wrapBy) {
   const textStyle = [styles.barLeftButtonText, state.leftButtonTextStyle];
   const leftButtonStyle = [styles.defaultImageStyle, state.leftButtonIconStyle];
   const leftTitle = state.getLeftTitle ? state.getLeftTitle(state) : state.leftTitle;
+  const tintColor = state.tintColor || state.navBarButtonColor || state.headerTintColor;
 
   if (state.leftButton) {
     let Button = state.leftButton;
@@ -97,7 +98,7 @@ export function renderLeftButton(state, wrapBy) {
         {!leftTitle && buttonImage && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
           {menuIcon || <Image
             source={buttonImage}
-            style={state.leftButtonIconStyle || styles.defaultImageStyle}
+            style={[state.leftButtonIconStyle || styles.defaultImageStyle, { tintColor }]}
           />
           }
         </View>
