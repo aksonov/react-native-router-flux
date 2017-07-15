@@ -1,13 +1,21 @@
-# Migrating from 2.x
+# Migrating from 3.x
 
-## Breaking changes comparing with 2.x version:
-- React Native 0.26 is required
-- `Router` is root container now and should not be nested. For nested scenes you should use `Scene` element
-- `Route` became `Scene`, now unique `key` attribute is required for each scene (it was `name` attribute before)
-- Define all your scenes on top-level, not within `Router` as before (see Example)
-- No `Schema` element is supported for now (for simplicity), maybe later it could be added
-- No ActionSheet support
-- Custom scene renderers are used instead of 'custom' types (like 'modal'), so 'modal' scenes are pushed as usual, but custom renderer will render them as popup. No `dismiss`, just usual `pop` to close such popups.
-- No old navigator.sceneConfig support (instead the component uses React Native NavigationAnimatedView for better transitions)
-- No onPush/onPop/etc handlers because they are not needed now. If navigation state is changed, container will be re-rendered with changed navigationState property, see `Modal` as Example.
-- No header/footer properties are supported for Scene currently - you may include them into Scene component.
+## Breaking changes (compared to v3):
+* `Actions.create` (alternative syntax to define scenes) is not available (for simplicity) - just use `<Router>` as top component for your App. You may wrap it with Redux as well.
+* No `duration`/`panHandlers` support - you have to implement custom navigator now instead and pass it as ‘navigator’ prop
+https://reactnavigation.org/docs/navigators/custom. You could still pass `panHandlers={null}` to disable gestures or `gesturedEnabled={false}`
+* No `component` support for scene containers (that contains children `Scene`) - you have to use custom navigator
+* No support for partial hiding of tab bar for some tabs because of react navigation bug (react navigation issue):
+https://github.com/react-community/react-navigation/issues/1584
+* No possibility to skip animation during reset/replace (react navigation issue):
+https://github.com/react-community/react-navigation/issues/1493
+* `Switch` is removed - you may use onEnter/onExit handlers for more flexible logic.
+* `getSceneStyle` is removed (no needed in v4, you may pass any values to Router now and they will be inherited by all scenes).
+* Custom reducer is supported (`createReducer` prop for Router) but Redux actions now are passed directly from React Navigation (‘Navigation/BACK’, ‘Navigation/NAVIGATE’, etc.)
+* Drawer is 'drawer' attribute Scene
+* Modal is 'lightbox' attribute for Scene (used for popups, like Error)
+* Container scenes (that has children) cannot have `component` (or it will be considered as child!). If you want to customize containers, use react navigation custom navigators and pass it as `navigator` prop.
+* No `position` attribute is supported for custom transitions. For vertical transition add `modal` to parent `Scene`.
+* No flux 'focus' actions - use onEnter/onExit handlers instead.
+* tabBarSelectedItemStyle is not supported. Instead please use React Navigation TabBar params for tabs Scene: `activeTintColor`, `inactiveTintColor`, etc (https://reactnavigation.org/docs/navigators/tab)
+* Possible other stuff.
