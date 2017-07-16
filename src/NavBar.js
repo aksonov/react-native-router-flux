@@ -47,7 +47,7 @@ export function renderBackButton(state) {
           styles.backButtonImage,
           state.barButtonIconStyle,
           state.leftButtonIconStyle,
-          { tintColor }
+          { tintColor },
         ]}
       />
       }

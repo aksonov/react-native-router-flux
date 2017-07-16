@@ -1,13 +1,13 @@
 ## Documentation (v3)
 
-- [Mini-Tutorial](docs/MINI_TUTORIAL.md)
-- [API and Configuration](docs/API_CONFIGURATION.md)
+- [Mini-Tutorial](https://github.com/aksonov/react-native-router-flux/blob/v3/docs/MINI_TUTORIAL.md)
+- [API and Configuration](https://github.com/aksonov/react-native-router-flux/blob/v3/docs/API_CONFIGURATION.md)
   - Available Imports
   - Router API
   - Scene API
-- [Detailed Example](docs/DETAILED_EXAMPLE.md)
-- [Reactive/Redux/Flux](docs/REDUX_FLUX.md)
-- [Other Info](docs/OTHER_INFO.md)
+- [Detailed Example](https://github.com/aksonov/react-native-router-flux/blob/v3/docs/DETAILED_EXAMPLE.md)
+- [Reactive/Redux/Flux](https://github.com/aksonov/react-native-router-flux/blob/v3/docs/REDUX_FLUX.md)
+- [Other Info](https://github.com/aksonov/react-native-router-flux/blob/v3/docs/OTHER_INFO.md)
   - Modals
   - Tabbar
   - Custom navbar
@@ -15,8 +15,8 @@
   - Splitting Scenes
   - Drawer (side-menu)
   - Sub-Scenes
-- [Changelog](docs/CHANGELOG.md)
-- [Migrating from 2.x](docs/MIGRATION.md)
+- [Changelog](https://github.com/aksonov/react-native-router-flux/blob/v3/docs/CHANGELOG.md)
+- [Migrating from 2.x](https://github.com/aksonov/react-native-router-flux/blob/v3/docs/MIGRATION.md)
 
 ## Features
 
@@ -40,13 +40,13 @@
 
 - **Bring Your Own Reducer** for navigation state.
 
-- **Reset History Stack** - The new [`reset`](docs/API_CONFIGURATION.md#scene)type for clearing the history stack and eliminating the navbar back button.
+- **Reset History Stack** - The new [`reset`](https://github.com/aksonov/react-native-router-flux/blob/v3/docs/API_CONFIGURATION.md#scene)type for clearing the history stack and eliminating the navbar back button.
 
 - **More Powerful State Control** - Support for having different states while on the same screen. For example, "View My Account" could allow in-place editing of fields and "Save", "Cancel" navigation bar buttons should appear.
 
 ## Getting Started
 
-Check out the [mini-tutorial](docs/MINI_TUTORIAL.md) for a quick walkthrough of the routing system.
+Check out the [mini-tutorial](https://github.com/aksonov/react-native-router-flux/blob/v3/docs/MINI_TUTORIAL.md) for a quick walkthrough of the routing system.
 
 ## Supported configurations
 
