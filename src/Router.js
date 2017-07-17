@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react/native';
-import { View, Image } from 'react-native';
+import { View, Image, BackHandler } from 'react-native';
 import navigationStore from './navigationStore';
 import Scene from './Scene';
 import PropTypes from 'prop-types';
@@ -155,9 +155,21 @@ function createWrapper(Component, wrapBy) {
     <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />);
 }
 
+function onBackPress () {
+  if (navigationStore.state.index === 0) {
+    return false;
+  }
+  alert(JSON.stringify(navigationStore.state))
+  navigationStore.pop();
+  return true;
+}
 
 const App = observer(props => {
   const AppNavigator = props.navigator;
+  BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+
+  //BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+
   return (
     <AppNavigator navigation={addNavigationHelpers({ dispatch: navigationStore.dispatch, state: navigationStore.state })} />
   );
@@ -289,4 +301,3 @@ Router.propTypes = {
 };
 
 export default Router;
-
