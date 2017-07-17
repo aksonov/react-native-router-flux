@@ -47,7 +47,7 @@ export function renderBackButton(state) {
           styles.backButtonImage,
           state.barButtonIconStyle,
           state.leftButtonIconStyle,
-          { tintColor }
+          { tintColor },
         ]}
       />
       }
@@ -324,7 +324,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       android: {
         marginTop: 5,
-      }
+      },
     }),
     width: 13,
     height: 21,

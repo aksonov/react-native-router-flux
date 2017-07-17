@@ -1,4 +1,4 @@
-Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _jsxFileName='src/Router.js',_class;var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _react=require('react');var _react2=_interopRequireDefault(_react);
+Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _jsxFileName='src/Router.js',_class,_class2,_temp2;var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _react=require('react');var _react2=_interopRequireDefault(_react);
 var _native=require('mobx-react/native');
 var _reactNative=require('react-native');
 var _navigationStore=require('./navigationStore');var _navigationStore2=_interopRequireDefault(_navigationStore);
@@ -156,7 +156,11 @@ _react2.default.createElement(Component,_extends({},props,{navigation:navigation
 }var
 
 
-App=(0,_native.observer)(_class=function(_Component){_inherits(App,_Component);function App(){var _ref4;var _temp,_this,_ret;_classCallCheck(this,App);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=_possibleConstructorReturn(this,(_ref4=App.__proto__||Object.getPrototypeOf(App)).call.apply(_ref4,[this].concat(args))),_this),_this.
+App=(0,_native.observer)(_class=(_temp2=_class2=function(_React$Component){_inherits(App,_React$Component);function App(){var _ref4;var _temp,_this,_ret;_classCallCheck(this,App);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=_possibleConstructorReturn(this,(_ref4=App.__proto__||Object.getPrototypeOf(App)).call.apply(_ref4,[this].concat(args))),_this),_this.
+
+
+
+
 
 
 
@@ -178,9 +182,9 @@ return true;
 {
 var AppNavigator=this.props.navigator;
 return(
-_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:181}}));
+_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:185}}));
 
-}}]);return App;}(_react.Component))||_class;
+}}]);return App;}(_react2.default.Component),_class2.propTypes={navigator:_react2.default.PropTypes.func},_temp2))||_class;
 
 
 function processScene(scene){var inheritProps=arguments.length>1&&arguments[1]!==undefined?arguments[1]:{};var clones=arguments.length>2&&arguments[2]!==undefined?arguments[2]:[];var wrapBy=arguments[3];
@@ -300,7 +304,7 @@ _navigationStore2.default.router=AppNavigator.router;
 _navigationStore2.default.reducer=createReducer&&createReducer(props);
 RightNavBarButton=wrapBy(_NavBar.RightButton);
 LeftNavBarButton=wrapBy(_NavBar.LeftButton);
-return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:303}});
+return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:307}});
 };
 Router.propTypes={
 createReducer:_propTypes2.default.func,

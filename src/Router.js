@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react/native';
 import { View, Image, BackHandler } from 'react-native';
 import navigationStore from './navigationStore';
@@ -156,12 +156,16 @@ function createWrapper(Component, wrapBy) {
 }
 
 @observer
-class App extends Component {
-  componentDidMount () {
+class App extends React.Component {
+  static propTypes = {
+    navigator: React.PropTypes.func,
+  }
+
+  componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
   }
 
@@ -175,7 +179,7 @@ class App extends Component {
     return true;
   }
 
-  render () {
+  render() {
     const AppNavigator = this.props.navigator;
     return (
       <AppNavigator navigation={addNavigationHelpers({ dispatch: navigationStore.dispatch, state: navigationStore.state })} />
