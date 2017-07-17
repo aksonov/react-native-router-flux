@@ -72,20 +72,21 @@ return component.navigationOptions;
 }
 return function(_ref2){var navigation=_ref2.navigation,screenProps=_ref2.screenProps;
 var navigationParams=navigation.state.params||{};
+var state=_extends({navigation:navigation},params,navigationParams,screenProps);
 var res=_extends({},
 props,{
-headerTintColor:navBarButtonColor,
+headerTintColor:navBarButtonColor||props.tintColor||navigationParams.tintColor||navigationParams.headerTintColor,
 headerTitleStyle:headerTitleStyle||titleStyle,
-title:getValue(navigationParams.title||title||getTitle,_extends({navigation:navigation},params,navigationParams,screenProps)),
-headerBackTitle:getValue(navigationParams.backTitle||backTitle,_extends({navigation:navigation},params,navigationParams,screenProps)),
-headerRight:getValue(navigationParams.right||right||rightButton||params.renderRightButton,_extends({navigation:navigation},navigationParams,screenProps)),
-headerLeft:getValue(navigationParams.left||left||leftButton||params.renderLeftButton,_extends({navigation:navigation},params,navigationParams,screenProps)),
-headerTitle:getValue(navigationParams.renderTitle||renderTitle||params.renderTitle,_extends({navigation:navigation},params,navigationParams,screenProps)),
-headerStyle:getValue(navigationParams.headerStyle||headerStyle||navigationBarStyle,_extends({navigation:navigation},params,navigationParams,screenProps)),
+title:getValue(navigationParams.title||title||getTitle,state),
+headerBackTitle:getValue(navigationParams.backTitle||backTitle,state),
+headerRight:getValue(navigationParams.right||right||rightButton||params.renderRightButton,state),
+headerLeft:getValue(navigationParams.left||left||leftButton||params.renderLeftButton,state),
+headerTitle:getValue(navigationParams.renderTitle||renderTitle||params.renderTitle,state),
+headerStyle:getValue(navigationParams.headerStyle||headerStyle||navigationBarStyle,state),
 headerBackImage:navigationParams.backButtonImage||backButtonImage});
 
 if(NavBar){
-res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},data,params,{__source:{fileName:_jsxFileName,lineNumber:88}}));};
+res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},data,params,{__source:{fileName:_jsxFileName,lineNumber:89}}));};
 }
 
 if(panHandlers===null){
@@ -93,7 +94,7 @@ res.gesturesEnabled=false;
 }
 
 if(navigationBarTitleImage){
-res.headerTitle=_react2.default.createElement(_reactNative.Image,{source:navigationBarTitleImage,style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:96}});
+res.headerTitle=_react2.default.createElement(_reactNative.Image,{source:navigationBarTitleImage,style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:97}});
 }
 
 if(tabBarLabel){
@@ -107,7 +108,8 @@ var componentData={};
 
 if(component){var _arr=
 ['onRight','onLeft','rightButton','leftButton','leftTitle','rightTitle','rightButtonImage',
-'leftButtonImage'];for(var _i=0;_i<_arr.length;_i++){var key=_arr[_i];
+'leftButtonImage','rightButtonTextStyle','leftButtonTextStyle','rightButtonIconStyle','leftButtonIconStyle',
+'leftButtonTintColor','rightButtonTintColor'];for(var _i=0;_i<_arr.length;_i++){var key=_arr[_i];
 if(component[key]){
 componentData[key]=component[key];
 }
@@ -117,14 +119,14 @@ componentData[key]=component[key];
 if(rightButtonImage||rightTitle||params.renderRightButton||onRight||navigationParams.onRight||
 navigationParams.rightTitle||navigationParams.rightButtonImage||rightButtonTextStyle){
 res.headerRight=getValue(navigationParams.right||navigationParams.rightButton||params.renderRightButton,_extends({},
-navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:120}}));
+navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:122}}));
 }
 
 if(leftButtonImage||backButtonImage||backTitle||leftTitle||params.renderLeftButton||leftButtonTextStyle||
 backButtonTextStyle||onLeft||navigationParams.leftTitle||navigationParams.onLeft||navigationParams.leftButtonImage||
 navigationParams.backButtonImage||navigationParams.backTitle){
 res.headerLeft=getValue(navigationParams.left||navigationParams.leftButton||params.renderLeftButton,_extends({},params,navigationParams,screenProps))||
-onLeft&&(leftTitle||navigationParams.leftTitle||leftButtonImage)&&_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:127}}))||(
+onLeft&&(leftTitle||navigationParams.leftTitle||leftButtonImage)&&_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:129}}))||(
 init?null:(0,_NavBar.renderBackButton)(_extends({},params,navigationParams,screenProps)));
 }
 
@@ -152,7 +154,7 @@ return null;
 }
 var wrapper=wrapBy||function(props){return props;};
 return wrapper(function(_ref3){var navigation=_ref3.navigation,props=_objectWithoutProperties(_ref3,['navigation']);return(
-_react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:155}})));});
+_react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:157}})));});
 }var
 
 
@@ -182,7 +184,7 @@ return true;
 {
 var AppNavigator=this.props.navigator;
 return(
-_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:185}}));
+_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:187}}));
 
 }}]);return App;}(_react2.default.Component),_class2.propTypes={navigator:_react2.default.PropTypes.func},_temp2))||_class;
 
@@ -304,7 +306,7 @@ _navigationStore2.default.router=AppNavigator.router;
 _navigationStore2.default.reducer=createReducer&&createReducer(props);
 RightNavBarButton=wrapBy(_NavBar.RightButton);
 LeftNavBarButton=wrapBy(_NavBar.LeftButton);
-return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:307}});
+return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:309}});
 };
 Router.propTypes={
 createReducer:_propTypes2.default.func,

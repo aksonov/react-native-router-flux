@@ -72,16 +72,17 @@ function createNavigationOptions(params) {
   }
   return ({ navigation, screenProps }) => {
     const navigationParams = navigation.state.params || {};
+    const state = { navigation, ...params, ...navigationParams, ...screenProps };
     const res = {
       ...props,
       headerTintColor: navBarButtonColor || props.tintColor || navigationParams.tintColor || navigationParams.headerTintColor,
       headerTitleStyle: headerTitleStyle || titleStyle,
-      title: getValue((navigationParams.title) || title || getTitle, { navigation, ...params, ...navigationParams, ...screenProps }),
-      headerBackTitle: getValue((navigationParams.backTitle) || backTitle, { navigation, ...params, ...navigationParams, ...screenProps }),
-      headerRight: getValue((navigationParams.right) || right || rightButton || params.renderRightButton, { navigation, ...navigationParams, ...screenProps }),
-      headerLeft: getValue((navigationParams.left) || left || leftButton || params.renderLeftButton, { navigation, ...params, ...navigationParams, ...screenProps }),
-      headerTitle: getValue((navigationParams.renderTitle) || renderTitle || params.renderTitle, { navigation, ...params, ...navigationParams, ...screenProps }),
-      headerStyle: getValue((navigationParams.headerStyle || headerStyle || navigationBarStyle), { navigation, ...params, ...navigationParams, ...screenProps }),
+      title: getValue((navigationParams.title) || title || getTitle, state),
+      headerBackTitle: getValue((navigationParams.backTitle) || backTitle, state),
+      headerRight: getValue((navigationParams.right) || right || rightButton || params.renderRightButton, state),
+      headerLeft: getValue((navigationParams.left) || left || leftButton || params.renderLeftButton, state),
+      headerTitle: getValue((navigationParams.renderTitle) || renderTitle || params.renderTitle, state),
+      headerStyle: getValue((navigationParams.headerStyle || headerStyle || navigationBarStyle), state),
       headerBackImage: navigationParams.backButtonImage || backButtonImage,
     };
     if (NavBar) {
@@ -107,7 +108,8 @@ function createNavigationOptions(params) {
     // copy all component static functions
     if (component) {
       for (const key of ['onRight', 'onLeft', 'rightButton', 'leftButton', 'leftTitle', 'rightTitle', 'rightButtonImage',
-        'leftButtonImage']) {
+        'leftButtonImage', 'rightButtonTextStyle', 'leftButtonTextStyle', 'rightButtonIconStyle', 'leftButtonIconStyle',
+        'leftButtonTintColor', 'rightButtonTintColor']) {
         if (component[key]) {
           componentData[key] = component[key];
         }

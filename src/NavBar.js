@@ -20,7 +20,7 @@ export function renderBackButton(state) {
     state.leftButtonStyle,
   ];
   const buttonImage = state.backButtonImage || _backButtonImage;
-  const tintColor = state.tintColor || state.navBarButtonColor || state.headerTintColor;
+  const tintColor = getValue(state.backButtonTintColor, state) || state.tintColor || state.navBarButtonColor || state.headerTintColor;
   let onPress = state.onBack;
   if (onPress) {
     onPress = onPress.bind(null, state);
@@ -62,10 +62,13 @@ export const LeftButton = (state) => {
   const buttonImage = getValue(state.leftButtonImage, state);
   const menuIcon = state.drawerIcon;
   const style = [styles.leftButton, state.leftButtonStyle];
-  const textStyle = [styles.barLeftButtonText, state.leftButtonTextStyle];
-  const leftButtonStyle = [styles.defaultImageStyle, state.leftButtonIconStyle];
+  const leftButtonTextStyle = getValue(state.leftButtonTextStyle, state);
+  const leftButtonIconStyle = getValue(state.leftButtonIconStyle, state);
+  const leftButtonStyle = [styles.defaultImageStyle, leftButtonIconStyle];
   const leftTitle = state.getLeftTitle ? state.getLeftTitle(state) : getValue(state.leftTitle, state);
-  const tintColor = state.tintColor || state.navBarButtonColor || state.headerTintColor;
+  const textColor = getValue(state.leftButtonTintColor, state);
+  const tintColor = textColor || state.tintColor || state.navBarButtonColor || state.headerTintColor;
+  const textStyle = [{ color: tintColor }, styles.barLeftButtonText, leftButtonTextStyle, textColor && { color: textColor }];
 
   if (state.leftButton) {
     const Button = state.leftButton || state.left;
@@ -127,10 +130,13 @@ export const RightButton = (state) => {
   let buttonImage = getValue(state.rightButtonImage, state);
   let menuIcon = state.drawerIcon;
   const style = [styles.rightButton, state.rightButtonStyle];
-  const textStyle = [styles.barRightButtonText, state.rightButtonTextStyle];
-  const rightButtonStyle = [styles.defaultImageStyle, state.rightButtonIconStyle];
+  const rightButtonTextStyle = getValue(state.rightButtonTextStyle, state);
+  const rightButtonIconStyle = getValue(state.rightButtonIconStyle, state);
+  const rightButtonStyle = [styles.defaultImageStyle, rightButtonIconStyle];
   const rightTitle = state.getRightTitle ? state.getRightTitle(state) : getValue(state.rightTitle, state);
-  const tintColor = state.tintColor || state.navBarButtonColor || state.headerTintColor;
+  const textColor = getValue(state.rightButtonTintColor, state);
+  const tintColor = textColor || state.tintColor || state.navBarButtonColor || state.headerTintColor;
+  const textStyle = [{ color: tintColor }, styles.barRightButtonText, rightButtonTextStyle, textColor && { color: textColor }];
 
   if (state.rightButton || state.right) {
     const Button = state.rightButton || state.right;
