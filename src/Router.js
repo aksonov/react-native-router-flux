@@ -155,20 +155,28 @@ function createWrapper(Component, wrapBy) {
     <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />);
 }
 
-function onBackPress () {
-  if (navigationStore.state.index === 0) {
-    return false;
-  }
-  alert(JSON.stringify(navigationStore.state))
+/* Previous
+const App = observer(props => {
+  const AppNavigator = props.navigator;
+  return (
+    <AppNavigator navigation={addNavigationHelpers({ dispatch: navigationStore.dispatch, state: navigationStore.state })} />
+  );
+});
+*/ // Now:
+
+const onBackPress = () => {
   navigationStore.pop();
-  return true;
+  if (navigationStore.currentScene === navigationStore.prevScene) {
+    BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    return false;
+  } else {
+    return true;
+  }
 }
 
 const App = observer(props => {
   const AppNavigator = props.navigator;
-  BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
-
-  //BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+  BackHandler.addEventListener('hardwareBackPress', onBackPress);
 
   return (
     <AppNavigator navigation={addNavigationHelpers({ dispatch: navigationStore.dispatch, state: navigationStore.state })} />
