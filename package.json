@@ -12,7 +12,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "postinstall": "./node_modules/.bin/opencollective postinstall",
     "build": "babel src -d dist --presets react-native-stage-0/decorator-support",
-    "eslint": "./node_modules/.bin/eslint src/ __tests__/",
+    "eslint": "eslint src/ __tests__/",
     "test": "jest"
   },
   "dependencies": {

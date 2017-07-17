@@ -74,7 +74,7 @@ function createNavigationOptions(params) {
     const navigationParams = navigation.state.params || {};
     const res = {
       ...props,
-      headerTintColor: navBarButtonColor,
+      headerTintColor: navBarButtonColor || props.tintColor || navigationParams.tintColor || navigationParams.headerTintColor,
       headerTitleStyle: headerTitleStyle || titleStyle,
       title: getValue((navigationParams.title) || title || getTitle, { navigation, ...params, ...navigationParams, ...screenProps }),
       headerBackTitle: getValue((navigationParams.backTitle) || backTitle, { navigation, ...params, ...navigationParams, ...screenProps }),
