@@ -261,14 +261,14 @@ paddingLeft:8,
 flexDirection:'row',
 transform:[{scaleX:_reactNative.I18nManager.isRTL?-1:1}]}),
 
-rightButton:_extends({
-position:'absolute'},
+rightButton:_extends({},
 _reactNative.Platform.select({
 ios:{
+position:'absolute',
 top:12},
 
 android:{
-top:10},
+top:0},
 
 windows:{
 top:8}}),{
