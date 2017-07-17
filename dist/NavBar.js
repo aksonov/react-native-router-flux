@@ -37,7 +37,7 @@ null;
 return(
 _react2.default.createElement(_reactNative.TouchableOpacity,{
 testID:'backNavButton',
-style:{position:'absolute',top:0,left:0,height:50,width:70},
+style:styles.backButtonContainer,
 onPress:onPress,__source:{fileName:_jsxFileName,lineNumber:38}},
 
 _react2.default.createElement(_reactNative.View,{style:style,__source:{fileName:_jsxFileName,lineNumber:43}},
@@ -277,14 +277,14 @@ top:8}}),{
 right:2,
 paddingRight:8}),
 
-leftButton:_extends({
-position:'absolute'},
+leftButton:_extends({},
 _reactNative.Platform.select({
 ios:{
+position:'absolute',
 top:12},
 
 android:{
-top:8},
+top:0},
 
 windows:{
 top:8}}),{
@@ -309,9 +309,25 @@ color:'rgb(0, 122, 255)',
 textAlign:'left',
 fontSize:17},
 
-backButtonImage:{
+backButtonContainer:_extends({},
+_reactNative.Platform.select({
+ios:{
+position:'absolute',
+top:0,
+left:0}}),{
+
+
+height:50,
+width:70}),
+
+backButtonImage:_extends({},
+_reactNative.Platform.select({
+android:{
+marginTop:5}}),{
+
+
 width:13,
-height:21},
+height:21}),
 
 defaultImageStyle:{
 height:24,

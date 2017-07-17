@@ -37,7 +37,7 @@ export function renderBackButton(state) {
   return (
     <TouchableOpacity
       testID="backNavButton"
-      style={{ position: 'absolute', top: 0, left: 0, height: 50, width: 70 }}
+      style={styles.backButtonContainer}
       onPress={onPress}
     >
       <View style={style}>
@@ -278,13 +278,13 @@ const styles = StyleSheet.create({
     paddingRight: 8,
   },
   leftButton: {
-    position: 'absolute',
     ...Platform.select({
       ios: {
+        position: 'absolute',
         top: 12,
       },
       android: {
-        top: 8,
+        top: 0,
       },
       windows: {
         top: 8,
@@ -309,7 +309,23 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: 17,
   },
+  backButtonContainer: {
+    ...Platform.select({
+      ios: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+      },
+    }),
+    height: 50,
+    width: 70,
+  },
   backButtonImage: {
+    ...Platform.select({
+      android: {
+        marginTop: 5,
+      },
+    }),
     width: 13,
     height: 21,
   },
@@ -318,4 +334,3 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
 });
-

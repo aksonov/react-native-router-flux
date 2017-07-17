@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react/native';
-import { View, Image } from 'react-native';
+import { View, Image, BackHandler } from 'react-native';
 import navigationStore from './navigationStore';
 import Scene from './Scene';
 import PropTypes from 'prop-types';
@@ -155,13 +155,37 @@ function createWrapper(Component, wrapBy) {
     <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />);
 }
 
+@observer
+class App extends React.Component {
+  static propTypes = {
+    navigator: React.PropTypes.func,
+  }
 
-const App = observer(props => {
-  const AppNavigator = props.navigator;
-  return (
-    <AppNavigator navigation={addNavigationHelpers({ dispatch: navigationStore.dispatch, state: navigationStore.state })} />
-  );
-});
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+  }
+
+  onBackPress = () => {
+    navigationStore.pop();
+
+    if (navigationStore.currentScene === navigationStore.prevScene) {
+      return false;
+    }
+
+    return true;
+  }
+
+  render() {
+    const AppNavigator = this.props.navigator;
+    return (
+      <AppNavigator navigation={addNavigationHelpers({ dispatch: navigationStore.dispatch, state: navigationStore.state })} />
+    );
+  }
+}
 
 function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
   assert(scene.props, 'props should be defined');
@@ -289,4 +313,3 @@ Router.propTypes = {
 };
 
 export default Router;
-
