@@ -36,7 +36,9 @@
 | `onLeft`     | `Function` |  | Called when the left nav bar button is pressed. |
 | `onRight`     | `Function` |  | Called when the right nav bar button is pressed. |
 | `leftButtonImage`     | `Image` |  | Image to substitute for the left nav bar button |
+| `leftButtonTextStyle`     | `Image` |  | Style applied to left button text |
 | `rightButtonImage`     | `Image` |  | Image to substitute for the right nav bar button |
+| `rightButtonTextStyle`     | `Image` |  | Style applied to right button text |
 | `modal`     | `boolean` | false |  |
 | `back`     | `boolean` | false | Show a back button on the left side of the nav bar that calls `Actions.pop` on press. |
 | all other props     |  |  | Any other props not listed here will be pass on to the specified `Scene`'s `component` |
