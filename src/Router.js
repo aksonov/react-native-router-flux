@@ -155,37 +155,33 @@ function createWrapper(Component, wrapBy) {
     <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />);
 }
 
-@observer
-class App extends React.Component {
-  static propTypes = {
-    navigator: React.PropTypes.func,
-  }
+/* Previous
+const App = observer(props => {
+  const AppNavigator = props.navigator;
+  return (
+    <AppNavigator navigation={addNavigationHelpers({ dispatch: navigationStore.dispatch, state: navigationStore.state })} />
+  );
+});
+*/ // Now:
 
-  componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
-  }
-
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
-  }
-
-  onBackPress = () => {
-    navigationStore.pop();
-
-    if (navigationStore.currentScene === navigationStore.prevScene) {
-      return false;
-    }
-
+const onBackPress = () => {
+  navigationStore.pop();
+  if (navigationStore.currentScene === navigationStore.prevScene) {
+    BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    return false;
+  } else {
     return true;
   }
-
-  render() {
-    const AppNavigator = this.props.navigator;
-    return (
-      <AppNavigator navigation={addNavigationHelpers({ dispatch: navigationStore.dispatch, state: navigationStore.state })} />
-    );
-  }
 }
+
+const App = observer(props => {
+  const AppNavigator = props.navigator;
+  BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+  return (
+    <AppNavigator navigation={addNavigationHelpers({ dispatch: navigationStore.dispatch, state: navigationStore.state })} />
+  );
+});
 
 function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
   assert(scene.props, 'props should be defined');
