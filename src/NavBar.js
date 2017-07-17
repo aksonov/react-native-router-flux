@@ -262,13 +262,13 @@ const styles = StyleSheet.create({
     transform: [{ scaleX: I18nManager.isRTL ? -1 : 1 }],
   },
   rightButton: {
-    position: 'absolute',
     ...Platform.select({
       ios: {
+        position: 'absolute',
         top: 12,
       },
       android: {
-        top: 10,
+        top: 0,
       },
       windows: {
         top: 8,
