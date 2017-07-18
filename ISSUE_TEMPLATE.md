@@ -1,7 +1,7 @@
 ### Version
 Tell us which versions you are using: 
 
-- react-native-router-flux v3.?.?
+- react-native-router-flux v4.?.? (v3 is not supported)
 - react-native v0.?.?
 
 ### Expected behaviour
@@ -13,7 +13,7 @@ Tell us which versions you are using:
 
 
 ### Steps to reproduce
-
+For non-obvious bugs, please fork this component, modify Example project to reproduce your issue and include link here.
 1.
 2.
 3.
