@@ -27,6 +27,7 @@
 | `failure`     | `Function` | | If `on` returns a "falsey" value then `failure` is called. |
 | `tabs`     | `boolean` | false | load child scenes as [TabNavigator](https://reactnavigation.org/docs/navigators/tab). Other [Tab Navigator  props](https://reactnavigation.org/docs/navigators/tab#TabNavigatorConfig) also apply here. |
 | `hideTabBar`     | `boolean` | false | hide the tab bar (only applies to scenes with `tabs` specified) |
+| `tabBarComponent`     | `React.Component` |  | React component to render custom tab bar |
 | `drawer`     | `boolean` | false | load child scenes inside [DrawerNavigator](https://reactnavigation.org/docs/navigators/drawer) |
 | `contentComponent`     | `React.Component` |  | Component used to render the content of the drawer (e.g. navigation items). |
 | `onLeft`     | `boolean` | false | load child scenes as [DrawerNavigator](https://reactnavigation.org/docs/navigators/drawer) |
@@ -36,7 +37,9 @@
 | `onLeft`     | `Function` |  | Called when the left nav bar button is pressed. |
 | `onRight`     | `Function` |  | Called when the right nav bar button is pressed. |
 | `leftButtonImage`     | `Image` |  | Image to substitute for the left nav bar button |
+| `leftButtonTextStyle`     | `Style` |  | Style applied to left button text |
 | `rightButtonImage`     | `Image` |  | Image to substitute for the right nav bar button |
+| `rightButtonTextStyle`     | `Style` |  | Style applied to right button text |
 | `modal`     | `boolean` | false |  |
 | `back`     | `boolean` | false | Show a back button on the left side of the nav bar that calls `Actions.pop` on press. |
 | all other props     |  |  | Any other props not listed here will be pass on to the specified `Scene`'s `component` |
