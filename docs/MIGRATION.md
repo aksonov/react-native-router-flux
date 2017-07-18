@@ -12,7 +12,9 @@ https://github.com/react-community/react-navigation/issues/1493
 * `Switch` is removed - you may use onEnter/onExit handlers for more flexible logic.
 * `getSceneStyle` is removed (no needed in v4, you may pass any values to Router now and they will be inherited by all scenes).
 * Custom reducer is supported (`createReducer` prop for Router) but Redux actions now are passed directly from React Navigation (‘Navigation/BACK’, ‘Navigation/NAVIGATE’, etc.)
-* Drawer is 'drawer' attribute Scene
+* Use 'replace' instead of `ActionConst.REPLACE` within Scene declaration
+* Scenes cannot have both 'component' and 'children'
+* Drawer syntax was changed (boolean `drawer` attribute + `contentComponent` for side menu component + `Actions.drawerOpen`/`Actions.drawerClose` to open/close drawer) 
 * Modal is 'lightbox' attribute for Scene (used for popups, like Error)
 * Container scenes (that has children) cannot have `component` (or it will be considered as child!). If you want to customize containers, use react navigation custom navigators and pass it as `navigator` prop.
 * No `position` attribute is supported for custom transitions. For vertical transition add `modal` to parent `Scene`.
