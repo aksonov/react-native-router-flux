@@ -239,7 +239,7 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
     }
     for (const transition of Object.keys(props)) {
       if (reservedKeys.indexOf(transition) === -1 && (transition[props] instanceof Function)) {
-        navigationStore.states[key][transition] = props[transition];
+        navigationStore.states[key][transition] = transition[props];
       }
     }
     delete props.children;

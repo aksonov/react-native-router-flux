@@ -239,7 +239,7 @@ _navigationStore2.default.states[key]={};
 }
 for(var _iterator4=Object.keys(props),_isArray4=Array.isArray(_iterator4),_i5=0,_iterator4=_isArray4?_iterator4:_iterator4[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref8;if(_isArray4){if(_i5>=_iterator4.length)break;_ref8=_iterator4[_i5++];}else{_i5=_iterator4.next();if(_i5.done)break;_ref8=_i5.value;}var transition=_ref8;
 if(reservedKeys.indexOf(transition)===-1&&transition[props]instanceof Function){
-_navigationStore2.default.states[key][transition]=props[transition];
+_navigationStore2.default.states[key][transition]=transition[props];
 }
 }
 delete props.children;
