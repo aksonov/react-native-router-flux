@@ -19,4 +19,5 @@ https://github.com/react-community/react-navigation/issues/1493
 * No `position` attribute is supported for custom transitions. For vertical transition add `modal` to parent `Scene`.
 * No flux 'focus' actions - use onEnter/onExit handlers instead.
 * tabBarSelectedItemStyle is not supported. Instead please use React Navigation TabBar params for tabs Scene: `activeTintColor`, `inactiveTintColor`, etc (https://reactnavigation.org/docs/navigators/tab)
+* To make multiple pops you could use `Actions.popTo(sceneName)` where sceneName is name of scene you want to see (it should be not container, i.e. scene with `component`)
 * Possible other stuff.
