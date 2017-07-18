@@ -1,6 +1,5 @@
-# Migrating from 3.x
+## Migrating from 3.x
 
-## Breaking changes (compared to v3):
 * `Actions.create` (alternative syntax to define scenes) is not available (for simplicity) - just use `<Router>` as top component for your App. You may wrap it with Redux as well.
 * No `duration`/`panHandlers` support - you have to implement custom navigator now instead and pass it as ‘navigator’ prop
 https://reactnavigation.org/docs/navigators/custom. You could still pass `panHandlers={null}` to disable gestures or `gesturedEnabled={false}`
