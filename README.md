@@ -52,7 +52,7 @@ Actions.refresh({param1: 'hello', param2: 'world'})
 
 ```bash
 # Get the code
-git clone git@github.com:aksonov/react-native-router-flux.git`
+git clone git@github.com:aksonov/react-native-router-flux.git
 cd react-native-router-flux/Example
 
 # Install dependencies
