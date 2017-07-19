@@ -86,7 +86,7 @@ function createNavigationOptions(params) {
       headerBackImage: navigationParams.backButtonImage || backButtonImage,
     };
     if (NavBar) {
-      res.header = (data) => <NavBar navigation={navigation} {...data} {...params} />;
+      res.header = (data) => <NavBar navigation={navigation} {...state} {...data} />;
     }
 
     if (panHandlers === null) {
