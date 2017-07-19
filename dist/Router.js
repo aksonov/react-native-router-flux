@@ -156,8 +156,7 @@ if(!Component){
 return null;
 }
 var wrapper=wrapBy||function(props){return props;};
-return wrapper(function(_ref3){var navigation=_ref3.navigation,props=_objectWithoutProperties(_ref3,['navigation']);return(
-_react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:160}})));});
+return wrapper(function(_ref3){var navigation=_ref3.navigation,props=_objectWithoutProperties(_ref3,['navigation']);return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:159}}));});
 }var
 
 
@@ -187,7 +186,7 @@ return true;
 {
 var AppNavigator=this.props.navigator;
 return(
-_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:190}}));
+_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:189}}));
 
 }}]);return App;}(_react2.default.Component),_class2.propTypes={navigator:_react2.default.PropTypes.func},_temp2))||_class;
 
@@ -304,19 +303,24 @@ return(0,_reactNavigation.DrawerNavigator)(res,_extends({initialRouteName:initia
 return(0,_reactNavigation.StackNavigator)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
 }
 
-var Router=function Router(_ref9){var createReducer=_ref9.createReducer,_ref9$wrapBy=_ref9.wrapBy,wrapBy=_ref9$wrapBy===undefined?function(props){return props;}:_ref9$wrapBy,props=_objectWithoutProperties(_ref9,['createReducer','wrapBy']);
+var Router=function Router(_ref9){var createReducer=_ref9.createReducer,getSceneStyle=_ref9.getSceneStyle,_ref9$wrapBy=_ref9.wrapBy,wrapBy=_ref9$wrapBy===undefined?function(props){return props;}:_ref9$wrapBy,props=_objectWithoutProperties(_ref9,['createReducer','getSceneStyle','wrapBy']);
 (0,_Util.assert)(!Array.isArray(props.children),'Router should contain only one scene, please wrap your scenes with Scene ');
 var scene=props.children;
-var AppNavigator=processScene(scene,props,[],wrapBy);
+var data=_extends({},props);
+if(getSceneStyle){
+data.cardStyle=getSceneStyle();
+}
+var AppNavigator=processScene(scene,data,[],wrapBy);
 _navigationStore2.default.router=AppNavigator.router;
 _navigationStore2.default.reducer=createReducer&&createReducer(props);
 RightNavBarButton=wrapBy(_NavBar.RightButton);
 LeftNavBarButton=wrapBy(_NavBar.LeftButton);
-return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:315}});
+return _react2.default.createElement(App,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:318}});
 };
 Router.propTypes={
 createReducer:_propTypes2.default.func,
 wrapBy:_propTypes2.default.func,
+getSceneStyle:_propTypes2.default.func,
 children:_propTypes2.default.element};exports.default=
 
 

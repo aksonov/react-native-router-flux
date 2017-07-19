@@ -199,7 +199,6 @@ export function RightButton(state) {
   }
   return null;
 }
-
 const styles = StyleSheet.create({
   title: {
     textAlign: 'center',

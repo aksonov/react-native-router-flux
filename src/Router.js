@@ -156,8 +156,7 @@ function createWrapper(Component, wrapBy) {
     return null;
   }
   const wrapper = wrapBy || (props => props);
-  return wrapper(({ navigation, ...props }) =>
-    <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />);
+  return wrapper(({ navigation, ...props }) => <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />);
 }
 
 @observer
@@ -304,10 +303,14 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
   return StackNavigator(res, { mode, initialRouteParams, initialRouteName, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
 }
 
-const Router = ({ createReducer, wrapBy = props => props, ...props }) => {
+const Router = ({ createReducer, getSceneStyle, wrapBy = props => props, ...props }) => {
   assert(!Array.isArray(props.children), 'Router should contain only one scene, please wrap your scenes with Scene ');
   const scene: Scene = props.children;
-  const AppNavigator = processScene(scene, props, [], wrapBy);
+  const data = { ...props };
+  if (getSceneStyle) {
+    data.cardStyle = getSceneStyle();
+  }
+  const AppNavigator = processScene(scene, data, [], wrapBy);
   navigationStore.router = AppNavigator.router;
   navigationStore.reducer = createReducer && createReducer(props);
   RightNavBarButton = wrapBy(RightButton);
@@ -317,6 +320,7 @@ const Router = ({ createReducer, wrapBy = props => props, ...props }) => {
 Router.propTypes = {
   createReducer: PropTypes.func,
   wrapBy: PropTypes.func,
+  getSceneStyle: PropTypes.func,
   children: PropTypes.element,
 };
 

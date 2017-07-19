@@ -45,10 +45,15 @@ const reducerCreate = params => {
     return defaultReducer(state, action);
   };
 };
+const getSceneStyle = () => ({
+  backgroundColor: 'white',
+  shadowOpacity: 1,
+  shadowRadius: 3,
+});
 
 const Example = () => {
   return (
-    <Router createReducer={reducerCreate} tintColor='red'>
+    <Router createReducer={reducerCreate} tintColor='red' getSceneStyle={getSceneStyle}>
       <Scene key="lightbox" lightbox leftButtonTextStyle={{color: 'green'}} backButtonTextStyle={{color: 'red'}}>
         <Scene key="modal" modal hideNavBar>
           <Scene key="drawer" drawer contentComponent={TabView}>
