@@ -159,6 +159,10 @@ function createWrapper(Component, wrapBy) {
   function wrapped({ navigation, ...props }) {
     return <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />;
   }
+  wrapped.propTypes = {
+    navigation: PropTypes.object,
+  };
+
   return wrapper(wrapped);
 }
 
