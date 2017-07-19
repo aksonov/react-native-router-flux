@@ -294,7 +294,7 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
     return navigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
   }
   if (lightbox) {
-    return LightboxNavigator(res, { mode, initialRouteParams, initialRouteName, navigationOptions: createNavigationOptions(commonProps) });
+    return LightboxNavigator(res, { mode, initialRouteParams, initialRouteName, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
   } else if (tabs) {
     return TabNavigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps,
       tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });

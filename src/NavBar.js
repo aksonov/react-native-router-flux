@@ -57,7 +57,7 @@ export function renderBackButton(state) {
   );
 }
 
-export const LeftButton = (state) => {
+export function LeftButton(state) {
   let onPress = state.onLeft;
   const buttonImage = getValue(state.leftButtonImage, state);
   const menuIcon = state.drawerIcon;
@@ -114,13 +114,13 @@ export const LeftButton = (state) => {
     );
   }
   return null;
-};
+}
 
 function getValue(value, params) {
   return value instanceof Function ? value(params) : value;
 }
 
-export const RightButton = (state) => {
+export function RightButton(state) {
   const drawer = null;
   if (!state) {
     return null;
@@ -198,7 +198,8 @@ export const RightButton = (state) => {
     );
   }
   return null;
-};
+}
+
 const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
