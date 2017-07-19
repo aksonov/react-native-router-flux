@@ -1,33 +1,19 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.supportedActions=exports.ActionMap=undefined;var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _ActionMap,_supportedActions,_desc,_value,_class,_descriptor,_descriptor2,_descriptor3,_descriptor4;var _mobx=require('mobx');
+Object.defineProperty(exports,"__esModule",{value:true});exports.supportedActions=exports.actionMap=undefined;var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _actionMap,_supportedActions,_desc,_value,_class,_descriptor,_descriptor2,_descriptor3,_descriptor4;var _mobx=require('mobx');
 var _reactNavigation=require('react-navigation');
 var _ActionConst=require('./ActionConst');var ActionConst=_interopRequireWildcard(_ActionConst);
 var _Util=require('./Util');function _interopRequireWildcard(obj){if(obj&&obj.__esModule){return obj;}else{var newObj={};if(obj!=null){for(var key in obj){if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key]=obj[key];}}newObj.default=obj;return newObj;}}function _initDefineProp(target,property,descriptor,context){if(!descriptor)return;Object.defineProperty(target,property,{enumerable:descriptor.enumerable,configurable:descriptor.configurable,writable:descriptor.writable,value:descriptor.initializer?descriptor.initializer.call(context):void 0});}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _applyDecoratedDescriptor(target,property,decorators,descriptor,context){var desc={};Object['ke'+'ys'](descriptor).forEach(function(key){desc[key]=descriptor[key];});desc.enumerable=!!desc.enumerable;desc.configurable=!!desc.configurable;if('value'in desc||desc.initializer){desc.writable=true;}desc=decorators.slice().reverse().reduce(function(desc,decorator){return decorator(target,property,desc)||desc;},desc);if(context&&desc.initializer!==void 0){desc.value=desc.initializer?desc.initializer.call(context):void 0;desc.initializer=undefined;}if(desc.initializer===void 0){Object['define'+'Property'](target,property,desc);desc=null;}return desc;}function _initializerWarningHelper(descriptor,context){throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');}function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true});}else{obj[key]=value;}return obj;}
 
-var ActionMap=exports.ActionMap=(_ActionMap={
-jump:ActionConst.JUMP,
-push:ActionConst.PUSH,
-replace:ActionConst.REPLACE,
-back:ActionConst.BACK,
-BackAction:ActionConst.BACK_ACTION,
-popAndReplace:ActionConst.POP_AND_REPLACE,
-popTo:ActionConst.POP_TO,
-refresh:ActionConst.REFRESH,
-reset:ActionConst.RESET,
-focus:ActionConst.FOCUS,
-pushOrPop:ActionConst.PUSH_OR_POP,
-androidBack:ActionConst.ANDROID_BACK},_defineProperty(_ActionMap,
-ActionConst.JUMP,ActionConst.JUMP),_defineProperty(_ActionMap,
-ActionConst.PUSH,ActionConst.PUSH),_defineProperty(_ActionMap,
-ActionConst.REPLACE,ActionConst.REPLACE),_defineProperty(_ActionMap,
-ActionConst.BACK,ActionConst.BACK),_defineProperty(_ActionMap,
-ActionConst.BACK_ACTION,ActionConst.BACK_ACTION),_defineProperty(_ActionMap,
-ActionConst.POP_AND_REPLACE,ActionConst.POP_AND_REPLACE),_defineProperty(_ActionMap,
-ActionConst.POP_TO,ActionConst.POP_TO),_defineProperty(_ActionMap,
-ActionConst.REFRESH,ActionConst.REFRESH),_defineProperty(_ActionMap,
-ActionConst.RESET,ActionConst.RESET),_defineProperty(_ActionMap,
-ActionConst.FOCUS,ActionConst.FOCUS),_defineProperty(_ActionMap,
-ActionConst.PUSH_OR_POP,ActionConst.PUSH_OR_POP),_defineProperty(_ActionMap,
-ActionConst.ANDROID_BACK,ActionConst.ANDROID_BACK),_ActionMap);
+var actionMap=exports.actionMap=(_actionMap={},_defineProperty(_actionMap,
+ActionConst.JUMP,'jump'),_defineProperty(_actionMap,
+ActionConst.PUSH,'push'),_defineProperty(_actionMap,
+ActionConst.REPLACE,'replace'),_defineProperty(_actionMap,
+ActionConst.BACK,'pop'),_defineProperty(_actionMap,
+ActionConst.BACK_ACTION,'pop'),_defineProperty(_actionMap,
+ActionConst.POP_AND_REPLACE,'pop'),_defineProperty(_actionMap,
+ActionConst.POP_TO,'popTo'),_defineProperty(_actionMap,
+ActionConst.REFRESH,'refresh'),_defineProperty(_actionMap,
+ActionConst.RESET,'replace'),_defineProperty(_actionMap,
+ActionConst.PUSH_OR_POP,'push'),_actionMap);
 
 
 var supportedActions=exports.supportedActions=(_supportedActions={},_defineProperty(_supportedActions,
@@ -152,7 +138,12 @@ _this.setState(_this.nextState(_this.state,cmd),type,params);
 
 
 
-run=function(){for(var _len=arguments.length,params=Array(_len>3?_len-3:0),_key=3;_key<_len;_key++){params[_key-3]=arguments[_key];}var type=arguments.length>0&&arguments[0]!==undefined?arguments[0]:ActionConst.PUSH;var routeName=arguments[1];var actions=arguments[2];
+execute=function(actionType,routeName){for(var _len=arguments.length,params=Array(_len>2?_len-2:0),_key=2;_key<_len;_key++){params[_key-2]=arguments[_key];}
+var type=actionMap[actionType]||actionType;
+_this[type].apply(_this,[routeName].concat(params));
+};this.
+
+run=function(){for(var _len2=arguments.length,params=Array(_len2>3?_len2-3:0),_key2=3;_key2<_len2;_key2++){params[_key2-3]=arguments[_key2];}var type=arguments.length>0&&arguments[0]!==undefined?arguments[0]:ActionConst.PUSH;var routeName=arguments[1];var actions=arguments[2];
 var res={};
 for(var _iterator=params,_isArray=Array.isArray(_iterator),_i=0,_iterator=_isArray?_iterator:_iterator[typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator']();;){var _ref;if(_isArray){if(_i>=_iterator.length)break;_ref=_iterator[_i++];}else{_i=_iterator.next();if(_i.done)break;_ref=_i.value;}var param=_ref;
 if(param){
@@ -182,11 +173,11 @@ _this.setState(newState);
 }
 };this.
 
-push=function(routeName){for(var _len2=arguments.length,params=Array(_len2>1?_len2-1:0),_key2=1;_key2<_len2;_key2++){params[_key2-1]=arguments[_key2];}
+push=function(routeName){for(var _len3=arguments.length,params=Array(_len3>1?_len3-1:0),_key3=1;_key3<_len3;_key3++){params[_key3-1]=arguments[_key3];}
 _this.run.apply(_this,[ActionConst.PUSH,routeName,null].concat(params));
 };this.
 
-jump=function(routeName){for(var _len3=arguments.length,params=Array(_len3>1?_len3-1:0),_key3=1;_key3<_len3;_key3++){params[_key3-1]=arguments[_key3];}
+jump=function(routeName){for(var _len4=arguments.length,params=Array(_len4>1?_len4-1:0),_key4=1;_key4<_len4;_key4++){params[_key4-1]=arguments[_key4];}
 _this.run.apply(_this,[ActionConst.JUMP,routeName,null].concat(params));
 };this.
 
@@ -218,15 +209,15 @@ pop=function(){
 _this.dispatch(_reactNavigation.NavigationActions.back());
 };this.
 
-reset=function(routeName){for(var _len4=arguments.length,params=Array(_len4>1?_len4-1:0),_key4=1;_key4<_len4;_key4++){params[_key4-1]=arguments[_key4];}
+reset=function(routeName){for(var _len5=arguments.length,params=Array(_len5>1?_len5-1:0),_key5=1;_key5<_len5;_key5++){params[_key5-1]=arguments[_key5];}
 _this.replace.apply(_this,[routeName].concat(params));
 };this.
 
-popTo=function(routeName){for(var _len5=arguments.length,params=Array(_len5>1?_len5-1:0),_key5=1;_key5<_len5;_key5++){params[_key5-1]=arguments[_key5];}
+popTo=function(routeName){for(var _len6=arguments.length,params=Array(_len6>1?_len6-1:0),_key6=1;_key6<_len6;_key6++){params[_key6-1]=arguments[_key6];}
 _this.run.apply(_this,[ActionConst.POP_TO,routeName].concat(params));
 };this.
 
-replace=function(routeName){for(var _len6=arguments.length,params=Array(_len6>1?_len6-1:0),_key6=1;_key6<_len6;_key6++){params[_key6-1]=arguments[_key6];}
+replace=function(routeName){for(var _len7=arguments.length,params=Array(_len7>1?_len7-1:0),_key7=1;_key7<_len7;_key7++){params[_key7-1]=arguments[_key7];}
 var res={};
 for(var _iterator2=params,_isArray2=Array.isArray(_iterator2),_i2=0,_iterator2=_isArray2?_iterator2:_iterator2[typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator']();;){var _ref2;if(_isArray2){if(_i2>=_iterator2.length)break;_ref2=_iterator2[_i2++];}else{_i2=_iterator2.next();if(_i2.done)break;_ref2=_i2.value;}var param=_ref2;
 if(param){

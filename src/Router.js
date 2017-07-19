@@ -13,7 +13,10 @@ let RightNavBarButton;
 let LeftNavBarButton;
 const reservedKeys = [
   'children',
+  'execute',
+  'popTo',
   'navigate',
+  'replace',
   'currentState',
   'refresh',
   'dispatch',
@@ -269,7 +272,7 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
     props.init = true;
     if (!navigationStore[key]) {
       navigationStore[key] = new Function('actions', 'props', 'type', // eslint-disable-line no-new-func
-        `return function ${key}(params){ actions[type]('${key}', props, params)}`)(navigationStore, { ...commonProps, ...props }, type);
+        `return function ${key}(params){ actions.execute(type, '${key}', props, params)}`)(navigationStore, { ...commonProps, ...props }, type);
     }
 
     if ((onEnter || on) && !navigationStore[key + OnEnter]) {

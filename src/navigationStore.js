@@ -3,31 +3,17 @@ import { NavigationActions } from 'react-navigation';
 import * as ActionConst from './ActionConst';
 import { OnEnter, OnExit } from './Util';
 
-export const ActionMap = {
-  jump: ActionConst.JUMP,
-  push: ActionConst.PUSH,
-  replace: ActionConst.REPLACE,
-  back: ActionConst.BACK,
-  BackAction: ActionConst.BACK_ACTION,
-  popAndReplace: ActionConst.POP_AND_REPLACE,
-  popTo: ActionConst.POP_TO,
-  refresh: ActionConst.REFRESH,
-  reset: ActionConst.RESET,
-  focus: ActionConst.FOCUS,
-  pushOrPop: ActionConst.PUSH_OR_POP,
-  androidBack: ActionConst.ANDROID_BACK,
-  [ActionConst.JUMP]: ActionConst.JUMP,
-  [ActionConst.PUSH]: ActionConst.PUSH,
-  [ActionConst.REPLACE]: ActionConst.REPLACE,
-  [ActionConst.BACK]: ActionConst.BACK,
-  [ActionConst.BACK_ACTION]: ActionConst.BACK_ACTION,
-  [ActionConst.POP_AND_REPLACE]: ActionConst.POP_AND_REPLACE,
-  [ActionConst.POP_TO]: ActionConst.POP_TO,
-  [ActionConst.REFRESH]: ActionConst.REFRESH,
-  [ActionConst.RESET]: ActionConst.RESET,
-  [ActionConst.FOCUS]: ActionConst.FOCUS,
-  [ActionConst.PUSH_OR_POP]: ActionConst.PUSH_OR_POP,
-  [ActionConst.ANDROID_BACK]: ActionConst.ANDROID_BACK,
+export const actionMap = {
+  [ActionConst.JUMP]: 'jump',
+  [ActionConst.PUSH]: 'push',
+  [ActionConst.REPLACE]: 'replace',
+  [ActionConst.BACK]: 'pop',
+  [ActionConst.BACK_ACTION]: 'pop',
+  [ActionConst.POP_AND_REPLACE]: 'pop',
+  [ActionConst.POP_TO]: 'popTo',
+  [ActionConst.REFRESH]: 'refresh',
+  [ActionConst.RESET]: 'replace',
+  [ActionConst.PUSH_OR_POP]: 'push',
 };
 
 export const supportedActions = {
@@ -152,6 +138,11 @@ class NavigationStore {
     }
   };
 
+  execute = (actionType, routeName, ...params) => {
+    const type = actionMap[actionType] || actionType;
+    this[type](routeName, ...params);
+  }
+
   run = (type = ActionConst.PUSH, routeName, actions, ...params) => {
     let res = {};
     for (const param of params) {
@@ -188,7 +179,7 @@ class NavigationStore {
 
   jump = (routeName, ...params) => {
     this.run(ActionConst.JUMP, routeName, null, ...params);
-  }
+  };
 
   drawerOpen = () => {
     this.dispatch(NavigationActions.navigate({ routeName: 'DrawerOpen' }));
