@@ -118,7 +118,7 @@ class NavigationStore {
               }
             } catch (e) {
               console.log('FAILURE EXCEPTION', e);
-              failure(e);
+              failure({ error: e });
             }
           }
         }
@@ -130,11 +130,11 @@ class NavigationStore {
 
   nextState = (state, cmd) => (this.reducer ? this.reducer(state, cmd) : this._router.getStateForAction(cmd, state));
 
-  dispatch = (cmd, type) => {
-    this.setState(this.nextState(this.state, cmd), type);
+  dispatch = (cmd, type, params) => {
+    this.setState(this.nextState(this.state, cmd), type, params);
   };
 
-  @action setState = (newState, type) => {
+  @action setState = (newState, type, params) => {
     // don't allow null state
     if (!newState) {
       return;
@@ -147,6 +147,9 @@ class NavigationStore {
     this.prevScene = this.currentScene;
     this.currentScene = state.routeName;
     this.currentParams = state.params;
+    if (type === ActionConst.JUMP && params) {
+      this.refresh(params);
+    }
   };
 
   run = (type = ActionConst.PUSH, routeName, actions, ...params) => {
@@ -158,7 +161,7 @@ class NavigationStore {
     }
     res.routeName = routeName;
     if (supportedActions[type]) {
-      this.dispatch(createAction(supportedActions[type])({ routeName, index: 0, actions, params: res }), type);
+      this.dispatch(createAction(supportedActions[type])({ routeName, index: 0, actions, params: res }), type, res);
     } else if (type === ActionConst.POP_TO) {
       let nextScene = '';
       let newState = this._state;

@@ -244,10 +244,12 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
     }
     delete props.children;
     if (success) {
-      navigationStore.states[key].success = success instanceof Function ? success : args => { console.log(`Transition to state=${success}`); navigationStore[success](args); };
+      navigationStore.states[key].success = success instanceof Function ?
+        success : args => { console.log(`Transition to state=${success}`); navigationStore[success](args); };
     }
     if (failure) {
-      navigationStore.states[key].failure = failure instanceof Function ? failure : args => { console.log(`Transition to state=${failure}`); navigationStore[failure](args); };
+      navigationStore.states[key].failure = failure instanceof Function ?
+        failure : args => { console.log(`Transition to state=${failure}`); navigationStore[failure](args); };
     }
     // console.log(`KEY ${key} DRAWER ${drawer} TABS ${tabs} WRAP ${wrap}`, JSON.stringify(commonProps));
     const screen = {
@@ -285,6 +287,9 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
     }
   }
   const mode = modal ? 'modal' : 'card';
+  if (navigator) {
+    return navigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
+  }
   if (lightbox) {
     return LightboxNavigator(res, { mode, initialRouteParams, initialRouteName, navigationOptions: createNavigationOptions(commonProps) });
   } else if (tabs) {
@@ -293,13 +298,11 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
   } else if (drawer) {
     return DrawerNavigator(res, { initialRouteName, contentComponent, order, ...commonProps });
   }
-  if (navigator) {
-    return navigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
-  }
   return StackNavigator(res, { mode, initialRouteParams, initialRouteName, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
 }
 
 const Router = ({ createReducer, wrapBy = props => props, ...props }) => {
+  assert(!Array.isArray(props.children), 'Router should contain only one scene, please wrap your scenes with Scene ');
   const scene: Scene = props.children;
   const AppNavigator = processScene(scene, props, [], wrapBy);
   navigationStore.router = AppNavigator.router;

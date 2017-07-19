@@ -29,6 +29,7 @@ const TabView = (props) => {
   return (
     <View style={[styles.container, props.sceneStyle ]}>
       <Text>Tab title:{props.title} name:{props.name}</Text>
+      <Text>Tab data:{props.data}</Text>
       {props.name === 'tab1_1' &&
         <Button onPress={()=>Actions.tab1_2()}>next screen for tab1_1</Button>
       }
@@ -40,7 +41,7 @@ const TabView = (props) => {
       <Button onPress={() => { Actions.tab2(); }}>Switch to tab2</Button>
       <Button onPress={() => { Actions.tab3(); }}>Switch to tab3</Button>
       <Button onPress={() => { Actions.tab4(); }}>Switch to tab4</Button>
-      <Button onPress={() => { Actions.tab5(); }}>Switch to tab5</Button>
+      <Button onPress={() => { Actions.tab5({ data: 'test!' }); }}>Switch to tab5 with data</Button>
       <Button onPress={() => { Actions.echo(); }}>push clone scene (EchoView)</Button>
     </View>
   );
