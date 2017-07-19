@@ -156,7 +156,10 @@ function createWrapper(Component, wrapBy) {
     return null;
   }
   const wrapper = wrapBy || (props => props);
-  return wrapper(({ navigation, ...props }) => <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />);
+  function wrapped({ navigation, ...props }) {
+    return <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />;
+  }
+  return wrapper(wrapped);
 }
 
 @observer
