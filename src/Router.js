@@ -189,7 +189,7 @@ class App extends React.Component {
   }
 }
 
-function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
+function processScene(scene: Scene, inheritProps = {}, clones = [], transitionConfig = false, wrapBy) {
   assert(scene.props, 'props should be defined');
   if (!scene.props.children) {
     return null;
@@ -286,22 +286,22 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
   }
   const mode = modal ? 'modal' : 'card';
   if (lightbox) {
-    return LightboxNavigator(res, { mode, initialRouteParams, initialRouteName, navigationOptions: createNavigationOptions(commonProps) });
+    return LightboxNavigator(res, { transitionConfig, mode, initialRouteParams, initialRouteName, navigationOptions: createNavigationOptions(commonProps)});
   } else if (tabs) {
-    return TabNavigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps,
-      tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });
+    return TabNavigator(res, { transitionConfig, lazy, initialRouteName, initialRouteParams, order, ...commonProps,
+      tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps)});
   } else if (drawer) {
-    return DrawerNavigator(res, { initialRouteName, contentComponent, order, ...commonProps });
+    return DrawerNavigator(res, { transitionConfig, initialRouteName, contentComponent, order, ...commonProps });
   }
   if (navigator) {
-    return navigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
+    return navigator(res, { transitionConfig, lazy, initialRouteName, initialRouteParams, order, ...commonProps, navigationOptions: createNavigationOptions(commonProps)});
   }
-  return StackNavigator(res, { mode, initialRouteParams, initialRouteName, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
+  return StackNavigator(res, { transitionConfig, mode, initialRouteParams, initialRouteName, ...commonProps, navigationOptions: createNavigationOptions(commonProps)});
 }
 
 const Router = ({ createReducer, wrapBy = props => props, ...props }) => {
   const scene: Scene = props.children;
-  const AppNavigator = processScene(scene, props, [], wrapBy);
+  const AppNavigator = processScene(scene, props, [], props.transitionConfig, wrapBy);
   navigationStore.router = AppNavigator.router;
   navigationStore.reducer = createReducer && createReducer(props);
   RightNavBarButton = wrapBy(RightButton);
@@ -315,3 +315,4 @@ Router.propTypes = {
 };
 
 export default Router;
+
