@@ -44,6 +44,7 @@ const reservedKeys = [
 
 const dontInheritKeys = [
   'component',
+  'wrap',
   'modal',
   'drawer',
   'tabs',
@@ -162,7 +163,6 @@ function createWrapper(Component, wrapBy) {
   wrapped.propTypes = {
     navigation: PropTypes.object,
   };
-
   return wrapper(wrapped);
 }
 
@@ -205,7 +205,7 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
   }
   const res = {};
   const order = [];
-  const { tabs, modal, lightbox, navigator, wrap, contentComponent, lazy, drawer, ...parentProps } = scene.props;
+  const { tabs, modal, lightbox, navigator, contentComponent, lazy, drawer, ...parentProps } = scene.props;
 
   const commonProps = { ...inheritProps, ...parentProps };
   delete commonProps.children;
@@ -242,7 +242,7 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
     const key = child.key;
     const init = key === children[0].key;
     assert(reservedKeys.indexOf(key) === -1, `Scene name cannot be reserved word: ${child.key}`);
-    const { component, type = tabs || drawer ? 'jump' : 'push', onEnter, onExit, on, failure, success, ...props } = child.props;
+    const { component, type = tabs || drawer ? 'jump' : 'push', onEnter, onExit, on, failure, success, wrap, ...props } = child.props;
     if (!navigationStore.states[key]) {
       navigationStore.states[key] = {};
     }
@@ -269,7 +269,7 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
     // wrap component inside own navbar for tabs/drawer parent controllers
     const wrapNavBar = drawer || tabs || wrap;
     if (component && wrapNavBar) {
-      res[key] = { screen: processScene({ key, props: { children: { key: `_${key}`, props: child.props } } }, commonProps, clones, wrapBy) };
+      res[key] = { screen: processScene({ key, props: { children: { key: `_${key}`, props: { ...child.props, wrap: false } } } }, commonProps, clones, wrapBy) };
     } else {
       res[key] = screen;
     }
