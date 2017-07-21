@@ -36,6 +36,17 @@ return{};
 return data;
 }
 
+function uniteParams(routeName,params){
+var res={};
+for(var _iterator=params,_isArray=Array.isArray(_iterator),_i=0,_iterator=_isArray?_iterator:_iterator[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref;if(_isArray){if(_i>=_iterator.length)break;_ref=_iterator[_i++];}else{_i=_iterator.next();if(_i.done)break;_ref=_i.value;}var param=_ref;
+if(param){
+res=_extends({},res,filterParam(param));
+}
+}
+res.routeName=routeName;
+return res;
+}
+
 var createAction=function createAction(type){return function(){var payload=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{};return _extends({
 type:type},
 payload);};};var
@@ -139,20 +150,16 @@ _this.setState(_this.nextState(_this.state,cmd),type,params);
 
 
 execute=function(actionType,routeName){for(var _len=arguments.length,params=Array(_len>2?_len-2:0),_key=2;_key<_len;_key++){params[_key-2]=arguments[_key];}
-var type=actionMap[actionType]||actionType;
-_this[type].apply(_this,[routeName].concat(params));
+var res=uniteParams(routeName,params);
+var overridenType=res.type||actionType;
+var type=actionMap[overridenType]||overridenType;
+_this[type](routeName,res);
 };this.
 
-run=function(){for(var _len2=arguments.length,params=Array(_len2>3?_len2-3:0),_key2=3;_key2<_len2;_key2++){params[_key2-3]=arguments[_key2];}var type=arguments.length>0&&arguments[0]!==undefined?arguments[0]:ActionConst.PUSH;var routeName=arguments[1];var actions=arguments[2];
-var res={};
-for(var _iterator=params,_isArray=Array.isArray(_iterator),_i=0,_iterator=_isArray?_iterator:_iterator[typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator']();;){var _ref;if(_isArray){if(_i>=_iterator.length)break;_ref=_iterator[_i++];}else{_i=_iterator.next();if(_i.done)break;_ref=_i.value;}var param=_ref;
-if(param){
-res=_extends({},res,filterParam(param));
-}
-}
-res.routeName=routeName;
+run=function(){for(var _len2=arguments.length,params=Array(_len2>3?_len2-3:0),_key2=3;_key2<_len2;_key2++){params[_key2-3]=arguments[_key2];}var type=arguments.length>0&&arguments[0]!==undefined?arguments[0]:ActionConst.PUSH;var routeName=arguments[1];var actions=arguments.length>2&&arguments[2]!==undefined?arguments[2]:{};
+var res=uniteParams(routeName,params);
 if(supportedActions[type]){
-_this.dispatch(createAction(supportedActions[type])({routeName:routeName,index:0,actions:actions,params:res}),type,res);
+_this.dispatch(createAction(supportedActions[type])(_extends({routeName:routeName},actions,{params:res})),type,res);
 }else if(type===ActionConst.POP_TO){
 var nextScene='';
 var newState=_this._state;
@@ -205,29 +212,31 @@ var key=_this.currentState(_this.state).key;
 _this.dispatch(_reactNavigation.NavigationActions.setParams({key:key,params:params}));
 };this.
 
-pop=function(){
+pop=function(){var params=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{};
+var res=filterParam(params);
 _this.dispatch(_reactNavigation.NavigationActions.back());
+if(res.refresh){
+_this.refresh(res.refresh);
+}
 };this.
 
-reset=function(routeName){for(var _len5=arguments.length,params=Array(_len5>1?_len5-1:0),_key5=1;_key5<_len5;_key5++){params[_key5-1]=arguments[_key5];}
-_this.replace.apply(_this,[routeName].concat(params));
-};this.
-
-popTo=function(routeName){for(var _len6=arguments.length,params=Array(_len6>1?_len6-1:0),_key6=1;_key6<_len6;_key6++){params[_key6-1]=arguments[_key6];}
+popTo=function(routeName){for(var _len5=arguments.length,params=Array(_len5>1?_len5-1:0),_key5=1;_key5<_len5;_key5++){params[_key5-1]=arguments[_key5];}
 _this.run.apply(_this,[ActionConst.POP_TO,routeName].concat(params));
 };this.
 
-replace=function(routeName){for(var _len7=arguments.length,params=Array(_len7>1?_len7-1:0),_key7=1;_key7<_len7;_key7++){params[_key7-1]=arguments[_key7];}
-var res={};
-for(var _iterator2=params,_isArray2=Array.isArray(_iterator2),_i2=0,_iterator2=_isArray2?_iterator2:_iterator2[typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator']();;){var _ref2;if(_isArray2){if(_i2>=_iterator2.length)break;_ref2=_iterator2[_i2++];}else{_i2=_iterator2.next();if(_i2.done)break;_ref2=_i2.value;}var param=_ref2;
-if(param){
-res=_extends({},res,filterParam(param));
-}
-}
-res.routeName=routeName;
-_this.run(ActionConst.REPLACE,routeName,[_reactNavigation.NavigationActions.navigate({
+replace=function(routeName){for(var _len6=arguments.length,params=Array(_len6>1?_len6-1:0),_key6=1;_key6<_len6;_key6++){params[_key6-1]=arguments[_key6];}
+var res=uniteParams(routeName,params);
+_this.run(ActionConst.REPLACE,routeName,{key:routeName,index:0,actions:[_reactNavigation.NavigationActions.navigate({
 routeName:routeName,
-params:res})]);
+params:res})]});
+
+};this.
+
+reset=function(routeName){for(var _len7=arguments.length,params=Array(_len7>1?_len7-1:0),_key7=1;_key7<_len7;_key7++){params[_key7-1]=arguments[_key7];}
+var res=uniteParams(routeName,params);
+_this.run(ActionConst.RESET,routeName,{key:null,index:0,actions:[_reactNavigation.NavigationActions.navigate({
+routeName:routeName,
+params:res})]});
 
 };var defaultSuccess=function defaultSuccess(){};var defaultFailure=function defaultFailure(){};(0,_mobx.autorunAsync)(function _callee(){var handler,res,_handler,success,failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.prev=0;if(_this.prevScene&&_this.currentScene!==_this.prevScene){handler=_this[_this.prevScene+_Util.OnExit];if(handler){try{res=handler();if(res instanceof Promise){res.then(defaultSuccess,defaultFailure);}}catch(e){console.error('Error during onExit handler:',e);}}}if(!(_this.currentScene&&_this.currentScene!==_this.prevScene&&_this.states[_this.currentScene])){_context.next=20;break;}_handler=_this[_this.currentScene+_Util.OnEnter];success=_this.states[_this.currentScene].success||defaultSuccess;failure=_this.states[_this.currentScene].failure||defaultFailure;if(!_handler){_context.next=20;break;}_context.prev=7;params=_this.currentState().params;console.log('RUN onEnter handler for state=',_this.currentScene,' params='+JSON.stringify(params));_context.next=12;return regeneratorRuntime.awrap(_handler(params));case 12:_res=_context.sent;if(_res){console.log('SUCCESS',_res);success(_res);}else{console.log('FAILURE NULL RES');failure();}_context.next=20;break;case 16:_context.prev=16;_context.t0=_context['catch'](7);console.log('FAILURE EXCEPTION',_context.t0);failure({error:_context.t0});case 20:_context.next=25;break;case 22:_context.prev=22;_context.t1=_context['catch'](0);console.error('Error handling:'+_context.t1);case 25:case'end':return _context.stop();}}},null,_this,[[0,22],[7,16]]);});}return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class.prototype,'currentScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor2=_applyDecoratedDescriptor(_class.prototype,'prevScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor3=_applyDecoratedDescriptor(_class.prototype,'currentParams',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor4=_applyDecoratedDescriptor(_class.prototype,'setState',[_mobx.action],{enumerable:true,initializer:function initializer(){var _this2=this;return function(newState,type,params){if(!newState){return;}var state=_this2.currentState(newState);if(type===ActionConst.JUMP&&state.routeName===_this2.currentScene){return;}_this2._state=newState;_this2.prevScene=_this2.currentScene;_this2.currentScene=state.routeName;_this2.currentParams=state.params;if(type===ActionConst.JUMP&&params){_this2.refresh(params);}};}})),_class);exports.default=
 

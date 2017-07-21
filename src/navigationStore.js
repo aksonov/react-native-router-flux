@@ -36,6 +36,17 @@ function filterParam(data) {
   return data;
 }
 
+function uniteParams(routeName, params) {
+  let res = {};
+  for (const param of params) {
+    if (param) {
+      res = { ...res, ...filterParam(param) };
+    }
+  }
+  res.routeName = routeName;
+  return res;
+}
+
 const createAction = (type: string) => (payload: Object = {}) => ({
   type,
   ...payload,
@@ -139,20 +150,16 @@ class NavigationStore {
   };
 
   execute = (actionType, routeName, ...params) => {
-    const type = actionMap[actionType] || actionType;
-    this[type](routeName, ...params);
-  }
+    const res = uniteParams(routeName, params);
+    const overridenType = res.type || actionType;
+    const type = actionMap[overridenType] || overridenType;
+    this[type](routeName, res);
+  };
 
-  run = (type = ActionConst.PUSH, routeName, actions, ...params) => {
-    let res = {};
-    for (const param of params) {
-      if (param) {
-        res = { ...res, ...filterParam(param) };
-      }
-    }
-    res.routeName = routeName;
+  run = (type = ActionConst.PUSH, routeName, actions = {}, ...params) => {
+    const res = uniteParams(routeName, params);
     if (supportedActions[type]) {
-      this.dispatch(createAction(supportedActions[type])({ routeName, index: 0, actions, params: res }), type, res);
+      this.dispatch(createAction(supportedActions[type])({ routeName, ...actions, params: res }), type, res);
     } else if (type === ActionConst.POP_TO) {
       let nextScene = '';
       let newState = this._state;
@@ -205,12 +212,12 @@ class NavigationStore {
     this.dispatch(NavigationActions.setParams({ key, params }));
   };
 
-  pop = () => {
+  pop = (params = {}) => {
+    const res = filterParam(params);
     this.dispatch(NavigationActions.back());
-  };
-
-  reset = (routeName, ...params) => {
-    this.replace(routeName, ...params);
+    if (res.refresh) {
+      this.refresh(res.refresh);
+    }
   };
 
   popTo = (routeName, ...params) => {
@@ -218,18 +225,20 @@ class NavigationStore {
   };
 
   replace = (routeName, ...params) => {
-    let res = {};
-    for (const param of params) {
-      if (param) {
-        res = { ...res, ...filterParam(param) };
-      }
-    }
-    res.routeName = routeName;
-    this.run(ActionConst.REPLACE, routeName, [NavigationActions.navigate({
+    const res = uniteParams(routeName, params);
+    this.run(ActionConst.REPLACE, routeName, { key: routeName, index: 0, actions: [NavigationActions.navigate({
       routeName,
       params: res,
-    })]);
-  }
+    })] });
+  };
+
+  reset = (routeName, ...params) => {
+    const res = uniteParams(routeName, params);
+    this.run(ActionConst.RESET, routeName, { key: null, index: 0, actions: [NavigationActions.navigate({
+      routeName,
+      params: res,
+    })] });
+  };
 }
 
 
