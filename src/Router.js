@@ -36,6 +36,7 @@ const reservedKeys = [
   'pop',
   'renderLeftButton',
   'renderRightButton',
+  'renderTitle',
   'navBar',
   'title',
   'drawerOpen',
@@ -62,6 +63,16 @@ function getValue(value, params) {
   return value instanceof Function ? value(params) : value;
 }
 
+function getProperties(component = {}) {
+  const res = {};
+  for (const key of reservedKeys) {
+    if (component[key]) {
+      res[key] = component[key];
+    }
+  }
+  delete res.children;
+  return res;
+}
 function createTabBarOptions({ tabBarStyle, activeTintColor, inactiveTintColor, activeBackgroundColor, inactiveBackgroundColor, showLabel, labelStyle, tabStyle, ...props }) {
   return { ...props, style: tabBarStyle, activeTintColor, inactiveTintColor, activeBackgroundColor, inactiveBackgroundColor, showLabel, labelStyle, tabStyle };
 }
@@ -170,7 +181,7 @@ function createWrapper(Component, wrapBy) {
 class App extends React.Component {
   static propTypes = {
     navigator: React.PropTypes.func,
-  }
+  };
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
@@ -182,13 +193,8 @@ class App extends React.Component {
 
   onBackPress = () => {
     navigationStore.pop();
-
-    if (navigationStore.currentScene === navigationStore.prevScene) {
-      return false;
-    }
-
-    return true;
-  }
+    return navigationStore.currentScene !== navigationStore.prevScene;
+  };
 
   render() {
     const AppNavigator = this.props.navigator;
@@ -263,7 +269,7 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
     // console.log(`KEY ${key} DRAWER ${drawer} TABS ${tabs} WRAP ${wrap}`, JSON.stringify(commonProps));
     const screen = {
       screen: createWrapper(component, wrapBy) || processScene(child, commonProps, clones) || (lightbox && View),
-      navigationOptions: createNavigationOptions({ ...commonProps, ...component, ...child.props, init, component }),
+      navigationOptions: createNavigationOptions({ ...commonProps, ...getProperties(component), ...child.props, init, component }),
     };
 
     // wrap component inside own navbar for tabs/drawer parent controllers
