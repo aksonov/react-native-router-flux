@@ -281,12 +281,12 @@ _navigationStore2.default[key]=new Function('actions','props','type','return fun
 key+'(params){ actions.execute(type, \''+key+'\', props, params)}')(_navigationStore2.default,_extends({},commonProps,props),type);
 }
 
-if((onEnter||on)&&!_navigationStore2.default[key+_Util.OnEnter]){
-_navigationStore2.default[key+_Util.OnEnter]=onEnter||on;
+if((onEnter||on||component&&component.onEnter)&&!_navigationStore2.default[key+_Util.OnEnter]){
+_navigationStore2.default[key+_Util.OnEnter]=onEnter||on||component.onEnter;
 }
 
-if(onExit&&!_navigationStore2.default[key+_Util.OnExit]){
-_navigationStore2.default[key+_Util.OnExit]=onExit;
+if((onExit||component&&component.onExit)&&!_navigationStore2.default[key+_Util.OnExit]){
+_navigationStore2.default[key+_Util.OnExit]=onExit||component.onExit;
 }
 
 order.push(key);

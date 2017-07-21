@@ -281,12 +281,12 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
         `return function ${key}(params){ actions.execute(type, '${key}', props, params)}`)(navigationStore, { ...commonProps, ...props }, type);
     }
 
-    if ((onEnter || on) && !navigationStore[key + OnEnter]) {
-      navigationStore[key + OnEnter] = onEnter || on;
+    if ((onEnter || on || (component && component.onEnter)) && !navigationStore[key + OnEnter]) {
+      navigationStore[key + OnEnter] = onEnter || on || component.onEnter;
     }
 
-    if (onExit && !navigationStore[key + OnExit]) {
-      navigationStore[key + OnExit] = onExit;
+    if ((onExit || (component && component.onExit)) && !navigationStore[key + OnExit]) {
+      navigationStore[key + OnExit] = onExit || component.onExit;
     }
 
     order.push(key);
