@@ -55,6 +55,8 @@ const dontInheritKeys = [
   'ref',
   'style',
   'title',
+  'navTransparent',
+  'type',
   'hideNavBar',
   'hideTabBar',
 ];
@@ -70,7 +72,6 @@ function getProperties(component = {}) {
       res[key] = component[key];
     }
   }
-  delete res.children;
   return res;
 }
 function createTabBarOptions({ tabBarStyle, activeTintColor, inactiveTintColor, activeBackgroundColor, inactiveBackgroundColor, showLabel, labelStyle, tabStyle, ...props }) {
@@ -223,9 +224,16 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
     }
   }
 
-  if (drawer && !commonProps.left && !commonProps.leftButtonImage && !commonProps.leftTitle && !commonProps.back) {
+  if (drawer && commonProps.drawerPosition !== 'right' && !commonProps.left && !commonProps.leftButtonImage
+    && !commonProps.leftTitle && !commonProps.back) {
     commonProps.leftButtonImage = commonProps.drawerImage || _drawerImage;
     commonProps.onLeft = navigationStore.drawerOpen;
+  }
+
+  if (drawer && commonProps.drawerPosition === 'right' && !commonProps.right && !commonProps.rightButtonImage
+    && !commonProps.rightTitle) {
+    commonProps.rightButtonImage = commonProps.drawerImage || _drawerImage;
+    commonProps.onRight = navigationStore.drawerOpen;
   }
 
   const children = !Array.isArray(parentProps.children) ? [parentProps.children] : [...parentProps.children];

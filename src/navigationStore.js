@@ -61,6 +61,8 @@ class NavigationStore {
   @observable currentScene = '';
   @observable prevScene = '';
   @observable currentParams;
+  @observable _onEnterHandlerExecuted = false;
+  @observable _onExitHandlerExecuted = false;
 
   get state() {
     const scene = this.currentScene;// eslint-disable-line no-unused-vars
@@ -82,8 +84,9 @@ class NavigationStore {
 
     autorunAsync(async () => {
       try {
-        if (this.prevScene && this.currentScene !== this.prevScene) {
+        if (this.prevScene && this.currentScene !== this.prevScene && !this._onExitHandlerExecuted) {
           // call onExit handler
+          this._onExitHandlerExecuted = true;
           const handler = this[this.prevScene + OnExit];
           if (handler) {
             try {
@@ -96,8 +99,9 @@ class NavigationStore {
             }
           }
         }
-        if (this.currentScene && this.currentScene !== this.prevScene && this.states[this.currentScene]) {
+        if (this.currentScene && this.currentScene !== this.prevScene && this.states[this.currentScene] && !this._onEnterHandlerExecuted) {
           const handler = this[this.currentScene + OnEnter];
+          this._onEnterHandlerExecuted = true;
           const success = this.states[this.currentScene].success || defaultSuccess;
           const failure = this.states[this.currentScene].failure || defaultFailure;
           // call onEnter handler
@@ -142,6 +146,8 @@ class NavigationStore {
     }
     this._state = newState;
     this.prevScene = this.currentScene;
+    this._onExitHandlerExecuted = false;
+    this._onEnterHandlerExecuted = false;
     this.currentScene = state.routeName;
     this.currentParams = state.params;
     if (type === ActionConst.JUMP && params) {

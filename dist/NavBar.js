@@ -194,7 +194,7 @@ if(!!state.onRight^!!(typeof rightTitle!=='undefined'||
 typeof buttonImage!=='undefined')){
 console.warn('Both onRight and rightTitle/rightButtonImage\n            must be specified for the scene: '+
 
-state.name);
+state.routeName);
 
 }
 return null;

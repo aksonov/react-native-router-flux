@@ -194,7 +194,7 @@ export function RightButton(state) {
     || typeof (buttonImage) !== 'undefined'))) {
     console.warn(
       `Both onRight and rightTitle/rightButtonImage
-            must be specified for the scene: ${state.name}`,
+            must be specified for the scene: ${state.routeName}`,
     );
   }
   return null;
