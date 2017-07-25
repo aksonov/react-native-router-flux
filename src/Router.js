@@ -8,6 +8,7 @@ import { OnEnter, OnExit, assert } from './Util';
 import { TabNavigator, DrawerNavigator, StackNavigator, addNavigationHelpers } from 'react-navigation';
 import { LeftButton, RightButton, renderBackButton } from './NavBar';
 import LightboxNavigator from './LightboxNavigator';
+import OverlayNavigator from './OverlayNavigator';
 import _drawerImage from '../images/menu_burger.png';
 let RightNavBarButton;
 let LeftNavBarButton;
@@ -47,6 +48,7 @@ const dontInheritKeys = [
   'component',
   'wrap',
   'modal',
+  'overlay',
   'drawer',
   'tabs',
   'navigator',
@@ -213,7 +215,7 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
   }
   const res = {};
   const order = [];
-  const { tabs, modal, lightbox, navigator, contentComponent, lazy, drawer, ...parentProps } = scene.props;
+  const { tabs, modal, overlay, lightbox, navigator, contentComponent, lazy, drawer, ...parentProps } = scene.props;
 
   const commonProps = { ...inheritProps, ...parentProps };
   delete commonProps.children;
@@ -312,7 +314,7 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
   }
   const mode = modal ? 'modal' : 'card';
   if (navigator) {
-    return navigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
+    return navigator(res, { lazy, initialRouteName, initialRouteParams, contentComponent, order, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
   }
   if (lightbox) {
     return LightboxNavigator(res, { mode, initialRouteParams, initialRouteName, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
@@ -321,6 +323,8 @@ function processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
       tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });
   } else if (drawer) {
     return DrawerNavigator(res, { initialRouteName, contentComponent, order, ...commonProps });
+  } else if (overlay) {
+    return OverlayNavigator(res, { mode, initialRouteParams, order, contentComponent, initialRouteName, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
   }
   return StackNavigator(res, { mode, initialRouteParams, initialRouteName, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
 }
