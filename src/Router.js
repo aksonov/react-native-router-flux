@@ -72,6 +72,7 @@ function getProperties(component = {}) {
       res[key] = component[key];
     }
   }
+  delete res.children;
   return res;
 }
 function createTabBarOptions({ tabBarStyle, activeTintColor, inactiveTintColor, activeBackgroundColor, inactiveBackgroundColor, showLabel, labelStyle, tabStyle, ...props }) {
