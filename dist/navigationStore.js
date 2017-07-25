@@ -13,7 +13,8 @@ ActionConst.POP_AND_REPLACE,'pop'),_defineProperty(_actionMap,
 ActionConst.POP_TO,'popTo'),_defineProperty(_actionMap,
 ActionConst.REFRESH,'refresh'),_defineProperty(_actionMap,
 ActionConst.RESET,'reset'),_defineProperty(_actionMap,
-ActionConst.PUSH_OR_POP,'push'),_actionMap);
+ActionConst.PUSH_OR_POP,'push'),_defineProperty(_actionMap,
+ActionConst.POP_AND_PUSH,'popAndPush'),_actionMap);
 
 
 var supportedActions=exports.supportedActions=(_supportedActions={},_defineProperty(_supportedActions,
@@ -21,7 +22,8 @@ ActionConst.PUSH,_reactNavigation.NavigationActions.NAVIGATE),_defineProperty(_s
 ActionConst.JUMP,_reactNavigation.NavigationActions.NAVIGATE),_defineProperty(_supportedActions,
 ActionConst.BACK,_reactNavigation.NavigationActions.BACK),_defineProperty(_supportedActions,
 ActionConst.REFRESH,_reactNavigation.NavigationActions.BACK),_defineProperty(_supportedActions,
-ActionConst.RESET,_reactNavigation.NavigationActions.RESET),_supportedActions);
+ActionConst.RESET,_reactNavigation.NavigationActions.RESET),_defineProperty(_supportedActions,
+ActionConst.REPLACE,_reactNavigation.NavigationActions.RESET),_supportedActions);
 
 function filterParam(data){
 if(data.toString()!=='[object Object]'){
@@ -193,7 +195,7 @@ currentState=newState;
 if(nextScene===routeName){
 _this.setState(newState);
 }
-}else if(type===ActionConst.REPLACE){
+}else if(type===ActionConst.POP_AND_PUSH){
 _this.pop();
 _this.push.apply(_this,[routeName].concat(params));
 }
@@ -245,14 +247,22 @@ _this.refresh(res.refresh);
 };this.
 
 popTo=function(routeName){for(var _len5=arguments.length,params=Array(_len5>1?_len5-1:0),_key5=1;_key5<_len5;_key5++){params[_key5-1]=arguments[_key5];}
-_this.run.apply(_this,[ActionConst.POP_TO,routeName].concat(params));
+_this.run.apply(_this,[ActionConst.POP_TO,routeName,null].concat(params));
 };this.
 
-replace=function(routeName){for(var _len6=arguments.length,params=Array(_len6>1?_len6-1:0),_key6=1;_key6<_len6;_key6++){params[_key6-1]=arguments[_key6];}
-_this.run.apply(_this,[ActionConst.REPLACE,routeName].concat(params));
+popAndPush=function(routeName){for(var _len6=arguments.length,params=Array(_len6>1?_len6-1:0),_key6=1;_key6<_len6;_key6++){params[_key6-1]=arguments[_key6];}
+_this.run.apply(_this,[ActionConst.POP_AND_PUSH,routeName,null].concat(params));
 };this.
 
-reset=function(routeName){for(var _len7=arguments.length,params=Array(_len7>1?_len7-1:0),_key7=1;_key7<_len7;_key7++){params[_key7-1]=arguments[_key7];}
+replace=function(routeName){for(var _len7=arguments.length,params=Array(_len7>1?_len7-1:0),_key7=1;_key7<_len7;_key7++){params[_key7-1]=arguments[_key7];}
+var res=uniteParams(routeName,params);
+_this.run(ActionConst.REPLACE,routeName,{key:routeName,index:0,actions:[_reactNavigation.NavigationActions.navigate({
+routeName:routeName,
+params:res})]});
+
+};this.
+
+reset=function(routeName){for(var _len8=arguments.length,params=Array(_len8>1?_len8-1:0),_key8=1;_key8<_len8;_key8++){params[_key8-1]=arguments[_key8];}
 var res=uniteParams(routeName,params);
 _this.run(ActionConst.RESET,routeName,{key:null,index:0,actions:[_reactNavigation.NavigationActions.navigate({
 routeName:routeName,

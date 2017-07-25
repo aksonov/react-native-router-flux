@@ -65,7 +65,7 @@ const Example = () => {
                 <Scene key="register" back>
                   <Scene key="_register" component={Register} title="Register"/>
                   <Scene key="register2" component={Register} title="Register2"/>
-                  <Scene key="home" component={Home} title="Replace" type={ActionConst.REPLACE}/>
+                  <Scene key="home" component={Home} title="Replace" type={ActionConst.POP_AND_PUSH}/>
                 </Scene>
                 <Scene key="launch" component={Launch} title="Launch" initial/>
                 <Scene

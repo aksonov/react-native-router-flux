@@ -14,6 +14,7 @@ export const actionMap = {
   [ActionConst.REFRESH]: 'refresh',
   [ActionConst.RESET]: 'reset',
   [ActionConst.PUSH_OR_POP]: 'push',
+  [ActionConst.POP_AND_PUSH]: 'popAndPush',
 };
 
 export const supportedActions = {
@@ -22,6 +23,7 @@ export const supportedActions = {
   [ActionConst.BACK]: NavigationActions.BACK,
   [ActionConst.REFRESH]: NavigationActions.BACK,
   [ActionConst.RESET]: NavigationActions.RESET,
+  [ActionConst.REPLACE]: NavigationActions.RESET,
 };
 function filterParam(data) {
   if (data.toString() !== '[object Object]') {
@@ -193,7 +195,7 @@ class NavigationStore {
         if (nextScene === routeName) {
           this.setState(newState);
         }
-      } else if (type === ActionConst.REPLACE) {
+      } else if (type === ActionConst.POP_AND_PUSH) {
         this.pop();
         this.push(routeName, ...params);
       }
@@ -245,11 +247,19 @@ class NavigationStore {
   };
 
   popTo = (routeName, ...params) => {
-    this.run(ActionConst.POP_TO, routeName, ...params);
+    this.run(ActionConst.POP_TO, routeName, null, ...params);
+  };
+
+  popAndPush = (routeName, ...params) => {
+    this.run(ActionConst.POP_AND_PUSH, routeName, null, ...params);
   };
 
   replace = (routeName, ...params) => {
-    this.run(ActionConst.REPLACE, routeName, ...params);
+    const res = uniteParams(routeName, params);
+    this.run(ActionConst.REPLACE, routeName, { key: routeName, index: 0, actions: [NavigationActions.navigate({
+      routeName,
+      params: res,
+    })] });
   };
 
   reset = (routeName, ...params) => {
