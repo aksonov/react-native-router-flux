@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from "react-native";
 import Button from "react-native-button";
 import {Actions} from "react-native-router-flux";
+import { MessageBarAlert, MessageBarManager } from 'react-native-message-bar';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,6 +24,13 @@ class Launch extends React.Component {
         <Button onPress={()=>Actions.login({data:"Custom data", title:"Custom title" })}>Go to Login page</Button>
         <Button onPress={()=>Actions.register()}>Go to Register page</Button>
         <Button onPress={()=>Actions.error("Error message")}>Popup error</Button>
+        <Button onPress={()=>MessageBarManager.showAlert({
+          title: 'Your alert title goes here',
+          message: 'Your alert message goes here',
+          alertType: 'success',
+          // See Properties section for full customization
+          // Or check `index.ios.js` or `index.android.js` for a complete example
+        })}>MessageBar alert</Button>
         <Button onPress={()=>Actions.tabbar()}>Go to TabBar page</Button>
         <Button onPress={()=>Actions.pop()}>back</Button>
       </View>
