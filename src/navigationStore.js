@@ -12,7 +12,7 @@ export const actionMap = {
   [ActionConst.POP_AND_REPLACE]: 'pop',
   [ActionConst.POP_TO]: 'popTo',
   [ActionConst.REFRESH]: 'refresh',
-  [ActionConst.RESET]: 'replace',
+  [ActionConst.RESET]: 'reset',
   [ActionConst.PUSH_OR_POP]: 'push',
 };
 

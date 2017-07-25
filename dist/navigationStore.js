@@ -12,7 +12,7 @@ ActionConst.BACK_ACTION,'pop'),_defineProperty(_actionMap,
 ActionConst.POP_AND_REPLACE,'pop'),_defineProperty(_actionMap,
 ActionConst.POP_TO,'popTo'),_defineProperty(_actionMap,
 ActionConst.REFRESH,'refresh'),_defineProperty(_actionMap,
-ActionConst.RESET,'replace'),_defineProperty(_actionMap,
+ActionConst.RESET,'reset'),_defineProperty(_actionMap,
 ActionConst.PUSH_OR_POP,'push'),_actionMap);
 
 
