@@ -19,7 +19,6 @@ ActionConst.PUSH_OR_POP,'push'),_actionMap);
 var supportedActions=exports.supportedActions=(_supportedActions={},_defineProperty(_supportedActions,
 ActionConst.PUSH,_reactNavigation.NavigationActions.NAVIGATE),_defineProperty(_supportedActions,
 ActionConst.JUMP,_reactNavigation.NavigationActions.NAVIGATE),_defineProperty(_supportedActions,
-ActionConst.REPLACE,_reactNavigation.NavigationActions.RESET),_defineProperty(_supportedActions,
 ActionConst.BACK,_reactNavigation.NavigationActions.BACK),_defineProperty(_supportedActions,
 ActionConst.REFRESH,_reactNavigation.NavigationActions.BACK),_defineProperty(_supportedActions,
 ActionConst.RESET,_reactNavigation.NavigationActions.RESET),_supportedActions);
@@ -125,15 +124,25 @@ function NavigationStore(){var _this=this;_classCallCheck(this,NavigationStore);
 
 
 
-
-
-
-
 nextState=function(state,cmd){return _this.reducer?_this.reducer(state,cmd):_this._router.getStateForAction(cmd,state);};this.
 
 dispatch=function(cmd,type,params){
 _this.setState(_this.nextState(_this.state,cmd),type,params);
 };_initDefineProp(this,'setState',_descriptor6,this);this.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -166,7 +175,8 @@ run=function(){for(var _len2=arguments.length,params=Array(_len2>3?_len2-3:0),_k
 var res=uniteParams(routeName,params);
 if(supportedActions[type]){
 _this.dispatch(createAction(supportedActions[type])(_extends({routeName:routeName},actions,{params:res})),type,res);
-}else if(type===ActionConst.POP_TO){
+}else{
+if(type===ActionConst.POP_TO){
 var nextScene='';
 var newState=_this._state;
 var currentState=_this._state;
@@ -182,6 +192,14 @@ currentState=newState;
 }
 if(nextScene===routeName){
 _this.setState(newState);
+}
+}else if(type===ActionConst.REPLACE){
+_this.pop();
+_this.push.apply(_this,[routeName].concat(params));
+}
+
+if(_this.reducer){
+_this.setState(_this.reducer(_this.state,{type:type,routeName:routeName,params:res}));
 }
 }
 };this.
@@ -231,11 +249,7 @@ _this.run.apply(_this,[ActionConst.POP_TO,routeName].concat(params));
 };this.
 
 replace=function(routeName){for(var _len6=arguments.length,params=Array(_len6>1?_len6-1:0),_key6=1;_key6<_len6;_key6++){params[_key6-1]=arguments[_key6];}
-var res=uniteParams(routeName,params);
-_this.run(ActionConst.REPLACE,routeName,{key:routeName,index:0,actions:[_reactNavigation.NavigationActions.navigate({
-routeName:routeName,
-params:res})]});
-
+_this.run.apply(_this,[ActionConst.REPLACE,routeName].concat(params));
 };this.
 
 reset=function(routeName){for(var _len7=arguments.length,params=Array(_len7>1?_len7-1:0),_key7=1;_key7<_len7;_key7++){params[_key7-1]=arguments[_key7];}
@@ -244,7 +258,7 @@ _this.run(ActionConst.RESET,routeName,{key:null,index:0,actions:[_reactNavigatio
 routeName:routeName,
 params:res})]});
 
-};var defaultSuccess=function defaultSuccess(){};var defaultFailure=function defaultFailure(){};(0,_mobx.autorunAsync)(function _callee(){var handler,res,_handler,success,failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.prev=0;if(_this.prevScene&&_this.currentScene!==_this.prevScene&&!_this._onExitHandlerExecuted){_this._onExitHandlerExecuted=true;handler=_this[_this.prevScene+_Util.OnExit];if(handler){try{res=handler();if(res instanceof Promise){res.then(defaultSuccess,defaultFailure);}}catch(e){console.error('Error during onExit handler:',e);}}}if(!(_this.currentScene&&_this.currentScene!==_this.prevScene&&_this.states[_this.currentScene]&&!_this._onEnterHandlerExecuted)){_context.next=21;break;}_handler=_this[_this.currentScene+_Util.OnEnter];_this._onEnterHandlerExecuted=true;success=_this.states[_this.currentScene].success||defaultSuccess;failure=_this.states[_this.currentScene].failure||defaultFailure;if(!_handler){_context.next=21;break;}_context.prev=8;params=_this.currentState().params;console.log('RUN onEnter handler for state=',_this.currentScene,' params='+JSON.stringify(params));_context.next=13;return regeneratorRuntime.awrap(_handler(params));case 13:_res=_context.sent;if(_res){console.log('SUCCESS',_res);success(_res);}else{console.log('FAILURE NULL RES');failure();}_context.next=21;break;case 17:_context.prev=17;_context.t0=_context['catch'](8);console.log('FAILURE EXCEPTION',_context.t0);failure({error:_context.t0});case 21:_context.next=26;break;case 23:_context.prev=23;_context.t1=_context['catch'](0);console.error('Error handling:'+_context.t1);case 26:case'end':return _context.stop();}}},null,_this,[[0,23],[8,17]]);});}return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class.prototype,'currentScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor2=_applyDecoratedDescriptor(_class.prototype,'prevScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor3=_applyDecoratedDescriptor(_class.prototype,'currentParams',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor4=_applyDecoratedDescriptor(_class.prototype,'_onEnterHandlerExecuted',[_mobx.observable],{enumerable:true,initializer:function initializer(){return false;}}),_descriptor5=_applyDecoratedDescriptor(_class.prototype,'_onExitHandlerExecuted',[_mobx.observable],{enumerable:true,initializer:function initializer(){return false;}}),_descriptor6=_applyDecoratedDescriptor(_class.prototype,'setState',[_mobx.action],{enumerable:true,initializer:function initializer(){var _this2=this;return function(newState,type,params){if(!newState){return;}var state=_this2.currentState(newState);if(type===ActionConst.JUMP&&state.routeName===_this2.currentScene){return;}_this2._state=newState;_this2.prevScene=_this2.currentScene;_this2._onExitHandlerExecuted=false;_this2._onEnterHandlerExecuted=false;_this2.currentScene=state.routeName;_this2.currentParams=state.params;if(type===ActionConst.JUMP&&params){_this2.refresh(params);}};}})),_class);exports.default=
+};var defaultSuccess=function defaultSuccess(){};var defaultFailure=function defaultFailure(){};(0,_mobx.autorunAsync)(function _callee(){var handler,res,_handler,success,failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.prev=0;if(_this.prevScene&&_this.currentScene!==_this.prevScene&&!_this._onExitHandlerExecuted){_this._onExitHandlerExecuted=true;handler=_this[_this.prevScene+_Util.OnExit];if(handler){try{res=handler();if(res instanceof Promise){res.then(defaultSuccess,defaultFailure);}}catch(e){console.error('Error during onExit handler:',e);}}}if(!(_this.currentScene&&_this.currentScene!==_this.prevScene&&_this.states[_this.currentScene]&&!_this._onEnterHandlerExecuted)){_context.next=19;break;}_handler=_this[_this.currentScene+_Util.OnEnter];_this._onEnterHandlerExecuted=true;success=_this.states[_this.currentScene].success||defaultSuccess;failure=_this.states[_this.currentScene].failure||defaultFailure;if(!_handler){_context.next=19;break;}_context.prev=8;params=_this.currentState().params;_context.next=12;return regeneratorRuntime.awrap(_handler(params));case 12:_res=_context.sent;if(_res){success(_res);}else{failure();}_context.next=19;break;case 16:_context.prev=16;_context.t0=_context['catch'](8);failure({error:_context.t0});case 19:_context.next=24;break;case 21:_context.prev=21;_context.t1=_context['catch'](0);console.error('Error handling:'+_context.t1);case 24:case'end':return _context.stop();}}},null,_this,[[0,21],[8,16]]);});}return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class.prototype,'currentScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor2=_applyDecoratedDescriptor(_class.prototype,'prevScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor3=_applyDecoratedDescriptor(_class.prototype,'currentParams',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor4=_applyDecoratedDescriptor(_class.prototype,'_onEnterHandlerExecuted',[_mobx.observable],{enumerable:true,initializer:function initializer(){return false;}}),_descriptor5=_applyDecoratedDescriptor(_class.prototype,'_onExitHandlerExecuted',[_mobx.observable],{enumerable:true,initializer:function initializer(){return false;}}),_descriptor6=_applyDecoratedDescriptor(_class.prototype,'setState',[_mobx.action],{enumerable:true,initializer:function initializer(){var _this2=this;return function(newState,type,params){if(!newState){return;}var state=_this2.currentState(newState);if(type===ActionConst.JUMP&&state.routeName===_this2.currentScene){return;}_this2._state=newState;if(_this2.reducer){var overridenState=_this2.reducer(newState,{type:ActionConst.BLUR,routeName:_this2.prevScene});if(overridenState){_this2._state=overridenState;}}_this2.prevScene=_this2.currentScene;_this2._onExitHandlerExecuted=false;_this2._onEnterHandlerExecuted=false;_this2.currentScene=state.routeName;_this2.currentParams=state.params;if(type===ActionConst.JUMP&&params){_this2.refresh(params);}if(_this2.reducer){var _overridenState=_this2.reducer(newState,{type:ActionConst.FOCUS,routeName:_this2.currentScene,params:state.params});if(_overridenState){_this2._state=_overridenState;}}};}})),_class);exports.default=
 
 
 

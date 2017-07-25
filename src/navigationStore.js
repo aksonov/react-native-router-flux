@@ -19,7 +19,6 @@ export const actionMap = {
 export const supportedActions = {
   [ActionConst.PUSH]: NavigationActions.NAVIGATE,
   [ActionConst.JUMP]: NavigationActions.NAVIGATE,
-  [ActionConst.REPLACE]: NavigationActions.RESET,
   [ActionConst.BACK]: NavigationActions.BACK,
   [ActionConst.REFRESH]: NavigationActions.BACK,
   [ActionConst.RESET]: NavigationActions.RESET,
@@ -108,17 +107,13 @@ class NavigationStore {
           if (handler) {
             try {
               const params = this.currentState().params;
-              console.log('RUN onEnter handler for state=', this.currentScene, ` params=${JSON.stringify(params)}`);
               const res = await handler(params);
               if (res) {
-                console.log('SUCCESS', res);
                 success(res);
               } else {
-                console.log('FAILURE NULL RES');
                 failure();
               }
             } catch (e) {
-              console.log('FAILURE EXCEPTION', e);
               failure({ error: e });
             }
           }
@@ -145,6 +140,13 @@ class NavigationStore {
       return;
     }
     this._state = newState;
+    // run 'blur' event
+    if (this.reducer) {
+      const overridenState = this.reducer(newState, { type: ActionConst.BLUR, routeName: this.prevScene });
+      if (overridenState) {
+        this._state = overridenState;
+      }
+    }
     this.prevScene = this.currentScene;
     this._onExitHandlerExecuted = false;
     this._onEnterHandlerExecuted = false;
@@ -152,6 +154,13 @@ class NavigationStore {
     this.currentParams = state.params;
     if (type === ActionConst.JUMP && params) {
       this.refresh(params);
+    }
+    // run 'focus' event
+    if (this.reducer) {
+      const overridenState = this.reducer(newState, { type: ActionConst.FOCUS, routeName: this.currentScene, params: state.params });
+      if (overridenState) {
+        this._state = overridenState;
+      }
     }
   };
 
@@ -166,22 +175,31 @@ class NavigationStore {
     const res = uniteParams(routeName, params);
     if (supportedActions[type]) {
       this.dispatch(createAction(supportedActions[type])({ routeName, ...actions, params: res }), type, res);
-    } else if (type === ActionConst.POP_TO) {
-      let nextScene = '';
-      let newState = this._state;
-      let currentState = this._state;
-      const currentScene = this.currentScene;
-      while (nextScene !== currentScene && newState && nextScene !== routeName) {
-        newState = this.nextState(currentState, NavigationActions.back());
-        if (newState) {
-          nextScene = this.currentState(newState).routeName;
-          if (nextScene !== routeName) {
-            currentState = newState;
+    } else {
+      if (type === ActionConst.POP_TO) {
+        let nextScene = '';
+        let newState = this._state;
+        let currentState = this._state;
+        const currentScene = this.currentScene;
+        while (nextScene !== currentScene && newState && nextScene !== routeName) {
+          newState = this.nextState(currentState, NavigationActions.back());
+          if (newState) {
+            nextScene = this.currentState(newState).routeName;
+            if (nextScene !== routeName) {
+              currentState = newState;
+            }
           }
         }
+        if (nextScene === routeName) {
+          this.setState(newState);
+        }
+      } else if (type === ActionConst.REPLACE) {
+        this.pop();
+        this.push(routeName, ...params);
       }
-      if (nextScene === routeName) {
-        this.setState(newState);
+      // pass to reducer to notify
+      if (this.reducer) {
+        this.setState(this.reducer(this.state, { type, routeName, params: res }));
       }
     }
   };
@@ -231,11 +249,7 @@ class NavigationStore {
   };
 
   replace = (routeName, ...params) => {
-    const res = uniteParams(routeName, params);
-    this.run(ActionConst.REPLACE, routeName, { key: routeName, index: 0, actions: [NavigationActions.navigate({
-      routeName,
-      params: res,
-    })] });
+    this.run(ActionConst.REPLACE, routeName, ...params);
   };
 
   reset = (routeName, ...params) => {
