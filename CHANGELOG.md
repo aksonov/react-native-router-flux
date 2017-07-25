@@ -1,27 +1,30 @@
 # Change Log
 
-## [Unreleased](https://github.com/aksonov/react-native-router-flux/tree/HEAD)
-
-[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.13...HEAD)
-
-**Closed issues:**
-
-- How to have back button on initial screen also? [\#2101](https://github.com/aksonov/react-native-router-flux/issues/2101)
-- on reset complete? [\#2090](https://github.com/aksonov/react-native-router-flux/issues/2090)
-- Question about Actions.refresh [\#2089](https://github.com/aksonov/react-native-router-flux/issues/2089)
-- Rotation bug. [\#2088](https://github.com/aksonov/react-native-router-flux/issues/2088)
-- Back button does not render  [\#2086](https://github.com/aksonov/react-native-router-flux/issues/2086)
-- Nested scenes not working in 4.0.0 [\#2066](https://github.com/aksonov/react-native-router-flux/issues/2066)
+## [4.0.0-beta.14](https://github.com/aksonov/react-native-router-flux/tree/4.0.0-beta.14) (2017-07-25)
+[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.13...4.0.0-beta.14)
 
 ## [4.0.0-beta.13](https://github.com/aksonov/react-native-router-flux/tree/4.0.0-beta.13) (2017-07-25)
 [Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.12...4.0.0-beta.13)
 
+**Implemented enhancements:**
+
+- Tabbar properties not working in V4 [\#1996](https://github.com/aksonov/react-native-router-flux/issues/1996)
+
+**Fixed bugs:**
+
+- Drawer with drawerPosition="right" has menu button on the left [\#2087](https://github.com/aksonov/react-native-router-flux/issues/2087)
+
 **Closed issues:**
 
+- Cannot open screen in tab scene [\#2108](https://github.com/aksonov/react-native-router-flux/issues/2108)
 - Drawer button and title alignment in Navbar v4 [\#2107](https://github.com/aksonov/react-native-router-flux/issues/2107)
 - Can't wrap Scene or ConnectedRouter in a View  [\#2106](https://github.com/aksonov/react-native-router-flux/issues/2106)
+- How to have a global view component like a notification bar  [\#2105](https://github.com/aksonov/react-native-router-flux/issues/2105)
 - Drawer w/ Nested Nav and Header Issue [\#2103](https://github.com/aksonov/react-native-router-flux/issues/2103)
+- v4 replace behaves different to v3? [\#2102](https://github.com/aksonov/react-native-router-flux/issues/2102)
+- How to have back button on initial screen also? [\#2101](https://github.com/aksonov/react-native-router-flux/issues/2101)
 - Example with Redux on v4 [\#2100](https://github.com/aksonov/react-native-router-flux/issues/2100)
+- Example with MobX on v4 [\#2099](https://github.com/aksonov/react-native-router-flux/issues/2099)
 - How to reset back stack? [\#2098](https://github.com/aksonov/react-native-router-flux/issues/2098)
 - about example  Jump animation [\#2097](https://github.com/aksonov/react-native-router-flux/issues/2097)
 - BackHandler remove on v3.39.1 [\#2096](https://github.com/aksonov/react-native-router-flux/issues/2096)
@@ -29,6 +32,10 @@
 - hideBackImage and renderBackButton not working [\#2093](https://github.com/aksonov/react-native-router-flux/issues/2093)
 - Drawer-Image not shown on android [\#2092](https://github.com/aksonov/react-native-router-flux/issues/2092)
 - Action to the same route [\#2091](https://github.com/aksonov/react-native-router-flux/issues/2091)
+- on reset complete? [\#2090](https://github.com/aksonov/react-native-router-flux/issues/2090)
+- Question about Actions.refresh [\#2089](https://github.com/aksonov/react-native-router-flux/issues/2089)
+- Rotation bug. [\#2088](https://github.com/aksonov/react-native-router-flux/issues/2088)
+- Back button does not render  [\#2086](https://github.com/aksonov/react-native-router-flux/issues/2086)
 - tabbar icon cannot class? [\#2085](https://github.com/aksonov/react-native-router-flux/issues/2085)
 - navTransparent Does not work [\#2084](https://github.com/aksonov/react-native-router-flux/issues/2084)
 - Back button prop [\#2083](https://github.com/aksonov/react-native-router-flux/issues/2083)
@@ -43,9 +50,11 @@
 - v3 to v4 : Route 'myRoute' should declare a screen. [\#2074](https://github.com/aksonov/react-native-router-flux/issues/2074)
 - Actions stopped working [\#2072](https://github.com/aksonov/react-native-router-flux/issues/2072)
 - actions\[type\] is not a function [\#2070](https://github.com/aksonov/react-native-router-flux/issues/2070)
+- Nested scenes not working in 4.0.0 [\#2066](https://github.com/aksonov/react-native-router-flux/issues/2066)
 - How can I pass parameters to a tabbar's child? [\#2065](https://github.com/aksonov/react-native-router-flux/issues/2065)
 - Cannot update during an existing state transition [\#2063](https://github.com/aksonov/react-native-router-flux/issues/2063)
 - \[Question\] How to \*really\* upgrade from V3 to V4? [\#2060](https://github.com/aksonov/react-native-router-flux/issues/2060)
+- Strange behavior for drawerOpen [\#2058](https://github.com/aksonov/react-native-router-flux/issues/2058)
 - Confusion to new comer: what version shall I use? [\#2041](https://github.com/aksonov/react-native-router-flux/issues/2041)
 - Icon not show on Android [\#2038](https://github.com/aksonov/react-native-router-flux/issues/2038)
 - Navigation 'back' button won't render on Android for scenes with 'back' attribute. [\#2023](https://github.com/aksonov/react-native-router-flux/issues/2023)
