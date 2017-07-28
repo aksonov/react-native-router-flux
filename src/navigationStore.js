@@ -1,5 +1,5 @@
 import React from 'react';
-import { observable, action, autorunAsync } from 'mobx';
+import { observable, action } from 'mobx';
 import * as ActionConst from './ActionConst';
 import { OnEnter, OnExit, assert } from './Util';
 import { View } from 'react-native';
@@ -222,6 +222,9 @@ function uniteParams(routeName, params) {
   return res;
 }
 
+const defaultSuccess = () => {};
+const defaultFailure = () => {};
+
 class NavigationStore {
   states = {};
   reducer = null;
@@ -230,60 +233,11 @@ class NavigationStore {
   @observable currentScene = '';
   @observable prevScene = '';
   @observable currentParams;
-  @observable _onEnterHandlerExecuted = false;
-  @observable _onExitHandlerExecuted = false;
 
   get state() {
     const scene = this.currentScene;// eslint-disable-line no-unused-vars
     const params = this.currentParams;// eslint-disable-line no-unused-vars
     return this._state;
-  }
-
-  constructor() {
-    const defaultSuccess = () => {};
-    const defaultFailure = () => {};
-
-    autorunAsync(async () => {
-      try {
-        if (this.prevScene && this.currentScene !== this.prevScene && !this._onExitHandlerExecuted) {
-          // call onExit handler
-          this._onExitHandlerExecuted = true;
-          const handler = this[this.prevScene + OnExit];
-          if (handler) {
-            try {
-              const res = handler();
-              if (res instanceof Promise) {
-                res.then(defaultSuccess, defaultFailure);
-              }
-            } catch (e) {
-              console.error('Error during onExit handler:', e);
-            }
-          }
-        }
-        if (this.currentScene && this.currentScene !== this.prevScene && this.states[this.currentScene] && !this._onEnterHandlerExecuted) {
-          const handler = this[this.currentScene + OnEnter];
-          this._onEnterHandlerExecuted = true;
-          const success = this.states[this.currentScene].success || defaultSuccess;
-          const failure = this.states[this.currentScene].failure || defaultFailure;
-          // call onEnter handler
-          if (handler) {
-            try {
-              const params = getActiveState(this._state).params;
-              const res = await handler(params);
-              if (res) {
-                success(res);
-              } else {
-                failure();
-              }
-            } catch (e) {
-              failure({ error: e });
-            }
-          }
-        }
-      } catch (e) {
-        console.error(`Error handling:${e}`);
-      }
-    });
   }
 
   create = (scene: Scene, params = {}, wrapBy = props => props) => {
@@ -424,7 +378,7 @@ class NavigationStore {
     this.setState(this.nextState(this.state, cmd));
   };
 
-  @action setState = (newState) => {
+  @action setState = async (newState) => {
     // don't allow null state
     if (!newState) {
       return;
@@ -435,15 +389,46 @@ class NavigationStore {
     this._state = newState;
     if (prevScene !== this.prevScene) {
       this.dispatch({ type: ActionConst.BLUR, routeName: this.prevScene });
+
+      // call onExit handler
+      const handler = this[this.prevScene + OnExit];
+      if (handler) {
+        try {
+          const res = handler();
+          if (res instanceof Promise) {
+            res.then(defaultSuccess, defaultFailure);
+          }
+        } catch (e) {
+          console.error('Error during onExit handler:', e);
+        }
+      }
     }
     this.prevScene = this.currentScene;
-    this._onExitHandlerExecuted = false;
-    this._onEnterHandlerExecuted = false;
     this.currentScene = state.routeName;
     this.currentParams = state.params;
 
     if (currentScene !== this.currentScene) {
       this.dispatch({ type: ActionConst.FOCUS, routeName: this.currentScene, params: this.currentParams });
+      if (this.states[this.currentScene]) {
+        const handler = this[this.currentScene + OnEnter];
+        const success = this.states[this.currentScene].success || defaultSuccess;
+        const failure = this.states[this.currentScene].failure || defaultFailure;
+        // call onEnter handler
+        if (handler) {
+          try {
+            const params = getActiveState(this._state).params;
+            const res = await
+              handler(params);
+            if (res) {
+              success(res);
+            } else {
+              failure();
+            }
+          } catch (e) {
+            failure({ error: e });
+          }
+        }
+      }
     }
   };
 

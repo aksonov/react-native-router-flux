@@ -1,4 +1,4 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.actionMap=undefined;var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _actionMap,_jsxFileName='src/navigationStore.js',_desc,_value,_class,_descriptor,_descriptor2,_descriptor3,_descriptor4,_descriptor5,_descriptor6;var _react=require('react');var _react2=_interopRequireDefault(_react);
+Object.defineProperty(exports,"__esModule",{value:true});exports.actionMap=undefined;var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _actionMap,_jsxFileName='src/navigationStore.js',_desc,_value,_class,_descriptor,_descriptor2,_descriptor3,_descriptor4;var _react=require('react');var _react2=_interopRequireDefault(_react);
 var _mobx=require('mobx');
 var _ActionConst=require('./ActionConst');var ActionConst=_interopRequireWildcard(_ActionConst);
 var _Util=require('./Util');
@@ -220,60 +220,14 @@ res=_extends({},res,filterParam(param));
 }
 res.routeName=routeName;
 return res;
-}var
+}
 
-NavigationStore=(_class=function(){_createClass(NavigationStore,[{key:'state',get:function get()
+var defaultSuccess=function defaultSuccess(){};
+var defaultFailure=function defaultFailure(){};var
 
-
-
-
-
-
-
-
-
-
-{
-var scene=this.currentScene;
-var params=this.currentParams;
-return this._state;
-}}]);
-
-function NavigationStore(){var _this=this;_classCallCheck(this,NavigationStore);this.states={};this.reducer=null;_initDefineProp(this,'currentScene',_descriptor,this);_initDefineProp(this,'prevScene',_descriptor2,this);_initDefineProp(this,'currentParams',_descriptor3,this);_initDefineProp(this,'_onEnterHandlerExecuted',_descriptor4,this);_initDefineProp(this,'_onExitHandlerExecuted',_descriptor5,this);this.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+NavigationStore=(_class=function(){function NavigationStore(){var _this=this;_classCallCheck(this,NavigationStore);this.
+states={};this.
+reducer=null;_initDefineProp(this,'currentScene',_descriptor,this);_initDefineProp(this,'prevScene',_descriptor2,this);_initDefineProp(this,'currentParams',_descriptor3,this);this.
 
 
 
@@ -309,7 +263,7 @@ var commonProps=_extends({},inheritProps,parentProps);
 delete commonProps.children;
 delete commonProps.component;
 
-for(var _iterator3=Object.keys(commonProps),_isArray3=Array.isArray(_iterator3),_i4=0,_iterator3=_isArray3?_iterator3:_iterator3[typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator']();;){var _ref6;if(_isArray3){if(_i4>=_iterator3.length)break;_ref6=_iterator3[_i4++];}else{_i4=_iterator3.next();if(_i4.done)break;_ref6=_i4.value;}var pkey=_ref6;
+for(var _iterator3=Object.keys(commonProps),_isArray3=Array.isArray(_iterator3),_i4=0,_iterator3=_isArray3?_iterator3:_iterator3[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref6;if(_isArray3){if(_i4>=_iterator3.length)break;_ref6=_iterator3[_i4++];}else{_i4=_iterator3.next();if(_i4.done)break;_ref6=_i4.value;}var pkey=_ref6;
 if(dontInheritKeys.includes(pkey)&&!parentProps[pkey]){
 delete commonProps[pkey];
 }
@@ -333,7 +287,7 @@ if(!drawer&&!tabs){
 children.push.apply(children,_toConsumableArray(clones));
 }
 
-for(var _iterator4=children,_isArray4=Array.isArray(_iterator4),_i5=0,_iterator4=_isArray4?_iterator4:_iterator4[typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator']();;){var _ref7;if(_isArray4){if(_i5>=_iterator4.length)break;_ref7=_iterator4[_i5++];}else{_i5=_iterator4.next();if(_i5.done)break;_ref7=_i5.value;}var child=_ref7;
+for(var _iterator4=children,_isArray4=Array.isArray(_iterator4),_i5=0,_iterator4=_isArray4?_iterator4:_iterator4[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref7;if(_isArray4){if(_i5>=_iterator4.length)break;_ref7=_iterator4[_i5++];}else{_i5=_iterator4.next();if(_i5.done)break;_ref7=_i5.value;}var child=_ref7;
 if(child.props.clone){
 if(clones.indexOf(child)===-1){
 clones.push(child);
@@ -351,7 +305,7 @@ _child.props,component=_child$props.component,_child$props$type=_child$props.typ
 if(!_this.states[key]){
 _this.states[key]={};
 }
-for(var _iterator6=Object.keys(props),_isArray6=Array.isArray(_iterator6),_i7=0,_iterator6=_isArray6?_iterator6:_iterator6[typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator']();;){var _ref9;if(_isArray6){if(_i7>=_iterator6.length)break;_ref9=_iterator6[_i7++];}else{_i7=_iterator6.next();if(_i7.done)break;_ref9=_i7.value;}var transition=_ref9;
+for(var _iterator6=Object.keys(props),_isArray6=Array.isArray(_iterator6),_i7=0,_iterator6=_isArray6?_iterator6:_iterator6[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref9;if(_isArray6){if(_i7>=_iterator6.length)break;_ref9=_iterator6[_i7++];}else{_i7=_iterator6.next();if(_i7.done)break;_ref9=_i7.value;}var transition=_ref9;
 if(reservedKeys.indexOf(transition)===-1&&props[transition]instanceof Function){
 _this.states[key][transition]=props[transition];
 }
@@ -398,7 +352,7 @@ order.push(key);
 if(_child.props.initial||!initialRouteName){
 initialRouteName=key;
 initialRouteParams=_extends({},commonProps,props);
-}};for(var _iterator5=children,_isArray5=Array.isArray(_iterator5),_i6=0,_iterator5=_isArray5?_iterator5:_iterator5[typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator']();;){var _ref8;if(_isArray5){if(_i6>=_iterator5.length)break;_ref8=_iterator5[_i6++];}else{_i6=_iterator5.next();if(_i6.done)break;_ref8=_i6.value;}var _child=_ref8;_loop(_child);
+}};for(var _iterator5=children,_isArray5=Array.isArray(_iterator5),_i6=0,_iterator5=_isArray5?_iterator5:_iterator5[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref8;if(_isArray5){if(_i6>=_iterator5.length)break;_ref8=_iterator5[_i6++];}else{_i6=_iterator5.next();if(_i6.done)break;_ref8=_i6.value;}var _child=_ref8;_loop(_child);
 }
 var mode=modal?'modal':'card';
 if(navigator){
@@ -422,7 +376,38 @@ nextState=function(state,cmd){return _this.reducer?_this.reducer(state,cmd):(0,_
 
 dispatch=function(cmd){
 _this.setState(_this.nextState(_this.state,cmd));
-};_initDefineProp(this,'setState',_descriptor6,this);this.
+};_initDefineProp(this,'setState',_descriptor4,this);this.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -510,7 +495,7 @@ _this.dispatch(_reactNavigation.NavigationActions.reset({key:null,index:0,action
 routeName:routeName,
 params:params})]}));
 
-};var defaultSuccess=function defaultSuccess(){};var defaultFailure=function defaultFailure(){};(0,_mobx.autorunAsync)(function _callee(){var handler,res,_handler,_success,_failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.prev=0;if(_this.prevScene&&_this.currentScene!==_this.prevScene&&!_this._onExitHandlerExecuted){_this._onExitHandlerExecuted=true;handler=_this[_this.prevScene+_Util.OnExit];if(handler){try{res=handler();if(res instanceof Promise){res.then(defaultSuccess,defaultFailure);}}catch(e){console.error('Error during onExit handler:',e);}}}if(!(_this.currentScene&&_this.currentScene!==_this.prevScene&&_this.states[_this.currentScene]&&!_this._onEnterHandlerExecuted)){_context.next=19;break;}_handler=_this[_this.currentScene+_Util.OnEnter];_this._onEnterHandlerExecuted=true;_success=_this.states[_this.currentScene].success||defaultSuccess;_failure=_this.states[_this.currentScene].failure||defaultFailure;if(!_handler){_context.next=19;break;}_context.prev=8;params=(0,_State.getActiveState)(_this._state).params;_context.next=12;return regeneratorRuntime.awrap(_handler(params));case 12:_res=_context.sent;if(_res){_success(_res);}else{_failure();}_context.next=19;break;case 16:_context.prev=16;_context.t0=_context['catch'](8);_failure({error:_context.t0});case 19:_context.next=24;break;case 21:_context.prev=21;_context.t1=_context['catch'](0);console.error('Error handling:'+_context.t1);case 24:case'end':return _context.stop();}}},null,_this,[[0,21],[8,16]]);});}return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class.prototype,'currentScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor2=_applyDecoratedDescriptor(_class.prototype,'prevScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor3=_applyDecoratedDescriptor(_class.prototype,'currentParams',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor4=_applyDecoratedDescriptor(_class.prototype,'_onEnterHandlerExecuted',[_mobx.observable],{enumerable:true,initializer:function initializer(){return false;}}),_descriptor5=_applyDecoratedDescriptor(_class.prototype,'_onExitHandlerExecuted',[_mobx.observable],{enumerable:true,initializer:function initializer(){return false;}}),_descriptor6=_applyDecoratedDescriptor(_class.prototype,'setState',[_mobx.action],{enumerable:true,initializer:function initializer(){var _this2=this;return function(newState){if(!newState){return;}var state=(0,_State.getActiveState)(newState);var prevScene=_this2.prevScene;var currentScene=_this2.currentScene;_this2._state=newState;if(prevScene!==_this2.prevScene){_this2.dispatch({type:ActionConst.BLUR,routeName:_this2.prevScene});}_this2.prevScene=_this2.currentScene;_this2._onExitHandlerExecuted=false;_this2._onEnterHandlerExecuted=false;_this2.currentScene=state.routeName;_this2.currentParams=state.params;if(currentScene!==_this2.currentScene){_this2.dispatch({type:ActionConst.FOCUS,routeName:_this2.currentScene,params:_this2.currentParams});}};}})),_class);exports.default=
+};}_createClass(NavigationStore,[{key:'state',get:function get(){var scene=this.currentScene;var params=this.currentParams;return this._state;}}]);return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class.prototype,'currentScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor2=_applyDecoratedDescriptor(_class.prototype,'prevScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor3=_applyDecoratedDescriptor(_class.prototype,'currentParams',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor4=_applyDecoratedDescriptor(_class.prototype,'setState',[_mobx.action],{enumerable:true,initializer:function initializer(){var _this2=this;return function _callee(newState){var state,prevScene,currentScene,handler,res,_handler,_success,_failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:if(newState){_context.next=2;break;}return _context.abrupt('return');case 2:state=(0,_State.getActiveState)(newState);prevScene=_this2.prevScene;currentScene=_this2.currentScene;_this2._state=newState;if(prevScene!==_this2.prevScene){_this2.dispatch({type:ActionConst.BLUR,routeName:_this2.prevScene});handler=_this2[_this2.prevScene+_Util.OnExit];if(handler){try{res=handler();if(res instanceof Promise){res.then(defaultSuccess,defaultFailure);}}catch(e){console.error('Error during onExit handler:',e);}}}_this2.prevScene=_this2.currentScene;_this2.currentScene=state.routeName;_this2.currentParams=state.params;if(!(currentScene!==_this2.currentScene)){_context.next=28;break;}_this2.dispatch({type:ActionConst.FOCUS,routeName:_this2.currentScene,params:_this2.currentParams});if(!_this2.states[_this2.currentScene]){_context.next=28;break;}_handler=_this2[_this2.currentScene+_Util.OnEnter];_success=_this2.states[_this2.currentScene].success||defaultSuccess;_failure=_this2.states[_this2.currentScene].failure||defaultFailure;if(!_handler){_context.next=28;break;}_context.prev=17;params=(0,_State.getActiveState)(_this2._state).params;_context.next=21;return regeneratorRuntime.awrap(_handler(params));case 21:_res=_context.sent;if(_res){_success(_res);}else{_failure();}_context.next=28;break;case 25:_context.prev=25;_context.t0=_context['catch'](17);_failure({error:_context.t0});case 28:case'end':return _context.stop();}}},null,_this2,[[17,25]]);};}})),_class);exports.default=
 
 
 
