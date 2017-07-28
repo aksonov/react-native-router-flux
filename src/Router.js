@@ -52,7 +52,7 @@ Router.propTypes = {
   dispatch: PropTypes.func,
   state: PropTypes.object,
   scenes: PropTypes.element,
-  navigator: PropTypes.element,
+  navigator: PropTypes.func,
   wrapBy: PropTypes.func,
   getSceneStyle: PropTypes.func,
   children: PropTypes.element,

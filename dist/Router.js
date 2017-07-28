@@ -52,7 +52,7 @@ createReducer:_propTypes2.default.func,
 dispatch:_propTypes2.default.func,
 state:_propTypes2.default.object,
 scenes:_propTypes2.default.element,
-navigator:_propTypes2.default.element,
+navigator:_propTypes2.default.func,
 wrapBy:_propTypes2.default.func,
 getSceneStyle:_propTypes2.default.func,
 children:_propTypes2.default.element};exports.default=
