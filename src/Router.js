@@ -184,7 +184,7 @@ function createWrapper(Component, wrapBy) {
 @observer
 class App extends React.Component {
   static propTypes = {
-    navigator: React.PropTypes.func,
+    navigator: PropTypes.func,
   };
 
   componentDidMount() {

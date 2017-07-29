@@ -205,7 +205,7 @@ var AppNavigator=this.props.navigator;
 return(
 _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:206}}));
 
-}}]);return App;}(_react2.default.Component),_class2.propTypes={navigator:_react2.default.PropTypes.func},_temp2))||_class;
+}}]);return App;}(_react2.default.Component),_class2.propTypes={navigator:_propTypes2.default.func},_temp2))||_class;
 
 
 function processScene(scene){var inheritProps=arguments.length>1&&arguments[1]!==undefined?arguments[1]:{};var clones=arguments.length>2&&arguments[2]!==undefined?arguments[2]:[];var wrapBy=arguments[3];
