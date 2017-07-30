@@ -9,14 +9,15 @@ import { addNavigationHelpers } from 'react-navigation';
 class App extends React.Component {
   static propTypes = {
     navigator: PropTypes.func,
+    backAndroidHandler: PropTypes.func,
   };
 
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+    BackHandler.addEventListener('hardwareBackPress', this.props.backAndroidHandler || this.onBackPress);
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+    BackHandler.removeEventListener('hardwareBackPress', this.props.backAndroidHandler || this.onBackPress);
   }
 
   onBackPress = () => {
@@ -45,7 +46,7 @@ const Router = ({ createReducer, scenes, navigator, getSceneStyle, children, sta
     navigationStore.dispatch = dispatch;
     return <AppNavigator navigation={addNavigationHelpers({ dispatch, state })} />;
   }
-  return <App navigator={AppNavigator} />;
+  return <App {...props} navigator={AppNavigator} />;
 };
 Router.propTypes = {
   createReducer: PropTypes.func,
