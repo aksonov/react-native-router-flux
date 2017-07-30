@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import Actions from './navigationStore';
 import _backButtonImage from '../images/back_chevron.png';
+
+const hitSlop = { top: 15, bottom: 15, left: 15, right: 15 };
 export function BackButton(state) {
   const textButtonStyle = [
     styles.barBackButtonText,
@@ -39,6 +41,7 @@ export function BackButton(state) {
       testID="backNavButton"
       style={styles.backButtonContainer}
       onPress={onPress}
+      hitSlop={state.hitSlop || hitSlop}
     >
       <View style={style}>
       {buttonImage && !state.hideBackImage && <Image
@@ -91,6 +94,7 @@ export function LeftButton(state) {
         testID="leftNavButton"
         style={style}
         onPress={onPress}
+        hitSlop={state.hitSlop || hitSlop}
       >
         {leftTitle && <Text style={textStyle}>
           {leftTitle}
@@ -174,6 +178,7 @@ export function RightButton(state) {
         testID="rightNavButton"
         style={style}
         onPress={onPress}
+        hitSlop={state.hitSlop || hitSlop}
       >
         {rightTitle && <Text style={textStyle}>
           {rightTitle}
