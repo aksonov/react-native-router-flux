@@ -29,7 +29,7 @@ var AppNavigator=this.props.navigator;
 return(
 _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:30}}));
 
-}}]);return App;}(_react2.default.Component),_class2.propTypes={navigator:_react2.default.PropTypes.func},_temp2))||_class;
+}}]);return App;}(_react2.default.Component),_class2.propTypes={navigator:_propTypes2.default.func},_temp2))||_class;
 
 
 var Router=function Router(_ref2){var createReducer=_ref2.createReducer,scenes=_ref2.scenes,navigator=_ref2.navigator,getSceneStyle=_ref2.getSceneStyle,children=_ref2.children,state=_ref2.state,dispatch=_ref2.dispatch,_ref2$wrapBy=_ref2.wrapBy,wrapBy=_ref2$wrapBy===undefined?function(props){return props;}:_ref2$wrapBy,props=_objectWithoutProperties(_ref2,['createReducer','scenes','navigator','getSceneStyle','children','state','dispatch','wrapBy']);
