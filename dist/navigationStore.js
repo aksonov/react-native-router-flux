@@ -139,7 +139,8 @@ res.tabBarLabel=tabBarLabel;
 }
 
 if(tabBarIcon||icon){
-res.tabBarIcon=tabBarIcon||icon;
+var Icon=tabBarIcon||icon;
+res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:143}}));};
 }
 var componentData={};
 
@@ -156,14 +157,14 @@ componentData[key]=component[key];
 if(rightButtonImage||rightTitle||params.renderRightButton||onRight||navigationParams.onRight||
 navigationParams.rightTitle||navigationParams.rightButtonImage||rightButtonTextStyle){
 res.headerRight=getValue(navigationParams.right||navigationParams.rightButton||params.renderRightButton,_extends({},
-navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:159}}));
+navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:160}}));
 }
 
 if(leftButtonImage||backButtonImage||backTitle||leftTitle||params.renderLeftButton||leftButtonTextStyle||
 backButtonTextStyle||onLeft||navigationParams.leftTitle||navigationParams.onLeft||navigationParams.leftButtonImage||
 navigationParams.backButtonImage||navigationParams.backTitle){
 res.headerLeft=getValue(navigationParams.left||navigationParams.leftButton||params.renderLeftButton,_extends({},params,navigationParams,screenProps))||
-onLeft&&(leftTitle||navigationParams.leftTitle||leftButtonImage)&&_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:166}}))||(
+onLeft&&(leftTitle||navigationParams.leftTitle||leftButtonImage)&&_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:167}}))||(
 init?null:(0,_NavBar.renderBackButton)(_extends({},params,navigationParams,screenProps)));
 }
 
@@ -191,7 +192,7 @@ return null;
 }
 var wrapper=wrapBy||function(props){return props;};
 function wrapped(_ref4){var navigation=_ref4.navigation,props=_objectWithoutProperties(_ref4,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:194}}));
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:195}}));
 }
 wrapped.propTypes={
 navigation:_propTypes2.default.object};

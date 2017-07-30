@@ -71,6 +71,7 @@ const Example = () => {
                 <Scene
                   key="tabbar"
                   gestureEnabled={false}
+                  showLabel={false}
                   tabs
                   tabBarStyle={styles.tabBarStyle}
                   activeBackgroundColor='#ddd'
