@@ -1,5 +1,69 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.default=
+Object.defineProperty(exports,"__esModule",{value:true});exports.supportedActions=undefined;var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _supportedActions;exports.
 
-createReducer;var _navigationStore=require('./navigationStore');var _navigationStore2=_interopRequireDefault(_navigationStore);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function createReducer(){
-return function(state,action){return _navigationStore2.default._router.getStateForAction(action,state);};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+reducer=reducer;exports.default=
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+createReducer;var _navigationStore=require('./navigationStore');var _navigationStore2=_interopRequireDefault(_navigationStore);var _ActionConst=require('./ActionConst');var ActionConst=_interopRequireWildcard(_ActionConst);var _reactNavigation=require('react-navigation');var _State=require('./State');function _interopRequireWildcard(obj){if(obj&&obj.__esModule){return obj;}else{var newObj={};if(obj!=null){for(var key in obj){if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key]=obj[key];}}newObj.default=obj;return newObj;}}function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true});}else{obj[key]=value;}return obj;}var supportedActions=exports.supportedActions=(_supportedActions={},_defineProperty(_supportedActions,ActionConst.PUSH,_reactNavigation.NavigationActions.NAVIGATE),_defineProperty(_supportedActions,ActionConst.BACK,_reactNavigation.NavigationActions.BACK),_defineProperty(_supportedActions,ActionConst.REFRESH,_reactNavigation.NavigationActions.BACK),_defineProperty(_supportedActions,ActionConst.RESET,_reactNavigation.NavigationActions.RESET),_defineProperty(_supportedActions,ActionConst.REPLACE,_reactNavigation.NavigationActions.RESET),_supportedActions);var createAction=function createAction(type){return function(){var payload=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{};return _extends({type:type},payload);};};function reducer(){var state=arguments.length>0&&arguments[0]!==undefined?arguments[0]:_navigationStore2.default.state;var action=arguments[1];var type=action.type;var routeName=action.routeName;if(supportedActions[type]){var newState=_navigationStore2.default.router.getStateForAction(createAction(supportedActions[type])({routeName:routeName,params:action.params}),state);var newActiveState=(0,_State.getActiveState)(newState);var activeState=(0,_State.getActiveState)(state);if(type===ActionConst.JUMP&&newActiveState.routeName===activeState.routeName){return state;}return newState||state;}if(type===ActionConst.JUMP){var _newState=_navigationStore2.default.router.getStateForAction(_reactNavigation.NavigationActions.navigate({routeName:routeName,params:action.params}),state);var key=(0,_State.getActiveState)(_newState).key;return _navigationStore2.default.router.getStateForAction(_reactNavigation.NavigationActions.setParams({key:key,params:action.params}),_newState);}else if(type===ActionConst.POP_TO){var nextScene='';var _newState2=state;var currentState=state;var currentScene=(0,_State.getActiveState)(state).routeName;while(nextScene!==currentScene&&_newState2&&nextScene!==routeName){_newState2=_navigationStore2.default.router.getStateForAction(_reactNavigation.NavigationActions.back(),currentState);if(_newState2){nextScene=(0,_State.getActiveState)(_newState2).routeName;if(nextScene!==routeName){currentState=_newState2;}}}return nextScene===routeName?_newState2:state;}else if(type===ActionConst.POP_AND_PUSH){var _newState3=_navigationStore2.default.router.getStateForAction(_reactNavigation.NavigationActions.back(),state);return _navigationStore2.default.router.getStateForAction(_reactNavigation.NavigationActions.navigate({routeName:routeName,params:action.params}),_newState3);}return _navigationStore2.default.router.getStateForAction(action,state)||state;}function createReducer(){
+return reducer;
 }
