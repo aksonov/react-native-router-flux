@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Actions from './navigationStore';
 import _backButtonImage from '../images/back_chevron.png';
-export function renderBackButton(state) {
+export function BackButton(state) {
   const textButtonStyle = [
     styles.barBackButtonText,
     state.backButtonTextStyle,

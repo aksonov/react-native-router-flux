@@ -4,7 +4,7 @@ import * as ActionConst from './ActionConst';
 import { OnEnter, OnExit, assert } from './Util';
 import { View } from 'react-native';
 import { TabNavigator, DrawerNavigator, StackNavigator, NavigationActions } from 'react-navigation';
-import { LeftButton, RightButton, renderBackButton } from './NavBar';
+import { LeftButton, RightButton, BackButton } from './NavBar';
 import LightboxNavigator from './LightboxNavigator';
 import OverlayNavigator from './OverlayNavigator';
 import _drawerImage from '../images/menu_burger.png';
@@ -15,6 +15,7 @@ import { reducer } from './Reducer';
 
 let RightNavBarButton;
 let LeftNavBarButton;
+let BackNavBarButton;
 
 export const actionMap = {
   [ActionConst.JUMP]: 'jump',
@@ -102,8 +103,9 @@ function createNavigationOptions(params) {
   const { title, backButtonImage, navTransparent, hideNavBar, hideTabBar, backTitle, right, rightButton, left, leftButton,
     navigationBarStyle, headerStyle, navBarButtonColor, tabBarLabel, tabBarIcon, icon, getTitle, renderTitle, panHandlers,
     navigationBarTitleImage, navigationBarTitleImageStyle, component, rightTitle, leftTitle, leftButtonTextStyle, rightButtonTextStyle,
-    backButtonTextStyle, headerTitleStyle, titleStyle, navBar, onRight, onLeft, rightButtonImage, leftButtonImage, init, back, ...props } = params;
-  const NavBar = navBar;
+    backButtonTextStyle, headerTitleStyle, titleStyle, navBar, onRight, onLeft, rightButtonImage, leftButtonImage, init, back,
+    renderBackButton, renderNavigationBar, ...props } = params;
+  const NavBar = renderNavigationBar || navBar;
   if (component && component.navigationOptions) {
     return component.navigationOptions;
   }
@@ -165,11 +167,11 @@ function createNavigationOptions(params) {
       || navigationParams.backButtonImage || navigationParams.backTitle) {
       res.headerLeft = getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
         || (onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage) && <LeftNavBarButton {...params} {...navigationParams} {...componentData} />)
-        || (init ? null : renderBackButton({ ...params, ...navigationParams, ...screenProps }));
+        || (init ? null : (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />);
     }
 
     if (back) {
-      res.headerLeft = renderBackButton({ ...params, ...navigationParams });
+      res.headerLeft = (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />;
     }
 
     if (hideTabBar) {
@@ -245,6 +247,7 @@ class NavigationStore {
     assert(!Array.isArray(scene), 'Router should contain only one scene, please wrap your scenes with root Scene ');
     RightNavBarButton = wrapBy(RightButton);
     LeftNavBarButton = wrapBy(LeftButton);
+    BackNavBarButton = wrapBy(BackButton);
     const AppNavigator = this.processScene(scene, params, [], wrapBy);
     this.router = AppNavigator.router;
     this.dispatch(NavigationActions.init());
