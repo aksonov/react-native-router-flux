@@ -13,8 +13,7 @@ const propTypes = {
 const TabIcon = (props) => {
   return <Text
     style={{color: props.focused ? 'red' : 'black'}}
-  >TAB
-    {props.title}
+  >{props.title}
   </Text>
 };
 

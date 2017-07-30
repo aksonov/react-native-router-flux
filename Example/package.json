@@ -14,7 +14,7 @@
     "react-native": "0.44.0",
     "react-native-button": "^2.0.0",
     "react-native-message-bar": "^1.6.0",
-    "react-native-router-flux": "^4.0.0-beta.14",
+    "react-native-router-flux": "github:aksonov/react-native-router-flux#tabicons",
     "react-navigation": "^1.0.0-beta.11"
   },
   "devDependencies": {

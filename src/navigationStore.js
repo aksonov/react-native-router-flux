@@ -139,7 +139,8 @@ function createNavigationOptions(params) {
     }
 
     if (tabBarIcon || icon) {
-      res.tabBarIcon = tabBarIcon || icon;
+      const Icon = tabBarIcon || icon;
+      res.tabBarIcon = data => <Icon {...state} {...data} />;
     }
     const componentData = {};
     // copy all component static functions
