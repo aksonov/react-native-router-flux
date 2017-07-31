@@ -1,5 +1,64 @@
 # Change Log
 
+## [Unreleased](https://github.com/aksonov/react-native-router-flux/tree/HEAD)
+
+[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.15...HEAD)
+
+**Fixed bugs:**
+
+- DrawerIcons disables DrawerImage [\#2110](https://github.com/aksonov/react-native-router-flux/issues/2110)
+
+**Closed issues:**
+
+- How to make drawer navigation? [\#2149](https://github.com/aksonov/react-native-router-flux/issues/2149)
+- 4.0.0-beta.14 mobx strict-mode is enabled bug [\#2145](https://github.com/aksonov/react-native-router-flux/issues/2145)
+- How to open drawer onPress in v4? [\#2143](https://github.com/aksonov/react-native-router-flux/issues/2143)
+- Unable to overlay the tabbed navigation view [\#2112](https://github.com/aksonov/react-native-router-flux/issues/2112)
+
+## [4.0.0-beta.15](https://github.com/aksonov/react-native-router-flux/tree/4.0.0-beta.15) (2017-07-30)
+[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.14...4.0.0-beta.15)
+
+**Implemented enhancements:**
+
+- tabicon can't get more props [\#2129](https://github.com/aksonov/react-native-router-flux/issues/2129)
+- Increase hitSlop \(tappable area\) for navbar  [\#2123](https://github.com/aksonov/react-native-router-flux/issues/2123)
+- Support of external navigation state \(full redux support\) [\#2115](https://github.com/aksonov/react-native-router-flux/issues/2115)
+
+**Fixed bugs:**
+
+- \[Question\] renderNavigationBar alternative in v4? [\#2130](https://github.com/aksonov/react-native-router-flux/issues/2130)
+- renderBackButton not working [\#2124](https://github.com/aksonov/react-native-router-flux/issues/2124)
+
+**Closed issues:**
+
+- Hot to focus second tab when push tabBar Scene? [\#2141](https://github.com/aksonov/react-native-router-flux/issues/2141)
+- React-Native-Vector-Icons for React-Native-Router-Flux TabBar [\#2139](https://github.com/aksonov/react-native-router-flux/issues/2139)
+- Animation? [\#2135](https://github.com/aksonov/react-native-router-flux/issues/2135)
+- Scenes inside tabs \(switch\) getting corrently unmounted and then incorrectly re-mounted [\#2131](https://github.com/aksonov/react-native-router-flux/issues/2131)
+- Support for custom component for NavBar [\#2128](https://github.com/aksonov/react-native-router-flux/issues/2128)
+- Clear history stack without route change? [\#2127](https://github.com/aksonov/react-native-router-flux/issues/2127)
+- How to wait until the scene is refreshed? [\#2126](https://github.com/aksonov/react-native-router-flux/issues/2126)
+- how to add a custom navigation bar with a leftbutton and multiple right buttons   [\#2125](https://github.com/aksonov/react-native-router-flux/issues/2125)
+- Back props & Android back button ? [\#2122](https://github.com/aksonov/react-native-router-flux/issues/2122)
+- onLeft\(\) or onRight\(\) use compoent function? [\#2121](https://github.com/aksonov/react-native-router-flux/issues/2121)
+- Does any one have an example app using RNRF & Mobx? [\#2120](https://github.com/aksonov/react-native-router-flux/issues/2120)
+- Getting a deadly spinner [\#2119](https://github.com/aksonov/react-native-router-flux/issues/2119)
+- How to get the Routing stack? [\#2118](https://github.com/aksonov/react-native-router-flux/issues/2118)
+- Header not not displayed [\#2117](https://github.com/aksonov/react-native-router-flux/issues/2117)
+- Не отображается хэдэр [\#2116](https://github.com/aksonov/react-native-router-flux/issues/2116)
+- \[Question\] Share a Scene [\#2114](https://github.com/aksonov/react-native-router-flux/issues/2114)
+- How to use wrapBy [\#2113](https://github.com/aksonov/react-native-router-flux/issues/2113)
+- renderTitle image not shown on all device [\#2111](https://github.com/aksonov/react-native-router-flux/issues/2111)
+- Proper way of using onEnter / success? [\#2109](https://github.com/aksonov/react-native-router-flux/issues/2109)
+- Reset stack on enter Scene? [\#2104](https://github.com/aksonov/react-native-router-flux/issues/2104)
+- Rotation bug. [\#2088](https://github.com/aksonov/react-native-router-flux/issues/2088)
+
+**Merged pull requests:**
+
+- Tabicons improvement [\#2140](https://github.com/aksonov/react-native-router-flux/pull/2140) ([aksonov](https://github.com/aksonov))
+- Fix the React.PropTypes [\#2138](https://github.com/aksonov/react-native-router-flux/pull/2138) ([trietphan](https://github.com/trietphan))
+- Full redux support [\#2134](https://github.com/aksonov/react-native-router-flux/pull/2134) ([aksonov](https://github.com/aksonov))
+
 ## [4.0.0-beta.14](https://github.com/aksonov/react-native-router-flux/tree/4.0.0-beta.14) (2017-07-25)
 [Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.13...4.0.0-beta.14)
 
@@ -34,7 +93,6 @@
 - Action to the same route [\#2091](https://github.com/aksonov/react-native-router-flux/issues/2091)
 - on reset complete? [\#2090](https://github.com/aksonov/react-native-router-flux/issues/2090)
 - Question about Actions.refresh [\#2089](https://github.com/aksonov/react-native-router-flux/issues/2089)
-- Rotation bug. [\#2088](https://github.com/aksonov/react-native-router-flux/issues/2088)
 - Back button does not render  [\#2086](https://github.com/aksonov/react-native-router-flux/issues/2086)
 - tabbar icon cannot class? [\#2085](https://github.com/aksonov/react-native-router-flux/issues/2085)
 - navTransparent Does not work [\#2084](https://github.com/aksonov/react-native-router-flux/issues/2084)
