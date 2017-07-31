@@ -1,10 +1,12 @@
 import React, {
   Component,
 } from 'react';
+import {useStrict} from 'mobx';
 import {
   StyleSheet,
   Text,
   View,
+  Platform,
 } from 'react-native';
 import Launch from './components/Launch';
 import Register from './components/Register';
@@ -26,6 +28,7 @@ import EchoView from './components/EchoView';
 import Button from 'react-native-button';
 import MessageBar from './components/MessageBar';
 
+useStrict(true);
 const styles = StyleSheet.create({
   container: {
     flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
@@ -52,9 +55,12 @@ const getSceneStyle = () => ({
   shadowRadius: 3,
 });
 
+// on Android, the URI prefix typically contains a host in addition to scheme
+const prefix = Platform.OS === 'android' ? 'mychat://mychat/' : 'mychat://';
+
 const Example = () => {
   return (
-    <Router createReducer={reducerCreate} tintColor='red' getSceneStyle={getSceneStyle}>
+    <Router createReducer={reducerCreate} tintColor='red' uriPrefix={prefix} getSceneStyle={getSceneStyle}>
       <Scene overlay>
         <Scene key="messageBar" component={MessageBar} />
         <Scene key="lightbox" lightbox leftButtonTextStyle={{color: 'green'}} backButtonTextStyle={{color: 'red'}} initial>
@@ -122,8 +128,8 @@ const Example = () => {
                 </Scene>
               </Scene>
             </Scene>
-            <Scene key="login">
-              <Scene key="loginModal" component={Login} title="Login" leftTitle="Cancel" onLeft={Actions.pop}/>
+            <Scene key="login" path="login/:data">
+              <Scene key="loginModal" component={Login} title="Login" leftTitle="Cancel" onLeft={Actions.pop} />
               <Scene
                 key="loginModal2"
                 component={Login2}

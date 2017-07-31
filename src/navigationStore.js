@@ -305,7 +305,7 @@ class NavigationStore {
       const key = child.key;
       const init = key === children[0].key;
       assert(reservedKeys.indexOf(key) === -1, `Scene name cannot be reserved word: ${child.key}`);
-      const { component, type = tabs || drawer ? 'jump' : 'push', onEnter, onExit, on, failure, success, wrap, ...props } = child.props;
+      const { component, type = tabs || drawer ? 'jump' : 'push', onEnter, path, onExit, on, failure, success, wrap, ...props } = child.props;
       if (!this.states[key]) {
         this.states[key] = {};
       }
@@ -323,8 +323,9 @@ class NavigationStore {
         this.states[key].failure = failure instanceof Function ?
           failure : args => { console.log(`Transition to state=${failure}`); this[failure](args); };
       }
-      // console.log(`KEY ${key} DRAWER ${drawer} TABS ${tabs} WRAP ${wrap}`, JSON.stringify(commonProps));
+      // console.log(`KEY ${key} PATH ${path} DRAWER ${drawer} TABS ${tabs} WRAP ${wrap}`, JSON.stringify(commonProps));
       const screen = {
+        path,
         screen: createWrapper(component, wrapBy) || this.processScene(child, commonProps, clones) || (lightbox && View),
         navigationOptions: createNavigationOptions({ ...commonProps, ...getProperties(component), ...child.props, init, component }),
       };
@@ -332,7 +333,7 @@ class NavigationStore {
       // wrap component inside own navbar for tabs/drawer parent controllers
       const wrapNavBar = drawer || tabs || wrap;
       if (component && wrapNavBar) {
-        res[key] = { screen: this.processScene({ key, props: { children: { key: `_${key}`, props: { ...child.props, wrap: false } } } }, commonProps, clones, wrapBy) };
+        res[key] = { path, screen: this.processScene({ key, props: { children: { key: `_${key}`, props: { ...child.props, wrap: false } } } }, commonProps, clones, wrapBy) };
       } else {
         res[key] = screen;
       }

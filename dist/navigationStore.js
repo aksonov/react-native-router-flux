@@ -305,7 +305,7 @@ _child){
 var key=_child.key;
 var init=key===children[0].key;
 (0,_Util.assert)(reservedKeys.indexOf(key)===-1,'Scene name cannot be reserved word: '+_child.key);var _child$props=
-_child.props,component=_child$props.component,_child$props$type=_child$props.type,type=_child$props$type===undefined?tabs||drawer?'jump':'push':_child$props$type,onEnter=_child$props.onEnter,onExit=_child$props.onExit,on=_child$props.on,failure=_child$props.failure,success=_child$props.success,wrap=_child$props.wrap,props=_objectWithoutProperties(_child$props,['component','type','onEnter','onExit','on','failure','success','wrap']);
+_child.props,component=_child$props.component,_child$props$type=_child$props.type,type=_child$props$type===undefined?tabs||drawer?'jump':'push':_child$props$type,onEnter=_child$props.onEnter,path=_child$props.path,onExit=_child$props.onExit,on=_child$props.on,failure=_child$props.failure,success=_child$props.success,wrap=_child$props.wrap,props=_objectWithoutProperties(_child$props,['component','type','onEnter','path','onExit','on','failure','success','wrap']);
 if(!_this.states[key]){
 _this.states[key]={};
 }
@@ -325,6 +325,7 @@ failure:function(args){console.log('Transition to state='+failure);_this[failure
 }
 
 var screen={
+path:path,
 screen:createWrapper(component,wrapBy)||_this.processScene(_child,commonProps,clones)||lightbox&&_reactNative.View,
 navigationOptions:createNavigationOptions(_extends({},commonProps,getProperties(component),_child.props,{init:init,component:component}))};
 
@@ -332,7 +333,7 @@ navigationOptions:createNavigationOptions(_extends({},commonProps,getProperties(
 
 var wrapNavBar=drawer||tabs||wrap;
 if(component&&wrapNavBar){
-res[key]={screen:_this.processScene({key:key,props:{children:{key:'_'+key,props:_extends({},_child.props,{wrap:false})}}},commonProps,clones,wrapBy)};
+res[key]={path:path,screen:_this.processScene({key:key,props:{children:{key:'_'+key,props:_extends({},_child.props,{wrap:false})}}},commonProps,clones,wrapBy)};
 }else{
 res[key]=screen;
 }
