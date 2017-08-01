@@ -42,8 +42,8 @@
     "react-test-renderer": "16.0.0-alpha.12"
   },
   "peerDependencies": {
-    "mobx": "^3.2.2",
-    "mobx-react": "^4.2.2",
+    "mobx": "*",
+    "mobx-react": "*",
     "react": "*",
     "react-native": "*"
   },
