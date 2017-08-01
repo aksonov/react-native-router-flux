@@ -7,7 +7,7 @@
     "url": "https://github.com/aksonov/react-native-router-flux"
   },
   "license": "ISC",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "postinstall": "./node_modules/.bin/opencollective postinstall",
