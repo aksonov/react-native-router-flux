@@ -394,7 +394,7 @@ class NavigationStore {
     this.currentScene = state.routeName;
     this.currentParams = state.params;
 
-    if (currentScene !== this.currentScene) {
+    if (currentScene !== this.currentScene && this.currentScene !== 'DrawerOpen' && this.currentScene !== 'DrawerClose') {
       this.dispatch({ type: ActionConst.BLUR, routeName: prevScene });
 
       // call onExit handler
