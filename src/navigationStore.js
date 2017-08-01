@@ -388,17 +388,20 @@ class NavigationStore {
       return;
     }
     const state = getActiveState(newState);
-    const prevScene = this.prevScene;
     const currentScene = this.currentScene;
+    const prevScene = this.prevScene;
     this._state = newState;
-    if (prevScene !== this.prevScene) {
-      this.dispatch({ type: ActionConst.BLUR, routeName: this.prevScene });
+    this.currentScene = state.routeName;
+    this.currentParams = state.params;
+
+    if (currentScene !== this.currentScene) {
+      this.dispatch({ type: ActionConst.BLUR, routeName: prevScene });
 
       // call onExit handler
-      const handler = this[this.prevScene + OnExit];
-      if (handler) {
+      const exitHandler = this[prevScene + OnExit];
+      if (exitHandler) {
         try {
-          const res = handler();
+          const res = exitHandler();
           if (res instanceof Promise) {
             res.then(defaultSuccess, defaultFailure);
           }
@@ -406,12 +409,7 @@ class NavigationStore {
           console.error('Error during onExit handler:', e);
         }
       }
-    }
-    this.prevScene = this.currentScene;
-    this.currentScene = state.routeName;
-    this.currentParams = state.params;
 
-    if (currentScene !== this.currentScene) {
       this.dispatch({ type: ActionConst.FOCUS, routeName: this.currentScene, params: this.currentParams });
       if (this.states[this.currentScene]) {
         const handler = this[this.currentScene + OnEnter];
@@ -433,6 +431,8 @@ class NavigationStore {
           }
         }
       }
+
+      this.prevScene = this.currentScene;
     }
   };
 

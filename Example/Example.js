@@ -123,7 +123,10 @@ const Example = () => {
               </Scene>
             </Scene>
             <Scene key="login">
-              <Scene key="loginModal" component={Login} title="Login" leftTitle="Cancel" onLeft={Actions.pop}/>
+              <Scene key="loginModal" component={Login} title="Login"
+                     onEnter={()=>console.log('onEnter')}
+                     onExit={()=>console.log('onExit')}
+                     leftTitle="Cancel" onLeft={Actions.pop}/>
               <Scene
                 key="loginModal2"
                 component={Login2}
