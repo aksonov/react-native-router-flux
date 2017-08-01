@@ -16,6 +16,9 @@ export function isActiveRoute(state, routeName) {
   if (!state.routes) {
     return state.routeName === routeName;
   }
+  if (state.routes[state.index].routeName === 'DrawerOpen') {
+    return isActiveRoute(state.routes[0], routeName);
+  }
   return isActiveRoute(state.routes[state.index], routeName);
 }
 

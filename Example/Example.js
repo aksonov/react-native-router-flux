@@ -56,18 +56,19 @@ const Example = () => {
   return (
     <Router createReducer={reducerCreate} tintColor='red' getSceneStyle={getSceneStyle}>
       <Scene overlay>
-        <Scene key="messageBar" component={MessageBar} />
-        <Scene key="lightbox" lightbox leftButtonTextStyle={{color: 'green'}} backButtonTextStyle={{color: 'red'}} initial>
+        <Scene key="messageBar" component={MessageBar}/>
+        <Scene key="lightbox" lightbox leftButtonTextStyle={{color: 'green'}} backButtonTextStyle={{color: 'red'}}
+               initial>
           <Scene key="modal" modal hideNavBar>
-            <Scene key="root" hideNavBar hideTabBar>
-              <Scene key="echo" back clone component={EchoView} getTitle={({navigation}) => navigation.state.key}/>
-              <Scene key="register" back>
-                <Scene key="_register" component={Register} title="Register"/>
-                <Scene key="register2" component={Register} title="Register2"/>
-                <Scene key="home" component={Home} title="Replace" type={ActionConst.POP_AND_PUSH}/>
-              </Scene>
-              <Scene key="launch" component={Launch} title="Launch" initial/>
-              <Scene key="drawer" drawer contentComponent={TabView}>
+            <Scene key="drawer" drawer contentComponent={TabView}>
+              <Scene key="root" hideNavBar hideTabBar>
+                <Scene key="echo" back clone component={EchoView} getTitle={({navigation}) => navigation.state.key}/>
+                <Scene key="register" back>
+                  <Scene key="_register" component={Register} title="Register"/>
+                  <Scene key="register2" component={Register} title="Register2"/>
+                  <Scene key="home" component={Home} title="Replace" type={ActionConst.POP_AND_PUSH}/>
+                </Scene>
+                <Scene key="launch" component={Launch} title="Launch" initial/>
                 <Scene
                   key="tabbar"
                   gestureEnabled={false}
@@ -125,8 +126,8 @@ const Example = () => {
           </Scene>
           <Scene key="login">
             <Scene key="loginModal" component={Login} title="Login"
-                   onEnter={()=>console.log('onEnter')}
-                   onExit={()=>console.log('onExit')}
+                   onEnter={() => console.log('onEnter')}
+                   onExit={() => console.log('onExit')}
                    leftTitle="Cancel" onLeft={Actions.pop}/>
             <Scene
               key="loginModal2"
