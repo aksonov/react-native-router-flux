@@ -57,8 +57,8 @@ const Example = () => {
     <Router createReducer={reducerCreate} tintColor='red' getSceneStyle={getSceneStyle}>
       <Scene overlay>
         <Scene key="messageBar" component={MessageBar} />
-        <Scene key="lightbox" lightbox leftButtonTextStyle={{color: 'green'}} backButtonTextStyle={{color: 'red'}} initial>
-          <Scene key="modal" modal hideNavBar>
+        <Scene key="modal" modal hideNavBar initial>
+          <Scene key="lightbox" lightbox leftButtonTextStyle={{color: 'green'}} backButtonTextStyle={{color: 'red'}} initial>
             <Scene key="root" hideNavBar hideTabBar>
               <Scene key="echo" back clone component={EchoView} getTitle={({navigation}) => navigation.state.key}/>
               <Scene key="register" back>
@@ -122,6 +122,7 @@ const Example = () => {
                 </Scene>
               </Scene>
             </Scene>
+            <Scene key="error" component={Error}/>
           </Scene>
           <Scene key="login">
             <Scene key="loginModal" component={Login} title="Login"
@@ -145,7 +146,6 @@ const Example = () => {
               duration={1}
             />
           </Scene>
-          <Scene key="error" component={Error}/>
         </Scene>
       </Scene>
     </Router>

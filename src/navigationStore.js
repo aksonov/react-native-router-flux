@@ -202,7 +202,7 @@ function createWrapper(Component, wrapBy) {
   return wrapper(wrapped);
 }
 
-function filterParam(data) {
+function filterParam(data = {}) {
   if (data.toString() !== '[object Object]') {
     return { data };
   }
