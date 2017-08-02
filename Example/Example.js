@@ -59,7 +59,7 @@ const Example = () => {
         <Scene key="messageBar" component={MessageBar} />
         <Scene key="modal" modal hideNavBar initial>
           <Scene key="lightbox" lightbox leftButtonTextStyle={{color: 'green'}} backButtonTextStyle={{color: 'red'}} initial>
-            <Scene key="root" hideNavBar hideTabBar>
+            <Scene key="root" hideNavBar hideTabBar titleStyle={{alignSelf: 'center'}}>
               <Scene key="echo" back clone component={EchoView} getTitle={({navigation}) => navigation.state.key}/>
               <Scene key="register" back>
                 <Scene key="_register" component={Register} title="Register"/>
@@ -82,7 +82,7 @@ const Example = () => {
                     tabBarLabel="TAB #1"
                     icon={TabIcon}
                     navigationBarStyle={{backgroundColor: 'red'}}
-                    titleStyle={{color: 'white'}}
+                    titleStyle={{color: 'white', alignSelf: 'center'}}
                   >
                     <Scene
                       key="tab1_1"
@@ -96,7 +96,7 @@ const Example = () => {
                       component={TabView}
                       title="Tab #1_2"
                       back
-                      titleStyle={{color: 'black'}}
+                      titleStyle={{color: 'black', alignSelf: 'center'}}
                     />
                   </Scene>
                   <Scene key="tab2" initial title="Tab #2" icon={TabIcon}>
@@ -124,7 +124,7 @@ const Example = () => {
             </Scene>
             <Scene key="error" component={Error}/>
           </Scene>
-          <Scene key="login">
+          <Scene key="login" titleStyle={{alignSelf: 'center'}}>
             <Scene key="loginModal" component={Login} title="Login"
                    onEnter={()=>console.log('onEnter')}
                    onExit={()=>console.log('onExit')}
