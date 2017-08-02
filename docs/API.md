@@ -30,6 +30,8 @@
 | `tabBarPosition`     | `string` |  | Specifies tabbar position. Defaults to `bottom` on iOS and `top` on Android. |
 | `activeTintColor`     | `string` |  | Specifies the active tint color for tabbar icons |
 | `tabBarComponent`     | `React.Component` |  | React component to render custom tab bar |
+| `swipeEnabled`     | `boolean` | `true` | Enable or disable swiping tabs. |
+| `animationEnabled`     | `boolean` | `true` | Enable or disable animating tabs on switch. |
 | `showLabel`     | `boolean` | `true`  | Boolean to show or not the tabbar icons labels |
 | `drawer`     | `boolean` | `false` | load child scenes inside [DrawerNavigator](https://reactnavigation.org/docs/navigators/drawer) |
 | `drawerImage`     | `Image` |  | Image to substitute drawer 'hamburger' icon, you have to set it together with `drawer` prop |
