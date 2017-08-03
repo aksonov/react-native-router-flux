@@ -51,8 +51,7 @@ export function reducer(state = navigationStore.state, action) {
     let nextScene = '';
     let newState = state;
     let currentState = state;
-    const currentScene = getActiveState(state).routeName;
-    while (nextScene !== currentScene && newState && nextScene !== routeName) {
+    while (newState && nextScene !== routeName) {
       newState = navigationStore.router.getStateForAction(NavigationActions.back(), currentState);
       if (newState) {
         nextScene = getActiveState(newState).routeName;
