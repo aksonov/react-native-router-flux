@@ -1,19 +1,43 @@
 # Change Log
 
-## [Unreleased](https://github.com/aksonov/react-native-router-flux/tree/HEAD)
-
-[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.15...HEAD)
+## [4.0.0-beta.16](https://github.com/aksonov/react-native-router-flux/tree/4.0.0-beta.16) (2017-08-03)
+[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.15...4.0.0-beta.16)
 
 **Fixed bugs:**
 
+-  Actions.popTo not working with beta 15 and above [\#2163](https://github.com/aksonov/react-native-router-flux/issues/2163)
+- \[Regression\] Jump to the same route pushes new screen \(should be ignored\) [\#2152](https://github.com/aksonov/react-native-router-flux/issues/2152)
+- onEnter not being executed when using Actions.pop\(\) manually [\#2147](https://github.com/aksonov/react-native-router-flux/issues/2147)
 - DrawerIcons disables DrawerImage [\#2110](https://github.com/aksonov/react-native-router-flux/issues/2110)
 
 **Closed issues:**
 
+- react-native-web Unable to be compatible [\#2178](https://github.com/aksonov/react-native-router-flux/issues/2178)
+- how to Dynamically setting the tabbarStyle [\#2176](https://github.com/aksonov/react-native-router-flux/issues/2176)
+- \[suggestion\] modal independent of navigation [\#2174](https://github.com/aksonov/react-native-router-flux/issues/2174)
+- How to use modal [\#2173](https://github.com/aksonov/react-native-router-flux/issues/2173)
+- popTo: Cannot read property 'toString' of undefined. [\#2167](https://github.com/aksonov/react-native-router-flux/issues/2167)
+- Title in navigation bar is not centered in Android \(7.0\) [\#2166](https://github.com/aksonov/react-native-router-flux/issues/2166)
+- Issues pushing new scene after upgrading from beta8 to beta 15 [\#2162](https://github.com/aksonov/react-native-router-flux/issues/2162)
+- Can't read property 'router' of null \#2049 [\#2158](https://github.com/aksonov/react-native-router-flux/issues/2158)
+- Scene Not changing [\#2157](https://github.com/aksonov/react-native-router-flux/issues/2157)
+- Decorators \(MobX\) not supported by React Native defaut Babel preset [\#2156](https://github.com/aksonov/react-native-router-flux/issues/2156)
+- can i use it with react-redux  or  it will support redux？？ [\#2151](https://github.com/aksonov/react-native-router-flux/issues/2151)
+- Upgrade to v4 broke - almost - everything [\#2150](https://github.com/aksonov/react-native-router-flux/issues/2150)
 - How to make drawer navigation? [\#2149](https://github.com/aksonov/react-native-router-flux/issues/2149)
+- header onBack bug? [\#2146](https://github.com/aksonov/react-native-router-flux/issues/2146)
 - 4.0.0-beta.14 mobx strict-mode is enabled bug [\#2145](https://github.com/aksonov/react-native-router-flux/issues/2145)
 - How to open drawer onPress in v4? [\#2143](https://github.com/aksonov/react-native-router-flux/issues/2143)
+- react-native-drawer example with react-native-router-flux 4 [\#2133](https://github.com/aksonov/react-native-router-flux/issues/2133)
+- navigationBarStyle or navTransparent and also navigationBarStyle={\[STYLES.navBar\]} is not working while trying to make the custom navigation bar transparent  [\#2132](https://github.com/aksonov/react-native-router-flux/issues/2132)
 - Unable to overlay the tabbed navigation view [\#2112](https://github.com/aksonov/react-native-router-flux/issues/2112)
+
+**Merged pull requests:**
+
+- Example: Centered title in navigation bar [\#2172](https://github.com/aksonov/react-native-router-flux/pull/2172) ([mikaello](https://github.com/mikaello))
+- Update swipeEnabled and Etc. [\#2168](https://github.com/aksonov/react-native-router-flux/pull/2168) ([luco](https://github.com/luco))
+- Fixes \#2147, onExit handler [\#2154](https://github.com/aksonov/react-native-router-flux/pull/2154) ([aksonov](https://github.com/aksonov))
+- Addresses \#2152 [\#2153](https://github.com/aksonov/react-native-router-flux/pull/2153) ([aksonov](https://github.com/aksonov))
 
 ## [4.0.0-beta.15](https://github.com/aksonov/react-native-router-flux/tree/4.0.0-beta.15) (2017-07-30)
 [Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.14...4.0.0-beta.15)
