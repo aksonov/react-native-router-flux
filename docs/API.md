@@ -20,6 +20,7 @@
 | `key`       | `string` | `required` | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
 | `component` | `React.Component` | `semi-required` | The `Component` to be displayed. Not required when defining a nested `Scene`, see example. |
 | `initial`   | `boolean` | `false` | Set to `true` if this is the first scene to display among its sibling `Scene`s |
+| `modal`     | `boolean` | `false` |  Defines scene container as 'modal' one, i.e. all children scenes will have bottom-to-top animation. It is applicable only for containers (different from v3 syntax) |
 | `clone`     | `boolean` | `false` | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
 | `on`     | `Function` | | aka `onEnter`. Called when the `Scene` is navigated to. `props` are provided as a function param |
 | `onExit`     | `Function` | | Called when the `Scene` is navigated away from. |
@@ -46,7 +47,6 @@
 | `leftButtonTextStyle`     | `Style` |  | Style applied to left button text |
 | `rightButtonImage`     | `Image` |  | Image to substitute for the right nav bar button |
 | `rightButtonTextStyle`     | `Style` |  | Style applied to right button text |
-| `modal`     | `boolean` | `false` |  | Defines scene container as 'modal' one, i.e. all children scenes will have bottom-to-top animation. It is applicable only for containers (different from v3 syntax) |
 | `headerBackTitle`     | `string` |  | Specifies the back button title for scene |
 | `back`     | `boolean` | `false` | Show a back button on the left side of the nav bar that calls `Actions.pop` on press. |
 | all other props     |  |  | Any other props not listed here will be pass on to the specified `Scene`'s `component` |
