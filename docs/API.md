@@ -46,7 +46,7 @@
 | `leftButtonTextStyle`     | `Style` |  | Style applied to left button text |
 | `rightButtonImage`     | `Image` |  | Image to substitute for the right nav bar button |
 | `rightButtonTextStyle`     | `Style` |  | Style applied to right button text |
-| `modal`     | `boolean` | `false` |  | Defines scene container as 'modal' one, i.e. all children scenes will have bottom-to-top animation. It is applicable only for containers (different from v3 syntax)
+| `modal`     | `boolean` | `false` |  | Defines scene container as 'modal' one, i.e. all children scenes will have bottom-to-top animation. It is applicable only for containers (different from v3 syntax) |
 | `headerBackTitle`     | `string` |  | Specifies the back button title for scene |
 | `back`     | `boolean` | `false` | Show a back button on the left side of the nav bar that calls `Actions.pop` on press. |
 | all other props     |  |  | Any other props not listed here will be pass on to the specified `Scene`'s `component` |
