@@ -432,7 +432,7 @@ class NavigationStore {
         }
       }
 
-      this.prevScene = this.currentScene;
+      this.prevScene = currentScene;
     }
   };
 
