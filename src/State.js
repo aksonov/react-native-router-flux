@@ -22,10 +22,20 @@ export function isActiveRoute(state, routeName) {
   return isActiveRoute(state.routes[state.index], routeName);
 }
 
-export function getActiveState(param) {
+export function getActiveState(param, parent) {
   const state = param;
+  if (!state.routes) {
+    return { ...state, parent };
+  }
+  return getActiveState(state.routes[state.index], state);
+}
+
+export function inject(state, key, index) {
   if (!state.routes) {
     return state;
   }
-  return getActiveState(state.routes[state.index]);
+  if (state.key === key) {
+    return { ...state, index };
+  }
+  return { ...state, routes: state.routes.map(x => inject(x, key, index)) };
 }

@@ -62,8 +62,8 @@ export function BackButton(state) {
 
 export function LeftButton(state) {
   let onPress = state.onLeft;
-  const buttonImage = getValue(state.leftButtonImage, state);
-  const menuIcon = state.drawerIcon;
+  let buttonImage = getValue(state.leftButtonImage, state);
+  let menuIcon = state.drawerIcon;
   const style = [styles.leftButton, state.leftButtonStyle];
   const leftButtonTextStyle = getValue(state.leftButtonTextStyle, state);
   const leftButtonIconStyle = getValue(state.leftButtonIconStyle, state);
@@ -71,7 +71,7 @@ export function LeftButton(state) {
   const leftTitle = state.getLeftTitle ? state.getLeftTitle(state) : getValue(state.leftTitle, state);
   const textColor = getValue(state.leftButtonTintColor, state);
   const tintColor = textColor || state.tintColor || state.navBarButtonColor || state.headerTintColor;
-  const textStyle = [{ color: tintColor }, styles.barLeftButtonText, leftButtonTextStyle, textColor && { color: textColor }];
+  const textStyle = [styles.barLeftButtonText, tintColor && { color: tintColor }, leftButtonTextStyle, textColor && { color: textColor }];
 
   if (state.leftButton) {
     const Button = state.leftButton || state.left;
@@ -84,6 +84,21 @@ export function LeftButton(state) {
         textStyle={textStyle}
       />
     );
+  }
+
+  if (!onPress && state.drawerImage && state.drawerPosition !== 'right') {
+    buttonImage = state.drawerImage;
+    if (buttonImage || menuIcon) {
+      onPress = Actions.drawerOpen;
+    }
+    if (!menuIcon) {
+      menuIcon = (
+        <Image
+          source={buttonImage}
+          style={[state.leftButtonIconStyle || styles.defaultImageStyle, { tintColor }]}
+        />
+      );
+    }
   }
 
   if (onPress && (leftTitle || buttonImage)) {
@@ -125,7 +140,6 @@ function getValue(value, params) {
 }
 
 export function RightButton(state) {
-  const drawer = null;
   if (!state) {
     return null;
   }
@@ -140,7 +154,7 @@ export function RightButton(state) {
   const rightTitle = state.getRightTitle ? state.getRightTitle(state) : getValue(state.rightTitle, state);
   const textColor = getValue(state.rightButtonTintColor, state);
   const tintColor = textColor || state.tintColor || state.navBarButtonColor || state.headerTintColor;
-  const textStyle = [{ color: tintColor }, styles.barRightButtonText, rightButtonTextStyle, textColor && { color: textColor }];
+  const textStyle = [styles.barRightButtonText, tintColor && { color: tintColor }, rightButtonTextStyle, textColor && { color: textColor }];
 
   if (state.rightButton || state.right) {
     const Button = state.rightButton || state.right;
@@ -155,16 +169,16 @@ export function RightButton(state) {
     );
   }
 
-  if (!onPress && !!drawer && typeof drawer.toggle === 'function' && drawer.props.side === 'right') {
+  if (!onPress && state.drawerImage && state.drawerPosition === 'right') {
     buttonImage = state.drawerImage;
     if (buttonImage || menuIcon) {
-      onPress = drawer.toggle;
+      onPress = Actions.drawerOpen;
     }
     if (!menuIcon) {
       menuIcon = (
         <Image
           source={buttonImage}
-          style={rightButtonStyle}
+          style={[rightButtonStyle, { tintColor }]}
         />
       );
     }
