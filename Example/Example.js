@@ -81,7 +81,7 @@ const Example = () => {
                     title="Tab #1"
                     tabBarLabel="TAB #1"
                     icon={TabIcon}
-                    navigationBarStyle={{backgroundColor: 'red'}}
+                    navigationBarStyle={{backgroundColor: 'green'}}
                     titleStyle={{color: 'white', alignSelf: 'center'}}
                   >
                     <Scene
@@ -110,13 +110,12 @@ const Example = () => {
                       key="tab2_2"
                       component={TabView}
                       title="Tab #2_2"
-                      back
                       onBack={() => alert('onBack button!')}
                       backTitle="Back!"
                       panHandlers={null}
                     />
                   </Scene>
-                  <Scene key="tab3" component={TabView} title="Tab #3" icon={TabIcon}/>
+                  <Scene key="tab3" component={TabView} title="Tab #3" icon={TabIcon} rightTitle="Right3" onRight={()=>{}}/>
                   <Scene key="tab4" component={TabView} title="Tab #4" hideNavBar icon={TabIcon}/>
                   <Scene key="tab5" component={TabView} title="Tab #5" icon={TabIcon}/>
                 </Scene>

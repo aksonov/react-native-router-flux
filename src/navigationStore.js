@@ -104,7 +104,7 @@ function createNavigationOptions(params) {
     navigationBarStyle, headerStyle, navBarButtonColor, tabBarLabel, tabBarIcon, icon, getTitle, renderTitle, panHandlers,
     navigationBarTitleImage, navigationBarTitleImageStyle, component, rightTitle, leftTitle, leftButtonTextStyle, rightButtonTextStyle,
     backButtonTextStyle, headerTitleStyle, titleStyle, navBar, onRight, onLeft, rightButtonImage, leftButtonImage, init, back,
-    renderBackButton, renderNavigationBar, ...props } = params;
+    renderBackButton, renderNavigationBar, drawerIcon, drawerImage, drawerPosition, ...props } = params;
   const NavBar = renderNavigationBar || navBar;
   if (component && component.navigationOptions) {
     return component.navigationOptions;
@@ -157,16 +157,18 @@ function createNavigationOptions(params) {
     }
 
     if (rightButtonImage || rightTitle || params.renderRightButton || onRight || navigationParams.onRight
-      || navigationParams.rightTitle || navigationParams.rightButtonImage || rightButtonTextStyle) {
+      || navigationParams.rightTitle || navigationParams.rightButtonImage || rightButtonTextStyle
+      || ((drawerImage || drawerIcon) && drawerPosition === 'right')) {
       res.headerRight = getValue(navigationParams.right || navigationParams.rightButton || params.renderRightButton,
         { ...navigationParams, ...screenProps }) || <RightNavBarButton {...params} {...navigationParams} {...componentData} />;
     }
 
     if (leftButtonImage || backButtonImage || backTitle || leftTitle || params.renderLeftButton || leftButtonTextStyle
       || backButtonTextStyle || onLeft || navigationParams.leftTitle || navigationParams.onLeft || navigationParams.leftButtonImage
-      || navigationParams.backButtonImage || navigationParams.backTitle) {
+      || navigationParams.backButtonImage || navigationParams.backTitle || ((drawerImage || drawerIcon) && drawerPosition !== 'right')) {
       res.headerLeft = getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
-        || (onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage) && <LeftNavBarButton {...params} {...navigationParams} {...componentData} />)
+        || (((onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage)) || drawerImage || drawerIcon)
+          && <LeftNavBarButton {...params} {...navigationParams} {...componentData} />)
         || (init ? null : (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />);
     }
 
@@ -273,16 +275,8 @@ class NavigationStore {
       }
     }
 
-    if (drawer && commonProps.drawerPosition !== 'right' && !commonProps.left && !commonProps.leftButtonImage
-      && !commonProps.leftTitle && !commonProps.back) {
-      commonProps.leftButtonImage = commonProps.drawerImage || _drawerImage;
-      commonProps.onLeft = this.drawerOpen;
-    }
-
-    if (drawer && commonProps.drawerPosition === 'right' && !commonProps.right && !commonProps.rightButtonImage
-      && !commonProps.rightTitle) {
-      commonProps.rightButtonImage = commonProps.drawerImage || _drawerImage;
-      commonProps.onRight = this.drawerOpen;
+    if (drawer) {
+      commonProps.drawerImage = commonProps.drawerImage || _drawerImage;
     }
 
     const children = !Array.isArray(parentProps.children) ? [parentProps.children] : [...parentProps.children];
@@ -394,7 +388,7 @@ class NavigationStore {
     this.currentScene = state.routeName;
     this.currentParams = state.params;
 
-    if (currentScene !== this.currentScene && this.currentScene !== 'DrawerOpen' && this.currentScene !== 'DrawerClose') {
+    if (currentScene !== this.currentScene && this.currentScene !== 'DrawerOpen' && this.currentScene !== 'DrawerClose' && prevScene !== 'DrawerOpen') {
       this.dispatch({ type: ActionConst.BLUR, routeName: prevScene });
 
       // call onExit handler
@@ -431,7 +425,6 @@ class NavigationStore {
           }
         }
       }
-
       this.prevScene = currentScene;
     }
   };

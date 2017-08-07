@@ -104,7 +104,7 @@ title=
 
 
 
-params.title,backButtonImage=params.backButtonImage,navTransparent=params.navTransparent,hideNavBar=params.hideNavBar,hideTabBar=params.hideTabBar,backTitle=params.backTitle,right=params.right,rightButton=params.rightButton,left=params.left,leftButton=params.leftButton,navigationBarStyle=params.navigationBarStyle,headerStyle=params.headerStyle,navBarButtonColor=params.navBarButtonColor,tabBarLabel=params.tabBarLabel,tabBarIcon=params.tabBarIcon,icon=params.icon,getTitle=params.getTitle,renderTitle=params.renderTitle,panHandlers=params.panHandlers,navigationBarTitleImage=params.navigationBarTitleImage,navigationBarTitleImageStyle=params.navigationBarTitleImageStyle,component=params.component,rightTitle=params.rightTitle,leftTitle=params.leftTitle,leftButtonTextStyle=params.leftButtonTextStyle,rightButtonTextStyle=params.rightButtonTextStyle,backButtonTextStyle=params.backButtonTextStyle,headerTitleStyle=params.headerTitleStyle,titleStyle=params.titleStyle,navBar=params.navBar,onRight=params.onRight,onLeft=params.onLeft,rightButtonImage=params.rightButtonImage,leftButtonImage=params.leftButtonImage,init=params.init,back=params.back,renderBackButton=params.renderBackButton,renderNavigationBar=params.renderNavigationBar,props=_objectWithoutProperties(params,['title','backButtonImage','navTransparent','hideNavBar','hideTabBar','backTitle','right','rightButton','left','leftButton','navigationBarStyle','headerStyle','navBarButtonColor','tabBarLabel','tabBarIcon','icon','getTitle','renderTitle','panHandlers','navigationBarTitleImage','navigationBarTitleImageStyle','component','rightTitle','leftTitle','leftButtonTextStyle','rightButtonTextStyle','backButtonTextStyle','headerTitleStyle','titleStyle','navBar','onRight','onLeft','rightButtonImage','leftButtonImage','init','back','renderBackButton','renderNavigationBar']);
+params.title,backButtonImage=params.backButtonImage,navTransparent=params.navTransparent,hideNavBar=params.hideNavBar,hideTabBar=params.hideTabBar,backTitle=params.backTitle,right=params.right,rightButton=params.rightButton,left=params.left,leftButton=params.leftButton,navigationBarStyle=params.navigationBarStyle,headerStyle=params.headerStyle,navBarButtonColor=params.navBarButtonColor,tabBarLabel=params.tabBarLabel,tabBarIcon=params.tabBarIcon,icon=params.icon,getTitle=params.getTitle,renderTitle=params.renderTitle,panHandlers=params.panHandlers,navigationBarTitleImage=params.navigationBarTitleImage,navigationBarTitleImageStyle=params.navigationBarTitleImageStyle,component=params.component,rightTitle=params.rightTitle,leftTitle=params.leftTitle,leftButtonTextStyle=params.leftButtonTextStyle,rightButtonTextStyle=params.rightButtonTextStyle,backButtonTextStyle=params.backButtonTextStyle,headerTitleStyle=params.headerTitleStyle,titleStyle=params.titleStyle,navBar=params.navBar,onRight=params.onRight,onLeft=params.onLeft,rightButtonImage=params.rightButtonImage,leftButtonImage=params.leftButtonImage,init=params.init,back=params.back,renderBackButton=params.renderBackButton,renderNavigationBar=params.renderNavigationBar,drawerIcon=params.drawerIcon,drawerImage=params.drawerImage,drawerPosition=params.drawerPosition,props=_objectWithoutProperties(params,['title','backButtonImage','navTransparent','hideNavBar','hideTabBar','backTitle','right','rightButton','left','leftButton','navigationBarStyle','headerStyle','navBarButtonColor','tabBarLabel','tabBarIcon','icon','getTitle','renderTitle','panHandlers','navigationBarTitleImage','navigationBarTitleImageStyle','component','rightTitle','leftTitle','leftButtonTextStyle','rightButtonTextStyle','backButtonTextStyle','headerTitleStyle','titleStyle','navBar','onRight','onLeft','rightButtonImage','leftButtonImage','init','back','renderBackButton','renderNavigationBar','drawerIcon','drawerImage','drawerPosition']);
 var NavBar=renderNavigationBar||navBar;
 if(component&&component.navigationOptions){
 return component.navigationOptions;
@@ -157,21 +157,23 @@ componentData[key]=component[key];
 }
 
 if(rightButtonImage||rightTitle||params.renderRightButton||onRight||navigationParams.onRight||
-navigationParams.rightTitle||navigationParams.rightButtonImage||rightButtonTextStyle){
+navigationParams.rightTitle||navigationParams.rightButtonImage||rightButtonTextStyle||
+(drawerImage||drawerIcon)&&drawerPosition==='right'){
 res.headerRight=getValue(navigationParams.right||navigationParams.rightButton||params.renderRightButton,_extends({},
-navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:162}}));
+navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:163}}));
 }
 
 if(leftButtonImage||backButtonImage||backTitle||leftTitle||params.renderLeftButton||leftButtonTextStyle||
 backButtonTextStyle||onLeft||navigationParams.leftTitle||navigationParams.onLeft||navigationParams.leftButtonImage||
-navigationParams.backButtonImage||navigationParams.backTitle){
+navigationParams.backButtonImage||navigationParams.backTitle||(drawerImage||drawerIcon)&&drawerPosition!=='right'){
 res.headerLeft=getValue(navigationParams.left||navigationParams.leftButton||params.renderLeftButton,_extends({},params,navigationParams,screenProps))||
-onLeft&&(leftTitle||navigationParams.leftTitle||leftButtonImage)&&_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:169}}))||(
-init?null:renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:170}})));
+(onLeft&&(leftTitle||navigationParams.leftTitle||leftButtonImage)||drawerImage||drawerIcon)&&
+_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:171}}))||(
+init?null:renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:172}})));
 }
 
 if(back){
-res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:174}}));
+res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:176}}));
 }
 
 if(hideTabBar){
@@ -194,7 +196,7 @@ return null;
 }
 var wrapper=wrapBy||function(props){return props;};
 function wrapped(_ref4){var navigation=_ref4.navigation,props=_objectWithoutProperties(_ref4,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:197}}));
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:199}}));
 }
 wrapped.propTypes={
 navigation:_propTypes2.default.object};
@@ -273,16 +275,8 @@ delete commonProps[pkey];
 }
 }
 
-if(drawer&&commonProps.drawerPosition!=='right'&&!commonProps.left&&!commonProps.leftButtonImage&&
-!commonProps.leftTitle&&!commonProps.back){
-commonProps.leftButtonImage=commonProps.drawerImage||_menu_burger2.default;
-commonProps.onLeft=_this.drawerOpen;
-}
-
-if(drawer&&commonProps.drawerPosition==='right'&&!commonProps.right&&!commonProps.rightButtonImage&&
-!commonProps.rightTitle){
-commonProps.rightButtonImage=commonProps.drawerImage||_menu_burger2.default;
-commonProps.onRight=_this.drawerOpen;
+if(drawer){
+commonProps.drawerImage=commonProps.drawerImage||_menu_burger2.default;
 }
 
 var children=!Array.isArray(parentProps.children)?[parentProps.children]:[].concat(_toConsumableArray(parentProps.children));
@@ -435,7 +429,6 @@ _this.setState(_this.nextState(_this.state,cmd));
 
 
 
-
 execute=function(actionType,routeName){for(var _len=arguments.length,params=Array(_len>2?_len-2:0),_key=2;_key<_len;_key++){params[_key-2]=arguments[_key];}
 var res=uniteParams(routeName,params);
 var overridenType=res.type||actionType;
@@ -499,7 +492,7 @@ _this.dispatch(_reactNavigation.NavigationActions.reset({key:null,index:0,action
 routeName:routeName,
 params:params})]}));
 
-};}_createClass(NavigationStore,[{key:'state',get:function get(){var scene=this.currentScene;var params=this.currentParams;return this._state;}}]);return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class.prototype,'currentScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor2=_applyDecoratedDescriptor(_class.prototype,'prevScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor3=_applyDecoratedDescriptor(_class.prototype,'currentParams',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor4=_applyDecoratedDescriptor(_class.prototype,'setState',[_mobx.action],{enumerable:true,initializer:function initializer(){var _this2=this;return function _callee(newState){var state,currentScene,prevScene,exitHandler,res,handler,_success,_failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:if(newState){_context.next=2;break;}return _context.abrupt('return');case 2:state=(0,_State.getActiveState)(newState);currentScene=_this2.currentScene;prevScene=_this2.prevScene;_this2._state=newState;_this2.currentScene=state.routeName;_this2.currentParams=state.params;if(!(currentScene!==_this2.currentScene&&_this2.currentScene!=='DrawerOpen'&&_this2.currentScene!=='DrawerClose')){_context.next=30;break;}_this2.dispatch({type:ActionConst.BLUR,routeName:prevScene});exitHandler=_this2[prevScene+_Util.OnExit];if(exitHandler){try{res=exitHandler();if(res instanceof Promise){res.then(defaultSuccess,defaultFailure);}}catch(e){console.error('Error during onExit handler:',e);}}_this2.dispatch({type:ActionConst.FOCUS,routeName:_this2.currentScene,params:_this2.currentParams});if(!_this2.states[_this2.currentScene]){_context.next=29;break;}handler=_this2[_this2.currentScene+_Util.OnEnter];_success=_this2.states[_this2.currentScene].success||defaultSuccess;_failure=_this2.states[_this2.currentScene].failure||defaultFailure;if(!handler){_context.next=29;break;}_context.prev=18;params=(0,_State.getActiveState)(_this2._state).params;_context.next=22;return regeneratorRuntime.awrap(handler(params));case 22:_res=_context.sent;if(_res){_success(_res);}else{_failure();}_context.next=29;break;case 26:_context.prev=26;_context.t0=_context['catch'](18);_failure({error:_context.t0});case 29:_this2.prevScene=currentScene;case 30:case'end':return _context.stop();}}},null,_this2,[[18,26]]);};}})),_class);exports.default=
+};}_createClass(NavigationStore,[{key:'state',get:function get(){var scene=this.currentScene;var params=this.currentParams;return this._state;}}]);return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class.prototype,'currentScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor2=_applyDecoratedDescriptor(_class.prototype,'prevScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor3=_applyDecoratedDescriptor(_class.prototype,'currentParams',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor4=_applyDecoratedDescriptor(_class.prototype,'setState',[_mobx.action],{enumerable:true,initializer:function initializer(){var _this2=this;return function _callee(newState){var state,currentScene,prevScene,exitHandler,res,handler,_success,_failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:if(newState){_context.next=2;break;}return _context.abrupt('return');case 2:state=(0,_State.getActiveState)(newState);currentScene=_this2.currentScene;prevScene=_this2.prevScene;_this2._state=newState;_this2.currentScene=state.routeName;_this2.currentParams=state.params;if(!(currentScene!==_this2.currentScene&&_this2.currentScene!=='DrawerOpen'&&_this2.currentScene!=='DrawerClose'&&prevScene!=='DrawerOpen')){_context.next=30;break;}_this2.dispatch({type:ActionConst.BLUR,routeName:prevScene});exitHandler=_this2[prevScene+_Util.OnExit];if(exitHandler){try{res=exitHandler();if(res instanceof Promise){res.then(defaultSuccess,defaultFailure);}}catch(e){console.error('Error during onExit handler:',e);}}_this2.dispatch({type:ActionConst.FOCUS,routeName:_this2.currentScene,params:_this2.currentParams});if(!_this2.states[_this2.currentScene]){_context.next=29;break;}handler=_this2[_this2.currentScene+_Util.OnEnter];_success=_this2.states[_this2.currentScene].success||defaultSuccess;_failure=_this2.states[_this2.currentScene].failure||defaultFailure;if(!handler){_context.next=29;break;}_context.prev=18;params=(0,_State.getActiveState)(_this2._state).params;_context.next=22;return regeneratorRuntime.awrap(handler(params));case 22:_res=_context.sent;if(_res){_success(_res);}else{_failure();}_context.next=29;break;case 26:_context.prev=26;_context.t0=_context['catch'](18);_failure({error:_context.t0});case 29:_this2.prevScene=currentScene;case 30:case'end':return _context.stop();}}},null,_this2,[[18,26]]);};}})),_class);exports.default=
 
 
 
