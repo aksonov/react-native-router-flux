@@ -52,7 +52,7 @@ Router.propTypes = {
   createReducer: PropTypes.func,
   dispatch: PropTypes.func,
   state: PropTypes.object,
-  scenes: PropTypes.element,
+  scenes: PropTypes.func,
   navigator: PropTypes.func,
   wrapBy: PropTypes.func,
   getSceneStyle: PropTypes.func,
