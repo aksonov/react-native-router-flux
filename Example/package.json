@@ -15,7 +15,7 @@
     "react-native": "0.44.0",
     "react-native-button": "^2.0.0",
     "react-native-message-bar": "^1.6.0",
-    "react-native-router-flux": "4.0.0-beta.16",
+    "react-native-router-flux": "4.0.0-beta.17",
     "react-navigation": "^1.0.0-beta.11"
   },
   "devDependencies": {

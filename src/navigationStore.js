@@ -388,7 +388,7 @@ class NavigationStore {
     this.currentScene = state.routeName;
     this.currentParams = state.params;
 
-    if (currentScene !== this.currentScene && this.currentScene !== 'DrawerOpen' && this.currentScene !== 'DrawerClose' && prevScene !== 'DrawerOpen') {
+    if (currentScene !== this.currentScene) {
       this.dispatch({ type: ActionConst.BLUR, routeName: prevScene });
 
       // call onExit handler
@@ -425,8 +425,8 @@ class NavigationStore {
           }
         }
       }
-      this.prevScene = currentScene;
     }
+    this.prevScene = currentScene;
   };
 
   execute = (actionType, routeName, ...params) => {
