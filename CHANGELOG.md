@@ -1,5 +1,42 @@
 # Change Log
 
+## [4.0.0-beta.17](https://github.com/aksonov/react-native-router-flux/tree/4.0.0-beta.17) (2017-08-08)
+[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.16...4.0.0-beta.17)
+
+**Fixed bugs:**
+
+- 'DrawerClose' action pushes new scene instead of just closing drawer [\#2193](https://github.com/aksonov/react-native-router-flux/issues/2193)
+- Press Android back button immediately exit application [\#2191](https://github.com/aksonov/react-native-router-flux/issues/2191)
+- tintColor ignored for custom left and right buttons [\#2188](https://github.com/aksonov/react-native-router-flux/issues/2188)
+- Warning: Failed prop type: Invalid prop `scenes` of type `function` supplied to `Router`, expected a single ReactElement. [\#2187](https://github.com/aksonov/react-native-router-flux/issues/2187)
+- drawerImage does not display Image [\#2175](https://github.com/aksonov/react-native-router-flux/issues/2175)
+
+**Closed issues:**
+
+- How can I show tab inside the tab \(Nested tabs\)? [\#2199](https://github.com/aksonov/react-native-router-flux/issues/2199)
+- How to achieve =\> headerMode:"screen" [\#2198](https://github.com/aksonov/react-native-router-flux/issues/2198)
+- All tab view of tabs are mounted once. [\#2197](https://github.com/aksonov/react-native-router-flux/issues/2197)
+- back on TAB is not working when using hideTabBar and swipeEnabled={false} a on parent [\#2186](https://github.com/aksonov/react-native-router-flux/issues/2186)
+- ComponentWillUnmount is not called when Action is triggered [\#2185](https://github.com/aksonov/react-native-router-flux/issues/2185)
+- Icon hamburger on each scene [\#2184](https://github.com/aksonov/react-native-router-flux/issues/2184)
+- Modal nested navigation [\#2183](https://github.com/aksonov/react-native-router-flux/issues/2183)
+- Press Android back button immediately exit application  [\#2182](https://github.com/aksonov/react-native-router-flux/issues/2182)
+- Redux state change in drawerchild [\#2180](https://github.com/aksonov/react-native-router-flux/issues/2180)
+- how to change android animation direction [\#2177](https://github.com/aksonov/react-native-router-flux/issues/2177)
+- How to use modal [\#2173](https://github.com/aksonov/react-native-router-flux/issues/2173)
+- No option to change default indicator style color of yellow in Tab bar on android [\#2171](https://github.com/aksonov/react-native-router-flux/issues/2171)
+- redux example - side effect warning [\#2170](https://github.com/aksonov/react-native-router-flux/issues/2170)
+- Custom tab bar [\#2169](https://github.com/aksonov/react-native-router-flux/issues/2169)
+- Tab bar not showing in Android  [\#2165](https://github.com/aksonov/react-native-router-flux/issues/2165)
+- Tabbed Scene Jumping Back to first tab [\#2164](https://github.com/aksonov/react-native-router-flux/issues/2164)
+- Is it possible to render navBar at the bottom? Also, disabling 'fade with slide' animation when entering a Scene [\#2161](https://github.com/aksonov/react-native-router-flux/issues/2161)
+- \(Warning\) Multiple mobx instances running [\#2155](https://github.com/aksonov/react-native-router-flux/issues/2155)
+
+**Merged pull requests:**
+
+- Fixes \#2193, \#2188, \#2175 and general drawerImage improvement [\#2194](https://github.com/aksonov/react-native-router-flux/pull/2194) ([aksonov](https://github.com/aksonov))
+- Fixed popTo method [\#2179](https://github.com/aksonov/react-native-router-flux/pull/2179) ([ulentini](https://github.com/ulentini))
+
 ## [4.0.0-beta.16](https://github.com/aksonov/react-native-router-flux/tree/4.0.0-beta.16) (2017-08-03)
 [Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.15...4.0.0-beta.16)
 
@@ -15,7 +52,6 @@
 - react-native-web Unable to be compatible [\#2178](https://github.com/aksonov/react-native-router-flux/issues/2178)
 - how to Dynamically setting the tabbarStyle [\#2176](https://github.com/aksonov/react-native-router-flux/issues/2176)
 - \[suggestion\] modal independent of navigation [\#2174](https://github.com/aksonov/react-native-router-flux/issues/2174)
-- How to use modal [\#2173](https://github.com/aksonov/react-native-router-flux/issues/2173)
 - popTo: Cannot read property 'toString' of undefined. [\#2167](https://github.com/aksonov/react-native-router-flux/issues/2167)
 - Title in navigation bar is not centered in Android \(7.0\) [\#2166](https://github.com/aksonov/react-native-router-flux/issues/2166)
 - Issues pushing new scene after upgrading from beta8 to beta 15 [\#2162](https://github.com/aksonov/react-native-router-flux/issues/2162)
