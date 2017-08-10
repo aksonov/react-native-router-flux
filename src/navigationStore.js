@@ -480,10 +480,7 @@ class NavigationStore {
 
   replace = (routeName, data) => {
     const params = filterParam(data);
-    this.dispatch(NavigationActions.reset({ key: routeName, index: 0, actions: [NavigationActions.navigate({
-      routeName,
-      params,
-    })] }));
+    this.dispatch({ type: ActionConst.REPLACE, routeName, params });
   };
 
   reset = (routeName, data) => {

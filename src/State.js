@@ -30,12 +30,25 @@ export function getActiveState(param, parent) {
   return getActiveState(state.routes[state.index], state);
 }
 
-export function inject(state, key, index) {
+export function inject(state, key, index, routes) {
   if (!state.routes) {
     return state;
   }
   if (state.key === key) {
+    if (routes) {
+      return { ...state, routes, index };
+    }
     return { ...state, index };
   }
   return { ...state, routes: state.routes.map(x => inject(x, key, index)) };
+}
+
+export function popPrevious(state) {
+  const activeState = getActiveState(state);
+  if (activeState.parent && activeState.parent.index) {
+    const parent = activeState.parent;
+    const key = parent.key;
+    return inject(state, key, parent.index - 1, parent.routes.splice(parent.index - 1, 1));
+  }
+  return state;
 }
