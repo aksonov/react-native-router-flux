@@ -61,17 +61,11 @@ export function reducer(state = navigationStore.state, action) {
       }
     }
     return nextScene === routeName ? newState : state;
-  } else if (type === ActionConst.POP_AND_PUSH) {
-    const newState = navigationStore.router.getStateForAction(NavigationActions.back(), state);
-    return navigationStore.router.getStateForAction(NavigationActions.navigate({
-      routeName,
-      params: action.params,
-    }), newState);
   } else if (type === ActionConst.REPLACE) {
     const newState = navigationStore.router.getStateForAction(NavigationActions.navigate({
       routeName,
       params: action.params,
-    }), newState);
+    }), state);
     return popPrevious(newState);
   }
   // fix react-navigation bug with DrawerClose - it pushes new underlying scene instead of just switching index!

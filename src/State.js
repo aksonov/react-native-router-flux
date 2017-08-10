@@ -40,7 +40,7 @@ export function inject(state, key, index, routes) {
     }
     return { ...state, index };
   }
-  return { ...state, routes: state.routes.map(x => inject(x, key, index)) };
+  return { ...state, routes: state.routes.map(x => inject(x, key, index, routes)) };
 }
 
 export function popPrevious(state) {
@@ -48,7 +48,9 @@ export function popPrevious(state) {
   if (activeState.parent && activeState.parent.index) {
     const parent = activeState.parent;
     const key = parent.key;
-    return inject(state, key, parent.index - 1, parent.routes.splice(parent.index - 1, 1));
+    const routes = [...parent.routes.slice(0, parent.index - 1), ...parent.routes.slice(parent.index)];
+    const newState = inject(state, key, parent.index - 1, routes);
+    return newState;
   }
   return state;
 }
