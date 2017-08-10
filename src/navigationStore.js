@@ -167,7 +167,7 @@ function createNavigationOptions(params) {
       || backButtonTextStyle || onLeft || navigationParams.leftTitle || navigationParams.onLeft || navigationParams.leftButtonImage
       || navigationParams.backButtonImage || navigationParams.backTitle || ((drawerImage || drawerIcon) && drawerPosition !== 'right')) {
       res.headerLeft = getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
-        || (((onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage)) || drawerImage || drawerIcon)
+        || (((onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage || navigationParams.leftButtonImage)) || drawerImage || drawerIcon)
           && <LeftNavBarButton {...params} {...navigationParams} {...componentData} />)
         || (init ? null : (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />);
     }
