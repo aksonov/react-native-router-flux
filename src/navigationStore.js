@@ -335,7 +335,7 @@ class NavigationStore {
       props.init = true;
       if (!this[key]) {
         this[key] = new Function('actions', 'props', 'type', // eslint-disable-line no-new-func
-          `return function ${key}(params){ actions.execute(type, '${key}', props, params)}`)(this, { ...commonProps, ...props }, type);
+          `return function ${key.replace(/\W/g, '_')}(params){ actions.execute(type, '${key}', props, params)}`)(this, { ...commonProps, ...props }, type);
       }
 
       if ((onEnter || on || (component && component.onEnter)) && !this[key + OnEnter]) {
