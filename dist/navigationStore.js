@@ -480,10 +480,7 @@ _this.dispatch({type:ActionConst.POP_AND_PUSH,routeName:routeName,params:params}
 
 replace=function(routeName,data){
 var params=filterParam(data);
-_this.dispatch(_reactNavigation.NavigationActions.reset({key:routeName,index:0,actions:[_reactNavigation.NavigationActions.navigate({
-routeName:routeName,
-params:params})]}));
-
+_this.dispatch({type:ActionConst.REPLACE,routeName:routeName,params:params});
 };this.
 
 reset=function(routeName,data){
