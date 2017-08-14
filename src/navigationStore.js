@@ -6,7 +6,6 @@ import { View } from 'react-native';
 import { TabNavigator, DrawerNavigator, StackNavigator, NavigationActions } from 'react-navigation';
 import { LeftButton, RightButton, BackButton } from './NavBar';
 import LightboxNavigator from './LightboxNavigator';
-import OverlayNavigator from './OverlayNavigator';
 import _drawerImage from '../images/menu_burger.png';
 import Scene from './Scene';
 import PropTypes from 'prop-types';
@@ -66,7 +65,6 @@ const dontInheritKeys = [
   'component',
   'wrap',
   'modal',
-  'overlay',
   'drawer',
   'tabs',
   'navigator',
@@ -262,7 +260,7 @@ class NavigationStore {
     }
     const res = {};
     const order = [];
-    const { tabs, modal, overlay, lightbox, navigator, contentComponent, lazy, drawer, ...parentProps } = scene.props;
+    const { tabs, modal, lightbox, navigator, contentComponent, lazy, drawer, ...parentProps } = scene.props;
 
     const commonProps = { ...inheritProps, ...parentProps };
     delete commonProps.children;
@@ -362,9 +360,6 @@ class NavigationStore {
         tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });
     } else if (drawer) {
       return DrawerNavigator(res, { initialRouteName, contentComponent, order, ...commonProps });
-    } else if (overlay) {
-      return OverlayNavigator(res, { mode, initialRouteParams, order, contentComponent, initialRouteName, ...commonProps,
-        navigationOptions: createNavigationOptions(commonProps) });
     }
     return StackNavigator(res, { mode, initialRouteParams, initialRouteName, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
   };
