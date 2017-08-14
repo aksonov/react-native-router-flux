@@ -120,6 +120,7 @@ const Example = () => (
         </Lightbox>
         <Stack key="login" titleStyle={{alignSelf: "center"}}>
           <Scene component={Login} title="Login"
+                 key="loginModal"
                  onExit={()=>console.log("onExit")}
                  leftTitle="Cancel" onLeft={Actions.pop}/>
           <Scene
