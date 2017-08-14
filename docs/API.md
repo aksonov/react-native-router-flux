@@ -18,6 +18,7 @@
 | Property | Type | Default | Description |
 |-----------|----------|----------|--------------------------------------------|
 | `key`       | `string` | `required` | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
+| `type`   | `string` | `push` | Optional type of navigation action. You could use `replace` to replace current scene with this scene |
 | `component` | `React.Component` | `semi-required` | The `Component` to be displayed. Not required when defining a nested `Scene`, see example. |
 | `headerMode` | `string` | `float` | Specifies how the header should be rendered: `float` (render a single header that stays at the top and animates as screens are changed. This is a common pattern on iOS.), `screen` (each screen has a header attached to it and the header fades in and out together with the screen. This is a common pattern on Android) or `none` (No header will be rendered) |
 | `initial`   | `boolean` | `false` | Set to `true` if this is the first scene to display among its sibling `Scene`s |
