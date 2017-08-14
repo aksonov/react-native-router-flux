@@ -12,10 +12,15 @@ import PropTypes from 'prop-types';
 import { getActiveState } from './State';
 import { reducer } from './Reducer';
 import isEqual from 'lodash.isequal';
+import Modal from './Modal';
+import Lightbox from './Lightbox';
+import Drawer from './Drawer';
+import Tabs from './Tabs';
 
 let RightNavBarButton;
 let LeftNavBarButton;
 let BackNavBarButton;
+let counter = 0;
 
 export const actionMap = {
   [ActionConst.JUMP]: 'jump',
@@ -260,7 +265,17 @@ class NavigationStore {
     }
     const res = {};
     const order = [];
-    const { tabs, modal, lightbox, navigator, contentComponent, lazy, drawer, ...parentProps } = scene.props;
+    const { navigator, contentComponent, lazy, ...parentProps } = scene.props;
+    let { tabs, modal, lightbox, drawer } = parentProps;
+    if (scene.type === Modal) {
+      modal = true;
+    } else if (scene.type === Drawer) {
+      drawer = true;
+    } else if (scene.type === Lightbox) {
+      lightbox = true;
+    } else if (scene.type === Tabs) {
+      tabs = true;
+    }
 
     const commonProps = { ...inheritProps, ...parentProps };
     delete commonProps.children;
@@ -292,8 +307,7 @@ class NavigationStore {
     let initialRouteName;
     let initialRouteParams;
     for (const child of children) {
-      assert(child.key, `key should be defined for ${child}`);
-      const key = child.key;
+      const key = child.key || `key${counter++}`;
       const init = key === children[0].key;
       assert(reservedKeys.indexOf(key) === -1, `Scene name cannot be reserved word: ${child.key}`);
       const { component, type = tabs || drawer ? 'jump' : 'push', onEnter, onExit, on, failure, success, wrap, ...props } = child.props;

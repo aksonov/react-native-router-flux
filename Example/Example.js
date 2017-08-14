@@ -1,86 +1,83 @@
 import React, {
   Component,
-} from 'react';
+} from "react";
 import {
   StyleSheet,
   Text,
   View,
-} from 'react-native';
-import Launch from './components/Launch';
-import Register from './components/Register';
-import Login from './components/Login';
-import Login2 from './components/Login2';
-import Login3 from './components/Login3';
+} from "react-native";
+import Launch from "./components/Launch";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Login2 from "./components/Login2";
+import Login3 from "./components/Login3";
 import {
   Scene,
   Router,
   Actions,
   Reducer,
   ActionConst,
-} from 'react-native-router-flux';
-import Error from './components/Error';
-import Home from './components/Home';
-import TabView from './components/TabView';
-import TabIcon from './components/TabIcon';
-import EchoView from './components/EchoView';
-import Button from 'react-native-button';
-import MessageBar from './components/MessageBar';
+  Tabs,
+  Modal,
+  Drawer,
+  Stack,
+  Lightbox,
+} from "react-native-router-flux";
+import Error from "./components/Error";
+import Home from "./components/Home";
+import TabView from "./components/TabView";
+import TabIcon from "./components/TabIcon";
+import EchoView from "./components/EchoView";
+import MessageBar from "./components/MessageBar";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
-    alignItems: 'center',
+    flex: 1, backgroundColor: "transparent", justifyContent: "center",
+    alignItems: "center",
   },
   tabBarStyle: {
-    backgroundColor: '#eee',
+    backgroundColor: "#eee",
   },
   tabBarSelectedItemStyle: {
-    backgroundColor: '#ddd',
+    backgroundColor: "#ddd",
   },
 });
 
 const reducerCreate = params => {
   const defaultReducer = new Reducer(params);
   return (state, action) => {
-    console.log('ACTION:', action);
+    console.log("ACTION:", action);
     return defaultReducer(state, action);
   };
 };
 const getSceneStyle = () => ({
-  backgroundColor: 'white',
+  backgroundColor: "white",
   shadowOpacity: 1,
   shadowRadius: 3,
 });
 
 const Example = () => (
   <View style={{ flex: 1 }}>
-    <Router createReducer={reducerCreate} tintColor='red' getSceneStyle={getSceneStyle}>
-      <Scene key="modal" modal hideNavBar initial>
-        <Scene key="lightbox" lightbox leftButtonTextStyle={{color: 'green'}} backButtonTextStyle={{color: 'red'}} initial>
-          <Scene key="root" hideNavBar hideTabBar titleStyle={{alignSelf: 'center'}}>
-            <Scene key="echo" back clone component={EchoView} getTitle={({navigation}) => navigation.state.key}/>
+    <Router createReducer={reducerCreate} tintColor="red" getSceneStyle={getSceneStyle}>
+      <Modal hideNavBar>
+        <Lightbox leftButtonTextStyle={{ color: 'green' }} backButtonTextStyle={{ color: 'red' }}>
+          <Stack hideNavBar hideTabBar titleStyle={{ alignSelf: 'center' }}>
+            <Scene key="echo" back clone component={EchoView} getTitle={({ navigation }) => navigation.state.key} />
             <Scene key="register" back>
-              <Scene key="_register" component={Register} title="Register"/>
-              <Scene key="register2" component={Register} title="Register2"/>
-              <Scene key="home" component={Home} title="Replace" type={ActionConst.REPLACE}/>
+              <Scene key="_register" component={Register} title="Register" />
+              <Scene key="register2" component={Register} title="Register2" />
+              <Scene key="home" component={Home} title="Replace" type={ActionConst.REPLACE} />
             </Scene>
-            <Scene key="launch" component={Launch} title="Launch" initial/>
-            <Scene key="drawer" drawer contentComponent={TabView}>
-              <Scene
-                key="tabbar"
-                gestureEnabled={false}
-                showLabel={false}
-                tabs
-                tabBarStyle={styles.tabBarStyle}
-                activeBackgroundColor='#ddd'
-              >
-                <Scene
+            <Scene key="launch" component={Launch} title="Launch" initial />
+            <Drawer contentComponent={TabView}>
+              <Tabs key="tabbar" gestureEnabled={false} showLabel={false} tabs tabBarStyle={styles.tabBarStyle} activeBackgroundColor="#ddd">
+                <Stack
                   key="tab1"
                   title="Tab #1"
                   tabBarLabel="TAB #1"
                   icon={TabIcon}
-                  navigationBarStyle={{backgroundColor: 'green'}}
-                  titleStyle={{color: 'white', alignSelf: 'center'}}
+                  navigationBarStyle={{ backgroundColor: 'green' }}
+                  titleStyle={{ color: 'white', alignSelf: 'center' }}
                 >
                   <Scene
                     key="tab1_1"
@@ -94,9 +91,9 @@ const Example = () => (
                     component={TabView}
                     title="Tab #1_2"
                     back
-                    titleStyle={{color: 'black', alignSelf: 'center'}}
+                    titleStyle={{ color: 'black', alignSelf: 'center' }}
                   />
-                </Scene>
+                </Stack>
                 <Scene key="tab2" initial title="Tab #2" icon={TabIcon}>
                   <Scene
                     key="tab2_1"
@@ -116,14 +113,14 @@ const Example = () => (
                 <Scene key="tab3" component={TabView} title="Tab #3" icon={TabIcon} rightTitle="Right3" onRight={()=>{}}/>
                 <Scene key="tab4" component={TabView} title="Tab #4" hideNavBar icon={TabIcon}/>
                 <Scene key="tab5" component={TabView} title="Tab #5" icon={TabIcon}/>
-              </Scene>
-            </Scene>
-          </Scene>
+              </Tabs>
+            </Drawer>
+          </Stack>
           <Scene key="error" component={Error}/>
-        </Scene>
-        <Scene key="login" titleStyle={{alignSelf: 'center'}}>
-          <Scene key="loginModal" component={Login} title="Login"
-                 onExit={()=>console.log('onExit')}
+        </Lightbox>
+        <Stack key="login" titleStyle={{alignSelf: "center"}}>
+          <Scene component={Login} title="Login"
+                 onExit={()=>console.log("onExit")}
                  leftTitle="Cancel" onLeft={Actions.pop}/>
           <Scene
             key="loginModal2"
@@ -141,8 +138,8 @@ const Example = () => (
             panHandlers={null}
             duration={1}
           />
-        </Scene>
-      </Scene>
+        </Stack>
+      </Modal>
     </Router>
     <MessageBar />
   </View>);
