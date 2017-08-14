@@ -33,10 +33,13 @@ _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNa
 }}]);return App;}(_react2.default.Component),_class2.propTypes={navigator:_propTypes2.default.func,backAndroidHandler:_propTypes2.default.func},_temp2))||_class;
 
 
-var Router=function Router(_ref2){var createReducer=_ref2.createReducer,scenes=_ref2.scenes,navigator=_ref2.navigator,getSceneStyle=_ref2.getSceneStyle,children=_ref2.children,state=_ref2.state,dispatch=_ref2.dispatch,_ref2$wrapBy=_ref2.wrapBy,wrapBy=_ref2$wrapBy===undefined?function(props){return props;}:_ref2$wrapBy,props=_objectWithoutProperties(_ref2,['createReducer','scenes','navigator','getSceneStyle','children','state','dispatch','wrapBy']);
+var Router=function Router(_ref2){var createReducer=_ref2.createReducer,sceneStyle=_ref2.sceneStyle,scenes=_ref2.scenes,navigator=_ref2.navigator,getSceneStyle=_ref2.getSceneStyle,children=_ref2.children,state=_ref2.state,dispatch=_ref2.dispatch,_ref2$wrapBy=_ref2.wrapBy,wrapBy=_ref2$wrapBy===undefined?function(props){return props;}:_ref2$wrapBy,props=_objectWithoutProperties(_ref2,['createReducer','sceneStyle','scenes','navigator','getSceneStyle','children','state','dispatch','wrapBy']);
 var data=_extends({},props);
 if(getSceneStyle){
-data.cardStyle=getSceneStyle();
+data.cardStyle=getSceneStyle(props);
+}
+if(sceneStyle){
+data.cardStyle=sceneStyle;
 }
 var AppNavigator=scenes||navigator||_navigationStore2.default.create(children,data,wrapBy);
 _navigationStore2.default.reducer=createReducer&&createReducer(props);
@@ -44,9 +47,9 @@ if(dispatch&&state){
 
 _navigationStore2.default.setState(state);
 _navigationStore2.default.dispatch=dispatch;
-return _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:state}),__source:{fileName:_jsxFileName,lineNumber:47}});
+return _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:state}),__source:{fileName:_jsxFileName,lineNumber:50}});
 }
-return _react2.default.createElement(App,_extends({},props,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:49}}));
+return _react2.default.createElement(App,_extends({},props,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:52}}));
 };
 Router.propTypes={
 createReducer:_propTypes2.default.func,
@@ -56,6 +59,7 @@ scenes:_propTypes2.default.func,
 navigator:_propTypes2.default.func,
 wrapBy:_propTypes2.default.func,
 getSceneStyle:_propTypes2.default.func,
+sceneStyle:_propTypes2.default.object,
 children:_propTypes2.default.element};exports.default=
 
 

@@ -33,10 +33,13 @@ class App extends React.Component {
   }
 }
 
-const Router = ({ createReducer, scenes, navigator, getSceneStyle, children, state, dispatch, wrapBy = props => props, ...props }) => {
+const Router = ({ createReducer, sceneStyle, scenes, navigator, getSceneStyle, children, state, dispatch, wrapBy = props => props, ...props }) => {
   const data = { ...props };
   if (getSceneStyle) {
-    data.cardStyle = getSceneStyle();
+    data.cardStyle = getSceneStyle(props);
+  }
+  if (sceneStyle) {
+    data.cardStyle = sceneStyle;
   }
   const AppNavigator = scenes || navigator || navigationStore.create(children, data, wrapBy);
   navigationStore.reducer = createReducer && createReducer(props);
@@ -56,6 +59,7 @@ Router.propTypes = {
   navigator: PropTypes.func,
   wrapBy: PropTypes.func,
   getSceneStyle: PropTypes.func,
+  sceneStyle: PropTypes.object,
   children: PropTypes.element,
 };
 
