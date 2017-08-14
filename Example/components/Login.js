@@ -23,13 +23,13 @@ const styles = StyleSheet.create({
 });
 
 export default class extends React.Component {
-  componentDidMount() {
+  static onEnter = () => {
     Actions.refresh({
       title: 'Login!',
       rightTitle: 'rightTitle',
       onRight: () => {},
     });
-  }
+  };
   render() {
     const title = this.props.title || 'No Title';
     const data = this.props.data || 'No Data';
