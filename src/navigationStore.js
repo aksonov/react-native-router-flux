@@ -12,6 +12,7 @@ import Scene from './Scene';
 import PropTypes from 'prop-types';
 import { getActiveState } from './State';
 import { reducer } from './Reducer';
+import isEqual from 'lodash.isequal';
 
 let RightNavBarButton;
 let LeftNavBarButton;
@@ -23,12 +24,10 @@ export const actionMap = {
   [ActionConst.REPLACE]: 'replace',
   [ActionConst.BACK]: 'pop',
   [ActionConst.BACK_ACTION]: 'pop',
-  [ActionConst.POP_AND_REPLACE]: 'pop',
   [ActionConst.POP_TO]: 'popTo',
   [ActionConst.REFRESH]: 'refresh',
   [ActionConst.RESET]: 'reset',
   [ActionConst.PUSH_OR_POP]: 'push',
-  [ActionConst.POP_AND_PUSH]: 'popAndPush',
 };
 
 const reservedKeys = [
@@ -382,13 +381,17 @@ class NavigationStore {
       return;
     }
     const state = getActiveState(newState);
+    // avoid double actions
+    if (isEqual(state.params, this.currentParams) && state.routeName === this.currentScene) {
+      return;
+    }
     const currentScene = this.currentScene;
     const prevScene = this.prevScene;
     this._state = newState;
     this.currentScene = state.routeName;
     this.currentParams = state.params;
 
-    if (currentScene !== this.currentScene) {
+    if (currentScene !== this.currentScene && this.currentScene !== 'DrawerOpen' && this.currentScene !== 'DrawerClose' && prevScene !== 'DrawerOpen') {
       this.dispatch({ type: ActionConst.BLUR, routeName: prevScene });
 
       // call onExit handler
