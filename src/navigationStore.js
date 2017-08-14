@@ -68,7 +68,6 @@ const reservedKeys = [
 
 const dontInheritKeys = [
   'component',
-  'wrap',
   'modal',
   'drawer',
   'tabs',
@@ -335,7 +334,10 @@ class NavigationStore {
       };
 
       // wrap component inside own navbar for tabs/drawer parent controllers
-      const wrapNavBar = drawer || tabs || wrap;
+      let wrapNavBar = drawer || tabs || wrap;
+      if (wrap === false || commonProps.wrap === false) {
+        wrapNavBar = false;
+      }
       if (component && wrapNavBar) {
         res[key] = { screen: this.processScene({ key, props: { children: { key: `_${key}`, props: { ...child.props, wrap: false } } } }, commonProps, clones, wrapBy) };
       } else {
