@@ -2594,6 +2594,10 @@ lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
 
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+
 lodash.keys@^3.0.0:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/lodash.keys/-/lodash.keys-3.1.2.tgz#4dbc0472b156be50a0b286855d1bd0b0c656098a"
@@ -3237,10 +3241,10 @@ react-native-message-bar@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/react-native-message-bar/-/react-native-message-bar-1.6.0.tgz#79623e89655475216927090771b0238616b6f1c7"
 
-react-native-router-flux@4.0.0-beta.16:
-  version "4.0.0-beta.16"
-  resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-4.0.0-beta.16.tgz#836de5ab2284b78af9f7724ad07696c5d3d3b6bd"
+"react-native-router-flux@file:../":
+  version "4.0.0-beta.18"
   dependencies:
+    lodash.isequal "^4.5.0"
     mobx "^3.1.16"
     mobx-react "^4.2.1"
     opencollective "^1.0.3"
