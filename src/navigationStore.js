@@ -290,7 +290,8 @@ class NavigationStore {
       commonProps.drawerImage = commonProps.drawerImage || _drawerImage;
     }
 
-    const children = !Array.isArray(parentProps.children) ? [parentProps.children] : [...parentProps.children];
+    // allow 1-deep nested arrays of Scenes to support structured configuration for larger projects
+    const children = !Array.isArray(parentProps.children) ? [parentProps.children] : [].concat.apply([], parentProps.children);
     // add clone scenes
     if (!drawer && !tabs) {
       children.push(...clones);
