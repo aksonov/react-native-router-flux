@@ -12,6 +12,7 @@
 |-------------|----------|--------------|----------------------------------------------------------------|
 | children |  | required | Scene root element |
 | `wrapBy`   | `Function` |  | allows integration of state management schemes like Redux (`connect`) and Mobx (`observer`) |
+| `sceneStyle`     | `Style` |  | Style applied to all scenes (optional) |
 
 ## Scene:
 
@@ -42,6 +43,7 @@
 | `contentComponent`     | `React.Component` |  | Component used to render the content of the drawer (e.g. navigation items). |
 | `onLeft`     | `boolean` | `false` | load child scenes as [DrawerNavigator](https://reactnavigation.org/docs/navigators/drawer) |
 | `navTransparent`     | `boolean` | `false` | nav bar background transparency |
+| `navigationBarStyle`     | `Style` | | Style applied to nav bar |
 | `hideNavBar`     | `boolean` | `false` | hide the nav bar |
 | `title`     | `string` |  | Text to be displayed in the center of the nav bar. |
 | `titleStyle`     | `Style` |  | Style applied to the title |
