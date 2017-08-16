@@ -1,5 +1,65 @@
 # Change Log
 
+## [4.0.0-beta.18](https://github.com/aksonov/react-native-router-flux/tree/4.0.0-beta.18) (2017-08-16)
+[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.17...4.0.0-beta.18)
+
+**Implemented enhancements:**
+
+- Improve JSX syntax for built-in containers [\#2210](https://github.com/aksonov/react-native-router-flux/issues/2210)
+
+**Fixed bugs:**
+
+- Back button on Android always closes app [\#2196](https://github.com/aksonov/react-native-router-flux/issues/2196)
+- "There is no route defined for key "a" in beta.12-15 [\#2189](https://github.com/aksonov/react-native-router-flux/issues/2189)
+- drawerImage does not display Image [\#2175](https://github.com/aksonov/react-native-router-flux/issues/2175)
+
+**Closed issues:**
+
+- \[Question\] How to pass props to previous screen when back button pressed \(or any other button\)? [\#2243](https://github.com/aksonov/react-native-router-flux/issues/2243)
+- Screen navigation is mixed up / confused. [\#2242](https://github.com/aksonov/react-native-router-flux/issues/2242)
+- npm run build fails [\#2240](https://github.com/aksonov/react-native-router-flux/issues/2240)
+- \[Help Wanted\] Is it possible to make navigation bar and tabs style like this?  [\#2239](https://github.com/aksonov/react-native-router-flux/issues/2239)
+- \[react-native-router-flux\] key should be defined for \[object Object\] [\#2238](https://github.com/aksonov/react-native-router-flux/issues/2238)
+- popTo hangs [\#2234](https://github.com/aksonov/react-native-router-flux/issues/2234)
+- Hope to improve the docs for v4 and latest rnrf example [\#2233](https://github.com/aksonov/react-native-router-flux/issues/2233)
+- Cant change background color [\#2232](https://github.com/aksonov/react-native-router-flux/issues/2232)
+- remove bottom shadow not work [\#2231](https://github.com/aksonov/react-native-router-flux/issues/2231)
+- Multiple navigation bars on nested \<Scene\> [\#2229](https://github.com/aksonov/react-native-router-flux/issues/2229)
+- Can anyone help me with disabling back button on certain scenes? [\#2227](https://github.com/aksonov/react-native-router-flux/issues/2227)
+- HotReload not working as expected [\#2224](https://github.com/aksonov/react-native-router-flux/issues/2224)
+- Title moves to right for iOS [\#2223](https://github.com/aksonov/react-native-router-flux/issues/2223)
+- Props is not properly sent down to children when using tabs [\#2222](https://github.com/aksonov/react-native-router-flux/issues/2222)
+- onPress for "back button" on Android only works sometimes [\#2221](https://github.com/aksonov/react-native-router-flux/issues/2221)
+- How to hide back button Text Label [\#2219](https://github.com/aksonov/react-native-router-flux/issues/2219)
+- Router doesn't render over the parent element [\#2218](https://github.com/aksonov/react-native-router-flux/issues/2218)
+- Discussion: Can a store be initiated before Rendering? [\#2217](https://github.com/aksonov/react-native-router-flux/issues/2217)
+- v4 Tabs - reset stack on changing tab [\#2215](https://github.com/aksonov/react-native-router-flux/issues/2215)
+- Unexpected behaviour when rendering an array of Scenes [\#2214](https://github.com/aksonov/react-native-router-flux/issues/2214)
+- Lazy prop mount other pages which are not selected [\#2211](https://github.com/aksonov/react-native-router-flux/issues/2211)
+- `Back` prop to Scene is not functioning properly [\#2209](https://github.com/aksonov/react-native-router-flux/issues/2209)
+- setParams or Actions.refresh doesn't work [\#2208](https://github.com/aksonov/react-native-router-flux/issues/2208)
+- leftButtonImage is not working [\#2207](https://github.com/aksonov/react-native-router-flux/issues/2207)
+- How can i add gradient in background color of navbar? [\#2206](https://github.com/aksonov/react-native-router-flux/issues/2206)
+- \[react-native-router-flux\] initialState should not be null [\#2205](https://github.com/aksonov/react-native-router-flux/issues/2205)
+- V4 RenderRightButton not working when passed in Actions.refresh [\#2204](https://github.com/aksonov/react-native-router-flux/issues/2204)
+- direction="vertical" is not support? [\#2203](https://github.com/aksonov/react-native-router-flux/issues/2203)
+- Getting Unhandled JS Exception: undefined is not an object \(evaluating 'child.props.clone'\) [\#2202](https://github.com/aksonov/react-native-router-flux/issues/2202)
+- On hiding child nav bar, parent nav bar gets hidden [\#2200](https://github.com/aksonov/react-native-router-flux/issues/2200)
+- Hardware back button doesn't close drawer menu [\#2192](https://github.com/aksonov/react-native-router-flux/issues/2192)
+- \[iOS, v4.0.0-beta.16\] TabBar is above the NavBar when using tabBarPosition="top" [\#2190](https://github.com/aksonov/react-native-router-flux/issues/2190)
+- How to set NavBar above Tabs? [\#2181](https://github.com/aksonov/react-native-router-flux/issues/2181)
+- How to hide drawer for specific scenes [\#2142](https://github.com/aksonov/react-native-router-flux/issues/2142)
+
+**Merged pull requests:**
+
+- access to screen components via `Actions.refs` [\#2248](https://github.com/aksonov/react-native-router-flux/pull/2248) ([aksonov](https://github.com/aksonov))
+- Fix of babel version \(\#2240\) [\#2247](https://github.com/aksonov/react-native-router-flux/pull/2247) ([davojan](https://github.com/davojan))
+- Allow 1-deep nested arrays of Scenes to support structured configuration for larger projects [\#2241](https://github.com/aksonov/react-native-router-flux/pull/2241) ([davojan](https://github.com/davojan))
+- PopTo “loginModal” was not working in login3 scene [\#2235](https://github.com/aksonov/react-native-router-flux/pull/2235) ([compojoom](https://github.com/compojoom))
+- Allow special characters in route keys and avoid unintuitive js parsing errors [\#2216](https://github.com/aksonov/react-native-router-flux/pull/2216) ([davojan](https://github.com/davojan))
+- Fix 'replace' action \(\#2189\) [\#2213](https://github.com/aksonov/react-native-router-flux/pull/2213) ([aksonov](https://github.com/aksonov))
+- Install by https is more common [\#2212](https://github.com/aksonov/react-native-router-flux/pull/2212) ([ilabacheuski](https://github.com/ilabacheuski))
+
 ## [4.0.0-beta.17](https://github.com/aksonov/react-native-router-flux/tree/4.0.0-beta.17) (2017-08-08)
 [Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.16...4.0.0-beta.17)
 
@@ -9,7 +69,6 @@
 - Press Android back button immediately exit application [\#2191](https://github.com/aksonov/react-native-router-flux/issues/2191)
 - tintColor ignored for custom left and right buttons [\#2188](https://github.com/aksonov/react-native-router-flux/issues/2188)
 - Warning: Failed prop type: Invalid prop `scenes` of type `function` supplied to `Router`, expected a single ReactElement. [\#2187](https://github.com/aksonov/react-native-router-flux/issues/2187)
-- drawerImage does not display Image [\#2175](https://github.com/aksonov/react-native-router-flux/issues/2175)
 
 **Closed issues:**
 
@@ -272,7 +331,6 @@
 - when i  created a WiFi hotspot,  and my tabBar  was pushed down [\#2010](https://github.com/aksonov/react-native-router-flux/issues/2010)
 - undefined is not an ovject \(evaluating '\_react.PropTypes.string'\) [\#2009](https://github.com/aksonov/react-native-router-flux/issues/2009)
 - \_reactNativeRouterFlux.Actions.Teams is not a function [\#2007](https://github.com/aksonov/react-native-router-flux/issues/2007)
-- Disable  gesture back action   [\#2006](https://github.com/aksonov/react-native-router-flux/issues/2006)
 - disabling panHandlers [\#2005](https://github.com/aksonov/react-native-router-flux/issues/2005)
 - v4 Actions.popTo\(\) is not function   when I run Example [\#2004](https://github.com/aksonov/react-native-router-flux/issues/2004)
 - AppNavigator.router undefined/props should be defined errors in V4 [\#1999](https://github.com/aksonov/react-native-router-flux/issues/1999)
