@@ -41,7 +41,6 @@ export function BackButton(state) {
       testID="backNavButton"
       style={styles.backButtonContainer}
       onPress={onPress}
-      hitSlop={state.hitSlop || hitSlop}
     >
       <View style={style}>
       {buttonImage && !state.hideBackImage && <Image
