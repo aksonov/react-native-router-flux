@@ -44,6 +44,7 @@
 | `navTransparent`     | `boolean` | `false` | nav bar background transparency |
 | `hideNavBar`     | `boolean` | `false` | hide the nav bar |
 | `title`     | `string` |  | Text to be displayed in the center of the nav bar. |
+| `titleStyle`     | `Style` |  | Style applied to the title |
 | `onLeft`     | `Function` |  | Called when the left nav bar button is pressed. |
 | `onRight`     | `Function` |  | Called when the right nav bar button is pressed. |
 | `leftButtonImage`     | `Image` |  | Image to substitute for the left nav bar button |
