@@ -36,6 +36,9 @@ export const actionMap = {
 
 const reservedKeys = [
   'children',
+  'refs',
+  'addRef',
+  'removeRef',
   'create',
   'execute',
   'popTo',
@@ -190,19 +193,40 @@ function createNavigationOptions(params) {
     return res;
   };
 }
-
-function createWrapper(Component, wrapBy) {
+function originalRouteName(routeName) {
+  if (routeName.startsWith('_')) {
+    return routeName.substring(1);
+  }
+  return routeName;
+}
+// eslint no-param-reassign: "error"
+function createWrapper(Component, wrapBy, store: NavigationStore) {
   if (!Component) {
     return null;
   }
   const wrapper = wrapBy || (props => props);
-  function wrapped({ navigation, ...props }) {
-    return <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />;
+
+  class Wrapped extends React.Component {
+    componentDidMount() {
+      const navigation = this.props.navigation;
+      if (this.ref) {
+        store.addRef(originalRouteName(navigation.state.routeName), this.ref);
+      }
+    }
+    componentWillUnmount() {
+      const navigation = this.props.navigation;
+      this.ref = null;
+      store.deleteRef(originalRouteName(navigation.state.routeName));
+    }
+    render() {
+      const navigation = this.props.navigation;
+      return <Component ref={ref => (this.ref = ref)} {...this.props} {...navigation.state.params} name={navigation.state.routeName} />;
+    }
   }
-  wrapped.propTypes = {
+  Wrapped.propTypes = {
     navigation: PropTypes.object,
   };
-  return wrapper(wrapped);
+  return wrapper(Wrapped);
 }
 
 function filterParam(data = {}) {
@@ -232,6 +256,7 @@ const defaultSuccess = () => {};
 const defaultFailure = () => {};
 
 class NavigationStore {
+  refs = {};
   states = {};
   reducer = null;
   router;
@@ -244,6 +269,14 @@ class NavigationStore {
     const scene = this.currentScene;// eslint-disable-line no-unused-vars
     const params = this.currentParams;// eslint-disable-line no-unused-vars
     return this._state;
+  }
+
+  addRef = (name, ref) => {
+    this.refs[name] = ref;
+  };
+
+  deleteRef = (name) => {
+    delete this.refs[name];
   }
 
   create = (scene: Scene, params = {}, wrapBy = props => props) => {
@@ -290,7 +323,6 @@ class NavigationStore {
       commonProps.drawerImage = commonProps.drawerImage || _drawerImage;
     }
 
-    // allow 1-deep nested arrays of Scenes to support structured configuration for larger projects
     const children = !Array.isArray(parentProps.children) ? [parentProps.children] : [].concat.apply([], parentProps.children);
     // add clone scenes
     if (!drawer && !tabs) {
@@ -330,7 +362,7 @@ class NavigationStore {
       }
       // console.log(`KEY ${key} DRAWER ${drawer} TABS ${tabs} WRAP ${wrap}`, JSON.stringify(commonProps));
       const screen = {
-        screen: createWrapper(component, wrapBy) || this.processScene(child, commonProps, clones) || (lightbox && View),
+        screen: createWrapper(component, wrapBy, this) || this.processScene(child, commonProps, clones) || (lightbox && View),
         navigationOptions: createNavigationOptions({ ...commonProps, ...getProperties(component), ...child.props, init, component }),
       };
 
