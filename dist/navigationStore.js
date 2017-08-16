@@ -290,7 +290,8 @@ if(drawer){
 commonProps.drawerImage=commonProps.drawerImage||_menu_burger2.default;
 }
 
-var children=!Array.isArray(parentProps.children)?[parentProps.children]:[].concat(_toConsumableArray(parentProps.children));
+
+var children=!Array.isArray(parentProps.children)?[parentProps.children]:[].concat.apply([],parentProps.children);
 
 if(!drawer&&!tabs){
 children.push.apply(children,_toConsumableArray(clones));
