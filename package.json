@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "postinstall": "./node_modules/.bin/opencollective postinstall",
-    "build": "babel src -d dist --presets react-native-stage-0/decorator-support",
+    "build": "./node_modules/.bin/babel src -d dist --presets react-native-stage-0/decorator-support",
     "eslint": "eslint src/ __tests__/",
     "test": "jest"
   },
@@ -25,6 +25,7 @@
     "react-navigation": "^1.0.0-beta.11"
   },
   "devDependencies": {
+    "babel-cli": "~6.24.1",
     "babel-eslint": "^6.0.3",
     "babel-jest": "20.0.3",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
