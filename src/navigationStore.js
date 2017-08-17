@@ -206,27 +206,41 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
   }
   const wrapper = wrapBy || (props => props);
 
-  class Wrapped extends React.Component {
-    componentDidMount() {
-      const navigation = this.props.navigation;
-      if (this.ref) {
-        store.addRef(originalRouteName(navigation.state.routeName), this.ref);
+  // detect if the component is not functional stateless
+  // not sure if Component can be string-defined ("div") here
+  // may be there is a better way to detect stateless function component, but this should work
+  if (!Component.prototype || Component.prototype.render) {
+    class Wrapped extends React.Component {
+      static propTypes = {
+        navigation: PropTypes.object,
+      }
+      componentDidMount() {
+        const navigation = this.props.navigation;
+        if (this.ref) {
+          store.addRef(originalRouteName(navigation.state.routeName), this.ref);
+        }
+      }
+      componentWillUnmount() {
+        const navigation = this.props.navigation;
+        this.ref = null;
+        store.deleteRef(originalRouteName(navigation.state.routeName));
+      }
+      render() {
+        const navigation = this.props.navigation;
+        return <Component ref={ref => (this.ref = ref)} {...this.props} {...navigation.state.params} name={navigation.state.routeName} />;
       }
     }
-    componentWillUnmount() {
-      const navigation = this.props.navigation;
-      this.ref = null;
-      store.deleteRef(originalRouteName(navigation.state.routeName));
-    }
-    render() {
-      const navigation = this.props.navigation;
-      return <Component ref={ref => (this.ref = ref)} {...this.props} {...navigation.state.params} name={navigation.state.routeName} />;
-    }
+    return wrapper(Wrapped);
   }
-  Wrapped.propTypes = {
+
+  // if component is statless function, ref is not supported
+  function StatelessWrapped({ navigation, ...props }) {
+    return <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />;
+  }
+  StatelessWrapped.propTypes = {
     navigation: PropTypes.object,
   };
-  return wrapper(Wrapped);
+  return wrapper(StatelessWrapped);
 }
 
 function filterParam(data = {}) {
