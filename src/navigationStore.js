@@ -205,28 +205,38 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
     return null;
   }
   const wrapper = wrapBy || (props => props);
+  let wrapped;
 
-  class Wrapped extends React.Component {
-    componentDidMount() {
-      const navigation = this.props.navigation;
-      if (this.ref) {
-        store.addRef(originalRouteName(navigation.state.routeName), this.ref);
+  // detect if the component is not functional stateless
+  // not sure if Component can be string-defined ("div") here
+  // may be there is a better way to detect stateless function component, but this should work
+  if (!Component.prototype || Component.prototype.render) {
+    wrapped = class Wrapped extends React.Component {
+      componentDidMount() {
+        const navigation = this.props.navigation;
+        if (this.ref) {
+          store.addRef(originalRouteName(navigation.state.routeName), this.ref);
+        }
+      }
+      componentWillUnmount() {
+        const navigation = this.props.navigation;
+        this.ref = null;
+        store.deleteRef(originalRouteName(navigation.state.routeName));
+      }
+      render() {
+        const navigation = this.props.navigation;
+        return <Component ref={ref => (this.ref = ref)} {...this.props} {...navigation.state.params} name={navigation.state.routeName} />;
       }
     }
-    componentWillUnmount() {
-      const navigation = this.props.navigation;
-      this.ref = null;
-      store.deleteRef(originalRouteName(navigation.state.routeName));
-    }
-    render() {
-      const navigation = this.props.navigation;
-      return <Component ref={ref => (this.ref = ref)} {...this.props} {...navigation.state.params} name={navigation.state.routeName} />;
+  } else {
+    wrapped = function Wrapped({ navigation, ...props }) {
+      return <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />;
     }
   }
-  Wrapped.propTypes = {
+  wrapped.propTypes = {
     navigation: PropTypes.object,
   };
-  return wrapper(Wrapped);
+  return wrapper(wrapped);
 }
 
 function filterParam(data = {}) {
