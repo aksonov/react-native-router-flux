@@ -205,13 +205,15 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
     return null;
   }
   const wrapper = wrapBy || (props => props);
-  let wrapped;
 
   // detect if the component is not functional stateless
   // not sure if Component can be string-defined ("div") here
   // may be there is a better way to detect stateless function component, but this should work
   if (!Component.prototype || Component.prototype.render) {
-    wrapped = class Wrapped extends React.Component {
+    class Wrapped extends React.Component {
+      static propTypes = {
+        navigation: PropTypes.object,
+      }
       componentDidMount() {
         const navigation = this.props.navigation;
         if (this.ref) {
@@ -228,15 +230,17 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
         return <Component ref={ref => (this.ref = ref)} {...this.props} {...navigation.state.params} name={navigation.state.routeName} />;
       }
     }
-  } else {
-    wrapped = function Wrapped({ navigation, ...props }) {
-      return <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />;
-    }
+    return wrapper(Wrapped);
   }
-  wrapped.propTypes = {
+
+  // if component is statless function, ref is not supported
+  function StatelessWrapped({ navigation, ...props }) {
+    return <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />;
+  }
+  StatelessWrapped.propTypes = {
     navigation: PropTypes.object,
   };
-  return wrapper(wrapped);
+  return wrapper(StatelessWrapped);
 }
 
 function filterParam(data = {}) {
