@@ -275,6 +275,7 @@ class NavigationStore {
   reducer = null;
   router;
   _state;
+  _currentParams;
   @observable currentScene = '';
   @observable prevScene = '';
   @observable currentParams;
@@ -440,7 +441,7 @@ class NavigationStore {
     }
     const state = getActiveState(newState);
     // avoid double actions
-    if (isEqual(state.params, this.currentParams) && state.routeName === this.currentScene) {
+    if (isEqual(state.params, this._currentParams) && state.routeName === this.currentScene) {
       return;
     }
     const currentScene = this.currentScene;
@@ -448,6 +449,7 @@ class NavigationStore {
     this._state = newState;
     this.currentScene = state.routeName;
     this.currentParams = state.params;
+    this._currentParams = state.params;
 
     if (currentScene !== this.currentScene && this.currentScene !== 'DrawerOpen' && this.currentScene !== 'DrawerClose' && prevScene !== 'DrawerOpen') {
       this.dispatch({ type: ActionConst.BLUR, routeName: prevScene });
@@ -465,7 +467,7 @@ class NavigationStore {
         }
       }
 
-      this.dispatch({ type: ActionConst.FOCUS, routeName: this.currentScene, params: this.currentParams });
+      this.dispatch({ type: ActionConst.FOCUS, routeName: this.currentScene, params: this._currentParams });
       if (this.states[this.currentScene]) {
         const handler = this[this.currentScene + OnEnter];
         const success = this.states[this.currentScene].success || defaultSuccess;
