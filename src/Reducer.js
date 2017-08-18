@@ -1,7 +1,7 @@
 import navigationStore from './navigationStore';
 import * as ActionConst from './ActionConst';
 import { NavigationActions } from 'react-navigation';
-import { getActiveState, popPrevious, inject, isActiveRoute, getActiveStateExceptDrawer } from './State';
+import { getActiveState, popPrevious, isActiveRoute, getActiveStateExceptDrawer } from './State';
 
 export const supportedActions = {
   [ActionConst.PUSH]: NavigationActions.NAVIGATE,
@@ -67,11 +67,6 @@ export function reducer(state = navigationStore.state, action) {
       params: action.params,
     }), state);
     return popPrevious(newState);
-  }
-  // fix react-navigation bug with DrawerClose - it pushes new underlying scene instead of just switching index!
-  if (routeName === 'DrawerClose') {
-    const key = getActiveState(state).parent.key;
-    return inject(state, key, 0);
   }
   return navigationStore.router.getStateForAction(action, state) || state;
 }
