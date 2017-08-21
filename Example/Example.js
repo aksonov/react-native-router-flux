@@ -64,7 +64,7 @@ const Example = () => (
         <Lightbox leftButtonTextStyle={{ color: 'green' }} backButtonTextStyle={{ color: 'red' }}>
           <Stack hideNavBar hideTabBar titleStyle={{ alignSelf: 'center' }}>
             <Scene key="echo" back clone component={EchoView} getTitle={({ navigation }) => navigation.state.key} />
-            <Scene key="register" back>
+            <Scene key="register" back duration={0} >
               <Scene key="_register" component={Register} title="Register" />
               <Scene key="register2" component={Register} title="Register2" />
               <Scene key="home" component={Home} title="Replace" type={ActionConst.REPLACE} />

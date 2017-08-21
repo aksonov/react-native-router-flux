@@ -2,7 +2,7 @@ import React from 'react';
 import { observable, action } from 'mobx';
 import * as ActionConst from './ActionConst';
 import { OnEnter, OnExit, assert } from './Util';
-import { View } from 'react-native';
+import { View, Animated, Easing } from 'react-native';
 import { TabNavigator, DrawerNavigator, StackNavigator, NavigationActions } from 'react-navigation';
 import { LeftButton, RightButton, BackButton } from './NavBar';
 import LightboxNavigator from './LightboxNavigator';
@@ -312,8 +312,8 @@ class NavigationStore {
     }
     const res = {};
     const order = [];
-    const { navigator, contentComponent, lazy, ...parentProps } = scene.props;
-    let { tabs, modal, lightbox, drawer } = parentProps;
+    const { navigator, contentComponent, lazy, duration, ...parentProps } = scene.props;
+    let { tabs, modal, lightbox, drawer, transitionConfig } = parentProps;
     if (scene.type === Modal) {
       modal = true;
     } else if (scene.type === Drawer) {
@@ -322,6 +322,10 @@ class NavigationStore {
       lightbox = true;
     } else if (scene.type === Tabs) {
       tabs = true;
+    }
+
+    if (duration !== undefined && !transitionConfig) {
+      transitionConfig = () => ({ transitionSpec: { duration, timing: Animated.timing, easing: Easing.step0 } });
     }
 
     const commonProps = { ...inheritProps, ...parentProps };
@@ -425,7 +429,7 @@ class NavigationStore {
     } else if (drawer) {
       return DrawerNavigator(res, { initialRouteName, contentComponent, order, ...commonProps });
     }
-    return StackNavigator(res, { mode, initialRouteParams, initialRouteName, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
+    return StackNavigator(res, { mode, initialRouteParams, initialRouteName, ...commonProps, transitionConfig, navigationOptions: createNavigationOptions(commonProps) });
   };
 
   nextState = (state, cmd) => (this.reducer ? this.reducer(state, cmd) : reducer(state, cmd));

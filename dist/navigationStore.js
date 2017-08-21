@@ -312,8 +312,8 @@ return null;
 }
 var res={};
 var order=[];var _scene$props=
-scene.props,navigator=_scene$props.navigator,contentComponent=_scene$props.contentComponent,lazy=_scene$props.lazy,parentProps=_objectWithoutProperties(_scene$props,['navigator','contentComponent','lazy']);var
-tabs=parentProps.tabs,modal=parentProps.modal,lightbox=parentProps.lightbox,drawer=parentProps.drawer;
+scene.props,navigator=_scene$props.navigator,contentComponent=_scene$props.contentComponent,lazy=_scene$props.lazy,duration=_scene$props.duration,parentProps=_objectWithoutProperties(_scene$props,['navigator','contentComponent','lazy','duration']);var
+tabs=parentProps.tabs,modal=parentProps.modal,lightbox=parentProps.lightbox,drawer=parentProps.drawer,transitionConfig=parentProps.transitionConfig;
 if(scene.type===_Modal2.default){
 modal=true;
 }else if(scene.type===_Drawer2.default){
@@ -322,6 +322,10 @@ drawer=true;
 lightbox=true;
 }else if(scene.type===_Tabs2.default){
 tabs=true;
+}
+
+if(duration!==undefined&&!transitionConfig){
+transitionConfig=function transitionConfig(){return{transitionSpec:{duration:duration,timing:_reactNative.Animated.timing,easing:_reactNative.Easing.step0}};};
 }
 
 var commonProps=_extends({},inheritProps,parentProps);
@@ -425,7 +429,7 @@ tabBarOptions:createTabBarOptions(commonProps),navigationOptions:createNavigatio
 }else if(drawer){
 return(0,_reactNavigation.DrawerNavigator)(res,_extends({initialRouteName:initialRouteName,contentComponent:contentComponent,order:order},commonProps));
 }
-return(0,_reactNavigation.StackNavigator)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
+return(0,_reactNavigation.StackNavigator)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{transitionConfig:transitionConfig,navigationOptions:createNavigationOptions(commonProps)}));
 };this.
 
 nextState=function(state,cmd){return _this3.reducer?_this3.reducer(state,cmd):(0,_Reducer.reducer)(state,cmd);};this.
