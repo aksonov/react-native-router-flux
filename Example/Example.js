@@ -11,6 +11,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Login2 from "./components/Login2";
 import Login3 from "./components/Login3";
+import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyleInterpolator';
 import {
   Scene,
   Router,
@@ -59,7 +60,7 @@ const getSceneStyle = () => ({
 const Example = () => (
   <View style={{ flex: 1 }}>
     <Router createReducer={reducerCreate} tintColor="red" getSceneStyle={getSceneStyle}>
-      <Modal hideNavBar>
+      <Modal hideNavBar transitionConfig={() => ({ screenInterpolator: CardStackStyleInterpolator.forFadeFromBottomAndroid })}>
         <Lightbox leftButtonTextStyle={{ color: 'green' }} backButtonTextStyle={{ color: 'red' }}>
           <Stack hideNavBar hideTabBar titleStyle={{ alignSelf: 'center' }}>
             <Scene key="echo" back clone component={EchoView} getTitle={({ navigation }) => navigation.state.key} />
@@ -75,6 +76,7 @@ const Example = () => (
                   key="tab1"
                   title="Tab #1"
                   tabBarLabel="TAB #1"
+                  inactiveBackgroundColor='white' activeBackgroundColor='#dddddd'
                   icon={TabIcon}
                   navigationBarStyle={{ backgroundColor: 'green' }}
                   titleStyle={{ color: 'white', alignSelf: 'center' }}
