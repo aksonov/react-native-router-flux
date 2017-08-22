@@ -26,8 +26,9 @@
 | `initial`   | `boolean` | `false` | Set to `true` if this is the first scene to display among its sibling `Scene`s |
 | `modal`     | `boolean` | `false` |  Defines scene container as 'modal' one, i.e. all children scenes will have bottom-to-top animation. It is applicable only for containers (different from v3 syntax) |
 | `clone`     | `boolean` | `false` | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
-| `on`     | `Function` | | aka `onEnter`. Called when the `Scene` is navigated to. `props` are provided as a function param |
-| `onExit`     | `Function` | | Called when the `Scene` is navigated away from. |
+| `onEnter`     | `Function` | | Called when the `Scene` is navigated to. `props` are provided as a function param. Only scenes with 'component' defined is supported |
+| `on`     | `Function` | | aka `onEnter` |
+| `onExit`     | `Function` | | Called when the `Scene` is navigated away from. Only scenes with 'component' defined is supported |
 | `success`     | `Function` | | If `on` returns a "truthy" value then `success` is called. |
 | `failure`     | `Function` | | If `on` returns a "falsey" value then `failure` is called. |
 | `tabs`     | `boolean` | `false` | load child scenes as [TabNavigator](https://reactnavigation.org/docs/navigators/tab). Other [Tab Navigator  props](https://reactnavigation.org/docs/navigators/tab#TabNavigatorConfig) also apply here. |
