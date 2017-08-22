@@ -66,7 +66,7 @@ react-native run-ios
 * Based on latest [React Navigation](https://reactnavigation.org) API
 * Separate navigation logic from presentation. You may change now navigation state directly from your business logic code - stores/reducers/etc. navigationStore
 * Built-in state machine (v3 `Switch` replacement)
-  * Each `Scene` can have `onEnter`/`onExit`/`on` handlers.
+  * Each `Scene` with `component` defined can have `onEnter`/`onExit`/`on` handlers.
   * `onEnter`/`on` handler can be async.
   * For 'truthy' return of `onEnter`/`on`, `success` handler (if defined) will be executed
     * if `success` is a string then router will navigate to the `Scene` with that key
