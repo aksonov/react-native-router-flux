@@ -71,7 +71,8 @@ const Example = () => (
             </Scene>
             <Scene key="launch" component={Launch} title="Launch" initial />
             <Drawer contentComponent={TabView}>
-              <Tabs key="tabbar" gestureEnabled={false} showLabel={false} tabs tabBarStyle={styles.tabBarStyle} activeBackgroundColor="#ddd">
+              <Tabs key="tabbar" gestureEnabled={false} showLabel={false} tabs tabBarStyle={styles.tabBarStyle} activeBackgroundColor="white"
+                    inactiveBackgroundColor="red">
                 <Stack
                   key="tab1"
                   title="Tab #1"

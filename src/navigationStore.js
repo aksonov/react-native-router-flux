@@ -3,7 +3,7 @@ import { observable, action } from 'mobx';
 import * as ActionConst from './ActionConst';
 import { OnEnter, OnExit, assert } from './Util';
 import { View, Image, Animated, Easing } from 'react-native';
-import { TabNavigator, DrawerNavigator, StackNavigator, NavigationActions } from 'react-navigation';
+import { TabNavigator, DrawerNavigator, StackNavigator, NavigationActions, TabBarTop, TabBarBottom } from 'react-navigation';
 import { LeftButton, RightButton, BackButton } from './NavBar';
 import LightboxNavigator from './LightboxNavigator';
 import _drawerImage from '../images/menu_burger.png';
@@ -71,6 +71,8 @@ const reservedKeys = [
 
 const dontInheritKeys = [
   'component',
+  'contentComponent',
+  'tabBarComponent',
   'modal',
   'drawer',
   'tabs',
@@ -312,8 +314,8 @@ class NavigationStore {
     }
     const res = {};
     const order = [];
-    const { navigator, contentComponent, lazy, duration, ...parentProps } = scene.props;
-    let { tabs, modal, lightbox, drawer, transitionConfig } = parentProps;
+    const { navigator, contentComponent, tabBarPosition, lazy, duration, ...parentProps } = scene.props;
+    let { tabs, modal, lightbox, drawer, tabBarComponent, transitionConfig } = parentProps;
     if (scene.type === Modal) {
       modal = true;
     } else if (scene.type === Drawer) {
@@ -424,6 +426,10 @@ class NavigationStore {
     if (lightbox) {
       return LightboxNavigator(res, { mode, initialRouteParams, initialRouteName, ...commonProps, navigationOptions: createNavigationOptions(commonProps) });
     } else if (tabs) {
+      if (!tabBarComponent) {
+        tabBarComponent = tabBarPosition === 'top' ? (props) => <TabBarTop {...props} {...commonProps} /> :
+          (props) => <TabBarBottom {...props} {...commonProps} />;
+      }
       return TabNavigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps,
         tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });
     } else if (drawer) {
