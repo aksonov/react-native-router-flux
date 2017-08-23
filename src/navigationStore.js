@@ -16,6 +16,8 @@ import Modal from './Modal';
 import Lightbox from './Lightbox';
 import Drawer from './Drawer';
 import Tabs from './Tabs';
+import Overlay from './Overlay';
+import OverlayNavigator from './OverlayNavigator';
 
 let RightNavBarButton;
 let LeftNavBarButton;
@@ -75,6 +77,8 @@ const dontInheritKeys = [
   'tabBarComponent',
   'modal',
   'drawer',
+  'lightbox',
+  'overlay',
   'tabs',
   'navigator',
   'children',
@@ -218,7 +222,7 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
       }
       componentDidMount() {
         const navigation = this.props.navigation;
-        if (this.ref) {
+        if (this.ref && navigation.state.routeName) {
           store.addRef(originalRouteName(navigation.state.routeName), this.ref);
         }
       }
@@ -315,7 +319,7 @@ class NavigationStore {
     const res = {};
     const order = [];
     const { navigator, contentComponent, tabBarPosition, lazy, duration, ...parentProps } = scene.props;
-    let { tabs, modal, lightbox, drawer, tabBarComponent, transitionConfig } = parentProps;
+    let { tabs, modal, lightbox, overlay, drawer, tabBarComponent, transitionConfig } = parentProps;
     if (scene.type === Modal) {
       modal = true;
     } else if (scene.type === Drawer) {
@@ -324,6 +328,8 @@ class NavigationStore {
       lightbox = true;
     } else if (scene.type === Tabs) {
       tabs = true;
+    } else if (scene.type === Overlay) {
+      overlay = true;
     }
 
     if (duration !== undefined && !transitionConfig) {
@@ -346,7 +352,7 @@ class NavigationStore {
 
     const children = !Array.isArray(parentProps.children) ? [parentProps.children] : [].concat.apply([], parentProps.children);
     // add clone scenes
-    if (!drawer && !tabs) {
+    if (!drawer && !tabs && !overlay) {
       children.push(...clones);
     }
     // add all clones
@@ -434,6 +440,9 @@ class NavigationStore {
         tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });
     } else if (drawer) {
       return DrawerNavigator(res, { initialRouteName, contentComponent, order, ...commonProps });
+    } else if (overlay) {
+      return OverlayNavigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps,
+        tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });
     }
     return StackNavigator(res, { mode, initialRouteParams, initialRouteName, ...commonProps, transitionConfig, navigationOptions: createNavigationOptions(commonProps) });
   };

@@ -15,7 +15,9 @@ var _lodash=require('lodash.isequal');var _lodash2=_interopRequireDefault(_lodas
 var _Modal=require('./Modal');var _Modal2=_interopRequireDefault(_Modal);
 var _Lightbox=require('./Lightbox');var _Lightbox2=_interopRequireDefault(_Lightbox);
 var _Drawer=require('./Drawer');var _Drawer2=_interopRequireDefault(_Drawer);
-var _Tabs=require('./Tabs');var _Tabs2=_interopRequireDefault(_Tabs);function _interopRequireWildcard(obj){if(obj&&obj.__esModule){return obj;}else{var newObj={};if(obj!=null){for(var key in obj){if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key]=obj[key];}}newObj.default=obj;return newObj;}}function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}}function _initDefineProp(target,property,descriptor,context){if(!descriptor)return;Object.defineProperty(target,property,{enumerable:descriptor.enumerable,configurable:descriptor.configurable,writable:descriptor.writable,value:descriptor.initializer?descriptor.initializer.call(context):void 0});}function _applyDecoratedDescriptor(target,property,decorators,descriptor,context){var desc={};Object['ke'+'ys'](descriptor).forEach(function(key){desc[key]=descriptor[key];});desc.enumerable=!!desc.enumerable;desc.configurable=!!desc.configurable;if('value'in desc||desc.initializer){desc.writable=true;}desc=decorators.slice().reverse().reduce(function(desc,decorator){return decorator(target,property,desc)||desc;},desc);if(context&&desc.initializer!==void 0){desc.value=desc.initializer?desc.initializer.call(context):void 0;desc.initializer=undefined;}if(desc.initializer===void 0){Object['define'+'Property'](target,property,desc);desc=null;}return desc;}function _initializerWarningHelper(descriptor,context){throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}function _objectWithoutProperties(obj,keys){var target={};for(var i in obj){if(keys.indexOf(i)>=0)continue;if(!Object.prototype.hasOwnProperty.call(obj,i))continue;target[i]=obj[i];}return target;}function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true});}else{obj[key]=value;}return obj;}
+var _Tabs=require('./Tabs');var _Tabs2=_interopRequireDefault(_Tabs);
+var _Overlay=require('./Overlay');var _Overlay2=_interopRequireDefault(_Overlay);
+var _OverlayNavigator=require('./OverlayNavigator');var _OverlayNavigator2=_interopRequireDefault(_OverlayNavigator);function _interopRequireWildcard(obj){if(obj&&obj.__esModule){return obj;}else{var newObj={};if(obj!=null){for(var key in obj){if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key]=obj[key];}}newObj.default=obj;return newObj;}}function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}}function _initDefineProp(target,property,descriptor,context){if(!descriptor)return;Object.defineProperty(target,property,{enumerable:descriptor.enumerable,configurable:descriptor.configurable,writable:descriptor.writable,value:descriptor.initializer?descriptor.initializer.call(context):void 0});}function _applyDecoratedDescriptor(target,property,decorators,descriptor,context){var desc={};Object['ke'+'ys'](descriptor).forEach(function(key){desc[key]=descriptor[key];});desc.enumerable=!!desc.enumerable;desc.configurable=!!desc.configurable;if('value'in desc||desc.initializer){desc.writable=true;}desc=decorators.slice().reverse().reduce(function(desc,decorator){return decorator(target,property,desc)||desc;},desc);if(context&&desc.initializer!==void 0){desc.value=desc.initializer?desc.initializer.call(context):void 0;desc.initializer=undefined;}if(desc.initializer===void 0){Object['define'+'Property'](target,property,desc);desc=null;}return desc;}function _initializerWarningHelper(descriptor,context){throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}function _objectWithoutProperties(obj,keys){var target={};for(var i in obj){if(keys.indexOf(i)>=0)continue;if(!Object.prototype.hasOwnProperty.call(obj,i))continue;target[i]=obj[i];}return target;}function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true});}else{obj[key]=value;}return obj;}
 
 var RightNavBarButton=void 0;
 var LeftNavBarButton=void 0;
@@ -75,6 +77,8 @@ var dontInheritKeys=[
 'tabBarComponent',
 'modal',
 'drawer',
+'lightbox',
+'overlay',
 'tabs',
 'navigator',
 'children',
@@ -131,7 +135,7 @@ headerStyle:getValue(navigationParams.headerStyle||headerStyle||navigationBarSty
 headerBackImage:navigationParams.backButtonImage||backButtonImage});
 
 if(NavBar){
-res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:134}}));};
+res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:138}}));};
 }
 
 if(panHandlers===null){
@@ -139,7 +143,7 @@ res.gesturesEnabled=false;
 }
 
 if(navigationBarTitleImage){
-res.headerTitle=_react2.default.createElement(_reactNative.Image,{source:navigationBarTitleImage,style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:142}});
+res.headerTitle=_react2.default.createElement(_reactNative.Image,{source:navigationBarTitleImage,style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:146}});
 }
 
 if(tabBarLabel){
@@ -148,7 +152,7 @@ res.tabBarLabel=tabBarLabel;
 
 if(tabBarIcon||icon){
 var Icon=tabBarIcon||icon;
-res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:151}}));};
+res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:155}}));};
 }
 var componentData={};
 
@@ -166,7 +170,7 @@ if(rightButtonImage||rightTitle||params.renderRightButton||onRight||navigationPa
 navigationParams.rightTitle||navigationParams.rightButtonImage||rightButtonTextStyle||
 (drawerImage||drawerIcon)&&drawerPosition==='right'){
 res.headerRight=getValue(navigationParams.right||navigationParams.rightButton||params.renderRightButton,_extends({},
-navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:169}}));
+navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:173}}));
 }
 
 if(leftButtonImage||backButtonImage||backTitle||leftTitle||params.renderLeftButton||leftButtonTextStyle||
@@ -174,12 +178,12 @@ backButtonTextStyle||onLeft||navigationParams.leftTitle||navigationParams.onLeft
 navigationParams.backButtonImage||navigationParams.backTitle||(drawerImage||drawerIcon)&&drawerPosition!=='right'){
 res.headerLeft=getValue(navigationParams.left||navigationParams.leftButton||params.renderLeftButton,_extends({},params,navigationParams,screenProps))||
 (onLeft&&(leftTitle||navigationParams.leftTitle||leftButtonImage||navigationParams.leftButtonImage)||drawerImage||drawerIcon)&&
-_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:177}}))||(
-init?null:renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:178}})));
+_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:181}}))||(
+init?null:renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:182}})));
 }
 
 if(back){
-res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:182}}));
+res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:186}}));
 }
 
 if(hideTabBar){
@@ -218,7 +222,7 @@ Wrapped=(_temp=_class=function(_React$Component){_inherits(Wrapped,_React$Compon
 
 {
 var navigation=this.props.navigation;
-if(this.ref){
+if(this.ref&&navigation.state.routeName){
 store.addRef(originalRouteName(navigation.state.routeName),this.ref);
 }
 }},{key:'componentWillUnmount',value:function componentWillUnmount()
@@ -229,7 +233,7 @@ store.deleteRef(originalRouteName(navigation.state.routeName));
 }},{key:'render',value:function render()
 {var _this2=this;
 var navigation=this.props.navigation;
-return _react2.default.createElement(Component,_extends({ref:function ref(_ref4){return _this2.ref=_ref4;}},this.props,navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:232}}));
+return _react2.default.createElement(Component,_extends({ref:function ref(_ref4){return _this2.ref=_ref4;}},this.props,navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:236}}));
 }}]);return Wrapped;}(_react2.default.Component),_class.propTypes={navigation:_propTypes2.default.object},_temp);
 
 return wrapper(Wrapped);
@@ -237,7 +241,7 @@ return wrapper(Wrapped);
 
 
 function StatelessWrapped(_ref5){var navigation=_ref5.navigation,props=_objectWithoutProperties(_ref5,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:240}}));
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:244}}));
 }
 StatelessWrapped.propTypes={
 navigation:_propTypes2.default.object};
@@ -315,7 +319,7 @@ return null;
 var res={};
 var order=[];var _scene$props=
 scene.props,navigator=_scene$props.navigator,contentComponent=_scene$props.contentComponent,tabBarPosition=_scene$props.tabBarPosition,lazy=_scene$props.lazy,duration=_scene$props.duration,parentProps=_objectWithoutProperties(_scene$props,['navigator','contentComponent','tabBarPosition','lazy','duration']);var
-tabs=parentProps.tabs,modal=parentProps.modal,lightbox=parentProps.lightbox,drawer=parentProps.drawer,tabBarComponent=parentProps.tabBarComponent,transitionConfig=parentProps.transitionConfig;
+tabs=parentProps.tabs,modal=parentProps.modal,lightbox=parentProps.lightbox,overlay=parentProps.overlay,drawer=parentProps.drawer,tabBarComponent=parentProps.tabBarComponent,transitionConfig=parentProps.transitionConfig;
 if(scene.type===_Modal2.default){
 modal=true;
 }else if(scene.type===_Drawer2.default){
@@ -324,6 +328,8 @@ drawer=true;
 lightbox=true;
 }else if(scene.type===_Tabs2.default){
 tabs=true;
+}else if(scene.type===_Overlay2.default){
+overlay=true;
 }
 
 if(duration!==undefined&&!transitionConfig){
@@ -346,7 +352,7 @@ commonProps.drawerImage=commonProps.drawerImage||_menu_burger2.default;
 
 var children=!Array.isArray(parentProps.children)?[parentProps.children]:[].concat.apply([],parentProps.children);
 
-if(!drawer&&!tabs){
+if(!drawer&&!tabs&&!overlay){
 children.push.apply(children,_toConsumableArray(clones));
 }
 
@@ -427,13 +433,16 @@ if(lightbox){
 return(0,_LightboxNavigator2.default)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
 }else if(tabs){
 if(!tabBarComponent){
-tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:430}}));}:
-function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:431}}));};
+tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:436}}));}:
+function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:437}}));};
 }
 return(0,_reactNavigation.TabNavigator)(res,_extends({lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},commonProps,{
 tabBarOptions:createTabBarOptions(commonProps),navigationOptions:createNavigationOptions(commonProps)}));
 }else if(drawer){
 return(0,_reactNavigation.DrawerNavigator)(res,_extends({initialRouteName:initialRouteName,contentComponent:contentComponent,order:order},commonProps));
+}else if(overlay){
+return(0,_OverlayNavigator2.default)(res,_extends({lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},commonProps,{
+tabBarOptions:createTabBarOptions(commonProps),navigationOptions:createNavigationOptions(commonProps)}));
 }
 return(0,_reactNavigation.StackNavigator)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{transitionConfig:transitionConfig,navigationOptions:createNavigationOptions(commonProps)}));
 };this.
