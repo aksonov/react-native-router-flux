@@ -2,7 +2,7 @@ import React from 'react';
 import { observable, action } from 'mobx';
 import * as ActionConst from './ActionConst';
 import { OnEnter, OnExit, assert } from './Util';
-import { View, Animated, Easing } from 'react-native';
+import { View, Image, Animated, Easing } from 'react-native';
 import { TabNavigator, DrawerNavigator, StackNavigator, NavigationActions } from 'react-navigation';
 import { LeftButton, RightButton, BackButton } from './NavBar';
 import LightboxNavigator from './LightboxNavigator';
