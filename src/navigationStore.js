@@ -456,10 +456,10 @@ class NavigationStore {
     this._currentParams = state.params;
 
     if (currentScene !== this.currentScene && this.currentScene !== 'DrawerOpen' && this.currentScene !== 'DrawerClose' && prevScene !== 'DrawerOpen') {
-      this.dispatch({ type: ActionConst.BLUR, routeName: prevScene });
+      this.dispatch({ type: ActionConst.BLUR, routeName: currentScene });
 
       // call onExit handler
-      const exitHandler = this[prevScene + OnExit];
+      const exitHandler = this[currentScene + OnExit];
       if (exitHandler) {
         try {
           const res = exitHandler();
