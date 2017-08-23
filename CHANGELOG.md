@@ -1,5 +1,64 @@
 # Change Log
 
+## [4.0.0-beta.19](https://github.com/aksonov/react-native-router-flux/tree/4.0.0-beta.19) (2017-08-23)
+[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.18...4.0.0-beta.19)
+
+**Implemented enhancements:**
+
+- Multiple routers with v4? [\#2274](https://github.com/aksonov/react-native-router-flux/issues/2274)
+- Nested scenes in v4? [\#2220](https://github.com/aksonov/react-native-router-flux/issues/2220)
+- Access to Component's props from NavBar. [\#2195](https://github.com/aksonov/react-native-router-flux/issues/2195)
+- IMPORTANT: v4 beta release is ready \(v3 is not supported anymore\) [\#1974](https://github.com/aksonov/react-native-router-flux/issues/1974)
+
+**Fixed bugs:**
+
+- The onExit method not executes when navigating away from Scene [\#2279](https://github.com/aksonov/react-native-router-flux/issues/2279)
+- navigationBarTitleImage not working in v4 [\#2272](https://github.com/aksonov/react-native-router-flux/issues/2272)
+- hideNavBar issue on tabs scene [\#2268](https://github.com/aksonov/react-native-router-flux/issues/2268)
+- Tabs v4 - Active / Inactive backgroundColor not working [\#2263](https://github.com/aksonov/react-native-router-flux/issues/2263)
+
+**Closed issues:**
+
+- Actions state inside Drawer [\#2280](https://github.com/aksonov/react-native-router-flux/issues/2280)
+- Android transitions not working v4-beta branch [\#2278](https://github.com/aksonov/react-native-router-flux/issues/2278)
+- Unexpected header behavior in TabNavigation [\#2277](https://github.com/aksonov/react-native-router-flux/issues/2277)
+- OnEnter not called for componentless scenes [\#2275](https://github.com/aksonov/react-native-router-flux/issues/2275)
+- Custom function on tab press [\#2271](https://github.com/aksonov/react-native-router-flux/issues/2271)
+- Massive slowdown after beta 14 [\#2270](https://github.com/aksonov/react-native-router-flux/issues/2270)
+- How to disable swipe to back [\#2269](https://github.com/aksonov/react-native-router-flux/issues/2269)
+- Can I set onEnter from inside the Component? [\#2267](https://github.com/aksonov/react-native-router-flux/issues/2267)
+- \[Error\] The sources for assing MUST be an object.  [\#2266](https://github.com/aksonov/react-native-router-flux/issues/2266)
+- How to open Drawer using a custom event / action within a screen [\#2265](https://github.com/aksonov/react-native-router-flux/issues/2265)
+- Scene's key on the background of TabIcon [\#2264](https://github.com/aksonov/react-native-router-flux/issues/2264)
+- Top nav bar customization  [\#2262](https://github.com/aksonov/react-native-router-flux/issues/2262)
+- There is no route defined for key {route}. [\#2261](https://github.com/aksonov/react-native-router-flux/issues/2261)
+- How to set tab bar activeBackgroundColor [\#2260](https://github.com/aksonov/react-native-router-flux/issues/2260)
+- Please help me how to use "react-native-router-flux" in my scenario [\#2259](https://github.com/aksonov/react-native-router-flux/issues/2259)
+- Issue with back button not unmounting and remount tab scene  [\#2257](https://github.com/aksonov/react-native-router-flux/issues/2257)
+- Q:Adding button to navbar [\#2256](https://github.com/aksonov/react-native-router-flux/issues/2256)
+- sceneStyle gets not applied [\#2255](https://github.com/aksonov/react-native-router-flux/issues/2255)
+- Prevent certain scenes in stack from always being mounted? [\#2254](https://github.com/aksonov/react-native-router-flux/issues/2254)
+- Custom navBar is missing in the docs [\#2252](https://github.com/aksonov/react-native-router-flux/issues/2252)
+- titleStyle only sets backgroundcolor for small area [\#2251](https://github.com/aksonov/react-native-router-flux/issues/2251)
+- How do you setup a background image for the entire app that is shared across different scene   [\#2250](https://github.com/aksonov/react-native-router-flux/issues/2250)
+- Setting style for Scenes, title, ... [\#2249](https://github.com/aksonov/react-native-router-flux/issues/2249)
+- Creating an Authenticated Scene [\#2246](https://github.com/aksonov/react-native-router-flux/issues/2246)
+- Custom navbar example [\#2245](https://github.com/aksonov/react-native-router-flux/issues/2245)
+- Better way to declare rightTitle/onRight inside component [\#2244](https://github.com/aksonov/react-native-router-flux/issues/2244)
+- How do I override \(or disable\) hardware back press button for a given scene? [\#2237](https://github.com/aksonov/react-native-router-flux/issues/2237)
+- How do I get into a route and clear all routes other than the first route before then? [\#2230](https://github.com/aksonov/react-native-router-flux/issues/2230)
+- Double-tapping fires Actions twice [\#2228](https://github.com/aksonov/react-native-router-flux/issues/2228)
+- QUESTION: How to disable swipe-back but not disable drawer-swipe [\#2226](https://github.com/aksonov/react-native-router-flux/issues/2226)
+- Tabs with fetch not rerendering on changetab [\#2225](https://github.com/aksonov/react-native-router-flux/issues/2225)
+- Error and warning: "Cannot update during an existing state transition an error", using react-native-router-flux and redux-form Field [\#2201](https://github.com/aksonov/react-native-router-flux/issues/2201)
+- Custom animations for scenes \(disabling transition animation\) [\#2042](https://github.com/aksonov/react-native-router-flux/issues/2042)
+- Disable  gesture back action   [\#2006](https://github.com/aksonov/react-native-router-flux/issues/2006)
+
+**Merged pull requests:**
+
+- Overlay support [\#2281](https://github.com/aksonov/react-native-router-flux/pull/2281) ([aksonov](https://github.com/aksonov))
+- Prevent React warning \(and potential errors\) about refs for stateless function components [\#2258](https://github.com/aksonov/react-native-router-flux/pull/2258) ([davojan](https://github.com/davojan))
+
 ## [4.0.0-beta.18](https://github.com/aksonov/react-native-router-flux/tree/4.0.0-beta.18) (2017-08-16)
 [Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.17...4.0.0-beta.18)
 
