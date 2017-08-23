@@ -48,6 +48,7 @@
 | `navigationBarStyle`     | `Style` | | Style applied to nav bar |
 | `hideNavBar`     | `boolean` | `false` | hide the nav bar |
 | `title`     | `string` |  | Text to be displayed in the center of the nav bar. |
+| `renderTitle`     | `React.Component` |  | React component to render title for nav bar |
 | `titleStyle`     | `Style` |  | Style applied to the title |
 | `onLeft`     | `Function` |  | Called when the left nav bar button is pressed. |
 | `onRight`     | `Function` |  | Called when the right nav bar button is pressed. |
