@@ -25,6 +25,7 @@ import {
   Stack,
   Lightbox,
 } from "react-native-router-flux";
+import MobXEngine from "react-native-router-flux/dist/Engines/MobXEngine";
 import Error from "./components/Error";
 import Home from "./components/Home";
 import TabView from "./components/TabView";
@@ -59,7 +60,7 @@ const getSceneStyle = () => ({
 });
 const BackgroundView = () => <View style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor:'red' }}/>
 const Example = () => (
-  <Router createReducer={reducerCreate} tintColor="red" getSceneStyle={getSceneStyle}>
+  <Router engine={MobXEngine} createReducer={reducerCreate} tintColor="red" getSceneStyle={getSceneStyle}>
     <Overlay>
       <Modal hideNavBar
              transitionConfig={() => ({screenInterpolator: CardStackStyleInterpolator.forFadeFromBottomAndroid})}>

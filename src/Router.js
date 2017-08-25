@@ -1,11 +1,9 @@
 import React from 'react';
-import { observer } from 'mobx-react/native';
 import { BackHandler } from 'react-native';
 import navigationStore from './navigationStore';
 import PropTypes from 'prop-types';
 import { addNavigationHelpers } from 'react-navigation';
 
-@observer
 class App extends React.Component {
   static propTypes = {
     navigator: PropTypes.func,
@@ -33,7 +31,7 @@ class App extends React.Component {
   }
 }
 
-const Router = ({ createReducer, sceneStyle, scenes, navigator, getSceneStyle, children, state, dispatch, wrapBy = props => props, ...props }) => {
+const Router = ({ engine, createReducer, sceneStyle, scenes, navigator, getSceneStyle, children, state, dispatch, wrapBy = props => props, ...props }) => {
   const data = { ...props };
   if (getSceneStyle) {
     data.cardStyle = getSceneStyle(props);
@@ -49,9 +47,17 @@ const Router = ({ createReducer, sceneStyle, scenes, navigator, getSceneStyle, c
     navigationStore.dispatch = dispatch;
     return <AppNavigator navigation={addNavigationHelpers({ dispatch, state })} />;
   }
-  return <App {...props} navigator={AppNavigator} />;
+
+  let WiredApp = App;
+
+  if (engine.appHoc) {
+    WiredApp = engine.appHoc(App);
+  }
+
+  return <WiredApp {...props} navigator={AppNavigator} />;
 };
 Router.propTypes = {
+  engine: PropTypes.object.isRequired,
   createReducer: PropTypes.func,
   dispatch: PropTypes.func,
   state: PropTypes.object,
