@@ -7,6 +7,7 @@ import { addNavigationHelpers } from 'react-navigation';
 class App extends React.Component {
   static propTypes = {
     navigator: PropTypes.func,
+    stateManager: PropTypes.object.isRequired,
     backAndroidHandler: PropTypes.func,
   };
 
@@ -24,14 +25,17 @@ class App extends React.Component {
   };
 
   render() {
-    const AppNavigator = this.props.navigator;
+    const { navigator: AppNavigator, stateManager: { dispatch, getState } } = this.props;
+
     return (
-      <AppNavigator navigation={addNavigationHelpers({ dispatch: navigationStore.dispatch, state: navigationStore.state })} />
+      <AppNavigator navigation={addNavigationHelpers({ dispatch, state: getState() })} />
     );
   }
 }
 
 const Router = ({ engine, createReducer, sceneStyle, scenes, navigator, getSceneStyle, children, state, dispatch, wrapBy = props => props, ...props }) => {
+  navigationStore.setupEngine(engine);
+
   const data = { ...props };
   if (getSceneStyle) {
     data.cardStyle = getSceneStyle(props);
@@ -54,7 +58,7 @@ const Router = ({ engine, createReducer, sceneStyle, scenes, navigator, getScene
     WiredApp = engine.appHoc(App);
   }
 
-  return <WiredApp {...props} navigator={AppNavigator} />;
+  return <WiredApp {...props} navigator={AppNavigator} stateManager={engine.stateManager} />;
 };
 Router.propTypes = {
   engine: PropTypes.object.isRequired,
