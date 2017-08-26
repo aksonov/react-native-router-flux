@@ -5,8 +5,8 @@ class StateManager {
   reducer = null;
   reduxDispatch = null;
 
-  constructor(dispatch) {
-    this.reduxDispatch = dispatch;
+  constructor(store) {
+    this.reduxDispatch = store.dispatch;
   }
 
   getState(props) {
@@ -25,8 +25,8 @@ class StateManager {
 
 let stateManagerInstance = null;
 
-function createEngine(dispatch) {
-  stateManagerInstance = new StateManager(dispatch);
+function createEngine(store) {
+  stateManagerInstance = new StateManager(store);
 
   return {
     appHoc: connect(mapStateToProps),
