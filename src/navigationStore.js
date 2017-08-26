@@ -1,5 +1,4 @@
 import React from 'react';
-// import { observable, action } from 'mobx';
 import * as ActionConst from './ActionConst';
 import { OnEnter, OnExit, assert } from './Util';
 import { View, Image, Animated, Easing } from 'react-native';
@@ -281,20 +280,11 @@ class NavigationStore {
   reducer = null;
   router;
   _state;
-  // @observable currentScene = '';
-  // @observable prevScene = '';
-  // @observable currentParams;
   currentScene = '';
   prevScene = '';
   currentParams;
   engineDispatch;
-/*
-  get state() {
-    const scene = this.currentScene;// eslint-disable-line no-unused-vars
-    const params = this.currentParams;// eslint-disable-line no-unused-vars
-    return this._state;
-  }
-*/
+
   setupEngine(engine) {
     engine.stateManager.setupHandlers(
       this.nextState,
