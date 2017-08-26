@@ -28,7 +28,7 @@ class App extends React.Component {
     const { navigator: AppNavigator, stateManager: { dispatch, getState } } = this.props;
 
     return (
-      <AppNavigator navigation={addNavigationHelpers({ dispatch, state: getState() })} />
+      <AppNavigator navigation={addNavigationHelpers({ dispatch, state: getState(this.props) })} />
     );
   }
 }

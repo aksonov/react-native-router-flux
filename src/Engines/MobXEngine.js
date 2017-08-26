@@ -27,9 +27,10 @@ class StateManager {
 
   dispatch = (cmd) => {
     const newState = this.reducer(this._state, cmd);
-    const activeState = this.getActiveState(newState);
 
     if (!newState) return;
+
+    const activeState = this.getActiveState(newState);
 
     this._state = newState;
     this.currentScene = activeState.routeName;
