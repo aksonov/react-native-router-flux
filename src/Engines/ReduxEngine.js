@@ -41,13 +41,24 @@ function mapStateToProps(state) {
 }
 
 export function navReducer(state, cmd) {
-  const newState = stateManagerInstance !== null && typeof stateManagerInstance.reducer === 'function' ? stateManagerInstance.reducer(!state || state.index === undefined ? null : state, cmd) : null;
+  const newState =
+    stateManagerInstance !== null && typeof stateManagerInstance.reducer === 'function'
+      ? stateManagerInstance.reducer(!state || state.index === undefined ? null : state, cmd) :
+      null;
 
   if (!newState) return state || {};
 
-  setTimeout(function getOuttaHere() { stateManagerInstance.stateChangeHandler(newState); });
-
   return newState;
+}
+
+export function navMiddleware({ getState }) {
+  return (next) => (action) => {
+    const result = next(action);
+
+    stateManagerInstance.stateChangeHandler(getState());
+
+    return result;
+  };
 }
 
 export default createEngine;
