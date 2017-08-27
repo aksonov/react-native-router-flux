@@ -16,7 +16,9 @@
     "react-native-button": "^2.0.0",
     "react-native-message-bar": "^1.6.0",
     "react-native-router-flux": "file:../",
-    "react-navigation": "^1.0.0-beta.11"
+    "react-navigation": "^1.0.0-beta.11",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2"
   },
   "devDependencies": {
     "babel-jest": "20.0.3",
