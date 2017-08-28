@@ -436,7 +436,7 @@ class NavigationStore {
         tabBarComponent = tabBarPosition === 'top' ? (props) => <TabBarTop {...props} {...commonProps} /> :
           (props) => <TabBarBottom {...props} {...commonProps} />;
       }
-      return TabNavigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps,
+      return TabNavigator(res, { lazy, tabBarComponent, tabBarPosition, initialRouteName, initialRouteParams, order, ...commonProps,
         tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });
     } else if (drawer) {
       return DrawerNavigator(res, { initialRouteName, contentComponent, order, ...commonProps });
