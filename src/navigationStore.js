@@ -2,7 +2,7 @@ import React from 'react';
 import { observable, action } from 'mobx';
 import * as ActionConst from './ActionConst';
 import { OnEnter, OnExit, assert } from './Util';
-import { View, Image, Animated, Easing } from 'react-native';
+import { View, Image, Animated, Easing, Platform } from 'react-native';
 import { TabNavigator, DrawerNavigator, StackNavigator, NavigationActions, TabBarTop, TabBarBottom } from 'react-navigation';
 import { LeftButton, RightButton, BackButton } from './NavBar';
 import LightboxNavigator from './LightboxNavigator';
@@ -318,8 +318,8 @@ class NavigationStore {
     }
     const res = {};
     const order = [];
-    const { navigator, contentComponent, tabBarPosition, lazy, duration, ...parentProps } = scene.props;
-    let { tabs, modal, lightbox, overlay, drawer, tabBarComponent, transitionConfig } = parentProps;
+    const { navigator, contentComponent, lazy, duration, ...parentProps } = scene.props;
+    let { tabs, modal, lightbox, overlay, tabBarPosition, drawer, tabBarComponent, transitionConfig } = parentProps;
     if (scene.type === Modal) {
       modal = true;
     } else if (scene.type === Drawer) {
@@ -435,6 +435,9 @@ class NavigationStore {
       if (!tabBarComponent) {
         tabBarComponent = tabBarPosition === 'top' ? (props) => <TabBarTop {...props} {...commonProps} /> :
           (props) => <TabBarBottom {...props} {...commonProps} />;
+      }
+      if (!tabBarPosition) {
+        tabBarPosition = Platform.OS === 'android' ? 'top' : 'bottom';
       }
       return TabNavigator(res, { lazy, tabBarComponent, tabBarPosition, initialRouteName, initialRouteParams, order, ...commonProps,
         tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });
