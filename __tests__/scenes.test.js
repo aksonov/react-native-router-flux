@@ -6,9 +6,10 @@ import renderer from 'react-test-renderer';
 import Router from '../src/Router';
 import Scene from '../src/Scene';
 import navigationStore from '../src/navigationStore';
+import MobXEngine from '../src/Engines/MobXEngine';
 
 const B = () => <Text>Hello world!</Text>;
-const router = (<Router><Scene>
+const router = (<Router engine={MobXEngine}><Scene>
   <Scene key="b">
     <Scene key="a" component={B} param="1" />
     <Scene key="c" component={B} param="2" />
