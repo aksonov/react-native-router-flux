@@ -5,13 +5,7 @@ import ExampleRedux from './ExampleRedux';
 
 export default class ExampleSwitcher extends Component {
   state = {
-    showingMobXExample: true,
-  }
-
-  handleToggleExample = () => {
-    this.setState({
-      showingMobXExample: !this.state.showingMobXExample,
-    });
+    showingMobXExample: true, // Set this to false to play with the redux example.
   }
 
   render() {
