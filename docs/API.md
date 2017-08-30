@@ -85,6 +85,6 @@ A `Scene` that is a direct child of `Tabs` and can use all `props` listed above 
 
 | Property | Type | Default | Description |
 |-----------------|----------|----------|--------------------------------------------|
-| `[key]`       | `Function` |  | Scenes are "automagically" added as functions on the `Actions` object by `key`. To navigate to a scene, call `Actions.{key}`. The function takes an `Object` which gets passed to the Scene as React props. |
+| `[key]`       | `Function` |  | Scenes are "automagically" added as functions on the `Actions` object by `key`. To navigate to a scene, call `Actions.{key}` or `Actions[key].call()`. The function takes an `Object` which gets passed to the Scene as React props. |
 | `pop`       | `Function` |  | Go back to the previous scene by "popping" the current scene off the nav stack |
 | `refresh`       | `Function` |  | "Refresh" the current scene. The function takes an `Object` which gets passed to the Scene as React props. |
