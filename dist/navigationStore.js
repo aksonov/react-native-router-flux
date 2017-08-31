@@ -186,7 +186,13 @@ if(back){
 res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:186}}));
 }
 
-if(hideTabBar){
+
+
+if(navigationParams.hideTabBar!=null){
+if(navigationParams.hideTabBar){
+res.tabBarVisible=false;
+}
+}else if(hideTabBar){
 res.tabBarVisible=false;
 }
 if(hideNavBar){
@@ -233,7 +239,7 @@ store.deleteRef(originalRouteName(navigation.state.routeName));
 }},{key:'render',value:function render()
 {var _this2=this;
 var navigation=this.props.navigation;
-return _react2.default.createElement(Component,_extends({ref:function ref(_ref4){return _this2.ref=_ref4;}},this.props,navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:236}}));
+return _react2.default.createElement(Component,_extends({ref:function ref(_ref4){return _this2.ref=_ref4;}},this.props,navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:242}}));
 }}]);return Wrapped;}(_react2.default.Component),_class.propTypes={navigation:_propTypes2.default.object},_temp);
 
 return wrapper(Wrapped);
@@ -241,7 +247,7 @@ return wrapper(Wrapped);
 
 
 function StatelessWrapped(_ref5){var navigation=_ref5.navigation,props=_objectWithoutProperties(_ref5,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:244}}));
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:250}}));
 }
 StatelessWrapped.propTypes={
 navigation:_propTypes2.default.object};
@@ -433,8 +439,8 @@ if(lightbox){
 return(0,_LightboxNavigator2.default)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
 }else if(tabs){
 if(!tabBarComponent){
-tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:436}}));}:
-function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:437}}));};
+tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:442}}));}:
+function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:443}}));};
 }
 if(!tabBarPosition){
 tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';
