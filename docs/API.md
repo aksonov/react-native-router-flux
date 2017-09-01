@@ -100,3 +100,4 @@ Can use all `prop` as listed in `Scene` as `<Drawer>`, syntatic sugar for `<Scen
 | `[key]`       | `Function` |  | Scenes are "automagically" added as functions on the `Actions` object by `key`. To navigate to a scene, call `Actions.{key}` or `Actions[key].call()`. The function takes an `Object` which gets passed to the Scene as React props. |
 | `pop`       | `Function` |  | Go back to the previous scene by "popping" the current scene off the nav stack |
 | `refresh`       | `Function` |  | "Refresh" the current scene. The function takes an `Object` which gets passed to the Scene as React props. |
+| `reset`       | `Function` |  | "Reset" the nav stack to the specified scene. Takes a required `key` and optional `data` Object for React props. |
