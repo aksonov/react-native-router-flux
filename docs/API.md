@@ -23,13 +23,11 @@ The basic routing component for this router, all `<Scene>` components require a 
 |-----------|----------|----------|--------------------------------------------|
 | `key`       | `string` | `required` | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
 | `component` | `React.Component` | `semi-required` | The `Component` to be displayed. Not required when defining a nested `Scene`, see example. |
-| `activeTintColor`     | `string` |  | Specifies the active tint color for tabbar icons |
 | `animationEnabled`     | `boolean` | `true` | Enable or disable animating tabs on switch. |
 | `back`     | `boolean` | `false` | Show a back button on the left side of the nav bar that calls `Actions.pop` on press. |
 | `clone`     | `boolean` | `false` | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
 | `contentComponent`     | `React.Component` |  | Component used to render the content of the drawer (e.g. navigation items). |
 | `drawer`     | `boolean` | `false` | load child scenes inside [DrawerNavigator](https://reactnavigation.org/docs/navigators/drawer) |
-| `drawerImage`     | `Image` |  | Image to substitute drawer 'hamburger' icon, you have to set it together with `drawer` prop |
 | `failure` | `Function` | | If `on` returns a "falsey" value then `failure` is called. |
 | `headerBackTitle` | `string` |  | Specifies the back button title for scene |
 | `headerMode` | `string` | `float` | Specifies how the header should be rendered: `float` (render a single header that stays at the top and animates as screens are changed. This is a common pattern on iOS.), `screen` (each screen has a header attached to it and the header fades in and out together with the screen. This is a common pattern on Android) or `none` (No header will be rendered) |
@@ -43,6 +41,8 @@ The basic routing component for this router, all `<Scene>` components require a 
 | `navBar` | `React.Component`| | Optional React component to render custom NavBar |
 | `navBarButtonColor` | `string` | | Set the color of the back button in the navBar |
 | `navigationBarStyle`     | `Style` | | Style applied to nav bar |
+| `navigationBarTitleImage` | `Image` | | Override the image in the center of the navbar, replacing the `title` |
+| `navigationBarTitleImageStyle` | `object` | | Styles to apply to `navigationBarTitleImage` |
 | `navTransparent`     | `boolean` | `false` | nav bar background transparency |
 | `on`     | `Function` | | aka `onEnter` |
 | `onEnter`     | `Function` | | Called when the `Scene` is navigated to. `props` are provided as a function param. Only scenes with 'component' defined is supported |
@@ -64,10 +64,15 @@ Can use all `props` listed above in `<Scene>` as `<Tabs>` is syntatic sugar for 
 
 | Property | Type | Default | Description |
 |-----------------|----------|----------|--------------------------------------------|
-| `activeTintColor`     | `string` |  | Specifies the active tint color for tabbar icons |
 | `activeBackgroundColor` | `string` |  | Specifies the active background color for the tab in focus |
+| `activeTintColor`     | `string` |  | Specifies the active tint color for tabbar icons |
+| `inactiveBackgroundColor` | `string` |  | Specifies the inactive background color for the tabs not in focus |
+| `inactiveTintColor`     | `string` |  | Specifies the inactive tint color for tabbar icons |
+| `labelStyle` | `object` | | Overrides the styles for the tab label |
 | `tabBarComponent`     | `React.Component` |  | React component to render custom tab bar |
 | `tabBarPosition`     | `string` |  | Specifies tabbar position. Defaults to `bottom` on iOS and `top` on Android. |
+| `tabBarStyle` | `object` | | Override the tabbar styles |
+| `tabStyle` | `object` | | Override the style for an individual tab of the tabbar |
 | `showLabel`     | `boolean` | `true`  | Boolean to show or not the tabbar icons labels |
 | `swipeEnabled`     | `boolean` | `true` | Enable or disable swiping tabs. |
 
@@ -80,6 +85,13 @@ A `Scene` that is a direct child of `Tabs` and can use all `props` listed above 
 | `icon` | `component` | `undefined` | a React Native component to place as a tab icon
 | `tabBarLabel` | `string` | | The string to override a tab label |
 
+## Drawer (`<Drawer>` or `<Scene drawer>`)
+Can use all `prop` as listed in `Scene` as `<Drawer>`, syntatic sugar for `<Scene drawer={true}>`
+
+| Property | Type | Default | Description |
+| `drawerImage` | `Image` |  | Image to substitute drawer 'hamburger' icon, you have to set it together with `drawer` prop |
+| `drawerIcon` | `Image` |  | *See `drawerImage`* |
+| `drawerPosition` | `string`  | Determines whether the drawer is on the right or the left. Keywords accepted are `right` and `left` |
 
 ## Actions
 
