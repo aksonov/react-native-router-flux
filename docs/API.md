@@ -89,6 +89,7 @@ A `Scene` that is a direct child of `Tabs` and can use all `props` listed above 
 Can use all `prop` as listed in `Scene` as `<Drawer>`, syntatic sugar for `<Scene drawer={true}>`
 
 | Property | Type | Default | Description |
+|---|---|---|---|
 | `drawerImage` | `Image` |  | Image to substitute drawer 'hamburger' icon, you have to set it together with `drawer` prop |
 | `drawerIcon` | `Image` |  | *See `drawerImage`* |
 | `drawerPosition` | `string`  | Determines whether the drawer is on the right or the left. Keywords accepted are `right` and `left` |
