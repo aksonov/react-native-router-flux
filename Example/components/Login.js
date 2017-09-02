@@ -30,6 +30,7 @@ export default class extends React.Component {
       onRight: () => {},
     });
   };
+
   render() {
     const title = this.props.title || 'No Title';
     const data = this.props.data || 'No Data';
