@@ -31,8 +31,8 @@ initialIndex=i;
 var Popup=index!==initialIndex?routeConfigs[routes[index].routeName].screen:null;
 
 return _react2.default.createElement(_reactNative.View,{style:{flex:1},__source:{fileName:_jsxFileName,lineNumber:33}},
-_react2.default.createElement(Component,{navigation:{dispatch:dispatch,state:routes[initialIndex]},__source:{fileName:_jsxFileName,lineNumber:34}}),
-Popup&&_react2.default.createElement(Popup,{navigation:{dispatch:dispatch,state:routes[index]},__source:{fileName:_jsxFileName,lineNumber:35}}));
+_react2.default.createElement(Component,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:routes[initialIndex]}),__source:{fileName:_jsxFileName,lineNumber:34}}),
+Popup&&_react2.default.createElement(Popup,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:routes[index]}),__source:{fileName:_jsxFileName,lineNumber:35}}));
 
 });
 
