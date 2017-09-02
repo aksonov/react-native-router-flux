@@ -62,7 +62,7 @@ export function BackButton(state) {
 export function LeftButton(state) {
   let onPress = state.onLeft;
   let buttonImage = getValue(state.leftButtonImage, state);
-  let menuIcon = state.drawerIcon;
+  let menuIcon = getValue(state.drawerIcon, state);
   const style = [styles.leftButton, state.leftButtonStyle];
   const leftButtonTextStyle = getValue(state.leftButtonTextStyle, state);
   const leftButtonIconStyle = getValue(state.leftButtonIconStyle, state);
@@ -85,7 +85,7 @@ export function LeftButton(state) {
     );
   }
 
-  if (!onPress && state.drawerImage && state.drawerPosition !== 'right') {
+  if (!onPress && (state.drawerImage || menuIcon) && state.drawerPosition !== 'right') {
     buttonImage = state.drawerImage;
     if (buttonImage || menuIcon) {
       onPress = Actions.drawerOpen;
@@ -100,7 +100,7 @@ export function LeftButton(state) {
     }
   }
 
-  if (onPress && (leftTitle || buttonImage)) {
+  if (onPress && (leftTitle || buttonImage || menuIcon)) {
     onPress = onPress.bind(null, state);
     return (
       <TouchableOpacity
@@ -114,7 +114,7 @@ export function LeftButton(state) {
           {leftTitle}
         </Text>
         }
-        {!leftTitle && buttonImage && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
+        {!leftTitle && (menuIcon || buttonImage) && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
           {menuIcon || <Image
             source={buttonImage}
             style={[state.leftButtonIconStyle || styles.defaultImageStyle, { tintColor }]}
@@ -125,7 +125,7 @@ export function LeftButton(state) {
       </TouchableOpacity>
     );
   }
-  if ((!!state.onLeft ^ !!(leftTitle || buttonImage))) {
+  if ((!!state.onLeft ^ !!(leftTitle || buttonImage || menuIcon))) {
     console.warn(
       `Both onLeft and leftTitle/leftButtonImage
             must be specified for the scene: ${state.name}`,
