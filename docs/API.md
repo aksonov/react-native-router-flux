@@ -5,6 +5,9 @@
 - `Scene`
 - `Tabs`
 - `Tabbed Scene`
+- `Drawer`
+- `Modal`
+- `Lightbox`
 - `Actions`
 - `ActionConst`
 
@@ -94,11 +97,83 @@ Can use all `prop` as listed in `Scene` as `<Drawer>`, syntatic sugar for `<Scen
 | `drawerIcon` | `React.Component` |  | Arbitrary component to be used for drawer 'hamburger' icon, you have to set it together with `drawer` prop |
 | `drawerPosition` | `string`  | Determines whether the drawer is on the right or the left. Keywords accepted are `right` and `left` |
 
-## Actions
 
-| Property | Type | Default | Description |
+## Modals (`<Modal>` or `<Scene modal>`)
+To implement a modal, you must use `<Modal>` as the root scene in your `Router`. The `Modal` will render the first scene (should be your true root scene) normally, and all following
+To display a modal use `<Modal>` as root renderer, so it will render the first element as `normal` scene and all others as popups (when they are pushed).
+
+Example:
+In the example below, the `root` Scene is nested within a `<Modal>`, since it is the first nested `Scene`, it will render normally. If one were to `push` to `statusModal`, `errorModal` or `loginModal`, they will render as a `Modal` and by default will pull up from the bottom of the screen. It is important to note that currently the `Modal` does not allow for transparent backgrounds.
+
+```jsx
+//... import components
+<Router>
+  <Modal>
+    <Scene key="root">
+      <Scene key="screen1" initial={true} component={Screen1} />
+      <Scene key="screen2" component={Screen2} />
+    </Scene>
+    <Scene key="statusModal" component={StatusModal} />
+    <Scene key="errorModal" component={ErrorModal} />
+    <Scene key="loginModal" component={LoginModal} />
+  </Modal>
+</Router>
+```
+
+## Lightbox (`<Lightbox>`)
+Lightbox is a component used to render a component on top of the current `Scene`. Unlike modal, it will allow for resizing and transparency of the background.
+
+Example:
+In the example below, the `root` Scene is nested within a `<Lightbox>`, since it is the first nested `Scene`, it will render normally. If one were to `push` to `loginLightbox`, they will render as a `Lightbox` and by default will lay on top of the current `Scene` allowing for transparent backrounds.
+
+```jsx
+//... import components
+<Router>
+  <Lightbox>
+    <Scene key="root">
+      <Scene key="screen1" initial={true} component={Screen1} />
+      <Scene key="screen2" component={Screen2} />
+    </Scene>
+
+    {/* Lightbox components will lay over the screen, allowing transparency*/}
+    <Scene key="loginLightbox" component={loginLightbox} />
+  </Lightbox>
+</Router>
+```
+
+## Actions
+This `Object` is the main utility is to provide navigation features to your application. Assuming your `Router` and `Scenes` are configured properly, use the properties listed below to navigate between scenes. Some offer the added functionality to pass React `props` to the navigated scene.
+
+These can be used directly, for example, `Actions.pop()` will dispatch correspond action written in the source code, or, you can set those constants in scene type, when you do Actions.main(), it will dispatch action according to your scene type or the default one.
+
+| Property | Type | Parameters | Description |
 |-----------------|----------|----------|--------------------------------------------|
-| `[key]`       | `Function` |  | Scenes are "automagically" added as functions on the `Actions` object by `key`. To navigate to a scene, call `Actions.{key}` or `Actions[key].call()`. The function takes an `Object` which gets passed to the Scene as React props. |
-| `pop`       | `Function` |  | Go back to the previous scene by "popping" the current scene off the nav stack |
-| `refresh`       | `Function` |  | "Refresh" the current scene. The function takes an `Object` which gets passed to the Scene as React props. |
-| `reset`       | `Function` |  | "Reset" the nav stack to the specified scene. Takes a required `key` and optional `data` Object for React props. |
+| `[key]` | `Function` | `Object` | The `Actions` object "automagically" uses the `Scene`'s `key` prop in the `Router` to navigate. To navigate to a scene, call `Actions.key()` or `Actions[key].call()`. |
+| `jump` | `Function` | `(sceneKey: String, props: Object)` | |
+| `pop` | `Function` | | Go back to the previous scene by "popping" the current scene off the nav stack |
+| `popAndPush` | `Function` | `(sceneKey: String, props: Object)` |
+| `popTo` | `Function` | `(sceneKey: String, props: Object)` | Pops the stack until the
+| `push` | `Function` | `(sceneKey: String, props: Object)` | Pushes the scene to the stack, performing a transition to the new scene. |
+| `refresh` | `Function` | `(props: Object)` | Reloads the current scene by loading new `props` into the `Scene` |
+| `replace` | `Function` | `(sceneKey: String, props: Object)` |  Pops the current scene from the stack and pushes the new scene to the navigation stack. *No transition will occur. |
+| `reset` | `Function` | `(sceneKey: String, props: Object)` | Clears the routing stack and pushes the scene into the first index. *No transition will occur.* |
+| `drawerOpen` | `Function` | | Opens the `Drawer` if applicable |
+| `drawerClose` | `Function` | | Closes the `Drawer` if applicable |
+
+## ActionConst
+Type constants to determine `Scene` transitions, These are **PREFERRED** over typing their values manually as these are subject to change as the project is updated.
+
+| Property | Type | Value | Shorthand |
+|-----------------|----------|----------|--------------------------------------------|
+| `ActionConst.JUMP` | `string` | 'REACT_NATIVE_ROUTER_FLUX_JUMP' | `jump` |
+| `ActionConst.PUSH` | `string` | 'REACT_NATIVE_ROUTER_FLUX_PUSH' | `push` |
+| `ActionConst.PUSH_OR_POP` | `string` | 'REACT_NATIVE_ROUTER_FLUX_PUSH_OR_POP' | `push` |
+| `ActionConst.REPLACE` | `string` | 'REACT_NATIVE_ROUTER_FLUX_REPLACE' | `replace` |
+| `ActionConst.BACK` | `string` | 'REACT_NATIVE_ROUTER_FLUX_BACK' | `pop` |
+| `ActionConst.BACK_ACTION` | `string` | 'REACT_NATIVE_ROUTER_FLUX_BACK_ACTION' | `pop` |
+| `ActionConst.POP_TO` | `string` | 'REACT_NATIVE_ROUTER_FLUX_POP_TO' | `popTo` |
+| `ActionConst.REFRESH` | `string` | 'REACT_NATIVE_ROUTER_FLUX_REFRESH' | `refresh` |
+| `ActionConst.RESET` | `string` | 'REACT_NATIVE_ROUTER_FLUX_RESET' | `reset` |
+| `ActionConst.FOCUS` | `string` | 'REACT_NATIVE_ROUTER_FLUX_FOCUS' | *N/A* |
+| `ActionConst.BLUR` | `string` | 'REACT_NATIVE_ROUTER_FLUX_BLUR' | *N/A* |
+| `ActionConst.ANDROID_BACK` | `string` | 'REACT_NATIVE_ROUTER_FLUX_ANDROID_BACK' | *N/A* |
