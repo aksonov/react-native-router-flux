@@ -289,7 +289,6 @@ class NavigationStore {
   _state;
   _currentParams;
   @observable currentScene = '';
-  @observable prevScene = '';
   @observable currentParams;
 
   get state() {
@@ -405,7 +404,10 @@ class NavigationStore {
         wrapNavBar = false;
       }
       if (component && wrapNavBar) {
-        res[key] = { screen: this.processScene({ key, props: { children: { key: `_${key}`, props: { ...child.props, wrap: false } } } }, commonProps, clones, wrapBy) };
+        res[key] = {
+          screen: this.processScene({ key, props: { children: { key: `_${key}`, props: { ...child.props, wrap: false } } } }, commonProps, clones, wrapBy),
+          navigationOptions: createNavigationOptions({ ...commonProps, ...child.props }),
+        };
       } else {
         res[key] = screen;
       }
@@ -473,13 +475,12 @@ class NavigationStore {
       return;
     }
     const currentScene = this.currentScene;
-    const prevScene = this.prevScene;
     this._state = newState;
     this.currentScene = state.routeName;
     this.currentParams = state.params;
     this._currentParams = state.params;
 
-    if (currentScene !== this.currentScene && this.currentScene !== 'DrawerOpen' && this.currentScene !== 'DrawerClose' && prevScene !== 'DrawerOpen') {
+    if (currentScene !== this.currentScene && this.currentScene !== 'DrawerOpen' && this.currentScene !== 'DrawerClose') {
       this.dispatch({ type: ActionConst.BLUR, routeName: currentScene });
 
       // call onExit handler
@@ -512,19 +513,22 @@ class NavigationStore {
               failure();
             }
           } catch (e) {
-            failure({ error: e });
+            failure({ error: e.message });
           }
         }
       }
     }
-    this.prevScene = currentScene;
   };
 
   execute = (actionType, routeName, ...params) => {
     const res = uniteParams(routeName, params);
     const overridenType = res.type || actionType;
     const type = actionMap[overridenType] || overridenType;
-    this[type](routeName, res);
+    if (type === 'pop') {
+      this[type](res);
+    } else {
+      this[type](routeName, res);
+    }
   };
 
   push = (routeName, data) => {
@@ -551,11 +555,15 @@ class NavigationStore {
     this.dispatch(NavigationActions.setParams({ key, params }));
   };
 
-  pop = (params = {}) => {
+  pop = ({ timeout, ...params } = {}) => {
     const res = filterParam(params);
-    this.dispatch(NavigationActions.back());
-    if (res.refresh) {
-      this.refresh(res.refresh);
+    if (timeout) {
+      setTimeout(() => this.pop(params), timeout);
+    } else {
+      this.dispatch(NavigationActions.back());
+      if (res.refresh) {
+        this.refresh(res.refresh);
+      }
     }
   };
 
