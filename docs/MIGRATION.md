@@ -11,7 +11,7 @@ https://github.com/react-community/react-navigation/issues/1493
 * Drawer syntax was changed (boolean `drawer` attribute + `contentComponent` for side menu component + `Actions.drawerOpen`/`Actions.drawerClose` to open/close drawer) 
 * Modal is 'lightbox' attribute for parent Scene now (used for popups, like Error)
 * If you have modal animation `modal` for Scene is not working, define separate Scene container with `modal` and put all your modals there, check Example project for details
-* No `position` attribute is supported for custom transitions. For vertical transition add `modal` to parent `Scene`.
+* No `direction` attribute is supported for custom transitions. For vertical transition add `modal` to parent `Scene`.
 * tabBarSelectedItemStyle is not supported. Instead please use React Navigation TabBar params for tabs Scene: `activeTintColor`, `inactiveTintColor`, etc (https://reactnavigation.org/docs/navigators/tab)
 * To make multiple pops you could use `Actions.popTo(sceneName)` where sceneName is name of scene you want to see (it should be not container, i.e. scene with `component`)
 * Possible other stuff...
