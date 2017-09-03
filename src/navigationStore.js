@@ -211,6 +211,19 @@ function originalRouteName(routeName) {
   }
   return routeName;
 }
+function extendProps(props, store: NavigationStore) {
+  const res = { ...props };
+  for (const transition of Object.keys(props)) {
+    if (reservedKeys.indexOf(transition) === -1 && transition.startsWith('on')
+      && transition.charAt(2) >= 'A' && transition.charAt(2) <= 'Z' && !(props[transition] instanceof Function)) {
+      if (!store[props[transition]]) {
+        console.warn(`Scene ${transition} is not defined!`);
+      }
+      res[transition] = params => store[props[transition]](params);
+    }
+  }
+  return res;
+}
 // eslint no-param-reassign: "error"
 function createWrapper(Component, wrapBy, store: NavigationStore) {
   if (!Component) {
@@ -239,7 +252,7 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
       }
       render() {
         const navigation = this.props.navigation;
-        return <Component ref={ref => (this.ref = ref)} {...this.props} {...navigation.state.params} name={navigation.state.routeName} />;
+        return <Component ref={ref => (this.ref = ref)} {...this.props} {...extendProps(navigation.state.params, store)} name={navigation.state.routeName} />;
       }
     }
     return wrapper(Wrapped);
@@ -247,7 +260,7 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
 
   // if component is statless function, ref is not supported
   function StatelessWrapped({ navigation, ...props }) {
-    return <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />;
+    return <Component {...props} navigation={navigation} {...extendProps(navigation.state.params, store)} name={navigation.state.routeName} />;
   }
   StatelessWrapped.propTypes = {
     navigation: PropTypes.object,
