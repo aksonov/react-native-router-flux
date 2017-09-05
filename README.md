@@ -1,109 +1,132 @@
-# React Native Router [![Backers on Open Collective](https://opencollective.com/react-native-router-flux/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/react-native-router-flux/sponsors/badge.svg)](#sponsors) [![Join the chat at https://gitter.im/aksonov/react-native-router-flux](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aksonov/react-native-router-flux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Codacy Badge](https://api.codacy.com/project/badge/grade/c6d869e2367a4fb491efc9de228c5ac6)](https://www.codacy.com/app/aksonov-github/react-native-router-flux) [![npm version](https://badge.fury.io/js/react-native-router-flux.svg)](http://badge.fury.io/js/react-native-router-flux) [![CircleCI](https://circleci.com/gh/aksonov/react-native-router-flux.svg?style=svg)](https://circleci.com/gh/aksonov/react-native-router-flux)
+# React Native Router [![Join the chat at https://gitter.im/aksonov/react-native-router-flux](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aksonov/react-native-router-flux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Codacy Badge](https://api.codacy.com/project/badge/grade/c6d869e2367a4fb491efc9de228c5ac6)](https://www.codacy.com/app/aksonov-github/react-native-router-flux) [![npm version](https://badge.fury.io/js/react-native-router-flux.svg)](http://badge.fury.io/js/react-native-router-flux) [![CircleCI](https://circleci.com/gh/aksonov/react-native-router-flux.svg?style=svg)](https://circleci.com/gh/aksonov/react-native-router-flux)
 
-[Follow author @PAksonov](https://twitter.com/PAksonov)
+[![NPM](https://nodei.co/npm/react-native-router-flux.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-native-router-flux/)  
+Router for React Native based on new React Native Navigation API.
 
-Please 🌟 my talk proposal for [ReactiveConf 2017](https://reactiveconf.com/) - [What is RNRF?](https://gist.github.com/aksonov/e2d7454421e44b1c4c72214d14053410)
+## Documentation
 
-#### NOTE: v4 (based on [React Navigation](https://reactnavigation.org/)) is in beta. See [this branch](https://github.com/aksonov/react-native-router-flux/tree/v3) and [docs](https://github.com/aksonov/react-native-router-flux/blob/master/README3.md) for v3.
+- [Mini-Tutorial](docs/MINI_TUTORIAL.md)
+- [API and Configuration](docs/API_CONFIGURATION.md)
+  - Available Imports
+  - Router API
+  - Scene API
+- [Detailed Example](docs/DETAILED_EXAMPLE.md)
+- [Reactive/Redux/Flux](docs/REDUX_FLUX.md)
+- [Other Info](docs/OTHER_INFO.md)
+  - Modals
+  - Tabbar
+  - Custom navbar
+  - Switch
+  - Splitting Scenes
+  - Drawer (side-menu)
+  - Sub-Scenes
+- [Changelog](docs/CHANGELOG.md)
+- [Migrating from 2.x](docs/MIGRATION.md)
 
-___
+## Features
 
-* [Example](#try-the-example-app)
-* [Motivation](https://gist.github.com/aksonov/e2d7454421e44b1c4c72214d14053410)
-* [v4 Features](#v4-features)
-* [API](/docs/API.md)
-* [Migrating from v3](/docs/MIGRATION.md)
-* [Sponsors/Backers/Contributors](#contributors)
+`react-native-router-flux` is a routing package that allows you to:
 
+- Define scene transitions in one central location
+- Without having to pass navigator objects around, and allow you to
+- Call transitions anywhere in your code with a simple syntax (e.g. `Actions.login({username, password})` or `Actions.profile({profile})` or even `Actions.profile(123)` - all params will be part of `this.props` for given Scene component).
 
-Define all your routes in one React component...
+### New Features and Highlights
 
+- **Highly Customizable Navigation Bar** - Show/hide the navbar depending on Scene or even the state of a Scene (e.g. Edit/Save navbar for edit mode).
+
+- **Tab Bar Support** using [react-native-tabs](https://github.com/aksonov/react-native-tabs) (see Example app).
+
+- **Nested Navigators** (e.g. Each tab can have its own navigator, nested in a root navigator).
+
+- **Custom Scene Renderers** for action sheet, native TabBarIOS or anything else. See built-in `Modal` renderer (to display popups) for example. *Call for PRs!* let's build some custom renderers for ActionSheet, Drawer, etc. Let's make an awesome library! Currently, if you want to use Action Sheets you'll need to use a 3rd party module.
+
+- **Dynamic Routing** allows you to choose which scene to render depending on application state (see the `Switch` renderer, useful for authentication).
+
+- **Bring Your Own Reducer** for navigation state.
+
+- **Reset History Stack** - The new [`reset`](docs/API_CONFIGURATION.md#scene)type for clearing the history stack and eliminating the navbar back button.
+
+- **More Powerful State Control** - Support for having different states while on the same screen. For example, "View My Account" could allow in-place editing of fields and "Save", "Cancel" navigation bar buttons should appear.
+
+## Getting Started
+
+Check out the [mini-tutorial](docs/MINI_TUTORIAL.md) for a quick walkthrough of the routing system.
+
+## Supported configurations
+
+While ExperimentalNavigation API is not stable, RNRF uses separated fork of ExperimentalNavigation API to avoid dependency from React Native version.
+So 3.30 version of RNRF doesn't depend from React Native version, but from that fork (now it is based on 0.26 API).
+You could use this component with RN0.26+
+
+## Installation
+```
+npm i react-native-router-flux --save
+```
+
+## Usage
+In your top-level `index.js`, define your scenes using the `Scene` component and pass it into the `Router` as children:
 ```js
-const App = () => (
-  <Router>
-    <Stack key="root">
-      <Scene key="login" component={Login} title="Login"/>
-      <Scene key="register" component={Register} title="Register"/>
-      <Scene key="home" component={Home}/>
-    </Stack>
-  </Router>
+import {Scene, Router} from 'react-native-router-flux';
+
+class App extends React.Component {
+  render() {
+    return <Router>
+      <Scene key="root">
+        <Scene key="login" component={Login} title="Login"/>
+        <Scene key="register" component={Register} title="Register"/>
+        <Scene key="home" component={Home}/>
+      </Scene>
+    </Router>
+  }
+}
+```
+Alternatively, you could define all of your scenes during compile time and use it later within `Router`:
+```js
+import {Actions, Scene, Router} from 'react-native-router-flux';
+
+const scenes = Actions.create(
+  <Scene key="root">
+    <Scene key="login" component={Login} title="Login"/>
+    <Scene key="register" component={Register} title="Register"/>
+    <Scene key="home" component={Home}/>
+  </Scene>
 );
+
+/* ... */
+
+class App extends React.Component {
+  render() {
+    return <Router scenes={scenes}/>
+  }
+}
 ```
 
-...and navigate from scene to scene with a simple, powerful API
-
+On any Scene, you can also call the following functions by first importing the `Actions` object:
 ```js
-// Login.js
-
-// navigate to 'home' as defined in your top-level router
-Actions.home(PARAMS)
-
-// go back (i.e. pop the current screen off the nav stack)
-Actions.pop()
-
-// refresh the current Scene with the specified props
-Actions.refresh({param1: 'hello', param2: 'world'})
+import {Actions} from 'react-native-router-flux'
 ```
+And then:
+
+* `Actions.ACTION_NAME(PARAMS)` will call the appropriate action and params will be passed to the scene.
+* `Actions.pop()` will pop the current screen. It accepts following optional params:
+  * `{popNum: [number]}` allows to pop multiple screens at once
+  * `{refresh: {...propsToSetOnPreviousScene}}` allows to refresh the props of the scene that it pops back to
+* `Actions.refresh(PARAMS)` will update the properties of the current screen.
+
+## Production Apps using react-native-router-flux
++ Buddify ([iOS](https://itunes.apple.com/app/id1149011372), [Android](https://play.google.com/store/apps/details?id=com.buddify)) - helps travelers discover fun things to do locally.
++ GuavaPass.com ([iOS](https://itunes.apple.com/en/app/guavapass-one-pass-fitness/id1050491044?l=en&mt=8), Android) - offers convenient access to top classes at boutique fitness studios across Asia.
++ Epic Fail Videos ([iOS](https://itunes.apple.com/us/app/epic-fail-videos-best-fail/id1115219339), [Android](https://play.google.com/store/apps/details?id=com.hazuu.epicfailvideos)) - The best Fail Videos Collection, never miss a laugh with your friends!
++ Junk Free ([iOS](https://itunes.apple.com/us/app/junk-free-by-junk-free-june/id1109940159)) - A simple way to find, share, and save recipes, workouts, and other healthy content with your friends, family and workmates.
++ chozun ([iOS](https://itunes.apple.com/au/app/chozun/id1097365167), [Android](https://play.google.com/store/apps/details?id=com.chozun)) - Your travel companion, matching your lifestyle on the go!
++ Snappatizer ([iOS](https://itunes.apple.com/us/app/snappatizer-find-rank-best/id1147400405?mt=8)) - Find and rank the best food around you.
++ Look Lock ([GitHub](https://github.com/7kfpun/PhotosReactNative), [iOS](https://itunes.apple.com/us/app/look-lock-show-photos-without/id1151863742), [Android](https://play.google.com/store/apps/details?id=com.kfpun.photos)) - Show photos without worries.
++ BusDue, ([iOS](https://itunes.apple.com/gb/app/busdue/id1185327843?mt=8), [Android](https://play.google.com/store/apps/details?id=com.busdue)) - London bus arrival time app
+
+## Support
+Thanks to all who submitted PRs to 2.x release. If you like the component and want to support it, feel free to donate any amount or help with issues.
 
 
-## Try the example app
-
-![rnrf](https://user-images.githubusercontent.com/3681859/27937441-ef61d932-626b-11e7-885f-1db7dc74b32e.gif)
-
-```bash
-# Get the code
-git clone https://github.com/aksonov/react-native-router-flux.git
-cd react-native-router-flux/Example
-
-# Install dependencies
-yarn
-
-# Run it
-react-native run-ios
-```
-
-## v4 Features
-* Based on latest [React Navigation](https://reactnavigation.org) API
-* Separate navigation logic from presentation. You may change now navigation state directly from your business logic code - stores/reducers/etc. navigationStore
-* Built-in state machine (v3 `Switch` replacement)
-  * Each `Scene` with `component` defined can have `onEnter`/`onExit`/`on` handlers.
-  * `onEnter`/`on` handler can be async.
-  * For 'truthy' return of `onEnter`/`on`, `success` handler (if defined) will be executed
-    * if `success` is a string then router will navigate to the `Scene` with that key
-  * in case of handler's failure, `failure` prop (if defined) will be run.
-  * Combining `onEnter`, `onExit`, `success`, and `failure` makes patterns like authentication, data validation, and conditional transitions simple and intuitive.
-* [MobX](https://mobx.js.org/)-friendly: all scenes are wrapped with `observer`. You may subscribe to `navigationStore` (`Actions` in v3) and observe current navigation state. Not applicable to Redux.
-* Flexible nav bar customization not currently allowed by React Navigation:
-https://github.com/react-community/react-navigation/issues/779
-* Drawer support (provided by React Navigation)
-* Inheritance of scene attributes allow you to avoid any code/attribute duplications. Adding `rightTitle` to a scene will apply to all child scenes. See example app.
-* Access to your app navigations state as simple as `Actions.state`.
-* Use `Actions.currentScene` to get name of current scene.
-
-## Contributors
-
-This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
-<a href="https://github.com/aksonov/react-native-router-flux/graphs/contributors"><img src="https://opencollective.com/react-native-router-flux/contributors.svg?width=890" /></a>
 
 
-## Backers
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/react-native-router-flux#backer)]
-
-<a href="https://opencollective.com/react-native-router-flux#backers" target="_blank"><img src="https://opencollective.com/react-native-router-flux/backers.svg?width=890"></a>
-
-
-## Sponsors
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/react-native-router-flux#sponsor)]
-
-<a href="https://opencollective.com/react-native-router-flux/sponsor/0/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/1/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/2/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/3/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/4/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/5/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/6/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/7/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/8/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/react-native-router-flux/sponsor/9/website" target="_blank"><img src="https://opencollective.com/react-native-router-flux/sponsor/9/avatar.svg"></a>
