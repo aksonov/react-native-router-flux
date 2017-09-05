@@ -32,6 +32,8 @@ class Launch extends React.Component {
           // Or check `index.ios.js` or `index.android.js` for a complete example
         })}>MessageBar alert</Button>
         <Button onPress={()=>Actions.tabbar()}>Go to TabBar page</Button>
+        <Button onPress={()=>Actions.tabbar()}>Go to TabBar page</Button>
+        <Button onPress={()=>Actions.customNavBar()}>Go to CustomNavBar page</Button>
         <Button onPress={()=>Actions.pop()}>back</Button>
       </View>
     );

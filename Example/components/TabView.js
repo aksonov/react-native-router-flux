@@ -44,6 +44,7 @@ class TabView extends React.Component {
         <Button onPress={() => { Actions.tab4(); }}>Switch to tab4</Button>
         <Button onPress={() => { Actions.tab5({ data: 'test!' }); }}>Switch to tab5 with data</Button>
         <Button onPress={() => { Actions.echo(); }}>push clone scene (EchoView)</Button>
+        <Button onPress={() => { Actions.echo(); }}>push clone scene (EchoView)</Button>
       </View>
     );
   }

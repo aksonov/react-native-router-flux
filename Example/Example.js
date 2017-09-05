@@ -31,6 +31,10 @@ import TabView from "./components/TabView";
 import TabIcon from "./components/TabIcon";
 import EchoView from "./components/EchoView";
 import MessageBar from "./components/MessageBar";
+import CustomNavBarView from "./components/CustomNavBarView";
+import CustomNavBar from "./components/CustomNavBar";
+import CustomNavBar2 from "./components/CustomNavBar2";
+
 
 const styles = StyleSheet.create({
   container: {
@@ -72,6 +76,36 @@ const Example = () => (
               <Scene key="home" component={Home} title="Replace" type={ActionConst.REPLACE}/>
             </Scene>
             <Scene key="launch" component={Launch} title="Launch" initial/>
+            <Stack key="customNavBar" hideTabBar titleStyle={{alignSelf: 'center'}}>
+              <Scene
+                key="customNavBar1"
+                title="CustomNavBar 1"
+                navBar={CustomNavBar}
+                component={CustomNavBarView}
+                back
+              />
+              <Scene
+                key="customNavBar2"
+                title="CustomNavBar 2"
+                navBar={CustomNavBar}
+                component={CustomNavBarView}
+                back
+              />
+              <Scene
+                key="customNavBar3"
+                title="Another CustomNavBar"
+                navBar={CustomNavBar2}
+                component={CustomNavBarView}
+                back
+              />
+              <Scene
+                key="hiddenNavBar"
+                title="hiddenNavBar"
+                component={CustomNavBarView}
+                hideNavBar={true}
+                back
+              />
+            </Stack>
             <Drawer contentComponent={TabView}>
               <Tabs key="tabbar" gestureEnabled={false} showLabel={false} tabs tabBarStyle={styles.tabBarStyle}
                     activeBackgroundColor="white"
