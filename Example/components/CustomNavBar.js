@@ -24,7 +24,7 @@ export default class CustomNavBar extends React.Component {
     if (Actions.currentScene === 'customNavBar1') {
       return (
         <TouchableOpacity
-          onPress={Actions.drawerOpen}
+          onPress={() => console.log('Hamburger button pressed')}
           style={[styles.navBarItem, { paddingLeft: 10}]}>
           <Image
             style={{width: 30, height: 50}}
