@@ -212,6 +212,9 @@ function originalRouteName(routeName) {
   return routeName;
 }
 function extendProps(props, store: NavigationStore) {
+  if (!props) {
+    return {};
+  }
   const res = { ...props };
   for (const transition of Object.keys(props)) {
     if (reservedKeys.indexOf(transition) === -1 && transition.startsWith('on')
