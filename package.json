@@ -56,10 +56,11 @@
   },
   "dependencies": {
     "lodash.isequal": "^4.5.0",
-    "react-native-experimental-navigation": "0.28.x",
-    "react-native-keyboard-aware-scroll-view": "^0.2.9",
+    "react-native-experimental-navigation": "git+https://github.com/Antoine-Mace/react-native-experimental-navigation",
+    "react-native-keyboard-aware-scroll-view": "0.3.0",
     "react-native-tabs": "^1.0.9",
-    "react-static-container": "1.0.1"
+    "react-static-container": "1.0.1",
+    "prop-types": "^15.5.10"
   },
   "description": "React Native Router using Flux architecture",
   "devDependencies": {

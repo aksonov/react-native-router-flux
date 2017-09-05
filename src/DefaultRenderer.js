@@ -7,9 +7,9 @@
  *
  */
 import React, {
-  PureComponent,
-  PropTypes,
+  PureComponent
 } from 'react';
+import PropTypes from 'prop-types';
 import {
   Animated,
   View,

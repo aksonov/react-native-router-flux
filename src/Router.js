@@ -7,9 +7,9 @@
  *
  */
 import React, {
-  Component,
-  PropTypes,
+  Component
 } from 'react';
+import PropTypes from 'prop-types';
 import { BackHandler } from 'react-native';
 import NavigationExperimental from 'react-native-experimental-navigation';
 
