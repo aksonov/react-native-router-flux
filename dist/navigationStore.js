@@ -600,7 +600,7 @@ _this3.dispatch({type:ActionConst.REPLACE,routeName:routeName,params:params});
 
 reset=function(routeName,data){
 var params=filterParam(data);
-_this3.dispatch(_reactNavigation.NavigationActions.reset({key:null,index:0,actions:[_reactNavigation.NavigationActions.navigate({
+_this3.dispatch(_reactNavigation.NavigationActions.reset({index:0,actions:[_reactNavigation.NavigationActions.navigate({
 routeName:routeName,
 params:params})]}));
 
