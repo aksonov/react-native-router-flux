@@ -138,7 +138,7 @@ function createNavigationOptions(params) {
     const NavBarFromParams = navigationParams.renderNavigationBar || navigationParams.navBar;
     if (NavBarFromParams != null) {
       if (NavBarFromParams) {
-        res.header = (data) => <NavBarFromParams navigation={navigation} {...state} {...data} />;;
+        res.header = (data) => <NavBarFromParams navigation={navigation} {...state} {...data} />;
       }
     } else if (NavBar) {
       res.header = (data) => <NavBar navigation={navigation} {...state} {...data} />;
