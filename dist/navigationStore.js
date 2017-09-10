@@ -134,8 +134,14 @@ headerTitle:getValue(navigationParams.renderTitle||renderTitle||params.renderTit
 headerStyle:getValue(navigationParams.headerStyle||headerStyle||navigationBarStyle,state),
 headerBackImage:navigationParams.backButtonImage||backButtonImage});
 
-if(NavBar){
-res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:138}}));};
+
+var NavBarFromParams=navigationParams.renderNavigationBar||navigationParams.navBar;
+if(NavBarFromParams!=null){
+if(NavBarFromParams){
+res.header=function(data){return _react2.default.createElement(NavBarFromParams,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:141}}));};
+}
+}else if(NavBar){
+res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:144}}));};
 }
 
 if(panHandlers===null){
@@ -143,7 +149,7 @@ res.gesturesEnabled=false;
 }
 
 if(navigationBarTitleImage){
-res.headerTitle=_react2.default.createElement(_reactNative.Image,{source:navigationBarTitleImage,style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:146}});
+res.headerTitle=_react2.default.createElement(_reactNative.Image,{source:navigationBarTitleImage,style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:152}});
 }
 
 if(tabBarLabel){
@@ -152,7 +158,7 @@ res.tabBarLabel=tabBarLabel;
 
 if(tabBarIcon||icon){
 var Icon=tabBarIcon||icon;
-res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:155}}));};
+res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:161}}));};
 }
 var componentData={};
 
@@ -170,7 +176,7 @@ if(rightButtonImage||rightTitle||params.renderRightButton||onRight||navigationPa
 navigationParams.rightTitle||navigationParams.rightButtonImage||rightButtonTextStyle||
 (drawerImage||drawerIcon)&&drawerPosition==='right'){
 res.headerRight=getValue(navigationParams.right||navigationParams.rightButton||params.renderRightButton,_extends({},
-navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:173}}));
+navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:179}}));
 }
 
 if(leftButtonImage||backButtonImage||backTitle||leftTitle||params.renderLeftButton||leftButtonTextStyle||
@@ -178,12 +184,12 @@ backButtonTextStyle||onLeft||navigationParams.leftTitle||navigationParams.onLeft
 navigationParams.backButtonImage||navigationParams.backTitle||(drawerImage||drawerIcon)&&drawerPosition!=='right'){
 res.headerLeft=getValue(navigationParams.left||navigationParams.leftButton||params.renderLeftButton,_extends({},params,navigationParams,screenProps))||
 (onLeft&&(leftTitle||navigationParams.leftTitle||leftButtonImage||navigationParams.leftButtonImage)||drawerImage||drawerIcon)&&
-_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:181}}))||(
-init?null:renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:182}})));
+_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:187}}))||(
+init?null:renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:188}})));
 }
 
 if(back){
-res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:186}}));
+res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:192}}));
 }
 
 
@@ -195,7 +201,12 @@ res.tabBarVisible=false;
 }else if(hideTabBar){
 res.tabBarVisible=false;
 }
-if(hideNavBar){
+
+if(navigationParams.hideNavBar!=null){
+if(navigationParams.hideNavBar){
+res.header=null;
+}
+}else if(hideNavBar){
 res.header=null;
 }
 
@@ -255,7 +266,7 @@ store.deleteRef(originalRouteName(navigation.state.routeName));
 }},{key:'render',value:function render()
 {var _this2=this;
 var navigation=this.props.navigation;
-return _react2.default.createElement(Component,_extends({ref:function ref(_ref5){return _this2.ref=_ref5;}},this.props,extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:258}}));
+return _react2.default.createElement(Component,_extends({ref:function ref(_ref5){return _this2.ref=_ref5;}},this.props,extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:269}}));
 }}]);return Wrapped;}(_react2.default.Component),_class.propTypes={navigation:_propTypes2.default.object},_temp);
 
 return wrapper(Wrapped);
@@ -263,7 +274,7 @@ return wrapper(Wrapped);
 
 
 function StatelessWrapped(_ref6){var navigation=_ref6.navigation,props=_objectWithoutProperties(_ref6,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:266}}));
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:277}}));
 }
 StatelessWrapped.propTypes={
 navigation:_propTypes2.default.object};
@@ -457,8 +468,8 @@ if(lightbox){
 return(0,_LightboxNavigator2.default)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
 }else if(tabs){
 if(!tabBarComponent){
-tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:460}}));}:
-function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:461}}));};
+tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:471}}));}:
+function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:472}}));};
 }
 if(!tabBarPosition){
 tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';

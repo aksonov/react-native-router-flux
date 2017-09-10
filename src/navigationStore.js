@@ -134,7 +134,13 @@ function createNavigationOptions(params) {
       headerStyle: getValue((navigationParams.headerStyle || headerStyle || navigationBarStyle), state),
       headerBackImage: navigationParams.backButtonImage || backButtonImage,
     };
-    if (NavBar) {
+
+    const NavBarFromParams = navigationParams.renderNavigationBar || navigationParams.navBar;
+    if (NavBarFromParams != null) {
+      if (NavBarFromParams) {
+        res.header = (data) => <NavBarFromParams navigation={navigation} {...state} {...data} />;
+      }
+    } else if (NavBar) {
       res.header = (data) => <NavBar navigation={navigation} {...state} {...data} />;
     }
 
@@ -195,7 +201,12 @@ function createNavigationOptions(params) {
     } else if (hideTabBar) {
       res.tabBarVisible = false;
     }
-    if (hideNavBar) {
+
+    if (navigationParams.hideNavBar != null) {
+      if (navigationParams.hideNavBar) {
+        res.header = null;
+      }
+    } else if (hideNavBar) {
       res.header = null;
     }
 
