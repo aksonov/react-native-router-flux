@@ -27,7 +27,7 @@ export function getActiveState(param, parent) {
   if (!state.routes) {
     return { ...state, parent };
   }
-  return getActiveState(state.routes[state.index], state);
+  return getActiveState(state.routes[state.index], { ...state, parent});
 }
 
 export function inject(state, key, index, routes) {
@@ -44,8 +44,11 @@ export function inject(state, key, index, routes) {
 }
 
 export function popPrevious(state) {
-  const activeState = getActiveState(state);
-  if (activeState.parent && activeState.parent.index) {
+  var activeState = getActiveState(state);
+  while(!(activeState.parent && activeState.parent.index)){
+    activeState = activeState.parent;
+  }
+  if (activeState && activeState.parent && activeState.parent.index) {
     const parent = activeState.parent;
     const key = parent.key;
     const routes = [...parent.routes.slice(0, parent.index - 1), ...parent.routes.slice(parent.index)];
