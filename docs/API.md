@@ -68,6 +68,7 @@ Can use all `props` listed above in `<Scene>` as `<Tabs>` is syntatic sugar for 
 
 | Property | Type | Default | Description |
 |-----------------|----------|----------|--------------------------------------------|
+| `wrap`     | `boolean` | `true` | Wrap each scene with own navbar automatically (if it is not another container). |
 | `activeBackgroundColor` | `string` |  | Specifies the active background color for the tab in focus |
 | `activeTintColor`     | `string` |  | Specifies the active tint color for tabbar icons |
 | `inactiveBackgroundColor` | `string` |  | Specifies the inactive background color for the tabs not in focus |
