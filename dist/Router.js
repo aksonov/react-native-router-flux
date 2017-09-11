@@ -2,7 +2,9 @@ Object.defineProperty(exports,"__esModule",{value:true});var _extends=Object.ass
 var _reactNative=require('react-native');
 var _navigationStore=require('./navigationStore');var _navigationStore2=_interopRequireDefault(_navigationStore);
 var _propTypes=require('prop-types');var _propTypes2=_interopRequireDefault(_propTypes);
-var _reactNavigation=require('react-navigation');function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _objectWithoutProperties(obj,keys){var target={};for(var i in obj){if(keys.indexOf(i)>=0)continue;if(!Object.prototype.hasOwnProperty.call(obj,i))continue;target[i]=obj[i];}return target;}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
+var _reactNavigation=require('react-navigation');
+
+var _PureEngine=require('./Engines/PureEngine');var _PureEngine2=_interopRequireDefault(_PureEngine);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _objectWithoutProperties(obj,keys){var target={};for(var i in obj){if(keys.indexOf(i)>=0)continue;if(!Object.prototype.hasOwnProperty.call(obj,i))continue;target[i]=obj[i];}return target;}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
 
 App=(_temp2=_class=function(_React$Component){_inherits(App,_React$Component);function App(){var _ref;var _temp,_this,_ret;_classCallCheck(this,App);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=_possibleConstructorReturn(this,(_ref=App.__proto__||Object.getPrototypeOf(App)).call.apply(_ref,[this].concat(args))),_this),_this.
 
@@ -28,12 +30,12 @@ return _navigationStore2.default.currentScene!==_navigationStore2.default.prevSc
 this.props,AppNavigator=_props.navigator,_props$stateManager=_props.stateManager,dispatch=_props$stateManager.dispatch,getState=_props$stateManager.getState;
 
 return(
-_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:getState(this.props)}),__source:{fileName:_jsxFileName,lineNumber:31}}));
+_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:getState(this.props)}),__source:{fileName:_jsxFileName,lineNumber:33}}));
 
 }}]);return App;}(_react2.default.Component),_class.propTypes={navigator:_propTypes2.default.func,stateManager:_propTypes2.default.object.isRequired,backAndroidHandler:_propTypes2.default.func},_temp2);
 
 
-var Router=function Router(_ref2){var engine=_ref2.engine,createReducer=_ref2.createReducer,sceneStyle=_ref2.sceneStyle,scenes=_ref2.scenes,navigator=_ref2.navigator,getSceneStyle=_ref2.getSceneStyle,children=_ref2.children,state=_ref2.state,dispatch=_ref2.dispatch,_ref2$wrapBy=_ref2.wrapBy,wrapBy=_ref2$wrapBy===undefined?function(props){return props;}:_ref2$wrapBy,props=_objectWithoutProperties(_ref2,['engine','createReducer','sceneStyle','scenes','navigator','getSceneStyle','children','state','dispatch','wrapBy']);
+var Router=function Router(_ref2){var _ref2$engine=_ref2.engine,engine=_ref2$engine===undefined?_PureEngine2.default:_ref2$engine,createReducer=_ref2.createReducer,sceneStyle=_ref2.sceneStyle,scenes=_ref2.scenes,navigator=_ref2.navigator,getSceneStyle=_ref2.getSceneStyle,children=_ref2.children,state=_ref2.state,dispatch=_ref2.dispatch,_ref2$wrapBy=_ref2.wrapBy,wrapBy=_ref2$wrapBy===undefined?function(props){return props;}:_ref2$wrapBy,props=_objectWithoutProperties(_ref2,['engine','createReducer','sceneStyle','scenes','navigator','getSceneStyle','children','state','dispatch','wrapBy']);
 _navigationStore2.default.setupEngine(engine);
 
 var data=_extends({},props);
@@ -49,7 +51,7 @@ if(dispatch&&state){
 
 _navigationStore2.default.setState(state);
 _navigationStore2.default.dispatch=dispatch;
-return _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:state}),__source:{fileName:_jsxFileName,lineNumber:52}});
+return _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:state}),__source:{fileName:_jsxFileName,lineNumber:54}});
 }
 
 var WiredApp=App;
@@ -58,10 +60,10 @@ if(engine.appHoc){
 WiredApp=engine.appHoc(App);
 }
 
-return _react2.default.createElement(WiredApp,_extends({},props,{navigator:AppNavigator,stateManager:engine.stateManager,__source:{fileName:_jsxFileName,lineNumber:61}}));
+return _react2.default.createElement(WiredApp,_extends({},props,{navigator:AppNavigator,stateManager:engine.stateManager,__source:{fileName:_jsxFileName,lineNumber:63}}));
 };
 Router.propTypes={
-engine:_propTypes2.default.object.isRequired,
+engine:_propTypes2.default.object,
 createReducer:_propTypes2.default.func,
 dispatch:_propTypes2.default.func,
 state:_propTypes2.default.object,

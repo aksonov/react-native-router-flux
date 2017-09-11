@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import ExamplePure from './ExamplePure';
 import ExampleMobX from './ExampleMobX';
 import ExampleRedux from './ExampleRedux';
 
@@ -9,6 +10,7 @@ export default class ExampleSwitcher extends Component {
   }
 
   render() {
-    return this.state.showingMobXExample ? <ExampleMobX /> : <ExampleRedux />;
+    return <ExamplePure />;
+    //return this.state.showingMobXExample ? <ExampleMobX /> : <ExampleRedux />;
   }
 }

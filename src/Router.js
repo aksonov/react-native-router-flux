@@ -4,6 +4,8 @@ import navigationStore from './navigationStore';
 import PropTypes from 'prop-types';
 import { addNavigationHelpers } from 'react-navigation';
 
+import PureEngine from './Engines/PureEngine';
+
 class App extends React.Component {
   static propTypes = {
     navigator: PropTypes.func,
@@ -33,7 +35,7 @@ class App extends React.Component {
   }
 }
 
-const Router = ({ engine, createReducer, sceneStyle, scenes, navigator, getSceneStyle, children, state, dispatch, wrapBy = props => props, ...props }) => {
+const Router = ({ engine = PureEngine, createReducer, sceneStyle, scenes, navigator, getSceneStyle, children, state, dispatch, wrapBy = props => props, ...props }) => {
   navigationStore.setupEngine(engine);
 
   const data = { ...props };
@@ -61,7 +63,7 @@ const Router = ({ engine, createReducer, sceneStyle, scenes, navigator, getScene
   return <WiredApp {...props} navigator={AppNavigator} stateManager={engine.stateManager} />;
 };
 Router.propTypes = {
-  engine: PropTypes.object.isRequired,
+  engine: PropTypes.object,
   createReducer: PropTypes.func,
   dispatch: PropTypes.func,
   state: PropTypes.object,
