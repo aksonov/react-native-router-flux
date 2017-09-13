@@ -184,7 +184,7 @@ function createNavigationOptions(params) {
       || navigationParams.backButtonImage || navigationParams.backTitle || ((drawerImage || drawerIcon) && drawerPosition !== 'right')) {
       res.headerLeft = getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
         || (((onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage || navigationParams.leftButtonImage)) || drawerImage || drawerIcon)
-          && <LeftNavBarButton {...params} {...navigationParams} {...componentData} />)
+          && <LeftNavBarButton {...params} {...navigationParams} {...componentData} />) || res.headerLeft
         || (init ? null : (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />);
     }
 
@@ -202,11 +202,7 @@ function createNavigationOptions(params) {
       res.tabBarVisible = false;
     }
 
-    if (navigationParams.hideNavBar != null) {
-      if (navigationParams.hideNavBar) {
-        res.header = null;
-      }
-    } else if (hideNavBar) {
+    if (hideNavBar) {
       res.header = null;
     }
 
