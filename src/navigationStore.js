@@ -1,5 +1,4 @@
 import React from 'react';
-import { observable, action } from 'mobx';
 import * as ActionConst from './ActionConst';
 import { OnEnter, OnExit, assert } from './Util';
 import { View, Image, Animated, Easing, Platform } from 'react-native';
@@ -310,14 +309,19 @@ class NavigationStore {
   reducer = null;
   router;
   _state;
-  _currentParams;
-  @observable currentScene = '';
-  @observable currentParams;
+  currentScene = '';
+  prevScene = '';
+  currentParams;
+  engineDispatch;
 
-  get state() {
-    const scene = this.currentScene;// eslint-disable-line no-unused-vars
-    const params = this.currentParams;// eslint-disable-line no-unused-vars
-    return this._state;
+  setupEngine(engine) {
+    engine.stateManager.setupHandlers(
+      this.nextState,
+      this.setState,
+      getActiveState
+    );
+
+    this.engineDispatch = engine.stateManager.dispatch;
   }
 
   addRef = (name, ref) => {
@@ -484,24 +488,23 @@ class NavigationStore {
   nextState = (state, cmd) => (this.reducer ? this.reducer(state, cmd) : reducer(state, cmd));
 
   dispatch = (cmd) => {
-    this.setState(this.nextState(this.state, cmd));
+    this.engineDispatch(cmd);
   };
 
-  @action setState = async (newState) => {
+  setState = async (newState) => {
     // don't allow null state
     if (!newState) {
       return;
     }
     const state = getActiveState(newState);
     // avoid double actions
-    if (isEqual(state.params, this._currentParams) && state.routeName === this.currentScene) {
+    if (isEqual(state.params, this.currentParams) && state.routeName === this.currentScene) {
       return;
     }
     const currentScene = this.currentScene;
     this._state = newState;
     this.currentScene = state.routeName;
     this.currentParams = state.params;
-    this._currentParams = state.params;
 
     if (currentScene !== this.currentScene && this.currentScene !== 'DrawerOpen' && this.currentScene !== 'DrawerClose') {
       this.dispatch({ type: ActionConst.BLUR, routeName: currentScene });
@@ -519,7 +522,7 @@ class NavigationStore {
         }
       }
 
-      this.dispatch({ type: ActionConst.FOCUS, routeName: this.currentScene, params: this._currentParams });
+      this.dispatch({ type: ActionConst.FOCUS, routeName: this.currentScene, params: this.currentParams });
       if (this.states[this.currentScene]) {
         const handler = this[this.currentScene + OnEnter];
         const success = this.states[this.currentScene].success || defaultSuccess;

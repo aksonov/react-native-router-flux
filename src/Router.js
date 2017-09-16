@@ -1,14 +1,15 @@
 import React from 'react';
-import { observer } from 'mobx-react/native';
 import { BackHandler } from 'react-native';
 import navigationStore from './navigationStore';
 import PropTypes from 'prop-types';
 import { addNavigationHelpers } from 'react-navigation';
 
-@observer
+import PureEngine from './Engines/PureEngine';
+
 class App extends React.Component {
   static propTypes = {
     navigator: PropTypes.func,
+    stateManager: PropTypes.object.isRequired,
     backAndroidHandler: PropTypes.func,
   };
 
@@ -26,14 +27,17 @@ class App extends React.Component {
   };
 
   render() {
-    const AppNavigator = this.props.navigator;
+    const { navigator: AppNavigator, stateManager: { dispatch, getState } } = this.props;
+
     return (
-      <AppNavigator navigation={addNavigationHelpers({ dispatch: navigationStore.dispatch, state: navigationStore.state })} />
+      <AppNavigator navigation={addNavigationHelpers({ dispatch, state: getState(this.props) })} />
     );
   }
 }
 
-const Router = ({ createReducer, sceneStyle, scenes, navigator, getSceneStyle, children, state, dispatch, wrapBy = props => props, ...props }) => {
+const Router = ({ engine = PureEngine, createReducer, sceneStyle, scenes, navigator, getSceneStyle, children, state, dispatch, wrapBy = props => props, ...props }) => {
+  navigationStore.setupEngine(engine);
+
   const data = { ...props };
   if (getSceneStyle) {
     data.cardStyle = getSceneStyle(props);
@@ -49,9 +53,17 @@ const Router = ({ createReducer, sceneStyle, scenes, navigator, getSceneStyle, c
     navigationStore.dispatch = dispatch;
     return <AppNavigator navigation={addNavigationHelpers({ dispatch, state })} />;
   }
-  return <App {...props} navigator={AppNavigator} />;
+
+  let WiredApp = App;
+
+  if (engine.appHoc) {
+    WiredApp = engine.appHoc(App);
+  }
+
+  return <WiredApp {...props} navigator={AppNavigator} stateManager={engine.stateManager} />;
 };
 Router.propTypes = {
+  engine: PropTypes.object,
   createReducer: PropTypes.func,
   dispatch: PropTypes.func,
   state: PropTypes.object,
