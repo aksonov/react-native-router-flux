@@ -1,7 +1,7 @@
 import React from 'react';
 import * as ActionConst from './ActionConst';
 import { OnEnter, OnExit, assert } from './Util';
-import { View, Image, Animated, Easing } from 'react-native';
+import { View, Image, Animated, Easing, Platform } from 'react-native';
 import { TabNavigator, DrawerNavigator, StackNavigator, NavigationActions, TabBarTop, TabBarBottom } from 'react-navigation';
 import { LeftButton, RightButton, BackButton } from './NavBar';
 import LightboxNavigator from './LightboxNavigator';
@@ -133,7 +133,13 @@ function createNavigationOptions(params) {
       headerStyle: getValue((navigationParams.headerStyle || headerStyle || navigationBarStyle), state),
       headerBackImage: navigationParams.backButtonImage || backButtonImage,
     };
-    if (NavBar) {
+
+    const NavBarFromParams = navigationParams.renderNavigationBar || navigationParams.navBar;
+    if (NavBarFromParams != null) {
+      if (NavBarFromParams) {
+        res.header = (data) => <NavBarFromParams navigation={navigation} {...state} {...data} />;
+      }
+    } else if (NavBar) {
       res.header = (data) => <NavBar navigation={navigation} {...state} {...data} />;
     }
 
@@ -177,7 +183,7 @@ function createNavigationOptions(params) {
       || navigationParams.backButtonImage || navigationParams.backTitle || ((drawerImage || drawerIcon) && drawerPosition !== 'right')) {
       res.headerLeft = getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
         || (((onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage || navigationParams.leftButtonImage)) || drawerImage || drawerIcon)
-          && <LeftNavBarButton {...params} {...navigationParams} {...componentData} />)
+          && <LeftNavBarButton {...params} {...navigationParams} {...componentData} />) || res.headerLeft
         || (init ? null : (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />);
     }
 
@@ -185,9 +191,16 @@ function createNavigationOptions(params) {
       res.headerLeft = (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />;
     }
 
-    if (hideTabBar) {
+    // currect dynamic navigation params has priority over static scene params
+    // but taking them into account only if they are explicitly set (not null or undefined)
+    if (navigationParams.hideTabBar != null) {
+      if (navigationParams.hideTabBar) {
+        res.tabBarVisible = false;
+      }
+    } else if (hideTabBar) {
       res.tabBarVisible = false;
     }
+
     if (hideNavBar) {
       res.header = null;
     }
@@ -203,6 +216,22 @@ function originalRouteName(routeName) {
     return routeName.substring(1);
   }
   return routeName;
+}
+function extendProps(props, store: NavigationStore) {
+  if (!props) {
+    return {};
+  }
+  const res = { ...props };
+  for (const transition of Object.keys(props)) {
+    if (reservedKeys.indexOf(transition) === -1 && transition.startsWith('on')
+      && transition.charAt(2) >= 'A' && transition.charAt(2) <= 'Z' && !(props[transition] instanceof Function)) {
+      if (!store[props[transition]]) {
+        console.warn(`Scene ${transition} is not defined!`);
+      }
+      res[transition] = params => store[props[transition]](params);
+    }
+  }
+  return res;
 }
 // eslint no-param-reassign: "error"
 function createWrapper(Component, wrapBy, store: NavigationStore) {
@@ -232,7 +261,7 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
       }
       render() {
         const navigation = this.props.navigation;
-        return <Component ref={ref => (this.ref = ref)} {...this.props} {...navigation.state.params} name={navigation.state.routeName} />;
+        return <Component ref={ref => (this.ref = ref)} {...this.props} {...extendProps(navigation.state.params, store)} name={navigation.state.routeName} />;
       }
     }
     return wrapper(Wrapped);
@@ -240,7 +269,7 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
 
   // if component is statless function, ref is not supported
   function StatelessWrapped({ navigation, ...props }) {
-    return <Component {...props} navigation={navigation} {...navigation.state.params} name={navigation.state.routeName} />;
+    return <Component {...props} navigation={navigation} {...extendProps(navigation.state.params, store)} name={navigation.state.routeName} />;
   }
   StatelessWrapped.propTypes = {
     navigation: PropTypes.object,
@@ -321,8 +350,8 @@ class NavigationStore {
     }
     const res = {};
     const order = [];
-    const { navigator, contentComponent, tabBarPosition, lazy, duration, ...parentProps } = scene.props;
-    let { tabs, modal, lightbox, overlay, drawer, tabBarComponent, transitionConfig } = parentProps;
+    const { navigator, contentComponent, lazy, duration, ...parentProps } = scene.props;
+    let { tabs, modal, lightbox, overlay, tabBarPosition, drawer, tabBarComponent, transitionConfig } = parentProps;
     if (scene.type === Modal) {
       modal = true;
     } else if (scene.type === Drawer) {
@@ -402,7 +431,10 @@ class NavigationStore {
         wrapNavBar = false;
       }
       if (component && wrapNavBar) {
-        res[key] = { screen: this.processScene({ key, props: { children: { key: `_${key}`, props: { ...child.props, wrap: false } } } }, commonProps, clones, wrapBy) };
+        res[key] = {
+          screen: this.processScene({ key, props: { children: { key: `_${key}`, props: { ...child.props, wrap: false } } } }, commonProps, clones, wrapBy),
+          navigationOptions: createNavigationOptions({ ...commonProps, ...child.props }),
+        };
       } else {
         res[key] = screen;
       }
@@ -439,7 +471,10 @@ class NavigationStore {
         tabBarComponent = tabBarPosition === 'top' ? (props) => <TabBarTop {...props} {...commonProps} /> :
           (props) => <TabBarBottom {...props} {...commonProps} />;
       }
-      return TabNavigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps,
+      if (!tabBarPosition) {
+        tabBarPosition = Platform.OS === 'android' ? 'top' : 'bottom';
+      }
+      return TabNavigator(res, { lazy, tabBarComponent, tabBarPosition, initialRouteName, initialRouteParams, order, ...commonProps,
         tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });
     } else if (drawer) {
       return DrawerNavigator(res, { initialRouteName, contentComponent, order, ...commonProps });
@@ -467,12 +502,11 @@ class NavigationStore {
       return;
     }
     const currentScene = this.currentScene;
-    const prevScene = this.prevScene;
     this._state = newState;
     this.currentScene = state.routeName;
     this.currentParams = state.params;
 
-    if (currentScene !== this.currentScene && this.currentScene !== 'DrawerOpen' && this.currentScene !== 'DrawerClose' && prevScene !== 'DrawerOpen') {
+    if (currentScene !== this.currentScene && this.currentScene !== 'DrawerOpen' && this.currentScene !== 'DrawerClose') {
       this.dispatch({ type: ActionConst.BLUR, routeName: currentScene });
 
       // call onExit handler
@@ -505,19 +539,22 @@ class NavigationStore {
               failure();
             }
           } catch (e) {
-            failure({ error: e });
+            failure({ error: e.message });
           }
         }
       }
     }
-    this.prevScene = currentScene;
   };
 
   execute = (actionType, routeName, ...params) => {
     const res = uniteParams(routeName, params);
     const overridenType = res.type || actionType;
     const type = actionMap[overridenType] || overridenType;
-    this[type](routeName, res);
+    if (type === 'pop') {
+      this[type](res);
+    } else {
+      this[type](routeName, res);
+    }
   };
 
   push = (routeName, data) => {
@@ -544,11 +581,15 @@ class NavigationStore {
     this.dispatch(NavigationActions.setParams({ key, params }));
   };
 
-  pop = (params = {}) => {
+  pop = ({ timeout, ...params } = {}) => {
     const res = filterParam(params);
-    this.dispatch(NavigationActions.back());
-    if (res.refresh) {
-      this.refresh(res.refresh);
+    if (timeout) {
+      setTimeout(() => this.pop(params), timeout);
+    } else {
+      this.dispatch(NavigationActions.back());
+      if (res.refresh) {
+        this.refresh(res.refresh);
+      }
     }
   };
 

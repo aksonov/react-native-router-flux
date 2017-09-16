@@ -136,6 +136,9 @@ headerBackImage:navigationParams.backButtonImage||backButtonImage});
 if(NavBar){
 res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:137}}));};
 }
+}else if(NavBar){
+res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:144}}));};
+}
 
 if(panHandlers===null){
 res.gesturesEnabled=false;
@@ -185,9 +188,16 @@ if(back){
 res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:185}}));
 }
 
-if(hideTabBar){
+
+
+if(navigationParams.hideTabBar!=null){
+if(navigationParams.hideTabBar){
 res.tabBarVisible=false;
 }
+}else if(hideTabBar){
+res.tabBarVisible=false;
+}
+
 if(hideNavBar){
 res.header=null;
 }
@@ -203,6 +213,22 @@ if(routeName.startsWith('_')){
 return routeName.substring(1);
 }
 return routeName;
+}
+function extendProps(props,store){
+if(!props){
+return{};
+}
+var res=_extends({},props);var _loop=function _loop(
+transition){
+if(reservedKeys.indexOf(transition)===-1&&transition.startsWith('on')&&
+transition.charAt(2)>='A'&&transition.charAt(2)<='Z'&&!(props[transition]instanceof Function)){
+if(!store[props[transition]]){
+console.warn('Scene '+transition+' is not defined!');
+}
+res[transition]=function(params){return store[props[transition]](params);};
+}};for(var _iterator2=Object.keys(props),_isArray2=Array.isArray(_iterator2),_i3=0,_iterator2=_isArray2?_iterator2:_iterator2[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref4;if(_isArray2){if(_i3>=_iterator2.length)break;_ref4=_iterator2[_i3++];}else{_i3=_iterator2.next();if(_i3.done)break;_ref4=_i3.value;}var transition=_ref4;_loop(transition);
+}
+return res;
 }
 
 function createWrapper(Component,wrapBy,store){
@@ -262,7 +288,7 @@ return data;
 
 function uniteParams(routeName,params){
 var res={};
-for(var _iterator2=params,_isArray2=Array.isArray(_iterator2),_i3=0,_iterator2=_isArray2?_iterator2:_iterator2[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref6;if(_isArray2){if(_i3>=_iterator2.length)break;_ref6=_iterator2[_i3++];}else{_i3=_iterator2.next();if(_i3.done)break;_ref6=_i3.value;}var param=_ref6;
+for(var _iterator3=params,_isArray3=Array.isArray(_iterator3),_i4=0,_iterator3=_isArray3?_iterator3:_iterator3[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref7;if(_isArray3){if(_i4>=_iterator3.length)break;_ref7=_iterator3[_i4++];}else{_i4=_iterator3.next();if(_i4.done)break;_ref7=_i4.value;}var param=_ref7;
 if(param){
 res=_extends({},res,filterParam(param));
 }
@@ -321,8 +347,8 @@ return null;
 }
 var res={};
 var order=[];var _scene$props=
-scene.props,navigator=_scene$props.navigator,contentComponent=_scene$props.contentComponent,tabBarPosition=_scene$props.tabBarPosition,lazy=_scene$props.lazy,duration=_scene$props.duration,parentProps=_objectWithoutProperties(_scene$props,['navigator','contentComponent','tabBarPosition','lazy','duration']);var
-tabs=parentProps.tabs,modal=parentProps.modal,lightbox=parentProps.lightbox,overlay=parentProps.overlay,drawer=parentProps.drawer,tabBarComponent=parentProps.tabBarComponent,transitionConfig=parentProps.transitionConfig;
+scene.props,navigator=_scene$props.navigator,contentComponent=_scene$props.contentComponent,lazy=_scene$props.lazy,duration=_scene$props.duration,parentProps=_objectWithoutProperties(_scene$props,['navigator','contentComponent','lazy','duration']);var
+tabs=parentProps.tabs,modal=parentProps.modal,lightbox=parentProps.lightbox,overlay=parentProps.overlay,tabBarPosition=parentProps.tabBarPosition,drawer=parentProps.drawer,tabBarComponent=parentProps.tabBarComponent,transitionConfig=parentProps.transitionConfig;
 if(scene.type===_Modal2.default){
 modal=true;
 }else if(scene.type===_Drawer2.default){
@@ -343,7 +369,7 @@ var commonProps=_extends({},inheritProps,parentProps);
 delete commonProps.children;
 delete commonProps.component;
 
-for(var _iterator3=Object.keys(commonProps),_isArray3=Array.isArray(_iterator3),_i4=0,_iterator3=_isArray3?_iterator3:_iterator3[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref7;if(_isArray3){if(_i4>=_iterator3.length)break;_ref7=_iterator3[_i4++];}else{_i4=_iterator3.next();if(_i4.done)break;_ref7=_i4.value;}var pkey=_ref7;
+for(var _iterator4=Object.keys(commonProps),_isArray4=Array.isArray(_iterator4),_i5=0,_iterator4=_isArray4?_iterator4:_iterator4[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref8;if(_isArray4){if(_i5>=_iterator4.length)break;_ref8=_iterator4[_i5++];}else{_i5=_iterator4.next();if(_i5.done)break;_ref8=_i5.value;}var pkey=_ref8;
 if(dontInheritKeys.includes(pkey)&&!parentProps[pkey]){
 delete commonProps[pkey];
 }
@@ -359,7 +385,7 @@ if(!drawer&&!tabs&&!overlay){
 children.push.apply(children,_toConsumableArray(clones));
 }
 
-for(var _iterator4=children,_isArray4=Array.isArray(_iterator4),_i5=0,_iterator4=_isArray4?_iterator4:_iterator4[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref8;if(_isArray4){if(_i5>=_iterator4.length)break;_ref8=_iterator4[_i5++];}else{_i5=_iterator4.next();if(_i5.done)break;_ref8=_i5.value;}var child=_ref8;
+for(var _iterator5=children,_isArray5=Array.isArray(_iterator5),_i6=0,_iterator5=_isArray5?_iterator5:_iterator5[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref9;if(_isArray5){if(_i6>=_iterator5.length)break;_ref9=_iterator5[_i6++];}else{_i6=_iterator5.next();if(_i6.done)break;_ref9=_i6.value;}var child=_ref9;
 if(child.props.clone){
 if(clones.indexOf(child)===-1){
 clones.push(child);
@@ -367,7 +393,7 @@ clones.push(child);
 }
 }
 var initialRouteName=void 0;
-var initialRouteParams=void 0;var _loop=function _loop(
+var initialRouteParams=void 0;var _loop2=function _loop2(
 _child){
 var key=_child.key||'key'+counter++;
 var init=key===children[0].key;
@@ -376,7 +402,7 @@ _child.props,component=_child$props.component,_child$props$type=_child$props.typ
 if(!_this3.states[key]){
 _this3.states[key]={};
 }
-for(var _iterator6=Object.keys(props),_isArray6=Array.isArray(_iterator6),_i7=0,_iterator6=_isArray6?_iterator6:_iterator6[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref10;if(_isArray6){if(_i7>=_iterator6.length)break;_ref10=_iterator6[_i7++];}else{_i7=_iterator6.next();if(_i7.done)break;_ref10=_i7.value;}var transition=_ref10;
+for(var _iterator7=Object.keys(props),_isArray7=Array.isArray(_iterator7),_i8=0,_iterator7=_isArray7?_iterator7:_iterator7[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref11;if(_isArray7){if(_i8>=_iterator7.length)break;_ref11=_iterator7[_i8++];}else{_i8=_iterator7.next();if(_i8.done)break;_ref11=_i8.value;}var transition=_ref11;
 if(reservedKeys.indexOf(transition)===-1&&props[transition]instanceof Function){
 _this3.states[key][transition]=props[transition];
 }
@@ -402,7 +428,10 @@ if(wrap===false||commonProps.wrap===false){
 wrapNavBar=false;
 }
 if(component&&wrapNavBar){
-res[key]={screen:_this3.processScene({key:key,props:{children:{key:'_'+key,props:_extends({},_child.props,{wrap:false})}}},commonProps,clones,wrapBy)};
+res[key]={
+screen:_this3.processScene({key:key,props:{children:{key:'_'+key,props:_extends({},_child.props,{wrap:false})}}},commonProps,clones,wrapBy),
+navigationOptions:createNavigationOptions(_extends({},commonProps,_child.props))};
+
 }else{
 res[key]=screen;
 }
@@ -426,7 +455,7 @@ order.push(key);
 if(_child.props.initial||!initialRouteName){
 initialRouteName=key;
 initialRouteParams=_extends({},commonProps,props);
-}};for(var _iterator5=children,_isArray5=Array.isArray(_iterator5),_i6=0,_iterator5=_isArray5?_iterator5:_iterator5[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref9;if(_isArray5){if(_i6>=_iterator5.length)break;_ref9=_iterator5[_i6++];}else{_i6=_iterator5.next();if(_i6.done)break;_ref9=_i6.value;}var _child=_ref9;_loop(_child);
+}};for(var _iterator6=children,_isArray6=Array.isArray(_iterator6),_i7=0,_iterator6=_isArray6?_iterator6:_iterator6[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref10;if(_isArray6){if(_i7>=_iterator6.length)break;_ref10=_iterator6[_i7++];}else{_i7=_iterator6.next();if(_i7.done)break;_ref10=_i7.value;}var _child=_ref10;_loop2(_child);
 }
 var mode=modal?'modal':'card';
 if(navigator){
@@ -439,7 +468,10 @@ if(!tabBarComponent){
 tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:439}}));}:
 function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:440}}));};
 }
-return(0,_reactNavigation.TabNavigator)(res,_extends({lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},commonProps,{
+if(!tabBarPosition){
+tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';
+}
+return(0,_reactNavigation.TabNavigator)(res,_extends({lazy:lazy,tabBarComponent:tabBarComponent,tabBarPosition:tabBarPosition,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},commonProps,{
 tabBarOptions:createTabBarOptions(commonProps),navigationOptions:createNavigationOptions(commonProps)}));
 }else if(drawer){
 return(0,_reactNavigation.DrawerNavigator)(res,_extends({initialRouteName:initialRouteName,contentComponent:contentComponent,order:order},commonProps));
@@ -517,7 +549,11 @@ execute=function(actionType,routeName){for(var _len=arguments.length,params=Arra
 var res=uniteParams(routeName,params);
 var overridenType=res.type||actionType;
 var type=actionMap[overridenType]||overridenType;
+if(type==='pop'){
+_this3[type](res);
+}else{
 _this3[type](routeName,res);
+}
 };this.
 
 push=function(routeName,data){
@@ -544,11 +580,15 @@ var params=filterParam(data);
 _this3.dispatch(_reactNavigation.NavigationActions.setParams({key:key,params:params}));
 };this.
 
-pop=function(){var params=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{};
+pop=function(){var _ref12=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{},timeout=_ref12.timeout,params=_objectWithoutProperties(_ref12,['timeout']);
 var res=filterParam(params);
+if(timeout){
+setTimeout(function(){return _this3.pop(params);},timeout);
+}else{
 _this3.dispatch(_reactNavigation.NavigationActions.back());
 if(res.refresh){
 _this3.refresh(res.refresh);
+}
 }
 };this.
 

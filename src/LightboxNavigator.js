@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import { createNavigationContainer, createNavigator, TabRouter } from 'react-navigation';
+import { addNavigationHelpers, createNavigationContainer, createNavigator, TabRouter } from 'react-navigation';
 import { View } from 'react-native';
 
 const LightboxNavigator = (
@@ -31,8 +31,8 @@ const LightboxNavigator = (
     const Popup = index !== initialIndex ? routeConfigs[routes[index].routeName].screen : null;
 
     return (<View style={{ flex: 1 }}>
-      <Component navigation={{ dispatch, state: routes[initialIndex] }} />
-      {Popup && <Popup navigation={{ dispatch, state: routes[index] }} />}
+      <Component navigation={addNavigationHelpers({ dispatch, state: routes[initialIndex] })} />
+      {Popup && <Popup navigation={addNavigationHelpers({ dispatch, state: routes[index] })} />}
     </View>);
   });
 

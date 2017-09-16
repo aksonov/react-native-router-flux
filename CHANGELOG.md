@@ -1,5 +1,22 @@
 # Change Log
 
+## [4.0.0-beta.20](https://github.com/aksonov/react-native-router-flux/tree/4.0.0-beta.20) (2017-08-28)
+[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.19...4.0.0-beta.20)
+
+**Fixed bugs:**
+
+- In the new version of the 'tabbar' on android does not work the 'tabBarPosition' property [\#2288](https://github.com/aksonov/react-native-router-flux/issues/2288)
+
+**Closed issues:**
+
+- JSON.stringify cannot serialize cyclic structures [\#2290](https://github.com/aksonov/react-native-router-flux/issues/2290)
+- Actions.pop \(\) skips the scene [\#2289](https://github.com/aksonov/react-native-router-flux/issues/2289)
+- How to remove the effect of replacing renderTitle\(title\) when navigating between scene? [\#2287](https://github.com/aksonov/react-native-router-flux/issues/2287)
+- Tabs on Android are hidden and showing up  [\#2286](https://github.com/aksonov/react-native-router-flux/issues/2286)
+- Hardware Back not working when on First Scene [\#2283](https://github.com/aksonov/react-native-router-flux/issues/2283)
+- Main props in navigation options [\#2282](https://github.com/aksonov/react-native-router-flux/issues/2282)
+- Reset stack with transition [\#2236](https://github.com/aksonov/react-native-router-flux/issues/2236)
+
 ## [4.0.0-beta.19](https://github.com/aksonov/react-native-router-flux/tree/4.0.0-beta.19) (2017-08-23)
 [Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.18...4.0.0-beta.19)
 

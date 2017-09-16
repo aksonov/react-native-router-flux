@@ -27,7 +27,7 @@ export function getActiveState(param, parent) {
   if (!state.routes) {
     return { ...state, parent };
   }
-  return getActiveState(state.routes[state.index], state);
+  return getActiveState(state.routes[state.index], { ...state, parent });
 }
 
 export function inject(state, key, index, routes) {
