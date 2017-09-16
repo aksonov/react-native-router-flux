@@ -133,11 +133,14 @@ headerTitle:getValue(navigationParams.renderTitle||renderTitle||params.renderTit
 headerStyle:getValue(navigationParams.headerStyle||headerStyle||navigationBarStyle,state),
 headerBackImage:navigationParams.backButtonImage||backButtonImage});
 
-if(NavBar){
-res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:137}}));};
+
+var NavBarFromParams=navigationParams.renderNavigationBar||navigationParams.navBar;
+if(NavBarFromParams!=null){
+if(NavBarFromParams){
+res.header=function(data){return _react2.default.createElement(NavBarFromParams,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:140}}));};
 }
 }else if(NavBar){
-res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:144}}));};
+res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:143}}));};
 }
 
 if(panHandlers===null){
@@ -145,7 +148,7 @@ res.gesturesEnabled=false;
 }
 
 if(navigationBarTitleImage){
-res.headerTitle=_react2.default.createElement(_reactNative.Image,{source:navigationBarTitleImage,style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:145}});
+res.headerTitle=_react2.default.createElement(_reactNative.Image,{source:navigationBarTitleImage,style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:151}});
 }
 
 if(tabBarLabel){
@@ -154,7 +157,7 @@ res.tabBarLabel=tabBarLabel;
 
 if(tabBarIcon||icon){
 var Icon=tabBarIcon||icon;
-res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:154}}));};
+res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:160}}));};
 }
 var componentData={};
 
@@ -172,7 +175,7 @@ if(rightButtonImage||rightTitle||params.renderRightButton||onRight||navigationPa
 navigationParams.rightTitle||navigationParams.rightButtonImage||rightButtonTextStyle||
 (drawerImage||drawerIcon)&&drawerPosition==='right'){
 res.headerRight=getValue(navigationParams.right||navigationParams.rightButton||params.renderRightButton,_extends({},
-navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:172}}));
+navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:178}}));
 }
 
 if(leftButtonImage||backButtonImage||backTitle||leftTitle||params.renderLeftButton||leftButtonTextStyle||
@@ -180,12 +183,12 @@ backButtonTextStyle||onLeft||navigationParams.leftTitle||navigationParams.onLeft
 navigationParams.backButtonImage||navigationParams.backTitle||(drawerImage||drawerIcon)&&drawerPosition!=='right'){
 res.headerLeft=getValue(navigationParams.left||navigationParams.leftButton||params.renderLeftButton,_extends({},params,navigationParams,screenProps))||
 (onLeft&&(leftTitle||navigationParams.leftTitle||leftButtonImage||navigationParams.leftButtonImage)||drawerImage||drawerIcon)&&
-_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:180}}))||(
-init?null:renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:181}})));
+_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:186}}))||res.headerLeft||(
+init?null:renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:187}})));
 }
 
 if(back){
-res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:185}}));
+res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:191}}));
 }
 
 
@@ -258,15 +261,15 @@ store.deleteRef(originalRouteName(navigation.state.routeName));
 }},{key:'render',value:function render()
 {var _this2=this;
 var navigation=this.props.navigation;
-return _react2.default.createElement(Component,_extends({ref:function ref(_ref4){return _this2.ref=_ref4;}},this.props,navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:235}}));
+return _react2.default.createElement(Component,_extends({ref:function ref(_ref5){return _this2.ref=_ref5;}},this.props,extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:264}}));
 }}]);return Wrapped;}(_react2.default.Component),_class.propTypes={navigation:_propTypes2.default.object},_temp);
 
 return wrapper(Wrapped);
 }
 
 
-function StatelessWrapped(_ref5){var navigation=_ref5.navigation,props=_objectWithoutProperties(_ref5,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},navigation.state.params,{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:243}}));
+function StatelessWrapped(_ref6){var navigation=_ref6.navigation,props=_objectWithoutProperties(_ref6,['navigation']);
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:272}}));
 }
 StatelessWrapped.propTypes={
 navigation:_propTypes2.default.object};
@@ -465,8 +468,8 @@ if(lightbox){
 return(0,_LightboxNavigator2.default)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
 }else if(tabs){
 if(!tabBarComponent){
-tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:439}}));}:
-function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:440}}));};
+tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:471}}));}:
+function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:472}}));};
 }
 if(!tabBarPosition){
 tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';
@@ -488,7 +491,7 @@ dispatch=function(cmd){
 _this3.engineDispatch(cmd);
 };this.
 
-setState=function _callee(newState){var state,currentScene,prevScene,exitHandler,res,handler,_success,_failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:if(
+setState=function _callee(newState){var state,currentScene,exitHandler,res,handler,_success,_failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:if(
 
 newState){_context.next=2;break;}return _context.abrupt('return');case 2:
 
@@ -499,12 +502,11 @@ state=(0,_State.getActiveState)(newState);if(!(
 
 
 currentScene=_this3.currentScene;
-prevScene=_this3.prevScene;
 _this3._state=newState;
 _this3.currentScene=state.routeName;
 _this3.currentParams=state.params;if(!(
 
-currentScene!==_this3.currentScene&&_this3.currentScene!=='DrawerOpen'&&_this3.currentScene!=='DrawerClose'&&prevScene!=='DrawerOpen')){_context.next=31;break;}
+currentScene!==_this3.currentScene&&_this3.currentScene!=='DrawerOpen'&&_this3.currentScene!=='DrawerClose')){_context.next=30;break;}
 _this3.dispatch({type:ActionConst.BLUR,routeName:currentScene});
 
 
@@ -521,28 +523,27 @@ console.error('Error during onExit handler:',e);
 }
 
 _this3.dispatch({type:ActionConst.FOCUS,routeName:_this3.currentScene,params:_this3.currentParams});if(!
-_this3.states[_this3.currentScene]){_context.next=31;break;}
+_this3.states[_this3.currentScene]){_context.next=30;break;}
 handler=_this3[_this3.currentScene+_Util.OnEnter];
 _success=_this3.states[_this3.currentScene].success||defaultSuccess;
 _failure=_this3.states[_this3.currentScene].failure||defaultFailure;if(!
 
-handler){_context.next=31;break;}_context.prev=20;
+handler){_context.next=30;break;}_context.prev=19;
 
-params=(0,_State.getActiveState)(_this3._state).params;_context.next=24;return regeneratorRuntime.awrap(
+params=(0,_State.getActiveState)(_this3._state).params;_context.next=23;return regeneratorRuntime.awrap(
 
-handler(params));case 24:_res=_context.sent;
+handler(params));case 23:_res=_context.sent;
 if(_res){
 _success(_res);
 }else{
 _failure();
-}_context.next=31;break;case 28:_context.prev=28;_context.t0=_context['catch'](20);
+}_context.next=30;break;case 27:_context.prev=27;_context.t0=_context['catch'](19);
 
-_failure({error:_context.t0});case 31:
-
-
+_failure({error:_context.t0.message});case 30:case'end':return _context.stop();}}},null,_this3,[[19,27]]);};this.
 
 
-_this3.prevScene=currentScene;case 32:case'end':return _context.stop();}}},null,_this3,[[20,28]]);};this.
+
+
 
 
 execute=function(actionType,routeName){for(var _len=arguments.length,params=Array(_len>2?_len-2:0),_key=2;_key<_len;_key++){params[_key-2]=arguments[_key];}
