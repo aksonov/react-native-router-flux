@@ -188,8 +188,8 @@ _react2.default.createElement(LeftNavBarButton,_extends({},params,navigationPara
 init?null:renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:188}})));
 }
 
-if(navigationParams.back!=null){
-if(navigationParams.back===false){
+if(navigationParams.back!==null){
+if(!navigationParams.back){
 res.headerLeft=null;
 }
 }else if(back){
