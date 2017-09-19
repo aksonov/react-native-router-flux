@@ -38,7 +38,6 @@ The basic routing component for this router, all `<Scene>` components require a 
 | `hideNavBar`     | `boolean` | `false` | hide the nav bar |
 | `hideTabBar`     | `boolean` | `false` | hide the tab bar (only applies to scenes with `tabs` specified) |
 | `initial`   | `boolean` | `false` | Set to `true` if this is the first scene to display among its sibling `Scene`s |
-| `lazy`     | `boolean` | `false` | whether to lazily render tabs as needed as opposed to rendering them upfront |
 | `leftButtonImage`     | `Image` |  | Image to substitute for the left nav bar button |
 | `leftButtonTextStyle`     | `Style` |  | Style applied to left button text |
 | `modal`     | `boolean` | `false` |  Defines scene container as 'modal' one, i.e. all children scenes will have bottom-to-top animation. It is applicable only for containers (different from v3 syntax) |
@@ -68,11 +67,13 @@ Can use all `props` listed above in `<Scene>` as `<Tabs>` is syntatic sugar for 
 
 | Property | Type | Default | Description |
 |-----------------|----------|----------|--------------------------------------------|
+| `wrap`     | `boolean` | `true` | Wrap each scene with own navbar automatically (if it is not another container). |
 | `activeBackgroundColor` | `string` |  | Specifies the active background color for the tab in focus |
 | `activeTintColor`     | `string` |  | Specifies the active tint color for tabbar icons |
 | `inactiveBackgroundColor` | `string` |  | Specifies the inactive background color for the tabs not in focus |
 | `inactiveTintColor`     | `string` |  | Specifies the inactive tint color for tabbar icons |
 | `labelStyle` | `object` | | Overrides the styles for the tab label |
+| `lazy`     | `boolean` | `false` | Won't render/mount the tab scene until the tab is active |
 | `tabBarComponent`     | `React.Component` |  | React component to render custom tab bar |
 | `tabBarPosition`     | `string` |  | Specifies tabbar position. Defaults to `bottom` on iOS and `top` on Android. |
 | `tabBarStyle` | `object` | | Override the tabbar styles |
@@ -80,6 +81,8 @@ Can use all `props` listed above in `<Scene>` as `<Tabs>` is syntatic sugar for 
 | `showLabel`     | `boolean` | `true`  | Boolean to show or not the tabbar icons labels |
 | `swipeEnabled`     | `boolean` | `true` | Enable or disable swiping tabs. |
 
+## Stack (`<Stack>`)
+A component to group Scenes together for its own stack based navigation. Using this will create a separate havigator for this stack, so expect two navbars to appear unless you add `hideNavBar`.
 
 ## Tab Scene (child `<Scene>` within `Tabs`)
 A `Scene` that is a direct child of `Tabs` and can use all `props` listed above in `Scene`,
@@ -150,7 +153,7 @@ These can be used directly, for example, `Actions.pop()` will dispatch correspon
 | Property | Type | Parameters | Description |
 |-----------------|----------|----------|--------------------------------------------|
 | `[key]` | `Function` | `Object` | The `Actions` object "automagically" uses the `Scene`'s `key` prop in the `Router` to navigate. To navigate to a scene, call `Actions.key()` or `Actions[key].call()`. |
-| `jump` | `Function` | `(sceneKey: String, props: Object)` | |
+| `jump` | `Function` | `(sceneKey: String, props: Object)` | used to switch to a new tab. For `Tabs` only. |
 | `pop` | `Function` | | Go back to the previous scene by "popping" the current scene off the nav stack |
 | `popAndPush` | `Function` | `(sceneKey: String, props: Object)` |
 | `popTo` | `Function` | `(sceneKey: String, props: Object)` | Pops the stack until the

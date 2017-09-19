@@ -134,7 +134,13 @@ function createNavigationOptions(params) {
       headerStyle: getValue((navigationParams.headerStyle || headerStyle || navigationBarStyle), state),
       headerBackImage: navigationParams.backButtonImage || backButtonImage,
     };
-    if (NavBar) {
+
+    const NavBarFromParams = navigationParams.renderNavigationBar || navigationParams.navBar;
+    if (NavBarFromParams != null) {
+      if (NavBarFromParams) {
+        res.header = (data) => <NavBarFromParams navigation={navigation} {...state} {...data} />;
+      }
+    } else if (NavBar) {
       res.header = (data) => <NavBar navigation={navigation} {...state} {...data} />;
     }
 
@@ -178,7 +184,7 @@ function createNavigationOptions(params) {
       || navigationParams.backButtonImage || navigationParams.backTitle || ((drawerImage || drawerIcon) && drawerPosition !== 'right')) {
       res.headerLeft = getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
         || (((onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage || navigationParams.leftButtonImage)) || drawerImage || drawerIcon)
-          && <LeftNavBarButton {...params} {...navigationParams} {...componentData} />)
+          && <LeftNavBarButton {...params} {...navigationParams} {...componentData} />) || res.headerLeft
         || (init ? null : (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />);
     }
 
@@ -195,6 +201,7 @@ function createNavigationOptions(params) {
     } else if (hideTabBar) {
       res.tabBarVisible = false;
     }
+
     if (hideNavBar) {
       res.header = null;
     }

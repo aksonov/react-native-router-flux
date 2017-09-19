@@ -72,7 +72,7 @@ export function LeftButton(state) {
   const tintColor = textColor || state.tintColor || state.navBarButtonColor || state.headerTintColor;
   const textStyle = [styles.barLeftButtonText, tintColor && { color: tintColor }, leftButtonTextStyle, textColor && { color: textColor }];
 
-  if (state.leftButton) {
+  if (state.leftButton || state.left) {
     const Button = state.leftButton || state.left;
     return (
       <Button
