@@ -44,7 +44,7 @@ The basic routing component for this router, all `<Scene>` components require a 
 | `navBar` | `React.Component`| | Optional React component to render custom NavBar |
 | `navBarButtonColor` | `string` | | Set the color of the back button in the navBar |
 | `navigationBarStyle`     | `Style` | | Style applied to nav bar |
-| `navigationBarTitleImage` | `Image` | | Override the image in the center of the navbar, replacing the `title` |
+| `navigationBarTitleImage` | `Object` | | The `Image` source that overrides the `title` in the navbar the image in the center of the navbar |
 | `navigationBarTitleImageStyle` | `object` | | Styles to apply to `navigationBarTitleImage` |
 | `navTransparent`     | `boolean` | `false` | nav bar background transparency |
 | `on`     | `Function` | | aka `onEnter` |
