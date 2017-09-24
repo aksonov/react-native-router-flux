@@ -188,7 +188,7 @@ function createNavigationOptions(params) {
         || (init ? null : (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />);
     }
 
-    if (navigationParams.back !== null) {
+    if (typeof navigationParams.back !== 'undefined') {
       if (!navigationParams.back) {
         res.headerLeft = null;
       }
