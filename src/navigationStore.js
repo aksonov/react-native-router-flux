@@ -10,7 +10,6 @@ import Scene from './Scene';
 import PropTypes from 'prop-types';
 import { getActiveState } from './State';
 import { reducer } from './Reducer';
-import isEqual from 'lodash.isequal';
 import Modal from './Modal';
 import Lightbox from './Lightbox';
 import Drawer from './Drawer';
