@@ -1,5 +1,4 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.actionMap=undefined;var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _actionMap,_jsxFileName='src/navigationStore.js',_desc,_value,_class2,_descriptor,_descriptor2,_descriptor3;var _react=require('react');var _react2=_interopRequireDefault(_react);
-var _mobx=require('mobx');
+Object.defineProperty(exports,"__esModule",{value:true});exports.actionMap=undefined;var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _actionMap,_jsxFileName='src/navigationStore.js';var _react=require('react');var _react2=_interopRequireDefault(_react);
 var _ActionConst=require('./ActionConst');var ActionConst=_interopRequireWildcard(_ActionConst);
 var _Util=require('./Util');
 var _reactNative=require('react-native');
@@ -17,7 +16,7 @@ var _Lightbox=require('./Lightbox');var _Lightbox2=_interopRequireDefault(_Light
 var _Drawer=require('./Drawer');var _Drawer2=_interopRequireDefault(_Drawer);
 var _Tabs=require('./Tabs');var _Tabs2=_interopRequireDefault(_Tabs);
 var _Overlay=require('./Overlay');var _Overlay2=_interopRequireDefault(_Overlay);
-var _OverlayNavigator=require('./OverlayNavigator');var _OverlayNavigator2=_interopRequireDefault(_OverlayNavigator);function _interopRequireWildcard(obj){if(obj&&obj.__esModule){return obj;}else{var newObj={};if(obj!=null){for(var key in obj){if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key]=obj[key];}}newObj.default=obj;return newObj;}}function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}}function _initDefineProp(target,property,descriptor,context){if(!descriptor)return;Object.defineProperty(target,property,{enumerable:descriptor.enumerable,configurable:descriptor.configurable,writable:descriptor.writable,value:descriptor.initializer?descriptor.initializer.call(context):void 0});}function _applyDecoratedDescriptor(target,property,decorators,descriptor,context){var desc={};Object['ke'+'ys'](descriptor).forEach(function(key){desc[key]=descriptor[key];});desc.enumerable=!!desc.enumerable;desc.configurable=!!desc.configurable;if('value'in desc||desc.initializer){desc.writable=true;}desc=decorators.slice().reverse().reduce(function(desc,decorator){return decorator(target,property,desc)||desc;},desc);if(context&&desc.initializer!==void 0){desc.value=desc.initializer?desc.initializer.call(context):void 0;desc.initializer=undefined;}if(desc.initializer===void 0){Object['define'+'Property'](target,property,desc);desc=null;}return desc;}function _initializerWarningHelper(descriptor,context){throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}function _objectWithoutProperties(obj,keys){var target={};for(var i in obj){if(keys.indexOf(i)>=0)continue;if(!Object.prototype.hasOwnProperty.call(obj,i))continue;target[i]=obj[i];}return target;}function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true});}else{obj[key]=value;}return obj;}
+var _OverlayNavigator=require('./OverlayNavigator');var _OverlayNavigator2=_interopRequireDefault(_OverlayNavigator);function _interopRequireWildcard(obj){if(obj&&obj.__esModule){return obj;}else{var newObj={};if(obj!=null){for(var key in obj){if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key]=obj[key];}}newObj.default=obj;return newObj;}}function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}function _objectWithoutProperties(obj,keys){var target={};for(var i in obj){if(keys.indexOf(i)>=0)continue;if(!Object.prototype.hasOwnProperty.call(obj,i))continue;target[i]=obj[i];}return target;}function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true});}else{obj[key]=value;}return obj;}
 
 var RightNavBarButton=void 0;
 var LeftNavBarButton=void 0;
@@ -138,10 +137,10 @@ headerBackImage:navigationParams.backButtonImage||backButtonImage});
 var NavBarFromParams=navigationParams.renderNavigationBar||navigationParams.navBar;
 if(NavBarFromParams!=null){
 if(NavBarFromParams){
-res.header=function(data){return _react2.default.createElement(NavBarFromParams,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:141}}));};
+res.header=function(data){return _react2.default.createElement(NavBarFromParams,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:140}}));};
 }
 }else if(NavBar){
-res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:144}}));};
+res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:143}}));};
 }
 
 if(panHandlers===null){
@@ -149,7 +148,7 @@ res.gesturesEnabled=false;
 }
 
 if(navigationBarTitleImage){
-res.headerTitle=_react2.default.createElement(_reactNative.Image,{source:navigationBarTitleImage,style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:152}});
+res.headerTitle=_react2.default.createElement(_reactNative.Image,{source:navigationBarTitleImage,style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:151}});
 }
 
 if(tabBarLabel){
@@ -158,7 +157,7 @@ res.tabBarLabel=tabBarLabel;
 
 if(tabBarIcon||icon){
 var Icon=tabBarIcon||icon;
-res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:161}}));};
+res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:160}}));};
 }
 var componentData={};
 
@@ -176,7 +175,7 @@ if(rightButtonImage||rightTitle||params.renderRightButton||onRight||navigationPa
 navigationParams.rightTitle||navigationParams.rightButtonImage||rightButtonTextStyle||
 (drawerImage||drawerIcon)&&drawerPosition==='right'){
 res.headerRight=getValue(navigationParams.right||navigationParams.rightButton||params.renderRightButton,_extends({},
-navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:179}}));
+navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:178}}));
 }
 
 if(leftButtonImage||backButtonImage||backTitle||leftTitle||params.renderLeftButton||leftButtonTextStyle||
@@ -184,12 +183,12 @@ backButtonTextStyle||onLeft||navigationParams.leftTitle||navigationParams.onLeft
 navigationParams.backButtonImage||navigationParams.backTitle||(drawerImage||drawerIcon)&&drawerPosition!=='right'){
 res.headerLeft=getValue(navigationParams.left||navigationParams.leftButton||params.renderLeftButton,_extends({},params,navigationParams,screenProps))||
 (onLeft&&(leftTitle||navigationParams.leftTitle||leftButtonImage||navigationParams.leftButtonImage)||drawerImage||drawerIcon)&&
-_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:187}}))||res.headerLeft||(
-init?null:renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:188}})));
+_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:186}}))||res.headerLeft||(
+init?null:renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:187}})));
 }
 
 if(back){
-res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:192}}));
+res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:191}}));
 }
 
 
@@ -262,7 +261,7 @@ store.deleteRef(originalRouteName(navigation.state.routeName));
 }},{key:'render',value:function render()
 {var _this2=this;
 var navigation=this.props.navigation;
-return _react2.default.createElement(Component,_extends({ref:function ref(_ref5){return _this2.ref=_ref5;}},this.props,extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:265}}));
+return _react2.default.createElement(Component,_extends({ref:function ref(_ref5){return _this2.ref=_ref5;}},this.props,extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:264}}));
 }}]);return Wrapped;}(_react2.default.Component),_class.propTypes={navigation:_propTypes2.default.object},_temp);
 
 return wrapper(Wrapped);
@@ -270,7 +269,7 @@ return wrapper(Wrapped);
 
 
 function StatelessWrapped(_ref6){var navigation=_ref6.navigation,props=_objectWithoutProperties(_ref6,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:273}}));
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:272}}));
 }
 StatelessWrapped.propTypes={
 navigation:_propTypes2.default.object};
@@ -304,10 +303,13 @@ return res;
 var defaultSuccess=function defaultSuccess(){};
 var defaultFailure=function defaultFailure(){};var
 
-NavigationStore=(_class2=function(){function NavigationStore(){var _this3=this;_classCallCheck(this,NavigationStore);this.
+NavigationStore=function(){function NavigationStore(){var _this3=this;_classCallCheck(this,NavigationStore);this.
 refs={};this.
 states={};this.
-reducer=null;_initDefineProp(this,'currentScene',_descriptor,this);_initDefineProp(this,'currentParams',_descriptor2,this);this.
+router=null;this.
+reducer=null;this.
+dispatch=null;this.
+getState=null;this.
 
 
 
@@ -318,7 +320,11 @@ reducer=null;_initDefineProp(this,'currentScene',_descriptor,this);_initDefinePr
 
 
 
+getStateForAction=function(action,lastState){
+if(_this3.reducer)return _this3.reducer(lastState,action);
 
+return(0,_Reducer.reducer)(lastState,action);
+};this.
 
 addRef=function(name,ref){
 _this3.refs[name]=ref;
@@ -334,209 +340,209 @@ RightNavBarButton=wrapBy(_NavBar.RightButton);
 LeftNavBarButton=wrapBy(_NavBar.LeftButton);
 BackNavBarButton=wrapBy(_NavBar.BackButton);
 var AppNavigator=_this3.processScene(scene,params,[],wrapBy);
-_this3.router=AppNavigator.router;
-_this3.dispatch(_reactNavigation.NavigationActions.init());
 return AppNavigator;
 };this.
 
-processScene=function(scene){var inheritProps=arguments.length>1&&arguments[1]!==undefined?arguments[1]:{};var clones=arguments.length>2&&arguments[2]!==undefined?arguments[2]:[];var wrapBy=arguments[3];
-(0,_Util.assert)(scene.props,'props should be defined');
-if(!scene.props.children){
-return null;
-}
-var res={};
-var order=[];var _scene$props=
-scene.props,navigator=_scene$props.navigator,contentComponent=_scene$props.contentComponent,lazy=_scene$props.lazy,duration=_scene$props.duration,parentProps=_objectWithoutProperties(_scene$props,['navigator','contentComponent','lazy','duration']);var
-tabs=parentProps.tabs,modal=parentProps.modal,lightbox=parentProps.lightbox,overlay=parentProps.overlay,tabBarPosition=parentProps.tabBarPosition,drawer=parentProps.drawer,tabBarComponent=parentProps.tabBarComponent,transitionConfig=parentProps.transitionConfig;
-if(scene.type===_Modal2.default){
-modal=true;
-}else if(scene.type===_Drawer2.default){
-drawer=true;
-}else if(scene.type===_Lightbox2.default){
-lightbox=true;
-}else if(scene.type===_Tabs2.default){
-tabs=true;
-}else if(scene.type===_Overlay2.default){
-overlay=true;
-}
-
-if(duration!==undefined&&!transitionConfig){
-transitionConfig=function transitionConfig(){return{transitionSpec:{duration:duration,timing:_reactNative.Animated.timing,easing:_reactNative.Easing.step0}};};
-}
-
-var commonProps=_extends({},inheritProps,parentProps);
-delete commonProps.children;
-delete commonProps.component;
-
-for(var _iterator4=Object.keys(commonProps),_isArray4=Array.isArray(_iterator4),_i5=0,_iterator4=_isArray4?_iterator4:_iterator4[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref8;if(_isArray4){if(_i5>=_iterator4.length)break;_ref8=_iterator4[_i5++];}else{_i5=_iterator4.next();if(_i5.done)break;_ref8=_i5.value;}var pkey=_ref8;
-if(dontInheritKeys.includes(pkey)&&!parentProps[pkey]){
-delete commonProps[pkey];
-}
-}
-
-if(drawer){
-commonProps.drawerImage=commonProps.drawerImage||_menu_burger2.default;
-}
-
-var children=!Array.isArray(parentProps.children)?[parentProps.children]:[].concat.apply([],parentProps.children);
-
-if(!drawer&&!tabs&&!overlay){
-children.push.apply(children,_toConsumableArray(clones));
-}
-
-for(var _iterator5=children,_isArray5=Array.isArray(_iterator5),_i6=0,_iterator5=_isArray5?_iterator5:_iterator5[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref9;if(_isArray5){if(_i6>=_iterator5.length)break;_ref9=_iterator5[_i6++];}else{_i6=_iterator5.next();if(_i6.done)break;_ref9=_i6.value;}var child=_ref9;
-if(child.props.clone){
-if(clones.indexOf(child)===-1){
-clones.push(child);
-}
-}
-}
-var initialRouteName=void 0;
-var initialRouteParams=void 0;var _loop2=function _loop2(
-_child){
-var key=_child.key||'key'+counter++;
-var init=key===children[0].key;
-(0,_Util.assert)(reservedKeys.indexOf(key)===-1,'Scene name cannot be reserved word: '+_child.key);var _child$props=
-_child.props,component=_child$props.component,_child$props$type=_child$props.type,type=_child$props$type===undefined?tabs||drawer?'jump':'push':_child$props$type,onEnter=_child$props.onEnter,onExit=_child$props.onExit,on=_child$props.on,failure=_child$props.failure,success=_child$props.success,wrap=_child$props.wrap,props=_objectWithoutProperties(_child$props,['component','type','onEnter','onExit','on','failure','success','wrap']);
-if(!_this3.states[key]){
-_this3.states[key]={};
-}
-for(var _iterator7=Object.keys(props),_isArray7=Array.isArray(_iterator7),_i8=0,_iterator7=_isArray7?_iterator7:_iterator7[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref11;if(_isArray7){if(_i8>=_iterator7.length)break;_ref11=_iterator7[_i8++];}else{_i8=_iterator7.next();if(_i8.done)break;_ref11=_i8.value;}var transition=_ref11;
-if(reservedKeys.indexOf(transition)===-1&&props[transition]instanceof Function){
-_this3.states[key][transition]=props[transition];
-}
-}
-delete props.children;
-if(success){
-_this3.states[key].success=success instanceof Function?
-success:function(args){console.log('Transition to state='+success);_this3[success](args);};
-}
-if(failure){
-_this3.states[key].failure=failure instanceof Function?
-failure:function(args){console.log('Transition to state='+failure);_this3[failure](args);};
-}
-
-var screen={
-screen:createWrapper(component,wrapBy,_this3)||_this3.processScene(_child,commonProps,clones)||lightbox&&_reactNative.View,
-navigationOptions:createNavigationOptions(_extends({},commonProps,getProperties(component),_child.props,{init:init,component:component}))};
 
 
 
-var wrapNavBar=drawer||tabs||wrap;
-if(wrap===false||commonProps.wrap===false){
-wrapNavBar=false;
-}
-if(component&&wrapNavBar){
-res[key]={
-screen:_this3.processScene({key:key,props:{children:{key:'_'+key,props:_extends({},_child.props,{wrap:false})}}},commonProps,clones,wrapBy),
-navigationOptions:createNavigationOptions(_extends({},commonProps,_child.props))};
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+onNavigationStateChange=function _callee(prevState,curState){var prevActiveState,activeState,exitHandler,res,handler,success,failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:if(
+
+curState){_context.next=2;break;}return _context.abrupt('return');case 2:
+
+prevActiveState=(0,_State.getActiveState)(prevState);
+activeState=(0,_State.getActiveState)(curState);if(!(
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+prevActiveState.routeName!==activeState.routeName&&activeState.routeName!=='DrawerOpen'&&activeState.routeName!=='DrawerClose')){_context.next=25;break;}
+_this3.dispatch({type:ActionConst.BLUR,routeName:prevActiveState.routeName});
+
+
+exitHandler=_this3[prevActiveState.routeName+_Util.OnExit];
+if(exitHandler){
+try{
+res=exitHandler();
+if(res instanceof Promise){
+res.then(defaultSuccess,defaultFailure);
+}
+}catch(e){
+console.error('Error during onExit handler:',e);
+}
+}
+
+_this3.dispatch({type:ActionConst.FOCUS,routeName:activeState.routeName,params:activeState.params});if(!
+_this3.states[activeState.routeName]){_context.next=25;break;}
+handler=_this3[activeState.routeName+_Util.OnEnter];
+success=_this3.states[activeState.routeName].success||defaultSuccess;
+failure=_this3.states[activeState.routeName].failure||defaultFailure;if(!
+
+handler){_context.next=25;break;}_context.prev=14;
+
+params=(0,_State.getActiveState)(_this3.getState()).params;_context.next=18;return regeneratorRuntime.awrap(
+handler(params));case 18:_res=_context.sent;
+if(_res){
+success(_res);
 }else{
-res[key]=screen;
-}
+failure();
+}_context.next=25;break;case 22:_context.prev=22;_context.t0=_context['catch'](14);
 
-
-props.init=true;
-if(!_this3[key]){
-_this3[key]=new Function('actions','props','type','return function '+
-key.replace(/\W/g,'_')+'(params){ actions.execute(type, \''+key+'\', props, params)}')(_this3,_extends({},commonProps,props),type);
-}
-
-if((onEnter||on||component&&component.onEnter)&&!_this3[key+_Util.OnEnter]){
-_this3[key+_Util.OnEnter]=onEnter||on||component.onEnter;
-}
-
-if((onExit||component&&component.onExit)&&!_this3[key+_Util.OnExit]){
-_this3[key+_Util.OnExit]=onExit||component.onExit;
-}
-
-order.push(key);
-if(_child.props.initial||!initialRouteName){
-initialRouteName=key;
-initialRouteParams=_extends({},commonProps,props);
-}};for(var _iterator6=children,_isArray6=Array.isArray(_iterator6),_i7=0,_iterator6=_isArray6?_iterator6:_iterator6[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref10;if(_isArray6){if(_i7>=_iterator6.length)break;_ref10=_iterator6[_i7++];}else{_i7=_iterator6.next();if(_i7.done)break;_ref10=_i7.value;}var _child=_ref10;_loop2(_child);
-}
-var mode=modal?'modal':'card';
-if(navigator){
-return navigator(res,_extends({lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,contentComponent:contentComponent,order:order},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
-}
-if(lightbox){
-return(0,_LightboxNavigator2.default)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
-}else if(tabs){
-if(!tabBarComponent){
-tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:467}}));}:
-function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:468}}));};
-}
-if(!tabBarPosition){
-tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';
-}
-return(0,_reactNavigation.TabNavigator)(res,_extends({lazy:lazy,tabBarComponent:tabBarComponent,tabBarPosition:tabBarPosition,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},commonProps,{
-tabBarOptions:createTabBarOptions(commonProps),navigationOptions:createNavigationOptions(commonProps)}));
-}else if(drawer){
-return(0,_reactNavigation.DrawerNavigator)(res,_extends({initialRouteName:initialRouteName,contentComponent:contentComponent,order:order},commonProps));
-}else if(overlay){
-return(0,_OverlayNavigator2.default)(res,_extends({lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},commonProps,{
-tabBarOptions:createTabBarOptions(commonProps),navigationOptions:createNavigationOptions(commonProps)}));
-}
-return(0,_reactNavigation.StackNavigator)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{transitionConfig:transitionConfig,navigationOptions:createNavigationOptions(commonProps)}));
-};this.
-
-nextState=function(state,cmd){return _this3.reducer?_this3.reducer(state,cmd):(0,_Reducer.reducer)(state,cmd);};this.
-
-dispatch=function(cmd){
-_this3.setState(_this3.nextState(_this3.state,cmd));
-};_initDefineProp(this,'setState',_descriptor3,this);this.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+failure({error:_context.t0.message});case 25:case'end':return _context.stop();}}},null,_this3,[[14,22]]);};this.
 
 
 
@@ -573,12 +579,12 @@ _this3.dispatch(_reactNavigation.NavigationActions.navigate({routeName:'DrawerCl
 };this.
 
 refresh=function(data){
-var key=(0,_State.getActiveState)(_this3._state).key;
+var key=(0,_State.getActiveState)(_this3.getState()).key;
 var params=filterParam(data);
 _this3.dispatch(_reactNavigation.NavigationActions.setParams({key:key,params:params}));
 };this.
 
-pop=function(){var _ref12=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{},timeout=_ref12.timeout,params=_objectWithoutProperties(_ref12,['timeout']);
+pop=function(){var _ref8=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{},timeout=_ref8.timeout,params=_objectWithoutProperties(_ref8,['timeout']);
 var res=filterParam(params);
 if(timeout){
 setTimeout(function(){return _this3.pop(params);},timeout);
@@ -611,7 +617,7 @@ _this3.dispatch(_reactNavigation.NavigationActions.reset({key:null,index:0,actio
 routeName:routeName,
 params:params})]}));
 
-};}_createClass(NavigationStore,[{key:'state',get:function get(){var scene=this.currentScene;var params=this.currentParams;return this._state;}}]);return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class2.prototype,'currentScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor2=_applyDecoratedDescriptor(_class2.prototype,'currentParams',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor3=_applyDecoratedDescriptor(_class2.prototype,'setState',[_mobx.action],{enumerable:true,initializer:function initializer(){var _this4=this;return function _callee(newState){var state,currentScene,exitHandler,res,handler,_success,_failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:if(newState){_context.next=2;break;}return _context.abrupt('return');case 2:state=(0,_State.getActiveState)(newState);if(!((0,_lodash2.default)(state.params,_this4._currentParams)&&state.routeName===_this4.currentScene)){_context.next=5;break;}return _context.abrupt('return');case 5:currentScene=_this4.currentScene;_this4._state=newState;_this4.currentScene=state.routeName;_this4.currentParams=state.params;_this4._currentParams=state.params;if(!(currentScene!==_this4.currentScene&&_this4.currentScene!=='DrawerOpen'&&_this4.currentScene!=='DrawerClose')){_context.next=31;break;}_this4.dispatch({type:ActionConst.BLUR,routeName:currentScene});exitHandler=_this4[currentScene+_Util.OnExit];if(exitHandler){try{res=exitHandler();if(res instanceof Promise){res.then(defaultSuccess,defaultFailure);}}catch(e){console.error('Error during onExit handler:',e);}}_this4.dispatch({type:ActionConst.FOCUS,routeName:_this4.currentScene,params:_this4._currentParams});if(!_this4.states[_this4.currentScene]){_context.next=31;break;}handler=_this4[_this4.currentScene+_Util.OnEnter];_success=_this4.states[_this4.currentScene].success||defaultSuccess;_failure=_this4.states[_this4.currentScene].failure||defaultFailure;if(!handler){_context.next=31;break;}_context.prev=20;params=(0,_State.getActiveState)(_this4._state).params;_context.next=24;return regeneratorRuntime.awrap(handler(params));case 24:_res=_context.sent;if(_res){_success(_res);}else{_failure();}_context.next=31;break;case 28:_context.prev=28;_context.t0=_context['catch'](20);_failure({error:_context.t0.message});case 31:case'end':return _context.stop();}}},null,_this4,[[20,28]]);};}})),_class2);exports.default=
+};}_createClass(NavigationStore,[{key:'integrateNavigator',value:function integrateNavigator(navigator){navigator.router.originalGetStateForAction=navigator.router.getStateForAction;navigator.router.getStateForAction=this.getStateForAction;this.router=navigator.router;}},{key:'processScene',value:function processScene(scene){var inheritProps=arguments.length>1&&arguments[1]!==undefined?arguments[1]:{};var _this4=this;var clones=arguments.length>2&&arguments[2]!==undefined?arguments[2]:[];var wrapBy=arguments[3];(0,_Util.assert)(scene.props,'props should be defined');if(!scene.props.children){return null;}var res={};var order=[];var _scene$props=scene.props,navigator=_scene$props.navigator,contentComponent=_scene$props.contentComponent,lazy=_scene$props.lazy,duration=_scene$props.duration,parentProps=_objectWithoutProperties(_scene$props,['navigator','contentComponent','lazy','duration']);var tabs=parentProps.tabs,modal=parentProps.modal,lightbox=parentProps.lightbox,overlay=parentProps.overlay,tabBarPosition=parentProps.tabBarPosition,drawer=parentProps.drawer,tabBarComponent=parentProps.tabBarComponent,transitionConfig=parentProps.transitionConfig;if(scene.type===_Modal2.default){modal=true;}else if(scene.type===_Drawer2.default){drawer=true;}else if(scene.type===_Lightbox2.default){lightbox=true;}else if(scene.type===_Tabs2.default){tabs=true;}else if(scene.type===_Overlay2.default){overlay=true;}if(duration!==undefined&&!transitionConfig){transitionConfig=function transitionConfig(){return{transitionSpec:{duration:duration,timing:_reactNative.Animated.timing,easing:_reactNative.Easing.step0}};};}var commonProps=_extends({},inheritProps,parentProps);delete commonProps.children;delete commonProps.component;for(var _iterator4=Object.keys(commonProps),_isArray4=Array.isArray(_iterator4),_i5=0,_iterator4=_isArray4?_iterator4:_iterator4[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref9;if(_isArray4){if(_i5>=_iterator4.length)break;_ref9=_iterator4[_i5++];}else{_i5=_iterator4.next();if(_i5.done)break;_ref9=_i5.value;}var pkey=_ref9;if(dontInheritKeys.includes(pkey)&&!parentProps[pkey]){delete commonProps[pkey];}}if(drawer){commonProps.drawerImage=commonProps.drawerImage||_menu_burger2.default;}var children=!Array.isArray(parentProps.children)?[parentProps.children]:[].concat.apply([],parentProps.children);if(!drawer&&!tabs&&!overlay){children.push.apply(children,_toConsumableArray(clones));}for(var _iterator5=children,_isArray5=Array.isArray(_iterator5),_i6=0,_iterator5=_isArray5?_iterator5:_iterator5[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref10;if(_isArray5){if(_i6>=_iterator5.length)break;_ref10=_iterator5[_i6++];}else{_i6=_iterator5.next();if(_i6.done)break;_ref10=_i6.value;}var child=_ref10;if(child.props.clone){if(clones.indexOf(child)===-1){clones.push(child);}}}var initialRouteName=void 0;var initialRouteParams=void 0;var _loop2=function _loop2(_child){var key=_child.key||'key'+counter++;var init=key===children[0].key;(0,_Util.assert)(reservedKeys.indexOf(key)===-1,'Scene name cannot be reserved word: '+_child.key);var _child$props=_child.props,component=_child$props.component,_child$props$type=_child$props.type,type=_child$props$type===undefined?tabs||drawer?'jump':'push':_child$props$type,onEnter=_child$props.onEnter,onExit=_child$props.onExit,on=_child$props.on,failure=_child$props.failure,success=_child$props.success,wrap=_child$props.wrap,props=_objectWithoutProperties(_child$props,['component','type','onEnter','onExit','on','failure','success','wrap']);if(!_this4.states[key]){_this4.states[key]={};}for(var _iterator7=Object.keys(props),_isArray7=Array.isArray(_iterator7),_i8=0,_iterator7=_isArray7?_iterator7:_iterator7[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref12;if(_isArray7){if(_i8>=_iterator7.length)break;_ref12=_iterator7[_i8++];}else{_i8=_iterator7.next();if(_i8.done)break;_ref12=_i8.value;}var transition=_ref12;if(reservedKeys.indexOf(transition)===-1&&props[transition]instanceof Function){_this4.states[key][transition]=props[transition];}}delete props.children;if(success){_this4.states[key].success=success instanceof Function?success:function(args){console.log('Transition to state='+success);_this4[success](args);};}if(failure){_this4.states[key].failure=failure instanceof Function?failure:function(args){console.log('Transition to state='+failure);_this4[failure](args);};}var screen={screen:createWrapper(component,wrapBy,_this4)||_this4.processScene(_child,commonProps,clones)||lightbox&&_reactNative.View,navigationOptions:createNavigationOptions(_extends({},commonProps,getProperties(component),_child.props,{init:init,component:component}))};var wrapNavBar=drawer||tabs||wrap;if(wrap===false||commonProps.wrap===false){wrapNavBar=false;}if(component&&wrapNavBar){res[key]={screen:_this4.processScene({key:key,props:{children:{key:'_'+key,props:_extends({},_child.props,{wrap:false})}}},commonProps,clones,wrapBy),navigationOptions:createNavigationOptions(_extends({},commonProps,_child.props))};}else{res[key]=screen;}props.init=true;if(!_this4[key]){_this4[key]=new Function('actions','props','type','return function '+key.replace(/\W/g,'_')+'(params){ actions.execute(type, \''+key+'\', props, params)}')(_this4,_extends({},commonProps,props),type);}if((onEnter||on||component&&component.onEnter)&&!_this4[key+_Util.OnEnter]){_this4[key+_Util.OnEnter]=onEnter||on||component.onEnter;}if((onExit||component&&component.onExit)&&!_this4[key+_Util.OnExit]){_this4[key+_Util.OnExit]=onExit||component.onExit;}order.push(key);if(_child.props.initial||!initialRouteName){initialRouteName=key;initialRouteParams=_extends({},commonProps,props);}};for(var _iterator6=children,_isArray6=Array.isArray(_iterator6),_i7=0,_iterator6=_isArray6?_iterator6:_iterator6[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref11;if(_isArray6){if(_i7>=_iterator6.length)break;_ref11=_iterator6[_i7++];}else{_i7=_iterator6.next();if(_i7.done)break;_ref11=_i7.value;}var _child=_ref11;_loop2(_child);}var mode=modal?'modal':'card';if(navigator){return navigator(res,_extends({lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,contentComponent:contentComponent,order:order},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));}if(lightbox){return(0,_LightboxNavigator2.default)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));}else if(tabs){if(!tabBarComponent){tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:471}}));}:function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:472}}));};}if(!tabBarPosition){tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';}return(0,_reactNavigation.TabNavigator)(res,_extends({lazy:lazy,tabBarComponent:tabBarComponent,tabBarPosition:tabBarPosition,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},commonProps,{tabBarOptions:createTabBarOptions(commonProps),navigationOptions:createNavigationOptions(commonProps)}));}else if(drawer){return(0,_reactNavigation.DrawerNavigator)(res,_extends({initialRouteName:initialRouteName,contentComponent:contentComponent,order:order},commonProps));}else if(overlay){return(0,_OverlayNavigator2.default)(res,_extends({lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},commonProps,{tabBarOptions:createTabBarOptions(commonProps),navigationOptions:createNavigationOptions(commonProps)}));}return(0,_reactNavigation.StackNavigator)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{transitionConfig:transitionConfig,navigationOptions:createNavigationOptions(commonProps)}));}}]);return NavigationStore;}();exports.default=
 
 
 

@@ -20,21 +20,21 @@ export function reducer(state = navigationStore.state, action) {
   const type = action.type;
   const routeName = action.routeName;
   if (supportedActions[type]) {
-    const newState = navigationStore.router.getStateForAction(createAction(supportedActions[type])({
+    const newState = navigationStore.router.originalGetStateForAction(createAction(supportedActions[type])({
       routeName,
       params: action.params,
     }), state);
     return newState || state;
   }
   if (type === ActionConst.JUMP) {
-    const newState = navigationStore.router.getStateForAction(NavigationActions.navigate({ routeName, params: action.params }), state);
+    const newState = navigationStore.router.originalGetStateForAction(NavigationActions.navigate({ routeName, params: action.params }), state);
     let activeState = getActiveState(state);
     // skip action if route name is the same (avoid pushing action)
     if (activeState.routeName === 'DrawerOpen') {
       activeState = getActiveStateExceptDrawer(state);
       // just close drawer if no active route change
       if (isActiveRoute(state, routeName)) {
-        return navigationStore.router.getStateForAction(NavigationActions.navigate({ routeName: 'DrawerClose' }), state);
+        return navigationStore.router.originalGetStateForAction(NavigationActions.navigate({ routeName: 'DrawerClose' }), state);
       }
     }
     // skip jumping if route is already active
@@ -42,7 +42,7 @@ export function reducer(state = navigationStore.state, action) {
       return state;
     }
     const key = getActiveState(newState).key;
-    return navigationStore.router.getStateForAction(NavigationActions.setParams({
+    return navigationStore.router.originalGetStateForAction(NavigationActions.setParams({
       key,
       params: action.params,
     }), newState);
@@ -52,7 +52,7 @@ export function reducer(state = navigationStore.state, action) {
     let currentState = state;
     const currentScene = getActiveState(state).routeName;
     while (nextScene !== currentScene && newState && nextScene !== routeName) {
-      newState = navigationStore.router.getStateForAction(NavigationActions.back(), currentState);
+      newState = navigationStore.router.originalGetStateForAction(NavigationActions.back(), currentState);
       if (newState) {
         nextScene = getActiveState(newState).routeName;
         if (nextScene !== routeName) {
@@ -62,13 +62,13 @@ export function reducer(state = navigationStore.state, action) {
     }
     return nextScene === routeName ? newState : state;
   } else if (type === ActionConst.REPLACE) {
-    const newState = navigationStore.router.getStateForAction(NavigationActions.navigate({
+    const newState = navigationStore.router.originalGetStateForAction(NavigationActions.navigate({
       routeName,
       params: action.params,
     }), state);
     return popPrevious(newState);
   }
-  return navigationStore.router.getStateForAction(action, state) || state;
+  return navigationStore.router.originalGetStateForAction(action, state) || state;
 }
 
 export default function createReducer() {
