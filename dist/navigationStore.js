@@ -144,7 +144,7 @@ res.header=function(data){return _react2.default.createElement(NavBarFromParams,
 res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:144}}));};
 }
 
-if(navigationParams.panHandlers){
+if(typeof navigationParams.panHandlers!=='undefined'){
 if(navigationParams.panHandlers===null){
 res.gesturesEnabled=false;
 }
