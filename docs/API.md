@@ -26,7 +26,6 @@ The basic routing component for this router, all `<Scene>` components require a 
 |-----------|----------|----------|--------------------------------------------|
 | `key`       | `string` | `required` | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
 | `component` | `React.Component` | `semi-required` | The `Component` to be displayed. Not required when defining a nested `Scene`, see example. |
-| `animationEnabled`     | `boolean` | `true` | Enable or disable animating tabs on switch. |
 | `back`     | `boolean` | `false` | If it is `true` back button is displayed instead of left/drawer button defined by upper container. |
 | `init`     | `boolean` | `false` | If it is `true` back button will not be displayed |
 | `clone`     | `boolean` | `false` | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
@@ -44,7 +43,7 @@ The basic routing component for this router, all `<Scene>` components require a 
 | `navBar` | `React.Component`| | Optional React component to render custom NavBar |
 | `navBarButtonColor` | `string` | | Set the color of the back button in the navBar |
 | `navigationBarStyle`     | `Style` | | Style applied to nav bar |
-| `navigationBarTitleImage` | `Image` | | Override the image in the center of the navbar, replacing the `title` |
+| `navigationBarTitleImage` | `Object` | | The `Image` source that overrides the `title` in the navbar the image in the center of the navbar |
 | `navigationBarTitleImageStyle` | `object` | | Styles to apply to `navigationBarTitleImage` |
 | `navTransparent`     | `boolean` | `false` | nav bar background transparency |
 | `on`     | `Function` | | aka `onEnter` |
@@ -53,6 +52,8 @@ The basic routing component for this router, all `<Scene>` components require a 
 | `onLeft`     | `Function` |  | Called when the left nav bar button is pressed. |
 | `onRight`     | `Function` |  | Called when the right nav bar button is pressed. |
 | `renderTitle`     | `React.Component` |  | React component to render title for nav bar |
+| `renderLeftButton` | `React.Component` | | React component to render as the left button |
+| `renderRightButton` | `React.Component` | | React component to render as the right button |
 | `rightButtonImage`     | `Image` |  | Image to substitute for the right nav bar button |
 | `rightButtonTextStyle`     | `Style` |  | Style applied to right button text |
 | `success`     | `Function` | | If `on` returns a "truthy" value then `success` is called. |
@@ -153,6 +154,7 @@ These can be used directly, for example, `Actions.pop()` will dispatch correspon
 | Property | Type | Parameters | Description |
 |-----------------|----------|----------|--------------------------------------------|
 | `[key]` | `Function` | `Object` | The `Actions` object "automagically" uses the `Scene`'s `key` prop in the `Router` to navigate. To navigate to a scene, call `Actions.key()` or `Actions[key].call()`. |
+| `currentScene` | `Function` | | Returns the current scene that is active |
 | `jump` | `Function` | `(sceneKey: String, props: Object)` | used to switch to a new tab. For `Tabs` only. |
 | `pop` | `Function` | | Go back to the previous scene by "popping" the current scene off the nav stack |
 | `popAndPush` | `Function` | `(sceneKey: String, props: Object)` |
