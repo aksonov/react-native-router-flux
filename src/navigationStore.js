@@ -213,7 +213,7 @@ function createNavigationOptions(params) {
   };
 }
 function originalRouteName(routeName) {
-  if (routeName.startsWith('_')) {
+  if (typeof routeName === 'string' && routeName.startsWith('_')) {
     return routeName.substring(1);
   }
   return routeName;
@@ -258,7 +258,9 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
       componentWillUnmount() {
         const navigation = this.props.navigation;
         this.ref = null;
-        store.deleteRef(originalRouteName(navigation.state.routeName));
+        if (navigation.state.routeName) {
+          store.deleteRef(originalRouteName(navigation.state.routeName));
+        }
       }
       render() {
         const navigation = this.props.navigation;
