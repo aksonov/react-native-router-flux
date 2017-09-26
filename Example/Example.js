@@ -28,6 +28,9 @@ import MessageBar from './components/MessageBar';
 import ErrorModal from './components/modal/ErrorModal';
 import DemoLightbox from './components/lightbox/DemoLightbox';
 import MenuIcon from './images/menu_burger.png';
+import CustomNavBarView from "./components/CustomNavBarView";
+import CustomNavBar from "./components/CustomNavBar";
+import CustomNavBar2 from "./components/CustomNavBar2";
 
 const styles = StyleSheet.create({
   container: {
@@ -74,6 +77,37 @@ const Example = () => (
           >
             <Scene key="echo" back clone component={EchoView} getTitle={({ navigation }) => navigation.state.key} />
             <Scene key="launch" component={Launch} title="Launch" initial />
+
+            <Stack key="customNavBar" hideTabBar titleStyle={{alignSelf: 'center'}}>
+              <Scene
+                key="customNavBar1"
+                title="CustomNavBar 1"
+                navBar={CustomNavBar}
+                component={CustomNavBarView}
+                back
+              />
+              <Scene
+                key="customNavBar2"
+                title="CustomNavBar 2"
+                navBar={CustomNavBar}
+                component={CustomNavBarView}
+                back
+              />
+              <Scene
+                key="customNavBar3"
+                title="Another CustomNavBar"
+                navBar={CustomNavBar2}
+                component={CustomNavBarView}
+                back
+              />
+              <Scene
+                key="hiddenNavBar"
+                title="hiddenNavBar"
+                component={CustomNavBarView}
+                hideNavBar={true}
+                back
+              />
+            </Stack>
 
             <Stack
               back
