@@ -1,8 +1,8 @@
 /// <reference types="react"/>
 /// <reference types="react-native"/>
 
+import * as React from "react";
 import { Image, ViewStyle, TextStyle, ImageStyle } from "react-native";
-
 
 export var Router: RouterStatic;
 export type Router = RouterStatic;
@@ -48,8 +48,8 @@ interface SceneProps extends React.Props<Scene> {
     success?: () => void;
     tabs?: boolean;
     title?: string;
-    titleStyle?: TextStyle; // Todo ReactNative.Style
-    type?: NavigationType;
+    titleStyle?: TextStyle;
+    type?: ActionConstShort;
     [name: string]: any; // These are passed through to the scenes
 }
 interface TabSceneProps extends React.Props<Scene> {
@@ -58,7 +58,6 @@ interface TabSceneProps extends React.Props<Scene> {
 }
 interface SceneStatic extends React.ComponentClass<SceneProps & TabsProps & TabSceneProps & DrawerProps & ModalProps> { }
 export type HeaderModeType = "float" | "screen";
-export type NavigationType = "push" | "replace";
 
 // Tabs
 export var Tabs: TabsStatic;
@@ -128,4 +127,13 @@ interface ActionsStatic {
 }
 interface ActionsGenericStatic {
     [key: string]: (props?: any) => void;
+}
+
+export type ActionConstShort = "jump" | "push" | "replace" | "pop" | "popTo" | "refresh" | "reset";
+
+export declare const ActionConst: ActionConst;
+export type ActionConst = {
+    JUMP: string; PUSH: string; PUSH_OR_POP: string; REPLACE: string;
+    BACK: string; BACK_ACTION: string; POP_TO: string; REFRESH: string;
+    RESET: string; FOCUS: string; BLUR: string; ANDROID_BACK: string;
 }
