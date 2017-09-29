@@ -8,6 +8,7 @@
   },
   "license": "ISC",
   "main": "dist/index.js",
+  "types": "index.d.ts",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "postinstall": "./node_modules/.bin/opencollective postinstall",
