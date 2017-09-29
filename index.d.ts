@@ -2,14 +2,14 @@
 /// <reference types="react-native"/>
 
 import * as React from "react";
-import { Image, ViewStyle, TextStyle, ImageStyle } from "react-native";
+import { StyleProp, Image, ViewStyle, TextStyle, ImageStyle } from "react-native";
 
 export var Router: RouterStatic;
 export type Router = RouterStatic;
 
 // Router 
 interface RouterProps extends React.Props<Router> {
-    sceneStyle?: ViewStyle;
+    sceneStyle?: StyleProp<ViewStyle>;
 }
 interface RouterStatic extends React.ComponentClass<RouterProps> { }
 
@@ -18,11 +18,11 @@ export var Scene: SceneStatic;
 export type Scene = SceneStatic;
 interface SceneProps extends React.Props<Scene> {
     key: string;
-    component: React.Component;
+    component: React.ComponentType<any>
     back?: boolean;
     init?: boolean;
     clone?: boolean;
-    contentComponent?: React.Component;
+    contentComponent?: React.ComponentType<any>
     drawer?: boolean;
     failure?: () => void;
     headerBackTitle?: string;
@@ -33,27 +33,27 @@ interface SceneProps extends React.Props<Scene> {
     leftButtonImage?: Image;
     modal?: boolean;
     navigationBarTitleImage?: Image;
-    navigationBarTitleImageStyle?: ImageStyle;
+    navigationBarTitleImageStyle?: StyleProp<ImageStyle>;
     navTransparent?: boolean;
     on?: (props: any) => void;
     onEnter?: (props: any) => void;
     onExit?: (props: any) => void;
     onLeft?: (props: any) => void;
     onRight?: (props: any) => void;
-    renderTitle?: React.Component;
-    renderLeftButton?: React.Component;
-    renderRightButton?: React.Component;
+    renderTitle?: React.ComponentType<any>
+    renderLeftButton?: React.ComponentType<any>
+    renderRightButton?: React.ComponentType<any>
     rightButtonImage?: Image;
-    rightButtonTextStyle?: TextStyle;
+    rightButtonTextStyle?: StyleProp<TextStyle>;
     success?: () => void;
     tabs?: boolean;
     title?: string;
-    titleStyle?: TextStyle;
+    titleStyle?: StyleProp<TextStyle>;
     type?: ActionConstShort;
     [name: string]: any; // These are passed through to the scenes
 }
 interface TabSceneProps extends React.Props<Scene> {
-    icon?: React.Component;
+    icon?: React.ComponentType<any>
     tabBarLabel?: string;
 }
 interface SceneStatic extends React.ComponentClass<SceneProps & TabsProps & TabSceneProps & DrawerProps & ModalProps> { }
@@ -68,12 +68,12 @@ interface TabsProps extends React.Props<Tabs> {
     activeTintColor?: string;
     inactiveBackgroundColor?: string;
     inactiveTintColor?: string;
-    labelStyle?: TextStyle;
+    labelStyle?: StyleProp<TextStyle>;
     lazy?: boolean;
-    tabBarComponent?: React.Component;
+    tabBarComponent?: React.ComponentType<any>
     tabBarPosition?: TabBarPositionType;
-    tabBarStyle?: ViewStyle;
-    tabStyle?: ViewStyle;
+    tabBarStyle?: StyleProp<ViewStyle>;
+    tabStyle?: StyleProp<ViewStyle>;
     showLabel?: boolean;
     swipeEnabled?: boolean;
 }
@@ -85,7 +85,7 @@ export var Drawer: DrawerStatic;
 export type Drawer = DrawerStatic;
 interface DrawerProps extends React.Props<Drawer> {
     drawerImage?: Image;
-    drawerIcon?: React.Component;
+    drawerIcon?: React.ComponentType<any>
     drawerPosition?: DrawerPositionType;
 }
 interface DrawerStatic extends React.ComponentClass<SceneProps & DrawerProps> { }
@@ -130,7 +130,6 @@ interface ActionsGenericStatic {
 }
 
 export type ActionConstShort = "jump" | "push" | "replace" | "pop" | "popTo" | "refresh" | "reset";
-
 export declare const ActionConst: ActionConst;
 export type ActionConst = {
     JUMP: string; PUSH: string; PUSH_OR_POP: string; REPLACE: string;
