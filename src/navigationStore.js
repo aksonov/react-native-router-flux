@@ -188,12 +188,15 @@ function createNavigationOptions(params) {
         || (init ? null : (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />);
     }
 
-    if (typeof navigationParams.back !== 'undefined') {
-      if (!navigationParams.back) {
+    if (back) {
+      res.headerLeft = (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />;
+    }
+
+    if (typeof navigationParams.left !== 'undefined' || typeof navigationParams.leftButton !== 'undefined' ||
+      typeof navigationParams.renderLeftButton !== 'undefined') {
+      if (navigationParams.left === null || navigationParams.leftButton === null || navigationParams.renderLeftButton === null) {
         res.headerLeft = null;
       }
-    } else if (back) {
-      res.headerLeft = (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />;
     }
 
     // currect dynamic navigation params has priority over static scene params
