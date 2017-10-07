@@ -114,7 +114,7 @@ function createNavigationOptions(params) {
     navigationBarStyle, headerStyle, navBarButtonColor, tabBarLabel, tabBarIcon, icon, getTitle, renderTitle, panHandlers,
     navigationBarTitleImage, navigationBarTitleImageStyle, component, rightTitle, leftTitle, leftButtonTextStyle, rightButtonTextStyle,
     backButtonTextStyle, headerTitleStyle, titleStyle, navBar, onRight, onLeft, rightButtonImage, leftButtonImage, init, back,
-    renderBackButton, renderNavigationBar, drawerIcon, drawerImage, drawerPosition, ...props } = params;
+    renderBackButton, renderNavigationBar, hideDrawerButton, drawerIcon, drawerImage, drawerPosition, ...props } = params;
   const NavBar = renderNavigationBar || navBar;
   if (component && component.navigationOptions) {
     return component.navigationOptions;
