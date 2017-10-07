@@ -174,14 +174,14 @@ function createNavigationOptions(params) {
 
     if (rightButtonImage || rightTitle || params.renderRightButton || onRight || navigationParams.onRight
       || navigationParams.rightTitle || navigationParams.rightButtonImage || rightButtonTextStyle
-      || ((drawerImage || drawerIcon) && drawerPosition === 'right')) {
+      || ((drawerImage || drawerIcon) && !hideDrawerButton && drawerPosition === 'right')) {
       res.headerRight = getValue(navigationParams.right || navigationParams.rightButton || params.renderRightButton,
         { ...navigationParams, ...screenProps }) || <RightNavBarButton {...params} {...navigationParams} {...componentData} />;
     }
 
     if (leftButtonImage || backButtonImage || backTitle || leftTitle || params.renderLeftButton || leftButtonTextStyle
       || backButtonTextStyle || onLeft || navigationParams.leftTitle || navigationParams.onLeft || navigationParams.leftButtonImage
-      || navigationParams.backButtonImage || navigationParams.backTitle || ((drawerImage || drawerIcon) && drawerPosition !== 'right')) {
+      || navigationParams.backButtonImage || navigationParams.backTitle || ((drawerImage || drawerIcon) && !hideDrawerButton && drawerPosition !== 'right')) {
       res.headerLeft = getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
         || (((onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage || navigationParams.leftButtonImage)) || drawerImage || drawerIcon)
           && <LeftNavBarButton {...params} {...navigationParams} {...componentData} />) || res.headerLeft
