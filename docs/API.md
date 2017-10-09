@@ -158,7 +158,7 @@ These can be used directly, for example, `Actions.pop()` will dispatch correspon
 | `jump` | `Function` | `(sceneKey: String, props: Object)` | used to switch to a new tab. For `Tabs` only. |
 | `pop` | `Function` | | Go back to the previous scene by "popping" the current scene off the nav stack |
 | `popAndPush` | `Function` | `(sceneKey: String, props: Object)` |
-| `popTo` | `Function` | `(sceneKey: String, props: Object)` | Pops the stack until the
+| `popTo` | `Function` | `(sceneKey: String, props: Object)` | Pops the navigation stack until the `Scene` with the specified key is reached. |
 | `push` | `Function` | `(sceneKey: String, props: Object)` | Pushes the scene to the stack, performing a transition to the new scene. |
 | `refresh` | `Function` | `(props: Object)` | Reloads the current scene by loading new `props` into the `Scene` |
 | `replace` | `Function` | `(sceneKey: String, props: Object)` |  Pops the current scene from the stack and pushes the new scene to the navigation stack. *No transition will occur. |
