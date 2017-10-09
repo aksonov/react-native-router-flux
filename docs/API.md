@@ -156,7 +156,7 @@ These can be used directly, for example, `Actions.pop()` will dispatch correspon
 | Property | Type | Parameters | Description |
 |-----------------|----------|----------|--------------------------------------------|
 | `[key]` | `Function` | `Object` | The `Actions` object "automagically" uses the `Scene`'s `key` prop in the `Router` to navigate. To navigate to a scene, call `Actions.key()` or `Actions[key].call()`. |
-| `currentScene` | `Function` | | Returns the current scene that is active |
+| `currentScene` | `String` | | Returns the current scene that is active |
 | `jump` | `Function` | `(sceneKey: String, props: Object)` | used to switch to a new tab. For `Tabs` only. |
 | `pop` | `Function` | | Go back to the previous scene by "popping" the current scene off the nav stack |
 | `popAndPush` | `Function` | `(sceneKey: String, props: Object)` |
