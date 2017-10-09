@@ -24,6 +24,15 @@ export function reducer(state = navigationStore.state, action) {
       routeName,
       params: action.params,
     }), state);
+
+    if (newState){
+      const key = getActiveState(newState).key;
+      newState = navigationStore.router.getStateForAction(NavigationActions.setParams({
+        key,
+        params: action.params,
+      }), newState);
+    }
+
     return newState || state;
   }
   if (type === ActionConst.JUMP) {
