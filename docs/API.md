@@ -18,6 +18,7 @@
 | children |  | required | Scene root element |
 | `wrapBy`   | `Function` |  | allows integration of state management schemes like Redux (`connect`) and Mobx (`observer`) |
 | `sceneStyle`     | `Style` |  | Style applied to all scenes (optional) |
+| `backAndroidHandler`     | `Function` |  | Allows custom control of hardwareBackPress in Android (optional). For more info check [BackHandler](https://facebook.github.io/react-native/docs/backhandler.html).  |
 
 ## Scene:
 The basic routing component for this router, all `<Scene>` components require a `key` prop that must be unique. A parent `<Scene>` cannot not have a `component` as a `prop` as it will act as a grouping component for its children.
