@@ -144,7 +144,11 @@ function createNavigationOptions(params) {
       res.header = (data) => <NavBar navigation={navigation} {...state} {...data} />;
     }
 
-    if (panHandlers === null) {
+    if (typeof navigationParams.panHandlers !== 'undefined') {
+      if (navigationParams.panHandlers === null) {
+        res.gesturesEnabled = false;
+      }
+    } else if (panHandlers === null) {
       res.gesturesEnabled = false;
     }
 
