@@ -114,7 +114,7 @@ function createNavigationOptions(params) {
     navigationBarStyle, headerStyle, navBarButtonColor, tabBarLabel, tabBarIcon, icon, getTitle, renderTitle, panHandlers,
     navigationBarTitleImage, navigationBarTitleImageStyle, component, rightTitle, leftTitle, leftButtonTextStyle, rightButtonTextStyle,
     backButtonTextStyle, headerTitleStyle, titleStyle, navBar, onRight, onLeft, rightButtonImage, leftButtonImage, init, back,
-    renderBackButton, renderNavigationBar, drawerIcon, drawerImage, drawerPosition, ...props } = params;
+    renderBackButton, renderNavigationBar, hideDrawerButton, drawerIcon, drawerImage, drawerPosition, ...props } = params;
   const NavBar = renderNavigationBar || navBar;
   if (component && component.navigationOptions) {
     return component.navigationOptions;
@@ -174,14 +174,14 @@ function createNavigationOptions(params) {
 
     if (rightButtonImage || rightTitle || params.renderRightButton || onRight || navigationParams.onRight
       || navigationParams.rightTitle || navigationParams.rightButtonImage || rightButtonTextStyle
-      || ((drawerImage || drawerIcon) && drawerPosition === 'right')) {
+      || ((drawerImage || drawerIcon) && !hideDrawerButton && drawerPosition === 'right')) {
       res.headerRight = getValue(navigationParams.right || navigationParams.rightButton || params.renderRightButton,
         { ...navigationParams, ...screenProps }) || <RightNavBarButton {...params} {...navigationParams} {...componentData} />;
     }
 
     if (leftButtonImage || backButtonImage || backTitle || leftTitle || params.renderLeftButton || leftButtonTextStyle
       || backButtonTextStyle || onLeft || navigationParams.leftTitle || navigationParams.onLeft || navigationParams.leftButtonImage
-      || navigationParams.backButtonImage || navigationParams.backTitle || ((drawerImage || drawerIcon) && drawerPosition !== 'right')) {
+      || navigationParams.backButtonImage || navigationParams.backTitle || ((drawerImage || drawerIcon) && !hideDrawerButton && drawerPosition !== 'right')) {
       res.headerLeft = getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
         || (((onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage || navigationParams.leftButtonImage)) || drawerImage || drawerIcon)
           && <LeftNavBarButton {...params} {...navigationParams} {...componentData} />) || res.headerLeft

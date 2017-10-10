@@ -85,7 +85,7 @@ export function LeftButton(state) {
     );
   }
 
-  if (!onPress && (state.drawerImage || menuIcon) && state.drawerPosition !== 'right') {
+  if (!onPress && !state.hideDrawerButton && (state.drawerImage || menuIcon) && state.drawerPosition !== 'right') {
     buttonImage = state.drawerImage;
     if (buttonImage || menuIcon) {
       onPress = Actions.drawerOpen;
@@ -168,7 +168,7 @@ export function RightButton(state) {
     );
   }
 
-  if (!onPress && state.drawerImage && state.drawerPosition === 'right') {
+  if (!onPress && !state.hideDrawerButton && state.drawerImage && state.drawerPosition === 'right') {
     buttonImage = state.drawerImage;
     if (buttonImage || menuIcon) {
       onPress = Actions.drawerOpen;

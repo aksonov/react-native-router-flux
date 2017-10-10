@@ -184,6 +184,7 @@ const Example = () => (
                       component={TabView}
                       title="Tab #2_2"
                       onBack={() => alert('onBack button!')}
+                      hideDrawerButton
                       backTitle="Back!"
                       panHandlers={null}
                     />
