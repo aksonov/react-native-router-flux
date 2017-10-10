@@ -18,6 +18,7 @@
 | children |  | required | Scene root element |
 | `wrapBy`   | `Function` |  | allows integration of state management schemes like Redux (`connect`) and Mobx (`observer`) |
 | `sceneStyle`     | `Style` |  | Style applied to all scenes (optional) |
+| `backAndroidHandler`     | `Function` |  | Allows custom control of hardwareBackPress in Android (optional). For more info check [BackHandler](https://facebook.github.io/react-native/docs/backhandler.html).  |
 
 ## Scene:
 The basic routing component for this router, all `<Scene>` components require a `key` prop that must be unique. A parent `<Scene>` cannot not have a `component` as a `prop` as it will act as a grouping component for its children.
@@ -27,12 +28,13 @@ The basic routing component for this router, all `<Scene>` components require a 
 | `key`       | `string` | `required` | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
 | `component` | `React.Component` | `semi-required` | The `Component` to be displayed. Not required when defining a nested `Scene`, see example. |
 | `back`     | `boolean` | `false` | If it is `true` back button is displayed instead of left/drawer button defined by upper container. |
+| `backButtonImage`     | `string` | Image source to substitute for the nav back button |
 | `init`     | `boolean` | `false` | If it is `true` back button will not be displayed |
 | `clone`     | `boolean` | `false` | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
 | `contentComponent`     | `React.Component` |  | Component used to render the content of the drawer (e.g. navigation items). |
 | `drawer`     | `boolean` | `false` | load child scenes inside [DrawerNavigator](https://reactnavigation.org/docs/navigators/drawer) |
 | `failure` | `Function` | | If `on` returns a "falsey" value then `failure` is called. |
-| `headerBackTitle` | `string` |  | Specifies the back button title for scene |
+| `backTitle` | `string` |  | Specifies the back button title for scene |
 | `headerMode` | `string` | `float` | Specifies how the header should be rendered: `float` (render a single header that stays at the top and animates as screens are changed. This is a common pattern on iOS.), `screen` (each screen has a header attached to it and the header fades in and out together with the screen. This is a common pattern on Android) or `none` (No header will be rendered) |
 | `hideNavBar`     | `boolean` | `false` | hide the nav bar |
 | `hideTabBar`     | `boolean` | `false` | hide the tab bar (only applies to scenes with `tabs` specified) |
@@ -100,6 +102,7 @@ Can use all `prop` as listed in `Scene` as `<Drawer>`, syntatic sugar for `<Scen
 |---|---|---|---|
 | `drawerImage` | `Image` |  | Image to substitute drawer 'hamburger' icon, you have to set it together with `drawer` prop |
 | `drawerIcon` | `React.Component` |  | Arbitrary component to be used for drawer 'hamburger' icon, you have to set it together with `drawer` prop |
+| `hideDrawerButton` | `boolean` | `false` | Boolean to show or not the drawerImage or drawerIcon |
 | `drawerPosition` | `string`  | Determines whether the drawer is on the right or the left. Keywords accepted are `right` and `left` |
 
 
@@ -154,11 +157,11 @@ These can be used directly, for example, `Actions.pop()` will dispatch correspon
 | Property | Type | Parameters | Description |
 |-----------------|----------|----------|--------------------------------------------|
 | `[key]` | `Function` | `Object` | The `Actions` object "automagically" uses the `Scene`'s `key` prop in the `Router` to navigate. To navigate to a scene, call `Actions.key()` or `Actions[key].call()`. |
-| `currentScene` | `Function` | | Returns the current scene that is active |
+| `currentScene` | `String` | | Returns the current scene that is active |
 | `jump` | `Function` | `(sceneKey: String, props: Object)` | used to switch to a new tab. For `Tabs` only. |
 | `pop` | `Function` | | Go back to the previous scene by "popping" the current scene off the nav stack |
 | `popAndPush` | `Function` | `(sceneKey: String, props: Object)` |
-| `popTo` | `Function` | `(sceneKey: String, props: Object)` | Pops the stack until the
+| `popTo` | `Function` | `(sceneKey: String, props: Object)` | Pops the navigation stack until the `Scene` with the specified key is reached. |
 | `push` | `Function` | `(sceneKey: String, props: Object)` | Pushes the scene to the stack, performing a transition to the new scene. |
 | `refresh` | `Function` | `(props: Object)` | Reloads the current scene by loading new `props` into the `Scene` |
 | `replace` | `Function` | `(sceneKey: String, props: Object)` |  Pops the current scene from the stack and pushes the new scene to the navigation stack. *No transition will occur. |

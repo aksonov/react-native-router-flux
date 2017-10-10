@@ -1,4 +1,4 @@
-## Documentation (v3)
+# React Native Router (v3.x) [![Join the chat at https://gitter.im/aksonov/react-native-router-flux](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aksonov/react-native-router-flux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 - [Mini-Tutorial](https://github.com/aksonov/react-native-router-flux/blob/v3/docs/MINI_TUTORIAL.md)
 - [API and Configuration](https://github.com/aksonov/react-native-router-flux/blob/v3/docs/API_CONFIGURATION.md)
