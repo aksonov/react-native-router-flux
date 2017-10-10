@@ -192,6 +192,13 @@ function createNavigationOptions(params) {
       res.headerLeft = (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />;
     }
 
+    if (typeof navigationParams.left !== 'undefined' || typeof navigationParams.leftButton !== 'undefined' ||
+      typeof navigationParams.renderLeftButton !== 'undefined') {
+      if (navigationParams.left === null || navigationParams.leftButton === null || navigationParams.renderLeftButton === null) {
+        res.headerLeft = null;
+      }
+    }
+
     // currect dynamic navigation params has priority over static scene params
     // but taking them into account only if they are explicitly set (not null or undefined)
     if (navigationParams.hideTabBar != null) {
