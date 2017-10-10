@@ -5,7 +5,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Login2 from './components/Login2';
 import Login3 from './components/Login3';
-import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyleInterpolator';
+import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 import {
   Scene,
   Router,

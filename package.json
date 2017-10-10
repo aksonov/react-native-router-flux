@@ -23,7 +23,7 @@
     "opencollective": "^1.0.3",
     "prop-types": "^15.5.10",
     "react-native-button": "^2.0.0",
-    "react-navigation": "^1.0.0-beta.11"
+    "react-navigation": "^1.0.0-beta.13"
   },
   "devDependencies": {
     "@types/react": "^16.0.7",
