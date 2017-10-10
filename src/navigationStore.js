@@ -218,7 +218,8 @@ function createNavigationOptions(params) {
     }
 
     if (navTransparent) {
-      res.headerStyle = { position: 'absolute', backgroundColor: 'transparent', zIndex: 100, top: 0, left: 0, right: 0 };
+      res.headerStyle = { position: 'absolute', backgroundColor: 'transparent', zIndex: 100, top: 0, left: 0, right: 0,
+        borderBottomWidth: 0, elevation: 1 };
     }
     return res;
   };
