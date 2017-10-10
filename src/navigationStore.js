@@ -213,7 +213,11 @@ function createNavigationOptions(params) {
       res.tabBarVisible = false;
     }
 
-    if (hideNavBar) {
+    if (navigationParams.hideNavBar != null) {
+      if (navigationParams.hideNavBar) {
+        res.header = false;
+      }
+    } else if (hideNavBar) {
       res.header = null;
     }
 
