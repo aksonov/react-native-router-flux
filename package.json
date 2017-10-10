@@ -8,6 +8,7 @@
   },
   "license": "ISC",
   "main": "dist/index.js",
+  "types": "index.d.ts",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "postinstall": "./node_modules/.bin/opencollective postinstall",
@@ -25,6 +26,8 @@
     "react-navigation": "^1.0.0-beta.11"
   },
   "devDependencies": {
+    "@types/react": "^16.0.7",
+    "@types/react-native": "^0.48.9",
     "babel-cli": "~6.24.1",
     "babel-eslint": "^6.0.3",
     "babel-jest": "20.0.3",
