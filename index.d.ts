@@ -7,9 +7,15 @@ import { StyleProp, Image, ViewStyle, TextStyle, ImageStyle } from "react-native
 export var Router: RouterStatic;
 export type Router = RouterStatic;
 
+// Reducer
+export var Reducer: any;
+export type Reducer = any;
+
 // Router 
 interface RouterProps extends React.Props<Router> {
     sceneStyle?: StyleProp<ViewStyle>;
+    backAndroidHandler?: Function;
+    createReducer?: Function;
 }
 interface RouterStatic extends React.ComponentClass<RouterProps> { }
 
@@ -97,22 +103,30 @@ export type Modal = ModalStatic;
 interface ModalProps extends React.Props<Modal> { }
 interface ModalStatic extends React.ComponentClass<SceneProps & ModalProps> { }
 
-// Lighbox
-export var Lighbox: LighboxStatic;
-export type Lighbox = LighboxStatic;
-interface LighboxProps extends React.Props<Modal> { }
-interface LighboxStatic extends React.ComponentClass<LighboxProps> { }
+// Overlay
+export var Overlay: OverlayStatic;
+export type Overlay = OverlayStatic;
+interface OverlayProps extends React.Props<Overlay> { }
+interface OverlayStatic extends React.ComponentClass<SceneProps & OverlayProps> { }
+
+// Lightbox 
+export var Lightbox : LightboxStatic;
+export type Lightbox  = LightboxStatic;
+interface LightboxProps extends React.Props<Modal> { }
+interface LightboxStatic extends React.ComponentClass<LightboxProps> { }
 
 // Stack
 export var Stack: StackStatic;
 export type Stack = StackStatic;
-interface StackProps extends React.Props<Stack> { }
+interface StackProps extends React.Props<Stack> { 
+    navigationBarStyle?: StyleProp<ViewStyle>;
+}
 interface StackStatic extends React.ComponentClass<StackProps> { }
 
 export var Actions: ActionsStatic & ActionsGenericStatic;
 export type Actions = ActionsStatic & ActionsGenericStatic;
 interface ActionsStatic {
-    currentScene: () => string;
+    currentScene: string;
     jump: (sceneKey: string, props?: any) => void;
     pop: () => void;
     popAndPush: (sceneKey: string, props?: any) => void;
