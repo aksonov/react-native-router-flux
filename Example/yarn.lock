@@ -3256,8 +3256,8 @@ react-native-message-bar@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/react-native-message-bar/-/react-native-message-bar-1.6.0.tgz#79623e89655475216927090771b0238616b6f1c7"
 
-"react-native-router-flux@file:../":
-  version "4.0.0-beta.21"
+"react-native-router-flux@file:..":
+  version "4.0.0-beta.22"
   dependencies:
     lodash.isequal "^4.5.0"
     mobx "^3.1.16"

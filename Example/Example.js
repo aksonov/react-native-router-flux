@@ -130,7 +130,7 @@ const Example = () => (
                 Wrapper Scene needed to fix a bug where the tabs would
                 reload as a modal ontop of itself
               */}
-              <Scene hideNavBar>
+              <Scene>
                 <Tabs
                   key="tabbar"
                   swipeEnabled
@@ -155,7 +155,6 @@ const Example = () => (
                       title="Tab #1_1"
                       onRight={() => alert('Right button')}
                       rightTitle="Right"
-
                     />
 
                     <Scene

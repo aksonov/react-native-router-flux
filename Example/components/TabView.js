@@ -26,6 +26,14 @@ const styles = StyleSheet.create({
 });
 
 class TabView extends React.Component {
+  state = { hideNavBar: false }
+
+  toggleNavBar = () => {
+    this.setState({ hideNavBar: !this.state.hideNavBar }, () =>
+      Actions.refresh({ hideNavBar: this.state.hideNavBar })
+    );
+  }
+
   render() {
     return (
       <View style={[styles.container, this.props.sceneStyle]}>
@@ -44,6 +52,7 @@ class TabView extends React.Component {
         <Button onPress={() => { Actions.tab_4(); }}>Switch to tab4</Button>
         <Button onPress={() => { Actions.tab_5({ data: 'test!' }); }}>Switch to tab5 with data</Button>
         <Button onPress={() => { Actions.echo(); }}>push clone scene (EchoView)</Button>
+        <Button onPress={() => { this.toggleNavBar(); }}>Toggle NavBar</Button>
       </View>
     );
   }
