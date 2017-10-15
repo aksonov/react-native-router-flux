@@ -29,12 +29,15 @@ interface SceneProps extends React.Props<Scene> {
     init?: boolean;
     clone?: boolean;
     contentComponent?: React.ComponentType<any>
+    backButtonImage?: string;
+    backButtonTintColor?: string;
     drawer?: boolean;
     failure?: () => void;
     headerBackTitle?: string;
     headerMode?: HeaderModeType;
     hideNavBar?: boolean;
     hideTabBar?: boolean;
+    hideBackImage?: boolean;
     initial?: boolean;
     leftButtonImage?: Image;
     modal?: boolean;
@@ -82,6 +85,8 @@ interface TabsProps extends React.Props<Tabs> {
     tabStyle?: StyleProp<ViewStyle>;
     showLabel?: boolean;
     swipeEnabled?: boolean;
+    tabBarOnPress?: function;
+    backToInitial?: boolean;
 }
 interface TabsStatic extends React.ComponentClass<SceneProps & TabsProps> { }
 export type TabBarPositionType = "top" | "bottom";
