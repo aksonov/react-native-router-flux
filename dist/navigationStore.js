@@ -89,7 +89,8 @@ var dontInheritKeys=[
 'navTransparent',
 'type',
 'hideNavBar',
-'hideTabBar'];
+'hideTabBar',
+'backToInitial'];
 
 
 function getValue(value,params){
@@ -114,7 +115,7 @@ title=
 
 
 
-params.title,backButtonImage=params.backButtonImage,navTransparent=params.navTransparent,hideNavBar=params.hideNavBar,hideTabBar=params.hideTabBar,backTitle=params.backTitle,right=params.right,rightButton=params.rightButton,left=params.left,leftButton=params.leftButton,navigationBarStyle=params.navigationBarStyle,headerStyle=params.headerStyle,navBarButtonColor=params.navBarButtonColor,tabBarLabel=params.tabBarLabel,tabBarIcon=params.tabBarIcon,icon=params.icon,getTitle=params.getTitle,renderTitle=params.renderTitle,panHandlers=params.panHandlers,navigationBarTitleImage=params.navigationBarTitleImage,navigationBarTitleImageStyle=params.navigationBarTitleImageStyle,component=params.component,rightTitle=params.rightTitle,leftTitle=params.leftTitle,leftButtonTextStyle=params.leftButtonTextStyle,rightButtonTextStyle=params.rightButtonTextStyle,backButtonTextStyle=params.backButtonTextStyle,headerTitleStyle=params.headerTitleStyle,titleStyle=params.titleStyle,navBar=params.navBar,onRight=params.onRight,onLeft=params.onLeft,rightButtonImage=params.rightButtonImage,leftButtonImage=params.leftButtonImage,init=params.init,back=params.back,renderBackButton=params.renderBackButton,renderNavigationBar=params.renderNavigationBar,hideDrawerButton=params.hideDrawerButton,drawerIcon=params.drawerIcon,drawerImage=params.drawerImage,drawerPosition=params.drawerPosition,props=_objectWithoutProperties(params,['title','backButtonImage','navTransparent','hideNavBar','hideTabBar','backTitle','right','rightButton','left','leftButton','navigationBarStyle','headerStyle','navBarButtonColor','tabBarLabel','tabBarIcon','icon','getTitle','renderTitle','panHandlers','navigationBarTitleImage','navigationBarTitleImageStyle','component','rightTitle','leftTitle','leftButtonTextStyle','rightButtonTextStyle','backButtonTextStyle','headerTitleStyle','titleStyle','navBar','onRight','onLeft','rightButtonImage','leftButtonImage','init','back','renderBackButton','renderNavigationBar','hideDrawerButton','drawerIcon','drawerImage','drawerPosition']);
+params.title,backButtonImage=params.backButtonImage,navTransparent=params.navTransparent,backToInitial=params.backToInitial,hideNavBar=params.hideNavBar,hideTabBar=params.hideTabBar,backTitle=params.backTitle,right=params.right,rightButton=params.rightButton,left=params.left,leftButton=params.leftButton,navigationBarStyle=params.navigationBarStyle,headerStyle=params.headerStyle,navBarButtonColor=params.navBarButtonColor,tabBarLabel=params.tabBarLabel,tabBarIcon=params.tabBarIcon,icon=params.icon,getTitle=params.getTitle,renderTitle=params.renderTitle,panHandlers=params.panHandlers,navigationBarTitleImage=params.navigationBarTitleImage,navigationBarTitleImageStyle=params.navigationBarTitleImageStyle,component=params.component,rightTitle=params.rightTitle,leftTitle=params.leftTitle,leftButtonTextStyle=params.leftButtonTextStyle,rightButtonTextStyle=params.rightButtonTextStyle,backButtonTextStyle=params.backButtonTextStyle,headerTitleStyle=params.headerTitleStyle,titleStyle=params.titleStyle,navBar=params.navBar,onRight=params.onRight,onLeft=params.onLeft,rightButtonImage=params.rightButtonImage,leftButtonImage=params.leftButtonImage,init=params.init,back=params.back,renderBackButton=params.renderBackButton,renderNavigationBar=params.renderNavigationBar,hideDrawerButton=params.hideDrawerButton,drawerIcon=params.drawerIcon,drawerImage=params.drawerImage,drawerPosition=params.drawerPosition,props=_objectWithoutProperties(params,['title','backButtonImage','navTransparent','backToInitial','hideNavBar','hideTabBar','backTitle','right','rightButton','left','leftButton','navigationBarStyle','headerStyle','navBarButtonColor','tabBarLabel','tabBarIcon','icon','getTitle','renderTitle','panHandlers','navigationBarTitleImage','navigationBarTitleImageStyle','component','rightTitle','leftTitle','leftButtonTextStyle','rightButtonTextStyle','backButtonTextStyle','headerTitleStyle','titleStyle','navBar','onRight','onLeft','rightButtonImage','leftButtonImage','init','back','renderBackButton','renderNavigationBar','hideDrawerButton','drawerIcon','drawerImage','drawerPosition']);
 var NavBar=renderNavigationBar||navBar;
 if(component&&component.navigationOptions){
 return component.navigationOptions;
@@ -138,10 +139,10 @@ headerBackImage:navigationParams.backButtonImage||backButtonImage});
 var NavBarFromParams=navigationParams.renderNavigationBar||navigationParams.navBar;
 if(NavBarFromParams!=null){
 if(NavBarFromParams){
-res.header=function(data){return _react2.default.createElement(NavBarFromParams,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:141}}));};
+res.header=function(data){return _react2.default.createElement(NavBarFromParams,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:142}}));};
 }
 }else if(NavBar){
-res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:144}}));};
+res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:145}}));};
 }
 
 if(typeof navigationParams.panHandlers!=='undefined'){
@@ -153,7 +154,7 @@ res.gesturesEnabled=false;
 }
 
 if(navigationBarTitleImage){
-res.headerTitle=_react2.default.createElement(_reactNative.Image,{source:navigationBarTitleImage,style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:156}});
+res.headerTitle=_react2.default.createElement(_reactNative.Image,{source:navigationBarTitleImage,style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:157}});
 }
 
 if(tabBarLabel){
@@ -162,7 +163,7 @@ res.tabBarLabel=tabBarLabel;
 
 if(tabBarIcon||icon){
 var Icon=tabBarIcon||icon;
-res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:165}}));};
+res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:166}}));};
 }
 var componentData={};
 
@@ -180,7 +181,7 @@ if(rightButtonImage||rightTitle||params.renderRightButton||onRight||navigationPa
 navigationParams.rightTitle||navigationParams.rightButtonImage||rightButtonTextStyle||
 (drawerImage||drawerIcon)&&!hideDrawerButton&&drawerPosition==='right'){
 res.headerRight=getValue(navigationParams.right||navigationParams.rightButton||params.renderRightButton,_extends({},
-navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:183}}));
+navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:184}}));
 }
 
 if(leftButtonImage||backButtonImage||backTitle||leftTitle||params.renderLeftButton||leftButtonTextStyle||
@@ -188,12 +189,12 @@ backButtonTextStyle||onLeft||navigationParams.leftTitle||navigationParams.onLeft
 navigationParams.backButtonImage||navigationParams.backTitle||(drawerImage||drawerIcon)&&!hideDrawerButton&&drawerPosition!=='right'){
 res.headerLeft=getValue(navigationParams.left||navigationParams.leftButton||params.renderLeftButton,_extends({},params,navigationParams,screenProps))||
 (onLeft&&(leftTitle||navigationParams.leftTitle||leftButtonImage||navigationParams.leftButtonImage)||drawerImage||drawerIcon)&&
-_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:191}}))||res.headerLeft||(
-init?null:renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:192}})));
+_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:192}}))||res.headerLeft||(
+init?null:renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:193}})));
 }
 
 if(back){
-res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:196}}));
+res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:197}}));
 }
 
 if(typeof navigationParams.left!=='undefined'||typeof navigationParams.leftButton!=='undefined'||
@@ -220,6 +221,26 @@ res.header=null;
 if(navTransparent){
 res.headerStyle={position:'absolute',backgroundColor:'transparent',zIndex:100,top:0,left:0,right:0,
 borderBottomWidth:0,elevation:1};
+}
+
+if(backToInitial){
+res.tabBarOnPress=function(tab,jumpToIndex){
+if(tab.focused){
+if(tab.route.index!==0){
+
+
+
+
+
+
+for(var i=1;i<tab.route.routes.length;i++){
+navigation.dispatch(_reactNavigation.NavigationActions.back());
+}
+}
+}else{
+jumpToIndex(tab.index);
+}
+};
 }
 return res;
 };
@@ -274,7 +295,7 @@ store.deleteRef(originalRouteName(navigation.state.routeName));
 }},{key:'render',value:function render()
 {var _this2=this;
 var navigation=this.props.navigation;
-return _react2.default.createElement(Component,_extends({ref:function ref(_ref5){return _this2.ref=_ref5;}},this.props,extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:277}}));
+return _react2.default.createElement(Component,_extends({ref:function ref(_ref5){return _this2.ref=_ref5;}},this.props,extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:298}}));
 }}]);return Wrapped;}(_react2.default.Component),_class.propTypes={navigation:_propTypes2.default.object},_temp);
 
 return wrapper(Wrapped);
@@ -282,7 +303,7 @@ return wrapper(Wrapped);
 
 
 function StatelessWrapped(_ref6){var navigation=_ref6.navigation,props=_objectWithoutProperties(_ref6,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:285}}));
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:306}}));
 }
 StatelessWrapped.propTypes={
 navigation:_propTypes2.default.object};
@@ -476,8 +497,8 @@ if(lightbox){
 return(0,_LightboxNavigator2.default)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
 }else if(tabs){
 if(!tabBarComponent){
-tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:479}}));}:
-function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:480}}));};
+tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:500}}));}:
+function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:501}}));};
 }
 if(!tabBarPosition){
 tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';

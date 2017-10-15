@@ -90,6 +90,7 @@ const dontInheritKeys = [
   'type',
   'hideNavBar',
   'hideTabBar',
+  'backToInitial',
 ];
 
 function getValue(value, params) {
@@ -110,7 +111,7 @@ function createTabBarOptions({ tabBarStyle, activeTintColor, inactiveTintColor, 
   return { ...props, style: tabBarStyle, activeTintColor, inactiveTintColor, activeBackgroundColor, inactiveBackgroundColor, showLabel, labelStyle, tabStyle };
 }
 function createNavigationOptions(params) {
-  const { title, backButtonImage, navTransparent, hideNavBar, hideTabBar, backTitle, right, rightButton, left, leftButton,
+  const { title, backButtonImage, navTransparent, backToInitial, hideNavBar, hideTabBar, backTitle, right, rightButton, left, leftButton,
     navigationBarStyle, headerStyle, navBarButtonColor, tabBarLabel, tabBarIcon, icon, getTitle, renderTitle, panHandlers,
     navigationBarTitleImage, navigationBarTitleImageStyle, component, rightTitle, leftTitle, leftButtonTextStyle, rightButtonTextStyle,
     backButtonTextStyle, headerTitleStyle, titleStyle, navBar, onRight, onLeft, rightButtonImage, leftButtonImage, init, back,
@@ -220,6 +221,26 @@ function createNavigationOptions(params) {
     if (navTransparent) {
       res.headerStyle = { position: 'absolute', backgroundColor: 'transparent', zIndex: 100, top: 0, left: 0, right: 0,
         borderBottomWidth: 0, elevation: 1 };
+    }
+
+    if (backToInitial) {
+      res.tabBarOnPress = (tab, jumpToIndex) => {
+        if (tab.focused) {
+          if (tab.route.index !== 0) {
+            // go to first screen of the StackNavigator with reset
+            // navigation.dispatch(NavigationActions.reset({
+            //   index: 0,
+            //   actions: [NavigationActions.navigate({ routeName: tab.route.routes[0].routeName })],
+            // }));
+            // go to first screen of the StackNavigator without reset
+            for (let i = 1; i < tab.route.routes.length; i++) {
+              navigation.dispatch(NavigationActions.back());
+            }
+          }
+        } else {
+          jumpToIndex(tab.index);
+        }
+      };
     }
     return res;
   };
