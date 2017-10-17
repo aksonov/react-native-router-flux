@@ -379,7 +379,7 @@ class NavigationStore {
     }
     const res = {};
     const order = [];
-    const { navigator, contentComponent, lazy, duration, ...parentProps } = scene.props;
+    const { navigator, contentComponent, drawerWidth, lazy, duration, ...parentProps } = scene.props;
     let { tabs, modal, lightbox, overlay, tabBarPosition, drawer, tabBarComponent, transitionConfig } = parentProps;
     if (scene.type === Modal) {
       modal = true;
@@ -506,7 +506,7 @@ class NavigationStore {
       return TabNavigator(res, { lazy, tabBarComponent, tabBarPosition, initialRouteName, initialRouteParams, order, ...commonProps,
         tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });
     } else if (drawer) {
-      return DrawerNavigator(res, { initialRouteName, contentComponent, order, ...commonProps });
+      return DrawerNavigator(res, { initialRouteName, contentComponent, drawerWidth, order, ...commonProps });
     } else if (overlay) {
       return OverlayNavigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps,
         tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });

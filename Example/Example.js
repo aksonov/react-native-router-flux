@@ -125,6 +125,7 @@ const Example = () => (
               key="drawer"
               contentComponent={DrawerContent}
               drawerImage={MenuIcon}
+              drawerWidth={300}
             >
               {/*
                 Wrapper Scene needed to fix a bug where the tabs would
