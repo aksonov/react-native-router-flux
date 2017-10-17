@@ -1,4 +1,5 @@
 import React from 'react';
+import { HeaderBackButton } from 'react-navigation';
 import {
   Platform,
   I18nManager,
@@ -28,6 +29,20 @@ export function BackButton(state) {
     onPress = onPress.bind(null, state);
   } else {
     onPress = Actions.pop;
+  }
+
+  // returning react-navigation's back button well styled for ios and android if rnrf4-supported customization
+  // is not required
+  if (!state.backButtonImage) {
+    return (
+      <HeaderBackButton
+        onPress={onPress}
+        title={state.backTitle}
+        titleStyle={textButtonStyle}
+        tintColor={tintColor}
+        truncatedTitle={state.truncatedTitle}
+      />
+    );
   }
 
   const text = state.backTitle ?
