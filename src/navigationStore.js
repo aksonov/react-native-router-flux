@@ -184,7 +184,7 @@ function createNavigationOptions(params) {
         { ...navigationParams, ...screenProps }) || <RightNavBarButton {...params} {...navigationParams} {...componentData} />;
     }
 
-    if (leftButtonImage || backButtonImage || backTitle || leftTitle || params.renderLeftButton || leftButtonTextStyle
+    if (leftButtonImage || backButtonImage || backTitle || leftTitle || params.renderLeftButton || leftButtonTextStyle || renderBackButton
       || backButtonTextStyle || onLeft || navigationParams.leftTitle || navigationParams.onLeft || navigationParams.leftButtonImage
       || navigationParams.backButtonImage || navigationParams.backTitle || ((drawerImage || drawerIcon) && !hideDrawerButton && drawerPosition !== 'right')) {
       res.headerLeft = getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })

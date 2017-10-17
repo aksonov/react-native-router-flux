@@ -58,6 +58,7 @@ The basic routing component for this router, all `<Scene>` components require a 
 | `renderTitle`     | `React.Component` |  | React component to render title for nav bar |
 | `renderLeftButton` | `React.Component` | | React component to render as the left button |
 | `renderRightButton` | `React.Component` | | React component to render as the right button |
+| `renderBackButton` | `React.Component` | | React component to render back button |
 | `rightButtonImage`     | `Image` |  | Image to substitute for the right nav bar button |
 | `rightButtonTextStyle`     | `Style` |  | Style applied to right button text |
 | `success`     | `Function` | | If `on` returns a "truthy" value then `success` is called. |

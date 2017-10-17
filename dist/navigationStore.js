@@ -184,7 +184,7 @@ res.headerRight=getValue(navigationParams.right||navigationParams.rightButton||p
 navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:184}}));
 }
 
-if(leftButtonImage||backButtonImage||backTitle||leftTitle||params.renderLeftButton||leftButtonTextStyle||
+if(leftButtonImage||backButtonImage||backTitle||leftTitle||params.renderLeftButton||leftButtonTextStyle||renderBackButton||
 backButtonTextStyle||onLeft||navigationParams.leftTitle||navigationParams.onLeft||navigationParams.leftButtonImage||
 navigationParams.backButtonImage||navigationParams.backTitle||(drawerImage||drawerIcon)&&!hideDrawerButton&&drawerPosition!=='right'){
 res.headerLeft=getValue(navigationParams.left||navigationParams.leftButton||params.renderLeftButton,_extends({},params,navigationParams,screenProps))||
