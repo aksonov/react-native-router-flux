@@ -28,7 +28,8 @@ The basic routing component for this router, all `<Scene>` components require a 
 | `key`       | `string` | `required` | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
 | `component` | `React.Component` | `semi-required` | The `Component` to be displayed. Not required when defining a nested `Scene`, see example. |
 | `back`     | `boolean` | `false` | If it is `true` back button is displayed instead of left/drawer button defined by upper container. |
-| `backButtonImage`     | `string` | Image source to substitute for the nav back button |
+| `backButtonImage`     | `string` | | Image source to substitute for the nav back button |
+| `backButtonTintColor`     | `string` | | Custom back button tint color |
 | `init`     | `boolean` | `false` | If it is `true` back button will not be displayed |
 | `clone`     | `boolean` | `false` | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
 | `contentComponent`     | `React.Component` |  | Component used to render the content of the drawer (e.g. navigation items). |
@@ -38,6 +39,7 @@ The basic routing component for this router, all `<Scene>` components require a 
 | `headerMode` | `string` | `float` | Specifies how the header should be rendered: `float` (render a single header that stays at the top and animates as screens are changed. This is a common pattern on iOS.), `screen` (each screen has a header attached to it and the header fades in and out together with the screen. This is a common pattern on Android) or `none` (No header will be rendered) |
 | `hideNavBar`     | `boolean` | `false` | hide the nav bar |
 | `hideTabBar`     | `boolean` | `false` | hide the tab bar (only applies to scenes with `tabs` specified) |
+| `hideBackImage`     | `boolean` | `false` | hide back image |
 | `initial`   | `boolean` | `false` | Set to `true` if this is the first scene to display among its sibling `Scene`s |
 | `leftButtonImage`     | `Image` |  | Image to substitute for the left nav bar button |
 | `leftButtonTextStyle`     | `Style` |  | Style applied to left button text |
@@ -83,6 +85,8 @@ Can use all `props` listed above in `<Scene>` as `<Tabs>` is syntatic sugar for 
 | `tabStyle` | `object` | | Override the style for an individual tab of the tabbar |
 | `showLabel`     | `boolean` | `true`  | Boolean to show or not the tabbar icons labels |
 | `swipeEnabled`     | `boolean` | `true` | Enable or disable swiping tabs. |
+| `tabBarOnPress`     | `function` | | Custom tab bar icon press. |
+| `backToInitial`     | `boolean` | `false` | Back to initial screen on focused tab if tab icon was tapped. |
 
 ## Stack (`<Stack>`)
 A component to group Scenes together for its own stack based navigation. Using this will create a separate havigator for this stack, so expect two navbars to appear unless you add `hideNavBar`.
