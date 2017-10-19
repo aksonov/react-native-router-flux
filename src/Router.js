@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react/native';
-import { BackHandler } from 'react-native';
+import { ViewPropTypes, BackHandler } from 'react-native';
 import navigationStore from './navigationStore';
 import PropTypes from 'prop-types';
 import { addNavigationHelpers } from 'react-navigation';
@@ -59,7 +59,7 @@ Router.propTypes = {
   navigator: PropTypes.func,
   wrapBy: PropTypes.func,
   getSceneStyle: PropTypes.func,
-  sceneStyle: PropTypes.object,
+  sceneStyle: ViewPropTypes.style,
   children: PropTypes.element,
 };
 
