@@ -104,7 +104,8 @@ Now you can access the current scene from any connected component.
 
 ```jsx
 // components/MyComponent.js
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Text } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -129,7 +130,8 @@ export default connect(({routes}) => ({routes}))(MyComponent);
 
 ```jsx
 // components/MyComponent.js
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Text, View } from 'react-native';
 import Button from 'react-native-button'
 
