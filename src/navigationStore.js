@@ -98,8 +98,8 @@ const EVENT_LISTENERS_WHITELIST = [
   'onEnter',
   'onExit',
   'onLeft',
-  'onRight'
-]
+  'onRight',
+];
 
 function getValue(value, params) {
   return value instanceof Function ? value(params) : value;
