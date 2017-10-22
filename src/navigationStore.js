@@ -93,6 +93,14 @@ const dontInheritKeys = [
   'backToInitial',
 ];
 
+const EVENT_LISTENERS_WHITELIST = [
+  'on',
+  'onEnter',
+  'onExit',
+  'onLeft',
+  'onRight'
+]
+
 function getValue(value, params) {
   return value instanceof Function ? value(params) : value;
 }
@@ -257,8 +265,7 @@ function extendProps(props, store: NavigationStore) {
   }
   const res = { ...props };
   for (const transition of Object.keys(props)) {
-    if (reservedKeys.indexOf(transition) === -1 && transition.startsWith('on')
-      && transition.charAt(2) >= 'A' && transition.charAt(2) <= 'Z' && !(props[transition] instanceof Function)) {
+    if (reservedKeys.indexOf(transition) === -1 && EVENT_LISTENERS_WHITELIST.indexOf(transition) > -1 && !(props[transition] instanceof Function)) {
       if (!store[props[transition]]) {
         console.warn(`Scene ${transition} is not defined!`);
       }
