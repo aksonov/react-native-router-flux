@@ -258,11 +258,10 @@ function extendProps(props, store: NavigationStore) {
   const res = { ...props };
   for (const transition of Object.keys(props)) {
     if (reservedKeys.indexOf(transition) === -1 && transition.startsWith('on')
-      && transition.charAt(2) >= 'A' && transition.charAt(2) <= 'Z' && !(props[transition] instanceof Function)) {
-      if (!store[props[transition]]) {
-        console.warn(`Scene ${transition} is not defined!`);
+      && transition.charAt(2) >= 'A' && transition.charAt(2) <= 'Z' && (typeof(props[transition]) === 'string')) {
+      if (store[props[transition]]) {
+        res[transition] = params => store[props[transition]](params);
       }
-      res[transition] = params => store[props[transition]](params);
     }
   }
   return res;

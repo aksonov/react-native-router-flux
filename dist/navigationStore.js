@@ -258,11 +258,10 @@ return{};
 var res=_extends({},props);var _loop=function _loop(
 transition){
 if(reservedKeys.indexOf(transition)===-1&&transition.startsWith('on')&&
-transition.charAt(2)>='A'&&transition.charAt(2)<='Z'&&!(props[transition]instanceof Function)){
-if(!store[props[transition]]){
-console.warn('Scene '+transition+' is not defined!');
-}
+transition.charAt(2)>='A'&&transition.charAt(2)<='Z'&&typeof props[transition]==='string'){
+if(store[props[transition]]){
 res[transition]=function(params){return store[props[transition]](params);};
+}
 }};for(var _iterator2=Object.keys(props),_isArray2=Array.isArray(_iterator2),_i3=0,_iterator2=_isArray2?_iterator2:_iterator2[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref4;if(_isArray2){if(_i3>=_iterator2.length)break;_ref4=_iterator2[_i3++];}else{_i3=_iterator2.next();if(_i3.done)break;_ref4=_i3.value;}var transition=_ref4;_loop(transition);
 }
 return res;
@@ -298,9 +297,9 @@ store.deleteRef(originalRouteName(navigation.state.routeName));
 {var _this2=this;
 var navigation=this.props.navigation;
 if(!navigation||!navigation.state){
-return _react2.default.createElement(Component,_extends({ref:function ref(_ref5){return _this2.ref=_ref5;}},this.props,{__source:{fileName:_jsxFileName,lineNumber:301}}));
+return _react2.default.createElement(Component,_extends({ref:function ref(_ref5){return _this2.ref=_ref5;}},this.props,{__source:{fileName:_jsxFileName,lineNumber:300}}));
 }
-return _react2.default.createElement(Component,_extends({ref:function ref(_ref6){return _this2.ref=_ref6;}},this.props,extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:303}}));
+return _react2.default.createElement(Component,_extends({ref:function ref(_ref6){return _this2.ref=_ref6;}},this.props,extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:302}}));
 }}]);return Wrapped;}(_react2.default.Component),_class.propTypes={navigation:_propTypes2.default.object},_temp);
 
 return wrapper(Wrapped);
@@ -308,7 +307,7 @@ return wrapper(Wrapped);
 
 
 function StatelessWrapped(_ref7){var navigation=_ref7.navigation,props=_objectWithoutProperties(_ref7,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:311}}));
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:310}}));
 }
 StatelessWrapped.propTypes={
 navigation:_propTypes2.default.object};
@@ -502,8 +501,8 @@ if(lightbox){
 return(0,_LightboxNavigator2.default)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
 }else if(tabs){
 if(!tabBarComponent){
-tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:505}}));}:
-function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:506}}));};
+tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:504}}));}:
+function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:505}}));};
 }
 if(!tabBarPosition){
 tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';
