@@ -59,7 +59,7 @@ scenes:_propTypes2.default.func,
 navigator:_propTypes2.default.func,
 wrapBy:_propTypes2.default.func,
 getSceneStyle:_propTypes2.default.func,
-sceneStyle:_propTypes2.default.object,
+sceneStyle:_reactNative.ViewPropTypes.style,
 children:_propTypes2.default.element};exports.default=
 
 

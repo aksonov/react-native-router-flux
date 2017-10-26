@@ -64,12 +64,12 @@ const Example = () => (
     createReducer={reducerCreate}
     getSceneStyle={getSceneStyle}
   >
-    <Overlay>
-      <Modal
+    <Overlay key="overlay">
+      <Modal key="modal"
         hideNavBar
         transitionConfig={() => ({ screenInterpolator: CardStackStyleInterpolator.forFadeFromBottomAndroid })}
       >
-        <Lightbox>
+        <Lightbox key="lightbox">
           <Stack
             hideNavBar
             key="root"

@@ -284,17 +284,22 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
       }
       componentDidMount() {
         const navigation = this.props.navigation;
-        if (this.ref && navigation.state.routeName) {
+        if (this.ref && navigation && navigation.state && navigation.state.routeName) {
           store.addRef(originalRouteName(navigation.state.routeName), this.ref);
         }
       }
       componentWillUnmount() {
         const navigation = this.props.navigation;
         this.ref = null;
-        store.deleteRef(originalRouteName(navigation.state.routeName));
+        if (this.ref && navigation && navigation.state && navigation.state.routeName) {
+          store.deleteRef(originalRouteName(navigation.state.routeName));
+        }
       }
       render() {
         const navigation = this.props.navigation;
+        if (!navigation || !navigation.state) {
+          return <Component ref={ref => (this.ref = ref)} {...this.props} />;
+        }
         return <Component ref={ref => (this.ref = ref)} {...this.props} {...extendProps(navigation.state.params, store)} name={navigation.state.routeName} />;
       }
     }
