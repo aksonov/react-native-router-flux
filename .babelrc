@@ -1,3 +1,13 @@
 {
-  "presets": ["react-native-stage-0/decorator-support"]
+  "presets": ["react-native"],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-do-expressions",
+    "transform-function-bind",
+    "transform-class-constructor-call",
+    "transform-export-extensions",
+    "syntax-trailing-function-commas",
+    "transform-exponentiation-operator",
+    "transform-remove-console"
+  ]
 }
