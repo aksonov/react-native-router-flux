@@ -8,24 +8,24 @@
     "jest": "jest"
   },
   "dependencies": {
-    "react": "16.0.0-alpha.12",
-    "react-native": "0.45.0",
-    "react-native-button": "^1.8.2",
-    "react-native-drawer": "^2.3.0",
-    "react-native-router-flux": "^3.41.0"
+    "react": "16.0.0",
+    "react-native": "0.50.0-rc.1",
+    "prop-types": "^15.6.0",
+    "react-native-button": "^2.1.0",
+    "react-native-drawer": "^2.5.0",
+    "react-native-router-flux": "^3.42.0"
   },
   "devDependencies": {
-    "babel-jest": "19.0.0",
-    "babel-preset-react-native": "1.9.1",
-    "jest": "19.0.2",
-    "jest-react-native": "^18.0.0",
-    "react-test-renderer": "~15.4.1",
+    "babel-jest": "20.0.3",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "21.2.1",
+    "react-test-renderer": "16.0.0",
     "lodash.isequal": "^4.5.0",
-    "react-addons-pure-render-mixin": "^15.4.2",
+    "react-addons-pure-render-mixin": "^15.6.2",
     "react-dom": "^15.4.2",
-    "react-native-experimental-navigation": "0.26.x",
+    "react-native-experimental-navigation": "^0.29.1",
     "react-native-tabs": "^1.0.9",
-    "react-static-container": "1.0.1"
+    "react-static-container": "^1.0.2"
   },
   "jest": {
     "preset": "react-native",

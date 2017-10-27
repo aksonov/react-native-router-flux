@@ -6,10 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React, {
-  PureComponent,
-  PropTypes,
-} from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import {
   Animated,
   View,
