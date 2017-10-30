@@ -16,7 +16,7 @@
 | Property | Type | Default | Description |
 |-------------|----------|--------------|----------------------------------------------------------------|
 | children |  | required | Scene root element |
-| `wrapBy`   | `Function` |  | allows integration of state management schemes like Redux (`connect`) and Mobx (`observer`) |
+| `wrapBy`   | `Function` |  | function to wrap each Scene component and nav bar buttons - allows easy MobX integration (by passing `observer`) |
 | `sceneStyle`     | `Style` |  | Style applied to all scenes (optional) |
 | `backAndroidHandler`     | `Function` |  | Allows custom control of hardwareBackPress in Android (optional). For more info check [BackHandler](https://facebook.github.io/react-native/docs/backhandler.html).  |
 
