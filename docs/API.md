@@ -51,6 +51,7 @@ The basic routing component for this router, all `<Scene>` components require a 
 | `navigationBarTitleImageStyle` | `object` | | Styles to apply to `navigationBarTitleImage` |
 | `navTransparent`     | `boolean` | `false` | nav bar background transparency |
 | `on`     | `Function` | | aka `onEnter` |
+| `onBack`     | `Function` |  | Called when the back button is pressed. |
 | `onEnter`     | `Function` | | Called when the `Scene` is navigated to. `props` are provided as a function param. Only scenes with 'component' defined is supported |
 | `onExit`     | `Function` | | Called when the `Scene` is navigated away from. Only scenes with 'component' defined is supported |
 | `onLeft`     | `Function` |  | Called when the left nav bar button is pressed. |
