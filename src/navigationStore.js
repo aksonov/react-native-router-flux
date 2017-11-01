@@ -281,6 +281,10 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
       static propTypes = {
         navigation: PropTypes.object,
       }
+      constructor() {
+        super();
+        this.onRef = this.onRef.bind(this);
+      }
       componentDidMount() {
         const navigation = this.props.navigation;
         if (this.ref && navigation && navigation.state && navigation.state.routeName) {
@@ -294,12 +298,15 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
           store.deleteRef(originalRouteName(navigation.state.routeName));
         }
       }
+      onRef(ref) {
+        this.ref = ref;
+      }
       render() {
         const navigation = this.props.navigation;
         if (!navigation || !navigation.state) {
-          return <Component ref={ref => (this.ref = ref)} {...this.props} />;
+          return <Component ref={this.onRef} {...this.props} />;
         }
-        return <Component ref={ref => (this.ref = ref)} {...this.props} {...extendProps(navigation.state.params, store)} name={navigation.state.routeName} />;
+        return <Component ref={this.onRef} {...this.props} {...extendProps(navigation.state.params, store)} name={navigation.state.routeName} />;
       }
     }
     return wrapper(Wrapped);
