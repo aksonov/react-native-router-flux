@@ -16,6 +16,7 @@ interface RouterProps extends React.Props<Router> {
     sceneStyle?: StyleProp<ViewStyle>;
     backAndroidHandler?: Function;
     createReducer?: Function;
+    wrapBy?: Function;
 }
 interface RouterStatic extends React.ComponentClass<RouterProps> { }
 
