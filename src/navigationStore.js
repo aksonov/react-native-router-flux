@@ -519,7 +519,7 @@ class NavigationStore {
     } else if (drawer) {
       return DrawerNavigator(res, { initialRouteName, contentComponent, drawerWidth, order, ...commonProps });
     } else if (overlay) {
-      return OverlayNavigator(res, { lazy, initialRouteName, initialRouteParams, order, ...commonProps,
+      return OverlayNavigator(res, { lazy, initialRouteName, contentComponent, initialRouteParams, order, ...commonProps,
         tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });
     }
     return StackNavigator(res, { mode, initialRouteParams, initialRouteName, ...commonProps, transitionConfig, navigationOptions: createNavigationOptions(commonProps) });
