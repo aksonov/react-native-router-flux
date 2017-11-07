@@ -38,11 +38,13 @@ _navigationStore2.default.integrateNavigator(_this.AppNavigator);
 
 _navigationStore2.default.reducer=createReducer&&createReducer(props);
 
-if(dispatch&&state){
+if(dispatch){
 
 
-_navigationStore2.default.setState(state);
 _navigationStore2.default.dispatch=dispatch;
+_navigationStore2.default.getState=function(){return state;};
+
+_navigationStore2.default.dispatch(_reactNavigation.NavigationActions.init());
 }return _this;
 }_createClass(Router,[{key:'componentDidMount',value:function componentDidMount()
 
@@ -51,28 +53,24 @@ if(!_navigationStore2.default.dispatch){
 _navigationStore2.default.dispatch=this.navigator._navigation.dispatch;
 _navigationStore2.default.getState=function(){return _this2.navigator._navigation.state;};
 }
-return _react2.default.createElement(App,_extends({},props,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:52}}));
-};
-Router.propTypes={
-createReducer:_propTypes2.default.func,
-dispatch:_propTypes2.default.func,
-state:_propTypes2.default.object,
-scenes:_propTypes2.default.func,
-navigator:_propTypes2.default.func,
-wrapBy:_propTypes2.default.func,
-getSceneStyle:_propTypes2.default.func,
-sceneStyle:_reactNative.ViewPropTypes.style,
-children:_propTypes2.default.element};exports.default=
+}},{key:'render',value:function render()
 
 {var _this3=this;var _props=
 this.props,dispatch=_props.dispatch,state=_props.state;
 var AppNavigator=this.AppNavigator;
 
+var appNavigatorProps={};
+
+if(dispatch){
+appNavigatorProps.navigation=(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:state});
+}else{
+appNavigatorProps.onNavigationStateChange=_navigationStore2.default.onNavigationStateChange;
+}
+
 return(
-_react2.default.createElement(AppNavigator,{
-ref:function ref(r){_this3.navigator=r;},
-navigation:dispatch&&state?(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:state}):null,
-onNavigationStateChange:_navigationStore2.default.onNavigationStateChange,__source:{fileName:_jsxFileName,lineNumber:61}}));
+_react2.default.createElement(AppNavigator,_extends({
+ref:function ref(r){_this3.navigator=r;}},
+appNavigatorProps,{__source:{fileName:_jsxFileName,lineNumber:71}})));
 
 
 }}]);return Router;}(_react2.default.Component),_class.propTypes={createReducer:_propTypes2.default.func,dispatch:_propTypes2.default.func,state:_propTypes2.default.object,scenes:_propTypes2.default.func,navigator:_propTypes2.default.func,wrapBy:_propTypes2.default.func,getSceneStyle:_propTypes2.default.func,sceneStyle:_propTypes2.default.object,children:_propTypes2.default.element},_temp);exports.default=Router;

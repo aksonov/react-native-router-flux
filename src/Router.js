@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { addNavigationHelpers } from 'react-navigation';
+import { addNavigationHelpers, NavigationActions } from 'react-navigation';
 
 import navigationStore from './navigationStore';
 
@@ -38,11 +38,13 @@ export default class Router extends React.Component {
 
     navigationStore.reducer = createReducer && createReducer(props);
 
-    if (dispatch && state) {
+    if (dispatch) {
       // TODO: Make sure this works with the new way
       // set external state and dispatch
-      navigationStore.setState(state);
       navigationStore.dispatch = dispatch;
+      navigationStore.getState = () => state;
+
+      navigationStore.dispatch(NavigationActions.init());
     }
   }
 
@@ -57,11 +59,18 @@ export default class Router extends React.Component {
     const { dispatch, state } = this.props;
     const AppNavigator = this.AppNavigator;
 
+    const appNavigatorProps = {};
+
+    if (dispatch) {
+      appNavigatorProps.navigation = addNavigationHelpers({ dispatch, state });
+    } else {
+      appNavigatorProps.onNavigationStateChange = navigationStore.onNavigationStateChange;
+    }
+
     return (
       <AppNavigator
         ref={r => { this.navigator = r; }}
-        navigation={dispatch && state ? addNavigationHelpers({ dispatch, state }) : null}
-        onNavigationStateChange={navigationStore.onNavigationStateChange}
+        {...appNavigatorProps}
       />
     );
   }

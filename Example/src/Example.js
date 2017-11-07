@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import Launch from './components/Launch';
 import Register from './components/Register';
 import Login from './components/Login';
@@ -59,10 +59,12 @@ const getSceneStyle = () => ({
   shadowRadius: 3,
 });
 
-const Example = () => (
+const Example = ({ state, dispatch }) => (
   <Router
     createReducer={reducerCreate}
     getSceneStyle={getSceneStyle}
+    state={state}
+    dispatch={dispatch}
   >
     <Overlay key="overlay">
       <Modal key="modal"
