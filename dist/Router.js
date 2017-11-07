@@ -51,7 +51,18 @@ if(!_navigationStore2.default.dispatch){
 _navigationStore2.default.dispatch=this.navigator._navigation.dispatch;
 _navigationStore2.default.getState=function(){return _this2.navigator._navigation.state;};
 }
-}},{key:'render',value:function render()
+return _react2.default.createElement(App,_extends({},props,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:52}}));
+};
+Router.propTypes={
+createReducer:_propTypes2.default.func,
+dispatch:_propTypes2.default.func,
+state:_propTypes2.default.object,
+scenes:_propTypes2.default.func,
+navigator:_propTypes2.default.func,
+wrapBy:_propTypes2.default.func,
+getSceneStyle:_propTypes2.default.func,
+sceneStyle:_reactNative.ViewPropTypes.style,
+children:_propTypes2.default.element};exports.default=
 
 {var _this3=this;var _props=
 this.props,dispatch=_props.dispatch,state=_props.state;

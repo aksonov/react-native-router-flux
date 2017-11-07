@@ -1,6 +1,6 @@
 {
   "name": "react-native-router-flux",
-  "version": "4.0.0-beta.21",
+  "version": "4.0.0-beta.22",
   "description": "React Native Router using Flux architecture",
   "repository": {
     "type": "git",
@@ -8,6 +8,7 @@
   },
   "license": "ISC",
   "main": "dist/index.js",
+  "types": "index.d.ts",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "postinstall": "./node_modules/.bin/opencollective postinstall",
@@ -18,11 +19,12 @@
   "dependencies": {
     "lodash.isequal": "^4.5.0",
     "opencollective": "^1.0.3",
-    "prop-types": "^15.5.10",
-    "react-native-button": "^2.0.0",
-    "react-navigation": "^1.0.0-beta.11"
+    "prop-types": "^15.6.0",
+    "react-navigation": "^1.0.0-beta.19"
   },
   "devDependencies": {
+    "@types/react": "^16.0.20",
+    "@types/react-native": "^0.50.0",
     "babel-cli": "~6.24.1",
     "babel-eslint": "^6.0.3",
     "babel-jest": "20.0.3",
@@ -39,9 +41,9 @@
     "jest": "20.0.4",
     "prettier-eslint": "^6.4.2",
     "prettier-eslint-cli": "^4.1.1",
-    "react": "16.0.0-alpha.12",
-    "react-native": "0.45.1",
-    "react-test-renderer": "16.0.0-alpha.12"
+    "react": "16.0.0",
+    "react-native": "0.50.1",
+    "react-test-renderer": "16.0.0"
   },
   "peerDependencies": {
     "react": "*",
@@ -53,7 +55,7 @@
       "<rootDir>/Example/"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-navigation)"
+      "node_modules/(?!(jest-)?react-native|react-navigation|mobx-react)"
     ],
     "setupFiles": [
       "./test/setup.js"

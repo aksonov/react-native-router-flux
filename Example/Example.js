@@ -5,7 +5,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Login2 from './components/Login2';
 import Login3 from './components/Login3';
-import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyleInterpolator';
+import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 import {
   Scene,
   Router,
@@ -28,6 +28,9 @@ import MessageBar from './components/MessageBar';
 import ErrorModal from './components/modal/ErrorModal';
 import DemoLightbox from './components/lightbox/DemoLightbox';
 import MenuIcon from './images/menu_burger.png';
+import CustomNavBarView from "./components/CustomNavBarView";
+import CustomNavBar from "./components/CustomNavBar";
+import CustomNavBar2 from "./components/CustomNavBar2";
 
 const styles = StyleSheet.create({
   container: {
@@ -61,12 +64,12 @@ const Example = () => (
     createReducer={reducerCreate}
     getSceneStyle={getSceneStyle}
   >
-    <Overlay>
-      <Modal
+    <Overlay key="overlay">
+      <Modal key="modal"
         hideNavBar
         transitionConfig={() => ({ screenInterpolator: CardStackStyleInterpolator.forFadeFromBottomAndroid })}
       >
-        <Lightbox>
+        <Lightbox key="lightbox">
           <Stack
             hideNavBar
             key="root"
@@ -74,6 +77,37 @@ const Example = () => (
           >
             <Scene key="echo" back clone component={EchoView} getTitle={({ navigation }) => navigation.state.key} />
             <Scene key="launch" component={Launch} title="Launch" initial />
+
+            <Stack key="customNavBar" hideTabBar titleStyle={{alignSelf: 'center'}}>
+              <Scene
+                key="customNavBar1"
+                title="CustomNavBar 1"
+                navBar={CustomNavBar}
+                component={CustomNavBarView}
+                back
+              />
+              <Scene
+                key="customNavBar2"
+                title="CustomNavBar 2"
+                navBar={CustomNavBar}
+                component={CustomNavBarView}
+                back
+              />
+              <Scene
+                key="customNavBar3"
+                title="Another CustomNavBar"
+                navBar={CustomNavBar2}
+                component={CustomNavBarView}
+                back
+              />
+              <Scene
+                key="hiddenNavBar"
+                title="hiddenNavBar"
+                component={CustomNavBarView}
+                hideNavBar={true}
+                back
+              />
+            </Stack>
 
             <Stack
               back
@@ -91,6 +125,7 @@ const Example = () => (
               key="drawer"
               contentComponent={DrawerContent}
               drawerImage={MenuIcon}
+              drawerWidth={300}
             >
               {/*
                 Wrapper Scene needed to fix a bug where the tabs would
@@ -150,6 +185,7 @@ const Example = () => (
                       component={TabView}
                       title="Tab #2_2"
                       onBack={() => alert('onBack button!')}
+                      hideDrawerButton
                       backTitle="Back!"
                       panHandlers={null}
                     />
