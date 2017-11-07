@@ -634,7 +634,7 @@ setTimeout(function(){return _this2.pop(params);},timeout);
 }else{
 _this2.dispatch(_reactNavigation.NavigationActions.back());
 if(res.refresh){
-_this2.refresh(res.refresh);
+setTimeout(function(){return _this2.refresh(res.refresh);});
 }
 }
 };this.

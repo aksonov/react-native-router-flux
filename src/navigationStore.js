@@ -634,7 +634,7 @@ class NavigationStore {
     } else {
       this.dispatch(NavigationActions.back());
       if (res.refresh) {
-        this.refresh(res.refresh);
+        setTimeout(() => this.refresh(res.refresh));
       }
     }
   };
