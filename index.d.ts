@@ -7,9 +7,10 @@ import { StyleProp, Image, ViewStyle, TextStyle, ImageStyle } from "react-native
 export var Router: RouterStatic;
 export type Router = RouterStatic;
 
-// Router 
+// Router
 interface RouterProps extends React.Props<Router> {
     sceneStyle?: StyleProp<ViewStyle>;
+    backAndroidHandler?: () => void;
 }
 interface RouterStatic extends React.ComponentClass<RouterProps> { }
 
@@ -77,7 +78,7 @@ interface TabsProps extends React.Props<Tabs> {
     showLabel?: boolean;
     swipeEnabled?: boolean;
 }
-interface TabsStatic extends React.ComponentClass<SceneProps & TabsProps> { }
+interface TabsStatic extends React.ComponentClass<TabsProps> { }
 export type TabBarPositionType = "top" | "bottom";
 
 // Drawer
@@ -106,13 +107,18 @@ interface LighboxStatic extends React.ComponentClass<LighboxProps> { }
 // Stack
 export var Stack: StackStatic;
 export type Stack = StackStatic;
-interface StackProps extends React.Props<Stack> { }
-interface StackStatic extends React.ComponentClass<StackProps> { }
+interface StackProps extends React.Props<Stack> {
+    icon?: any;
+    tintColor?: string;
+    hideNavBar?: boolean;
+}
+interface StackStatic extends React.ComponentClass<StackProps> {
+}
 
-export var Actions: ActionsStatic & ActionsGenericStatic;
-export type Actions = ActionsStatic & ActionsGenericStatic;
+export var Actions: ActionsGenericStatic;
+export type Actions = ActionsGenericStatic;
 interface ActionsStatic {
-    currentScene: () => string;
+    currentScene: string;
     jump: (sceneKey: string, props?: any) => void;
     pop: () => void;
     popAndPush: (sceneKey: string, props?: any) => void;
@@ -125,7 +131,7 @@ interface ActionsStatic {
     drawerClose?: () => void;
 
 }
-interface ActionsGenericStatic {
+interface ActionsGenericStatic extends ActionsStatic {
     [key: string]: (props?: any) => void;
 }
 
