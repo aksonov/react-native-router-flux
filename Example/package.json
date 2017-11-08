@@ -12,12 +12,12 @@
     "mobx": "^3.2.1",
     "mobx-react": "^4.2.1",
     "prop-types": "^15.5.10",
-    "react": "16.0.0-alpha.6",
-    "react-native": "0.44.0",
+    "react": "16.0.0",
+    "react-native": "0.50.1",
     "react-native-button": "^2.0.0",
     "react-native-message-bar": "^1.6.0",
     "react-native-router-flux": "file:../",
-    "react-navigation": "1.0.0-beta.13"
+    "react-navigation": "1.0.0-beta.17"
   },
   "devDependencies": {
     "babel-jest": "20.0.3",
