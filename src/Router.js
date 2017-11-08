@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react/native';
-import { BackHandler, Linking } from 'react-native';
+import { BackHandler, Linking, ViewPropTypes } from 'react-native';
 import navigationStore from './navigationStore';
 import PropTypes from 'prop-types';
 import { addNavigationHelpers } from 'react-navigation';
@@ -51,6 +51,12 @@ class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  navigator: PropTypes.func,
+  backAndroidHandler: PropTypes.func,
+  uriPrefix: PropTypes.string,
+};
 
 const Router = ({ createReducer, uriPrefix, sceneStyle, scenes, navigator, getSceneStyle, children, state, dispatch, wrapBy = props => props, ...props }) => {
   const data = { ...props };
