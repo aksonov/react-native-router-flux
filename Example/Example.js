@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import Launch from './components/Launch';
 import Register from './components/Register';
 import Login from './components/Login';
@@ -32,7 +32,6 @@ import CustomNavBarView from "./components/CustomNavBarView";
 import CustomNavBar from "./components/CustomNavBar";
 import CustomNavBar2 from "./components/CustomNavBar2";
 
-useStrict(true);
 const styles = StyleSheet.create({
   container: {
     flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
@@ -67,7 +66,7 @@ const Example = () => (
   <Router
     createReducer={reducerCreate}
     getSceneStyle={getSceneStyle}
-    uriPrefix={prefix} 
+    uriPrefix={prefix}
   >
     <Overlay key="overlay">
       <Modal key="modal"
