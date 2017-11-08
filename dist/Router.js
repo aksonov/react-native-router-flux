@@ -58,10 +58,13 @@ backAndroidHandler:_propTypes2.default.func,
 uriPrefix:_propTypes2.default.string};
 
 
-var Router=function Router(_ref3){var createReducer=_ref3.createReducer,uriPrefix=_ref3.uriPrefix,scenes=_ref3.scenes,navigator=_ref3.navigator,getSceneStyle=_ref3.getSceneStyle,children=_ref3.children,state=_ref3.state,dispatch=_ref3.dispatch,_ref3$wrapBy=_ref3.wrapBy,wrapBy=_ref3$wrapBy===undefined?function(props){return props;}:_ref3$wrapBy,props=_objectWithoutProperties(_ref3,['createReducer','uriPrefix','scenes','navigator','getSceneStyle','children','state','dispatch','wrapBy']);
+var Router=function Router(_ref2){var createReducer=_ref2.createReducer,sceneStyle=_ref2.sceneStyle,scenes=_ref2.scenes,navigator=_ref2.navigator,getSceneStyle=_ref2.getSceneStyle,children=_ref2.children,state=_ref2.state,dispatch=_ref2.dispatch,_ref2$wrapBy=_ref2.wrapBy,wrapBy=_ref2$wrapBy===undefined?function(props){return props;}:_ref2$wrapBy,props=_objectWithoutProperties(_ref2,['createReducer','sceneStyle','scenes','navigator','getSceneStyle','children','state','dispatch','wrapBy']);
 var data=_extends({},props);
 if(getSceneStyle){
-data.cardStyle=getSceneStyle();
+data.cardStyle=getSceneStyle(props);
+}
+if(sceneStyle){
+data.cardStyle=sceneStyle;
 }
 var AppNavigator=scenes||navigator||_navigationStore2.default.create(children,data,wrapBy);
 _navigationStore2.default.reducer=createReducer&&createReducer(props);
@@ -69,20 +72,20 @@ if(dispatch&&state){
 
 _navigationStore2.default.setState(state);
 _navigationStore2.default.dispatch=dispatch;
-return _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:state}),uriPrefix:uriPrefix,__source:{fileName:_jsxFileName,lineNumber:72}});
+return _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:state}),__source:{fileName:_jsxFileName,lineNumber:50}});
 }
-return _react2.default.createElement(App,_extends({},props,{navigator:AppNavigator,uriPrefix:uriPrefix,__source:{fileName:_jsxFileName,lineNumber:74}}));
+return _react2.default.createElement(App,_extends({},props,{navigator:AppNavigator,__source:{fileName:_jsxFileName,lineNumber:52}}));
 };
 Router.propTypes={
 createReducer:_propTypes2.default.func,
 dispatch:_propTypes2.default.func,
 state:_propTypes2.default.object,
-scenes:_propTypes2.default.element,
+scenes:_propTypes2.default.func,
 navigator:_propTypes2.default.func,
 wrapBy:_propTypes2.default.func,
 getSceneStyle:_propTypes2.default.func,
-children:_propTypes2.default.element,
-uriPrefix:_propTypes2.default.string};exports.default=
+sceneStyle:_reactNative.ViewPropTypes.style,
+children:_propTypes2.default.element};exports.default=
 
 
 Router;

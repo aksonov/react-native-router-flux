@@ -22,11 +22,13 @@ const OverlayNavigator = (
     // Figure out what to render based on the navigation state and the router:
     const Component = routeConfigs[tabsConfig.initialRouteName].screen;
     let initialIndex = 0;
+    const routesMap = {};
     for (let i = 0; i < routes.length; i++) {
       const route = routes[i];
       if (route.routeName === tabsConfig.initialRouteName) {
         initialIndex = i;
       }
+      routesMap[route.routeName] = route;
     }
     const initialRouteName = tabsConfig.initialRouteName || routes[initialIndex].routeName;
     const overlays = [];
@@ -34,7 +36,7 @@ const OverlayNavigator = (
       const routeName = tabsConfig.order[i];
       if (initialRouteName !== routeName) {
         const Overlay = routeConfigs[routeName].screen;
-        overlays.push(<Overlay key={routeName} navigation={{ dispatch, state }} />);
+        overlays.push(<Overlay key={routeName} navigation={{ dispatch, state: routesMap[routeName] }} />);
       }
     }
     const ContentComponent = tabsConfig.contentComponent || View;

@@ -1,14 +1,13 @@
 import navigationStore from './navigationStore';
 import * as ActionConst from './ActionConst';
 import { NavigationActions } from 'react-navigation';
-import { getActiveState } from './State';
+import { getActiveState, popPrevious, isActiveRoute, getActiveStateExceptDrawer } from './State';
 
 export const supportedActions = {
   [ActionConst.PUSH]: NavigationActions.NAVIGATE,
   [ActionConst.BACK]: NavigationActions.BACK,
   [ActionConst.REFRESH]: NavigationActions.BACK,
   [ActionConst.RESET]: NavigationActions.RESET,
-  [ActionConst.REPLACE]: NavigationActions.RESET,
 };
 
 const createAction = (type: string) => (payload: Object = {}) => ({
@@ -25,15 +24,23 @@ export function reducer(state = navigationStore.state, action) {
       routeName,
       params: action.params,
     }), state);
-    const newActiveState = getActiveState(newState);
-    const activeState = getActiveState(state);
-    if (type === ActionConst.JUMP && newActiveState.routeName === activeState.routeName) {
-      return state;
-    }
     return newState || state;
   }
   if (type === ActionConst.JUMP) {
     const newState = navigationStore.router.getStateForAction(NavigationActions.navigate({ routeName, params: action.params }), state);
+    let activeState = getActiveState(state);
+    // skip action if route name is the same (avoid pushing action)
+    if (activeState.routeName === 'DrawerOpen') {
+      activeState = getActiveStateExceptDrawer(state);
+      // just close drawer if no active route change
+      if (isActiveRoute(state, routeName)) {
+        return navigationStore.router.getStateForAction(NavigationActions.navigate({ routeName: 'DrawerClose' }), state);
+      }
+    }
+    // skip jumping if route is already active
+    if (isActiveRoute(state, routeName)) {
+      return state;
+    }
     const key = getActiveState(newState).key;
     return navigationStore.router.getStateForAction(NavigationActions.setParams({
       key,
@@ -54,12 +61,12 @@ export function reducer(state = navigationStore.state, action) {
       }
     }
     return nextScene === routeName ? newState : state;
-  } else if (type === ActionConst.POP_AND_PUSH) {
-    const newState = navigationStore.router.getStateForAction(NavigationActions.back(), state);
-    return navigationStore.router.getStateForAction(NavigationActions.navigate({
+  } else if (type === ActionConst.REPLACE) {
+    const newState = navigationStore.router.getStateForAction(NavigationActions.navigate({
       routeName,
       params: action.params,
-    }), newState);
+    }), state);
+    return popPrevious(newState);
   }
   return navigationStore.router.getStateForAction(action, state) || state;
 }

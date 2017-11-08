@@ -1,8 +1,6 @@
-# React Native Router [![Backers on Open Collective](https://opencollective.com/react-native-router-flux/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/react-native-router-flux/sponsors/badge.svg)](#sponsors) [![Join the chat at https://gitter.im/aksonov/react-native-router-flux](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aksonov/react-native-router-flux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Codacy Badge](https://api.codacy.com/project/badge/grade/c6d869e2367a4fb491efc9de228c5ac6)](https://www.codacy.com/app/aksonov-github/react-native-router-flux) [![npm version](https://badge.fury.io/js/react-native-router-flux.svg)](http://badge.fury.io/js/react-native-router-flux) [![CircleCI](https://circleci.com/gh/aksonov/react-native-router-flux.svg?style=svg)](https://circleci.com/gh/aksonov/react-native-router-flux)
+# React Native Router v4.x [![Backers on Open Collective](https://opencollective.com/react-native-router-flux/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/react-native-router-flux/sponsors/badge.svg)](#sponsors) [![Join the chat at https://gitter.im/aksonov/react-native-router-flux](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aksonov/react-native-router-flux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Codacy Badge](https://api.codacy.com/project/badge/grade/c6d869e2367a4fb491efc9de228c5ac6)](https://www.codacy.com/app/aksonov-github/react-native-router-flux) [![npm version](https://badge.fury.io/js/react-native-router-flux.svg)](http://badge.fury.io/js/react-native-router-flux) [![CircleCI](https://circleci.com/gh/aksonov/react-native-router-flux.svg?style=svg)](https://circleci.com/gh/aksonov/react-native-router-flux)
 
 [Follow author @PAksonov](https://twitter.com/PAksonov)
-
-Please 🌟 my talk proposal for [ReactiveConf 2017](https://reactiveconf.com/) - [What is RNRF?](https://gist.github.com/aksonov/e2d7454421e44b1c4c72214d14053410)
 
 #### NOTE: v4 (based on [React Navigation](https://reactnavigation.org/)) is in beta. See [this branch](https://github.com/aksonov/react-native-router-flux/tree/v3) and [docs](https://github.com/aksonov/react-native-router-flux/blob/master/README3.md) for v3.
 
@@ -21,11 +19,11 @@ Define all your routes in one React component...
 ```js
 const App = () => (
   <Router>
-    <Scene key="root">
+    <Stack key="root">
       <Scene key="login" component={Login} title="Login"/>
       <Scene key="register" component={Register} title="Register"/>
       <Scene key="home" component={Home}/>
-    </Scene>
+    </Stack>
   </Router>
 );
 ```
@@ -52,7 +50,7 @@ Actions.refresh({param1: 'hello', param2: 'world'})
 
 ```bash
 # Get the code
-git clone git@github.com:aksonov/react-native-router-flux.git
+git clone https://github.com/aksonov/react-native-router-flux.git
 cd react-native-router-flux/Example
 
 # Install dependencies
@@ -66,7 +64,7 @@ react-native run-ios
 * Based on latest [React Navigation](https://reactnavigation.org) API
 * Separate navigation logic from presentation. You may change now navigation state directly from your business logic code - stores/reducers/etc. navigationStore
 * Built-in state machine (v3 `Switch` replacement)
-  * Each `Scene` can have `onEnter`/`onExit`/`on` handlers.
+  * Each `Scene` with `component` defined can have `onEnter`/`onExit`/`on` handlers.
   * `onEnter`/`on` handler can be async.
   * For 'truthy' return of `onEnter`/`on`, `success` handler (if defined) will be executed
     * if `success` is a string then router will navigate to the `Scene` with that key
@@ -83,7 +81,7 @@ https://github.com/react-community/react-navigation/issues/779
 ## Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
-<a href="graphs/contributors"><img src="https://opencollective.com/react-native-router-flux/contributors.svg?width=890" /></a>
+<a href="https://github.com/aksonov/react-native-router-flux/graphs/contributors"><img src="https://opencollective.com/react-native-router-flux/contributors.svg?width=890" /></a>
 
 
 ## Backers

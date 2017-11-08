@@ -22,11 +22,13 @@ routes=state.routes;
 
 var Component=routeConfigs[tabsConfig.initialRouteName].screen;
 var initialIndex=0;
+var routesMap={};
 for(var i=0;i<routes.length;i++){
 var route=routes[i];
 if(route.routeName===tabsConfig.initialRouteName){
 initialIndex=i;
 }
+routesMap[route.routeName]=route;
 }
 var initialRouteName=tabsConfig.initialRouteName||routes[initialIndex].routeName;
 var overlays=[];
@@ -34,12 +36,12 @@ for(var _i=0;_i<tabsConfig.order.length;_i++){
 var routeName=tabsConfig.order[_i];
 if(initialRouteName!==routeName){
 var Overlay=routeConfigs[routeName].screen;
-overlays.push(_react2.default.createElement(Overlay,{key:routeName,navigation:{dispatch:dispatch,state:state},__source:{fileName:_jsxFileName,lineNumber:37}}));
+overlays.push(_react2.default.createElement(Overlay,{key:routeName,navigation:{dispatch:dispatch,state:routesMap[routeName]},__source:{fileName:_jsxFileName,lineNumber:39}}));
 }
 }
 var ContentComponent=tabsConfig.contentComponent||_reactNative.View;
-return _react2.default.createElement(ContentComponent,{style:{flex:1},__source:{fileName:_jsxFileName,lineNumber:41}},
-_react2.default.createElement(Component,{navigation:{dispatch:dispatch,state:routes[initialIndex]},__source:{fileName:_jsxFileName,lineNumber:42}}),
+return _react2.default.createElement(ContentComponent,{style:{flex:1},__source:{fileName:_jsxFileName,lineNumber:43}},
+_react2.default.createElement(Component,{navigation:{dispatch:dispatch,state:routes[initialIndex]},__source:{fileName:_jsxFileName,lineNumber:44}}),
 overlays);
 
 });

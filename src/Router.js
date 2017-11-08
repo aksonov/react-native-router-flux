@@ -52,16 +52,13 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = {
-  navigator: PropTypes.func,
-  backAndroidHandler: PropTypes.func,
-  uriPrefix: PropTypes.string,
-};
-
-const Router = ({ createReducer, uriPrefix, scenes, navigator, getSceneStyle, children, state, dispatch, wrapBy = props => props, ...props }) => {
+const Router = ({ createReducer, uriPrefix, sceneStyle, scenes, navigator, getSceneStyle, children, state, dispatch, wrapBy = props => props, ...props }) => {
   const data = { ...props };
   if (getSceneStyle) {
-    data.cardStyle = getSceneStyle();
+    data.cardStyle = getSceneStyle(props);
+  }
+  if (sceneStyle) {
+    data.cardStyle = sceneStyle;
   }
   const AppNavigator = scenes || navigator || navigationStore.create(children, data, wrapBy);
   navigationStore.reducer = createReducer && createReducer(props);
@@ -77,10 +74,11 @@ Router.propTypes = {
   createReducer: PropTypes.func,
   dispatch: PropTypes.func,
   state: PropTypes.object,
-  scenes: PropTypes.element,
+  scenes: PropTypes.func,
   navigator: PropTypes.func,
   wrapBy: PropTypes.func,
   getSceneStyle: PropTypes.func,
+  sceneStyle: ViewPropTypes.style,
   children: PropTypes.element,
   uriPrefix: PropTypes.string,
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { HeaderBackButton } from 'react-navigation';
 import {
   Platform,
   I18nManager,
@@ -30,6 +31,20 @@ export function BackButton(state) {
     onPress = Actions.pop;
   }
 
+  // returning react-navigation's back button well styled for ios and android if rnrf4-supported customization
+  // is not required
+  if (!state.backButtonImage) {
+    return (
+      <HeaderBackButton
+        onPress={onPress}
+        title={state.backTitle}
+        titleStyle={textButtonStyle}
+        tintColor={tintColor}
+        truncatedTitle={state.truncatedTitle}
+      />
+    );
+  }
+
   const text = state.backTitle ?
     (<Text style={textButtonStyle}>
       {state.backTitle}
@@ -41,7 +56,6 @@ export function BackButton(state) {
       testID="backNavButton"
       style={styles.backButtonContainer}
       onPress={onPress}
-      hitSlop={state.hitSlop || hitSlop}
     >
       <View style={style}>
       {buttonImage && !state.hideBackImage && <Image
@@ -62,8 +76,8 @@ export function BackButton(state) {
 
 export function LeftButton(state) {
   let onPress = state.onLeft;
-  const buttonImage = getValue(state.leftButtonImage, state);
-  const menuIcon = state.drawerIcon;
+  let buttonImage = getValue(state.leftButtonImage, state);
+  let menuIcon = getValue(state.drawerIcon, state);
   const style = [styles.leftButton, state.leftButtonStyle];
   const leftButtonTextStyle = getValue(state.leftButtonTextStyle, state);
   const leftButtonIconStyle = getValue(state.leftButtonIconStyle, state);
@@ -71,9 +85,9 @@ export function LeftButton(state) {
   const leftTitle = state.getLeftTitle ? state.getLeftTitle(state) : getValue(state.leftTitle, state);
   const textColor = getValue(state.leftButtonTintColor, state);
   const tintColor = textColor || state.tintColor || state.navBarButtonColor || state.headerTintColor;
-  const textStyle = [{ color: tintColor }, styles.barLeftButtonText, leftButtonTextStyle, textColor && { color: textColor }];
+  const textStyle = [styles.barLeftButtonText, tintColor && { color: tintColor }, leftButtonTextStyle, textColor && { color: textColor }];
 
-  if (state.leftButton) {
+  if (state.leftButton || state.left) {
     const Button = state.leftButton || state.left;
     return (
       <Button
@@ -86,7 +100,22 @@ export function LeftButton(state) {
     );
   }
 
-  if (onPress && (leftTitle || buttonImage)) {
+  if (!onPress && !state.hideDrawerButton && (state.drawerImage || menuIcon) && state.drawerPosition !== 'right') {
+    buttonImage = state.drawerImage;
+    if (buttonImage || menuIcon) {
+      onPress = Actions.drawerOpen;
+    }
+    if (!menuIcon) {
+      menuIcon = (
+        <Image
+          source={buttonImage}
+          style={[state.leftButtonIconStyle || styles.defaultImageStyle, { tintColor }]}
+        />
+      );
+    }
+  }
+
+  if (onPress && (leftTitle || buttonImage || menuIcon)) {
     onPress = onPress.bind(null, state);
     return (
       <TouchableOpacity
@@ -100,7 +129,7 @@ export function LeftButton(state) {
           {leftTitle}
         </Text>
         }
-        {!leftTitle && buttonImage && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
+        {!leftTitle && (menuIcon || buttonImage) && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
           {menuIcon || <Image
             source={buttonImage}
             style={[state.leftButtonIconStyle || styles.defaultImageStyle, { tintColor }]}
@@ -111,7 +140,7 @@ export function LeftButton(state) {
       </TouchableOpacity>
     );
   }
-  if ((!!state.onLeft ^ !!(leftTitle || buttonImage))) {
+  if ((!!state.onLeft ^ !!(leftTitle || buttonImage || menuIcon))) {
     console.warn(
       `Both onLeft and leftTitle/leftButtonImage
             must be specified for the scene: ${state.name}`,
@@ -125,7 +154,6 @@ function getValue(value, params) {
 }
 
 export function RightButton(state) {
-  const drawer = null;
   if (!state) {
     return null;
   }
@@ -140,7 +168,7 @@ export function RightButton(state) {
   const rightTitle = state.getRightTitle ? state.getRightTitle(state) : getValue(state.rightTitle, state);
   const textColor = getValue(state.rightButtonTintColor, state);
   const tintColor = textColor || state.tintColor || state.navBarButtonColor || state.headerTintColor;
-  const textStyle = [{ color: tintColor }, styles.barRightButtonText, rightButtonTextStyle, textColor && { color: textColor }];
+  const textStyle = [styles.barRightButtonText, tintColor && { color: tintColor }, rightButtonTextStyle, textColor && { color: textColor }];
 
   if (state.rightButton || state.right) {
     const Button = state.rightButton || state.right;
@@ -155,16 +183,16 @@ export function RightButton(state) {
     );
   }
 
-  if (!onPress && !!drawer && typeof drawer.toggle === 'function' && drawer.props.side === 'right') {
+  if (!onPress && !state.hideDrawerButton && state.drawerImage && state.drawerPosition === 'right') {
     buttonImage = state.drawerImage;
     if (buttonImage || menuIcon) {
-      onPress = drawer.toggle;
+      onPress = Actions.drawerOpen;
     }
     if (!menuIcon) {
       menuIcon = (
         <Image
           source={buttonImage}
-          style={rightButtonStyle}
+          style={[rightButtonStyle, { tintColor }]}
         />
       );
     }
