@@ -89,7 +89,8 @@ var dontInheritKeys=[
 'navTransparent',
 'type',
 'hideNavBar',
-'hideTabBar'];
+'hideTabBar',
+'backToInitial'];
 
 
 function getValue(value,params){
@@ -114,7 +115,7 @@ title=
 
 
 
-params.title,backButtonImage=params.backButtonImage,navTransparent=params.navTransparent,hideNavBar=params.hideNavBar,hideTabBar=params.hideTabBar,backTitle=params.backTitle,right=params.right,rightButton=params.rightButton,left=params.left,leftButton=params.leftButton,navigationBarStyle=params.navigationBarStyle,headerStyle=params.headerStyle,navBarButtonColor=params.navBarButtonColor,tabBarLabel=params.tabBarLabel,tabBarIcon=params.tabBarIcon,icon=params.icon,getTitle=params.getTitle,renderTitle=params.renderTitle,panHandlers=params.panHandlers,navigationBarTitleImage=params.navigationBarTitleImage,navigationBarTitleImageStyle=params.navigationBarTitleImageStyle,component=params.component,rightTitle=params.rightTitle,leftTitle=params.leftTitle,leftButtonTextStyle=params.leftButtonTextStyle,rightButtonTextStyle=params.rightButtonTextStyle,backButtonTextStyle=params.backButtonTextStyle,headerTitleStyle=params.headerTitleStyle,titleStyle=params.titleStyle,navBar=params.navBar,onRight=params.onRight,onLeft=params.onLeft,rightButtonImage=params.rightButtonImage,leftButtonImage=params.leftButtonImage,init=params.init,back=params.back,renderBackButton=params.renderBackButton,renderNavigationBar=params.renderNavigationBar,hideDrawerButton=params.hideDrawerButton,drawerIcon=params.drawerIcon,drawerImage=params.drawerImage,drawerPosition=params.drawerPosition,props=_objectWithoutProperties(params,['title','backButtonImage','navTransparent','hideNavBar','hideTabBar','backTitle','right','rightButton','left','leftButton','navigationBarStyle','headerStyle','navBarButtonColor','tabBarLabel','tabBarIcon','icon','getTitle','renderTitle','panHandlers','navigationBarTitleImage','navigationBarTitleImageStyle','component','rightTitle','leftTitle','leftButtonTextStyle','rightButtonTextStyle','backButtonTextStyle','headerTitleStyle','titleStyle','navBar','onRight','onLeft','rightButtonImage','leftButtonImage','init','back','renderBackButton','renderNavigationBar','hideDrawerButton','drawerIcon','drawerImage','drawerPosition']);
+params.title,backButtonImage=params.backButtonImage,navTransparent=params.navTransparent,backToInitial=params.backToInitial,hideNavBar=params.hideNavBar,hideTabBar=params.hideTabBar,backTitle=params.backTitle,right=params.right,rightButton=params.rightButton,left=params.left,leftButton=params.leftButton,navigationBarStyle=params.navigationBarStyle,headerStyle=params.headerStyle,navBarButtonColor=params.navBarButtonColor,tabBarLabel=params.tabBarLabel,tabBarIcon=params.tabBarIcon,icon=params.icon,getTitle=params.getTitle,renderTitle=params.renderTitle,panHandlers=params.panHandlers,navigationBarTitleImage=params.navigationBarTitleImage,navigationBarTitleImageStyle=params.navigationBarTitleImageStyle,component=params.component,rightTitle=params.rightTitle,leftTitle=params.leftTitle,leftButtonTextStyle=params.leftButtonTextStyle,rightButtonTextStyle=params.rightButtonTextStyle,backButtonTextStyle=params.backButtonTextStyle,headerTitleStyle=params.headerTitleStyle,titleStyle=params.titleStyle,navBar=params.navBar,onRight=params.onRight,onLeft=params.onLeft,rightButtonImage=params.rightButtonImage,leftButtonImage=params.leftButtonImage,init=params.init,back=params.back,renderBackButton=params.renderBackButton,renderNavigationBar=params.renderNavigationBar,hideDrawerButton=params.hideDrawerButton,drawerIcon=params.drawerIcon,drawerImage=params.drawerImage,drawerPosition=params.drawerPosition,props=_objectWithoutProperties(params,['title','backButtonImage','navTransparent','backToInitial','hideNavBar','hideTabBar','backTitle','right','rightButton','left','leftButton','navigationBarStyle','headerStyle','navBarButtonColor','tabBarLabel','tabBarIcon','icon','getTitle','renderTitle','panHandlers','navigationBarTitleImage','navigationBarTitleImageStyle','component','rightTitle','leftTitle','leftButtonTextStyle','rightButtonTextStyle','backButtonTextStyle','headerTitleStyle','titleStyle','navBar','onRight','onLeft','rightButtonImage','leftButtonImage','init','back','renderBackButton','renderNavigationBar','hideDrawerButton','drawerIcon','drawerImage','drawerPosition']);
 var NavBar=renderNavigationBar||navBar;
 if(component&&component.navigationOptions){
 return component.navigationOptions;
@@ -138,10 +139,10 @@ headerBackImage:navigationParams.backButtonImage||backButtonImage});
 var NavBarFromParams=navigationParams.renderNavigationBar||navigationParams.navBar;
 if(NavBarFromParams!=null){
 if(NavBarFromParams){
-res.header=function(data){return _react2.default.createElement(NavBarFromParams,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:141}}));};
+res.header=function(data){return _react2.default.createElement(NavBarFromParams,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:142}}));};
 }
 }else if(NavBar){
-res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:144}}));};
+res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:145}}));};
 }
 
 if(typeof navigationParams.panHandlers!=='undefined'){
@@ -153,7 +154,7 @@ res.gesturesEnabled=false;
 }
 
 if(navigationBarTitleImage){
-res.headerTitle=_react2.default.createElement(_reactNative.Image,{source:navigationBarTitleImage,style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:156}});
+res.headerTitle=_react2.default.createElement(_reactNative.Image,{source:navigationBarTitleImage,style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:157}});
 }
 
 if(tabBarLabel){
@@ -162,7 +163,7 @@ res.tabBarLabel=tabBarLabel;
 
 if(tabBarIcon||icon){
 var Icon=tabBarIcon||icon;
-res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:165}}));};
+res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:166}}));};
 }
 var componentData={};
 
@@ -180,20 +181,20 @@ if(rightButtonImage||rightTitle||params.renderRightButton||onRight||navigationPa
 navigationParams.rightTitle||navigationParams.rightButtonImage||rightButtonTextStyle||
 (drawerImage||drawerIcon)&&!hideDrawerButton&&drawerPosition==='right'){
 res.headerRight=getValue(navigationParams.right||navigationParams.rightButton||params.renderRightButton,_extends({},
-navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:183}}));
+navigationParams,screenProps))||_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:184}}));
 }
 
-if(leftButtonImage||backButtonImage||backTitle||leftTitle||params.renderLeftButton||leftButtonTextStyle||
+if(leftButtonImage||backButtonImage||backTitle||leftTitle||params.renderLeftButton||leftButtonTextStyle||renderBackButton||
 backButtonTextStyle||onLeft||navigationParams.leftTitle||navigationParams.onLeft||navigationParams.leftButtonImage||
 navigationParams.backButtonImage||navigationParams.backTitle||(drawerImage||drawerIcon)&&!hideDrawerButton&&drawerPosition!=='right'){
 res.headerLeft=getValue(navigationParams.left||navigationParams.leftButton||params.renderLeftButton,_extends({},params,navigationParams,screenProps))||
 (onLeft&&(leftTitle||navigationParams.leftTitle||leftButtonImage||navigationParams.leftButtonImage)||drawerImage||drawerIcon)&&
-_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:191}}))||res.headerLeft||(
-init?null:renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:192}})));
+_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:192}}))||res.headerLeft||(
+init?null:renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:193}})));
 }
 
 if(back){
-res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:196}}));
+res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:197}}));
 }
 
 if(typeof navigationParams.left!=='undefined'||typeof navigationParams.leftButton!=='undefined'||
@@ -221,6 +222,26 @@ if(navTransparent){
 res.headerStyle={position:'absolute',backgroundColor:'transparent',zIndex:100,top:0,left:0,right:0,
 borderBottomWidth:0,elevation:1};
 }
+
+if(backToInitial){
+res.tabBarOnPress=function(tab,jumpToIndex){
+if(tab.focused){
+if(tab.route.index!==0){
+
+
+
+
+
+
+for(var i=1;i<tab.route.routes.length;i++){
+navigation.dispatch(_reactNavigation.NavigationActions.back());
+}
+}
+}else{
+jumpToIndex(tab.index);
+}
+};
+}
 return res;
 };
 }
@@ -237,11 +258,10 @@ return{};
 var res=_extends({},props);var _loop=function _loop(
 transition){
 if(reservedKeys.indexOf(transition)===-1&&transition.startsWith('on')&&
-transition.charAt(2)>='A'&&transition.charAt(2)<='Z'&&!(props[transition]instanceof Function)){
-if(!store[props[transition]]){
-console.warn('Scene '+transition+' is not defined!');
-}
+transition.charAt(2)>='A'&&transition.charAt(2)<='Z'&&typeof props[transition]==='string'){
+if(store[props[transition]]){
 res[transition]=function(params){return store[props[transition]](params);};
+}
 }};for(var _iterator2=Object.keys(props),_isArray2=Array.isArray(_iterator2),_i3=0,_iterator2=_isArray2?_iterator2:_iterator2[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref4;if(_isArray2){if(_i3>=_iterator2.length)break;_ref4=_iterator2[_i3++];}else{_i3=_iterator2.next();if(_i3.done)break;_ref4=_i3.value;}var transition=_ref4;_loop(transition);
 }
 return res;
@@ -257,32 +277,44 @@ var wrapper=wrapBy||function(props){return props;};
 
 
 if(!Component.prototype||Component.prototype.render){var _class,_temp;var
-Wrapped=(_temp=_class=function(_React$Component){_inherits(Wrapped,_React$Component);function Wrapped(){_classCallCheck(this,Wrapped);return _possibleConstructorReturn(this,(Wrapped.__proto__||Object.getPrototypeOf(Wrapped)).apply(this,arguments));}_createClass(Wrapped,[{key:'componentDidMount',value:function componentDidMount()
+Wrapped=(_temp=_class=function(_React$Component){_inherits(Wrapped,_React$Component);
 
 
 
+function Wrapped(){_classCallCheck(this,Wrapped);var _this=_possibleConstructorReturn(this,(Wrapped.__proto__||Object.getPrototypeOf(Wrapped)).call(this));
+
+_this.onRef=_this.onRef.bind(_this);return _this;
+}_createClass(Wrapped,[{key:'componentDidMount',value:function componentDidMount()
 {
 var navigation=this.props.navigation;
-if(this.ref&&navigation.state.routeName){
+if(this.ref&&navigation&&navigation.state&&navigation.state.routeName){
 store.addRef(originalRouteName(navigation.state.routeName),this.ref);
 }
 }},{key:'componentWillUnmount',value:function componentWillUnmount()
 {
 var navigation=this.props.navigation;
 this.ref=null;
+if(this.ref&&navigation&&navigation.state&&navigation.state.routeName){
 store.deleteRef(originalRouteName(navigation.state.routeName));
+}
+}},{key:'onRef',value:function onRef(
+ref){
+this.ref=ref;
 }},{key:'render',value:function render()
-{var _this2=this;
+{
 var navigation=this.props.navigation;
-return _react2.default.createElement(Component,_extends({ref:function ref(_ref5){return _this2.ref=_ref5;}},this.props,extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:277}}));
+if(!navigation||!navigation.state){
+return _react2.default.createElement(Component,_extends({ref:this.onRef},this.props,{__source:{fileName:_jsxFileName,lineNumber:307}}));
+}
+return _react2.default.createElement(Component,_extends({ref:this.onRef},this.props,extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:309}}));
 }}]);return Wrapped;}(_react2.default.Component),_class.propTypes={navigation:_propTypes2.default.object},_temp);
 
 return wrapper(Wrapped);
 }
 
 
-function StatelessWrapped(_ref6){var navigation=_ref6.navigation,props=_objectWithoutProperties(_ref6,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:285}}));
+function StatelessWrapped(_ref5){var navigation=_ref5.navigation,props=_objectWithoutProperties(_ref5,['navigation']);
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:317}}));
 }
 StatelessWrapped.propTypes={
 navigation:_propTypes2.default.object};
@@ -304,7 +336,7 @@ return data;
 
 function uniteParams(routeName,params){
 var res={};
-for(var _iterator3=params,_isArray3=Array.isArray(_iterator3),_i4=0,_iterator3=_isArray3?_iterator3:_iterator3[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref7;if(_isArray3){if(_i4>=_iterator3.length)break;_ref7=_iterator3[_i4++];}else{_i4=_iterator3.next();if(_i4.done)break;_ref7=_i4.value;}var param=_ref7;
+for(var _iterator3=params,_isArray3=Array.isArray(_iterator3),_i4=0,_iterator3=_isArray3?_iterator3:_iterator3[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref6;if(_isArray3){if(_i4>=_iterator3.length)break;_ref6=_iterator3[_i4++];}else{_i4=_iterator3.next();if(_i4.done)break;_ref6=_i4.value;}var param=_ref6;
 if(param){
 res=_extends({},res,filterParam(param));
 }
@@ -316,7 +348,7 @@ return res;
 var defaultSuccess=function defaultSuccess(){};
 var defaultFailure=function defaultFailure(){};var
 
-NavigationStore=(_class2=function(){function NavigationStore(){var _this3=this;_classCallCheck(this,NavigationStore);this.
+NavigationStore=(_class2=function(){function NavigationStore(){var _this2=this;_classCallCheck(this,NavigationStore);this.
 refs={};this.
 states={};this.
 reducer=null;_initDefineProp(this,'currentScene',_descriptor,this);_initDefineProp(this,'currentParams',_descriptor2,this);this.
@@ -333,11 +365,11 @@ reducer=null;_initDefineProp(this,'currentScene',_descriptor,this);_initDefinePr
 
 
 addRef=function(name,ref){
-_this3.refs[name]=ref;
+_this2.refs[name]=ref;
 };this.
 
 deleteRef=function(name){
-delete _this3.refs[name];
+delete _this2.refs[name];
 };this.
 
 create=function(scene){var params=arguments.length>1&&arguments[1]!==undefined?arguments[1]:{};var wrapBy=arguments.length>2&&arguments[2]!==undefined?arguments[2]:function(props){return props;};
@@ -345,9 +377,9 @@ create=function(scene){var params=arguments.length>1&&arguments[1]!==undefined?a
 RightNavBarButton=wrapBy(_NavBar.RightButton);
 LeftNavBarButton=wrapBy(_NavBar.LeftButton);
 BackNavBarButton=wrapBy(_NavBar.BackButton);
-var AppNavigator=_this3.processScene(scene,params,[],wrapBy);
-_this3.router=AppNavigator.router;
-_this3.dispatch(_reactNavigation.NavigationActions.init());
+var AppNavigator=_this2.processScene(scene,params,[],wrapBy);
+_this2.router=AppNavigator.router;
+_this2.dispatch(_reactNavigation.NavigationActions.init());
 return AppNavigator;
 };this.
 
@@ -358,7 +390,7 @@ return null;
 }
 var res={};
 var order=[];var _scene$props=
-scene.props,navigator=_scene$props.navigator,contentComponent=_scene$props.contentComponent,lazy=_scene$props.lazy,duration=_scene$props.duration,parentProps=_objectWithoutProperties(_scene$props,['navigator','contentComponent','lazy','duration']);var
+scene.props,navigator=_scene$props.navigator,contentComponent=_scene$props.contentComponent,drawerWidth=_scene$props.drawerWidth,lazy=_scene$props.lazy,duration=_scene$props.duration,parentProps=_objectWithoutProperties(_scene$props,['navigator','contentComponent','drawerWidth','lazy','duration']);var
 tabs=parentProps.tabs,modal=parentProps.modal,lightbox=parentProps.lightbox,overlay=parentProps.overlay,tabBarPosition=parentProps.tabBarPosition,drawer=parentProps.drawer,tabBarComponent=parentProps.tabBarComponent,transitionConfig=parentProps.transitionConfig;
 if(scene.type===_Modal2.default){
 modal=true;
@@ -380,7 +412,7 @@ var commonProps=_extends({},inheritProps,parentProps);
 delete commonProps.children;
 delete commonProps.component;
 
-for(var _iterator4=Object.keys(commonProps),_isArray4=Array.isArray(_iterator4),_i5=0,_iterator4=_isArray4?_iterator4:_iterator4[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref8;if(_isArray4){if(_i5>=_iterator4.length)break;_ref8=_iterator4[_i5++];}else{_i5=_iterator4.next();if(_i5.done)break;_ref8=_i5.value;}var pkey=_ref8;
+for(var _iterator4=Object.keys(commonProps),_isArray4=Array.isArray(_iterator4),_i5=0,_iterator4=_isArray4?_iterator4:_iterator4[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref7;if(_isArray4){if(_i5>=_iterator4.length)break;_ref7=_iterator4[_i5++];}else{_i5=_iterator4.next();if(_i5.done)break;_ref7=_i5.value;}var pkey=_ref7;
 if(dontInheritKeys.includes(pkey)&&!parentProps[pkey]){
 delete commonProps[pkey];
 }
@@ -396,7 +428,7 @@ if(!drawer&&!tabs&&!overlay){
 children.push.apply(children,_toConsumableArray(clones));
 }
 
-for(var _iterator5=children,_isArray5=Array.isArray(_iterator5),_i6=0,_iterator5=_isArray5?_iterator5:_iterator5[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref9;if(_isArray5){if(_i6>=_iterator5.length)break;_ref9=_iterator5[_i6++];}else{_i6=_iterator5.next();if(_i6.done)break;_ref9=_i6.value;}var child=_ref9;
+for(var _iterator5=children,_isArray5=Array.isArray(_iterator5),_i6=0,_iterator5=_isArray5?_iterator5:_iterator5[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref8;if(_isArray5){if(_i6>=_iterator5.length)break;_ref8=_iterator5[_i6++];}else{_i6=_iterator5.next();if(_i6.done)break;_ref8=_i6.value;}var child=_ref8;
 if(child.props.clone){
 if(clones.indexOf(child)===-1){
 clones.push(child);
@@ -409,27 +441,28 @@ _child){
 var key=_child.key||'key'+counter++;
 var init=key===children[0].key;
 (0,_Util.assert)(reservedKeys.indexOf(key)===-1,'Scene name cannot be reserved word: '+_child.key);var _child$props=
-_child.props,component=_child$props.component,_child$props$type=_child$props.type,type=_child$props$type===undefined?tabs||drawer?'jump':'push':_child$props$type,onEnter=_child$props.onEnter,onExit=_child$props.onExit,on=_child$props.on,failure=_child$props.failure,success=_child$props.success,wrap=_child$props.wrap,props=_objectWithoutProperties(_child$props,['component','type','onEnter','onExit','on','failure','success','wrap']);
-if(!_this3.states[key]){
-_this3.states[key]={};
+_child.props,component=_child$props.component,_child$props$type=_child$props.type,type=_child$props$type===undefined?tabs||drawer?'jump':'push':_child$props$type,onEnter=_child$props.onEnter,path=_child$props.path,onExit=_child$props.onExit,on=_child$props.on,failure=_child$props.failure,success=_child$props.success,wrap=_child$props.wrap,props=_objectWithoutProperties(_child$props,['component','type','onEnter','path','onExit','on','failure','success','wrap']);
+if(!_this2.states[key]){
+_this2.states[key]={};
 }
-for(var _iterator7=Object.keys(props),_isArray7=Array.isArray(_iterator7),_i8=0,_iterator7=_isArray7?_iterator7:_iterator7[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref11;if(_isArray7){if(_i8>=_iterator7.length)break;_ref11=_iterator7[_i8++];}else{_i8=_iterator7.next();if(_i8.done)break;_ref11=_i8.value;}var transition=_ref11;
+for(var _iterator7=Object.keys(props),_isArray7=Array.isArray(_iterator7),_i8=0,_iterator7=_isArray7?_iterator7:_iterator7[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref10;if(_isArray7){if(_i8>=_iterator7.length)break;_ref10=_iterator7[_i8++];}else{_i8=_iterator7.next();if(_i8.done)break;_ref10=_i8.value;}var transition=_ref10;
 if(reservedKeys.indexOf(transition)===-1&&props[transition]instanceof Function){
-_this3.states[key][transition]=props[transition];
+_this2.states[key][transition]=props[transition];
 }
 }
 delete props.children;
 if(success){
-_this3.states[key].success=success instanceof Function?
-success:function(args){console.log('Transition to state='+success);_this3[success](args);};
+_this2.states[key].success=success instanceof Function?
+success:function(args){console.log('Transition to state='+success);_this2[success](args);};
 }
 if(failure){
-_this3.states[key].failure=failure instanceof Function?
-failure:function(args){console.log('Transition to state='+failure);_this3[failure](args);};
+_this2.states[key].failure=failure instanceof Function?
+failure:function(args){console.log('Transition to state='+failure);_this2[failure](args);};
 }
 
 var screen={
-screen:createWrapper(component,wrapBy,_this3)||_this3.processScene(_child,commonProps,clones)||lightbox&&_reactNative.View,
+path:path,
+screen:createWrapper(component,wrapBy,_this2)||_this2.processScene(_child,commonProps,clones)||lightbox&&_reactNative.View,
 navigationOptions:createNavigationOptions(_extends({},commonProps,getProperties(component),_child.props,{init:init,component:component}))};
 
 
@@ -440,7 +473,8 @@ wrapNavBar=false;
 }
 if(component&&wrapNavBar){
 res[key]={
-screen:_this3.processScene({key:key,props:{children:{key:'_'+key,props:_extends({},_child.props,{wrap:false})}}},commonProps,clones,wrapBy),
+path:path,
+screen:_this2.processScene({key:key,props:{children:{key:'_'+key,props:_extends({},_child.props,{wrap:false})}}},commonProps,clones,wrapBy),
 navigationOptions:createNavigationOptions(_extends({},commonProps,_child.props))};
 
 }else{
@@ -449,24 +483,24 @@ res[key]=screen;
 
 
 props.init=true;
-if(!_this3[key]){
-_this3[key]=new Function('actions','props','type','return function '+
-key.replace(/\W/g,'_')+'(params){ actions.execute(type, \''+key+'\', props, params)}')(_this3,_extends({},commonProps,props),type);
+if(!_this2[key]){
+_this2[key]=new Function('actions','props','type','return function '+
+key.replace(/\W/g,'_')+'(params){ actions.execute(type, \''+key+'\', props, params)}')(_this2,_extends({},commonProps,props),type);
 }
 
-if((onEnter||on||component&&component.onEnter)&&!_this3[key+_Util.OnEnter]){
-_this3[key+_Util.OnEnter]=onEnter||on||component.onEnter;
+if((onEnter||on||component&&component.onEnter)&&!_this2[key+_Util.OnEnter]){
+_this2[key+_Util.OnEnter]=onEnter||on||component.onEnter;
 }
 
-if((onExit||component&&component.onExit)&&!_this3[key+_Util.OnExit]){
-_this3[key+_Util.OnExit]=onExit||component.onExit;
+if((onExit||component&&component.onExit)&&!_this2[key+_Util.OnExit]){
+_this2[key+_Util.OnExit]=onExit||component.onExit;
 }
 
 order.push(key);
 if(_child.props.initial||!initialRouteName){
 initialRouteName=key;
 initialRouteParams=_extends({},commonProps,props);
-}};for(var _iterator6=children,_isArray6=Array.isArray(_iterator6),_i7=0,_iterator6=_isArray6?_iterator6:_iterator6[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref10;if(_isArray6){if(_i7>=_iterator6.length)break;_ref10=_iterator6[_i7++];}else{_i7=_iterator6.next();if(_i7.done)break;_ref10=_i7.value;}var _child=_ref10;_loop2(_child);
+}};for(var _iterator6=children,_isArray6=Array.isArray(_iterator6),_i7=0,_iterator6=_isArray6?_iterator6:_iterator6[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref9;if(_isArray6){if(_i7>=_iterator6.length)break;_ref9=_iterator6[_i7++];}else{_i7=_iterator6.next();if(_i7.done)break;_ref9=_i7.value;}var _child=_ref9;_loop2(_child);
 }
 var mode=modal?'modal':'card';
 if(navigator){
@@ -476,8 +510,8 @@ if(lightbox){
 return(0,_LightboxNavigator2.default)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
 }else if(tabs){
 if(!tabBarComponent){
-tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:479}}));}:
-function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:480}}));};
+tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:513}}));}:
+function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:514}}));};
 }
 if(!tabBarPosition){
 tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';
@@ -485,18 +519,18 @@ tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';
 return(0,_reactNavigation.TabNavigator)(res,_extends({lazy:lazy,tabBarComponent:tabBarComponent,tabBarPosition:tabBarPosition,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},commonProps,{
 tabBarOptions:createTabBarOptions(commonProps),navigationOptions:createNavigationOptions(commonProps)}));
 }else if(drawer){
-return(0,_reactNavigation.DrawerNavigator)(res,_extends({initialRouteName:initialRouteName,contentComponent:contentComponent,order:order},commonProps));
+return(0,_reactNavigation.DrawerNavigator)(res,_extends({initialRouteName:initialRouteName,contentComponent:contentComponent,drawerWidth:drawerWidth,order:order},commonProps));
 }else if(overlay){
-return(0,_OverlayNavigator2.default)(res,_extends({lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},commonProps,{
+return(0,_OverlayNavigator2.default)(res,_extends({lazy:lazy,initialRouteName:initialRouteName,contentComponent:contentComponent,initialRouteParams:initialRouteParams,order:order},commonProps,{
 tabBarOptions:createTabBarOptions(commonProps),navigationOptions:createNavigationOptions(commonProps)}));
 }
 return(0,_reactNavigation.StackNavigator)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{transitionConfig:transitionConfig,navigationOptions:createNavigationOptions(commonProps)}));
 };this.
 
-nextState=function(state,cmd){return _this3.reducer?_this3.reducer(state,cmd):(0,_Reducer.reducer)(state,cmd);};this.
+nextState=function(state,cmd){return _this2.reducer?_this2.reducer(state,cmd):(0,_Reducer.reducer)(state,cmd);};this.
 
 dispatch=function(cmd){
-_this3.setState(_this3.nextState(_this3.state,cmd));
+_this2.setState(_this2.nextState(_this2.state,cmd));
 };_initDefineProp(this,'setState',_descriptor3,this);this.
 
 
@@ -560,70 +594,70 @@ var res=uniteParams(routeName,params);
 var overridenType=res.type||actionType;
 var type=actionMap[overridenType]||overridenType;
 if(type==='pop'){
-_this3[type](res);
+_this2[type](res);
 }else{
-_this3[type](routeName,res);
+_this2[type](routeName,res);
 }
 };this.
 
 push=function(routeName,data){
 var params=filterParam(data);
-_this3.dispatch({type:ActionConst.PUSH,routeName:routeName,params:params});
+_this2.dispatch({type:ActionConst.PUSH,routeName:routeName,params:params});
 };this.
 
 jump=function(routeName,data){
 var params=filterParam(data);
-_this3.dispatch({type:ActionConst.JUMP,routeName:routeName,params:params});
+_this2.dispatch({type:ActionConst.JUMP,routeName:routeName,params:params});
 };this.
 
 drawerOpen=function(){
-_this3.dispatch(_reactNavigation.NavigationActions.navigate({routeName:'DrawerOpen'}));
+_this2.dispatch(_reactNavigation.NavigationActions.navigate({routeName:'DrawerOpen'}));
 };this.
 
 drawerClose=function(){
-_this3.dispatch(_reactNavigation.NavigationActions.navigate({routeName:'DrawerClose'}));
+_this2.dispatch(_reactNavigation.NavigationActions.navigate({routeName:'DrawerClose'}));
 };this.
 
 refresh=function(data){
-var key=(0,_State.getActiveState)(_this3._state).key;
+var key=(0,_State.getActiveState)(_this2._state).key;
 var params=filterParam(data);
-_this3.dispatch(_reactNavigation.NavigationActions.setParams({key:key,params:params}));
+_this2.dispatch(_reactNavigation.NavigationActions.setParams({key:key,params:params}));
 };this.
 
-pop=function(){var _ref12=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{},timeout=_ref12.timeout,params=_objectWithoutProperties(_ref12,['timeout']);
+pop=function(){var _ref11=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{},timeout=_ref11.timeout,params=_objectWithoutProperties(_ref11,['timeout']);
 var res=filterParam(params);
 if(timeout){
-setTimeout(function(){return _this3.pop(params);},timeout);
+setTimeout(function(){return _this2.pop(params);},timeout);
 }else{
-_this3.dispatch(_reactNavigation.NavigationActions.back());
+_this2.dispatch(_reactNavigation.NavigationActions.back());
 if(res.refresh){
-_this3.refresh(res.refresh);
+_this2.refresh(res.refresh);
 }
 }
 };this.
 
 popTo=function(routeName,data){
 var params=filterParam(data);
-_this3.dispatch({type:ActionConst.POP_TO,routeName:routeName,params:params});
+_this2.dispatch({type:ActionConst.POP_TO,routeName:routeName,params:params});
 };this.
 
 popAndPush=function(routeName,data){
 var params=filterParam(data);
-_this3.dispatch({type:ActionConst.POP_AND_PUSH,routeName:routeName,params:params});
+_this2.dispatch({type:ActionConst.POP_AND_PUSH,routeName:routeName,params:params});
 };this.
 
 replace=function(routeName,data){
 var params=filterParam(data);
-_this3.dispatch({type:ActionConst.REPLACE,routeName:routeName,params:params});
+_this2.dispatch({type:ActionConst.REPLACE,routeName:routeName,params:params});
 };this.
 
 reset=function(routeName,data){
 var params=filterParam(data);
-_this3.dispatch(_reactNavigation.NavigationActions.reset({key:null,index:0,actions:[_reactNavigation.NavigationActions.navigate({
+_this2.dispatch(_reactNavigation.NavigationActions.reset({key:null,index:0,actions:[_reactNavigation.NavigationActions.navigate({
 routeName:routeName,
 params:params})]}));
 
-};}_createClass(NavigationStore,[{key:'state',get:function get(){var scene=this.currentScene;var params=this.currentParams;return this._state;}}]);return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class2.prototype,'currentScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor2=_applyDecoratedDescriptor(_class2.prototype,'currentParams',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor3=_applyDecoratedDescriptor(_class2.prototype,'setState',[_mobx.action],{enumerable:true,initializer:function initializer(){var _this4=this;return function _callee(newState){var state,currentScene,exitHandler,res,handler,_success,_failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:if(newState){_context.next=2;break;}return _context.abrupt('return');case 2:state=(0,_State.getActiveState)(newState);if(!((0,_lodash2.default)(state.params,_this4._currentParams)&&state.routeName===_this4.currentScene)){_context.next=5;break;}return _context.abrupt('return');case 5:currentScene=_this4.currentScene;_this4._state=newState;_this4.currentScene=state.routeName;_this4.currentParams=state.params;_this4._currentParams=state.params;if(!(currentScene!==_this4.currentScene&&_this4.currentScene!=='DrawerOpen'&&_this4.currentScene!=='DrawerClose')){_context.next=31;break;}_this4.dispatch({type:ActionConst.BLUR,routeName:currentScene});exitHandler=_this4[currentScene+_Util.OnExit];if(exitHandler){try{res=exitHandler();if(res instanceof Promise){res.then(defaultSuccess,defaultFailure);}}catch(e){console.error('Error during onExit handler:',e);}}_this4.dispatch({type:ActionConst.FOCUS,routeName:_this4.currentScene,params:_this4._currentParams});if(!_this4.states[_this4.currentScene]){_context.next=31;break;}handler=_this4[_this4.currentScene+_Util.OnEnter];_success=_this4.states[_this4.currentScene].success||defaultSuccess;_failure=_this4.states[_this4.currentScene].failure||defaultFailure;if(!handler){_context.next=31;break;}_context.prev=20;params=(0,_State.getActiveState)(_this4._state).params;_context.next=24;return regeneratorRuntime.awrap(handler(params));case 24:_res=_context.sent;if(_res){_success(_res);}else{_failure();}_context.next=31;break;case 28:_context.prev=28;_context.t0=_context['catch'](20);_failure({error:_context.t0.message});case 31:case'end':return _context.stop();}}},null,_this4,[[20,28]]);};}})),_class2);exports.default=
+};}_createClass(NavigationStore,[{key:'state',get:function get(){var scene=this.currentScene;var params=this.currentParams;return this._state;}}]);return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class2.prototype,'currentScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor2=_applyDecoratedDescriptor(_class2.prototype,'currentParams',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor3=_applyDecoratedDescriptor(_class2.prototype,'setState',[_mobx.action],{enumerable:true,initializer:function initializer(){var _this3=this;return function _callee(newState){var state,currentScene,exitHandler,res,handler,_success,_failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:if(newState){_context.next=2;break;}return _context.abrupt('return');case 2:state=(0,_State.getActiveState)(newState);if(!((0,_lodash2.default)(state.params,_this3._currentParams)&&state.routeName===_this3.currentScene)){_context.next=5;break;}return _context.abrupt('return');case 5:currentScene=_this3.currentScene;_this3._state=newState;_this3.currentScene=state.routeName;_this3.currentParams=state.params;_this3._currentParams=state.params;if(!(currentScene!==_this3.currentScene&&_this3.currentScene!=='DrawerOpen'&&_this3.currentScene!=='DrawerClose')){_context.next=31;break;}_this3.dispatch({type:ActionConst.BLUR,routeName:currentScene});exitHandler=_this3[currentScene+_Util.OnExit];if(exitHandler){try{res=exitHandler();if(res instanceof Promise){res.then(defaultSuccess,defaultFailure);}}catch(e){console.error('Error during onExit handler:',e);}}_this3.dispatch({type:ActionConst.FOCUS,routeName:_this3.currentScene,params:_this3._currentParams});if(!_this3.states[_this3.currentScene]){_context.next=31;break;}handler=_this3[_this3.currentScene+_Util.OnEnter];_success=_this3.states[_this3.currentScene].success||defaultSuccess;_failure=_this3.states[_this3.currentScene].failure||defaultFailure;if(!handler){_context.next=31;break;}_context.prev=20;params=(0,_State.getActiveState)(_this3._state).params;_context.next=24;return regeneratorRuntime.awrap(handler(params));case 24:_res=_context.sent;if(_res){_success(_res);}else{_failure();}_context.next=31;break;case 28:_context.prev=28;_context.t0=_context['catch'](20);_failure({error:_context.t0.message});case 31:case'end':return _context.stop();}}},null,_this3,[[20,28]]);};}})),_class2);exports.default=
 
 
 

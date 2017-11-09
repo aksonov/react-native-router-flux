@@ -7,10 +7,16 @@ import { StyleProp, Image, ViewStyle, TextStyle, ImageStyle } from "react-native
 export var Router: RouterStatic;
 export type Router = RouterStatic;
 
+// Reducer
+export var Reducer: any;
+export type Reducer = any;
+
 // Router
 interface RouterProps extends React.Props<Router> {
     sceneStyle?: StyleProp<ViewStyle>;
-    backAndroidHandler?: () => void;
+    backAndroidHandler?: Function;
+    createReducer?: Function;
+    wrapBy?: Function;
 }
 interface RouterStatic extends React.ComponentClass<RouterProps> { }
 
@@ -24,12 +30,15 @@ interface SceneProps extends React.Props<Scene> {
     init?: boolean;
     clone?: boolean;
     contentComponent?: React.ComponentType<any>
+    backButtonImage?: string;
+    backButtonTintColor?: string;
     drawer?: boolean;
     failure?: () => void;
     headerBackTitle?: string;
     headerMode?: HeaderModeType;
     hideNavBar?: boolean;
     hideTabBar?: boolean;
+    hideBackImage?: boolean;
     initial?: boolean;
     leftButtonImage?: Image;
     modal?: boolean;
@@ -44,6 +53,7 @@ interface SceneProps extends React.Props<Scene> {
     renderTitle?: React.ComponentType<any>
     renderLeftButton?: React.ComponentType<any>
     renderRightButton?: React.ComponentType<any>
+    renderBackButton?: React.ComponentType<any>
     rightButtonImage?: Image;
     rightButtonTextStyle?: StyleProp<TextStyle>;
     success?: () => void;
@@ -77,6 +87,8 @@ interface TabsProps extends React.Props<Tabs> {
     tabStyle?: StyleProp<ViewStyle>;
     showLabel?: boolean;
     swipeEnabled?: boolean;
+    tabBarOnPress?: function;
+    backToInitial?: boolean;
 }
 interface TabsStatic extends React.ComponentClass<TabsProps> { }
 export type TabBarPositionType = "top" | "bottom";
@@ -98,16 +110,24 @@ export type Modal = ModalStatic;
 interface ModalProps extends React.Props<Modal> { }
 interface ModalStatic extends React.ComponentClass<SceneProps & ModalProps> { }
 
-// Lighbox
-export var Lighbox: LighboxStatic;
-export type Lighbox = LighboxStatic;
-interface LighboxProps extends React.Props<Modal> { }
-interface LighboxStatic extends React.ComponentClass<LighboxProps> { }
+// Overlay
+export var Overlay: OverlayStatic;
+export type Overlay = OverlayStatic;
+interface OverlayProps extends React.Props<Overlay> { }
+interface OverlayStatic extends React.ComponentClass<SceneProps & OverlayProps> { }
+
+// Lightbox
+export var Lightbox : LightboxStatic;
+export type Lightbox  = LightboxStatic;
+interface LightboxProps extends React.Props<Modal> { }
+interface LightboxStatic extends React.ComponentClass<LightboxProps> { }
 
 // Stack
 export var Stack: StackStatic;
 export type Stack = StackStatic;
+
 interface StackProps extends React.Props<Stack> {
+    navigationBarStyle?: StyleProp<ViewStyle>;
     icon?: any;
     tintColor?: string;
     hideNavBar?: boolean;

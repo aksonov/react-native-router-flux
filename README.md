@@ -2,8 +2,6 @@
 
 [Follow author @PAksonov](https://twitter.com/PAksonov)
 
-Please 🌟 my talk proposal for [ReactiveConf 2017](https://reactiveconf.com/) - [What is RNRF?](https://gist.github.com/aksonov/e2d7454421e44b1c4c72214d14053410)
-
 #### NOTE: v4 (based on [React Navigation](https://reactnavigation.org/)) is in beta. See [this branch](https://github.com/aksonov/react-native-router-flux/tree/v3) and [docs](https://github.com/aksonov/react-native-router-flux/blob/master/README3.md) for v3.
 
 ___
