@@ -33,13 +33,11 @@ class App extends React.Component {
     return navigationStore.currentScene !== navigationStore.prevScene;
   };
 
-  handleDeepURL = (e) => {
-    return this.parseDeepURL(e.url);
-  }
+  handleDeepURL = (e) => this.parseDeepURL(e.url);
 
   parseDeepURL = (url) => {
     // If there is no url, then return.
-    if (!url) { return null; }
+    if (!url) { return; }
 
     // Clean the url with the given prefix.
     const cleanUrl = this.props.uriPrefix ? url.split(this.props.uriPrefix)[1] : url;
@@ -49,7 +47,7 @@ class App extends React.Component {
     const parsedPath = pathParser(cleanUrl, allPaths);
 
     // If the url could not be matched, then return.
-    if (!parsedPath) { return null; }
+    if (!parsedPath) { return; }
 
     // Destructure the matched path and the parsed url parameters.
     const { path, params } = parsedPath;
@@ -62,7 +60,7 @@ class App extends React.Component {
 
     if (actionKey && navigationStore[actionKey]) {
       // Call the action associated with the scene's path with the parsed parameters.
-      return navigationStore[actionKey](params);
+      navigationStore[actionKey](params);
     }
   };
 
