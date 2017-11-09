@@ -441,7 +441,7 @@ _child){
 var key=_child.key||'key'+counter++;
 var init=key===children[0].key;
 (0,_Util.assert)(reservedKeys.indexOf(key)===-1,'Scene name cannot be reserved word: '+_child.key);var _child$props=
-_child.props,component=_child$props.component,_child$props$type=_child$props.type,type=_child$props$type===undefined?tabs||drawer?'jump':'push':_child$props$type,onEnter=_child$props.onEnter,path=_child$props.path,onExit=_child$props.onExit,on=_child$props.on,failure=_child$props.failure,success=_child$props.success,wrap=_child$props.wrap,props=_objectWithoutProperties(_child$props,['component','type','onEnter','path','onExit','on','failure','success','wrap']);
+_child.props,component=_child$props.component,_child$props$type=_child$props.type,type=_child$props$type===undefined?tabs||drawer?'jump':'push':_child$props$type,path=_child$props.path,onEnter=_child$props.onEnter,onExit=_child$props.onExit,on=_child$props.on,failure=_child$props.failure,success=_child$props.success,wrap=_child$props.wrap,_child$props$initial=_child$props.initial,initial=_child$props$initial===undefined?false:_child$props$initial,props=_objectWithoutProperties(_child$props,['component','type','path','onEnter','onExit','on','failure','success','wrap','initial']);
 if(!_this2.states[key]){
 _this2.states[key]={};
 }
@@ -459,9 +459,11 @@ if(failure){
 _this2.states[key].failure=failure instanceof Function?
 failure:function(args){console.log('Transition to state='+failure);_this2[failure](args);};
 }
+if(path){
+_this2.states[key].path=path;
+}
 
 var screen={
-path:path,
 screen:createWrapper(component,wrapBy,_this2)||_this2.processScene(_child,commonProps,clones)||lightbox&&_reactNative.View,
 navigationOptions:createNavigationOptions(_extends({},commonProps,getProperties(component),_child.props,{init:init,component:component}))};
 
@@ -473,7 +475,6 @@ wrapNavBar=false;
 }
 if(component&&wrapNavBar){
 res[key]={
-path:path,
 screen:_this2.processScene({key:key,props:{children:{key:'_'+key,props:_extends({},_child.props,{wrap:false})}}},commonProps,clones,wrapBy),
 navigationOptions:createNavigationOptions(_extends({},commonProps,_child.props))};
 
@@ -497,7 +498,7 @@ _this2[key+_Util.OnExit]=onExit||component.onExit;
 }
 
 order.push(key);
-if(_child.props.initial||!initialRouteName){
+if(initial||_child.props.initial||!initialRouteName){
 initialRouteName=key;
 initialRouteParams=_extends({},commonProps,props);
 }};for(var _iterator6=children,_isArray6=Array.isArray(_iterator6),_i7=0,_iterator6=_isArray6?_iterator6:_iterator6[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref9;if(_isArray6){if(_i7>=_iterator6.length)break;_ref9=_iterator6[_i7++];}else{_i7=_iterator6.next();if(_i7.done)break;_ref9=_i7.value;}var _child=_ref9;_loop2(_child);
@@ -510,8 +511,8 @@ if(lightbox){
 return(0,_LightboxNavigator2.default)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
 }else if(tabs){
 if(!tabBarComponent){
-tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:513}}));}:
-function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:514}}));};
+tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:514}}));}:
+function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:515}}));};
 }
 if(!tabBarPosition){
 tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';

@@ -441,7 +441,7 @@ class NavigationStore {
       const key = child.key || `key${counter++}`;
       const init = key === children[0].key;
       assert(reservedKeys.indexOf(key) === -1, `Scene name cannot be reserved word: ${child.key}`);
-      const { component, type = tabs || drawer ? 'jump' : 'push', onEnter, path, onExit, on, failure, success, wrap, ...props } = child.props;
+      const { component, type = tabs || drawer ? 'jump' : 'push', path, onEnter, onExit, on, failure, success, wrap, initial = false, ...props } = child.props;
       if (!this.states[key]) {
         this.states[key] = {};
       }
@@ -459,9 +459,11 @@ class NavigationStore {
         this.states[key].failure = failure instanceof Function ?
           failure : args => { console.log(`Transition to state=${failure}`); this[failure](args); };
       }
+      if (path) {
+        this.states[key].path = path;
+      }
       // console.log(`KEY ${key} PATH ${path} DRAWER ${drawer} TABS ${tabs} WRAP ${wrap}`, JSON.stringify(commonProps));
       const screen = {
-        path,
         screen: createWrapper(component, wrapBy, this) || this.processScene(child, commonProps, clones) || (lightbox && View),
         navigationOptions: createNavigationOptions({ ...commonProps, ...getProperties(component), ...child.props, init, component }),
       };
@@ -473,7 +475,6 @@ class NavigationStore {
       }
       if (component && wrapNavBar) {
         res[key] = {
-          path,
           screen: this.processScene({ key, props: { children: { key: `_${key}`, props: { ...child.props, wrap: false } } } }, commonProps, clones, wrapBy),
           navigationOptions: createNavigationOptions({ ...commonProps, ...child.props }),
         };
@@ -497,7 +498,7 @@ class NavigationStore {
       }
 
       order.push(key);
-      if (child.props.initial || !initialRouteName) {
+      if (initial || child.props.initial || !initialRouteName) {
         initialRouteName = key;
         initialRouteParams = { ...commonProps, ...props };
       }
