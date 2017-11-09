@@ -18,10 +18,7 @@ class App extends React.Component {
     BackHandler.addEventListener('hardwareBackPress', this.props.backAndroidHandler || this.onBackPress);
 
     // If the app was "woken up" by an external route.
-    Linking.getInitialURL().then((url) => {
-      const message = url ? 'got getInitialURL' : 'got no url';
-      return this.parseDeepURL(url);
-    });
+    Linking.getInitialURL().then((url) => this.parseDeepURL(url));
     // Add an event listener for further deep linking.
     Linking.addEventListener('url', this.handleDeepURL);
   }
