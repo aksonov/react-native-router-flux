@@ -1,49 +1,69 @@
 import React from 'react';
 import { observer } from 'mobx-react/native';
-import { BackHandler, Linking, ViewPropTypes } from 'react-native';
-import navigationStore from './navigationStore';
+import { ViewPropTypes, BackHandler, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 import { addNavigationHelpers } from 'react-navigation';
+import navigationStore from './navigationStore';
+import pathParser from './pathParser';
 
 @observer
 class App extends React.Component {
+  static propTypes = {
+    navigator: PropTypes.func,
+    backAndroidHandler: PropTypes.func,
+    uriPrefix: PropTypes.string,
+  };
+
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.props.backAndroidHandler || this.onBackPress);
-    Linking.addEventListener('url', ({ url }: { url: string }) => {
-      this._handleOpenURL(url);
-    });
+
+    // If the app was "woken up" by an external route.
+    Linking.getInitialURL().then((url) => this.parseDeepURL(url));
+    // Add an event listener for further deep linking.
+    Linking.addEventListener('url', this.handleDeepURL);
   }
+
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.props.backAndroidHandler || this.onBackPress);
+    Linking.removeEventListener('url', this.handleDeepURL);
   }
+
   onBackPress = () => {
     navigationStore.pop();
     return navigationStore.currentScene !== navigationStore.prevScene;
   };
-  _urlToPathAndParams(url: string) {
-    const params = {};
-    const delimiter = this.props.uriPrefix || '://';
-    let path = url.split(delimiter)[1];
-    if (!path) {
-      path = url;
-    }
-    return {
-      path,
-      params,
-    };
-  }
 
-  _handleOpenURL = (url: string) => {
-    const parsedUrl = this._urlToPathAndParams(url);
-    if (parsedUrl) {
-      const { path, params } = parsedUrl;
-      const action = navigationStore.router.getActionForPathAndParams(path, params);
-      console.log('HANDLE URL:', url, action, path, params);
-      if (action) {
-        navigationStore.dispatch(action);
-      }
+  handleDeepURL = (e) => this.parseDeepURL(e.url);
+
+  parseDeepURL = (url) => {
+    // If there is no url, then return.
+    if (!url) { return; }
+
+    // Clean the url with the given prefix.
+    const cleanUrl = this.props.uriPrefix ? url.split(this.props.uriPrefix)[1] : url;
+    // Build an array of paths for every scene.
+    const allPaths = Object.values(navigationStore.states).map(obj => obj.path).filter(path => path);
+    // Try to match the url against the set of paths and parse the url parameters.
+    const parsedPath = pathParser(cleanUrl, allPaths);
+
+    // If the url could not be matched, then return.
+    if (!parsedPath) { return; }
+
+    // Destructure the matched path and the parsed url parameters.
+    const { path, params } = parsedPath;
+
+    // Get the action from the scene associated with the matched path.
+    const actionKey = Object.entries(navigationStore.states)
+      .filter(([, value]) => value.path === path)
+      .map(([key]) => key)
+      .find(key => key);
+
+    if (actionKey && navigationStore[actionKey]) {
+      // Call the action associated with the scene's path with the parsed parameters.
+      navigationStore[actionKey](params);
     }
   };
+
   render() {
     const AppNavigator = this.props.navigator;
     return (
@@ -52,13 +72,7 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = {
-  navigator: PropTypes.func,
-  backAndroidHandler: PropTypes.func,
-  uriPrefix: PropTypes.string,
-};
-
-const Router = ({ createReducer, uriPrefix, sceneStyle, scenes, navigator, getSceneStyle, children, state, dispatch, wrapBy = props => props, ...props }) => {
+const Router = ({ createReducer, sceneStyle, scenes, uriPrefix, navigator, getSceneStyle, children, state, dispatch, wrapBy = props => props, ...props }) => {
   const data = { ...props };
   if (getSceneStyle) {
     data.cardStyle = getSceneStyle(props);
