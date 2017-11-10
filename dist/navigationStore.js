@@ -214,7 +214,11 @@ res.tabBarVisible=false;
 res.tabBarVisible=false;
 }
 
-if(hideNavBar){
+if(navigationParams.hideNavBar!=null){
+if(navigationParams.hideNavBar){
+res.header=null;
+}
+}else if(hideNavBar){
 res.header=null;
 }
 
@@ -304,9 +308,9 @@ this.ref=ref;
 {
 var navigation=this.props.navigation;
 if(!navigation||!navigation.state){
-return _react2.default.createElement(Component,_extends({ref:this.onRef},this.props,{__source:{fileName:_jsxFileName,lineNumber:307}}));
+return _react2.default.createElement(Component,_extends({ref:this.onRef},this.props,{__source:{fileName:_jsxFileName,lineNumber:311}}));
 }
-return _react2.default.createElement(Component,_extends({ref:this.onRef},this.props,extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:309}}));
+return _react2.default.createElement(Component,_extends({ref:this.onRef},this.props,extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:313}}));
 }}]);return Wrapped;}(_react2.default.Component),_class.propTypes={navigation:_propTypes2.default.object},_temp);
 
 return wrapper(Wrapped);
@@ -314,7 +318,7 @@ return wrapper(Wrapped);
 
 
 function StatelessWrapped(_ref5){var navigation=_ref5.navigation,props=_objectWithoutProperties(_ref5,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:317}}));
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:321}}));
 }
 StatelessWrapped.propTypes={
 navigation:_propTypes2.default.object};
@@ -413,7 +417,7 @@ delete commonProps.children;
 delete commonProps.component;
 
 for(var _iterator4=Object.keys(commonProps),_isArray4=Array.isArray(_iterator4),_i5=0,_iterator4=_isArray4?_iterator4:_iterator4[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref7;if(_isArray4){if(_i5>=_iterator4.length)break;_ref7=_iterator4[_i5++];}else{_i5=_iterator4.next();if(_i5.done)break;_ref7=_i5.value;}var pkey=_ref7;
-if(dontInheritKeys.includes(pkey)&&!parentProps[pkey]){
+if(dontInheritKeys.includes(pkey)&&(pkey==='type'||pkey==='hideNavBar'||!parentProps[pkey])){
 delete commonProps[pkey];
 }
 }
@@ -465,7 +469,7 @@ _this2.states[key].path=path;
 
 var screen={
 screen:createWrapper(component,wrapBy,_this2)||_this2.processScene(_child,commonProps,clones)||lightbox&&_reactNative.View,
-navigationOptions:createNavigationOptions(_extends({},commonProps,getProperties(component),_child.props,{init:init,component:component}))};
+navigationOptions:createNavigationOptions(_extends({},commonProps,{hideNavBar:parentProps.hideNavBar},getProperties(component),_child.props,{init:init,component:component}))};
 
 
 
@@ -476,7 +480,7 @@ wrapNavBar=false;
 if(component&&wrapNavBar){
 res[key]={
 screen:_this2.processScene({key:key,props:{children:{key:'_'+key,props:_extends({},_child.props,{wrap:false})}}},commonProps,clones,wrapBy),
-navigationOptions:createNavigationOptions(_extends({},commonProps,_child.props))};
+navigationOptions:createNavigationOptions(_extends({},commonProps,_child.props,{hideNavBar:true}))};
 
 }else{
 res[key]=screen;
@@ -511,8 +515,8 @@ if(lightbox){
 return(0,_LightboxNavigator2.default)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
 }else if(tabs){
 if(!tabBarComponent){
-tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:514}}));}:
-function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:515}}));};
+tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:518}}));}:
+function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:519}}));};
 }
 if(!tabBarPosition){
 tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';

@@ -214,7 +214,11 @@ function createNavigationOptions(params) {
       res.tabBarVisible = false;
     }
 
-    if (hideNavBar) {
+    if (navigationParams.hideNavBar != null) {
+      if (navigationParams.hideNavBar) {
+        res.header = null;
+      }
+    } else if (hideNavBar) {
       res.header = null;
     }
 
@@ -413,7 +417,7 @@ class NavigationStore {
     delete commonProps.component;
     // add inherit props
     for (const pkey of Object.keys(commonProps)) {
-      if (dontInheritKeys.includes(pkey) && !parentProps[pkey]) {
+      if (dontInheritKeys.includes(pkey) && (pkey === 'type' || pkey === 'hideNavBar' || !parentProps[pkey])) {
         delete commonProps[pkey];
       }
     }
@@ -465,7 +469,7 @@ class NavigationStore {
       // console.log(`KEY ${key} PATH ${path} DRAWER ${drawer} TABS ${tabs} WRAP ${wrap}`, JSON.stringify(commonProps));
       const screen = {
         screen: createWrapper(component, wrapBy, this) || this.processScene(child, commonProps, clones) || (lightbox && View),
-        navigationOptions: createNavigationOptions({ ...commonProps, ...getProperties(component), ...child.props, init, component }),
+        navigationOptions: createNavigationOptions({ ...commonProps, hideNavBar: parentProps.hideNavBar, ...getProperties(component), ...child.props, init, component }),
       };
 
       // wrap component inside own navbar for tabs/drawer parent controllers
@@ -476,7 +480,7 @@ class NavigationStore {
       if (component && wrapNavBar) {
         res[key] = {
           screen: this.processScene({ key, props: { children: { key: `_${key}`, props: { ...child.props, wrap: false } } } }, commonProps, clones, wrapBy),
-          navigationOptions: createNavigationOptions({ ...commonProps, ...child.props }),
+          navigationOptions: createNavigationOptions({ ...commonProps, ...child.props, hideNavBar: true }),
         };
       } else {
         res[key] = screen;
