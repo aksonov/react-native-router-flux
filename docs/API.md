@@ -19,6 +19,7 @@
 | `wrapBy`   | `Function` |  | function to wrap each Scene component and nav bar buttons - allows easy MobX integration (by passing `observer`) |
 | `sceneStyle`     | `Style` |  | Style applied to all scenes (optional) |
 | `backAndroidHandler`     | `Function` |  | Allows custom control of hardwareBackPress in Android (optional). For more info check [BackHandler](https://facebook.github.io/react-native/docs/backhandler.html).  |
+| `uriPrefix`     | `string` |  | A uri prefix to strip from incoming urls for deep linking. For example, if you wanted to support deep linking from `www.example.com/user/1234/`, then you could pass `example.com` to only match paths against `/user/1234/`. |
 
 ## Scene:
 The basic routing component for this router, all `<Scene>` components require a `key` prop that must be unique. A parent `<Scene>` cannot not have a `component` as a `prop` as it will act as a grouping component for its children.
@@ -26,6 +27,7 @@ The basic routing component for this router, all `<Scene>` components require a 
 | Property | Type | Default | Description |
 |-----------|----------|----------|--------------------------------------------|
 | `key`       | `string` | `required` | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
+| `path`       | `string` | `required` | Will be used to match against incoming deep links and pull params. For example, the path `/user/:id/` would specify to call the Scene's action with params `{ id: 1234 }` from the url `/user/1234/` |
 | `component` | `React.Component` | `semi-required` | The `Component` to be displayed. Not required when defining a nested `Scene`, see example. |
 | `back`     | `boolean` | `false` | If it is `true` back button is displayed instead of left/drawer button defined by upper container. |
 | `backButtonImage`     | `string` | | Image source to substitute for the nav back button |
