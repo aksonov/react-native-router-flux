@@ -28,10 +28,7 @@ class App extends React.Component {
     Linking.removeEventListener('url', this.handleDeepURL);
   }
 
-  onBackPress = () => {
-    navigationStore.pop();
-    return navigationStore.currentScene !== navigationStore.prevScene;
-  };
+  onBackPress = () => !navigationStore.pop();
 
   handleDeepURL = (e) => this.parseDeepURL(e.url);
 

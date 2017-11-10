@@ -360,6 +360,7 @@ class NavigationStore {
   _state;
   _currentParams;
   @observable currentScene = '';
+  @observable prevScene = '';
   @observable currentParams;
 
   get state() {
@@ -558,6 +559,8 @@ class NavigationStore {
     const currentScene = this.currentScene;
     this._state = newState;
     this.currentScene = state.routeName;
+    this.prevScene = currentScene;
+
     this.currentParams = state.params;
     this._currentParams = state.params;
 
@@ -637,6 +640,7 @@ class NavigationStore {
   };
 
   pop = ({ timeout, ...params } = {}) => {
+    const previous = getActiveState(this.state);
     const res = filterParam(params);
     if (timeout) {
       setTimeout(() => this.pop(params), timeout);
@@ -646,6 +650,7 @@ class NavigationStore {
         this.refresh(res.refresh);
       }
     }
+    return !isEqual(previous, getActiveState(this.state));
   };
 
   popTo = (routeName, data) => {

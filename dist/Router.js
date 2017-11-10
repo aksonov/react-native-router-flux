@@ -28,10 +28,7 @@ App=(0,_native.observer)(_class=(_temp2=_class2=function(_React$Component){_inhe
 
 
 
-onBackPress=function(){
-_navigationStore2.default.pop();
-return _navigationStore2.default.currentScene!==_navigationStore2.default.prevScene;
-},_this.
+onBackPress=function(){return!_navigationStore2.default.pop();},_this.
 
 handleDeepURL=function(e){return _this.parseDeepURL(e.url);},_this.
 
@@ -67,7 +64,7 @@ _navigationStore2.default[actionKey](params);
 {
 var AppNavigator=this.props.navigator;
 return(
-_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:70}}));
+_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:67}}));
 
 }}]);return App;}(_react2.default.Component),_class2.propTypes={navigator:_propTypes2.default.func,backAndroidHandler:_propTypes2.default.func,uriPrefix:_propTypes2.default.string},_temp2))||_class;
 
@@ -86,9 +83,9 @@ if(dispatch&&state){
 
 _navigationStore2.default.setState(state);
 _navigationStore2.default.dispatch=dispatch;
-return _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:state}),uriPrefix:uriPrefix,__source:{fileName:_jsxFileName,lineNumber:89}});
+return _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:state}),uriPrefix:uriPrefix,__source:{fileName:_jsxFileName,lineNumber:86}});
 }
-return _react2.default.createElement(App,_extends({},props,{navigator:AppNavigator,uriPrefix:uriPrefix,__source:{fileName:_jsxFileName,lineNumber:91}}));
+return _react2.default.createElement(App,_extends({},props,{navigator:AppNavigator,uriPrefix:uriPrefix,__source:{fileName:_jsxFileName,lineNumber:88}}));
 };
 Router.propTypes={
 createReducer:_propTypes2.default.func,
