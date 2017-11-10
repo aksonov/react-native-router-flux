@@ -195,3 +195,23 @@ Type constants to determine `Scene` transitions, These are **PREFERRED** over ty
 | `ActionConst.FOCUS` | `string` | 'REACT_NATIVE_ROUTER_FLUX_FOCUS' | *N/A* |
 | `ActionConst.BLUR` | `string` | 'REACT_NATIVE_ROUTER_FLUX_BLUR' | *N/A* |
 | `ActionConst.ANDROID_BACK` | `string` | 'REACT_NATIVE_ROUTER_FLUX_ANDROID_BACK' | *N/A* |
+
+## Universal and Deep Linking
+#### Use Case
+- Consider a web app and mobile app pairing for a social network, which might have a url `https://thesocialnetwork.com/profile/1234/`.
+- If we were building both a web app and a mobile app, we'd like to be able to express that uri scheme across platforms with the path `/profile/:id/`. 
+- On the web, we might want `React-Router` to to open up our `<Profile />` component with the `props` `{ id: 1234 }`. 
+- On mobile, if we've correctly set up our Android/iOS environment to launch our application and open our RNRF `<Router />`, then we also want to navigate to our mobile `<Profile />` scene with the `params` ` { id: 1234 }`
+
+#### Usage
+```javascript
+<Router uriPrefix={'thesocialnetwork.com'}>
+  <Scene key="root">
+     <Scene key={'home'} component={Home} />
+     <Scene key={'profile'} path={"/profile/:id/"} component={Profile} />
+     <Scene key={'profileForm'} path={"/edit/profile/:id/"} component={ProfileForm} />
+  </Scene>
+</Router>
+```
+
+If a user clicks on `http://thesocialnetwork.com/profile/1234/` on their device, they'll open the `<Router />` and then call `Actions.profile({ id: 1234 })`
