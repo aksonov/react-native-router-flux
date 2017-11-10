@@ -9,6 +9,7 @@ import Stack from './Stack';
 import Drawer from './Drawer';
 import Tabs from './Tabs';
 import Overlay from './Overlay';
+import pathParser from './pathParser';
 
 export {
   ActionConst,
@@ -22,4 +23,5 @@ export {
   Drawer,
   Tabs,
   Overlay,
+  pathParser,
 };
