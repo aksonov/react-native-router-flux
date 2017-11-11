@@ -27,7 +27,7 @@ The basic routing component for this router, all `<Scene>` components require a 
 | Property | Type | Default | Description |
 |-----------|----------|----------|--------------------------------------------|
 | `key`       | `string` | `required` | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
-| `path`       | `string` | `required` | Will be used to match against incoming deep links and pull params. For example, the path `/user/:id/` would specify to call the Scene's action with params `{ id: 1234 }` from the url `/user/1234/`. Should adhere to widely accepted uri templating standard https://tools.ietf.org/html/rfc6570 |
+| `path`       | `string` |  | Will be used to match against incoming deep links and pull params. For example, the path `/user/:id/` would specify to call the Scene's action with params `{ id: 1234 }` from the url `/user/1234/`. Should adhere to widely accepted uri templating standard https://tools.ietf.org/html/rfc6570 |
 | `component` | `React.Component` | `semi-required` | The `Component` to be displayed. Not required when defining a nested `Scene`, see example. |
 | `back`     | `boolean` | `false` | If it is `true` back button is displayed instead of left/drawer button defined by upper container. |
 | `backButtonImage`     | `string` | | Image source to substitute for the nav back button |
