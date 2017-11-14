@@ -2,7 +2,7 @@ import React from 'react';
 import { observable, action } from 'mobx';
 import * as ActionConst from './ActionConst';
 import { OnEnter, OnExit, assert } from './Util';
-import { View, Image, Animated, Easing, Platform } from 'react-native';
+import { Image, Animated, Easing, Platform } from 'react-native';
 import { TabNavigator, DrawerNavigator, StackNavigator, NavigationActions, TabBarTop, TabBarBottom } from 'react-navigation';
 import { LeftButton, RightButton, BackButton } from './NavBar';
 import LightboxNavigator from './LightboxNavigator';
@@ -469,7 +469,7 @@ class NavigationStore {
       }
       // console.log(`KEY ${key} PATH ${path} DRAWER ${drawer} TABS ${tabs} WRAP ${wrap}`, JSON.stringify(commonProps));
       const screen = {
-        screen: createWrapper(component, wrapBy, this) || this.processScene(child, commonProps, clones) || (lightbox && View),
+        screen: createWrapper(component, wrapBy, this) || this.processScene(child, commonProps, clones) || (lightbox && (() => null)),
         navigationOptions: createNavigationOptions({ ...commonProps, hideNavBar: parentProps.hideNavBar, ...getProperties(component), ...child.props, init, component }),
       };
 

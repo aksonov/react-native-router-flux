@@ -469,7 +469,7 @@ _this2.states[key].path=path;
 }
 
 var screen={
-screen:createWrapper(component,wrapBy,_this2)||_this2.processScene(_child,commonProps,clones)||lightbox&&_reactNative.View,
+screen:createWrapper(component,wrapBy,_this2)||_this2.processScene(_child,commonProps,clones)||lightbox&&function(){return null;},
 navigationOptions:createNavigationOptions(_extends({},commonProps,{hideNavBar:parentProps.hideNavBar},getProperties(component),_child.props,{init:init,component:component}))};
 
 
