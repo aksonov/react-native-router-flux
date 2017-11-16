@@ -19,6 +19,7 @@
 | `wrapBy`   | `Function` |  | function to wrap each Scene component and nav bar buttons - allows easy MobX integration (by passing `observer`) |
 | `sceneStyle`     | `Style` |  | Style applied to all scenes (optional) |
 | `backAndroidHandler`     | `Function` |  | Allows custom control of hardwareBackPress in Android (optional). For more info check [BackHandler](https://facebook.github.io/react-native/docs/backhandler.html).  |
+| `uriPrefix`     | `string` |  | A uri prefix to strip from incoming urls for deep linking. For example, if you wanted to support deep linking from `www.example.com/user/1234/`, then you could pass `example.com` to only match paths against `/user/1234/`. |
 
 ## Scene:
 The basic routing component for this router, all `<Scene>` components require a `key` prop that must be unique. A parent `<Scene>` cannot not have a `component` as a `prop` as it will act as a grouping component for its children.
@@ -26,6 +27,7 @@ The basic routing component for this router, all `<Scene>` components require a 
 | Property | Type | Default | Description |
 |-----------|----------|----------|--------------------------------------------|
 | `key`       | `string` | `required` | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
+| `path`       | `string` |  | Will be used to match against incoming deep links and pull params. For example, the path `/user/:id/` would specify to call the Scene's action with params `{ id: 1234 }` from the url `/user/1234/`. Should adhere to widely accepted uri templating standard https://tools.ietf.org/html/rfc6570 |
 | `component` | `React.Component` | `semi-required` | The `Component` to be displayed. Not required when defining a nested `Scene`, see example. |
 | `back`     | `boolean` | `false` | If it is `true` back button is displayed instead of left/drawer button defined by upper container. |
 | `backButtonImage`     | `string` | | Image source to substitute for the nav back button |
@@ -193,3 +195,23 @@ Type constants to determine `Scene` transitions, These are **PREFERRED** over ty
 | `ActionConst.FOCUS` | `string` | 'REACT_NATIVE_ROUTER_FLUX_FOCUS' | *N/A* |
 | `ActionConst.BLUR` | `string` | 'REACT_NATIVE_ROUTER_FLUX_BLUR' | *N/A* |
 | `ActionConst.ANDROID_BACK` | `string` | 'REACT_NATIVE_ROUTER_FLUX_ANDROID_BACK' | *N/A* |
+
+## Universal and Deep Linking
+#### Use Case
+- Consider a web app and mobile app pairing for a social network, which might have a url `https://thesocialnetwork.com/profile/1234/`.
+- If we were building both a web app and a mobile app, we'd like to be able to express that uri scheme across platforms with the path `/profile/:id/`. 
+- On the web, we might want `React-Router` to to open up our `<Profile />` component with the `props` `{ id: 1234 }`. 
+- On mobile, if we've correctly set up our Android/iOS environment to launch our application and open our RNRF `<Router />`, then we also want to navigate to our mobile `<Profile />` scene with the `params` ` { id: 1234 }`
+
+#### Usage
+```javascript
+<Router uriPrefix={'thesocialnetwork.com'}>
+  <Scene key="root">
+     <Scene key={'home'} component={Home} />
+     <Scene key={'profile'} path={"/profile/:id/"} component={Profile} />
+     <Scene key={'profileForm'} path={"/edit/profile/:id/"} component={ProfileForm} />
+  </Scene>
+</Router>
+```
+
+If a user clicks on `http://thesocialnetwork.com/profile/1234/` on their device, they'll open the `<Router />` and then call `Actions.profile({ id: 1234 })`
