@@ -23,7 +23,7 @@ class DrawerContent extends React.Component {
   }
 
   static contextTypes = {
-    drawer: React.PropTypes.object,
+    drawer: PropTypes.object,
   }
 
   render() {

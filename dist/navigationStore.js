@@ -1,4 +1,5 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.actionMap=undefined;var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _actionMap,_jsxFileName='src/navigationStore.js';var _react=require('react');var _react2=_interopRequireDefault(_react);
+Object.defineProperty(exports,"__esModule",{value:true});exports.actionMap=undefined;var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _actionMap,_jsxFileName='src/navigationStore.js',_desc,_value,_class2,_descriptor,_descriptor2,_descriptor3,_descriptor4;var _react=require('react');var _react2=_interopRequireDefault(_react);
+var _mobx=require('mobx');
 var _ActionConst=require('./ActionConst');var ActionConst=_interopRequireWildcard(_ActionConst);
 var _Util=require('./Util');
 var _reactNative=require('react-native');
@@ -212,7 +213,11 @@ res.tabBarVisible=false;
 res.tabBarVisible=false;
 }
 
-if(hideNavBar){
+if(navigationParams.hideNavBar!=null){
+if(navigationParams.hideNavBar){
+res.header=null;
+}
+}else if(hideNavBar){
 res.header=null;
 }
 
@@ -302,9 +307,9 @@ this.ref=ref;
 {
 var navigation=this.props.navigation;
 if(!navigation||!navigation.state){
-return _react2.default.createElement(Component,_extends({ref:this.onRef},this.props,{__source:{fileName:_jsxFileName,lineNumber:305}}));
+return _react2.default.createElement(Component,_extends({ref:this.onRef},this.props,{__source:{fileName:_jsxFileName,lineNumber:311}}));
 }
-return _react2.default.createElement(Component,_extends({ref:this.onRef},this.props,extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:307}}));
+return _react2.default.createElement(Component,_extends({ref:this.onRef},this.props,extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:313}}));
 }}]);return Wrapped;}(_react2.default.Component),_class.propTypes={navigation:_propTypes2.default.object},_temp);
 
 return wrapper(Wrapped);
@@ -312,7 +317,7 @@ return wrapper(Wrapped);
 
 
 function StatelessWrapped(_ref5){var navigation=_ref5.navigation,props=_objectWithoutProperties(_ref5,['navigation']);
-return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:315}}));
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:321}}));
 }
 StatelessWrapped.propTypes={
 navigation:_propTypes2.default.object};
@@ -349,10 +354,7 @@ var defaultFailure=function defaultFailure(){};var
 NavigationStore=function(){function NavigationStore(){var _this2=this;_classCallCheck(this,NavigationStore);this.
 refs={};this.
 states={};this.
-router=null;this.
-reducer=null;this.
-dispatch=null;this.
-getState=null;this.
+reducer=null;_initDefineProp(this,'currentScene',_descriptor,this);_initDefineProp(this,'prevScene',_descriptor2,this);_initDefineProp(this,'currentParams',_descriptor3,this);this.
 
 
 
@@ -368,6 +370,7 @@ if(_this2.reducer)return _this2.reducer(lastState,action);
 
 return(0,_Reducer.reducer)(lastState,action);
 };this.
+
 
 addRef=function(name,ref){
 _this2.refs[name]=ref;
@@ -386,206 +389,188 @@ var AppNavigator=_this2.processScene(scene,params,[],wrapBy);
 return AppNavigator;
 };this.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-onNavigationStateChange=function _callee(prevState,curState){var prevActiveState,activeState,exitHandler,res,handler,success,failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:if(
-
-curState){_context.next=2;break;}return _context.abrupt('return');case 2:
-
-prevActiveState=(0,_State.getActiveState)(prevState);
-activeState=(0,_State.getActiveState)(curState);if(!(
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-prevActiveState.routeName!==activeState.routeName&&activeState.routeName!=='DrawerOpen'&&activeState.routeName!=='DrawerClose')){_context.next=25;break;}
-_this2.dispatch({type:ActionConst.BLUR,routeName:prevActiveState.routeName});
-
-
-exitHandler=_this2[prevActiveState.routeName+_Util.OnExit];
-if(exitHandler){
-try{
-res=exitHandler();
-if(res instanceof Promise){
-res.then(defaultSuccess,defaultFailure);
+processScene=function(scene){var inheritProps=arguments.length>1&&arguments[1]!==undefined?arguments[1]:{};var clones=arguments.length>2&&arguments[2]!==undefined?arguments[2]:[];var wrapBy=arguments[3];
+(0,_Util.assert)(scene.props,'props should be defined');
+if(!scene.props.children){
+return null;
 }
-}catch(e){
-console.error('Error during onExit handler:',e);
+var res={};
+var order=[];var _scene$props=
+scene.props,navigator=_scene$props.navigator,contentComponent=_scene$props.contentComponent,drawerWidth=_scene$props.drawerWidth,drawerLockMode=_scene$props.drawerLockMode,lazy=_scene$props.lazy,duration=_scene$props.duration,parentProps=_objectWithoutProperties(_scene$props,['navigator','contentComponent','drawerWidth','drawerLockMode','lazy','duration']);var
+tabs=parentProps.tabs,modal=parentProps.modal,lightbox=parentProps.lightbox,overlay=parentProps.overlay,tabBarPosition=parentProps.tabBarPosition,drawer=parentProps.drawer,tabBarComponent=parentProps.tabBarComponent,transitionConfig=parentProps.transitionConfig;
+if(scene.type===_Modal2.default){
+modal=true;
+}else if(scene.type===_Drawer2.default){
+drawer=true;
+}else if(scene.type===_Lightbox2.default){
+lightbox=true;
+}else if(scene.type===_Tabs2.default){
+tabs=true;
+}else if(scene.type===_Overlay2.default){
+overlay=true;
+}
+
+
+
+for(var _iterator4=Object.keys(commonProps),_isArray4=Array.isArray(_iterator4),_i5=0,_iterator4=_isArray4?_iterator4:_iterator4[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref7;if(_isArray4){if(_i5>=_iterator4.length)break;_ref7=_iterator4[_i5++];}else{_i5=_iterator4.next();if(_i5.done)break;_ref7=_i5.value;}var pkey=_ref7;
+if(dontInheritKeys.includes(pkey)&&(pkey==='type'||pkey==='hideNavBar'||!parentProps[pkey])){
+delete commonProps[pkey];
 }
 }
 
-_this2.dispatch({type:ActionConst.FOCUS,routeName:activeState.routeName,params:activeState.params});if(!
-_this2.states[activeState.routeName]){_context.next=25;break;}
-handler=_this2[activeState.routeName+_Util.OnEnter];
-success=_this2.states[activeState.routeName].success||defaultSuccess;
-failure=_this2.states[activeState.routeName].failure||defaultFailure;if(!
 
-handler){_context.next=25;break;}_context.prev=14;
 
-params=(0,_State.getActiveState)(_this2.getState()).params;_context.next=18;return regeneratorRuntime.awrap(
-handler(params));case 18:_res=_context.sent;
-if(_res){
-success(_res);
-}else{
-failure();
-}_context.next=25;break;case 22:_context.prev=22;_context.t0=_context['catch'](14);
 
-failure({error:_context.t0.message});case 25:case'end':return _context.stop();}}},null,_this2,[[14,22]]);};this.
+for(var _iterator5=children,_isArray5=Array.isArray(_iterator5),_i6=0,_iterator5=_isArray5?_iterator5:_iterator5[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref8;if(_isArray5){if(_i6>=_iterator5.length)break;_ref8=_iterator5[_i6++];}else{_i6=_iterator5.next();if(_i6.done)break;_ref8=_i6.value;}var child=_ref8;
+if(child.props.clone){
+if(clones.indexOf(child)===-1){
+clones.push(child);
+}
+}
+}
+var initialRouteName=void 0;
+var initialRouteParams=void 0;var _loop2=function _loop2(
+_child){
+var key=_child.key||'key'+counter++;
+var init=key===children[0].key;
+(0,_Util.assert)(reservedKeys.indexOf(key)===-1,'Scene name cannot be reserved word: '+_child.key);var _child$props=
+_child.props,component=_child$props.component,_child$props$type=_child$props.type,type=_child$props$type===undefined?tabs||drawer?'jump':'push':_child$props$type,path=_child$props.path,onEnter=_child$props.onEnter,onExit=_child$props.onExit,on=_child$props.on,failure=_child$props.failure,success=_child$props.success,wrap=_child$props.wrap,_child$props$initial=_child$props.initial,initial=_child$props$initial===undefined?false:_child$props$initial,props=_objectWithoutProperties(_child$props,['component','type','path','onEnter','onExit','on','failure','success','wrap','initial']);
+if(!_this2.states[key]){
+_this2.states[key]={};
+}
+for(var _iterator7=Object.keys(props),_isArray7=Array.isArray(_iterator7),_i8=0,_iterator7=_isArray7?_iterator7:_iterator7[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref10;if(_isArray7){if(_i8>=_iterator7.length)break;_ref10=_iterator7[_i8++];}else{_i8=_iterator7.next();if(_i8.done)break;_ref10=_i8.value;}var transition=_ref10;
+if(reservedKeys.indexOf(transition)===-1&&props[transition]instanceof Function){
+_this2.states[key][transition]=props[transition];
+}
+}
+delete props.children;
+if(success){
+_this2.states[key].success=success instanceof Function?
+success:function(args){console.log('Transition to state='+success);_this2[success](args);};
+}
+if(failure){
+_this2.states[key].failure=failure instanceof Function?
+failure:function(args){console.log('Transition to state='+failure);_this2[failure](args);};
+}
+if(path){
+_this2.states[key].path=path;
+}
+
+var screen={
+screen:createWrapper(component,wrapBy,_this2)||_this2.processScene(_child,commonProps,clones)||lightbox&&function(){return null;},
+navigationOptions:createNavigationOptions(_extends({},commonProps,{hideNavBar:parentProps.hideNavBar},getProperties(component),_child.props,{init:init,component:component}))};
+
+
+
+var wrapNavBar=drawer||tabs||wrap;
+if(wrap===false||commonProps.wrap===false){
+wrapNavBar=false;
+}
+if(component&&wrapNavBar){
+res[key]={
+screen:_this2.processScene({key:key,props:{children:{key:'_'+key,props:_extends({},_child.props,{wrap:false})}}},commonProps,clones,wrapBy),
+navigationOptions:createNavigationOptions(_extends({},commonProps,_child.props,{hideNavBar:true}))};
+
+
+
+
+
+
+order.push(key);
+if(initial||_child.props.initial||!initialRouteName){
+initialRouteName=key;
+initialRouteParams=_extends({},commonProps,props);
+}};for(var _iterator6=children,_isArray6=Array.isArray(_iterator6),_i7=0,_iterator6=_isArray6?_iterator6:_iterator6[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref9;if(_isArray6){if(_i7>=_iterator6.length)break;_ref9=_iterator6[_i7++];}else{_i7=_iterator6.next();if(_i7.done)break;_ref9=_i7.value;}var _child=_ref9;_loop2(_child);
+}
+var mode=modal?'modal':'card';
+if(navigator){
+return navigator(res,_extends({lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,contentComponent:contentComponent,order:order},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
+}
+if(lightbox){
+return(0,_LightboxNavigator2.default)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));
+}else if(tabs){
+if(!tabBarComponent){
+tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:519}}));}:
+function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:520}}));};
+}
+if(!tabBarPosition){
+tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';
+}
+return(0,_reactNavigation.TabNavigator)(res,_extends({lazy:lazy,tabBarComponent:tabBarComponent,tabBarPosition:tabBarPosition,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},commonProps,{
+tabBarOptions:createTabBarOptions(commonProps),navigationOptions:createNavigationOptions(commonProps)}));
+}else if(drawer){
+var config=_extends({initialRouteName:initialRouteName,contentComponent:contentComponent,order:order},commonProps);
+if(drawerWidth){
+config.drawerWidth=drawerWidth;
+}
+if(drawerLockMode){
+config.drawerLockMode=drawerLockMode;
+}
+return(0,_reactNavigation.DrawerNavigator)(res,config);
+}else if(overlay){
+return(0,_OverlayNavigator2.default)(res,_extends({lazy:lazy,initialRouteName:initialRouteName,contentComponent:contentComponent,initialRouteParams:initialRouteParams,order:order},commonProps,{
+tabBarOptions:createTabBarOptions(commonProps),navigationOptions:createNavigationOptions(commonProps)}));
+}
+return(0,_reactNavigation.StackNavigator)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{transitionConfig:transitionConfig,navigationOptions:createNavigationOptions(commonProps)}));
+};this.
+
+
+dispatch=function(cmd){
+_this2.setState(_this2.nextState(_this2.state,cmd));
+};_initDefineProp(this,'setState',_descriptor4,this);this.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -627,7 +612,8 @@ var params=filterParam(data);
 _this2.dispatch(_reactNavigation.NavigationActions.setParams({key:key,params:params}));
 };this.
 
-pop=function(){var _ref7=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{},timeout=_ref7.timeout,params=_objectWithoutProperties(_ref7,['timeout']);
+pop=function(){var _ref11=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{},timeout=_ref11.timeout,params=_objectWithoutProperties(_ref11,['timeout']);
+var previous=(0,_State.getActiveState)(_this2.state);
 var res=filterParam(params);
 if(timeout){
 setTimeout(function(){return _this2.pop(params);},timeout);
@@ -637,6 +623,7 @@ if(res.refresh){
 setTimeout(function(){return _this2.refresh(res.refresh);});
 }
 }
+return!(0,_lodash2.default)(previous,(0,_State.getActiveState)(_this2.state));
 };this.
 
 popTo=function(routeName,data){
@@ -660,7 +647,7 @@ _this2.dispatch(_reactNavigation.NavigationActions.reset({key:null,index:0,actio
 routeName:routeName,
 params:params})]}));
 
-};}_createClass(NavigationStore,[{key:'integrateNavigator',value:function integrateNavigator(navigator){navigator.router.originalGetStateForAction=navigator.router.getStateForAction;navigator.router.getStateForAction=this.getStateForAction;this.router=navigator.router;}},{key:'processScene',value:function processScene(scene){var inheritProps=arguments.length>1&&arguments[1]!==undefined?arguments[1]:{};var _this3=this;var clones=arguments.length>2&&arguments[2]!==undefined?arguments[2]:[];var wrapBy=arguments[3];(0,_Util.assert)(scene.props,'props should be defined');if(!scene.props.children){return null;}var res={};var order=[];var _scene$props=scene.props,navigator=_scene$props.navigator,contentComponent=_scene$props.contentComponent,drawerWidth=_scene$props.drawerWidth,lazy=_scene$props.lazy,duration=_scene$props.duration,parentProps=_objectWithoutProperties(_scene$props,['navigator','contentComponent','drawerWidth','lazy','duration']);var tabs=parentProps.tabs,modal=parentProps.modal,lightbox=parentProps.lightbox,overlay=parentProps.overlay,tabBarPosition=parentProps.tabBarPosition,drawer=parentProps.drawer,tabBarComponent=parentProps.tabBarComponent,transitionConfig=parentProps.transitionConfig;if(scene.type===_Modal2.default){modal=true;}else if(scene.type===_Drawer2.default){drawer=true;}else if(scene.type===_Lightbox2.default){lightbox=true;}else if(scene.type===_Tabs2.default){tabs=true;}else if(scene.type===_Overlay2.default){overlay=true;}if(duration!==undefined&&!transitionConfig){transitionConfig=function transitionConfig(){return{transitionSpec:{duration:duration,timing:_reactNative.Animated.timing,easing:_reactNative.Easing.step0}};};}var commonProps=_extends({},inheritProps,parentProps);delete commonProps.children;delete commonProps.component;for(var _iterator4=Object.keys(commonProps),_isArray4=Array.isArray(_iterator4),_i5=0,_iterator4=_isArray4?_iterator4:_iterator4[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref8;if(_isArray4){if(_i5>=_iterator4.length)break;_ref8=_iterator4[_i5++];}else{_i5=_iterator4.next();if(_i5.done)break;_ref8=_i5.value;}var pkey=_ref8;if(dontInheritKeys.includes(pkey)&&!parentProps[pkey]){delete commonProps[pkey];}}if(drawer){commonProps.drawerImage=commonProps.drawerImage||_menu_burger2.default;}var children=!Array.isArray(parentProps.children)?[parentProps.children]:[].concat.apply([],parentProps.children);if(!drawer&&!tabs&&!overlay){children.push.apply(children,_toConsumableArray(clones));}for(var _iterator5=children,_isArray5=Array.isArray(_iterator5),_i6=0,_iterator5=_isArray5?_iterator5:_iterator5[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref9;if(_isArray5){if(_i6>=_iterator5.length)break;_ref9=_iterator5[_i6++];}else{_i6=_iterator5.next();if(_i6.done)break;_ref9=_i6.value;}var child=_ref9;if(child.props.clone){if(clones.indexOf(child)===-1){clones.push(child);}}}var initialRouteName=void 0;var initialRouteParams=void 0;var _loop2=function _loop2(_child){var key=_child.key||'key'+counter++;var init=key===children[0].key;(0,_Util.assert)(reservedKeys.indexOf(key)===-1,'Scene name cannot be reserved word: '+_child.key);var _child$props=_child.props,component=_child$props.component,_child$props$type=_child$props.type,type=_child$props$type===undefined?tabs||drawer?'jump':'push':_child$props$type,onEnter=_child$props.onEnter,onExit=_child$props.onExit,on=_child$props.on,failure=_child$props.failure,success=_child$props.success,wrap=_child$props.wrap,props=_objectWithoutProperties(_child$props,['component','type','onEnter','onExit','on','failure','success','wrap']);if(!_this3.states[key]){_this3.states[key]={};}for(var _iterator7=Object.keys(props),_isArray7=Array.isArray(_iterator7),_i8=0,_iterator7=_isArray7?_iterator7:_iterator7[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref11;if(_isArray7){if(_i8>=_iterator7.length)break;_ref11=_iterator7[_i8++];}else{_i8=_iterator7.next();if(_i8.done)break;_ref11=_i8.value;}var transition=_ref11;if(reservedKeys.indexOf(transition)===-1&&props[transition]instanceof Function){_this3.states[key][transition]=props[transition];}}delete props.children;if(success){_this3.states[key].success=success instanceof Function?success:function(args){console.log('Transition to state='+success);_this3[success](args);};}if(failure){_this3.states[key].failure=failure instanceof Function?failure:function(args){console.log('Transition to state='+failure);_this3[failure](args);};}var screen={screen:createWrapper(component,wrapBy,_this3)||_this3.processScene(_child,commonProps,clones)||lightbox&&_reactNative.View,navigationOptions:createNavigationOptions(_extends({},commonProps,getProperties(component),_child.props,{init:init,component:component}))};var wrapNavBar=drawer||tabs||wrap;if(wrap===false||commonProps.wrap===false){wrapNavBar=false;}if(component&&wrapNavBar){res[key]={screen:_this3.processScene({key:key,props:{children:{key:'_'+key,props:_extends({},_child.props,{wrap:false})}}},commonProps,clones,wrapBy),navigationOptions:createNavigationOptions(_extends({},commonProps,_child.props))};}else{res[key]=screen;}props.init=true;if(!_this3[key]){_this3[key]=new Function('actions','props','type','return function '+key.replace(/\W/g,'_')+'(params){ actions.execute(type, \''+key+'\', props, params)}')(_this3,_extends({},commonProps,props),type);}if((onEnter||on||component&&component.onEnter)&&!_this3[key+_Util.OnEnter]){_this3[key+_Util.OnEnter]=onEnter||on||component.onEnter;}if((onExit||component&&component.onExit)&&!_this3[key+_Util.OnExit]){_this3[key+_Util.OnExit]=onExit||component.onExit;}order.push(key);if(_child.props.initial||!initialRouteName){initialRouteName=key;initialRouteParams=_extends({},commonProps,props);}};for(var _iterator6=children,_isArray6=Array.isArray(_iterator6),_i7=0,_iterator6=_isArray6?_iterator6:_iterator6[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref10;if(_isArray6){if(_i7>=_iterator6.length)break;_ref10=_iterator6[_i7++];}else{_i7=_iterator6.next();if(_i7.done)break;_ref10=_i7.value;}var _child=_ref10;_loop2(_child);}var mode=modal?'modal':'card';if(navigator){return navigator(res,_extends({lazy:lazy,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,contentComponent:contentComponent,order:order},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));}if(lightbox){return(0,_LightboxNavigator2.default)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{navigationOptions:createNavigationOptions(commonProps)}));}else if(tabs){if(!tabBarComponent){tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:514}}));}:function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:515}}));};}if(!tabBarPosition){tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';}return(0,_reactNavigation.TabNavigator)(res,_extends({lazy:lazy,tabBarComponent:tabBarComponent,tabBarPosition:tabBarPosition,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},commonProps,{tabBarOptions:createTabBarOptions(commonProps),navigationOptions:createNavigationOptions(commonProps)}));}else if(drawer){return(0,_reactNavigation.DrawerNavigator)(res,_extends({initialRouteName:initialRouteName,contentComponent:contentComponent,drawerWidth:drawerWidth,order:order},commonProps));}else if(overlay){return(0,_OverlayNavigator2.default)(res,_extends({lazy:lazy,initialRouteName:initialRouteName,contentComponent:contentComponent,initialRouteParams:initialRouteParams,order:order},commonProps,{tabBarOptions:createTabBarOptions(commonProps),navigationOptions:createNavigationOptions(commonProps)}));}return(0,_reactNavigation.StackNavigator)(res,_extends({mode:mode,initialRouteParams:initialRouteParams,initialRouteName:initialRouteName},commonProps,{transitionConfig:transitionConfig,navigationOptions:createNavigationOptions(commonProps)}));}}]);return NavigationStore;}();exports.default=
+};}_createClass(NavigationStore,[{key:'state',get:function get(){var scene=this.currentScene;var params=this.currentParams;return this._state;}}]);return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class2.prototype,'currentScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor2=_applyDecoratedDescriptor(_class2.prototype,'prevScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor3=_applyDecoratedDescriptor(_class2.prototype,'currentParams',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor4=_applyDecoratedDescriptor(_class2.prototype,'setState',[_mobx.action],{enumerable:true,initializer:function initializer(){var _this3=this;return function _callee(newState){var state,currentScene,exitHandler,res,handler,_success,_failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:if(newState){_context.next=2;break;}return _context.abrupt('return');case 2:state=(0,_State.getActiveState)(newState);if(!((0,_lodash2.default)(state.params,_this3._currentParams)&&state.routeName===_this3.currentScene)){_context.next=5;break;}return _context.abrupt('return');case 5:currentScene=_this3.currentScene;_this3._state=newState;_this3.currentScene=state.routeName;_this3.prevScene=currentScene;_this3.currentParams=state.params;_this3._currentParams=state.params;if(!(currentScene!==_this3.currentScene&&_this3.currentScene!=='DrawerOpen'&&_this3.currentScene!=='DrawerClose')){_context.next=32;break;}_this3.dispatch({type:ActionConst.BLUR,routeName:currentScene});exitHandler=_this3[currentScene+_Util.OnExit];if(exitHandler){try{res=exitHandler();if(res instanceof Promise){res.then(defaultSuccess,defaultFailure);}}catch(e){console.error('Error during onExit handler:',e);}}_this3.dispatch({type:ActionConst.FOCUS,routeName:_this3.currentScene,params:_this3._currentParams});if(!_this3.states[_this3.currentScene]){_context.next=32;break;}handler=_this3[_this3.currentScene+_Util.OnEnter];_success=_this3.states[_this3.currentScene].success||defaultSuccess;_failure=_this3.states[_this3.currentScene].failure||defaultFailure;if(!handler){_context.next=32;break;}_context.prev=21;params=(0,_State.getActiveState)(_this3._state).params;_context.next=25;return regeneratorRuntime.awrap(handler(params));case 25:_res=_context.sent;if(_res){_success(_res);}else{_failure();}_context.next=32;break;case 29:_context.prev=29;_context.t0=_context['catch'](21);_failure({error:_context.t0.message});case 32:case'end':return _context.stop();}}},null,_this3,[[21,29]]);};}})),_class2);exports.default=
 
 
 

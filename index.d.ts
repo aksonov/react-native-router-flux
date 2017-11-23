@@ -11,7 +11,7 @@ export type Router = RouterStatic;
 export var Reducer: any;
 export type Reducer = any;
 
-// Router 
+// Router
 interface RouterProps extends React.Props<Router> {
     sceneStyle?: StyleProp<ViewStyle>;
     backAndroidHandler?: Function;
@@ -90,7 +90,7 @@ interface TabsProps extends React.Props<Tabs> {
     tabBarOnPress?: function;
     backToInitial?: boolean;
 }
-interface TabsStatic extends React.ComponentClass<SceneProps & TabsProps> { }
+interface TabsStatic extends React.ComponentClass<TabsProps> { }
 export type TabBarPositionType = "top" | "bottom";
 
 // Drawer
@@ -116,7 +116,7 @@ export type Overlay = OverlayStatic;
 interface OverlayProps extends React.Props<Overlay> { }
 interface OverlayStatic extends React.ComponentClass<SceneProps & OverlayProps> { }
 
-// Lightbox 
+// Lightbox
 export var Lightbox : LightboxStatic;
 export type Lightbox  = LightboxStatic;
 interface LightboxProps extends React.Props<Modal> { }
@@ -125,13 +125,18 @@ interface LightboxStatic extends React.ComponentClass<LightboxProps> { }
 // Stack
 export var Stack: StackStatic;
 export type Stack = StackStatic;
-interface StackProps extends React.Props<Stack> { 
-    navigationBarStyle?: StyleProp<ViewStyle>;
-}
-interface StackStatic extends React.ComponentClass<StackProps> { }
 
-export var Actions: ActionsStatic & ActionsGenericStatic;
-export type Actions = ActionsStatic & ActionsGenericStatic;
+interface StackProps extends React.Props<Stack> {
+    navigationBarStyle?: StyleProp<ViewStyle>;
+    icon?: any;
+    tintColor?: string;
+    hideNavBar?: boolean;
+}
+interface StackStatic extends React.ComponentClass<StackProps> {
+}
+
+export var Actions: ActionsGenericStatic;
+export type Actions = ActionsGenericStatic;
 interface ActionsStatic {
     currentScene: string;
     jump: (sceneKey: string, props?: any) => void;
@@ -146,7 +151,7 @@ interface ActionsStatic {
     drawerClose?: () => void;
 
 }
-interface ActionsGenericStatic {
+interface ActionsGenericStatic extends ActionsStatic {
     [key: string]: (props?: any) => void;
 }
 
