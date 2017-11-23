@@ -10,6 +10,7 @@ import Scene from './Scene';
 import PropTypes from 'prop-types';
 import { getActiveState } from './State';
 import { reducer } from './Reducer';
+import isEqual from 'lodash.isequal';
 import Modal from './Modal';
 import Lightbox from './Lightbox';
 import Drawer from './Drawer';
@@ -644,7 +645,7 @@ class NavigationStore {
   };
 
   pop = ({ timeout, ...params } = {}) => {
-    const previous = getActiveState(this.state);
+    const previous = getActiveState(this.getState());
     const res = filterParam(params);
     if (timeout) {
       setTimeout(() => this.pop(params), timeout);
@@ -654,7 +655,7 @@ class NavigationStore {
         setTimeout(() => this.refresh(res.refresh));
       }
     }
-    return !isEqual(previous, getActiveState(this.state));
+    return !isEqual(previous, getActiveState(this.getState()));
   };
 
   popTo = (routeName, data) => {
