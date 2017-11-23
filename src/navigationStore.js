@@ -550,25 +550,10 @@ class NavigationStore {
     const prevActiveState = getActiveState(prevState);
     const activeState = getActiveState(curState);
 
-    // TODO: There was logic in here to make sure we didn't execute an action twice in a row. We probably should get that back somehow.
-    /*
-    // don't allow null state
-    if (!newState) {
-      return;
-    }
-    const state = getActiveState(newState);
-    // avoid double actions
-    if (isEqual(state.params, this._currentParams) && state.routeName === this.currentScene) {
-      return;
-    }
-    const currentScene = this.currentScene;
-    this._state = newState;
-    this.currentScene = state.routeName;
-    this.prevScene = currentScene;
-
-    this.currentParams = state.params;
-    this._currentParams = state.params;
-    */
+    // NOTE: This used to be the place to avoid duplciated pushing of routes.
+    // because of the way this works now that is not possible.
+    // This issue is tracked in react-navigation:
+    // https://github.com/react-community/react-navigation/issues/135
 
     if (prevActiveState.routeName !== activeState.routeName && activeState.routeName !== 'DrawerOpen' && activeState.routeName !== 'DrawerClose') {
       if (prevActiveState.routeName) {

@@ -36,13 +36,11 @@ export default class Router extends React.Component {
 
     this.AppNavigator = scenes || navigator || navigationStore.create(children, data, wrapBy);
 
-    // TODO: Build this. Also... make sure it works when scenes or navigator are passed in (when is that actually valid????)
     navigationStore.integrateNavigator(this.AppNavigator);
 
     navigationStore.reducer = createReducer && createReducer(props);
 
     if (dispatch) {
-      // TODO: Make sure this works with the new way
       // set external state and dispatch
       navigationStore.dispatch = dispatch;
       navigationStore.getState = () => state;
