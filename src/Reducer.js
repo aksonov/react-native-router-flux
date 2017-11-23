@@ -15,8 +15,12 @@ const createAction = (type: string) => (payload: Object = {}) => ({
   ...payload,
 });
 
-
 export function reducer(state = navigationStore.state, action) {
+  // We are not setup so jet early.
+  if (!navigationStore.router || !navigationStore.router.originalGetStateForAction) {
+    return null;
+  }
+
   const type = action.type;
   const routeName = action.routeName;
   if (supportedActions[type]) {

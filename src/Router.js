@@ -57,6 +57,8 @@ export default class Router extends React.Component {
       // NOTE: This is here because onNavigationStateChange is not called when you first launch
       // a react-navigation app.
       navigationStore.onNavigationStateChange({}, navigationStore.getState());
+    } else {
+      navigationStore.getState = () => this.props.state;
     }
 
     // If the app was "woken up" by an external route.
@@ -107,6 +109,8 @@ export default class Router extends React.Component {
     const appNavigatorProps = {};
 
     if (dispatch) {
+      if (!state) return null;
+
       appNavigatorProps.navigation = addNavigationHelpers({ dispatch, state });
     } else {
       appNavigatorProps.onNavigationStateChange = navigationStore.onNavigationStateChange;
