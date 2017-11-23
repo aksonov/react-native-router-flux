@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Linking } from 'react-native';
 import { addNavigationHelpers, NavigationActions } from 'react-navigation';
 
 import navigationStore from './navigationStore';
+import pathParser from './pathParser';
 
 export default class Router extends React.Component {
   static propTypes = {
@@ -15,6 +17,7 @@ export default class Router extends React.Component {
     getSceneStyle: PropTypes.func,
     sceneStyle: PropTypes.object,
     children: PropTypes.element,
+    uriPrefix: PropTypes.string,
   }
 
   constructor(...args) {
@@ -57,7 +60,47 @@ export default class Router extends React.Component {
       // a react-navigation app.
       navigationStore.onNavigationStateChange({}, navigationStore.getState());
     }
+
+    // If the app was "woken up" by an external route.
+    Linking.getInitialURL().then((url) => this.parseDeepURL(url));
+    // Add an event listener for further deep linking.
+    Linking.addEventListener('url', this.handleDeepURL);
   }
+
+  componentWillUnmount() {
+    Linking.removeEventListener('url', this.handleDeepURL);
+  }
+
+  handleDeepURL = (e) => this.parseDeepURL(e.url);
+
+  parseDeepURL = (url) => {
+    // If there is no url, then return.
+    if (!url) { return; }
+
+    // Clean the url with the given prefix.
+    const cleanUrl = this.props.uriPrefix ? url.split(this.props.uriPrefix)[1] : url;
+    // Build an array of paths for every scene.
+    const allPaths = Object.values(navigationStore.states).map(obj => obj.path).filter(path => path);
+    // Try to match the url against the set of paths and parse the url parameters.
+    const parsedPath = pathParser(cleanUrl, allPaths);
+
+    // If the url could not be matched, then return.
+    if (!parsedPath) { return; }
+
+    // Destructure the matched path and the parsed url parameters.
+    const { path, params } = parsedPath;
+
+    // Get the action from the scene associated with the matched path.
+    const actionKey = Object.entries(navigationStore.states)
+      .filter(([, value]) => value.path === path)
+      .map(([key]) => key)
+      .find(key => key);
+
+    if (actionKey && navigationStore[actionKey]) {
+      // Call the action associated with the scene's path with the parsed parameters.
+      navigationStore[actionKey](params);
+    }
+  };
 
   render() {
     const { dispatch, state } = this.props;
