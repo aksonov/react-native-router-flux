@@ -571,18 +571,20 @@ class NavigationStore {
     */
 
     if (prevActiveState.routeName !== activeState.routeName && activeState.routeName !== 'DrawerOpen' && activeState.routeName !== 'DrawerClose') {
-      this.dispatch({ type: ActionConst.BLUR, routeName: prevActiveState.routeName });
+      if (prevActiveState.routeName) {
+        this.dispatch({ type: ActionConst.BLUR, routeName: prevActiveState.routeName });
 
-      // call onExit handler
-      const exitHandler = this[prevActiveState.routeName + OnExit];
-      if (exitHandler) {
-        try {
-          const res = exitHandler();
-          if (res instanceof Promise) {
-            res.then(defaultSuccess, defaultFailure);
+        // call onExit handler
+        const exitHandler = this[prevActiveState.routeName + OnExit];
+        if (exitHandler) {
+          try {
+            const res = exitHandler();
+            if (res instanceof Promise) {
+              res.then(defaultSuccess, defaultFailure);
+            }
+          } catch (e) {
+            console.error('Error during onExit handler:', e);
           }
-        } catch (e) {
-          console.error('Error during onExit handler:', e);
         }
       }
 

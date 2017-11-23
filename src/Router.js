@@ -52,6 +52,10 @@ export default class Router extends React.Component {
     if (!navigationStore.dispatch) {
       navigationStore.dispatch = this.navigator._navigation.dispatch;
       navigationStore.getState = () => this.navigator._navigation.state;
+
+      // NOTE: This is here because onNavigationStateChange is not called when you first launch
+      // a react-navigation app.
+      navigationStore.onNavigationStateChange({}, navigationStore.getState());
     }
   }
 
