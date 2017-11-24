@@ -550,11 +550,6 @@ class NavigationStore {
     const prevActiveState = getActiveState(prevState);
     const activeState = getActiveState(curState);
 
-    // NOTE: This used to be the place to avoid duplciated pushing of routes.
-    // because of the way this works now that is not possible.
-    // This issue is tracked in react-navigation:
-    // https://github.com/react-community/react-navigation/issues/135
-
     if (prevActiveState.routeName !== activeState.routeName && activeState.routeName !== 'DrawerOpen' && activeState.routeName !== 'DrawerClose') {
       if (prevActiveState.routeName) {
         this.dispatch({ type: ActionConst.BLUR, routeName: prevActiveState.routeName });

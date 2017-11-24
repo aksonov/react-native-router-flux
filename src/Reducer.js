@@ -1,6 +1,7 @@
 import navigationStore from './navigationStore';
 import * as ActionConst from './ActionConst';
 import { NavigationActions } from 'react-navigation';
+import isEqual from 'lodash.isequal';
 import { getActiveState, popPrevious, isActiveRoute, getActiveStateExceptDrawer } from './State';
 
 export const supportedActions = {
@@ -28,6 +29,19 @@ export function reducer(state = navigationStore.state, action) {
       routeName,
       params: action.params,
     }), state);
+
+    // If newState and state are available and we are pushing a route lets make sure we don't duplicate them!
+    // NOTE: This should be able to go away when this issue in react-navigation is resolve:
+    // https://github.com/react-community/react-navigation/issues/135
+    if (newState && state && type === ActionConst.PUSH) {
+      const oldActiveRoute = getActiveState(state);
+      const newActiveRoute = getActiveState(newState);
+
+      if (isEqual(oldActiveRoute.params, newActiveRoute.params) && oldActiveRoute.routeName === newActiveRoute.routeName) {
+        return state;
+      }
+    }
+
     return newState || state;
   }
   if (type === ActionConst.JUMP) {
