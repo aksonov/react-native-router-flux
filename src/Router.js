@@ -23,7 +23,7 @@ export default class Router extends React.Component {
   constructor(...args) {
     super(...args);
 
-    const { createReducer, sceneStyle, scenes, navigator, getSceneStyle, children, state, dispatch, wrapBy = props => props, ...props } = this.props;
+    const { createReducer, sceneStyle, scenes, navigator, getSceneStyle, children, wrapBy = props => props, ...props } = this.props;
 
     const data = { ...props };
 
@@ -39,18 +39,10 @@ export default class Router extends React.Component {
     navigationStore.integrateNavigator(this.AppNavigator);
 
     navigationStore.reducer = createReducer && createReducer(props);
-
-    if (dispatch) {
-      // set external state and dispatch
-      navigationStore.dispatch = dispatch;
-      navigationStore.getState = () => state;
-
-      navigationStore.dispatch(NavigationActions.init());
-    }
   }
 
   componentDidMount() {
-    if (!navigationStore.dispatch) {
+    if (!this.props.dispatch) {
       navigationStore.dispatch = this.navigator._navigation.dispatch;
       navigationStore.getState = () => this.navigator._navigation.state;
 
@@ -58,7 +50,10 @@ export default class Router extends React.Component {
       // a react-navigation app.
       navigationStore.onNavigationStateChange({}, navigationStore.getState());
     } else {
+      navigationStore.dispatch = this.props.dispatch;
       navigationStore.getState = () => this.props.state;
+
+      navigationStore.dispatch(NavigationActions.init());
     }
 
     // If the app was "woken up" by an external route.
