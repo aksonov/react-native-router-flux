@@ -358,6 +358,9 @@ class NavigationStore {
   reducer = null;
   dispatch = null;
   getState = null;
+  currentScene = '';
+  currentParams = null;
+  prevScene = '';
 
   integrateNavigator(navigator) {
     /* eslint-disable no-param-reassign */
@@ -549,6 +552,10 @@ class NavigationStore {
 
     const prevActiveState = getActiveState(prevState);
     const activeState = getActiveState(curState);
+
+    this.prevScene = this.currentScene;
+    this.currentScene = activeState.routeName;
+    this.currentParams = activeState.params;
 
     if (prevActiveState.routeName !== activeState.routeName && activeState.routeName !== 'DrawerOpen' && activeState.routeName !== 'DrawerClose') {
       if (prevActiveState.routeName) {
