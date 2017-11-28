@@ -17,6 +17,7 @@ interface RouterProps extends React.Props<Router> {
     backAndroidHandler?: Function;
     createReducer?: Function;
     wrapBy?: Function;
+    scenes?: any;
 }
 interface RouterStatic extends React.ComponentClass<RouterProps> { }
 
@@ -87,7 +88,7 @@ interface TabsProps extends React.Props<Tabs> {
     tabStyle?: StyleProp<ViewStyle>;
     showLabel?: boolean;
     swipeEnabled?: boolean;
-    tabBarOnPress?: function;
+    tabBarOnPress?: Function;
     backToInitial?: boolean;
 }
 interface TabsStatic extends React.ComponentClass<TabsProps> { }
@@ -138,7 +139,7 @@ interface StackStatic extends React.ComponentClass<StackProps> {
 export var Actions: ActionsGenericStatic;
 export type Actions = ActionsGenericStatic;
 interface ActionsStatic {
-    currentScene: string;
+    currentScene: any;
     jump: (sceneKey: string, props?: any) => void;
     pop: () => void;
     popAndPush: (sceneKey: string, props?: any) => void;
