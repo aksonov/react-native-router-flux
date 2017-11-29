@@ -148,8 +148,8 @@ interface ActionsStatic {
     refresh: (props?: any) => void;
     replace: (sceneKey: string, props?: any) => void;
     reset: (sceneKey: string, props?: any) => void;
-    drawerOpen?: () => void;
-    drawerClose?: () => void;
+    drawerOpen?: any;
+    drawerClose?: any;
 
 }
 interface ActionsGenericStatic extends ActionsStatic {
