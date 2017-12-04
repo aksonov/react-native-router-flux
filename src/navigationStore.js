@@ -228,21 +228,21 @@ function createNavigationOptions(params) {
     }
 
     if (backToInitial) {
-      res.tabBarOnPress = (tab, jumpToIndex) => {
-        if (tab.focused) {
-          if (tab.route.index !== 0) {
+      res.tabBarOnPress = ({ scene, jumpToIndex }) => {
+        if (scene.focused) {
+          if (scene.route.index !== 0) {
             // go to first screen of the StackNavigator with reset
             // navigation.dispatch(NavigationActions.reset({
             //   index: 0,
             //   actions: [NavigationActions.navigate({ routeName: tab.route.routes[0].routeName })],
             // }));
             // go to first screen of the StackNavigator without reset
-            for (let i = 1; i < tab.route.routes.length; i++) {
+            for (let i = 1; i < scene.route.routes.length; i++) {
               navigation.dispatch(NavigationActions.back());
             }
           }
         } else {
-          jumpToIndex(tab.index);
+          jumpToIndex(scene.index);
         }
       };
     }
