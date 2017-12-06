@@ -38,6 +38,7 @@ The basic routing component for this router, all `<Scene>` components require a 
 | `drawer`     | `boolean` | `false` | load child scenes inside [DrawerNavigator](https://reactnavigation.org/docs/navigators/drawer) |
 | `failure` | `Function` | | If `on` returns a "falsey" value then `failure` is called. |
 | `backTitle` | `string` |  | Specifies the back button title for scene |
+| `backButtonTextStyle` | `Style` |  | Style applied to back button text |
 | `rightTitle` | `string` |  | Specifies the right button title for scene |
 | `headerMode` | `string` | `float` | Specifies how the header should be rendered: `float` (render a single header that stays at the top and animates as screens are changed. This is a common pattern on iOS.), `screen` (each screen has a header attached to it and the header fades in and out together with the screen. This is a common pattern on Android) or `none` (No header will be rendered) |
 | `hideNavBar`     | `boolean` | `false` | hide the nav bar |
