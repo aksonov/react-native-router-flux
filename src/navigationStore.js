@@ -1,5 +1,4 @@
 import React from 'react';
-import { observable, action } from 'mobx';
 import * as ActionConst from './ActionConst';
 import { OnEnter, OnExit, assert } from './Util';
 import { Image, Animated, Easing, Platform } from 'react-native';
@@ -355,23 +354,32 @@ const defaultFailure = () => {};
 class NavigationStore {
   refs = {};
   states = {};
+  router = null;
   reducer = null;
-  router;
-  _state;
-  _currentParams;
-  @observable currentScene = '';
-  @observable prevScene = '';
-  @observable currentParams;
+  dispatch = null;
+  getState = null;
+  currentScene = '';
+  currentParams = null;
+  prevScene = '';
 
-  get state() {
-    const scene = this.currentScene;// eslint-disable-line no-unused-vars
-    const params = this.currentParams;// eslint-disable-line no-unused-vars
-    return this._state;
+  integrateNavigator(navigator) {
+    /* eslint-disable no-param-reassign */
+    navigator.router.originalGetStateForAction = navigator.router.getStateForAction;
+    navigator.router.getStateForAction = this.getStateForAction;
+    /* eslint-enable no-param-reassign */
+
+    this.router = navigator.router;
+  }
+
+  getStateForAction = (action, lastState) => {
+    if (this.reducer) return this.reducer(lastState, action);
+
+    return reducer(lastState, action);
   }
 
   addRef = (name, ref) => {
     this.refs[name] = ref;
-  };
+  }
 
   deleteRef = (name) => {
     delete this.refs[name];
@@ -383,12 +391,10 @@ class NavigationStore {
     LeftNavBarButton = wrapBy(LeftButton);
     BackNavBarButton = wrapBy(BackButton);
     const AppNavigator = this.processScene(scene, params, [], wrapBy);
-    this.router = AppNavigator.router;
-    this.dispatch(NavigationActions.init());
     return AppNavigator;
   };
 
-  processScene = (scene: Scene, inheritProps = {}, clones = [], wrapBy) => {
+  processScene(scene: Scene, inheritProps = {}, clones = [], wrapBy) {
     assert(scene.props, 'props should be defined');
     if (!scene.props.children) {
       return null;
@@ -538,59 +544,47 @@ class NavigationStore {
         tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });
     }
     return StackNavigator(res, { mode, initialRouteParams, initialRouteName, ...commonProps, transitionConfig, navigationOptions: createNavigationOptions(commonProps) });
-  };
+  }
 
-  nextState = (state, cmd) => (this.reducer ? this.reducer(state, cmd) : reducer(state, cmd));
+  onNavigationStateChange = async (prevState, curState) => {
+    // Don't allow null state
+    if (!curState) return;
 
-  dispatch = (cmd) => {
-    this.setState(this.nextState(this.state, cmd));
-  };
+    const prevActiveState = getActiveState(prevState);
+    const activeState = getActiveState(curState);
 
-  @action setState = async (newState) => {
-    // don't allow null state
-    if (!newState) {
-      return;
-    }
-    const state = getActiveState(newState);
-    // avoid double actions
-    if (isEqual(state.params, this._currentParams) && state.routeName === this.currentScene) {
-      return;
-    }
-    const currentScene = this.currentScene;
-    this._state = newState;
-    this.currentScene = state.routeName;
-    this.prevScene = currentScene;
+    this.prevScene = this.currentScene;
+    this.currentScene = activeState.routeName;
+    this.currentParams = activeState.params;
 
-    this.currentParams = state.params;
-    this._currentParams = state.params;
+    if (prevActiveState.routeName !== activeState.routeName && activeState.routeName !== 'DrawerOpen' && activeState.routeName !== 'DrawerClose') {
+      if (prevActiveState.routeName) {
+        this.dispatch({ type: ActionConst.BLUR, routeName: prevActiveState.routeName });
 
-    if (currentScene !== this.currentScene && this.currentScene !== 'DrawerOpen' && this.currentScene !== 'DrawerClose') {
-      this.dispatch({ type: ActionConst.BLUR, routeName: currentScene });
-
-      // call onExit handler
-      const exitHandler = this[currentScene + OnExit];
-      if (exitHandler) {
-        try {
-          const res = exitHandler();
-          if (res instanceof Promise) {
-            res.then(defaultSuccess, defaultFailure);
+        // call onExit handler
+        const exitHandler = this[prevActiveState.routeName + OnExit];
+        if (exitHandler) {
+          try {
+            const res = exitHandler();
+            if (res instanceof Promise) {
+              res.then(defaultSuccess, defaultFailure);
+            }
+          } catch (e) {
+            console.error('Error during onExit handler:', e);
           }
-        } catch (e) {
-          console.error('Error during onExit handler:', e);
         }
       }
 
-      this.dispatch({ type: ActionConst.FOCUS, routeName: this.currentScene, params: this._currentParams });
-      if (this.states[this.currentScene]) {
-        const handler = this[this.currentScene + OnEnter];
-        const success = this.states[this.currentScene].success || defaultSuccess;
-        const failure = this.states[this.currentScene].failure || defaultFailure;
+      this.dispatch({ type: ActionConst.FOCUS, routeName: activeState.routeName, params: activeState.params });
+      if (this.states[activeState.routeName]) {
+        const handler = this[activeState.routeName + OnEnter];
+        const success = this.states[activeState.routeName].success || defaultSuccess;
+        const failure = this.states[activeState.routeName].failure || defaultFailure;
         // call onEnter handler
         if (handler) {
           try {
-            const params = getActiveState(this._state).params;
-            const res = await
-              handler(params);
+            const params = getActiveState(this.getState()).params;
+            const res = await handler(params);
             if (res) {
               success(res);
             } else {
@@ -634,23 +628,23 @@ class NavigationStore {
   };
 
   refresh = (data) => {
-    const key = getActiveState(this._state).key;
+    const key = getActiveState(this.getState()).key;
     const params = filterParam(data);
     this.dispatch(NavigationActions.setParams({ key, params }));
   };
 
   pop = ({ timeout, ...params } = {}) => {
-    const previous = getActiveState(this.state);
+    const previous = getActiveState(this.getState());
     const res = filterParam(params);
     if (timeout) {
       setTimeout(() => this.pop(params), timeout);
     } else {
       this.dispatch(NavigationActions.back());
       if (res.refresh) {
-        this.refresh(res.refresh);
+        setTimeout(() => this.refresh(res.refresh));
       }
     }
-    return !isEqual(previous, getActiveState(this.state));
+    return !isEqual(previous, getActiveState(this.getState()));
   };
 
   popTo = (routeName, data) => {
