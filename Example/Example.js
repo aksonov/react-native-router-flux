@@ -135,7 +135,7 @@ const Example = () => (
                 Wrapper Scene needed to fix a bug where the tabs would
                 reload as a modal ontop of itself
               */}
-              <Scene hideNavBar>
+              <Scene hideNavBar panHandlers={null}>
                 <Tabs
                   key="tabbar"
                   swipeEnabled
