@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/aksonov/react-native-router-flux"
   },
-  "license": "ISC",
+  "license": "MIT",
   "main": "dist/index.js",
   "types": "index.d.ts",
   "scripts": {
