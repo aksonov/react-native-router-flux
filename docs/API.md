@@ -92,7 +92,7 @@ Can use all `props` listed above in `<Scene>` as `<Tabs>` is syntatic sugar for 
 | `tabBarStyle` | `object` | | Override the tabbar styles |
 | `tabStyle` | `object` | | Override the style for an individual tab of the tabbar |
 | `showLabel`     | `boolean` | `true`  | Boolean to show or not the tabbar icons labels |
-| `swipeEnabled`     | `boolean` | `true` | Enable or disable swiping tabs. |
+| `swipeEnabled`     | `boolean` | `false` | Enable or disable swiping tabs. |
 | `animationEnabled`     | `boolean` | `true` | Enable or disable tab swipe animation. |
 | `tabBarOnPress`     | `function` | | Custom tab bar icon press. |
 | `backToInitial`     | `boolean` | `false` | Back to initial screen on focused tab if tab icon was tapped. |
