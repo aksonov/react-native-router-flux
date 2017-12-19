@@ -28,6 +28,7 @@ App=(0,_native.observer)(_class=(_temp2=_class2=function(_React$Component){_inhe
 
 
 
+
 onBackPress=function(){return!_navigationStore2.default.pop();},_this.
 
 handleDeepURL=function(e){return _this.parseDeepURL(e.url);},_this.
@@ -55,7 +56,9 @@ filter(function(_ref2){var _ref3=_slicedToArray(_ref2,2),value=_ref3[1];return v
 map(function(_ref4){var _ref5=_slicedToArray(_ref4,1),key=_ref5[0];return key;}).
 find(function(key){return key;});
 
-if(actionKey&&_navigationStore2.default[actionKey]){
+if(_this.props.onDeepLink){
+_this.props.onDeepLink({url:url,action:actionKey,params:params});
+}else if(actionKey&&_navigationStore2.default[actionKey]){
 
 _navigationStore2.default[actionKey](params);
 }
@@ -64,12 +67,12 @@ _navigationStore2.default[actionKey](params);
 {
 var AppNavigator=this.props.navigator;
 return(
-_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:67}}));
+_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:70}}));
 
-}}]);return App;}(_react2.default.Component),_class2.propTypes={navigator:_propTypes2.default.func,backAndroidHandler:_propTypes2.default.func,uriPrefix:_propTypes2.default.string},_temp2))||_class;
+}}]);return App;}(_react2.default.Component),_class2.propTypes={navigator:_propTypes2.default.func,backAndroidHandler:_propTypes2.default.func,uriPrefix:_propTypes2.default.string,onDeepLink:_propTypes2.default.func},_temp2))||_class;
 
 
-var Router=function Router(_ref6){var createReducer=_ref6.createReducer,sceneStyle=_ref6.sceneStyle,scenes=_ref6.scenes,uriPrefix=_ref6.uriPrefix,navigator=_ref6.navigator,getSceneStyle=_ref6.getSceneStyle,children=_ref6.children,state=_ref6.state,dispatch=_ref6.dispatch,_ref6$wrapBy=_ref6.wrapBy,wrapBy=_ref6$wrapBy===undefined?function(props){return props;}:_ref6$wrapBy,props=_objectWithoutProperties(_ref6,['createReducer','sceneStyle','scenes','uriPrefix','navigator','getSceneStyle','children','state','dispatch','wrapBy']);
+var Router=function Router(_ref6){var createReducer=_ref6.createReducer,sceneStyle=_ref6.sceneStyle,scenes=_ref6.scenes,uriPrefix=_ref6.uriPrefix,navigator=_ref6.navigator,getSceneStyle=_ref6.getSceneStyle,children=_ref6.children,state=_ref6.state,dispatch=_ref6.dispatch,onDeepLink=_ref6.onDeepLink,_ref6$wrapBy=_ref6.wrapBy,wrapBy=_ref6$wrapBy===undefined?function(props){return props;}:_ref6$wrapBy,props=_objectWithoutProperties(_ref6,['createReducer','sceneStyle','scenes','uriPrefix','navigator','getSceneStyle','children','state','dispatch','onDeepLink','wrapBy']);
 var data=_extends({},props);
 if(getSceneStyle){
 data.cardStyle=getSceneStyle(props);
@@ -83,9 +86,9 @@ if(dispatch&&state){
 
 _navigationStore2.default.setState(state);
 _navigationStore2.default.dispatch=dispatch;
-return _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:state}),uriPrefix:uriPrefix,__source:{fileName:_jsxFileName,lineNumber:86}});
+return _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:state}),uriPrefix:uriPrefix,__source:{fileName:_jsxFileName,lineNumber:89}});
 }
-return _react2.default.createElement(App,_extends({},props,{navigator:AppNavigator,uriPrefix:uriPrefix,__source:{fileName:_jsxFileName,lineNumber:88}}));
+return _react2.default.createElement(App,_extends({},props,{onDeepLink:onDeepLink,navigator:AppNavigator,uriPrefix:uriPrefix,__source:{fileName:_jsxFileName,lineNumber:91}}));
 };
 Router.propTypes={
 createReducer:_propTypes2.default.func,
@@ -97,7 +100,8 @@ wrapBy:_propTypes2.default.func,
 getSceneStyle:_propTypes2.default.func,
 sceneStyle:_reactNative.ViewPropTypes.style,
 children:_propTypes2.default.element,
-uriPrefix:_propTypes2.default.string};exports.default=
+uriPrefix:_propTypes2.default.string,
+onDeepLink:_propTypes2.default.func};exports.default=
 
 
 Router;
