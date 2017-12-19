@@ -228,21 +228,21 @@ borderBottomWidth:0,elevation:1};
 }
 
 if(backToInitial){
-res.tabBarOnPress=function(tab,jumpToIndex){
-if(tab.focused){
-if(tab.route.index!==0){
+res.tabBarOnPress=function(_ref4){var scene=_ref4.scene,jumpToIndex=_ref4.jumpToIndex;
+if(scene.focused){
+if(scene.route.index!==0){
 
 
 
 
 
 
-for(var i=1;i<tab.route.routes.length;i++){
+for(var i=1;i<scene.route.routes.length;i++){
 navigation.dispatch(_reactNavigation.NavigationActions.back());
 }
 }
 }else{
-jumpToIndex(tab.index);
+jumpToIndex(scene.index);
 }
 };
 }
@@ -266,7 +266,7 @@ transition.charAt(2)>='A'&&transition.charAt(2)<='Z'&&typeof props[transition]==
 if(store[props[transition]]){
 res[transition]=function(params){return store[props[transition]](params);};
 }
-}};for(var _iterator2=Object.keys(props),_isArray2=Array.isArray(_iterator2),_i3=0,_iterator2=_isArray2?_iterator2:_iterator2[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref4;if(_isArray2){if(_i3>=_iterator2.length)break;_ref4=_iterator2[_i3++];}else{_i3=_iterator2.next();if(_i3.done)break;_ref4=_i3.value;}var transition=_ref4;_loop(transition);
+}};for(var _iterator2=Object.keys(props),_isArray2=Array.isArray(_iterator2),_i3=0,_iterator2=_isArray2?_iterator2:_iterator2[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref5;if(_isArray2){if(_i3>=_iterator2.length)break;_ref5=_iterator2[_i3++];}else{_i3=_iterator2.next();if(_i3.done)break;_ref5=_i3.value;}var transition=_ref5;_loop(transition);
 }
 return res;
 }
@@ -317,7 +317,7 @@ return wrapper(Wrapped);
 }
 
 
-function StatelessWrapped(_ref5){var navigation=_ref5.navigation,props=_objectWithoutProperties(_ref5,['navigation']);
+function StatelessWrapped(_ref6){var navigation=_ref6.navigation,props=_objectWithoutProperties(_ref6,['navigation']);
 return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:321}}));
 }
 StatelessWrapped.propTypes={
@@ -340,7 +340,7 @@ return data;
 
 function uniteParams(routeName,params){
 var res={};
-for(var _iterator3=params,_isArray3=Array.isArray(_iterator3),_i4=0,_iterator3=_isArray3?_iterator3:_iterator3[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref6;if(_isArray3){if(_i4>=_iterator3.length)break;_ref6=_iterator3[_i4++];}else{_i4=_iterator3.next();if(_i4.done)break;_ref6=_i4.value;}var param=_ref6;
+for(var _iterator3=params,_isArray3=Array.isArray(_iterator3),_i4=0,_iterator3=_isArray3?_iterator3:_iterator3[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref7;if(_isArray3){if(_i4>=_iterator3.length)break;_ref7=_iterator3[_i4++];}else{_i4=_iterator3.next();if(_i4.done)break;_ref7=_i4.value;}var param=_ref7;
 if(param){
 res=_extends({},res,filterParam(param));
 }
@@ -417,7 +417,7 @@ var commonProps=_extends({},inheritProps,parentProps);
 delete commonProps.children;
 delete commonProps.component;
 
-for(var _iterator4=Object.keys(commonProps),_isArray4=Array.isArray(_iterator4),_i5=0,_iterator4=_isArray4?_iterator4:_iterator4[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref7;if(_isArray4){if(_i5>=_iterator4.length)break;_ref7=_iterator4[_i5++];}else{_i5=_iterator4.next();if(_i5.done)break;_ref7=_i5.value;}var pkey=_ref7;
+for(var _iterator4=Object.keys(commonProps),_isArray4=Array.isArray(_iterator4),_i5=0,_iterator4=_isArray4?_iterator4:_iterator4[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref8;if(_isArray4){if(_i5>=_iterator4.length)break;_ref8=_iterator4[_i5++];}else{_i5=_iterator4.next();if(_i5.done)break;_ref8=_i5.value;}var pkey=_ref8;
 if(dontInheritKeys.includes(pkey)&&(pkey==='type'||pkey==='hideNavBar'||!parentProps[pkey])){
 delete commonProps[pkey];
 }
@@ -433,7 +433,7 @@ if(!drawer&&!tabs&&!overlay){
 children.push.apply(children,_toConsumableArray(clones));
 }
 
-for(var _iterator5=children,_isArray5=Array.isArray(_iterator5),_i6=0,_iterator5=_isArray5?_iterator5:_iterator5[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref8;if(_isArray5){if(_i6>=_iterator5.length)break;_ref8=_iterator5[_i6++];}else{_i6=_iterator5.next();if(_i6.done)break;_ref8=_i6.value;}var child=_ref8;
+for(var _iterator5=children,_isArray5=Array.isArray(_iterator5),_i6=0,_iterator5=_isArray5?_iterator5:_iterator5[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref9;if(_isArray5){if(_i6>=_iterator5.length)break;_ref9=_iterator5[_i6++];}else{_i6=_iterator5.next();if(_i6.done)break;_ref9=_i6.value;}var child=_ref9;
 if(child.props.clone){
 if(clones.indexOf(child)===-1){
 clones.push(child);
@@ -450,7 +450,7 @@ _child.props,component=_child$props.component,_child$props$type=_child$props.typ
 if(!_this2.states[key]){
 _this2.states[key]={};
 }
-for(var _iterator7=Object.keys(props),_isArray7=Array.isArray(_iterator7),_i8=0,_iterator7=_isArray7?_iterator7:_iterator7[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref10;if(_isArray7){if(_i8>=_iterator7.length)break;_ref10=_iterator7[_i8++];}else{_i8=_iterator7.next();if(_i8.done)break;_ref10=_i8.value;}var transition=_ref10;
+for(var _iterator7=Object.keys(props),_isArray7=Array.isArray(_iterator7),_i8=0,_iterator7=_isArray7?_iterator7:_iterator7[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref11;if(_isArray7){if(_i8>=_iterator7.length)break;_ref11=_iterator7[_i8++];}else{_i8=_iterator7.next();if(_i8.done)break;_ref11=_i8.value;}var transition=_ref11;
 if(reservedKeys.indexOf(transition)===-1&&props[transition]instanceof Function){
 _this2.states[key][transition]=props[transition];
 }
@@ -506,7 +506,7 @@ order.push(key);
 if(initial||_child.props.initial||!initialRouteName){
 initialRouteName=key;
 initialRouteParams=_extends({},commonProps,props);
-}};for(var _iterator6=children,_isArray6=Array.isArray(_iterator6),_i7=0,_iterator6=_isArray6?_iterator6:_iterator6[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref9;if(_isArray6){if(_i7>=_iterator6.length)break;_ref9=_iterator6[_i7++];}else{_i7=_iterator6.next();if(_i7.done)break;_ref9=_i7.value;}var _child=_ref9;_loop2(_child);
+}};for(var _iterator6=children,_isArray6=Array.isArray(_iterator6),_i7=0,_iterator6=_isArray6?_iterator6:_iterator6[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref10;if(_isArray6){if(_i7>=_iterator6.length)break;_ref10=_iterator6[_i7++];}else{_i7=_iterator6.next();if(_i7.done)break;_ref10=_i7.value;}var _child=_ref10;_loop2(_child);
 }
 var mode=modal?'modal':'card';
 if(navigator){
@@ -639,7 +639,7 @@ var params=filterParam(data);
 _this2.dispatch(_reactNavigation.NavigationActions.setParams({key:key,params:params}));
 };this.
 
-pop=function(){var _ref11=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{},timeout=_ref11.timeout,params=_objectWithoutProperties(_ref11,['timeout']);
+pop=function(){var _ref12=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{},timeout=_ref12.timeout,params=_objectWithoutProperties(_ref12,['timeout']);
 var previous=(0,_State.getActiveState)(_this2.state);
 var res=filterParam(params);
 if(timeout){
