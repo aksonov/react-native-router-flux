@@ -28,7 +28,8 @@ App=(0,_native.observer)(_class=(_temp2=_class2=function(_React$Component){_inhe
 
 
 
-onBackPress=function(){return!_navigationStore2.default.pop();},_this.
+
+onBackPress=function(){return!_this.props.navigationStore.pop();},_this.
 
 handleDeepURL=function(e){return _this.parseDeepURL(e.url);},_this.
 
@@ -39,7 +40,7 @@ if(!url){return;}
 
 var cleanUrl=_this.props.uriPrefix?url.split(_this.props.uriPrefix)[1]:url;
 
-var allPaths=Object.values(_navigationStore2.default.states).map(function(obj){return obj.path;}).filter(function(path){return path;});
+var allPaths=Object.values(_this.props.navigationStore.states).map(function(obj){return obj.path;}).filter(function(path){return path;});
 
 var parsedPath=(0,_pathParser2.default)(cleanUrl,allPaths);
 
@@ -50,26 +51,26 @@ if(!parsedPath){return;}var
 path=parsedPath.path,params=parsedPath.params;
 
 
-var actionKey=Object.entries(_navigationStore2.default.states).
+var actionKey=Object.entries(_this.props.navigationStore.states).
 filter(function(_ref2){var _ref3=_slicedToArray(_ref2,2),value=_ref3[1];return value.path===path;}).
 map(function(_ref4){var _ref5=_slicedToArray(_ref4,1),key=_ref5[0];return key;}).
 find(function(key){return key;});
 
-if(actionKey&&_navigationStore2.default[actionKey]){
+if(actionKey&&_this.props.navigationStore[actionKey]){
 
-_navigationStore2.default[actionKey](params);
+_this.props.navigationStore[actionKey](params);
 }
 },_temp),_possibleConstructorReturn(_this,_ret);}_createClass(App,[{key:'componentDidMount',value:function componentDidMount(){var _this2=this;_reactNative.BackHandler.addEventListener('hardwareBackPress',this.props.backAndroidHandler||this.onBackPress);_reactNative.Linking.getInitialURL().then(function(url){return _this2.parseDeepURL(url);});_reactNative.Linking.addEventListener('url',this.handleDeepURL);}},{key:'componentWillUnmount',value:function componentWillUnmount(){_reactNative.BackHandler.removeEventListener('hardwareBackPress',this.props.backAndroidHandler||this.onBackPress);_reactNative.Linking.removeEventListener('url',this.handleDeepURL);}},{key:'render',value:function render()
 
 {
 var AppNavigator=this.props.navigator;
 return(
-_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:_navigationStore2.default.dispatch,state:_navigationStore2.default.state}),__source:{fileName:_jsxFileName,lineNumber:67}}));
+_react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:this.props.navigationStore.dispatch,state:this.props.navigationStore.state}),__source:{fileName:_jsxFileName,lineNumber:68}}));
 
-}}]);return App;}(_react2.default.Component),_class2.propTypes={navigator:_propTypes2.default.func,backAndroidHandler:_propTypes2.default.func,uriPrefix:_propTypes2.default.string},_temp2))||_class;
+}}]);return App;}(_react2.default.Component),_class2.propTypes={navigator:_propTypes2.default.func,navigationStore:_propTypes2.default.object,backAndroidHandler:_propTypes2.default.func,uriPrefix:_propTypes2.default.string},_temp2))||_class;
 
 
-var Router=function Router(_ref6){var createReducer=_ref6.createReducer,sceneStyle=_ref6.sceneStyle,scenes=_ref6.scenes,uriPrefix=_ref6.uriPrefix,navigator=_ref6.navigator,getSceneStyle=_ref6.getSceneStyle,children=_ref6.children,state=_ref6.state,dispatch=_ref6.dispatch,_ref6$wrapBy=_ref6.wrapBy,wrapBy=_ref6$wrapBy===undefined?function(props){return props;}:_ref6$wrapBy,props=_objectWithoutProperties(_ref6,['createReducer','sceneStyle','scenes','uriPrefix','navigator','getSceneStyle','children','state','dispatch','wrapBy']);
+var Router=function Router(_ref6){var createReducer=_ref6.createReducer,sceneStyle=_ref6.sceneStyle,scenes=_ref6.scenes,uriPrefix=_ref6.uriPrefix,navigator=_ref6.navigator,getSceneStyle=_ref6.getSceneStyle,getNavigationStore=_ref6.getNavigationStore,children=_ref6.children,state=_ref6.state,dispatch=_ref6.dispatch,_ref6$wrapBy=_ref6.wrapBy,wrapBy=_ref6$wrapBy===undefined?function(props){return props;}:_ref6$wrapBy,props=_objectWithoutProperties(_ref6,['createReducer','sceneStyle','scenes','uriPrefix','navigator','getSceneStyle','getNavigationStore','children','state','dispatch','wrapBy']);
 var data=_extends({},props);
 if(getSceneStyle){
 data.cardStyle=getSceneStyle(props);
@@ -77,15 +78,20 @@ data.cardStyle=getSceneStyle(props);
 if(sceneStyle){
 data.cardStyle=sceneStyle;
 }
-var AppNavigator=scenes||navigator||_navigationStore2.default.create(children,data,wrapBy);
-_navigationStore2.default.reducer=createReducer&&createReducer(props);
+var navigationStoreInstance=_navigationStore2.default;
+if(getNavigationStore){
+navigationStoreInstance=getNavigationStore();
+}
+var reducerInstance=createReducer&&createReducer(props);
+navigationStoreInstance.reducer=reducerInstance;
+var AppNavigator=scenes||navigator||navigationStoreInstance.create(children,data,wrapBy);
 if(dispatch&&state){
 
-_navigationStore2.default.setState(state);
-_navigationStore2.default.dispatch=dispatch;
-return _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:state}),uriPrefix:uriPrefix,__source:{fileName:_jsxFileName,lineNumber:86}});
+navigationStoreInstance.setState(state);
+navigationStoreInstance.dispatch=dispatch;
+return _react2.default.createElement(AppNavigator,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:state}),uriPrefix:uriPrefix,__source:{fileName:_jsxFileName,lineNumber:92}});
 }
-return _react2.default.createElement(App,_extends({},props,{navigator:AppNavigator,uriPrefix:uriPrefix,__source:{fileName:_jsxFileName,lineNumber:88}}));
+return _react2.default.createElement(App,_extends({},props,{navigator:AppNavigator,uriPrefix:uriPrefix,navigationStore:navigationStoreInstance,__source:{fileName:_jsxFileName,lineNumber:94}}));
 };
 Router.propTypes={
 createReducer:_propTypes2.default.func,

@@ -1,5 +1,5 @@
 import * as ActionConst from './ActionConst';
-import Reducer from './Reducer';
+import Reducer, {reducerWithNavigationStore} from './Reducer';
 import Router from './Router';
 import Scene from './Scene';
 import Actions from './navigationStore';
@@ -9,6 +9,7 @@ import Stack from './Stack';
 import Drawer from './Drawer';
 import Tabs from './Tabs';
 import Overlay from './Overlay';
+import { NavigationStore } from './navigationStore';
 
 export {
   ActionConst,
@@ -22,4 +23,6 @@ export {
   Drawer,
   Tabs,
   Overlay,
+  NavigationStore,
+  reducerWithNavigationStore
 };

@@ -1,4 +1,4 @@
-import navigationStore from './navigationStore';
+import defaultNavigationStore, { NavigationStore } from './navigationStore';
 import * as ActionConst from './ActionConst';
 import { NavigationActions } from 'react-navigation';
 import { getActiveState, popPrevious, isActiveRoute, getActiveStateExceptDrawer } from './State';
@@ -15,8 +15,12 @@ const createAction = (type: string) => (payload: Object = {}) => ({
   ...payload,
 });
 
+export function reducer(state = defaultNavigationStore.state, action) {
+  return reducerWithNavigationStore(defaultNavigationStore,state,action);
+}
 
-export function reducer(state = navigationStore.state, action) {
+export function reducerWithNavigationStore(navigationStore,state = navigationStore.state, action) {
+
   const type = action.type;
   const routeName = action.routeName;
   if (supportedActions[type]) {

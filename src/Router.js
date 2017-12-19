@@ -3,13 +3,14 @@ import { observer } from 'mobx-react/native';
 import { ViewPropTypes, BackHandler, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 import { addNavigationHelpers } from 'react-navigation';
-import navigationStore from './navigationStore';
+import defaultNavigationStore, { NavigationStore } from './navigationStore';
 import pathParser from './pathParser';
 
 @observer
 class App extends React.Component {
   static propTypes = {
     navigator: PropTypes.func,
+    navigationStore: PropTypes.object,
     backAndroidHandler: PropTypes.func,
     uriPrefix: PropTypes.string,
   };
@@ -28,7 +29,7 @@ class App extends React.Component {
     Linking.removeEventListener('url', this.handleDeepURL);
   }
 
-  onBackPress = () => !navigationStore.pop();
+  onBackPress = () => !this.props.navigationStore.pop();
 
   handleDeepURL = (e) => this.parseDeepURL(e.url);
 
@@ -39,7 +40,7 @@ class App extends React.Component {
     // Clean the url with the given prefix.
     const cleanUrl = this.props.uriPrefix ? url.split(this.props.uriPrefix)[1] : url;
     // Build an array of paths for every scene.
-    const allPaths = Object.values(navigationStore.states).map(obj => obj.path).filter(path => path);
+    const allPaths = Object.values(this.props.navigationStore.states).map(obj => obj.path).filter(path => path);
     // Try to match the url against the set of paths and parse the url parameters.
     const parsedPath = pathParser(cleanUrl, allPaths);
 
@@ -50,26 +51,26 @@ class App extends React.Component {
     const { path, params } = parsedPath;
 
     // Get the action from the scene associated with the matched path.
-    const actionKey = Object.entries(navigationStore.states)
+    const actionKey = Object.entries(this.props.navigationStore.states)
       .filter(([, value]) => value.path === path)
       .map(([key]) => key)
       .find(key => key);
 
-    if (actionKey && navigationStore[actionKey]) {
+    if (actionKey && this.props.navigationStore[actionKey]) {
       // Call the action associated with the scene's path with the parsed parameters.
-      navigationStore[actionKey](params);
+      this.props.navigationStore[actionKey](params);
     }
   };
 
   render() {
     const AppNavigator = this.props.navigator;
     return (
-      <AppNavigator navigation={addNavigationHelpers({ dispatch: navigationStore.dispatch, state: navigationStore.state })} />
+      <AppNavigator navigation={addNavigationHelpers({ dispatch: this.props.navigationStore.dispatch, state: this.props.navigationStore.state })} />
     );
   }
 }
 
-const Router = ({ createReducer, sceneStyle, scenes, uriPrefix, navigator, getSceneStyle, children, state, dispatch, wrapBy = props => props, ...props }) => {
+const Router = ({ createReducer, sceneStyle, scenes, uriPrefix, navigator, getSceneStyle, getNavigationStore, children, state, dispatch, wrapBy = props => props, ...props }) => {
   const data = { ...props };
   if (getSceneStyle) {
     data.cardStyle = getSceneStyle(props);
@@ -77,15 +78,20 @@ const Router = ({ createReducer, sceneStyle, scenes, uriPrefix, navigator, getSc
   if (sceneStyle) {
     data.cardStyle = sceneStyle;
   }
-  const AppNavigator = scenes || navigator || navigationStore.create(children, data, wrapBy);
-  navigationStore.reducer = createReducer && createReducer(props);
+  let navigationStoreInstance =  defaultNavigationStore;
+  if (getNavigationStore) {
+    navigationStoreInstance = getNavigationStore();
+  }
+  const reducerInstance = createReducer && createReducer(props);
+  navigationStoreInstance.reducer = reducerInstance;
+  const AppNavigator = scenes || navigator || navigationStoreInstance.create(children, data, wrapBy);
   if (dispatch && state) {
     // set external state and dispatch
-    navigationStore.setState(state);
-    navigationStore.dispatch = dispatch;
+    navigationStoreInstance.setState(state);
+    navigationStoreInstance.dispatch = dispatch;
     return <AppNavigator navigation={addNavigationHelpers({ dispatch, state })} uriPrefix={uriPrefix} />;
   }
-  return <App {...props} navigator={AppNavigator} uriPrefix={uriPrefix} />;
+  return <App {...props} navigator={AppNavigator} uriPrefix={uriPrefix} navigationStore={navigationStoreInstance}/>;
 };
 Router.propTypes = {
   createReducer: PropTypes.func,

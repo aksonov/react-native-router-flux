@@ -310,7 +310,7 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
         if (!navigation || !navigation.state) {
           return <Component ref={this.onRef} {...this.props} />;
         }
-        return <Component ref={this.onRef} {...this.props} {...extendProps(navigation.state.params, store)} name={navigation.state.routeName} />;
+        return <Component ref={this.onRef} {...this.props} {...extendProps(navigation.state.params, store)} navigationStore = {store} name={navigation.state.routeName} />;
       }
     }
     return wrapper(Wrapped);
@@ -677,5 +677,7 @@ class NavigationStore {
   };
 }
 
+const defaultNavigationStore = new NavigationStore();
 
-export default new NavigationStore();
+
+export {defaultNavigationStore as default, NavigationStore};
