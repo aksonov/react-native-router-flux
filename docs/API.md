@@ -47,6 +47,8 @@ The basic routing component for this router, all `<Scene>` components require a 
 | `initial`   | `boolean` | `false` | Set to `true` if this is the first scene to display among its sibling `Scene`s |
 | `leftButtonImage`     | `Image` |  | Image to substitute for the left nav bar button |
 | `leftButtonTextStyle`     | `Style` |  | Style applied to left button text |
+| `leftButtonStyle`     | `Style` |  | Style applied to left button |
+| `leftButtonIconStyle`     | `Style` |  | Style applied to left button Image |
 | `modal`     | `boolean` | `false` |  Defines scene container as 'modal' one, i.e. all children scenes will have bottom-to-top animation. It is applicable only for containers (different from v3 syntax) |
 | `navBar` | `React.Component`| | Optional React component to render custom NavBar |
 | `navBarButtonColor` | `string` | | Set the color of the back button in the navBar |
