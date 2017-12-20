@@ -1,23 +1,28 @@
-/* @flow */
-/* eslint-disable import/no-commonjs */
+import * as ActionConst from './ActionConst';
+import Reducer, {reducerWithNavigationStore} from './Reducer';
+import Router from './Router';
+import Scene from './Scene';
+import Actions from './navigationStore';
+import Modal from './Modal';
+import Lightbox from './Lightbox';
+import Stack from './Stack';
+import Drawer from './Drawer';
+import Tabs from './Tabs';
+import Overlay from './Overlay';
+import { NavigationStore } from './navigationStore';
 
-module.exports = {
-  get Actions() {
-    return require('./navigationStore').default;
-  },
-  get ActionConst() {
-    return require('./ActionConst').default;
-  },
-  get Reducer() {
-    return require('./Reducer').default;
-  },
-  get Router() {
-    return require('./Router').default;
-  },
-  get navigationStore() {
-    return require('./navigationStore').default;
-  },
-  get Scene() {
-    return require('./Scene').default;
-  },
+export {
+  ActionConst,
+  Reducer,
+  Router,
+  Scene,
+  Actions,
+  Modal,
+  Lightbox,
+  Stack,
+  Drawer,
+  Tabs,
+  Overlay,
+  NavigationStore,
+  reducerWithNavigationStore
 };

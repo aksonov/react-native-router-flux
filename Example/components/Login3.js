@@ -13,16 +13,16 @@ const styles = StyleSheet.create({
 });
 
 const popToRoot = () => {
-  Actions.popTo("root");
-}
+  Actions.popTo("launch");
+};
 
 const popToLogin1 = () => {
   Actions.popTo("loginModal");
-}
+};
 
 const popToLogin2 = () => {
   Actions.popTo("loginModal2");
-}
+};
 
 export default class extends React.Component {
     render(){

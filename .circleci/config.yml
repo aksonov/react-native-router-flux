@@ -1,0 +1,24 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/react-native-router-flux
+    docker:
+      - image: circleci/node:7
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install-dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+            - ~/.cache/yarn
+      - run:
+          name: test
+          command: yarn test
+      - run:
+          name: linter
+          command: yarn eslint

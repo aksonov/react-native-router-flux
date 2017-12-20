@@ -2,7 +2,7 @@ Object.defineProperty(exports,"__esModule",{value:true});var _jsxFileName='src/L
 
 var _react=require('react');var _react2=_interopRequireDefault(_react);
 var _reactNavigation=require('react-navigation');
-var _reactNative=require('react-native');function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _objectWithoutProperties(obj,keys){var target={};for(var i in obj){if(keys.indexOf(i)>=0)continue;if(!Object.prototype.hasOwnProperty.call(obj,i))continue;target[i]=obj[i];}return target;}
+var _reactNative=require('react-native');function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
 
 var LightboxNavigator=function LightboxNavigator(
 routeConfigs)
@@ -15,7 +15,7 @@ router,
 routeConfigs,
 tabsConfig,
 'react-navigation/STACK')(
-function(_ref){var navigation=_ref.navigation,props=_objectWithoutProperties(_ref,['navigation']);var
+function(_ref){var navigation=_ref.navigation;var
 state=navigation.state,dispatch=navigation.dispatch;var
 routes=state.routes,index=state.index;
 
@@ -31,8 +31,8 @@ initialIndex=i;
 var Popup=index!==initialIndex?routeConfigs[routes[index].routeName].screen:null;
 
 return _react2.default.createElement(_reactNative.View,{style:{flex:1},__source:{fileName:_jsxFileName,lineNumber:33}},
-_react2.default.createElement(Component,{navigation:{dispatch:dispatch,state:routes[initialIndex]},__source:{fileName:_jsxFileName,lineNumber:34}}),
-Popup&&_react2.default.createElement(Popup,{navigation:{dispatch:dispatch,state:routes[index]},__source:{fileName:_jsxFileName,lineNumber:35}}));
+_react2.default.createElement(Component,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:routes[initialIndex]}),__source:{fileName:_jsxFileName,lineNumber:34}}),
+Popup&&_react2.default.createElement(Popup,{navigation:(0,_reactNavigation.addNavigationHelpers)({dispatch:dispatch,state:routes[index]}),__source:{fileName:_jsxFileName,lineNumber:35}}));
 
 });
 

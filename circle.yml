@@ -1,6 +1,0 @@
-machine:
-  node:
-    version: 7
-dependencies:
-  override:
-    - npm install --dev
