@@ -62,12 +62,21 @@ const getSceneStyle = () => ({
 // on Android, the URI prefix typically contains a host in addition to scheme
 const prefix = Platform.OS === 'android' ? 'mychat://mychat/' : 'mychat://';
 
+const onBackPress = () => {
+    if (Actions.state.index !== 0) {
+      return false
+    }
+    Actions.pop()
+    return true
+  }
+
 const Example = () => (
   <Router
     createReducer={reducerCreate}
     getSceneStyle={getSceneStyle}
     uriPrefix={prefix}
-  >
+    backAndroidHandler={onBackPress}>
+
     <Overlay key="overlay">
       <Modal key="modal"
         hideNavBar
@@ -130,6 +139,9 @@ const Example = () => (
               contentComponent={DrawerContent}
               drawerImage={MenuIcon}
               drawerWidth={300}
+            drawerOpenRoute = 'DrawerOpen'
+        	drawerCloseRoute = 'DrawerClose'
+        	drawerToggleRoute = 'DrawerToggle'
             >
               {/*
                 Wrapper Scene needed to fix a bug where the tabs would
