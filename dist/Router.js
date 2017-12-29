@@ -29,7 +29,7 @@ App=(0,_native.observer)(_class=(_temp2=_class2=function(_React$Component){_inhe
 
 
 
-onBackPress=function(){return!_navigationStore2.default.pop();},_this.
+onBackPress=function(){return _navigationStore2.default.pop();},_this.
 
 handleDeepURL=function(e){return _this.parseDeepURL(e.url);},_this.
 
