@@ -29,8 +29,8 @@ class DrawerContent extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Drawer Content</Text>
-        <Button onPress={Actions.closeDrawer}>Back</Button>
+        {/* <Text>Drawer Content</Text>
+        <Button onPress={Actions.closeDrawer}>Back</Button> */}
         <Text>Title: {this.props.title}</Text>
         {this.props.name === 'tab1_1' &&
           <Button onPress={Actions.tab_1_2}>next screen for tab1_1</Button>
