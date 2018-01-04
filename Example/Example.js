@@ -62,20 +62,11 @@ const getSceneStyle = () => ({
 // on Android, the URI prefix typically contains a host in addition to scheme
 const prefix = Platform.OS === 'android' ? 'mychat://mychat/' : 'mychat://';
 
-const onBackPress = () => {
-    if (Actions.state.index !== 0) {
-      return false
-    }
-    Actions.pop()
-    return true
-  }
-
 const Example = () => (
   <Router
     createReducer={reducerCreate}
     getSceneStyle={getSceneStyle}
-    uriPrefix={prefix}
-    backAndroidHandler={onBackPress}>
+    uriPrefix={prefix}>
 
     <Overlay key="overlay">
       <Modal key="modal"
@@ -215,9 +206,7 @@ const Example = () => (
                       onRight={() => { }}
                     />
                   </Stack>
-                  <Stack key="tab_4">
-                    <Scene key="tab_4_1" component={TabView} title="Tab #4" hideNavBar icon={TabIcon} />
-                  </Stack>
+                  <Scene key="tab_4_1" component={TabView} title="Tab #4" hideNavBar icon={TabIcon} />
                   <Stack key="tab_5">
                     <Scene key="tab_5_1" component={TabView} title="Tab #5" icon={TabIcon} />
                   </Stack>
