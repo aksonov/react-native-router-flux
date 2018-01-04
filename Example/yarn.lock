@@ -3545,9 +3545,9 @@ react-native-message-bar@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/react-native-message-bar/-/react-native-message-bar-1.6.0.tgz#79623e89655475216927090771b0238616b6f1c7"
 
-react-native-router-flux@4.0.0-beta.25:
-  version "4.0.0-beta.25"
-  resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-4.0.0-beta.25.tgz#be5d32347198f2873f7d0076981890ac15cebbce"
+react-native-router-flux@4.0.0-beta.26:
+  version "4.0.0-beta.26"
+  resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-4.0.0-beta.26.tgz#08b044ffe649dd6bd782847abb4d99491bfd17e6"
   dependencies:
     lodash.isequal "^4.5.0"
     mobx "^3.3.1"
@@ -3555,7 +3555,7 @@ react-native-router-flux@4.0.0-beta.25:
     opencollective "^1.0.3"
     path-to-regexp "^2.1.0"
     prop-types "^15.6.0"
-    react-navigation "1.0.0-beta.21"
+    react-navigation "1.0.0-beta.22"
 
 react-native-tab-view@^0.0.70:
   version "0.0.70"
@@ -3620,18 +3620,6 @@ react-native@^0.51.0:
     xcode "^0.9.1"
     xmldoc "^0.4.0"
     yargs "^9.0.0"
-
-react-navigation@1.0.0-beta.21:
-  version "1.0.0-beta.21"
-  resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-1.0.0-beta.21.tgz#086c504ba84c966ef8db898baef6fa14ff45a06f"
-  dependencies:
-    babel-plugin-transform-define "^1.3.0"
-    clamp "^1.0.1"
-    hoist-non-react-statics "^2.2.0"
-    path-to-regexp "^1.7.0"
-    prop-types "^15.5.10"
-    react-native-drawer-layout-polyfill "^1.3.2"
-    react-native-tab-view "^0.0.70"
 
 react-navigation@1.0.0-beta.22:
   version "1.0.0-beta.22"
