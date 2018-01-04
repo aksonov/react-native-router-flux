@@ -678,9 +678,9 @@ class NavigationStore {
   reset = (routeName, data) => {
     const params = filterParam(data);
     this.dispatch(NavigationActions.reset({ key: null, index: 0, actions: [NavigationActions.navigate({
-        routeName,
-        params,
-      })] }));
+      routeName,
+      params,
+    })] }));
   };
 }
 
