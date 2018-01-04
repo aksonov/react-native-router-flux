@@ -127,6 +127,7 @@ const Example = () => (
               backTitle="Back"
               key="register"
               duration={0}
+              navTransparent
             >
               <Scene key="_register" component={Register} title="Register" />
               <Scene key="register2" component={Register} title="Register2" />
