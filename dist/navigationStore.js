@@ -528,11 +528,11 @@ function(props){return _react2.default.createElement(_reactNavigation.TabBarBott
 if(!tabBarPosition){
 tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';
 }
-return(0,_reactNavigation.TabNavigator)(res,_extends({lazy:lazy,tabBarComponent:tabBarComponent,tabBarPosition:tabBarPosition,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order,
-drawerOpenRoute:'DrawerOpen',drawerCloseRoute:'DrawerClose',drawerToggleRoute:'DrawerToggle'},commonProps,{
+return(0,_reactNavigation.TabNavigator)(res,_extends({lazy:lazy,tabBarComponent:tabBarComponent,tabBarPosition:tabBarPosition,initialRouteName:initialRouteName,initialRouteParams:initialRouteParams,order:order},commonProps,{
 tabBarOptions:createTabBarOptions(commonProps),navigationOptions:createNavigationOptions(commonProps)}));
 }else if(drawer){
-var config=_extends({initialRouteName:initialRouteName,contentComponent:contentComponent,order:order},commonProps);
+var config=_extends({initialRouteName:initialRouteName,contentComponent:contentComponent,order:order,drawerOpenRoute:'DrawerOpen',drawerCloseRoute:'DrawerClose',
+drawerToggleRoute:'DrawerToggle'},commonProps);
 if(drawerWidth){
 config.drawerWidth=drawerWidth;
 }

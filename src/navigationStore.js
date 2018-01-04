@@ -528,11 +528,11 @@ class NavigationStore {
       if (!tabBarPosition) {
         tabBarPosition = Platform.OS === 'android' ? 'top' : 'bottom';
       }
-      return TabNavigator(res, { lazy, tabBarComponent, tabBarPosition, initialRouteName, initialRouteParams, order,
-        drawerOpenRoute: 'DrawerOpen', drawerCloseRoute: 'DrawerClose', drawerToggleRoute: 'DrawerToggle', ...commonProps,
+      return TabNavigator(res, { lazy, tabBarComponent, tabBarPosition, initialRouteName, initialRouteParams, order, ...commonProps,
         tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });
     } else if (drawer) {
-      const config = { initialRouteName, contentComponent, order, ...commonProps };
+      const config = { initialRouteName, contentComponent, order, drawerOpenRoute: 'DrawerOpen', drawerCloseRoute: 'DrawerClose',
+        drawerToggleRoute: 'DrawerToggle', ...commonProps };
       if (drawerWidth) {
         config.drawerWidth = drawerWidth;
       }
@@ -678,9 +678,9 @@ class NavigationStore {
   reset = (routeName, data) => {
     const params = filterParam(data);
     this.dispatch(NavigationActions.reset({ key: null, index: 0, actions: [NavigationActions.navigate({
-      routeName,
-      params,
-    })] }));
+        routeName,
+        params,
+      })] }));
   };
 }
 
