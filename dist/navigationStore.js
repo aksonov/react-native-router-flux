@@ -300,13 +300,13 @@ this.ref.onEnter(navigation&&navigation.state);
 }},{key:'componentWillUnmount',value:function componentWillUnmount()
 {
 var navigation=this.props.navigation;
-this.ref=null;
 if(this.ref&&navigation&&navigation.state&&navigation.state.routeName){
 store.deleteRef(originalRouteName(navigation.state.routeName));
 }
 if(this.ref&&this.ref.onExit){
 this.ref.onExit(navigation&&navigation.state);
 }
+this.ref=null;
 }},{key:'onRef',value:function onRef(
 ref){
 this.ref=ref;
