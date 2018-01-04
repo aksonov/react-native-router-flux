@@ -22,10 +22,35 @@ export function isActiveRoute(state, routeName) {
   return isActiveRoute(state.routes[state.index], routeName);
 }
 
-export function getActiveState(param) {
+export function getActiveState(param, parent) {
   const state = param;
+  if (!state.routes) {
+    return { ...state, parent };
+  }
+  return getActiveState(state.routes[state.index], { ...state, parent });
+}
+
+export function inject(state, key, index, routes) {
   if (!state.routes) {
     return state;
   }
-  return getActiveState(state.routes[state.index]);
+  if (state.key === key) {
+    if (routes) {
+      return { ...state, routes, index };
+    }
+    return { ...state, index };
+  }
+  return { ...state, routes: state.routes.map(x => inject(x, key, index, routes)) };
+}
+
+export function popPrevious(state) {
+  const activeState = getActiveState(state);
+  if (activeState.parent && activeState.parent.index) {
+    const parent = activeState.parent;
+    const key = parent.key;
+    const routes = [...parent.routes.slice(0, parent.index - 1), ...parent.routes.slice(parent.index)];
+    const newState = inject(state, key, parent.index - 1, routes);
+    return newState;
+  }
+  return state;
 }

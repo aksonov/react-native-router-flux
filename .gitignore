@@ -34,3 +34,4 @@ node_modules/
 *.log
 
 .vscode/
+jsconfig.json

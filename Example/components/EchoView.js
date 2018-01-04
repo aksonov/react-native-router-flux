@@ -25,13 +25,16 @@ const styles = StyleSheet.create({
 
 
 export default class extends React.Component {
-    render(){
-        return (
-            <View style={[styles.container, this.props.sceneStyle]}>
-                <Text style={styles.instructions}>routeName: {this.props.name}</Text>
-                <Button onPress={Actions.pop}>pop</Button>
-            </View>
-        );
-    }
+  onEnter() {
+    console.log('EchoView onEnter');
+  }
+  render(){
+      return (
+          <View style={[styles.container, this.props.sceneStyle]}>
+              <Text style={styles.instructions}>routeName: {this.props.name}</Text>
+              <Button onPress={Actions.pop}>pop</Button>
+          </View>
+      );
+  }
 }
 
