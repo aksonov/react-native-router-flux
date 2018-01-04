@@ -528,7 +528,8 @@ class NavigationStore {
       if (!tabBarPosition) {
         tabBarPosition = Platform.OS === 'android' ? 'top' : 'bottom';
       }
-      return TabNavigator(res, { lazy, tabBarComponent, tabBarPosition, initialRouteName, initialRouteParams, order, ...commonProps,
+      return TabNavigator(res, { lazy, tabBarComponent, tabBarPosition, initialRouteName, initialRouteParams, order,
+        drawerOpenRoute: 'DrawerOpen', drawerCloseRoute: 'DrawerClose', drawerToggleRoute: 'DrawerToggle', ...commonProps,
         tabBarOptions: createTabBarOptions(commonProps), navigationOptions: createNavigationOptions(commonProps) });
     } else if (drawer) {
       const config = { initialRouteName, contentComponent, order, ...commonProps };
