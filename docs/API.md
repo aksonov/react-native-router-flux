@@ -58,8 +58,8 @@ The basic routing component for this router, all `<Scene>` components require a 
 | `navTransparent`     | `boolean` | `false` | nav bar background transparency |
 | `on`     | `Function` | | aka `onEnter` |
 | `onBack`     | `Function` |  | Called when the back button is pressed. |
-| `onEnter`     | `Function` | | Called when the `Scene` is navigated to. `props` are provided as a function param. Only scenes with 'component' defined is supported |
-| `onExit`     | `Function` | | Called when the `Scene` is navigated away from. Only scenes with 'component' defined is supported |
+| `onEnter`     | `Function` | | Called when the `Scene` is navigated to. `props` are provided as a function param. Only scenes with 'component' defined is supported. Your component class may also have `onEnter` function |
+| `onExit`     | `Function` | | Called when the `Scene` is navigated away from. Only scenes with 'component' defined is supported. Your component class may also have `onExit` function |
 | `onLeft`     | `Function` |  | Called when the left nav bar button is pressed. |
 | `onRight`     | `Function` |  | Called when the right nav bar button is pressed. |
 | `renderTitle`     | `React.Component` |  | React component to render title for nav bar |
@@ -203,8 +203,8 @@ Type constants to determine `Scene` transitions, These are **PREFERRED** over ty
 ## Universal and Deep Linking
 #### Use Case
 - Consider a web app and mobile app pairing for a social network, which might have a url `https://thesocialnetwork.com/profile/1234/`.
-- If we were building both a web app and a mobile app, we'd like to be able to express that uri scheme across platforms with the path `/profile/:id/`. 
-- On the web, we might want `React-Router` to to open up our `<Profile />` component with the `props` `{ id: 1234 }`. 
+- If we were building both a web app and a mobile app, we'd like to be able to express that uri scheme across platforms with the path `/profile/:id/`.
+- On the web, we might want `React-Router` to to open up our `<Profile />` component with the `props` `{ id: 1234 }`.
 - On mobile, if we've correctly set up our Android/iOS environment to launch our application and open our RNRF `<Router />`, then we also want to navigate to our mobile `<Profile />` scene with the `params` ` { id: 1234 }`
 
 #### Usage

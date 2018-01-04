@@ -294,12 +294,18 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
         if (this.ref && navigation && navigation.state && navigation.state.routeName) {
           store.addRef(originalRouteName(navigation.state.routeName), this.ref);
         }
+        if (this.ref && this.ref.onEnter) {
+          this.ref.onEnter(navigation && navigation.state);
+        }
       }
       componentWillUnmount() {
         const navigation = this.props.navigation;
         this.ref = null;
         if (this.ref && navigation && navigation.state && navigation.state.routeName) {
           store.deleteRef(originalRouteName(navigation.state.routeName));
+        }
+        if (this.ref && this.ref.onExit) {
+          this.ref.onExit(navigation && navigation.state);
         }
       }
       onRef(ref) {
