@@ -300,13 +300,13 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
       }
       componentWillUnmount() {
         const navigation = this.props.navigation;
-        this.ref = null;
         if (this.ref && navigation && navigation.state && navigation.state.routeName) {
           store.deleteRef(originalRouteName(navigation.state.routeName));
         }
         if (this.ref && this.ref.onExit) {
           this.ref.onExit(navigation && navigation.state);
         }
+        this.ref = null;
       }
       onRef(ref) {
         this.ref = ref;
