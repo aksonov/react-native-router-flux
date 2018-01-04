@@ -16,9 +16,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const DemoLightbox = ({ children }) => (
+const DemoLightbox = ({ data, children }) => (
   <Lightbox verticalPercent={0.5} horizontalPercent={0.9}>
-    <Text>Demo Lightbox</Text>
+    <Text>Demo Lightbox: {data}</Text>
     <Text>Allows transparency for background</Text>
   </Lightbox>
 );
