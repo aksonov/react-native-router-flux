@@ -140,9 +140,6 @@ const Example = () => (
               contentComponent={DrawerContent}
               drawerImage={MenuIcon}
               drawerWidth={300}
-            drawerOpenRoute = 'DrawerOpen'
-        	drawerCloseRoute = 'DrawerClose'
-        	drawerToggleRoute = 'DrawerToggle'
             >
               {/*
                 Wrapper Scene needed to fix a bug where the tabs would
