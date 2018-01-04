@@ -167,7 +167,7 @@ const Example = () => (
                     titleStyle={{ color: 'white', alignSelf: 'center' }}
                   >
                     <Scene
-                      key="tab1_1"
+                      key="tab_1_1"
                       component={TabView}
                       title="Tab #1_1"
                       onRight={() => alert('Right button')}

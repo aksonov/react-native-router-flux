@@ -32,10 +32,10 @@ class DrawerContent extends React.Component {
         {/* <Text>Drawer Content</Text>
         <Button onPress={Actions.closeDrawer}>Back</Button> */}
         <Text>Title: {this.props.title}</Text>
-        {this.props.name === 'tab1_1' &&
+        {this.props.name === 'tab_1_1' &&
           <Button onPress={Actions.tab_1_2}>next screen for tab1_1</Button>
         }
-        {this.props.name === 'tab2_1' &&
+        {this.props.name === 'tab_2_1' &&
           <Button onPress={Actions.tab_2_2}>next screen for tab2_1</Button>
         }
         <Button onPress={Actions.pop}>Back</Button>
