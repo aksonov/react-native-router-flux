@@ -1,15 +1,16 @@
 # API and Configuration
 
 ## Available imports
-- `Router`
-- `Scene`
-- `Tabs`
-- `Tabbed Scene`
-- `Drawer`
-- `Modal`
-- `Lightbox`
-- `Actions`
-- `ActionConst`
+- [`Router`](#router)
+- [`Scene`](#scene)
+- [`Tabs`](#tabs-tabs-or-scene-tabs)
+- [`Stack`](#stack)
+- [`Tabbed Scene`](#tab-scene-child-scene-within-tabs)
+- [`Drawer`](#drawer-drawer-or-scene-drawer)
+- [`Modal`](#modals-modal-or-scene-modal)
+- [`Lightbox`](#lightbox-lightbox)
+- [`Actions`](#actions)
+- [`ActionConst`](#actionconst)
 
 ## Router:
 
