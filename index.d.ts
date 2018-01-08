@@ -26,7 +26,7 @@ export var Scene: SceneStatic;
 export type Scene = SceneStatic;
 interface SceneProps extends React.Props<Scene> {
     key: string;
-    component: React.ComponentType<any>
+    component?: React.ComponentType<any>
     back?: boolean;
     init?: boolean;
     clone?: boolean;
