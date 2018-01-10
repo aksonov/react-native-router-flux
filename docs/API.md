@@ -4,7 +4,7 @@
 - [`Router`](#router)
 - [`Scene`](#scene)
 - [`Tabs`](#tabs-tabs-or-scene-tabs)
-- [`Stack`](#stack)
+- [`Stack`](#stack-stack)
 - [`Tabbed Scene`](#tab-scene-child-scene-within-tabs)
 - [`Drawer`](#drawer-drawer-or-scene-drawer)
 - [`Modal`](#modals-modal-or-scene-modal)
@@ -43,7 +43,7 @@ The basic routing component for this router, all `<Scene>` components require a 
 | `rightTitle` | `string` |  | Specifies the right button title for scene |
 | `headerMode` | `string` | `float` | Specifies how the header should be rendered: `float` (render a single header that stays at the top and animates as screens are changed. This is a common pattern on iOS.), `screen` (each screen has a header attached to it and the header fades in and out together with the screen. This is a common pattern on Android) or `none` (No header will be rendered) |
 | `hideNavBar`     | `boolean` | `false` | hide the nav bar |
-| `hideTabBar`     | `boolean` | `false` | hide the tab bar (only applies to scenes with `tabs` specified) |
+| `hideTabBar`     | `boolean` | `false` | hide the tab bar (only applies to scenes with `'` specified) |
 | `hideBackImage`     | `boolean` | `false` | hide back image |
 | `initial`   | `boolean` | `false` | Set to `true` if this is the first scene to display among its sibling `Scene`s |
 | `leftButtonImage`     | `Image` |  | Image to substitute for the left nav bar button |
