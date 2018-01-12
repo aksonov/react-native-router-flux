@@ -74,6 +74,7 @@ The basic routing component for this router, all `<Scene>` components require a 
 | `title`     | `string` |  | Text to be displayed in the center of the nav bar. |
 | `titleStyle`     | `Style` |  | Style applied to the title |
 | `type`   | `string` | `push` | Optional type of navigation action. You could use `replace` to replace current scene with this scene |
+| `drawerLockMode` | enum('unlocked', 'locked-closed', 'locked-open')  |  | If a child of a drawer, specifies the lock mode of the drawer (https://facebook.github.io/react-native/docs/drawerlayoutandroid.html#drawerlockmode) |
 | all other props     |  |  | Any other props not listed here will be pass on to the specified `Scene`'s `component` |
 
 ## Tabs (`<Tabs>` or `<Scene tabs>`)
@@ -119,7 +120,6 @@ Can use all `prop` as listed in `Scene` as `<Drawer>`, syntatic sugar for `<Scen
 | `hideDrawerButton` | `boolean` | `false` | Boolean to show or not the drawerImage or drawerIcon |
 | `drawerPosition` | `string`  | `left` | Determines whether the drawer is on the right or the left. Keywords accepted are `right` and `left` |
 | `drawerWidth` | `number`  |  | The width, in pixels, of the drawer (optional)|
-| `drawerLockMode` | enum('unlocked', 'locked-closed', 'locked-open')  |  | Specifies the lock mode of the drawer (https://facebook.github.io/react-native/docs/drawerlayoutandroid.html#drawerlockmode) |
 
 
 ## Modals (`<Modal>` or `<Scene modal>`)
