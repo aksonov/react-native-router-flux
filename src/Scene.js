@@ -16,14 +16,14 @@ export default class extends React.Component {
 
   static propTypes = {
     tabBarStyle: ViewPropTypes.style,
-    // tabBarSelectedItemStyle: View.propTypes.style,
-    // tabBarIconContainerStyle: View.propTypes.style,
-    // tabBarShadowStyle: View.propTypes.style,
-    // tabSceneStyle: View.propTypes.style,
+    tabBarSelectedItemStyle: ViewPropTypes.style,
+    tabBarIconContainerStyle: ViewPropTypes.style,
+    tabBarShadowStyle: ViewPropTypes.style,
+    tabSceneStyle: ViewPropTypes.style,
     // tabStyle: View.propTypes.style,
     // tabTitleStyle: Text.propTypes.style,
     // tabSelectedTitleStyle: Text.propTypes.style,
-    tabTitle: PropTypes.string,
+    tabTitle: PropTypes.string
   };
 
   render() {
