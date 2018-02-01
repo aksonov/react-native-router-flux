@@ -7,7 +7,7 @@
  *
  */
 import { assert } from './Util';
-// import Scene from './Scene';
+import Scene from './Scene';
 // import * as ActionConst from './ActionConst';
 
 // export const ActionMap = {
