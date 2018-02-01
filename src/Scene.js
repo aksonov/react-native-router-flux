@@ -8,7 +8,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ViewPropTypes } from 'react-native';
+import { Text, ViewPropTypes } from 'react-native';
 
 export default class extends React.Component {
 
@@ -20,9 +20,9 @@ export default class extends React.Component {
     tabBarIconContainerStyle: ViewPropTypes.style,
     tabBarShadowStyle: ViewPropTypes.style,
     tabSceneStyle: ViewPropTypes.style,
-    // tabStyle: View.propTypes.style,
-    // tabTitleStyle: Text.propTypes.style,
-    // tabSelectedTitleStyle: Text.propTypes.style,
+    tabStyle: ViewPropTypes.style,
+    tabTitleStyle: Text.propTypes.style,
+    tabSelectedTitleStyle: Text.propTypes.style,
     tabTitle: PropTypes.string
   };
 
