@@ -4,7 +4,7 @@
 - [`Router`](#router)
 - [`Scene`](#scene)
 - [`Tabs`](#tabs-tabs-or-scene-tabs)
-- [`Stack`](#stack)
+- [`Stack`](#stack-stack)
 - [`Tabbed Scene`](#tab-scene-child-scene-within-tabs)
 - [`Drawer`](#drawer-drawer-or-scene-drawer)
 - [`Modal`](#modals-modal-or-scene-modal)
