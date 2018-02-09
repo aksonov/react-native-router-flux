@@ -38,7 +38,7 @@ npm i react-native-router-flux --save
 |-----------|--------|---------|--------------------------------------------|
 | name | string | required | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
 | component | React.Component | semi-required | The `Component` to be displayed. Not required when defining a nested `Router` or child, see example |
-| type | string | optional | Defines how the new screen is added to the navigator stack. One of `push`, `modal`,`actionSheet`,`replace`, `switch`, `reset` `transitionToTop`.  Default is 'push'. `replace` tells navigator to replace current route with new route. `actionSheet` shows Action Sheet popup, you must pass callback as callback function, check Example for details. `modal` type inserts its 'component' after navigator component. It could be used for popup alerts as well for various needed processes before any navigator transitions (like login auth process).``switch` is used for tab screens. `reset` is similar to replace except it unmounts the componets in the navigator stack. `modal` component could be dismissed by using Actions.dismiss() `transitionToTop` will reset router stack ['route.name'] and with animation, if route has `sceneConfig`. eg `<Route name="login" schema="modal" component={Login} type="transitionToTop" />` |
+| type | string | optional | Defines how the new screen is added to the navigator stack. One of `push`, `modal`,`actionSheet`,`replace`, `switch`, `reset` `transitionToTop`.  Default is 'push'. `replace` tells navigator to replace current route with new route. `actionSheet` shows Action Sheet popup, you must pass callback as callback function, check Example for details. `modal` type inserts its 'component' after navigator component. It could be used for popup alerts as well for various needed processes before any navigator transitions (like login auth process).`switch` is used for tab screens. `reset` is similar to replace except it unmounts the componets in the navigator stack. `modal` component could be dismissed by using Actions.dismiss() `transitionToTop` will reset router stack ['route.name'] and with animation, if route has `sceneConfig`. eg `<Route name="login" schema="modal" component={Login} type="transitionToTop" />` |
 | initial | bool | false | Set to `true` if this is the initial screen |
 | title | string | null | The title to be displayed in the navigation bar |
 | schema | string | optional | Set this property to the name of a previously defined `Schema` to inherit its properties |
@@ -351,4 +351,34 @@ P.S.: Remember to check `currentRoute === 'payment'`, otherwise you'll start doS
           </Route>
         </Router>
 ```
+
+##  Inter Routing
+### Routing from one nested route to the other
+* If you are in one nested route and you want to navigate to a route which is in different parent alltogether, this is what you should follow
+```
+  import { Actions as NavigationActions } from 'react-native-router-flux'
+  .
+  .
+  .
+  .
+  <Router>
+    <Scene key="route1" hideNavBar type='reset'>
+      <Scene initial key='subRoute1' component={SubRoute1Screen} title='SubRoute1' type='reset' />
+      <Scene key='subRoute2' component={SubRoute2Screen} title='SubRoute2' />
+      <Scene key='subRoute3' component={SubRoute3Screen} title='SubRoute3' />
+      <Scene key='subRoute4' component={SubRoute4Screen} title='SubRoute4' />
+    </Scene>
+    <Scene key='route2'>
+      <Scene key='subRoute5'>
+        <Scene key='subRoute6' component={SubRoute6Screen} title='SubRoute6' />
+        <Scene key='subRoute7' component={SubRoute7Screen} title='SubRoute7' />
+      </Scene>
+    </Scene>
+  </Router>
+```
+Let's say you are at SubRoute3Screen and you want to navigate to SubRoute7Screen, you have to do the following in SubRoute3Screen:-
+
+NavigationActions.route2();
+NavigationActions.subRoute5();
+NavigationActions.subRoute7();
 

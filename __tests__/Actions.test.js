@@ -133,7 +133,7 @@ describe('Actions', () => {
     const scenes = Actions.create(scene);
 
     const childrenKeys = ['home', 'map', 'myAccount'];
-    expect(scenes.root.children).to.include.all(...childrenKeys);
+    expect(scenes.root.children).to.include.members(childrenKeys);
   });
 
   it('substates have their base set to their parent', () => {

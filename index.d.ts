@@ -41,9 +41,9 @@ declare namespace RNRF {
      */
     duration?: number,
     /**
-     * direction of animation horizontal/vertical
+     * direction of animation horizontal/vertical/fade
      */
-    direction?: 'vertical' | 'horizontal',
+    direction?: 'vertical' | 'horizontal' | 'fade',
     /**
      * optional if provided overrides the default spring animation
      */
@@ -59,7 +59,22 @@ declare namespace RNRF {
      * Optionally override the styles for NavigationCard's Animated.View rendering the scene. Receives first argument of NavigationSceneRendererProps and second argument of {hideNavBar,hideTabBar,isActive} (see Example app).
      */
     getSceneStyle?: Function,
-
+    /**
+     * Optionally override the background image for NavigationBar
+     */
+    navigationBarBackgroundImage?: ReactNative.Image,
+    /**
+     * Optionally override the style of background image for NavigationBar
+     */
+    navigationBarBackgroundImageStyle?: ReactNative.ImageStyle,
+    /**
+     * Optionally override the title image for NavigationBar
+     */
+    navigationBarTitleImage?: ReactNative.Image,
+    /**
+     * Optionally override the style of title image for NavigationBar
+     */
+    navigationBarTitleImageStyle?: ReactNative.ImageStyle,
 
     // Tabs
 
@@ -75,7 +90,10 @@ declare namespace RNRF {
      * hides tab bar for this scene and any following scenes until explicitly reversed (if built-in TabBar component is used as parent renderer)
      */
     hideTabBar?: boolean,
-
+    /**
+     * icon for a tab
+     */
+    icon?: React.ReactNode;
 
     // Navigation Bar
 
@@ -262,7 +280,8 @@ declare namespace RNRF {
     rightButtonImage?: ReactNative.Image,
     rightButtonIconStyle?: ReactNative.ViewStyle,
     rightButtonStyle?: ReactNative.ViewStyle,
-    rightButtonTextStyle?: ReactNative.TextStyle
+    rightButtonTextStyle?: ReactNative.TextStyle,
+    backAndroidHandler? : Function
   }
   export class Router extends React.Component<RouterProps, {}>{ }
 
@@ -294,6 +313,7 @@ declare namespace RNRF {
     REFRESH: string,
     RESET: string,
     FOCUS: string,
+    ANDROID_BACK: string,
   }
   export var ActionConst: RNRFActionConst;
 
@@ -323,6 +343,10 @@ declare namespace RNRF {
     titleStyle?: ReactNative.TextStyle,
     position?: Object,
     navigationBarStyle?: ReactNative.ViewStyle,
+    navigationBarTitleImage?: ReactNative.Image,
+    navigationBarTitleImageStyle?: ReactNative.ImageStyle
+    navigationBarBackgroundImage?: ReactNative.Image,
+    navigationBarBackgroundImageStyle?: ReactNative.ImageStyle,
     renderTitle?: any,
   }
   export class NavBar extends React.Component<NavBarProps, {}>{ }

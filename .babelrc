@@ -1,3 +1,13 @@
 {
-"presets": ["react-native", "es2015", "stage-0"]
+  "presets": ["react-native"],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-do-expressions",
+    "transform-function-bind",
+    "transform-class-constructor-call",
+    "transform-export-extensions",
+    "syntax-trailing-function-commas",
+    "transform-exponentiation-operator",
+    "transform-remove-console"
+  ]
 }

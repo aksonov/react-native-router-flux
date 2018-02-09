@@ -6,9 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React, {
-  Component
-} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BackHandler } from 'react-native';
 import NavigationExperimental from 'react-native-experimental-navigation';

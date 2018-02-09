@@ -6,9 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React, {
-  Component
-} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   Animated,
@@ -17,7 +15,6 @@ import {
   Dimensions,
 } from 'react-native';
 import NavigationExperimental from 'react-native-experimental-navigation';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import TabBar from './TabBar';
 import NavBar from './NavBar';
@@ -25,6 +22,7 @@ import Actions from './Actions';
 import { deepestExplicitValueForKey } from './Util';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const {
   AnimatedView: NavigationAnimatedView,
@@ -99,11 +97,32 @@ function leftToRight(/* NavigationSceneRendererProps */ props) {
   };
 }
 
-export default class DefaultRenderer extends Component {
+function topToBottom(/* NavigationSceneRendererProps */ props) {
+  const {
+    position,
+    scene,
+  } = props;
+
+  const index = scene.index;
+  const inputRange = [index - 1, index, index + 1];
+
+  const translateY = position.interpolate({
+    inputRange,
+    outputRange: [-SCREEN_HEIGHT * 3, 0, 0],
+  });
+
+  return {
+    transform: [
+      { translateY },
+    ],
+  };
+}
+
+export default class DefaultRenderer extends PureComponent {
 
   static propTypes = {
-    navigationState: PropTypes.object,
-    onNavigate: PropTypes.func,
+    navigationState: PropTypes.object.isRequired,
+    onNavigate: PropTypes.func.isRequired,
   };
 
   static childContextTypes = {
@@ -132,6 +151,8 @@ export default class DefaultRenderer extends Component {
         return fadeInScene(props);
       case 'leftToRight':
         return leftToRight(props);
+      case 'topToBottom':
+        return topToBottom(props);
       default:
         return NavigationCardStackStyleInterpolator.forHorizontal(props);
     }
@@ -141,6 +162,7 @@ export default class DefaultRenderer extends Component {
     return (
       <DefaultRenderer
         key={props.scene.navigationState.key}
+        position={props.position}
         onNavigate={props.onNavigate}
         navigationState={props.scene.navigationState}
       />
@@ -211,7 +233,6 @@ export default class DefaultRenderer extends Component {
       direction,
       animation,
       getSceneStyle,
-      getPanHandlers,
     } = props.scene.navigationState;
 
     const state = props.navigationState;
@@ -220,7 +241,11 @@ export default class DefaultRenderer extends Component {
     while ({}.hasOwnProperty.call(selected, 'children')) {
       selected = selected.children[selected.index];
     }
-    let { panHandlers, animationStyle } = selected;
+
+    const { getPanHandlers } = selected;
+    let { panHandlers } = selected;
+    let { animationStyle } = props.scene.navigationState;
+
     const isActive = child === selected;
     const computedProps = { isActive };
     if (isActive) {
@@ -255,12 +280,6 @@ export default class DefaultRenderer extends Component {
         renderScene={DefaultRenderer.renderScene}
       />
     );
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
 
   getChildContext() {
