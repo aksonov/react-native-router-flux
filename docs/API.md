@@ -68,6 +68,7 @@ The basic routing component for this router, all `<Scene>` components require a 
 | `renderRightButton` | `React.Component` | | React component to render as the right button |
 | `renderBackButton` | `React.Component` | | React component to render back button |
 | `rightButtonImage`     | `Image` |  | Image to substitute for the right nav bar button |
+| `rightButtonStyle`     | `Style` |  | Style applied to right button image |
 | `rightButtonTextStyle`     | `Style` |  | Style applied to right button text |
 | `success`     | `Function` | | If `on` returns a "truthy" value then `success` is called. |
 | `tabs`     | `boolean` | `false` | load child scenes as [TabNavigator](https://reactnavigation.org/docs/navigators/tab). Other [Tab Navigator  props](https://reactnavigation.org/docs/navigators/tab#TabNavigatorConfig) also apply here. |
