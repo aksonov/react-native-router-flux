@@ -36,6 +36,10 @@
     }
   ],
   "dependencies": {
+    "react": "16.2.0",
+    "react-addons-pure-render-mixin": "15.6.2",
+    "react-dom": "16.2.0",
+    "react-native": "0.52.1",
     "babel-plugin-transform-remove-console": "^6.8.5",
     "lodash.isequal": "^4.5.0",
     "prop-types": "^15.6.0",

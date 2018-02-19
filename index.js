@@ -25,5 +25,5 @@ export {
   TabBar,
   TabbedView,
   getInitialStateFromRoot,
-  Util,
+  Util
 };

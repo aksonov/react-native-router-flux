@@ -5,7 +5,7 @@ import Button from 'react-native-button';
 import { Actions } from 'react-native-router-flux';
 
 const contextTypes = {
-  drawer: React.PropTypes.object,
+  drawer: PropTypes.object,
 };
 
 const propTypes = {

@@ -23,7 +23,7 @@ export default class extends React.Component {
     tabStyle: ViewPropTypes.style,
     tabTitleStyle: Text.propTypes.style,
     tabSelectedTitleStyle: Text.propTypes.style,
-    tabTitle: PropTypes.string,
+    tabTitle: PropTypes.string
   };
 
   render() {
