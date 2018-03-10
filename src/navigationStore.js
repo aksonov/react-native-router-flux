@@ -230,7 +230,7 @@ function createNavigationOptions(params) {
     if (backToInitial) {
       res.tabBarOnPress = ({ scene, jumpToIndex }) => {
         if (scene.focused) {
-          if (scene.route.index !== 0) {
+          if (scene.route.index !== 0 && scene.route.routes) {
             // go to first screen of the StackNavigator with reset
             // navigation.dispatch(NavigationActions.reset({
             //   index: 0,
