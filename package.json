@@ -55,7 +55,8 @@
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [
-      "<rootDir>/Example/"
+      "<rootDir>/Example/",
+      "<rootDir>/ExampleExpo/"
     ],
     "transformIgnorePatterns": [
       "node_modules/(?!(jest-)?react-native|react-navigation|mobx-react)"
