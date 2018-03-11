@@ -1,4 +1,9 @@
-## Example App React-Native Router Flux
+# Example App React-Native Router Flux
+
+## Quick Look
+
+Use Expo with https://expo.io/@heralight/RNRF-Sample
+## Tips
 
 Normally, after a code change to react-native-router-flux src files,
 you must remove the node_modules/react-native-router-flux directory
