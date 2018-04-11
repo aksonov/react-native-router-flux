@@ -39,6 +39,8 @@ class App extends React.Component {
 
     // Clean the url with the given prefix.
     const cleanUrl = this.props.uriPrefix ? url.split(this.props.uriPrefix)[1] : url;
+    // Skip for uriPrefix which not registered
+    if (!cleanUrl) { return; }
     // Build an array of paths for every scene.
     const allPaths = Object.values(navigationStore.states).map(obj => obj.path).filter(path => path);
     // Try to match the url against the set of paths and parse the url parameters.
