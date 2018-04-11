@@ -24,7 +24,7 @@
     "path-to-regexp": "^2.1.0",
     "prop-types": "^15.6.0",
     "react-native-router-flux": "^4.0.0-beta.28",
-    "react-navigation": "1.5.8"
+    "react-navigation": "1.0.0-beta.22"
   },
   "devDependencies": {
     "@types/react": "^16.0.20",
