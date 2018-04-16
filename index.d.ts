@@ -69,7 +69,7 @@ interface TabSceneProps extends React.Props<Scene> {
     tabBarLabel?: string;
 }
 interface SceneStatic extends React.ComponentClass<SceneProps & TabsProps & TabSceneProps & DrawerProps & ModalProps> { }
-export type HeaderModeType = "float" | "screen";
+export type HeaderModeType = "float" | "screen" | "none";
 
 // Tabs
 export var Tabs: TabsStatic;
