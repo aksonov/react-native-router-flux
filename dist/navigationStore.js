@@ -1,4 +1,4 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.actionMap=undefined;var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _actionMap,_jsxFileName='src/navigationStore.js',_desc,_value,_class2,_descriptor,_descriptor2,_descriptor3,_descriptor4;var _react=require('react');var _react2=_interopRequireDefault(_react);
+Object.defineProperty(exports,"__esModule",{value:true});exports.actionMap=undefined;var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _actionMap,_jsxFileName='src\\navigationStore.js',_desc,_value,_class2,_descriptor,_descriptor2,_descriptor3,_descriptor4;var _react=require('react');var _react2=_interopRequireDefault(_react);
 var _mobx=require('mobx');
 var _ActionConst=require('./ActionConst');var ActionConst=_interopRequireWildcard(_ActionConst);
 var _Util=require('./Util');
@@ -185,9 +185,7 @@ title=
 
 params.title,backButtonImage=params.backButtonImage,navTransparent=params.navTransparent,backToInitial=params.backToInitial,hideNavBar=params.hideNavBar,hideTabBar=params.hideTabBar,backTitle=params.backTitle,right=params.right,rightButton=params.rightButton,left=params.left,leftButton=params.leftButton,navigationBarStyle=params.navigationBarStyle,headerStyle=params.headerStyle,navBarButtonColor=params.navBarButtonColor,tabBarLabel=params.tabBarLabel,tabBarIcon=params.tabBarIcon,icon=params.icon,getTitle=params.getTitle,renderTitle=params.renderTitle,panHandlers=params.panHandlers,navigationBarTitleImage=params.navigationBarTitleImage,navigationBarTitleImageStyle=params.navigationBarTitleImageStyle,component=params.component,rightTitle=params.rightTitle,leftTitle=params.leftTitle,leftButtonTextStyle=params.leftButtonTextStyle,rightButtonTextStyle=params.rightButtonTextStyle,backButtonTextStyle=params.backButtonTextStyle,headerTitleStyle=params.headerTitleStyle,titleStyle=params.titleStyle,navBar=params.navBar,onRight=params.onRight,onLeft=params.onLeft,rightButtonImage=params.rightButtonImage,leftButtonImage=params.leftButtonImage,init=params.init,back=params.back,renderBackButton=params.renderBackButton,renderNavigationBar=params.renderNavigationBar,hideDrawerButton=params.hideDrawerButton,drawerIcon=params.drawerIcon,drawerImage=params.drawerImage,drawerPosition=params.drawerPosition,props=_objectWithoutProperties(params,['title','backButtonImage','navTransparent','backToInitial','hideNavBar','hideTabBar','backTitle','right','rightButton','left','leftButton','navigationBarStyle','headerStyle','navBarButtonColor','tabBarLabel','tabBarIcon','icon','getTitle','renderTitle','panHandlers','navigationBarTitleImage','navigationBarTitleImageStyle','component','rightTitle','leftTitle','leftButtonTextStyle','rightButtonTextStyle','backButtonTextStyle','headerTitleStyle','titleStyle','navBar','onRight','onLeft','rightButtonImage','leftButtonImage','init','back','renderBackButton','renderNavigationBar','hideDrawerButton','drawerIcon','drawerImage','drawerPosition']);
 var NavBar=renderNavigationBar||navBar;
-if(component&&component.navigationOptions){
-return component.navigationOptions;
-}
+var componentNavigationOptions=component&&component.navigationOptions?component.navigationOptions:{};
 return function(_ref3){var navigation=_ref3.navigation,screenProps=_ref3.screenProps;
 var navigationParams=navigation.state.params||{};
 var state=_extends({
@@ -225,7 +223,8 @@ headerStyle:getValue(
 navigationParams.headerStyle||headerStyle||navigationBarStyle,
 state),
 
-headerBackImage:navigationParams.backButtonImage||backButtonImage});
+headerBackImage:navigationParams.backButtonImage||backButtonImage},
+componentNavigationOptions);
 
 
 var NavBarFromParams=
@@ -233,12 +232,12 @@ navigationParams.renderNavigationBar||navigationParams.navBar;
 if(NavBarFromParams!=null){
 if(NavBarFromParams){
 res.header=function(data){return(
-_react2.default.createElement(NavBarFromParams,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:236}})));};
+_react2.default.createElement(NavBarFromParams,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:235}})));};
 
 }
 }else if(NavBar){
 res.header=function(data){return(
-_react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:241}})));};
+_react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:240}})));};
 
 }
 
@@ -254,7 +253,7 @@ if(navigationBarTitleImage){
 res.headerTitle=
 _react2.default.createElement(_reactNative.Image,{
 source:navigationBarTitleImage,
-style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:255}});
+style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:254}});
 
 
 }
@@ -265,7 +264,7 @@ res.tabBarLabel=tabBarLabel;
 
 if(tabBarIcon||icon){
 var Icon=tabBarIcon||icon;
-res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:268}}));};
+res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:267}}));};
 }
 var componentData={};
 
@@ -314,7 +313,7 @@ navigationParams,screenProps))||
 _react2.default.createElement(RightNavBarButton,_extends({},
 params,
 navigationParams,
-componentData,{__source:{fileName:_jsxFileName,lineNumber:314}}));
+componentData,{__source:{fileName:_jsxFileName,lineNumber:313}}));
 
 
 }
@@ -355,20 +354,20 @@ drawerIcon)&&
 _react2.default.createElement(LeftNavBarButton,_extends({},
 params,
 navigationParams,
-componentData,{__source:{fileName:_jsxFileName,lineNumber:355}}))||
+componentData,{__source:{fileName:_jsxFileName,lineNumber:354}}))||
 
 
 res.headerLeft||(
 init?
 null:
 renderBackButton&&renderBackButton(state)||
-_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:365}})));
+_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:364}})));
 
 }
 
 if(back){
 res.headerLeft=renderBackButton&&renderBackButton(state)||
-_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:371}}));
+_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:370}}));
 
 }
 
@@ -519,14 +518,14 @@ this.ref=ref;
 {
 var navigation=this.props.navigation;
 if(!navigation||!navigation.state){
-return _react2.default.createElement(Component,_extends({ref:this.onRef},this.props,{__source:{fileName:_jsxFileName,lineNumber:522}}));
+return _react2.default.createElement(Component,_extends({ref:this.onRef},this.props,{__source:{fileName:_jsxFileName,lineNumber:521}}));
 }
 return(
 _react2.default.createElement(Component,_extends({
 ref:this.onRef},
 this.props,
 extendProps(navigation.state.params,store),{
-name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:525}})));
+name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:524}})));
 
 
 }}]);return Wrapped;}(_react2.default.Component),_class.propTypes={navigation:_propTypes2.default.object},_temp);
@@ -541,7 +540,7 @@ _react2.default.createElement(Component,_extends({},
 props,{
 navigation:navigation},
 extendProps(navigation.state.params,store),{
-name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:540}})));
+name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:539}})));
 
 
 }
@@ -853,8 +852,8 @@ navigationOptions:createNavigationOptions(commonProps)}));
 if(!tabBarComponent){
 tabBarComponent=
 tabBarPosition==='top'?
-function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:856}}));}:
-function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:857}}));};
+function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:855}}));}:
+function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:856}}));};
 }
 if(!tabBarPosition){
 tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';
