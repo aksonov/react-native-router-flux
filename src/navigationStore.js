@@ -117,9 +117,7 @@ function createNavigationOptions(params) {
     backButtonTextStyle, headerTitleStyle, titleStyle, navBar, onRight, onLeft, rightButtonImage, leftButtonImage, init, back,
     renderBackButton, renderNavigationBar, hideDrawerButton, drawerIcon, drawerImage, drawerPosition, ...props } = params;
   const NavBar = renderNavigationBar || navBar;
-  if (component && component.navigationOptions) {
-    return component.navigationOptions;
-  }
+  const componentNavigationOptions = component && component.navigationOptions ? component.navigationOptions : {};
   return ({ navigation, screenProps }) => {
     const navigationParams = navigation.state.params || {};
     const state = { navigation, ...params, ...navigationParams, ...screenProps };
@@ -134,6 +132,7 @@ function createNavigationOptions(params) {
       headerTitle: getValue((navigationParams.renderTitle) || renderTitle || params.renderTitle, state),
       headerStyle: getValue((navigationParams.headerStyle || headerStyle || navigationBarStyle), state),
       headerBackImage: navigationParams.backButtonImage || backButtonImage,
+      ...componentNavigationOptions,
     };
 
     const NavBarFromParams = navigationParams.renderNavigationBar || navigationParams.navBar;
