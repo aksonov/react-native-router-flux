@@ -228,6 +228,7 @@ function createNavigationOptions(params) {
     }
 
     if (backToInitial) {
+      let userDefinedTabBarOnPress = res.tabBarOnPress ? res.tabBarOnPress : null;
       res.tabBarOnPress = ({ scene, jumpToIndex }) => {
         if (scene.focused) {
           if (scene.route.index !== 0) {
@@ -243,6 +244,9 @@ function createNavigationOptions(params) {
           }
         } else {
           jumpToIndex(scene.index);
+        }
+        if (userDefinedTabBarOnPress) {
+          userDefinedTabBarOnPress({ scene, jumpToIndex });
         }
       };
     }
