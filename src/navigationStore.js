@@ -228,7 +228,7 @@ function createNavigationOptions(params) {
     }
 
     if (backToInitial) {
-      let userDefinedTabBarOnPress = res.tabBarOnPress ? res.tabBarOnPress : null;
+      const userDefinedTabBarOnPress = res.tabBarOnPress ? res.tabBarOnPress : null;
       res.tabBarOnPress = ({ scene, jumpToIndex }) => {
         if (scene.focused) {
           if (scene.route.index !== 0) {
