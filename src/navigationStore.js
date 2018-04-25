@@ -246,7 +246,7 @@ function createNavigationOptions(params) {
           jumpToIndex(scene.index);
         }
         if (userDefinedTabBarOnPress) {
-          userDefinedTabBarOnPress({ scene, jumpToIndex });
+          userDefinedTabBarOnPress(scene, jumpToIndex);
         }
       };
     }
