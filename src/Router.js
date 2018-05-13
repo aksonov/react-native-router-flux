@@ -69,7 +69,7 @@ class App extends React.Component {
   render() {
     const AppNavigator = this.props.navigator;
     return (
-      <AppNavigator navigation={addNavigationHelpers({ dispatch: navigationStore.dispatch, state: navigationStore.state })} />
+      <AppNavigator navigation={addNavigationHelpers({ dispatch: navigationStore.dispatch, state: navigationStore.state, addListener: navigationStore.addListener })} />
     );
   }
 }
@@ -88,7 +88,7 @@ const Router = ({ createReducer, sceneStyle, scenes, uriPrefix, navigator, getSc
     // set external state and dispatch
     navigationStore.setState(state);
     navigationStore.dispatch = dispatch;
-    return <AppNavigator navigation={addNavigationHelpers({ dispatch, state })} uriPrefix={uriPrefix} />;
+    return <AppNavigator navigation={addNavigationHelpers({ dispatch, state, addListener: navigationStore.addListener })} uriPrefix={uriPrefix} />;
   }
   return <App {...props} onDeepLink={onDeepLink} navigator={AppNavigator} uriPrefix={uriPrefix} />;
 };

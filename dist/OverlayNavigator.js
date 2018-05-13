@@ -2,7 +2,8 @@ Object.defineProperty(exports,"__esModule",{value:true});var _jsxFileName='src/O
 
 var _react=require('react');var _react2=_interopRequireDefault(_react);
 var _reactNavigation=require('react-navigation');
-var _reactNative=require('react-native');function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
+var _reactNative=require('react-native');
+var _navigationStore=require('./navigationStore');var _navigationStore2=_interopRequireDefault(_navigationStore);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
 
 var OverlayNavigator=function OverlayNavigator(
 routeConfigs)
@@ -36,12 +37,12 @@ for(var _i=0;_i<tabsConfig.order.length;_i++){
 var routeName=tabsConfig.order[_i];
 if(initialRouteName!==routeName){
 var Overlay=routeConfigs[routeName].screen;
-overlays.push(_react2.default.createElement(Overlay,{key:routeName,navigation:{dispatch:dispatch,state:routesMap[routeName]},__source:{fileName:_jsxFileName,lineNumber:39}}));
+overlays.push(_react2.default.createElement(Overlay,{key:routeName,navigation:{dispatch:dispatch,state:routesMap[routeName],addListener:_navigationStore2.default.addListener},__source:{fileName:_jsxFileName,lineNumber:40}}));
 }
 }
 var ContentComponent=tabsConfig.contentComponent||_reactNative.View;
-return _react2.default.createElement(ContentComponent,{style:{flex:1},__source:{fileName:_jsxFileName,lineNumber:43}},
-_react2.default.createElement(Component,{navigation:{dispatch:dispatch,state:routes[initialIndex]},__source:{fileName:_jsxFileName,lineNumber:44}}),
+return _react2.default.createElement(ContentComponent,{style:{flex:1},__source:{fileName:_jsxFileName,lineNumber:44}},
+_react2.default.createElement(Component,{navigation:{dispatch:dispatch,state:routes[initialIndex],addListener:_navigationStore2.default.addListener},__source:{fileName:_jsxFileName,lineNumber:45}}),
 overlays);
 
 });
