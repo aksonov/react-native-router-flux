@@ -4283,9 +4283,9 @@ react-native-message-bar@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/react-native-message-bar/-/react-native-message-bar-1.6.0.tgz#79623e89655475216927090771b0238616b6f1c7"
 
-react-native-router-flux@4.0.0-beta.30:
-  version "4.0.0-beta.30"
-  resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-4.0.0-beta.30.tgz#7cf268b7ad527ce0b06e0101a3d730bfa165a3c6"
+react-native-router-flux@4.0.0-beta.31:
+  version "4.0.0-beta.31"
+  resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-4.0.0-beta.31.tgz#edea28cbac705fbb324ae8f5eb136dc0bef1e1e8"
   dependencies:
     lodash.isequal "^4.5.0"
     mobx "^3.3.1"
