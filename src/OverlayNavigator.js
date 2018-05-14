@@ -3,6 +3,7 @@
 import React from 'react';
 import { createNavigationContainer, createNavigator, TabRouter } from 'react-navigation';
 import { View } from 'react-native';
+import navigationStore from './navigationStore';
 
 const OverlayNavigator = (
   routeConfigs,
@@ -36,12 +37,12 @@ const OverlayNavigator = (
       const routeName = tabsConfig.order[i];
       if (initialRouteName !== routeName) {
         const Overlay = routeConfigs[routeName].screen;
-        overlays.push(<Overlay key={routeName} navigation={{ dispatch, state: routesMap[routeName] }} />);
+        overlays.push(<Overlay key={routeName} navigation={{ dispatch, state: routesMap[routeName], addListener: navigationStore.addListener }} />);
       }
     }
     const ContentComponent = tabsConfig.contentComponent || View;
     return (<ContentComponent style={{ flex: 1 }}>
-      <Component navigation={{ dispatch, state: routes[initialIndex] }} />
+      <Component navigation={{ dispatch, state: routes[initialIndex], addListener: navigationStore.addListener }} />
       {overlays}
     </ContentComponent>);
   });

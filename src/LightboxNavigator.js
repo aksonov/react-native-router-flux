@@ -3,6 +3,7 @@
 import React from 'react';
 import { addNavigationHelpers, createNavigationContainer, createNavigator, TabRouter } from 'react-navigation';
 import { View } from 'react-native';
+import navigationStore from './navigationStore';
 
 const LightboxNavigator = (
   routeConfigs,
@@ -31,8 +32,8 @@ const LightboxNavigator = (
     const Popup = index !== initialIndex ? routeConfigs[routes[index].routeName].screen : null;
 
     return (<View style={{ flex: 1 }}>
-      <Component navigation={addNavigationHelpers({ dispatch, state: routes[initialIndex] })} />
-      {Popup && <Popup navigation={addNavigationHelpers({ dispatch, state: routes[index] })} />}
+      <Component navigation={addNavigationHelpers({ dispatch, state: routes[initialIndex], addListener: navigationStore.addListener })} />
+      {Popup && <Popup navigation={addNavigationHelpers({ dispatch, state: routes[index], addListener: navigationStore.addListener })} />}
     </View>);
   });
 
