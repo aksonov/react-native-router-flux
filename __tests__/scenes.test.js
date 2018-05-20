@@ -25,5 +25,7 @@ test('renders correctly', done => {
   console.log('STATE:', JSON.stringify(navigationStore.state));
   navigationStore.refresh({ a: 3 });
   console.log('STATE:', JSON.stringify(navigationStore.state));
+  navigationStore.popTo('NOT_A_REAL_SCENE');
+  console.log('STATE:', JSON.stringify(navigationStore.state));
   done();
 });
