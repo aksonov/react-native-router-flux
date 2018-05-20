@@ -60,6 +60,9 @@ export function reducer(state = navigationStore.state, action) {
           currentState = newState;
         }
         if (isEqual(currentState, initialState)) {
+          console.warn(
+            `popTo called with an unknown routeName: ${routeName}`,
+          );
           break;
         }
       }
