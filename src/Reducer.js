@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal';
 import navigationStore from './navigationStore';
 import * as ActionConst from './ActionConst';
 import { NavigationActions } from 'react-navigation';
@@ -50,12 +51,19 @@ export function reducer(state = navigationStore.state, action) {
     let nextScene = '';
     let newState = state;
     let currentState = state;
+    const initialState = navigationStore.router.getStateForAction(NavigationActions.popToTop(), currentState);
     while (newState && nextScene !== routeName) {
       newState = navigationStore.router.getStateForAction(NavigationActions.back(), currentState);
       if (newState) {
         nextScene = getActiveState(newState).routeName;
         if (nextScene !== routeName) {
           currentState = newState;
+        }
+        if (isEqual(currentState, initialState)) {
+          console.warn(
+            `popTo called with an unknown routeName: ${routeName}`,
+          );
+          break;
         }
       }
     }
