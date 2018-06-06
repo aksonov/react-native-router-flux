@@ -2,7 +2,7 @@
 
 [Follow author @PAksonov](https://twitter.com/PAksonov)
 
-#### NOTE: v4 (based on [React Navigation](https://reactnavigation.org/)) is in beta. See [this branch](https://github.com/aksonov/react-native-router-flux/tree/v3) and [docs](https://github.com/aksonov/react-native-router-flux/blob/master/README3.md) for v3.
+#### NOTE: v4 (based on [React Navigation](https://reactnavigation.org/) v1.5.6). See [this branch](https://github.com/aksonov/react-native-router-flux/tree/v3) and [docs](https://github.com/aksonov/react-native-router-flux/blob/master/README3.md) for v3 based on React Native Experimental Navigation API
 
 ___
 
