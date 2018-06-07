@@ -3727,15 +3727,15 @@ minimist@~0.0.1:
   dependencies:
     minimist "0.0.8"
 
-mobx-react@^4.3.4:
-  version "4.3.5"
-  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-4.3.5.tgz#76853f2f2ef4a6f960c374bcd9f01e875929c04c"
+mobx-react@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-5.0.0.tgz#8d5a33be376fa22b184a6f555d40a6a3a8459a16"
   dependencies:
     hoist-non-react-statics "^2.3.1"
 
-mobx@^3.3.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.4.1.tgz#37abe5ee882d401828d9f26c6c1a2f47614bbbef"
+mobx@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-4.1.1.tgz#7ce7ef92b22e85271d1fc274a124d7fa32fcceeb"
 
 morgan@~1.6.1:
   version "1.6.1"
