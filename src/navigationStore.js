@@ -937,7 +937,9 @@ class NavigationStore {
     const currentScene = this.currentScene;
     this._state = newState;
     this.currentScene = state.routeName;
-    this.prevScene = currentScene;
+    if (currentScene !== this.currentScene) {
+      this.prevScene = currentScene;
+    }
 
     this.currentParams = state.params;
     this._currentParams = state.params;
