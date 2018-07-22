@@ -17,7 +17,7 @@
     "react-native-button": "^2.0.0",
     "react-native-message-bar": "^1.6.0",
     "react-native-router-flux": "4.0.0-beta.32",
-    "react-navigation": "1.5.8"
+    "react-navigation": "^2.8.0"
   },
   "devDependencies": {
     "babel-jest": "20.1.0-echo.1",

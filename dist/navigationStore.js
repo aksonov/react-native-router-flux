@@ -1,23 +1,15 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.actionMap=undefined;var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _actionMap,_jsxFileName='src/navigationStore.js',_desc,_value,_class2,_descriptor,_descriptor2,_descriptor3,_descriptor4;var _react=require('react');var _react2=_interopRequireDefault(_react);
-var _mobx=require('mobx');
+Object.defineProperty(exports,"__esModule",{value:true});exports.actionMap=undefined;var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _actionMap,_jsxFileName='src/navigationStore.js',_desc,_value,_class2,_descriptor,_descriptor2,_descriptor3;var _react=require('react');var _react2=_interopRequireDefault(_react);
 var _ActionConst=require('./ActionConst');var ActionConst=_interopRequireWildcard(_ActionConst);
 var _Util=require('./Util');
 var _reactNative=require('react-native');
 var _reactNavigation=require('react-navigation');
-
-
-
-
-
-
-
+var _mobx=require('mobx');
 var _NavBar=require('./NavBar');
 var _LightboxNavigator=require('./LightboxNavigator');var _LightboxNavigator2=_interopRequireDefault(_LightboxNavigator);
 var _menu_burger=require('../images/menu_burger.png');var _menu_burger2=_interopRequireDefault(_menu_burger);
 var _Scene=require('./Scene');var _Scene2=_interopRequireDefault(_Scene);
 var _propTypes=require('prop-types');var _propTypes2=_interopRequireDefault(_propTypes);
 var _State=require('./State');
-var _Reducer=require('./Reducer');
 var _lodash=require('lodash.isequal');var _lodash2=_interopRequireDefault(_lodash);
 var _Modal=require('./Modal');var _Modal2=_interopRequireDefault(_Modal);
 var _Lightbox=require('./Lightbox');var _Lightbox2=_interopRequireDefault(_Lightbox);
@@ -114,17 +106,7 @@ res[key]=component[key];
 delete res.children;
 return res;
 }
-function createTabBarOptions(_ref2)
-
-
-
-
-
-
-
-
-
-{var tabBarStyle=_ref2.tabBarStyle,activeTintColor=_ref2.activeTintColor,inactiveTintColor=_ref2.inactiveTintColor,activeBackgroundColor=_ref2.activeBackgroundColor,inactiveBackgroundColor=_ref2.inactiveBackgroundColor,showLabel=_ref2.showLabel,labelStyle=_ref2.labelStyle,tabStyle=_ref2.tabStyle,props=_objectWithoutProperties(_ref2,['tabBarStyle','activeTintColor','inactiveTintColor','activeBackgroundColor','inactiveBackgroundColor','showLabel','labelStyle','tabStyle']);
+function createTabBarOptions(_ref2){var tabBarStyle=_ref2.tabBarStyle,activeTintColor=_ref2.activeTintColor,inactiveTintColor=_ref2.inactiveTintColor,activeBackgroundColor=_ref2.activeBackgroundColor,inactiveBackgroundColor=_ref2.inactiveBackgroundColor,showLabel=_ref2.showLabel,labelStyle=_ref2.labelStyle,tabStyle=_ref2.tabStyle,props=_objectWithoutProperties(_ref2,['tabBarStyle','activeTintColor','inactiveTintColor','activeBackgroundColor','inactiveBackgroundColor','showLabel','labelStyle','tabStyle']);
 return _extends({},
 props,{
 style:tabBarStyle,
@@ -189,6 +171,7 @@ if(component&&component.navigationOptions){
 return component.navigationOptions;
 }
 return function(_ref3){var navigation=_ref3.navigation,screenProps=_ref3.screenProps;
+console.log('PARAMS',screenProps);
 var navigationParams=navigation.state.params||{};
 var state=_extends({
 navigation:navigation},
@@ -198,48 +181,24 @@ screenProps);
 
 var res=_extends({},
 props,{
-headerTintColor:
-navBarButtonColor||
-props.tintColor||
-navigationParams.tintColor||
-navigationParams.headerTintColor,
+headerTintColor:navBarButtonColor||props.tintColor||navigationParams.tintColor||navigationParams.headerTintColor,
 headerTitleStyle:headerTitleStyle||titleStyle,
 title:getValue(navigationParams.title||title||getTitle,state),
 headerBackTitle:getValue(navigationParams.backTitle||backTitle,state),
-headerRight:getValue(
-navigationParams.right||
-right||
-rightButton||
-params.renderRightButton,
-state),
-
-headerLeft:getValue(
-navigationParams.left||left||leftButton||params.renderLeftButton,
-state),
-
-headerTitle:getValue(
-navigationParams.renderTitle||renderTitle||params.renderTitle,
-state),
-
-headerStyle:getValue(
-navigationParams.headerStyle||headerStyle||navigationBarStyle,
-state),
-
+headerRight:getValue(navigationParams.right||right||rightButton||params.renderRightButton,state),
+headerLeft:getValue(navigationParams.left||left||leftButton||params.renderLeftButton,state),
+headerTitle:getValue(navigationParams.renderTitle||renderTitle||params.renderTitle,state),
+headerStyle:getValue(navigationParams.headerStyle||headerStyle||navigationBarStyle,state),
 headerBackImage:navigationParams.backButtonImage||backButtonImage});
 
 
-var NavBarFromParams=
-navigationParams.renderNavigationBar||navigationParams.navBar;
+var NavBarFromParams=navigationParams.renderNavigationBar||navigationParams.navBar;
 if(NavBarFromParams!=null){
 if(NavBarFromParams){
-res.header=function(data){return(
-_react2.default.createElement(NavBarFromParams,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:236}})));};
-
+res.header=function(data){return _react2.default.createElement(NavBarFromParams,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:198}}));};
 }
 }else if(NavBar){
-res.header=function(data){return(
-_react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:241}})));};
-
+res.header=function(data){return _react2.default.createElement(NavBar,_extends({navigation:navigation},state,data,{__source:{fileName:_jsxFileName,lineNumber:201}}));};
 }
 
 if(typeof navigationParams.panHandlers!=='undefined'){
@@ -251,12 +210,7 @@ res.gesturesEnabled=false;
 }
 
 if(navigationBarTitleImage){
-res.headerTitle=
-_react2.default.createElement(_reactNative.Image,{
-source:navigationBarTitleImage,
-style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:255}});
-
-
+res.headerTitle=_react2.default.createElement(_reactNative.Image,{source:navigationBarTitleImage,style:navigationBarTitleImageStyle,__source:{fileName:_jsxFileName,lineNumber:213}});
 }
 
 if(tabBarLabel){
@@ -265,7 +219,7 @@ res.tabBarLabel=tabBarLabel;
 
 if(tabBarIcon||icon){
 var Icon=tabBarIcon||icon;
-res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:268}}));};
+res.tabBarIcon=function(data){return _react2.default.createElement(Icon,_extends({},state,data,{__source:{fileName:_jsxFileName,lineNumber:222}}));};
 }
 var componentData={};
 
@@ -301,21 +255,10 @@ navigationParams.onRight||
 navigationParams.rightTitle||
 navigationParams.rightButtonImage||
 rightButtonTextStyle||
-(drawerImage||drawerIcon)&&
-!hideDrawerButton&&
-drawerPosition==='right')
+(drawerImage||drawerIcon)&&!hideDrawerButton&&drawerPosition==='right')
 {
-res.headerRight=getValue(
-navigationParams.right||
-navigationParams.rightButton||
-params.renderRightButton,_extends({},
-navigationParams,screenProps))||
-
-_react2.default.createElement(RightNavBarButton,_extends({},
-params,
-navigationParams,
-componentData,{__source:{fileName:_jsxFileName,lineNumber:314}}));
-
+res.headerRight=getValue(navigationParams.right||navigationParams.rightButton||params.renderRightButton,_extends({},navigationParams,screenProps))||
+_react2.default.createElement(RightNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:261}}));
 
 }
 
@@ -334,54 +277,23 @@ navigationParams.onLeft||
 navigationParams.leftButtonImage||
 navigationParams.backButtonImage||
 navigationParams.backTitle||
-(drawerImage||drawerIcon)&&
-!hideDrawerButton&&
-drawerPosition!=='right')
+(drawerImage||drawerIcon)&&!hideDrawerButton&&drawerPosition!=='right')
 {
 res.headerLeft=
-getValue(
-navigationParams.left||
-navigationParams.leftButton||
-params.renderLeftButton,_extends({},
-params,navigationParams,screenProps))||
-
-(onLeft&&(
-leftTitle||
-navigationParams.leftTitle||
-leftButtonImage||
-navigationParams.leftButtonImage)||
-drawerImage||
-drawerIcon)&&
-_react2.default.createElement(LeftNavBarButton,_extends({},
-params,
-navigationParams,
-componentData,{__source:{fileName:_jsxFileName,lineNumber:355}}))||
-
+getValue(navigationParams.left||navigationParams.leftButton||params.renderLeftButton,_extends({},params,navigationParams,screenProps))||
+(onLeft&&(leftTitle||navigationParams.leftTitle||leftButtonImage||navigationParams.leftButtonImage)||drawerImage||drawerIcon)&&
+_react2.default.createElement(LeftNavBarButton,_extends({},params,navigationParams,componentData,{__source:{fileName:_jsxFileName,lineNumber:285}}))||
 
 res.headerLeft||(
-init?
-null:
-renderBackButton&&renderBackButton(state)||
-_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:365}})));
-
+init?null:renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:288}})));
 }
 
 if(back){
-res.headerLeft=renderBackButton&&renderBackButton(state)||
-_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:371}}));
-
+res.headerLeft=renderBackButton&&renderBackButton(state)||_react2.default.createElement(BackNavBarButton,_extends({},state,{__source:{fileName:_jsxFileName,lineNumber:292}}));
 }
 
-if(
-typeof navigationParams.left!=='undefined'||
-typeof navigationParams.leftButton!=='undefined'||
-typeof navigationParams.renderLeftButton!=='undefined')
-{
-if(
-navigationParams.left===null||
-navigationParams.leftButton===null||
-navigationParams.renderLeftButton===null)
-{
+if(typeof navigationParams.left!=='undefined'||typeof navigationParams.leftButton!=='undefined'||typeof navigationParams.renderLeftButton!=='undefined'){
+if(navigationParams.left===null||navigationParams.leftButton===null||navigationParams.renderLeftButton===null){
 res.headerLeft=null;
 }
 }
@@ -396,6 +308,8 @@ res.tabBarVisible=false;
 res.tabBarVisible=false;
 }
 
+console.log('NAVIGATION PARAMS:',JSON.stringify(navigationParams));
+
 if(navigationParams.hideNavBar!=null){
 if(navigationParams.hideNavBar){
 res.header=null;
@@ -406,12 +320,8 @@ res.header=null;
 
 if(navTransparent){
 res.headerStyle={
-position:'absolute',
 backgroundColor:'transparent',
 zIndex:100,
-top:0,
-left:0,
-right:0,
 borderBottomWidth:0,
 elevation:1};
 
@@ -486,12 +396,7 @@ _this.onRef=_this.onRef.bind(_this);return _this;
 }_createClass(Wrapped,[{key:'componentDidMount',value:function componentDidMount()
 {
 var navigation=this.props.navigation;
-if(
-this.ref&&
-navigation&&
-navigation.state&&
-navigation.state.routeName)
-{
+if(this.ref&&navigation&&navigation.state&&navigation.state.routeName){
 store.addRef(originalRouteName(navigation.state.routeName),this.ref);
 }
 if(this.ref&&this.ref.onEnter){
@@ -500,12 +405,7 @@ this.ref.onEnter(navigation&&navigation.state);
 }},{key:'componentWillUnmount',value:function componentWillUnmount()
 {
 var navigation=this.props.navigation;
-if(
-this.ref&&
-navigation&&
-navigation.state&&
-navigation.state.routeName)
-{
+if(this.ref&&navigation&&navigation.state&&navigation.state.routeName){
 store.deleteRef(originalRouteName(navigation.state.routeName));
 }
 if(this.ref&&this.ref.onExit){
@@ -519,16 +419,9 @@ this.ref=ref;
 {
 var navigation=this.props.navigation;
 if(!navigation||!navigation.state){
-return _react2.default.createElement(Component,_extends({ref:this.onRef},this.props,{__source:{fileName:_jsxFileName,lineNumber:522}}));
+return _react2.default.createElement(Component,_extends({ref:this.onRef},this.props,{__source:{fileName:_jsxFileName,lineNumber:422}}));
 }
-return(
-_react2.default.createElement(Component,_extends({
-ref:this.onRef},
-this.props,
-extendProps(navigation.state.params,store),{
-name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:525}})));
-
-
+return _react2.default.createElement(Component,_extends({ref:this.onRef},this.props,extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:424}}));
 }}]);return Wrapped;}(_react2.default.Component),_class.propTypes={navigation:_propTypes2.default.object},_temp);
 
 return wrapper(Wrapped);
@@ -536,14 +429,7 @@ return wrapper(Wrapped);
 
 
 function StatelessWrapped(_ref6){var navigation=_ref6.navigation,props=_objectWithoutProperties(_ref6,['navigation']);
-return(
-_react2.default.createElement(Component,_extends({},
-props,{
-navigation:navigation},
-extendProps(navigation.state.params,store),{
-name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:540}})));
-
-
+return _react2.default.createElement(Component,_extends({},props,{navigation:navigation},extendProps(navigation.state.params,store),{name:navigation.state.routeName,__source:{fileName:_jsxFileName,lineNumber:432}}));
 }
 StatelessWrapped.propTypes={
 navigation:_propTypes2.default.object};
@@ -578,9 +464,9 @@ var defaultSuccess=function defaultSuccess(){};
 var defaultFailure=function defaultFailure(){};var
 
 NavigationStore=(_class2=function(){function NavigationStore(){var _this2=this;_classCallCheck(this,NavigationStore);this.
+_navigator=null;this.
 refs={};this.
-states={};this.
-reducer=null;_initDefineProp(this,'currentScene',_descriptor,this);_initDefineProp(this,'prevScene',_descriptor2,this);_initDefineProp(this,'currentParams',_descriptor3,this);this.
+states={};_initDefineProp(this,'state',_descriptor,this);_initDefineProp(this,'prevState',_descriptor2,this);_initDefineProp(this,'currentParams',_descriptor3,this);this.
 
 
 
@@ -593,6 +479,15 @@ reducer=null;_initDefineProp(this,'currentScene',_descriptor,this);_initDefinePr
 
 
 
+onNavigationStateChange=function(prevState,currentState,action){
+_this2.state=currentState;
+_this2.prevState=prevState;
+_this2.currentParams=action.params;
+};this.
+
+setTopLevelNavigator=function(navigatorRef){
+_this2._navigator=navigatorRef;
+};this.
 
 addRef=function(name,ref){
 _this2.refs[name]=ref;
@@ -603,16 +498,11 @@ delete _this2.refs[name];
 };this.
 
 create=function(scene){var params=arguments.length>1&&arguments[1]!==undefined?arguments[1]:{};var wrapBy=arguments.length>2&&arguments[2]!==undefined?arguments[2]:function(props){return props;};
-(0,_Util.assert)(
-!Array.isArray(scene),
-'Router should contain only one scene, please wrap your scenes with root Scene ');
-
+(0,_Util.assert)(!Array.isArray(scene),'Router should contain only one scene, please wrap your scenes with root Scene ');
 RightNavBarButton=wrapBy(_NavBar.RightButton);
 LeftNavBarButton=wrapBy(_NavBar.LeftButton);
 BackNavBarButton=wrapBy(_NavBar.BackButton);
 var AppNavigator=_this2.processScene(scene,params,[],wrapBy);
-_this2.router=AppNavigator.router;
-_this2.dispatch(_reactNavigation.NavigationActions.init());
 return AppNavigator;
 };this.
 
@@ -623,25 +513,8 @@ return null;
 }
 var res={};
 var order=[];var _scene$props=
-
-
-
-
-
-
-
-
 scene.props,navigator=_scene$props.navigator,contentComponent=_scene$props.contentComponent,drawerWidth=_scene$props.drawerWidth,drawerLockMode=_scene$props.drawerLockMode,lazy=_scene$props.lazy,duration=_scene$props.duration,parentProps=_objectWithoutProperties(_scene$props,['navigator','contentComponent','drawerWidth','drawerLockMode','lazy','duration']);var
-
-tabs=
-
-
-
-
-
-
-
-parentProps.tabs,modal=parentProps.modal,lightbox=parentProps.lightbox,overlay=parentProps.overlay,tabBarPosition=parentProps.tabBarPosition,drawer=parentProps.drawer,tabBarComponent=parentProps.tabBarComponent,transitionConfig=parentProps.transitionConfig;
+tabs=parentProps.tabs,modal=parentProps.modal,lightbox=parentProps.lightbox,overlay=parentProps.overlay,tabBarPosition=parentProps.tabBarPosition,drawer=parentProps.drawer,tabBarComponent=parentProps.tabBarComponent,transitionConfig=parentProps.transitionConfig;
 if(scene.type===_Modal2.default){
 modal=true;
 }else if(scene.type===_Drawer2.default){
@@ -669,10 +542,7 @@ delete commonProps.children;
 delete commonProps.component;
 
 for(var _iterator4=Object.keys(commonProps),_isArray4=Array.isArray(_iterator4),_i5=0,_iterator4=_isArray4?_iterator4:_iterator4[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref8;if(_isArray4){if(_i5>=_iterator4.length)break;_ref8=_iterator4[_i5++];}else{_i5=_iterator4.next();if(_i5.done)break;_ref8=_i5.value;}var pkey=_ref8;
-if(
-dontInheritKeys.includes(pkey)&&(
-pkey==='type'||pkey==='hideNavBar'||!parentProps[pkey]))
-{
+if(dontInheritKeys.includes(pkey)&&(pkey==='type'||pkey==='hideNavBar'||!parentProps[pkey])){
 delete commonProps[pkey];
 }
 }
@@ -681,9 +551,7 @@ if(drawer){
 commonProps.drawerImage=commonProps.drawerImage||_menu_burger2.default;
 }
 
-var children=!Array.isArray(parentProps.children)?
-[parentProps.children]:
-[].concat.apply([],parentProps.children);
+var children=!Array.isArray(parentProps.children)?[parentProps.children]:[].concat.apply([],parentProps.children);
 
 if(!drawer&&!tabs&&!overlay){
 children.push.apply(children,_toConsumableArray(clones));
@@ -701,31 +569,13 @@ var initialRouteParams=void 0;var _loop2=function _loop2(
 _child){
 var key=_child.key||'key'+counter++;
 var init=key===children[0].key;
-(0,_Util.assert)(
-reservedKeys.indexOf(key)===-1,'Scene name cannot be reserved word: '+
-_child.key);var _child$props=
-
-
-
-
-
-
-
-
-
-
-
-
-
+(0,_Util.assert)(reservedKeys.indexOf(key)===-1,'Scene name cannot be reserved word: '+_child.key);var _child$props=
 _child.props,component=_child$props.component,_child$props$type=_child$props.type,type=_child$props$type===undefined?tabs||drawer?'jump':'push':_child$props$type,path=_child$props.path,onEnter=_child$props.onEnter,onExit=_child$props.onExit,on=_child$props.on,failure=_child$props.failure,success=_child$props.success,wrap=_child$props.wrap,_child$props$initial=_child$props.initial,initial=_child$props$initial===undefined?false:_child$props$initial,props=_objectWithoutProperties(_child$props,['component','type','path','onEnter','onExit','on','failure','success','wrap','initial']);
 if(!_this2.states[key]){
 _this2.states[key]={};
 }
 for(var _iterator7=Object.keys(props),_isArray7=Array.isArray(_iterator7),_i8=0,_iterator7=_isArray7?_iterator7:_iterator7[typeof Symbol==='function'?typeof Symbol==='function'?typeof Symbol==='function'?Symbol.iterator:'@@iterator':'@@iterator':'@@iterator']();;){var _ref11;if(_isArray7){if(_i8>=_iterator7.length)break;_ref11=_iterator7[_i8++];}else{_i8=_iterator7.next();if(_i8.done)break;_ref11=_i8.value;}var transition=_ref11;
-if(
-reservedKeys.indexOf(transition)===-1&&
-props[transition]instanceof Function)
-{
+if(reservedKeys.indexOf(transition)===-1&&props[transition]instanceof Function){
 _this2.states[key][transition]=props[transition];
 }
 }
@@ -753,10 +603,7 @@ _this2.states[key].path=path;
 }
 
 var screen={
-screen:
-createWrapper(component,wrapBy,_this2)||
-_this2.processScene(_child,commonProps,clones)||
-lightbox&&function(){return null;},
+screen:createWrapper(component,wrapBy,_this2)||_this2.processScene(_child,commonProps,clones)||lightbox&&function(){return null;},
 navigationOptions:createNavigationOptions(_extends({},
 commonProps,{
 hideNavBar:parentProps.hideNavBar},
@@ -805,17 +652,13 @@ _this2[key]=new Function(
 'actions',
 'props',
 'type','return function '+
-key.replace(
-/\W/g,
-'_')+'(params){ actions.execute(type, \''+
+
+key.replace(/\W/g,'_')+'(params){ actions.execute(type, \''+
 key+'\', props, params)}')(_this2,_extends({},
 commonProps,props),type);
 }
 
-if(
-(onEnter||on||component&&component.onEnter)&&
-!_this2[key+_Util.OnEnter])
-{
+if((onEnter||on||component&&component.onEnter)&&!_this2[key+_Util.OnEnter]){
 _this2[key+_Util.OnEnter]=onEnter||on||component.onEnter;
 }
 
@@ -851,15 +694,12 @@ navigationOptions:createNavigationOptions(commonProps)}));
 
 }else if(tabs){
 if(!tabBarComponent){
-tabBarComponent=
-tabBarPosition==='top'?
-function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:856}}));}:
-function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:857}}));};
+tabBarComponent=tabBarPosition==='top'?function(props){return _react2.default.createElement(_reactNavigation.TabBarTop,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:697}}));}:function(props){return _react2.default.createElement(_reactNavigation.TabBarBottom,_extends({},props,commonProps,{__source:{fileName:_jsxFileName,lineNumber:697}}));};
 }
 if(!tabBarPosition){
 tabBarPosition=_reactNative.Platform.OS==='android'?'top':'bottom';
 }
-return(0,_reactNavigation.TabNavigator)(res,_extends({
+return(0,_reactNavigation.createTabNavigator)(res,_extends({
 lazy:lazy,
 tabBarComponent:tabBarComponent,
 tabBarPosition:tabBarPosition,
@@ -886,7 +726,7 @@ config.drawerWidth=drawerWidth;
 if(drawerLockMode){
 config.drawerLockMode=drawerLockMode;
 }
-return(0,_reactNavigation.DrawerNavigator)(res,config);
+return(0,_reactNavigation.createDrawerNavigator)(res,config);
 }else if(overlay){
 return(0,_OverlayNavigator2.default)(res,_extends({
 lazy:lazy,
@@ -899,7 +739,7 @@ tabBarOptions:createTabBarOptions(commonProps),
 navigationOptions:createNavigationOptions(commonProps)}));
 
 }
-return(0,_reactNavigation.StackNavigator)(res,_extends({
+return(0,_reactNavigation.createStackNavigator)(res,_extends({
 mode:mode,
 initialRouteParams:initialRouteParams,
 initialRouteName:initialRouteName},
@@ -909,87 +749,10 @@ navigationOptions:createNavigationOptions(commonProps)}));
 
 };this.
 
-nextState=function(state,cmd){return(
-_this2.reducer?_this2.reducer(state,cmd):(0,_Reducer.reducer)(state,cmd));};this.
-
-dispatch=function(cmd){
-_this2.setState(_this2.nextState(_this2.state,cmd));
+dispatch=function(action){
+console.log('DISPATCH:',JSON.stringify(action));
+_this2._navigator.dispatch(action);
 };this.
-addListener=function(){return(
-{
-remove:function remove(){}});};_initDefineProp(this,'setState',_descriptor4,this);this.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 execute=function(actionType,routeName){for(var _len=arguments.length,params=Array(_len>2?_len-2:0),_key=2;_key<_len;_key++){params[_key-2]=arguments[_key];}
 var res=uniteParams(routeName,params);
@@ -1004,30 +767,33 @@ _this2[type](routeName,res);
 
 push=function(routeName,data){
 var params=filterParam(data);
-_this2.dispatch({type:ActionConst.PUSH,routeName:routeName,params:params});
+_this2.dispatch({type:_reactNavigation.NavigationActions.NAVIGATE,routeName:routeName,params:params});
 };this.
 
 jump=function(routeName,data){
 var params=filterParam(data);
-_this2.dispatch({type:ActionConst.JUMP,routeName:routeName,params:params});
+_this2.dispatch({type:_reactNavigation.NavigationActions.NAVIGATE,routeName:routeName,params:params});
 };this.
 
 drawerOpen=function(){
-_this2.dispatch(_reactNavigation.NavigationActions.navigate({routeName:'DrawerOpen'}));
+_this2.dispatch(_reactNavigation.DrawerActions.openDrawer());
 };this.
 
 drawerClose=function(){
-_this2.dispatch(_reactNavigation.NavigationActions.navigate({routeName:'DrawerClose'}));
+_this2.dispatch(_reactNavigation.DrawerActions.closeDrawer());
+};this.
+
+drawerToggle=function(){
+_this2.dispatch(_reactNavigation.DrawerActions.toggleDrawer());
 };this.
 
 refresh=function(data){
-var key=(0,_State.getActiveState)(_this2._state).key;
 var params=filterParam(data);
+var key=(0,_State.getActiveState)(_this2.state).key;
 _this2.dispatch(_reactNavigation.NavigationActions.setParams({key:key,params:params}));
 };this.
 
 pop=function(){var _ref12=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{},timeout=_ref12.timeout,params=_objectWithoutProperties(_ref12,['timeout']);
-var previous=(0,_State.getActiveState)(_this2.state);
 var res=filterParam(params);
 if(timeout){
 setTimeout(function(){return _this2.pop(params);},timeout);
@@ -1037,7 +803,7 @@ if(res.refresh){
 _this2.refresh(res.refresh);
 }
 }
-return!(0,_lodash2.default)(previous,(0,_State.getActiveState)(_this2.state));
+return true;
 };this.
 
 popTo=function(routeName,data){
@@ -1069,7 +835,7 @@ params:params})]}));
 
 
 
-};}_createClass(NavigationStore,[{key:'state',get:function get(){var scene=this.currentScene;var params=this.currentParams;return this._state;}}]);return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class2.prototype,'currentScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor2=_applyDecoratedDescriptor(_class2.prototype,'prevScene',[_mobx.observable],{enumerable:true,initializer:function initializer(){return'';}}),_descriptor3=_applyDecoratedDescriptor(_class2.prototype,'currentParams',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor4=_applyDecoratedDescriptor(_class2.prototype,'setState',[_mobx.action],{enumerable:true,initializer:function initializer(){var _this3=this;return function _callee(newState){var state,currentScene,exitHandler,res,handler,_success,_failure,params,_res;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:if(newState){_context.next=2;break;}return _context.abrupt('return');case 2:state=(0,_State.getActiveState)(newState);if(!((0,_lodash2.default)(state.params,_this3._currentParams)&&state.routeName===_this3.currentScene)){_context.next=5;break;}return _context.abrupt('return');case 5:currentScene=_this3.currentScene;_this3._state=newState;_this3.currentScene=state.routeName;_this3.prevScene=currentScene;_this3.currentParams=state.params;_this3._currentParams=state.params;if(!(currentScene!==_this3.currentScene&&_this3.currentScene!=='DrawerOpen'&&_this3.currentScene!=='DrawerClose')){_context.next=32;break;}_this3.dispatch({type:ActionConst.BLUR,routeName:currentScene});exitHandler=_this3[currentScene+_Util.OnExit];if(exitHandler){try{res=exitHandler();if(res instanceof Promise){res.then(defaultSuccess,defaultFailure);}}catch(e){console.error('Error during onExit handler:',e);}}_this3.dispatch({type:ActionConst.FOCUS,routeName:_this3.currentScene,params:_this3._currentParams});if(!_this3.states[_this3.currentScene]){_context.next=32;break;}handler=_this3[_this3.currentScene+_Util.OnEnter];_success=_this3.states[_this3.currentScene].success||defaultSuccess;_failure=_this3.states[_this3.currentScene].failure||defaultFailure;if(!handler){_context.next=32;break;}_context.prev=21;params=(0,_State.getActiveState)(_this3._state).params;_context.next=25;return regeneratorRuntime.awrap(handler(params));case 25:_res=_context.sent;if(_res){_success(_res);}else{_failure();}_context.next=32;break;case 29:_context.prev=29;_context.t0=_context['catch'](21);_failure({error:_context.t0.message});case 32:case'end':return _context.stop();}}},null,_this3,[[21,29]]);};}})),_class2);exports.default=
+};}_createClass(NavigationStore,[{key:'currentScene',get:function get(){return(0,_State.getActiveState)(this.state);}},{key:'prevScene',get:function get(){return(0,_State.getActiveState)(this.prevState);}}]);return NavigationStore;}(),(_descriptor=_applyDecoratedDescriptor(_class2.prototype,'state',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor2=_applyDecoratedDescriptor(_class2.prototype,'prevState',[_mobx.observable],{enumerable:true,initializer:null}),_descriptor3=_applyDecoratedDescriptor(_class2.prototype,'currentParams',[_mobx.observable],{enumerable:true,initializer:null}),_applyDecoratedDescriptor(_class2.prototype,'currentScene',[_mobx.computed],Object.getOwnPropertyDescriptor(_class2.prototype,'currentScene'),_class2.prototype),_applyDecoratedDescriptor(_class2.prototype,'prevScene',[_mobx.computed],Object.getOwnPropertyDescriptor(_class2.prototype,'prevScene'),_class2.prototype)),_class2);exports.default=
 
 
 new NavigationStore();
