@@ -419,7 +419,8 @@ elevation:1};
 
 if(backToInitial){
 res.tabBarOnPress=function(_ref4){var scene=_ref4.scene,jumpToIndex=_ref4.jumpToIndex;
-if(scene.focused){
+if(!scene.focused) {jumpToIndex(scene.index);
+}
 if(scene.route.index!==0){
 
 
@@ -430,9 +431,6 @@ if(scene.route.index!==0){
 for(var i=1;i<scene.route.routes.length;i++){
 navigation.dispatch(_reactNavigation.NavigationActions.back());
 }
-}
-}else{
-jumpToIndex(scene.index);
 }
 };
 }
