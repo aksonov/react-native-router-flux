@@ -185,9 +185,7 @@ function createNavigationOptions(params) {
     ...props,
   } = params;
   const NavBar = renderNavigationBar || navBar;
-  if (component && component.navigationOptions) {
-    return component.navigationOptions;
-  }
+  const componentNavigationOptions = component && component.navigationOptions ? component.navigationOptions : {};
   return ({ navigation, screenProps }) => {
     const navigationParams = navigation.state.params || {};
     const state = {
@@ -226,6 +224,7 @@ function createNavigationOptions(params) {
         state
       ),
       headerBackImage: navigationParams.backButtonImage || backButtonImage,
+      ...componentNavigationOptions,
     };
 
     const NavBarFromParams =
