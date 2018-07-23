@@ -1252,7 +1252,7 @@ babel-core@^6.0.0, babel-core@^6.24.1, babel-core@^6.26.0, babel-core@^6.7.2:
     slash "^1.0.0"
     source-map "^0.5.7"
 
-babel-core@^7.0.0-bridge.0:
+babel-core@^7.0.0-0:
   version "7.0.0-bridge.0"
   resolved "https://registry.yarnpkg.com/babel-core/-/babel-core-7.0.0-bridge.0.tgz#95a492ddd90f9b4e9a4a1da14eb335b87b634ece"
 
@@ -1352,7 +1352,7 @@ babel-helpers@^6.24.1:
     babel-runtime "^6.22.0"
     babel-template "^6.24.1"
 
-babel-jest@23.4.0, babel-jest@^23.4.0:
+babel-jest@^23.4.0:
   version "23.4.0"
   resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-23.4.0.tgz#22c34c392e2176f6a4c367992a7fcff69d2e8557"
   dependencies:
@@ -3610,7 +3610,7 @@ jest-worker@^23.0.1, jest-worker@^23.2.0:
   dependencies:
     merge-stream "^1.0.1"
 
-jest@23.4.1:
+jest@^23.4.1:
   version "23.4.1"
   resolved "https://registry.yarnpkg.com/jest/-/jest-23.4.1.tgz#39550c72f3237f63ae1b434d8d122cdf6fa007b6"
   dependencies:
