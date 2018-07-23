@@ -9,7 +9,7 @@ jobs:
           name: temporary-eslint-airbnb-config-install
           command: |
             git clone https://github.com/airbnb/javascript.git ~/airbnb-style
-            cd ~/airbnb/ && yarn install
+            cd ~/airbnb-style/ && yarn install
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
