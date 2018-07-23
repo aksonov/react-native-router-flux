@@ -32,6 +32,7 @@
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.54",
     "@babel/core": "^7.0.0-beta.54",
+    "@babel/plugin-proposal-decorators": "^7.0.0-beta.54",
     "@babel/preset-flow": "^7.0.0-beta.54",
     "@types/react": "^16.4.6",
     "@types/react-native": "^0.56.4",
