@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/react-native-router-flux
     docker:
-      - image: circleci/node:7
+      - image: circleci/node:8
     steps:
       - run:
           name: temporary-eslint-airbnb-config-install
