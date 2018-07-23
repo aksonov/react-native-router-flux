@@ -3,7 +3,7 @@ import {
   Image, Animated, Easing, Platform,
 } from 'react-native';
 import {
-  createTabNavigator, createDrawerNavigator, createStackNavigator, NavigationActions, DrawerActions, TabBarTop, TabBarBottom,
+  createBottomTabNavigator, createMaterialTopTabNavigator, createDrawerNavigator, createStackNavigator, NavigationActions, DrawerActions,
 } from 'react-navigation';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash.isequal';
@@ -704,17 +704,16 @@ class NavigationStore {
         ...commonProps,
         navigationOptions: createNavigationOptions(commonProps),
       });
-    } if (tabs) {
-      if (!tabBarComponent) {
-        tabBarComponent = tabBarPosition === 'top' ? props => <TabBarTop {...props} {...commonProps} /> : props => <TabBarBottom {...props} {...commonProps} />;
-      }
-      if (!tabBarPosition) {
-        tabBarPosition = Platform.OS === 'android' ? 'top' : 'bottom';
+    }
+
+    if (tabs) {
+      let createTabNavigator = createMaterialTopTabNavigator;
+      if (tabBarPosition !== 'top') {
+        createTabNavigator = createBottomTabNavigator;
       }
       return createTabNavigator(res, {
         lazy,
         tabBarComponent,
-        tabBarPosition,
         initialRouteName,
         initialRouteParams,
         order,
@@ -722,7 +721,9 @@ class NavigationStore {
         tabBarOptions: createTabBarOptions(commonProps),
         navigationOptions: createNavigationOptions(commonProps),
       });
-    } if (drawer) {
+    }
+
+    if (drawer) {
       const config = {
         initialRouteName,
         contentComponent,
@@ -739,7 +740,9 @@ class NavigationStore {
         config.drawerLockMode = drawerLockMode;
       }
       return createDrawerNavigator(res, config);
-    } if (overlay) {
+    }
+
+    if (overlay) {
       return OverlayNavigator(res, {
         lazy,
         initialRouteName,
@@ -849,5 +852,6 @@ class NavigationStore {
     );
   };
 }
+
 
 export default new NavigationStore();

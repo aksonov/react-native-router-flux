@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  ViewPropTypes, BackHandler, Linking, View,
+  ViewPropTypes, BackHandler, Linking,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import navigationStore from './navigationStore';
@@ -12,6 +12,13 @@ class App extends React.Component {
     backAndroidHandler: PropTypes.func,
     uriPrefix: PropTypes.string,
     onDeepLink: PropTypes.func,
+  };
+
+  static defaultProps = {
+    navigator: null,
+    backAndroidHandler: null,
+    uriPrefix: null,
+    onDeepLink: null,
   };
 
   componentDidMount() {
@@ -112,6 +119,19 @@ Router.propTypes = {
   children: PropTypes.element,
   uriPrefix: PropTypes.string,
   onDeepLink: PropTypes.func,
+};
+Router.defaultProps = {
+  createReducer: null,
+  dispatch: null,
+  state: null,
+  scenes: null,
+  navigator: null,
+  wrapBy: null,
+  getSceneStyle: null,
+  sceneStyle: null,
+  children: null,
+  uriPrefix: null,
+  onDeepLink: null,
 };
 
 export default Router;
