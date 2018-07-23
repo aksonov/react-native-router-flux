@@ -95,7 +95,7 @@ class App extends React.Component {
 }
 
 const Router = ({
-  createReducer, sceneStyle, scenes, uriPrefix, navigator, getSceneStyle, children, state, dispatch, onDeepLink, wrapBy = props => props, ...props
+  createReducer, sceneStyle, scenes, uriPrefix, navigator, getSceneStyle, children, state, dispatch, onDeepLink, wrapBy, ...props
 }) => {
   const data = { ...props };
   if (getSceneStyle) {
@@ -126,7 +126,7 @@ Router.defaultProps = {
   state: null,
   scenes: null,
   navigator: null,
-  wrapBy: null,
+  wrapBy: props => props,
   getSceneStyle: null,
   sceneStyle: null,
   children: null,
