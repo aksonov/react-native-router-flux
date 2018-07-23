@@ -7,7 +7,7 @@ import navigationStore from './navigationStore';
 
 const OverlayNavigator = (
   routeConfigs,
-  tabsConfig = {}
+  tabsConfig = {},
 ) => {
   const router = TabRouter(routeConfigs, tabsConfig);
 
@@ -15,7 +15,7 @@ const OverlayNavigator = (
     router,
     routeConfigs,
     tabsConfig,
-    'react-navigation/STACK'
+    'react-navigation/STACK',
   )(({ navigation }) => {
     const { state, dispatch } = navigation;
     const { routes } = state;
@@ -41,10 +41,12 @@ const OverlayNavigator = (
       }
     }
     const ContentComponent = tabsConfig.contentComponent || View;
-    return (<ContentComponent style={{ flex: 1 }}>
-      <Component navigation={{ dispatch, state: routes[initialIndex], addListener: navigationStore.addListener }} />
-      {overlays}
-    </ContentComponent>);
+    return (
+      <ContentComponent style={{ flex: 1 }}>
+        <Component navigation={{ dispatch, state: routes[initialIndex], addListener: navigationStore.addListener }} />
+        {overlays}
+      </ContentComponent>
+    );
   });
 
   return createNavigationContainer(navigator, tabsConfig.containerOptions);

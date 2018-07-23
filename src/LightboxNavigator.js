@@ -1,11 +1,15 @@
 /* @flow */
 
 import React from 'react';
-import { addNavigationHelpers, createNavigationContainer, createNavigator, TabRouter } from 'react-navigation';
+import {
+  addNavigationHelpers, createNavigationContainer, createNavigator, TabRouter,
+} from 'react-navigation';
 import { View } from 'react-native';
 import navigationStore from './navigationStore';
 
-const NavigationView = ({ navigation, screenProps, navigationConfig, descriptors }) => {
+const NavigationView = ({
+  navigation, screenProps, navigationConfig, descriptors,
+}) => {
   const { state, dispatch } = navigation;
   const { routes, index } = state;
 

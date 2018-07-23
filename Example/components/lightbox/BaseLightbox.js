@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet, Animated, Dimensions, Button } from 'react-native';
+import {
+  View, StyleSheet, Animated, Dimensions, Button,
+} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 const { height: deviceHeight, width: deviceWidth } = Dimensions.get('window');
@@ -58,7 +60,7 @@ export default class BaseLightbox extends Component {
     return (
       <Animated.View style={[styles.container, { opacity: this.state.opacity }]}>
         {this._renderLightBox()}
-      </Animated.View >
+      </Animated.View>
     );
   }
 }

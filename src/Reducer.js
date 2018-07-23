@@ -1,8 +1,10 @@
 import isEqual from 'lodash.isequal';
+import { NavigationActions } from 'react-navigation';
 import navigationStore from './navigationStore';
 import * as ActionConst from './ActionConst';
-import { NavigationActions } from 'react-navigation';
-import { getActiveState, popPrevious, isActiveRoute, getActiveStateExceptDrawer } from './State';
+import {
+  getActiveState, popPrevious, isActiveRoute, getActiveStateExceptDrawer,
+} from './State';
 
 export const supportedActions = {
   [ActionConst.PUSH]: NavigationActions.NAVIGATE,
@@ -47,7 +49,7 @@ export function reducer(state = navigationStore.state, action) {
       key,
       params: action.params,
     }), newState);
-  } else if (type === ActionConst.POP_TO) {
+  } if (type === ActionConst.POP_TO) {
     let nextScene = '';
     let newState = state;
     let currentState = state;
@@ -68,7 +70,7 @@ export function reducer(state = navigationStore.state, action) {
       }
     }
     return nextScene === routeName ? newState : state;
-  } else if (type === ActionConst.REPLACE) {
+  } if (type === ActionConst.REPLACE) {
     const newState = navigationStore.router.getStateForAction(NavigationActions.navigate({
       routeName,
       params: action.params,

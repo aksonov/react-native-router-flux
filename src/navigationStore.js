@@ -1,16 +1,19 @@
 import React from 'react';
+import {
+  Image, Animated, Easing, Platform,
+} from 'react-native';
+import {
+  createTabNavigator, createDrawerNavigator, createStackNavigator, NavigationActions, DrawerActions, TabBarTop, TabBarBottom,
+} from 'react-navigation';
+import PropTypes from 'prop-types';
+import isEqual from 'lodash.isequal';
 import * as ActionConst from './ActionConst';
 import { OnEnter, OnExit, assert } from './Util';
-import { Image, Animated, Easing, Platform } from 'react-native';
-import { createTabNavigator, createDrawerNavigator, createStackNavigator, NavigationActions, DrawerActions, TabBarTop, TabBarBottom } from 'react-navigation';
-import { observable, computed } from 'mobx';
 import { LeftButton, RightButton, BackButton } from './NavBar';
 import LightboxNavigator from './LightboxNavigator';
 import _drawerImage from '../images/menu_burger.png';
 import Scene from './Scene';
-import PropTypes from 'prop-types';
 import { getActiveState } from './State';
-import isEqual from 'lodash.isequal';
 import Modal from './Modal';
 import Lightbox from './Lightbox';
 import Drawer from './Drawer';
@@ -106,7 +109,9 @@ function getProperties(component = {}) {
   delete res.children;
   return res;
 }
-function createTabBarOptions({ tabBarStyle, activeTintColor, inactiveTintColor, activeBackgroundColor, inactiveBackgroundColor, showLabel, labelStyle, tabStyle, ...props }) {
+function createTabBarOptions({
+  tabBarStyle, activeTintColor, inactiveTintColor, activeBackgroundColor, inactiveBackgroundColor, showLabel, labelStyle, tabStyle, ...props
+}) {
   return {
     ...props,
     style: tabBarStyle,
@@ -247,15 +252,15 @@ function createNavigationOptions(params) {
     }
 
     if (
-      rightButtonImage ||
-      rightTitle ||
-      params.renderRightButton ||
-      onRight ||
-      navigationParams.onRight ||
-      navigationParams.rightTitle ||
-      navigationParams.rightButtonImage ||
-      rightButtonTextStyle ||
-      ((drawerImage || drawerIcon) && !hideDrawerButton && drawerPosition === 'right')
+      rightButtonImage
+      || rightTitle
+      || params.renderRightButton
+      || onRight
+      || navigationParams.onRight
+      || navigationParams.rightTitle
+      || navigationParams.rightButtonImage
+      || rightButtonTextStyle
+      || ((drawerImage || drawerIcon) && !hideDrawerButton && drawerPosition === 'right')
     ) {
       res.headerRight = getValue(navigationParams.right || navigationParams.rightButton || params.renderRightButton, { ...navigationParams, ...screenProps }) || (
         <RightNavBarButton {...params} {...navigationParams} {...componentData} />
@@ -263,29 +268,28 @@ function createNavigationOptions(params) {
     }
 
     if (
-      leftButtonImage ||
-      backButtonImage ||
-      backTitle ||
-      leftTitle ||
-      params.renderLeftButton ||
-      leftButtonTextStyle ||
-      renderBackButton ||
-      backButtonTextStyle ||
-      onLeft ||
-      navigationParams.leftTitle ||
-      navigationParams.onLeft ||
-      navigationParams.leftButtonImage ||
-      navigationParams.backButtonImage ||
-      navigationParams.backTitle ||
-      ((drawerImage || drawerIcon) && !hideDrawerButton && drawerPosition !== 'right')
+      leftButtonImage
+      || backButtonImage
+      || backTitle
+      || leftTitle
+      || params.renderLeftButton
+      || leftButtonTextStyle
+      || renderBackButton
+      || backButtonTextStyle
+      || onLeft
+      || navigationParams.leftTitle
+      || navigationParams.onLeft
+      || navigationParams.leftButtonImage
+      || navigationParams.backButtonImage
+      || navigationParams.backTitle
+      || ((drawerImage || drawerIcon) && !hideDrawerButton && drawerPosition !== 'right')
     ) {
-      res.headerLeft =
-        getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps }) ||
-        (((onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage || navigationParams.leftButtonImage)) || drawerImage || drawerIcon) && (
+      res.headerLeft = getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
+        || (((onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage || navigationParams.leftButtonImage)) || drawerImage || drawerIcon) && (
           <LeftNavBarButton {...params} {...navigationParams} {...componentData} />
-        )) ||
-        res.headerLeft ||
-        (init ? null : (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />);
+        ))
+        || res.headerLeft
+        || (init ? null : (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />);
     }
 
     if (back) {
@@ -362,11 +366,11 @@ function extendProps(props, store: NavigationStore) {
   const res = { ...props };
   for (const transition of Object.keys(props)) {
     if (
-      reservedKeys.indexOf(transition) === -1 &&
-      transition.startsWith('on') &&
-      transition.charAt(2) >= 'A' &&
-      transition.charAt(2) <= 'Z' &&
-      typeof props[transition] === 'string'
+      reservedKeys.indexOf(transition) === -1
+      && transition.startsWith('on')
+      && transition.charAt(2) >= 'A'
+      && transition.charAt(2) <= 'Z'
+      && typeof props[transition] === 'string'
     ) {
       if (store[props[transition]]) {
         res[transition] = params => store[props[transition]](params);
@@ -390,10 +394,12 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
       static propTypes = {
         navigation: PropTypes.object,
       };
+
       constructor() {
         super();
         this.onRef = this.onRef.bind(this);
       }
+
       componentDidMount() {
         const navigation = this.props.navigation;
         if (this.ref && navigation && navigation.state && navigation.state.routeName) {
@@ -403,6 +409,7 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
           this.ref.onEnter(navigation && navigation.state);
         }
       }
+
       componentWillUnmount() {
         const navigation = this.props.navigation;
         if (this.ref && navigation && navigation.state && navigation.state.routeName) {
@@ -413,9 +420,11 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
         }
         this.ref = null;
       }
+
       onRef(ref) {
         this.ref = ref;
       }
+
       render() {
         const navigation = this.props.navigation;
         if (!navigation || !navigation.state) {
@@ -465,16 +474,15 @@ const defaultFailure = () => {};
 
 class NavigationStore {
   _navigator = null;
+
   refs = {};
+
   states = {};
-  @observable state;
-  @observable prevState;
-  @observable currentParams;
-  @computed
+
   get currentScene() {
     return getActiveState(this.state);
   }
-  @computed
+
   get prevScene() {
     return getActiveState(this.prevState);
   }
@@ -485,7 +493,7 @@ class NavigationStore {
     this.currentParams = action.params;
   };
 
-  setTopLevelNavigator = navigatorRef => {
+  setTopLevelNavigator = (navigatorRef) => {
     this._navigator = navigatorRef;
   };
 
@@ -493,7 +501,7 @@ class NavigationStore {
     this.refs[name] = ref;
   };
 
-  deleteRef = name => {
+  deleteRef = (name) => {
     delete this.refs[name];
   };
 
@@ -513,8 +521,12 @@ class NavigationStore {
     }
     const res = {};
     const order = [];
-    const { navigator, contentComponent, drawerWidth, drawerLockMode, lazy, duration, ...parentProps } = scene.props;
-    let { tabs, modal, lightbox, overlay, tabBarPosition, drawer, tabBarComponent, transitionConfig } = parentProps;
+    const {
+      navigator, contentComponent, drawerWidth, drawerLockMode, lazy, duration, ...parentProps
+    } = scene.props;
+    let {
+      tabs, modal, lightbox, overlay, tabBarPosition, drawer, tabBarComponent, transitionConfig,
+    } = parentProps;
     if (scene.type === Modal) {
       modal = true;
     } else if (scene.type === Drawer) {
@@ -570,7 +582,9 @@ class NavigationStore {
       const key = child.key || `key${counter++}`;
       const init = key === children[0].key;
       assert(reservedKeys.indexOf(key) === -1, `Scene name cannot be reserved word: ${child.key}`);
-      const { component, type = tabs || drawer ? 'jump' : 'push', path, onEnter, onExit, on, failure, success, wrap, initial = false, ...props } = child.props;
+      const {
+        component, type = tabs || drawer ? 'jump' : 'push', path, onEnter, onExit, on, failure, success, wrap, initial = false, ...props
+      } = child.props;
       if (!this.states[key]) {
         this.states[key] = {};
       }
@@ -581,22 +595,20 @@ class NavigationStore {
       }
       delete props.children;
       if (success) {
-        this.states[key].success =
-          success instanceof Function
-            ? success
-            : args => {
-                console.log(`Transition to state=${success}`);
-                this[success](args);
-              };
+        this.states[key].success = success instanceof Function
+          ? success
+          : (args) => {
+            console.log(`Transition to state=${success}`);
+            this[success](args);
+          };
       }
       if (failure) {
-        this.states[key].failure =
-          failure instanceof Function
-            ? failure
-            : args => {
-                console.log(`Transition to state=${failure}`);
-                this[failure](args);
-              };
+        this.states[key].failure = failure instanceof Function
+          ? failure
+          : (args) => {
+            console.log(`Transition to state=${failure}`);
+            this[failure](args);
+          };
       }
       if (path) {
         this.states[key].path = path;
@@ -692,7 +704,7 @@ class NavigationStore {
         ...commonProps,
         navigationOptions: createNavigationOptions(commonProps),
       });
-    } else if (tabs) {
+    } if (tabs) {
       if (!tabBarComponent) {
         tabBarComponent = tabBarPosition === 'top' ? props => <TabBarTop {...props} {...commonProps} /> : props => <TabBarBottom {...props} {...commonProps} />;
       }
@@ -710,7 +722,7 @@ class NavigationStore {
         tabBarOptions: createTabBarOptions(commonProps),
         navigationOptions: createNavigationOptions(commonProps),
       });
-    } else if (drawer) {
+    } if (drawer) {
       const config = {
         initialRouteName,
         contentComponent,
@@ -727,7 +739,7 @@ class NavigationStore {
         config.drawerLockMode = drawerLockMode;
       }
       return createDrawerNavigator(res, config);
-    } else if (overlay) {
+    } if (overlay) {
       return OverlayNavigator(res, {
         lazy,
         initialRouteName,
@@ -749,7 +761,7 @@ class NavigationStore {
     });
   };
 
-  dispatch = action => {
+  dispatch = (action) => {
     console.log('DISPATCH:', JSON.stringify(action));
     this._navigator.dispatch(action);
   };
@@ -787,7 +799,7 @@ class NavigationStore {
     this.dispatch(DrawerActions.toggleDrawer());
   };
 
-  refresh = data => {
+  refresh = (data) => {
     const params = filterParam(data);
     const key = getActiveState(this.state).key;
     this.dispatch(NavigationActions.setParams({ key, params }));

@@ -9,12 +9,12 @@ const propTypes = {
   title: PropTypes.string,
 };
 
-const TabIcon = (props) => {
-  return <Text
-    style={{color: props.focused ? 'red' : 'black'}}
+const TabIcon = props => (
+  <Text
+    style={{ color: props.focused ? 'red' : 'black' }}
   >{props.title}
   </Text>
-};
+);
 
 TabIcon.propTypes = propTypes;
 

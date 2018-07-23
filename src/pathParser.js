@@ -89,9 +89,7 @@ export const matchPath = (path, url) => {
   // given url, then return null)
   if (urlToMatch !== compiledUrl) { return null; }
 
-  const params = keys.reduce((acc, key, index) =>
-    Object.assign({}, acc, { [key.name]: values[index] }), {}
-  );
+  const params = keys.reduce((acc, key, index) => Object.assign({}, acc, { [key.name]: values[index] }), {});
 
   return { path, params };
 };
@@ -106,9 +104,8 @@ export const matchPath = (path, url) => {
  * @param {String} url - a url that may or may not match a given path
  *
  */
-const pathParser = (url, possibleMatchingpaths = []) =>
-  possibleMatchingpaths
-    .map(path => matchPath(path, url))
-    .find(obj => obj);
+const pathParser = (url, possibleMatchingpaths = []) => possibleMatchingpaths
+  .map(path => matchPath(path, url))
+  .find(obj => obj);
 
 export default pathParser;

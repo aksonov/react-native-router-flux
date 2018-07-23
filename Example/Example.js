@@ -1,12 +1,16 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import {
+  Platform, StyleSheet, Text, View,
+} from 'react-native';
+import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
+import {
+  Scene, Router, Actions, Reducer, ActionConst, Overlay, Tabs, Modal, Drawer, Stack, Lightbox,
+} from 'react-native-router-flux';
 import Launch from './components/Launch';
 import Register from './components/Register';
 import Login from './components/Login';
 import Login2 from './components/Login2';
 import Login3 from './components/Login3';
-import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
-import { Scene, Router, Actions, Reducer, ActionConst, Overlay, Tabs, Modal, Drawer, Stack, Lightbox } from 'react-native-router-flux';
 import Home from './components/Home';
 import DrawerContent from './components/drawer/DrawerContent';
 import TabView from './components/TabView';
@@ -35,7 +39,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const reducerCreate = params => {
+const reducerCreate = (params) => {
   const defaultReducer = new Reducer(params);
   return (state, action) => {
     console.log('ACTION:', action);
@@ -68,7 +72,7 @@ const Example = () => (
         <Scene key="customNavBar1" title="CustomNavBar 1" navBar={CustomNavBar} component={CustomNavBarView} back />
         <Scene key="customNavBar2" title="CustomNavBar 2" navBar={CustomNavBar} component={CustomNavBarView} back />
         <Scene key="customNavBar3" title="Another CustomNavBar" navBar={CustomNavBar2} component={CustomNavBarView} back />
-        <Scene key="hiddenNavBar" title="hiddenNavBar" component={CustomNavBarView} hideNavBar={true} back />
+        <Scene key="hiddenNavBar" title="hiddenNavBar" component={CustomNavBarView} hideNavBar back />
       </Stack>
 
       <Stack back backTitle="Back" key="register" duration={0} navTransparent>

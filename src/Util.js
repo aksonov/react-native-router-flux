@@ -37,4 +37,3 @@ export function assert(expr, failDescription) {
 
 export const OnEnter = 'onEnter';
 export const OnExit = 'onExit';
-

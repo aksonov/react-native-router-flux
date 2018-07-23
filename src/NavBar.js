@@ -1,10 +1,14 @@
 import React from 'react';
 import { HeaderBackButton } from 'react-navigation';
-import { Platform, I18nManager, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Platform, I18nManager, Image, StyleSheet, Text, TouchableOpacity, View,
+} from 'react-native';
 import Actions from './navigationStore';
 import _backButtonImage from '../images/back_chevron.png';
 
-const hitSlop = { top: 15, bottom: 15, left: 15, right: 15 };
+const hitSlop = {
+  top: 15, bottom: 15, left: 15, right: 15,
+};
 export function BackButton(state) {
   const textButtonStyle = [styles.barBackButtonText, state.backButtonTextStyle];
   const style = [styles.backButton, state.leftButtonStyle];
@@ -50,7 +54,7 @@ export function LeftButton(state) {
 
   if (state.leftButton || state.left) {
     const Button = state.leftButton || state.left;
-    return <Button {...state} key={'leftNavBarBtn'} testID="leftNavButton" style={[...style, ...leftButtonStyle]} textStyle={textStyle} />;
+    return <Button {...state} key="leftNavBarBtn" testID="leftNavButton" style={[...style, ...leftButtonStyle]} textStyle={textStyle} />;
   }
 
   if (!onPress && !state.hideDrawerButton && (state.drawerImage || menuIcon) && state.drawerPosition !== 'right') {
@@ -66,10 +70,10 @@ export function LeftButton(state) {
   if (onPress && (leftTitle || buttonImage || menuIcon)) {
     onPress = onPress.bind(null, state);
     return (
-      <TouchableOpacity key={'leftNavBarBtn'} testID="leftNavButton" style={style} onPress={onPress} hitSlop={state.hitSlop || hitSlop}>
+      <TouchableOpacity key="leftNavBarBtn" testID="leftNavButton" style={style} onPress={onPress} hitSlop={state.hitSlop || hitSlop}>
         {leftTitle && <Text style={textStyle}>{leftTitle}</Text>}
-        {!leftTitle &&
-          (menuIcon || buttonImage) && (
+        {!leftTitle
+          && (menuIcon || buttonImage) && (
             <View
               style={{
                 flex: 1,
@@ -79,14 +83,14 @@ export function LeftButton(state) {
             >
               {menuIcon || <Image source={buttonImage} style={[state.leftButtonIconStyle || styles.defaultImageStyle, { tintColor }]} />}
             </View>
-          )}
+        )}
       </TouchableOpacity>
     );
   }
   if (!!state.onLeft ^ !!(leftTitle || buttonImage || menuIcon)) {
     console.warn(
       `Both onLeft and leftTitle/leftButtonImage
-            must be specified for the scene: ${state.name}`
+            must be specified for the scene: ${state.name}`,
     );
   }
   return null;
@@ -115,7 +119,7 @@ export function RightButton(state) {
 
   if (state.rightButton || state.right) {
     const Button = state.rightButton || state.right;
-    return <Button {...state} key={'rightNavBarBtn'} testID="rightNavButton" style={style} textButtonStyle={textStyle} />;
+    return <Button {...state} key="rightNavBarBtn" testID="rightNavButton" style={style} textButtonStyle={textStyle} />;
   }
 
   if (!onPress && !state.hideDrawerButton && state.drawerImage && state.drawerPosition === 'right') {
@@ -131,10 +135,10 @@ export function RightButton(state) {
   if (onPress && (rightTitle || buttonImage)) {
     onPress = onPress.bind(null, state);
     return (
-      <TouchableOpacity key={'rightNavBarBtn'} testID="rightNavButton" style={style} onPress={onPress} hitSlop={state.hitSlop || hitSlop}>
+      <TouchableOpacity key="rightNavBarBtn" testID="rightNavButton" style={style} onPress={onPress} hitSlop={state.hitSlop || hitSlop}>
         {rightTitle && <Text style={textStyle}>{rightTitle}</Text>}
-        {!rightTitle &&
-          buttonImage && (
+        {!rightTitle
+          && buttonImage && (
             <View
               style={{
                 flex: 1,
@@ -144,14 +148,14 @@ export function RightButton(state) {
             >
               {menuIcon || <Image source={buttonImage} style={[state.rightButtonIconStyle || styles.defaultImageStyle, { tintColor }]} />}
             </View>
-          )}
+        )}
       </TouchableOpacity>
     );
   }
   if (!!state.onRight ^ !!(typeof rightTitle !== 'undefined' || typeof buttonImage !== 'undefined')) {
     console.warn(
       `Both onRight and rightTitle/rightButtonImage
-            must be specified for the scene: ${state.routeName}`
+            must be specified for the scene: ${state.routeName}`,
     );
   }
   return null;
