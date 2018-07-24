@@ -10,7 +10,7 @@ export default ({ navigationConfig, descriptors }) => {
   const Component = descriptor.getComponent();
 
   const overlays = [];
-  for (let i = 0; i < order.length; i++) {
+  for (let i = 0; i < order.length; i += 1) {
     const routeName = order[i];
     if (initialRouteName !== routeName) {
       const Overlay = descriptors[routeName].getComponent();

@@ -37,7 +37,7 @@ class App extends React.Component {
 
   handleDeepURL = e => this.parseDeepURL(e.url);
 
-  parseDeepURL = url => {
+  parseDeepURL = (url) => {
     // If there is no url, then return.
     if (!url) {
       return;
@@ -83,7 +83,7 @@ class App extends React.Component {
     return (
       <AppNavigator
         onNavigationStateChange={navigationStore.onNavigationStateChange}
-        ref={navigatorRef => {
+        ref={(navigatorRef) => {
           navigationStore.setTopLevelNavigator(navigatorRef);
         }}
       />
@@ -91,7 +91,9 @@ class App extends React.Component {
   }
 }
 
-const Router = ({ sceneStyle, scenes, uriPrefix, navigator, getSceneStyle, children, onDeepLink, wrapBy, ...props }) => {
+const Router = ({
+  sceneStyle, scenes, uriPrefix, navigator, getSceneStyle, children, onDeepLink, wrapBy, ...props
+}) => {
   const data = { ...props };
   if (getSceneStyle) {
     data.cardStyle = getSceneStyle(props);

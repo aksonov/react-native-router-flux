@@ -9,6 +9,7 @@ module.exports = {
   },
   parser: 'babel-eslint',
   rules: {
+    "no-new-func": "warn",
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",

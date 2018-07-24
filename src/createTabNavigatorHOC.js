@@ -2,5 +2,7 @@
 
 import { createNavigator, createNavigationContainer, TabRouter } from 'react-navigation';
 
-export default NavigationView => (routeConfigs, navigationConfig = {}) =>
-  createNavigationContainer(createNavigator(NavigationView, TabRouter(routeConfigs, navigationConfig), navigationConfig));
+export default NavigationView => (routeConfigs, navigationConfig = {}) => {
+  const router = TabRouter(routeConfigs, navigationConfig);
+  return createNavigationContainer(createNavigator(NavigationView, router, navigationConfig));
+};

@@ -2611,6 +2611,14 @@ escodegen@^1.9.0:
   optionalDependencies:
     source-map "~0.6.1"
 
+eslint-config-airbnb-base@^13.0.0:
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-13.0.0.tgz#2ee6279c4891128e49d6445b24aa13c2d1a21450"
+  dependencies:
+    eslint-restricted-globals "^0.1.1"
+    object.assign "^4.1.0"
+    object.entries "^1.0.4"
+
 "eslint-config-airbnb-base@file:../airbnb-style/packages/eslint-config-airbnb-base":
   version "13.0.0"
   dependencies:
@@ -2621,7 +2629,7 @@ escodegen@^1.9.0:
 "eslint-config-airbnb@file:../airbnb-style/packages/eslint-config-airbnb":
   version "17.0.0"
   dependencies:
-    eslint-config-airbnb-base "file:../../../Library/Caches/Yarn/v1/eslint-config-airbnb-base"
+    eslint-config-airbnb-base "^13.0.0"
     object.assign "^4.1.0"
     object.entries "^1.0.4"
 
