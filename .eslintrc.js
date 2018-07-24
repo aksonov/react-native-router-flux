@@ -34,6 +34,8 @@ module.exports = {
         ],
       },
     ],
+    "import/no-cycle": "warn",
+    "import/no-self-import": "warn",
     'react/jsx-filename-extension': [
       1,
       {
