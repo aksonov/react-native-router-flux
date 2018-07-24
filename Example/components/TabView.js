@@ -1,13 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View, ViewPropTypes } from 'react-native';
+import {
+  StyleSheet, Text, View, ViewPropTypes,
+} from 'react-native';
 import Button from 'react-native-button';
 import { Actions } from 'react-native-router-flux';
 
 const propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  data: PropTypes.string.isRequired,
   sceneStyle: ViewPropTypes.style,
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
+};
+
+const defaultProps = {
+  sceneStyle: null,
 };
 
 const styles = StyleSheet.create({
@@ -25,7 +32,10 @@ class TabView extends React.Component {
   state = { hideNavBar: false };
 
   toggleNavBar = () => {
-    this.setState({ hideNavBar: !this.state.hideNavBar }, () => Actions.refresh({ hideNavBar: this.state.hideNavBar }));
+    this.setState(
+      prevState => ({ hideNavBar: !prevState.hideNavBar }),
+      () => Actions.refresh({ hideNavBar: this.state.hideNavBar }),
+    );
   };
 
   render() {
@@ -34,7 +44,7 @@ class TabView extends React.Component {
         <Text>
           Tab title:{this.props.title} name:{this.props.name}
         </Text>
-        <Text>Tab data:{this.props.data}</Text>
+        <Text>Tab data: {this.props.data}</Text>
         {this.props.name === 'tab_1_1' && <Button onPress={() => Actions.tab_1_2()}>next screen for tab1_1</Button>}
         {this.props.name === 'tab_2_1' && <Button onPress={() => Actions.tab_2_2()}>next screen for tab2_1</Button>}
         <Button onPress={Actions.pop}>Back</Button>
@@ -92,5 +102,6 @@ class TabView extends React.Component {
   }
 }
 TabView.propTypes = propTypes;
+TabView.defaultProps = defaultProps;
 
 export default TabView;
