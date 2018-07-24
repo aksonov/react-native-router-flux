@@ -172,7 +172,7 @@ function createNavigationOptions(params) {
     drawerIcon,
     drawerImage,
     drawerPosition,
-    ...props,
+    ...props
   } = params;
   const NavBar = renderNavigationBar || navBar;
   if (component && component.navigationOptions) {
@@ -184,7 +184,7 @@ function createNavigationOptions(params) {
       navigation,
       ...params,
       ...navigationParams,
-      ...screenProps,
+      ...screenProps
     };
     const res = {
       ...props,
