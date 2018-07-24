@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  ViewPropTypes, BackHandler, Linking,
-} from 'react-native';
+import { ViewPropTypes, BackHandler, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 import navigationStore from './navigationStore';
 import pathParser from './pathParser';
@@ -39,7 +37,7 @@ class App extends React.Component {
 
   handleDeepURL = e => this.parseDeepURL(e.url);
 
-  parseDeepURL = (url) => {
+  parseDeepURL = url => {
     // If there is no url, then return.
     if (!url) {
       return;
@@ -82,11 +80,10 @@ class App extends React.Component {
 
   render() {
     const AppNavigator = this.props.navigator;
-    console.log('NAVIGATOR:', AppNavigator);
     return (
       <AppNavigator
         onNavigationStateChange={navigationStore.onNavigationStateChange}
-        ref={(navigatorRef) => {
+        ref={navigatorRef => {
           navigationStore.setTopLevelNavigator(navigatorRef);
         }}
       />
@@ -94,9 +91,7 @@ class App extends React.Component {
   }
 }
 
-const Router = ({
-  createReducer, sceneStyle, scenes, uriPrefix, navigator, getSceneStyle, children, state, dispatch, onDeepLink, wrapBy, ...props
-}) => {
+const Router = ({ createReducer, sceneStyle, scenes, uriPrefix, navigator, getSceneStyle, children, state, dispatch, onDeepLink, wrapBy, ...props }) => {
   const data = { ...props };
   if (getSceneStyle) {
     data.cardStyle = getSceneStyle(props);
