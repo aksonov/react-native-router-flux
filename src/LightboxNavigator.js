@@ -1,17 +1,22 @@
 /* @flow */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
-  addNavigationHelpers, createNavigationContainer, createNavigator, TabRouter,
+  // addNavigationHelpers,
+  // createNavigationContainer,
+  createStackNavigator,
+  TabRouter,
 } from 'react-navigation';
 import { View } from 'react-native';
-import navigationStore from './navigationStore';
+// import navigationStore from './navigationStore';
 
-const NavigationView = ({
-  navigation, screenProps, navigationConfig, descriptors,
-}) => {
-  const { state, dispatch } = navigation;
-  const { routes, index } = state;
+const NavigationView = ({ navigationConfig }) => {
+// const NavigationView = ({
+//   navigation, screenProps, navigationConfig, descriptors,
+// }) => {
+  // const { state, dispatch } = navigation;
+  // const { routes, index } = state;
 
   console.log('DATA:', JSON.stringify(navigationConfig));
   return <View style={{ flex: 1 }} />;
@@ -54,10 +59,24 @@ const NavigationView = ({
   // );
 };
 
+NavigationView.propTypes = {
+  // navigation: PropTypes.shape().isRequired,
+  // screenProps: PropTypes.object,
+  navigationConfig: PropTypes.object,
+  // descriptors: PropTypes.object,
+};
+
 const LightboxNavigator = (routeConfigs, tabsConfig = {}) => {
   const router = TabRouter(routeConfigs, tabsConfig);
 
-  return createNavigator(NavigationView, router, tabsConfig);
+  return createStackNavigator(NavigationView, router, tabsConfig);
+};
+
+LightboxNavigator.propTypes = {
+  routeConfigs: PropTypes.shape({
+    navigationOptions: PropTypes.object,
+    path: PropTypes.string,
+  }),
 };
 
 export default LightboxNavigator;

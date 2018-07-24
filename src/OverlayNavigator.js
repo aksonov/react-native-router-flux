@@ -24,7 +24,7 @@ const OverlayNavigator = (
     const Component = routeConfigs[tabsConfig.initialRouteName].screen;
     let initialIndex = 0;
     const routesMap = {};
-    for (let i = 0; i < routes.length; i++) {
+    for (let i = 0; i < routes.length; i += 1) {
       const route = routes[i];
       if (route.routeName === tabsConfig.initialRouteName) {
         initialIndex = i;
@@ -33,7 +33,7 @@ const OverlayNavigator = (
     }
     const initialRouteName = tabsConfig.initialRouteName || routes[initialIndex].routeName;
     const overlays = [];
-    for (let i = 0; i < tabsConfig.order.length; i++) {
+    for (let i = 0; i < tabsConfig.order.length; i += 1) {
       const routeName = tabsConfig.order[i];
       if (initialRouteName !== routeName) {
         const Overlay = routeConfigs[routeName].screen;

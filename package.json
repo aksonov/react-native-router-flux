@@ -13,8 +13,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "postinstall": "./node_modules/.bin/opencollective postinstall",
     "build": "./node_modules/.bin/babel src -d dist",
-    "eslint": "eslint src/ __tests__/ Example/*.js Example/components/",
-    "fix": "eslint src/ __tests__/ Example/*.js Example/components/ --fix",
+    "eslint": "eslint src/ __tests__/",
+    "fix": "eslint src/ __tests__/ --fix",
     "test": "jest"
   },
   "resolutions": {

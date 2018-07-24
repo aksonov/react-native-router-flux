@@ -14,15 +14,16 @@ const BaseModal = ({
   const width = horizontalPercent ? deviceHeight * horizontalPercent : deviceWidth;
 
   const renderClose = () => {
-    if (!hideClose) {
-      return (
-        <View style={styles.closeBtnContainer}>
-          <TouchableOpacity onPress={Actions.pop}>
-            <Text>Close</Text>
-          </TouchableOpacity>
-        </View>
-      );
+    if (hideClose) {
+      return null;
     }
+    return (
+      <View style={styles.closeBtnContainer}>
+        <TouchableOpacity onPress={Actions.pop}>
+          <Text>Close</Text>
+        </TouchableOpacity>
+      </View>
+    );
   };
 
   return (

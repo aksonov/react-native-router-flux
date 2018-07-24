@@ -1,3 +1,4 @@
+/* eslint-disable */
 import isEqual from 'lodash.isequal';
 import { NavigationActions } from 'react-navigation';
 import navigationStore from './navigationStore';

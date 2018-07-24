@@ -1,12 +1,17 @@
 import React from 'react';
 import {
-  Image, Animated, Easing, Platform,
+  Image, Animated, Easing,
 } from 'react-native';
 import {
-  createBottomTabNavigator, createMaterialTopTabNavigator, createDrawerNavigator, createStackNavigator, NavigationActions, DrawerActions,
+  createBottomTabNavigator,
+  createMaterialTopTabNavigator,
+  createDrawerNavigator,
+  createStackNavigator,
+  NavigationActions,
+  StackActions,
+  DrawerActions,
 } from 'react-navigation';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash.isequal';
 import * as ActionConst from './ActionConst';
 import { OnEnter, OnExit, assert } from './Util';
 import { LeftButton, RightButton, BackButton } from './NavBar';
@@ -341,7 +346,7 @@ function createNavigationOptions(params) {
             //   actions: [NavigationActions.navigate({ routeName: tab.route.routes[0].routeName })],
             // }));
             // go to first screen of the StackNavigator without reset
-            for (let i = 1; i < scene.route.routes.length; i++) {
+            for (let i = 1; i < scene.route.routes.length; i += 1) {
               navigation.dispatch(NavigationActions.back());
             }
           }
@@ -392,7 +397,7 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
   if (!Component.prototype || Component.prototype.render) {
     class Wrapped extends React.Component {
       static propTypes = {
-        navigation: PropTypes.object,
+        navigation: PropTypes.shape().isRequired,
       };
 
       constructor() {
@@ -401,7 +406,7 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
       }
 
       componentDidMount() {
-        const navigation = this.props.navigation;
+        const { navigation } = this.props;
         if (this.ref && navigation && navigation.state && navigation.state.routeName) {
           store.addRef(originalRouteName(navigation.state.routeName), this.ref);
         }
@@ -411,7 +416,7 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
       }
 
       componentWillUnmount() {
-        const navigation = this.props.navigation;
+        const { navigation } = this.props;
         if (this.ref && navigation && navigation.state && navigation.state.routeName) {
           store.deleteRef(originalRouteName(navigation.state.routeName));
         }
@@ -426,7 +431,7 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
       }
 
       render() {
-        const navigation = this.props.navigation;
+        const { navigation } = this.props;
         if (!navigation || !navigation.state) {
           return <Component ref={this.onRef} {...this.props} />;
         }
@@ -441,7 +446,7 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
     return <Component {...props} navigation={navigation} {...extendProps(navigation.state.params, store)} name={navigation.state.routeName} />;
   }
   StatelessWrapped.propTypes = {
-    navigation: PropTypes.object,
+    navigation: PropTypes.shape().isRequired,
   };
   return wrapper(StatelessWrapped);
 }
@@ -468,9 +473,6 @@ function uniteParams(routeName, params) {
   res.routeName = routeName;
   return res;
 }
-
-const defaultSuccess = () => {};
-const defaultFailure = () => {};
 
 class NavigationStore {
   _navigator = null;
@@ -522,10 +524,10 @@ class NavigationStore {
     const res = {};
     const order = [];
     const {
-      navigator, contentComponent, drawerWidth, drawerLockMode, lazy, duration, ...parentProps
+      navigator, contentComponent, drawerWidth, drawerLockMode, tabBarComponent, tabBarPosition, lazy, duration, ...parentProps
     } = scene.props;
     let {
-      tabs, modal, lightbox, overlay, tabBarPosition, drawer, tabBarComponent, transitionConfig,
+      tabs, modal, lightbox, overlay, drawer, transitionConfig,
     } = parentProps;
     if (scene.type === Modal) {
       modal = true;
@@ -563,7 +565,7 @@ class NavigationStore {
       commonProps.drawerImage = commonProps.drawerImage || _drawerImage;
     }
 
-    const children = !Array.isArray(parentProps.children) ? [parentProps.children] : [].concat.apply([], parentProps.children);
+    const children = !Array.isArray(parentProps.children) ? [parentProps.children] : [].concat(...parentProps.children);
     // add clone scenes
     if (!drawer && !tabs && !overlay) {
       children.push(...clones);
@@ -579,7 +581,7 @@ class NavigationStore {
     let initialRouteName;
     let initialRouteParams;
     for (const child of children) {
-      const key = child.key || `key${counter++}`;
+      const key = child.key || `key${counter += 1}`;
       const init = key === children[0].key;
       assert(reservedKeys.indexOf(key) === -1, `Scene name cannot be reserved word: ${child.key}`);
       const {
@@ -660,12 +662,12 @@ class NavigationStore {
       // a bit of magic, create all 'actions'-shortcuts inside navigationStore
       props.init = true;
       if (!this[key]) {
-        this[key] = new Function(
+        this[key] = new Function( // eslint-disable-line no-new-func
           'actions',
           'props',
           'type',
           `return function ${
-            key.replace(/\W/g, '_') // eslint-disable-line no-new-func
+            key.replace(/\W/g, '_')
           }(params){ actions.execute(type, '${key}', props, params)}`,
         )(this, { ...commonProps, ...props }, type);
       }
@@ -804,7 +806,7 @@ class NavigationStore {
 
   refresh = (data) => {
     const params = filterParam(data);
-    const key = getActiveState(this.state).key;
+    const { key } = getActiveState(this.state);
     this.dispatch(NavigationActions.setParams({ key, params }));
   };
 
@@ -839,7 +841,7 @@ class NavigationStore {
   reset = (routeName, data) => {
     const params = filterParam(data);
     this.dispatch(
-      NavigationActions.reset({
+      StackActions.reset({
         key: null,
         index: 0,
         actions: [
