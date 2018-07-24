@@ -9,20 +9,20 @@ export function deepestExplicitValueForKey(navigationState, key) {
       // for pushed children, iterate through each, recording key value,
       // until reaching the selected child
       for (let i = 0; i < selected.index; i += 1) {
-        if (typeof (selected.children[i][key]) !== 'undefined') {
+        if (typeof selected.children[i][key] !== 'undefined') {
           current = selected.children[i][key];
         }
       }
     }
     // set the new selected child and check for a key value
     selected = selected.children[selected.index];
-    if (typeof (selected[key]) !== 'undefined') {
+    if (typeof selected[key] !== 'undefined') {
       current = selected[key];
     }
   }
 
   // fallback to the root key value
-  if (typeof (current) === 'undefined') {
+  if (typeof current === 'undefined') {
     current = navigationState[key];
   }
 

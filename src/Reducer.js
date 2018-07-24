@@ -3,9 +3,7 @@ import isEqual from 'lodash.isequal';
 import { NavigationActions } from 'react-navigation';
 import navigationStore from './navigationStore';
 import * as ActionConst from './ActionConst';
-import {
-  getActiveState, popPrevious, isActiveRoute, getActiveStateExceptDrawer,
-} from './State';
+import { getActiveState, popPrevious, isActiveRoute, getActiveStateExceptDrawer } from './State';
 
 export const supportedActions = {
   [ActionConst.PUSH]: NavigationActions.NAVIGATE,
@@ -19,15 +17,17 @@ const createAction = (type: string) => (payload: Object = {}) => ({
   ...payload,
 });
 
-
 export function reducer(state = navigationStore.state, action) {
   const type = action.type;
   const routeName = action.routeName;
   if (supportedActions[type]) {
-    const newState = navigationStore.router.getStateForAction(createAction(supportedActions[type])({
-      routeName,
-      params: action.params,
-    }), state);
+    const newState = navigationStore.router.getStateForAction(
+      createAction(supportedActions[type])({
+        routeName,
+        params: action.params,
+      }),
+      state,
+    );
     return newState || state;
   }
   if (type === ActionConst.JUMP) {
@@ -46,11 +46,15 @@ export function reducer(state = navigationStore.state, action) {
       return state;
     }
     const key = getActiveState(newState).key;
-    return navigationStore.router.getStateForAction(NavigationActions.setParams({
-      key,
-      params: action.params,
-    }), newState);
-  } if (type === ActionConst.POP_TO) {
+    return navigationStore.router.getStateForAction(
+      NavigationActions.setParams({
+        key,
+        params: action.params,
+      }),
+      newState,
+    );
+  }
+  if (type === ActionConst.POP_TO) {
     let nextScene = '';
     let newState = state;
     let currentState = state;
@@ -63,19 +67,21 @@ export function reducer(state = navigationStore.state, action) {
           currentState = newState;
         }
         if (isEqual(currentState, initialState)) {
-          console.warn(
-            `popTo called with an unknown routeName: ${routeName}`,
-          );
+          console.warn(`popTo called with an unknown routeName: ${routeName}`);
           break;
         }
       }
     }
     return nextScene === routeName ? newState : state;
-  } if (type === ActionConst.REPLACE) {
-    const newState = navigationStore.router.getStateForAction(NavigationActions.navigate({
-      routeName,
-      params: action.params,
-    }), state);
+  }
+  if (type === ActionConst.REPLACE) {
+    const newState = navigationStore.router.getStateForAction(
+      NavigationActions.navigate({
+        routeName,
+        params: action.params,
+      }),
+      state,
+    );
     return popPrevious(newState);
   }
   return navigationStore.router.getStateForAction(action, state) || state;
