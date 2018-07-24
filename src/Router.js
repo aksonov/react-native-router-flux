@@ -91,7 +91,7 @@ class App extends React.Component {
   }
 }
 
-const Router = ({ createReducer, sceneStyle, scenes, uriPrefix, navigator, getSceneStyle, children, state, dispatch, onDeepLink, wrapBy, ...props }) => {
+const Router = ({ sceneStyle, scenes, uriPrefix, navigator, getSceneStyle, children, onDeepLink, wrapBy, ...props }) => {
   const data = { ...props };
   if (getSceneStyle) {
     data.cardStyle = getSceneStyle(props);
@@ -104,8 +104,6 @@ const Router = ({ createReducer, sceneStyle, scenes, uriPrefix, navigator, getSc
 };
 Router.propTypes = {
   createReducer: PropTypes.func,
-  dispatch: PropTypes.func,
-  state: PropTypes.object,
   scenes: PropTypes.func,
   navigator: PropTypes.func,
   wrapBy: PropTypes.func,
@@ -117,8 +115,6 @@ Router.propTypes = {
 };
 Router.defaultProps = {
   createReducer: null,
-  dispatch: null,
-  state: null,
   scenes: null,
   navigator: null,
   wrapBy: props => props,

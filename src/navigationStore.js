@@ -5,7 +5,6 @@ import {
   createMaterialTopTabNavigator,
   createDrawerNavigator,
   createStackNavigator,
-  createNavigationContainer,
   NavigationActions,
   StackActions,
   DrawerActions,
@@ -173,7 +172,7 @@ function createNavigationOptions(params) {
     drawerIcon,
     drawerImage,
     drawerPosition,
-    ...props
+    ...props,
   } = params;
   const NavBar = renderNavigationBar || navBar;
   if (component && component.navigationOptions) {
@@ -599,18 +598,18 @@ class NavigationStore {
           success instanceof Function
             ? success
             : args => {
-                console.log(`Transition to state=${success}`);
-                this[success](args);
-              };
+              console.log(`Transition to state=${success}`);
+              this[success](args);
+            };
       }
       if (failure) {
         this.states[key].failure =
           failure instanceof Function
             ? failure
             : args => {
-                console.log(`Transition to state=${failure}`);
-                this[failure](args);
-              };
+              console.log(`Transition to state=${failure}`);
+              this[failure](args);
+            };
       }
       if (path) {
         this.states[key].path = path;
