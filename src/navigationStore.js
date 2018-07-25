@@ -471,6 +471,9 @@ function uniteParams(routeName, params) {
   return res;
 }
 
+const defaultSuccess = () => {};
+const defaultFailure = () => {};
+
 class NavigationStore {
   _navigator = null;
 
@@ -478,18 +481,52 @@ class NavigationStore {
 
   states = {};
 
-  get currentScene() {
-    return getActiveState(this.state);
-  }
+  currentScene;
 
-  get prevScene() {
-    return getActiveState(this.prevState);
-  }
+  prevScene;
 
-  onNavigationStateChange = (prevState, currentState, action) => {
+  onNavigationStateChange = async (prevState, currentState, action) => {
     this.state = currentState;
     this.prevState = prevState;
-    this.currentParams = action.params;
+    const activeState = getActiveState(this.state);
+    const currentScene = activeState.routeName;
+    this.currentParams = { ...activeState.params, ...action.params };
+    this.currentScene = currentScene;
+    this.prevScene = this.prevState ? getActiveState(this.prevState).routeName : null;
+    if (this.currentScene !== this.prevScene) {
+      // run onExit for old scene
+      if (this.prevScene) {
+        const exitHandler = this[this.prevScene + OnExit];
+        if (exitHandler) {
+          try {
+            const res = exitHandler(this.state);
+            if (res instanceof Promise) {
+              res.then(defaultSuccess, defaultFailure);
+            }
+          } catch (e) {
+            console.error('Error during onExit handler:', e);
+          }
+        }
+      }
+      if (this.states[currentScene]) {
+        const handler = this[currentScene + OnEnter];
+        const success = this.states[currentScene].success || defaultSuccess;
+        const failure = this.states[currentScene].failure || defaultFailure;
+        // call onEnter handler
+        if (handler) {
+          try {
+            const res = await handler(this.currentParams, this.state);
+            if (res) {
+              success(res);
+            } else {
+              failure();
+            }
+          } catch (e) {
+            failure({ error: e.message });
+          }
+        }
+      }
+    }
   };
 
   setTopLevelNavigator = (navigatorRef) => {
