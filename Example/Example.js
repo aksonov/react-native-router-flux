@@ -35,12 +35,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const reducerCreate = params => {
-  const defaultReducer = new Reducer(params);
-  return (state, action) => {
-    console.log('ACTION:', action);
-    return defaultReducer(state, action);
-  };
+const stateHandler = (prevState, newState, action) => {
+  console.log('ACTION:', action);
 };
 
 const getSceneStyle = () => ({
@@ -53,7 +49,7 @@ const getSceneStyle = () => ({
 const prefix = Platform.OS === 'android' ? 'mychat://mychat/' : 'mychat://';
 
 const Example = () => (
-  <Router createReducer={reducerCreate} getSceneStyle={getSceneStyle} uriPrefix={prefix}>
+  <Router onStateChange={stateHandler} getSceneStyle={getSceneStyle} uriPrefix={prefix}>
     <Overlay key="overlay">
       <Modal key="modal" hideNavBar transitionConfig={() => ({ screenInterpolator: CardStackStyleInterpolator.forFadeFromBottomAndroid })}>
         <Lightbox key="lightbox">

@@ -480,6 +480,10 @@ class NavigationStore {
 
   prevScene;
 
+  currentParams;
+
+  onStateChange;
+
   onNavigationStateChange = async (prevState, currentState, action) => {
     this.state = currentState;
     this.prevState = prevState;
@@ -521,6 +525,9 @@ class NavigationStore {
           }
         }
       }
+    }
+    if (this.onStateChange) {
+      this.onStateChange(prevState, currentState, action);
     }
   };
 
