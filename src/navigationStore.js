@@ -325,12 +325,7 @@ function createNavigationOptions(params) {
     }
 
     if (navTransparent) {
-      res.headerStyle = {
-        backgroundColor: 'transparent',
-        zIndex: 100,
-        borderBottomWidth: 0,
-        elevation: 1,
-      };
+      res.headerTransparent = true;
     }
 
     if (backToInitial) {
