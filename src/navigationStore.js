@@ -326,6 +326,7 @@ function createNavigationOptions(params) {
 
     if (navTransparent) {
       res.headerTransparent = true;
+      res.headerStyle = {};
     }
 
     if (backToInitial) {
@@ -667,7 +668,8 @@ class NavigationStore {
       };
 
       // wrap component inside own navbar for tabs/drawer parent controllers
-      let wrapNavBar = drawer || tabs || wrap;
+      // don't wrap child scenes for custom navigators/renderers
+      let wrapNavBar = drawer || (tabs && !navigator && !renderer) || wrap;
       if (wrap === false || commonProps.wrap === false) {
         wrapNavBar = false;
       }
