@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import {
+  View, Text, StyleSheet, Button,
+} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { MessageBarManager } from 'react-native-message-bar';
 
@@ -20,7 +22,7 @@ class Launch extends React.Component {
         <Button title="Go to Login" onPress={() => Actions.login({ data: 'Custom data', title: 'Custom title' })} />
         <Button title="Go to Register page" onPress={Actions.register} />
         <Button title="Display Error Modal" onPress={Actions.error} />
-        <Button title="Display Lightbox" onPress={() => Actions.demo_lightbox({data: 'passed data'})} />
+        <Button title="Display Lightbox" onPress={() => Actions.demo_lightbox({ data: 'passed data' })} />
         <Button title="Go to CustomNavBar page" onPress={() => Actions.customNavBar()} />
         <Button
           title="MessageBar alert"

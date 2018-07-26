@@ -8,14 +8,18 @@ import Scene from '../src/Scene';
 import navigationStore from '../src/navigationStore';
 
 const B = () => <Text>Hello world!</Text>;
-const router = (<Router><Scene>
-  <Scene key="b">
-    <Scene key="a" component={B} param="1" />
-    <Scene key="c" component={B} param="2" />
-  </Scene>
-</Scene></Router>);
+const router = (
+  <Router>
+    <Scene>
+      <Scene key="b">
+        <Scene key="a" component={B} param="1" />
+        <Scene key="c" component={B} param="2" />
+      </Scene>
+    </Scene>
+  </Router>
+);
 
-test('renders correctly', done => {
+test('renders correctly', (done) => {
   renderer.create(router);
   console.log('STATE:', JSON.stringify(navigationStore.state));
   navigationStore.c({ data: 'abc' });

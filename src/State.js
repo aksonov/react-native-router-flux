@@ -46,10 +46,12 @@ export function inject(state, key, index, routes) {
 export function popPrevious(state) {
   const activeState = getActiveState(state);
   if (activeState.parent && activeState.parent.index) {
-    const parent = activeState.parent;
-    const key = parent.key;
-    const routes = [...parent.routes.slice(0, parent.index - 1), ...parent.routes.slice(parent.index)];
-    const newState = inject(state, key, parent.index - 1, routes);
+    const {
+      parent,
+      parent: { key, index },
+    } = activeState;
+    const routes = [...parent.routes.slice(0, index - 1), ...parent.routes.slice(index)];
+    const newState = inject(state, key, index - 1, routes);
     return newState;
   }
   return state;

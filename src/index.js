@@ -1,5 +1,4 @@
 import * as ActionConst from './ActionConst';
-import Reducer from './Reducer';
 import Router from './Router';
 import Scene from './Scene';
 import Actions from './navigationStore';
@@ -12,16 +11,5 @@ import Overlay from './Overlay';
 import pathParser from './pathParser';
 
 export {
-  ActionConst,
-  Reducer,
-  Router,
-  Scene,
-  Actions,
-  Modal,
-  Lightbox,
-  Stack,
-  Drawer,
-  Tabs,
-  Overlay,
-  pathParser,
+  ActionConst, Router, Scene, Actions, Modal, Lightbox, Stack, Drawer, Tabs, Overlay, pathParser,
 };

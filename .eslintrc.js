@@ -9,11 +9,17 @@ module.exports = {
   },
   parser: 'babel-eslint',
   rules: {
+    "no-new-func": "warn",
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
     "jest/valid-expect": "error",
-    'react/forbid-prop-types': 0,
+
+    "react/forbid-prop-types": "warn",
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    "react/no-unused-prop-types": "off",
+
     'no-console': 0,
     'new-cap': 0,
     'no-underscore-dangle': 0,
@@ -29,6 +35,8 @@ module.exports = {
         ],
       },
     ],
+    "import/no-cycle": "warn",
+    "import/no-self-import": "warn",
     'react/jsx-filename-extension': [
       1,
       {

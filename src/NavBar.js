@@ -1,27 +1,20 @@
 import React from 'react';
 import { HeaderBackButton } from 'react-navigation';
 import {
-  Platform,
-  I18nManager,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+  Platform, I18nManager, Image, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import Actions from './navigationStore';
 import _backButtonImage from '../images/back_chevron.png';
 
-const hitSlop = { top: 15, bottom: 15, left: 15, right: 15 };
+const hitSlop = {
+  top: 15,
+  bottom: 15,
+  left: 15,
+  right: 15,
+};
 export function BackButton(state) {
-  const textButtonStyle = [
-    styles.barBackButtonText,
-    state.backButtonTextStyle,
-  ];
-  const style = [
-    styles.backButton,
-    state.leftButtonStyle,
-  ];
+  const textButtonStyle = [styles.barBackButtonText, state.backButtonTextStyle];
+  const style = [styles.backButton, state.leftButtonStyle];
   const buttonImage = state.backButtonImage || _backButtonImage;
   const tintColor = getValue(state.backButtonTintColor, state) || state.tintColor || state.navBarButtonColor || state.headerTintColor;
   let onPress = state.onBack;
@@ -34,41 +27,16 @@ export function BackButton(state) {
   // returning react-navigation's back button well styled for ios and android if rnrf4-supported customization
   // is not required
   if (!state.backButtonImage) {
-    return (
-      <HeaderBackButton
-        onPress={onPress}
-        title={state.backTitle}
-        titleStyle={textButtonStyle}
-        tintColor={tintColor}
-        truncatedTitle={state.truncatedTitle}
-      />
-    );
+    return <HeaderBackButton onPress={onPress} title={state.backTitle} titleStyle={textButtonStyle} tintColor={tintColor} truncatedTitle={state.truncatedTitle} />;
   }
 
-  const text = state.backTitle ?
-    (<Text style={textButtonStyle}>
-      {state.backTitle}
-    </Text>)
-    : null;
+  const text = state.backTitle ? <Text style={textButtonStyle}>{state.backTitle}</Text> : null;
 
   return (
-    <TouchableOpacity
-      testID="backNavButton"
-      style={styles.backButtonContainer}
-      onPress={onPress}
-    >
+    <TouchableOpacity testID="backNavButton" style={styles.backButtonContainer} onPress={onPress}>
       <View style={style}>
-      {buttonImage && !state.hideBackImage && <Image
-        source={buttonImage}
-        style={[
-          styles.backButtonImage,
-          state.barButtonIconStyle,
-          state.leftButtonIconStyle,
-          { tintColor },
-        ]}
-      />
-      }
-      {text}
+        {buttonImage && !state.hideBackImage && <Image source={buttonImage} style={[styles.backButtonImage, state.barButtonIconStyle, state.leftButtonIconStyle, { tintColor }]} />}
+        {text}
       </View>
     </TouchableOpacity>
   );
@@ -89,15 +57,7 @@ export function LeftButton(state) {
 
   if (state.leftButton || state.left) {
     const Button = state.leftButton || state.left;
-    return (
-      <Button
-        {...state}
-        key={'leftNavBarBtn'}
-        testID="leftNavButton"
-        style={[...style, ...leftButtonStyle]}
-        textStyle={textStyle}
-      />
-    );
+    return <Button {...state} key="leftNavBarBtn" testID="leftNavButton" style={[...style, ...leftButtonStyle]} textStyle={textStyle} />;
   }
 
   if (!onPress && !state.hideDrawerButton && (state.drawerImage || menuIcon) && state.drawerPosition !== 'right') {
@@ -106,41 +66,31 @@ export function LeftButton(state) {
       onPress = Actions.drawerOpen;
     }
     if (!menuIcon) {
-      menuIcon = (
-        <Image
-          source={buttonImage}
-          style={[state.leftButtonIconStyle || styles.defaultImageStyle, { tintColor }]}
-        />
-      );
+      menuIcon = <Image source={buttonImage} style={[state.leftButtonIconStyle || styles.defaultImageStyle, { tintColor }]} />;
     }
   }
 
   if (onPress && (leftTitle || buttonImage || menuIcon)) {
     onPress = onPress.bind(null, state);
     return (
-      <TouchableOpacity
-        key={'leftNavBarBtn'}
-        testID="leftNavButton"
-        style={style}
-        onPress={onPress}
-        hitSlop={state.hitSlop || hitSlop}
-      >
-        {leftTitle && <Text style={textStyle}>
-          {leftTitle}
-        </Text>
-        }
-        {!leftTitle && (menuIcon || buttonImage) && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-          {menuIcon || <Image
-            source={buttonImage}
-            style={[state.leftButtonIconStyle || styles.defaultImageStyle, { tintColor }]}
-          />
-          }
-        </View>
-        }
+      <TouchableOpacity key="leftNavBarBtn" testID="leftNavButton" style={style} onPress={onPress} hitSlop={state.hitSlop || hitSlop}>
+        {leftTitle && <Text style={textStyle}>{leftTitle}</Text>}
+        {!leftTitle
+          && (menuIcon || buttonImage) && (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'flex-start',
+            }}
+          >
+            {menuIcon || <Image source={buttonImage} style={[state.leftButtonIconStyle || styles.defaultImageStyle, { tintColor }]} />}
+          </View>
+        )}
       </TouchableOpacity>
     );
   }
-  if ((!!state.onLeft ^ !!(leftTitle || buttonImage || menuIcon))) {
+  if (!!state.onLeft ^ !!(leftTitle || buttonImage || menuIcon)) {
     console.warn(
       `Both onLeft and leftTitle/leftButtonImage
             must be specified for the scene: ${state.name}`,
@@ -172,15 +122,7 @@ export function RightButton(state) {
 
   if (state.rightButton || state.right) {
     const Button = state.rightButton || state.right;
-    return (
-      <Button
-        {...state}
-        key={'rightNavBarBtn'}
-        testID="rightNavButton"
-        style={style}
-        textButtonStyle={textStyle}
-      />
-    );
+    return <Button {...state} key="rightNavBarBtn" testID="rightNavButton" style={style} textButtonStyle={textStyle} />;
   }
 
   if (!onPress && !state.hideDrawerButton && state.drawerImage && state.drawerPosition === 'right') {
@@ -189,42 +131,31 @@ export function RightButton(state) {
       onPress = Actions.drawerOpen;
     }
     if (!menuIcon) {
-      menuIcon = (
-        <Image
-          source={buttonImage}
-          style={[rightButtonStyle, { tintColor }]}
-        />
-      );
+      menuIcon = <Image source={buttonImage} style={[rightButtonStyle, { tintColor }]} />;
     }
   }
 
   if (onPress && (rightTitle || buttonImage)) {
     onPress = onPress.bind(null, state);
     return (
-      <TouchableOpacity
-        key={'rightNavBarBtn'}
-        testID="rightNavButton"
-        style={style}
-        onPress={onPress}
-        hitSlop={state.hitSlop || hitSlop}
-      >
-        {rightTitle && <Text style={textStyle}>
-          {rightTitle}
-        </Text>
-        }
-        {!rightTitle && buttonImage && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
-          {menuIcon || <Image
-            source={buttonImage}
-            style={[state.rightButtonIconStyle || styles.defaultImageStyle, { tintColor }]}
-          />
-          }
-        </View>
-        }
+      <TouchableOpacity key="rightNavBarBtn" testID="rightNavButton" style={style} onPress={onPress} hitSlop={state.hitSlop || hitSlop}>
+        {rightTitle && <Text style={textStyle}>{rightTitle}</Text>}
+        {!rightTitle
+          && buttonImage && (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'flex-end',
+            }}
+          >
+            {menuIcon || <Image source={buttonImage} style={[state.rightButtonIconStyle || styles.defaultImageStyle, { tintColor }]} />}
+          </View>
+        )}
       </TouchableOpacity>
     );
   }
-  if ((!!state.onRight ^ !!(typeof (rightTitle) !== 'undefined'
-    || typeof (buttonImage) !== 'undefined'))) {
+  if (!!state.onRight ^ !!(typeof rightTitle !== 'undefined' || typeof buttonImage !== 'undefined')) {
     console.warn(
       `Both onRight and rightTitle/rightButtonImage
             must be specified for the scene: ${state.routeName}`,
@@ -246,7 +177,6 @@ const styles = StyleSheet.create({
   },
   titleWrapper: {
     marginTop: 10,
-    position: 'absolute',
     ...Platform.select({
       ios: {
         top: 20,
@@ -258,13 +188,10 @@ const styles = StyleSheet.create({
         top: 5,
       },
     }),
-    left: 0,
-    right: 0,
   },
   header: {
     backgroundColor: '#EFEFF2',
     paddingTop: 0,
-    top: 0,
     ...Platform.select({
       ios: {
         height: 64,
@@ -276,14 +203,10 @@ const styles = StyleSheet.create({
         height: 54,
       },
     }),
-    right: 0,
-    left: 0,
     borderBottomWidth: 0.5,
     borderBottomColor: '#828287',
-    position: 'absolute',
   },
   backButton: {
-    position: 'absolute',
     ...Platform.select({
       ios: {
         top: 12,
@@ -301,34 +224,10 @@ const styles = StyleSheet.create({
     transform: [{ scaleX: I18nManager.isRTL ? -1 : 1 }],
   },
   rightButton: {
-    ...Platform.select({
-      ios: {
-        position: 'absolute',
-        top: 12,
-      },
-      android: {
-        top: 0,
-      },
-      windows: {
-        top: 8,
-      },
-    }),
     right: 2,
     paddingRight: 8,
   },
   leftButton: {
-    ...Platform.select({
-      ios: {
-        position: 'absolute',
-        top: 12,
-      },
-      android: {
-        top: 0,
-      },
-      windows: {
-        top: 8,
-      },
-    }),
     left: 2,
     paddingLeft: 8,
   },
@@ -349,13 +248,6 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   backButtonContainer: {
-    ...Platform.select({
-      ios: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-      },
-    }),
     height: 50,
     width: 70,
   },

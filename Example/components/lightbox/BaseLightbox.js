@@ -10,7 +10,7 @@ export default class BaseLightbox extends Component {
     children: PropTypes.any,
     horizontalPercent: PropTypes.number,
     verticalPercent: PropTypes.number,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -22,17 +22,17 @@ export default class BaseLightbox extends Component {
 
   componentDidMount() {
     Animated.timing(this.state.opacity, {
-      duration: 100,
+      duration: 500,
       toValue: 1,
     }).start();
   }
 
   closeModal = () => {
     Animated.timing(this.state.opacity, {
-      duration: 100,
+      duration: 500,
       toValue: 0,
     }).start(Actions.pop);
-  }
+  };
 
   _renderLightBox = () => {
     const { children, horizontalPercent = 1, verticalPercent = 1 } = this.props;
@@ -45,21 +45,17 @@ export default class BaseLightbox extends Component {
           height,
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: 'white',
+          backgroundColor: 'rgba(255,255,255,0.9)',
         }}
       >
         {children}
         <Button title="Close" onPress={this.closeModal} />
       </View>
     );
-  }
+  };
 
   render() {
-    return (
-      <Animated.View style={[styles.container, { opacity: this.state.opacity }]}>
-        {this._renderLightBox()}
-      </Animated.View >
-    );
+    return <Animated.View style={[styles.container, { opacity: this.state.opacity }]}>{this._renderLightBox()}</Animated.View>;
   }
 }
 
