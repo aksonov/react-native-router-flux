@@ -827,12 +827,12 @@ class NavigationStore {
 
   push = (routeName, data) => {
     const params = filterParam(data);
-    this.dispatch({ type: NavigationActions.NAVIGATE, routeName, params });
+    this.dispatch(StackActions.push({ routeName, params }));
   };
 
   jump = (routeName, data) => {
     const params = filterParam(data);
-    this.dispatch({ type: NavigationActions.NAVIGATE, routeName, params });
+    this.dispatch(NavigationActions.navigate({ routeName, params }));
   };
 
   drawerOpen = () => {
@@ -878,7 +878,9 @@ class NavigationStore {
 
   replace = (routeName, data) => {
     const params = filterParam(data);
-    this.dispatch({ type: ActionConst.REPLACE, routeName, params });
+    this.dispatch(
+      StackActions.replace({ routeName, params }),
+    );
   };
 
   reset = (routeName, data) => {
