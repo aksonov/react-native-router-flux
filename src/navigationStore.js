@@ -334,14 +334,15 @@ function createNavigationOptions(params) {
         if (scene.focused) {
           if (scene.route.index !== 0) {
             // go to first screen of the StackNavigator with reset
-            // navigation.dispatch(NavigationActions.reset({
-            //   index: 0,
-            //   actions: [NavigationActions.navigate({ routeName: tab.route.routes[0].routeName })],
-            // }));
+            navigation.dispatch(StackActions.reset({
+              key: null,
+              index: 0,
+              actions: [NavigationActions.navigate({ routeName: tab.route.routes[0].routeName })],
+            }));
             // go to first screen of the StackNavigator without reset
-            for (let i = 1; i < scene.route.routes.length; i += 1) {
-              navigation.dispatch(NavigationActions.back());
-            }
+            // for (let i = 1; i < scene.route.routes.length; i += 1) {
+            //   navigation.dispatch(NavigationActions.back());
+            // }
           }
         } else {
           jumpToIndex(scene.index);
@@ -858,7 +859,7 @@ class NavigationStore {
     if (timeout) {
       setTimeout(() => this.pop(params), timeout);
     } else {
-      this.dispatch(NavigationActions.back());
+      this.dispatch(StackActions.pop());
       if (res.refresh) {
         this.refresh(res.refresh);
       }
@@ -868,7 +869,38 @@ class NavigationStore {
 
   popTo = (routeName, data) => {
     const params = filterParam(data);
-    this.dispatch({ type: ActionConst.POP_TO, routeName, params });
+    const { key, ...rest } = getActiveState(this.state);
+    console.log(params, key, rest);
+    if (routeName !== key) {
+      this.pop();
+      this.popTo({ routeName, data });
+    }
+  };
+
+  popToTop = ({ timeout, ...params } = {}) => {
+    const res = filterParam(params);
+    if (timeout) {
+      setTimeout(() => this.popToTop(params), timeout);
+    } else {
+      this.dispatch(StackActions.popToTop());
+      if (res.refresh) {
+        this.refresh(res.refresh);
+      }
+    }
+    return true;
+  };
+
+  navigateDeep = (actions) => {
+    let action = actions.reduceRight(
+      (prevAction, action) =>
+        NavigationActions.navigate({
+          routeName: action.routeName,
+          params: action.params,
+          action: prevAction,
+        }),
+      undefined
+    );
+    this.dispatch(action);
   };
 
   popAndPush = (routeName, data) => {
