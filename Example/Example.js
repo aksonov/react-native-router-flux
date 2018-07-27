@@ -89,20 +89,20 @@ const Example = () => (
                   >
                     <Scene key="tab_1_1" component={TabView} title="Tab #1_1" onRight={() => alert('Right button')} rightTitle="Right" />
 
-                    <Scene key="tab1_2" component={TabView} title="Tab #1_2" back titleStyle={{ color: 'black', alignSelf: 'center' }} />
+                    <Scene key="tab_1_2" component={TabView} title="Tab #1_2" back titleStyle={{ color: 'black', alignSelf: 'center' }} />
                   </Stack>
 
                   <Stack key="tab_2" title="Tab #2" icon={TabIcon} initial>
                     <Scene key="tab_2_1" component={TabView} title="Tab #2_1" renderRightButton={() => <Text>Right</Text>} />
-                    <Scene key="tab_2_2" component={TabView} title="Tab #2_2" onBack={() => alert('onBack button!')} hideDrawerButton backTitle="Back!" panHandlers={null} />
+                    <Scene key="tab_2_2" component={TabView} title="Tab #2_2" back onBack={() => alert('onBack button!')} hideDrawerButton backTitle="Back!" panHandlers={null} />
                   </Stack>
 
-                  <Stack key="tab_3">
-                    <Scene key="tab_3_1" component={TabView} title="Tab #3" icon={TabIcon} rightTitle="Right3" onRight={() => {}} />
+                  <Stack key="tab_3" icon={TabIcon} title="Tab #3">
+                    <Scene key="tab_3_1" component={TabView} rightTitle="Right3" onRight={() => {}} />
                   </Stack>
                   <Scene key="tab_4_1" component={TabView} title="Tab #4" hideNavBar icon={TabIcon} />
-                  <Stack key="tab_5">
-                    <Scene key="tab_5_1" component={TabView} title="Tab #5" icon={TabIcon} />
+                  <Stack key="tab_5" icon={TabIcon} title="Tab #5">
+                    <Scene key="tab_5_1" component={TabView} />
                   </Stack>
                 </Tabs>
               </Scene>

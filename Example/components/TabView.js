@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  StyleSheet, Text, View, ViewPropTypes,
-} from 'react-native';
+import { StyleSheet, Text, View, ViewPropTypes } from 'react-native';
 import Button from 'react-native-button';
 import { Actions } from 'react-native-router-flux';
 
 const propTypes = {
   name: PropTypes.string.isRequired,
-  data: PropTypes.string.isRequired,
+  data: PropTypes.string,
   sceneStyle: ViewPropTypes.style,
   title: PropTypes.string.isRequired,
 };
@@ -32,10 +30,7 @@ class TabView extends React.Component {
   state = { hideNavBar: false };
 
   toggleNavBar = () => {
-    this.setState(
-      prevState => ({ hideNavBar: !prevState.hideNavBar }),
-      () => Actions.refresh({ hideNavBar: this.state.hideNavBar }),
-    );
+    this.setState(prevState => ({ hideNavBar: !prevState.hideNavBar }), () => Actions.refresh({ hideNavBar: this.state.hideNavBar }));
   };
 
   render() {
@@ -78,7 +73,7 @@ class TabView extends React.Component {
         </Button>
         <Button
           onPress={() => {
-            Actions.tab_5({ data: 'test!' });
+            Actions.tab_5_1({ data: 'test!' });
           }}
         >
           Switch to tab5 with data
