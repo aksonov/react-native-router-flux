@@ -16,7 +16,7 @@ import { LeftButton, RightButton, BackButton } from './NavBar';
 import LightboxRenderer from './LightboxRenderer';
 import _drawerImage from '../images/menu_burger.png';
 import Scene from './Scene';
-import { getActiveState } from './State';
+import { getActiveState, isActiveRoute, popPrevious } from './State';
 import Modal from './Modal';
 import Lightbox from './Lightbox';
 import Drawer from './Drawer';
@@ -528,6 +528,7 @@ class NavigationStore {
         }
       }
     }
+    console.log('ACTION - ON STATE CHANGE', action);
     if (this.onStateChange) {
       this.onStateChange(prevState, currentState, action);
     }
@@ -812,7 +813,7 @@ class NavigationStore {
   };
 
   dispatch = (action) => {
-    this._navigator.dispatch(action);
+    return this._navigator.dispatch(action);
   };
 
   execute = (actionType, routeName, ...params) => {
@@ -869,11 +870,11 @@ class NavigationStore {
 
   popTo = (routeName, data) => {
     const params = filterParam(data);
-    const { key, ...rest } = getActiveState(this.state);
-    console.log(params, key, rest);
-    if (routeName !== key) {
-      this.pop();
-      this.popTo({ routeName, data });
+    if (!isActiveRoute(this.state, routeName)) {
+      console.log('INNER POP', JSON.stringify(this.state), JSON.stringify(routeName), JSON.stringify(params), JSON.stringify(data));
+      this.state = popPrevious(this.state);
+      this.dispatch(StackActions.pop());
+      this.popTo(routeName, data);
     }
   };
 

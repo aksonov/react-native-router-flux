@@ -24,10 +24,17 @@ export function isActiveRoute(state, routeName) {
 
 export function getActiveState(param, parent) {
   const state = param;
-  if (!state.routes) {
-    return { ...state, parent };
+  if (parent) {
+    if (!state.routes) {
+      console.log('GET ACTIVE STATE HAS ROUTES', state.routes);
+      return { ...state, parent };
+    } else {
+      console.log('NO ROUTES FOR ACTIVE ROUTES', state.routes);
+    }
+    return getActiveState(state.routes[state.index], { ...state, parent });
   }
-  return getActiveState(state.routes[state.index], { ...state, parent });
+  console.log('NO PARENT FOR ACTIVE ROUTE', state.routes);
+  return { routeName: null };
 }
 
 export function inject(state, key, index, routes) {

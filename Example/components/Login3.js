@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 });
 
 const popToRoot = () => {
-  Actions.popToTop();
+  Actions.popTo('launch');
 };
 
 const popToLogin1 = () => {
