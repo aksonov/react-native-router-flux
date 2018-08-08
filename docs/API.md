@@ -25,6 +25,8 @@
 ## Scene:
 The basic routing component for this router, all `<Scene>` components require a `key` prop that must be unique. A parent `<Scene>` must have a `component` as a `prop` as it will act as a grouping component for its children.
 
+All properties of type `React.Component` will receive the same properties available on the Scene.
+
 | Property | Type | Default | Description |
 |-----------|----------|----------|--------------------------------------------|
 | `key`       | `string` | `required` | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
