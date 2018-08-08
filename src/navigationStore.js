@@ -811,7 +811,9 @@ class NavigationStore {
   };
 
   dispatch = (action) => {
-    this._navigator.dispatch(action);
+    if (this._navigator) {
+      this._navigator.dispatch(action);
+    }
   };
 
   execute = (actionType, routeName, ...params) => {
