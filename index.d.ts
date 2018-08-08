@@ -20,7 +20,7 @@ interface RouterStatic extends React.ComponentClass<RouterProps> { }
 export var Scene: SceneStatic;
 export type Scene = SceneStatic;
 interface SceneProps extends React.Props<Scene> {
-    key: string;
+    key?: string;
     component?: React.ComponentType<any>
     back?: boolean;
     init?: boolean;
