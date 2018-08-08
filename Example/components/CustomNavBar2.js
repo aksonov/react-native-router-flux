@@ -1,6 +1,8 @@
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { Actions } from 'react-native-router-flux'
+import {
+  Image, Platform, StyleSheet, Text, TouchableOpacity, View,
+} from 'react-native';
+import React from 'react';
+import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,12 +13,11 @@ const styles = StyleSheet.create({
   },
   navBarItem: {
     flex: 1,
-    justifyContent: 'center'
-  }
-})
+    justifyContent: 'center',
+  },
+});
 
 export default class CustomNavBar extends React.Component {
-
   // constructor(props) {
   //   super(props)
   // }
@@ -25,13 +26,15 @@ export default class CustomNavBar extends React.Component {
     return (
       <TouchableOpacity
         onPress={Actions.pop}
-        style={[styles.navBarItem, { paddingLeft: 10}]}>
+        style={[styles.navBarItem, { paddingLeft: 10 }]}
+      >
         <Image
-          style={{width: 30, height: 50}}
+          style={{ width: 30, height: 50 }}
           resizeMode="contain"
-          source={{uri: 'https://image.flaticon.com/icons/png/512/0/340.png'}}></Image>
+          source={{ uri: 'https://image.flaticon.com/icons/png/512/0/340.png' }}
+        />
       </TouchableOpacity>
-    )
+    );
   }
 
   _renderMiddle() {
@@ -39,15 +42,15 @@ export default class CustomNavBar extends React.Component {
       <View style={styles.navBarItem}>
         <Text>{ this.props.title }</Text>
       </View>
-    )
+    );
   }
 
   render() {
     return (
-        <View style={styles.container}>
-          { this._renderLeft() }
-          { this._renderMiddle() }
-        </View>
-    )
+      <View style={styles.container}>
+        { this._renderLeft() }
+        { this._renderMiddle() }
+      </View>
+    );
   }
 }

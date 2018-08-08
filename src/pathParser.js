@@ -79,7 +79,9 @@ export const matchPath = (path, url) => {
   const match = re.exec(urlToMatch);
 
   // If there is no match, then return null.
-  if (!match) { return null; }
+  if (!match) {
+    return null;
+  }
 
   // Destructure to return the compiled url (aka the reconstructed url based
   // on the regex and the url parameters.
@@ -87,11 +89,11 @@ export const matchPath = (path, url) => {
 
   // If there is an inexact match (aka the compiled path does not match the
   // given url, then return null)
-  if (urlToMatch !== compiledUrl) { return null; }
+  if (urlToMatch !== compiledUrl) {
+    return null;
+  }
 
-  const params = keys.reduce((acc, key, index) =>
-    Object.assign({}, acc, { [key.name]: values[index] }), {}
-  );
+  const params = keys.reduce((acc, key, index) => Object.assign({}, acc, { [key.name]: values[index] }), {});
 
   return { path, params };
 };
@@ -106,9 +108,6 @@ export const matchPath = (path, url) => {
  * @param {String} url - a url that may or may not match a given path
  *
  */
-const pathParser = (url, possibleMatchingpaths = []) =>
-  possibleMatchingpaths
-    .map(path => matchPath(path, url))
-    .find(obj => obj);
+const pathParser = (url, possibleMatchingpaths = []) => possibleMatchingpaths.map(path => matchPath(path, url)).find(obj => obj);
 
 export default pathParser;

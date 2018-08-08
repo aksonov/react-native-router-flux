@@ -30,6 +30,21 @@ export function getActiveState(param, parent) {
   return getActiveState(state.routes[state.index], { ...state, parent });
 }
 
+export function getParent(state, routeName, parent) {
+  if (state.routeName === routeName) {
+    return parent;
+  }
+  if (!state.routes) {
+    return null;
+  }
+  for (let i = 0; i < state.routes.length; i += 1) {
+    const res = getParent(state.routes[i], routeName, state);
+    if (res) {
+      return res;
+    }
+  }
+  return null;
+}
 export function inject(state, key, index, routes) {
   if (!state.routes) {
     return state;
@@ -43,13 +58,13 @@ export function inject(state, key, index, routes) {
   return { ...state, routes: state.routes.map(x => inject(x, key, index, routes)) };
 }
 
-export function popPrevious(state) {
-  const activeState = getActiveState(state);
-  if (activeState.parent && activeState.parent.index) {
-    const parent = activeState.parent;
-    const key = parent.key;
-    const routes = [...parent.routes.slice(0, parent.index - 1), ...parent.routes.slice(parent.index)];
-    const newState = inject(state, key, parent.index - 1, routes);
+export function popPrevious(state, routeName) {
+  const parent = getParent(state, routeName);
+  console.log('FOUND PARENT:', JSON.stringify(parent));
+  const { key, index } = parent;
+  if (index) {
+    const routes = [...parent.routes.slice(0, index - 1), ...parent.routes.slice(index)];
+    const newState = inject(state, key, index - 1, routes);
     return newState;
   }
   return state;
