@@ -17,7 +17,7 @@ import { LeftButton, RightButton, BackButton } from './NavBar';
 import LightboxRenderer from './LightboxRenderer';
 import _drawerImage from '../images/menu_burger.png';
 import Scene from './Scene';
-import { getActiveState } from './State';
+import { getActiveState, isActiveRoute, popPrevious } from './State';
 import Modal from './Modal';
 import Lightbox from './Lightbox';
 import Drawer from './Drawer';
@@ -335,14 +335,15 @@ function createNavigationOptions(params) {
         if (scene.focused) {
           if (scene.route.index !== 0) {
             // go to first screen of the StackNavigator with reset
-            // navigation.dispatch(NavigationActions.reset({
-            //   index: 0,
-            //   actions: [NavigationActions.navigate({ routeName: tab.route.routes[0].routeName })],
-            // }));
+            navigation.dispatch(StackActions.reset({
+              key: null,
+              index: 0,
+              actions: [NavigationActions.navigate({ routeName: tab.route.routes[0].routeName })],
+            }));
             // go to first screen of the StackNavigator without reset
-            for (let i = 1; i < scene.route.routes.length; i += 1) {
-              navigation.dispatch(NavigationActions.back());
-            }
+            // for (let i = 1; i < scene.route.routes.length; i += 1) {
+            //   navigation.dispatch(NavigationActions.back());
+            // }
           }
         } else {
           jumpToIndex(scene.index);
@@ -537,6 +538,7 @@ class NavigationStore {
         }
       }
     }
+    console.log('ACTION - ON STATE CHANGE', action);
     if (this.onStateChange) {
       this.onStateChange(prevState, currentState, action);
     }
@@ -821,7 +823,7 @@ class NavigationStore {
   };
 
   dispatch = (action) => {
-    this._navigator.dispatch(action);
+    return this._navigator.dispatch(action);
   };
 
   execute = (actionType, routeName, ...params) => {
@@ -868,7 +870,7 @@ class NavigationStore {
     if (timeout) {
       setTimeout(() => this.pop(params), timeout);
     } else {
-      this.dispatch(NavigationActions.back());
+      this.dispatch(StackActions.pop());
       if (res.refresh) {
         this.refresh(res.refresh);
       }
@@ -878,7 +880,38 @@ class NavigationStore {
 
   popTo = (routeName, data) => {
     const params = filterParam(data);
-    this.dispatch({ type: ActionConst.POP_TO, routeName, params });
+    if (!isActiveRoute(this.state, routeName)) {
+      console.log('INNER POP', JSON.stringify(this.state), JSON.stringify(routeName), JSON.stringify(params), JSON.stringify(data));
+      this.state = popPrevious(this.state);
+      this.dispatch(StackActions.pop());
+      this.popTo(routeName, data);
+    }
+  };
+
+  popToTop = ({ timeout, ...params } = {}) => {
+    const res = filterParam(params);
+    if (timeout) {
+      setTimeout(() => this.popToTop(params), timeout);
+    } else {
+      this.dispatch(StackActions.popToTop());
+      if (res.refresh) {
+        this.refresh(res.refresh);
+      }
+    }
+    return true;
+  };
+
+  navigateDeep = (actions) => {
+    let action = actions.reduceRight(
+      (prevAction, action) =>
+        NavigationActions.navigate({
+          routeName: action.routeName,
+          params: action.params,
+          action: prevAction,
+        }),
+      undefined
+    );
+    this.dispatch(action);
   };
 
   popAndPush = (routeName, data) => {
