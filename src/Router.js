@@ -92,7 +92,7 @@ class App extends React.Component {
 }
 
 const Router = ({
-  sceneStyle, onStateChange, scenes, uriPrefix, navigator, getSceneStyle, children, onDeepLink, wrapBy, ...props
+  createReducer, sceneStyle, onStateChange, scenes, uriPrefix, navigator, getSceneStyle, children, onDeepLink, wrapBy, ...props
 }) => {
   const data = { ...props };
   if (getSceneStyle) {
@@ -102,6 +102,8 @@ const Router = ({
     data.cardStyle = sceneStyle;
   }
   const AppNavigator = scenes || navigator || navigationStore.create(children, data, wrapBy);
+  navigationStore.reducer = createReducer && createReducer(props);
+  navigationStore.setCustomReducer(AppNavigator);
   if (onStateChange) {
     navigationStore.onStateChange = onStateChange;
   }
@@ -114,6 +116,7 @@ Router.propTypes = {
   wrapBy: PropTypes.func,
   getSceneStyle: PropTypes.func,
   sceneStyle: ViewPropTypes.style,
+  createReducer: PropTypes.func,
   children: PropTypes.element,
   uriPrefix: PropTypes.string,
   onDeepLink: PropTypes.func,

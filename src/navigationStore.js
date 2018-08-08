@@ -10,6 +10,7 @@ import {
   DrawerActions,
 } from 'react-navigation';
 import PropTypes from 'prop-types';
+import { reducer } from './Reducer';
 import * as ActionConst from './ActionConst';
 import { OnEnter, OnExit, assert } from './Util';
 import { LeftButton, RightButton, BackButton } from './NavBar';
@@ -471,6 +472,10 @@ const defaultSuccess = () => {};
 const defaultFailure = () => {};
 
 class NavigationStore {
+  getStateForAction = null;
+
+  reducer = null;
+
   _navigator = null;
 
   refs = {};
@@ -484,6 +489,11 @@ class NavigationStore {
   currentParams;
 
   onStateChange;
+
+  setCustomReducer = (Navigator) => {
+    this.getStateForAction = Navigator.router.getStateForAction;
+    Navigator.router.getStateForAction = (cmd, state) => (this.reducer ? this.reducer(state, cmd) : reducer(state, cmd));
+  };
 
   onNavigationStateChange = async (prevState, currentState, action) => {
     this.state = currentState;
@@ -827,12 +837,12 @@ class NavigationStore {
 
   push = (routeName, data) => {
     const params = filterParam(data);
-    this.dispatch(StackActions.push({ routeName, params }));
+    this.dispatch({ type: NavigationActions.NAVIGATE, routeName, params });
   };
 
   jump = (routeName, data) => {
     const params = filterParam(data);
-    this.dispatch(NavigationActions.navigate({ routeName, params }));
+    this.dispatch({ type: NavigationActions.NAVIGATE, routeName, params });
   };
 
   drawerOpen = () => {
@@ -878,9 +888,7 @@ class NavigationStore {
 
   replace = (routeName, data) => {
     const params = filterParam(data);
-    this.dispatch(
-      StackActions.replace({ routeName, params }),
-    );
+    this.dispatch({ type: ActionConst.REPLACE, routeName, params });
   };
 
   reset = (routeName, data) => {
