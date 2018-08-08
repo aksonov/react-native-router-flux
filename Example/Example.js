@@ -35,8 +35,16 @@ const styles = StyleSheet.create({
   },
 });
 
+const reducerCreate = params => {
+  const defaultReducer = new Reducer(params);
+  return (state, action) => {
+    console.log('reducer: ACTION:', action);
+    return defaultReducer(state, action);
+  };
+};
+
 const stateHandler = (prevState, newState, action) => {
-  console.log('ACTION:', action);
+  console.log('onStateChange: ACTION:', action);
 };
 
 const getSceneStyle = () => ({
@@ -49,7 +57,7 @@ const getSceneStyle = () => ({
 const prefix = Platform.OS === 'android' ? 'mychat://mychat/' : 'mychat://';
 
 const Example = () => (
-  <Router onStateChange={stateHandler} getSceneStyle={getSceneStyle} uriPrefix={prefix}>
+  <Router createReducer={reducerCreate} onStateChange={stateHandler} getSceneStyle={getSceneStyle} uriPrefix={prefix}>
     <Overlay key="overlay">
       <Modal key="modal" hideNavBar transitionConfig={() => ({ screenInterpolator: CardStackStyleInterpolator.forFadeFromBottomAndroid })}>
         <Lightbox key="lightbox">
@@ -76,7 +84,15 @@ const Example = () => (
                 reload as a modal ontop of itself
               */}
               <Scene hideNavBar panHandlers={null}>
-                <Tabs key="tabbar" swipeEnabled showLabel={false} tabBarStyle={styles.tabBarStyle} activeBackgroundColor="white" inactiveBackgroundColor="rgba(255, 0, 0, 0.5)">
+                <Tabs
+                  key="tabbar"
+                  backToInitial
+                  swipeEnabled
+                  showLabel={false}
+                  tabBarStyle={styles.tabBarStyle}
+                  activeBackgroundColor="white"
+                  inactiveBackgroundColor="rgba(255, 0, 0, 0.5)"
+                >
                   <Stack
                     key="tab_1"
                     title="Tab #1"
