@@ -508,6 +508,11 @@ class NavigationStore {
           }
         }
       }
+      this.dispatch({
+        type: ActionConst.FOCUS,
+        routeName: this.currentScene,
+        params: this._currentParams,
+      });
       if (this.states[currentScene]) {
         const handler = this[currentScene + OnEnter];
         const success = this.states[currentScene].success || defaultSuccess;
@@ -552,6 +557,8 @@ class NavigationStore {
     const Navigator = this.processScene(scene, params, [], wrapBy);
     // set initial state
     this.onNavigationStateChange(null, Navigator.router.getStateForAction(NavigationActions.init()), NavigationActions.init());
+    this.setCustomReducer(Navigator);
+
     return Navigator;
   };
 

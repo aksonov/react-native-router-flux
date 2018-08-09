@@ -1,0 +1,37 @@
+{
+  "name": "rnrfSample",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "postinstall": "rm -rf node_modules/react-native-router-flux/node_modules node_modules/react-native-router-flux/Example"
+  },
+  "resolutions": {
+    "*/@babel/cli": "7.0.0-beta.54",
+    "*/@babel/core": "7.0.0-beta.54",
+    "*/@babel/code-frame": "7.0.0-beta.54"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.2",
+    "react": "^16.4.1",
+    "react-native": "^0.56.0",
+    "react-native-router-flux": "file:..",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.2"
+  },
+  "devDependencies": {
+    "@babel/core": "7.0.0-beta.54",
+    "@babel/plugin-proposal-decorators": "^7.0.0-beta.54",
+    "@babel/preset-flow": "7.0.0-beta.54",
+    "autobind-decorator": "^2.1.0",
+    "babel-core": "^7.0.0-0",
+    "babel-jest": "^23.4.0",
+    "jest": "^23.4.1",
+    "metro-react-native-babel-preset": "^0.42.2",
+    "react-test-renderer": "^16.4.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}

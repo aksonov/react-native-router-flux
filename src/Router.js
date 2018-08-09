@@ -103,7 +103,6 @@ const Router = ({
   }
   const AppNavigator = scenes || navigator || navigationStore.create(children, data, wrapBy);
   navigationStore.reducer = createReducer && createReducer(props);
-  navigationStore.setCustomReducer(AppNavigator);
   if (onStateChange) {
     navigationStore.onStateChange = onStateChange;
   }
