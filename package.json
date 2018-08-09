@@ -64,7 +64,7 @@
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [
-      "<rootDir>/Example/"
+      "<rootDir>/Example/", "<rootDir>/ReduxExample/"
     ],
     "transformIgnorePatterns": [
       "node_modules/(?!(jest-)?react-native|react-navigation)"
