@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "sdkVersion": "25.0.0",
+    "privacy": "RNRF Sample",
+    "slug":"RNRF-Sample",
+    "description": "Example App React-Native Router Flux RNRF v4",
+    "privacy": "public",
+    "version":"4.0"
+  }
+}
