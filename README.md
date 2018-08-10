@@ -2,7 +2,7 @@
 
 [Follow author @PAksonov](https://twitter.com/PAksonov)
 
-#### NOTE: v4 based on [React Navigation v1.5.6](https://reactnavigation.org/). See [this branch](https://github.com/aksonov/react-native-router-flux/tree/v3) and [docs](https://github.com/aksonov/react-native-router-flux/blob/master/README3.md) for v3 based on deprecated React Native Experimental Navigation API. It is not supported and may not work with latest React Native versions.
+#### NOTE: v4 based on [React Navigation v2.x](https://reactnavigation.org/). See [this branch](https://github.com/aksonov/react-native-router-flux/tree/v3) and [docs](https://github.com/aksonov/react-native-router-flux/blob/master/README3.md) for v3 based on deprecated React Native Experimental Navigation API. It is not supported and may not work with latest React Native versions.
 
 ___
 
