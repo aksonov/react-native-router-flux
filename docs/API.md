@@ -16,12 +16,13 @@
 
 | Property | Type | Default | Description |
 |-------------|----------|--------------|----------------------------------------------------------------|
-| children |  | required | Scene root element |
+| children |  | semi-required | Scene root element (required if `navigator` is not set) |
 | `wrapBy`   | `Function` |  | function to wrap each Scene component and nav bar buttons - allows easy MobX integration (by passing `observer`) |
 | `sceneStyle`     | `Style` |  | Style applied to all scenes (optional) |
 | `backAndroidHandler`     | `Function` |  | Allows custom control of hardwareBackPress in Android (optional). For more info check [BackHandler](https://facebook.github.io/react-native/docs/backhandler.html).  |
 | `uriPrefix`     | `string` |  | A uri prefix to strip from incoming urls for deep linking. For example, if you wanted to support deep linking from `www.example.com/user/1234/`, then you could pass `example.com` to only match paths against `/user/1234/`. |
 | `onStateChange`   | `Function` |  | function to be called every time when navigation state is changed. Useful for mobx stores to change observables (set scene to `Actions.currentScene`, etc.) |
+| `navigator`   | `Class` |  | Application navigator with all Scenes created by `Actions.create` - it is altenative way to create Router, mostly used for Redux integration (see ReduxExample for more details) |
 
 ## Scene:
 The basic routing component for this router, all `<Scene>` components require a `key` prop that must be unique. A parent `<Scene>` must have a `component` as a `prop` as it will act as a grouping component for its children.
@@ -188,6 +189,7 @@ These can be used directly, for example, `Actions.pop()` will dispatch correspon
 | `reset` | `Function` | `(sceneKey: String, props: Object)` | Clears the routing stack and pushes the scene into the first index. *No transition will occur.* |
 | `drawerOpen` | `Function` | | Opens the `Drawer` if applicable |
 | `drawerClose` | `Function` | | Closes the `Drawer` if applicable |
+| `create` | `React.Element` | pass `Scene` to create your app navigator. It is alternative router creation method mostly used for Redux integration |
 
 ## ActionConst
 Type constants to determine `Scene` transitions, These are **PREFERRED** over typing their values manually as these are subject to change as the project is updated.
