@@ -79,7 +79,20 @@ class App extends React.Component {
   };
 
   render() {
-    const AppNavigator = this.props.navigator;
+    const { dispatch, state, navigator: AppNavigator } = this.props;
+    if (dispatch && state) {
+      navigationStore.externalDispatch = dispatch;
+      navigationStore.externalState = state;
+      return (
+        <AppNavigator
+          dispatch={navigationStore.dispatch}
+          state={navigationStore.state}
+          ref={(navigatorRef) => {
+            navigationStore.setTopLevelNavigator(navigatorRef);
+          }}
+        />
+      );
+    }
     return (
       <AppNavigator
         onNavigationStateChange={navigationStore.onNavigationStateChange}

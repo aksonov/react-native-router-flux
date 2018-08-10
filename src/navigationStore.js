@@ -468,6 +468,14 @@ class NavigationStore {
 
   _navigator = null;
 
+  externalDispatch = null;
+
+  externalState = null;
+
+  prevState = null;
+
+  externalAction = {};
+
   refs = {};
 
   states = {};
@@ -479,6 +487,13 @@ class NavigationStore {
   currentParams;
 
   onStateChange;
+
+  set externalState(state) {
+    if (state && this.externalDispatch) {
+      this.onNavigationStateChange(this.state, state, this.externalAction);
+      this.state = state;
+    }
+  }
 
   setCustomReducer = (Navigator) => {
     this.getStateForAction = Navigator.router.getStateForAction;
@@ -508,11 +523,11 @@ class NavigationStore {
           }
         }
       }
-      this.dispatch({
+      setTimeout(() => this.dispatch({
         type: ActionConst.FOCUS,
         routeName: this.currentScene,
-        params: this._currentParams,
-      });
+        params: this.currentParams,
+      }));
       if (this.states[currentScene]) {
         const handler = this[currentScene + OnEnter];
         const success = this.states[currentScene].success || defaultSuccess;
@@ -818,7 +833,10 @@ class NavigationStore {
   };
 
   dispatch = (action) => {
-    if (this._navigator) {
+    if (this.externalDispatch) {
+      this.externalAction = action;
+      this.externalDispatch(action);
+    } else if (this._navigator) {
       this._navigator.dispatch(action);
     }
   };
