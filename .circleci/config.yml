@@ -8,7 +8,7 @@ jobs:
       - run:
           name: temporary-eslint-airbnb-config-install
           command: |
-            git clone https://github.com/airbnb/javascript.git ~/airbnb-style
+            git clone https://github.com/airbnb/javascript.git --branch eslint-config-airbnb-v16.1.0 --single-branch ~/airbnb-style
             cd ~/airbnb-style/ && yarn install
       - checkout
       - restore_cache:
