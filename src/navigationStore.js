@@ -910,18 +910,16 @@ class NavigationStore {
 
   reset = (routeName, data) => {
     const params = filterParam(data);
-    this.dispatch(
-      StackActions.reset({
-        key: null,
-        index: 0,
-        actions: [
-          NavigationActions.navigate({
-            routeName,
-            params,
-          }),
-        ],
-      }),
-    );
+    this.dispatch(StackActions.reset({
+      key: null,
+      index: 0,
+      actions: [
+        NavigationActions.navigate({
+          routeName,
+          params,
+        }),
+      ],
+    }));
   };
 }
 
