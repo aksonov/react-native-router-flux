@@ -854,7 +854,7 @@ class NavigationStore {
 
   push = (routeName, data) => {
     const params = filterParam(data);
-    this.dispatch({ type: NavigationActions.NAVIGATE, routeName, params });
+    this.dispatch({ type: StackActions.PUSH, routeName, params });
   };
 
   jump = (routeName, data) => {
