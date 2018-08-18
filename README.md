@@ -13,7 +13,7 @@ Router for React Native based on [exNavigator](https://github.com/exponentjs/ex-
 
 ## Installation
 ```
-npm i react-native-router-flux --save
+npm i react-native-router-flux@2.3.13 --save
 ```
 
 ## Usage
@@ -38,7 +38,7 @@ npm i react-native-router-flux --save
 |-----------|--------|---------|--------------------------------------------|
 | name | string | required | Will be used to call screen transition, for example, `Actions.name(params)`. Must be unique. |
 | component | React.Component | semi-required | The `Component` to be displayed. Not required when defining a nested `Router` or child, see example |
-| type | string | optional | Defines how the new screen is added to the navigator stack. One of `push`, `modal`,`actionSheet`,`replace`, `switch`, `reset`.  Default is 'push'. `replace` tells navigator to replace current route with new route. `actionSheet` shows Action Sheet popup, you must pass callback as callback function, check Example for details. `modal` type inserts its 'component' after navigator component. It could be used for popup alerts as well for various needed processes before any navigator transitions (like login auth process).``switch` is used for tab screens. `reset` is similar to replace except it unmounts the componets in the navigator stack. `modal` component could be dismissed by using Actions.dismiss() |
+| type | string | optional | Defines how the new screen is added to the navigator stack. One of `push`, `modal`,`actionSheet`,`replace`, `switch`, `reset` `transitionToTop`.  Default is 'push'. `replace` tells navigator to replace current route with new route. `actionSheet` shows Action Sheet popup, you must pass callback as callback function, check Example for details. `modal` type inserts its 'component' after navigator component. It could be used for popup alerts as well for various needed processes before any navigator transitions (like login auth process).``switch` is used for tab screens. `reset` is similar to replace except it unmounts the componets in the navigator stack. `modal` component could be dismissed by using Actions.dismiss() `transitionToTop` will reset router stack ['route.name'] and with animation, if route has `sceneConfig`. eg `<Route name="login" schema="modal" component={Login} type="transitionToTop" />` |
 | initial | bool | false | Set to `true` if this is the initial screen |
 | title | string | null | The title to be displayed in the navigation bar |
 | schema | string | optional | Set this property to the name of a previously defined `Schema` to inherit its properties |
@@ -112,8 +112,8 @@ export default class Example extends React.Component {
                 <Route name="error" component={Error} title="Error"  type="modal"/>
                 <Route name="register2" component={Register} title="Register2"  schema="withoutAnimation"/>
                 <Route name="tabbar">
-                    <Router footer={TabBar} showNavigationBar={false} tabBarStyle={{borderTopColor:'#00bb00',borderTopWidth:1,backgroundColor:'white'}}>
-                        <Route name="tab1" schema="tab" title="Tab #1" >
+                    <Router footer={TabBar} hideNavBar={true} tabBarStyle={{borderTopColor:'#00bb00',borderTopWidth:1,backgroundColor:'white'}}>
+                        <Route name="tab1" schema="tab" title="Tab #1" defaultRoute='tab1_1'>
                             <Router>
                                 <Route name="tab1_1" component={TabView} title="Tab #1_1" />
                                 <Route name="tab1_2" component={TabView} title="Tab #1_2" />
@@ -177,13 +177,13 @@ Modal type inserts its 'component' after navigator component. See the ```Example
 Note that **ReactNativeRouterFlux will not provide animations for modals** and you'll need to animate the modal yourself (or use a library)
 
 ## Sidebar/Drawer support
-You can easily configure react-native-router-flux to handle a sidebar/drawer for specific routes:  
+You can easily configure react-native-router-flux to handle a sidebar/drawer for specific routes:
 **1.** Create a sidebar/drawer component (you can use both [react-native-drawer](https://github.com/root-two/react-native-drawer) and [react-native-side-menu](https://github.com/react-native-fellowship/react-native-side-menu)) and pass its router props to its children:
 ```javascript
 <DrawerLayout>
    {React.Children.map(children, c => React.cloneElement(c, {route: this.props.route}))}
 </DrawerLayout>
-```  
+```
 **2.** In you router component add the sidebar/drawer and nested routes following this pattern:
 ```javascript
 <Router>
@@ -199,7 +199,9 @@ You can easily configure react-native-router-flux to handle a sidebar/drawer for
 </Router>
 ```
 
-Here is a complete example of a working drawer using a common app with:
+There is **an [example](https://github.com/efkan/rndrawer-implemented-rnrouter)** which is worked together with `react-native-drawer`.
+
+Also here is another complete example of a working drawer using a common app with:
 - A session screen that just checks if the user is already logged-in on startup (SessionScreen)
 - An auth screen that handles signin/signup (AuthScreen)
 - Many other screens that show the true content of the app, all using the sidebar
@@ -215,7 +217,7 @@ class SideDrawer extends React.Component {
         type="overlay"
         content={<SideDrawerContent />}
         tapToClose={true}
-        openDrawerOffset={0.2} 
+        openDrawerOffset={0.2}
         panCloseMask={0.2}
         closedDrawerOffset={-3}
         styles={{ drawer: drawerStyle, main: mainStyle }}
@@ -282,10 +284,10 @@ If 'dispatch' prop is passed to the router, it will be called with current route
 
 Also all route actions can be hooked by adding handlers for `Actions.onPush`, `Actions.onReplace`, `Actions.onPop` in your store(s).
 
-Here is an example of connecting the router and its routes to Redux and creating a component aware of being focused:  
+Here is an example of connecting the router and its routes to Redux and creating a component aware of being focused:
 
-**1. Connect a `<Route>` to Redux**  
-Connecting a `<Route>` to Redux is easy, instead of:  
+**1. Connect a `<Route>` to Redux**
+Connecting a `<Route>` to Redux is easy, instead of:
 ```javascript
 <Route name="register" component={RegisterScreen} title="Register" />
 ```
@@ -293,13 +295,13 @@ you might write:
 ```javascript
 <Route name="register" component={connect(selectFnForRegister)(RegisterScreen)} title="Register" />
 ```
-You can also simply connect the component itself in its own file like you usually do.  
-  
-**2. Connect a `<Router>` to Redux**  
-If you need to inform Redux of the navigation status (i.e. when you pop a route) just override the `<Router>` component included in `react-native-router-flux` with a connected one:  
+You can also simply connect the component itself in its own file like you usually do.
+
+**2. Connect a `<Router>` to Redux**
+If you need to inform Redux of the navigation status (i.e. when you pop a route) just override the `<Router>` component included in `react-native-router-flux` with a connected one:
 ```javascript
 import ReactNativeRouter, { Actions, Router } from 'react-native-router-flux'
-const Router = connect()(ReactNativeRouter.Router) 
+const Router = connect()(ReactNativeRouter.Router)
 ```
 Now when you use a `<Router>` it will be connected to the store and will trigger the following actions:
 - `Actions.BEFORE_ROUTE`
@@ -311,19 +313,19 @@ Now when you use a `<Router>` it will be connected to the store and will trigger
 
 Take a look at [this](https://github.com/aksonov/react-native-router-flux/blob/master/Example/Example.js) for an example.
 
-**3. Catch the interested actions in your reducer**  
+**3. Catch the interested actions in your reducer**
 For this example I have a `global` reducer (where I keep the information needed by all my app) where I set the `currentRoute`:
 ```javascript
 case Actions.AFTER_ROUTE:
 case Actions.AFTER_POP:
   return state.set('currentRoute', action.name)
 ```
-Now the reducer will catch every route change and update `global.currentRoute` with the currently focused route.  
-You also can do many other interesting things from here, like saving an history of the navigation itself in an array!  
+Now the reducer will catch every route change and update `global.currentRoute` with the currently focused route.
+You also can do many other interesting things from here, like saving an history of the navigation itself in an array!
 
-**4. Update your component on focus**  
+**4. Update your component on focus**
 I'm doing it on `componentDidUpdate` of my component of the route named `payment`.
-If `global.currentRoute` is `payment` and the previous `global.currentRoute` was different, than the component has just been focused.
+If `global.currentRoute` is `payment` and the previous `global.currentRoute` was different, then the component has just been focused.
 ```javascript
   componentDidUpdate(prevProps) {
     const prevRoute = prevProps.global.currentRoute
@@ -333,7 +335,7 @@ If `global.currentRoute` is `payment` and the previous `global.currentRoute` was
     }
   }
 ```
-P.S.: Remember to check `currentRoute === 'payment'`, otherwise you'll start doSomething() on every route change!  
+P.S.: Remember to check `currentRoute === 'payment'`, otherwise you'll start doSomething() on every route change!
 
 ## Limitations
 ### Nested Routers
@@ -349,4 +351,3 @@ P.S.: Remember to check `currentRoute === 'payment'`, otherwise you'll start doS
           </Route>
         </Router>
 ```
-

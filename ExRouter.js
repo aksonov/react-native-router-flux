@@ -13,7 +13,7 @@ import debug from './debug';
 import ActionSheet from '@exponent/react-native-action-sheet';
 
 function parentProps(props = {}){
-    const {name, sceneConfig, title, children, router, initial, showNavigationBar, hideNavBar, footer, header, ...routerProps} = props;
+    const {name, sceneConfig, title, children, router, initial, showNavigationBar, renderNavigationBar, hideNavBar, footer, header, ...routerProps} = props;
     return routerProps;
 
 }
@@ -44,6 +44,9 @@ export class ExRouteAdapter {
         }
         if (this.route.props.renderLeftButton){
             this.renderLeftButton = this.route.props.renderLeftButton.bind(this.route);
+        }
+        if (this.route.props.renderBackButton){
+            this.renderBackButton = this.route.props.renderBackButton.bind(this.route);
         }
     }
 
@@ -82,8 +85,9 @@ export class ExRouteAdapter {
     }
 
     getTitle() {
-        debug("TITLE ="+this.route.title+" for route="+this.route.name);
-        return this.title || "";
+        const title = this.route.props.title || this.title || "";
+        debug("TITLE ="+title+" for route="+this.route.name);
+        return title;
     }
 
     getBackButtonTitle(navigator, index, state){
@@ -104,7 +108,7 @@ export class ExRouteAdapter {
                   style={[ExNavigator.Styles.barLeftButtonText, this.route.props.leftButtonTextStyle]}>{this.route.props.leftTitle}</Text>
             </TouchableOpacity>);
         }
-        
+
         if (index === 0 || index < navigator.getCurrentRoutes().length-1) {
             return null;
         }
@@ -125,6 +129,7 @@ export class ExRouteAdapter {
             ExNavigatorStyles.barButtonText,
             ExNavigatorStyles.barBackButtonText,
             navigator.props.barButtonTextStyle,
+            this.route.props.leftButtonTextStyle,
           ]}
                 >
                     {title}
@@ -140,6 +145,7 @@ export class ExRouteAdapter {
                     style={[
             ExNavigatorStyles.barButtonIcon,
             navigator.props.barButtonIconStyle,
+            this.route.props.barButtonIconStyle,
           ]}
                 />
                 {buttonText}
@@ -160,6 +166,25 @@ export class ExRouteAdapter {
         }
     }
 }
+class ExNavigationBar extends Navigator.NavigationBar {
+    constructor(props){
+        super(props);
+        this.state = {};
+    }
+    render(){
+        const route = this.props.router.nextRoute || this.props.router.currentRoute;
+        const renderNavBar = (route.component && route.component.renderNavigationBar) || route.renderNavigationBar  || this.props.router.renderNavigationBar || this.props.renderNavigationBar;
+        let res = renderNavBar ? renderNavBar(this.props) : super.render();
+
+        if (route.props.hideNavBar === false){
+            return res;
+        }
+        if (this.props.router.props.hideNavBar || route.props.hideNavBar){
+            return null;
+        }
+        return res;
+    }
+}
 
 export default class ExRouter extends React.Component {
     router: BaseRouter;
@@ -172,11 +197,12 @@ export default class ExRouter extends React.Component {
         this.onReplace = this.onReplace.bind(this);
         this.onJump = this.onJump.bind(this);
         this.onActionSheet = this.onActionSheet.bind(this);
+        this.onTransitionToTop = this.onTransitionToTop.bind(this);
         this.state = {};
     }
 
     componentWillUnmount() {
-        if (this === Actions.currentRouter.delegate) {
+        if (Actions.currentRouter && this === Actions.currentRouter.delegate) {
             Actions.currentRouter = null;
         }
     }
@@ -233,10 +259,12 @@ export default class ExRouter extends React.Component {
         const routes = navigator.getCurrentRoutes();
         const exist = routes.filter(el=>el.getName()==route.name);
         if (exist.length){
+            // navigator.jumpTo does not allow us to pass new props to an
+            // existing route, so we do it manually.
+            exist[0].props = props;
             navigator.jumpTo(exist[0]);
         } else {
             navigator.push(new ExRouteAdapter(route, props));
-
         }
         this.setState({selected: route.name});
         return true;
@@ -249,7 +277,37 @@ export default class ExRouter extends React.Component {
                 return false;
             }
         }
-        this.refs.nav.pop();
+
+        if (num === 1) {
+            this.refs.nav.pop();
+        } else {
+            this.refs.nav.popBack(num);
+        }
+        return true;
+    }
+
+    onTransitionToTop(route:Route, props:{ [key: string]: any}) {
+        if (this.props.onTransitionToTop) {
+            const res = this.props.onTransitionToTop(route, props);
+            if (!res) {
+                return false;
+            }
+        }
+        const navigator = this.refs.nav;
+        let router:BaseRouter = route.parent;
+
+        // reset router stack
+        router._stack = [route.name];
+
+        // you can use navigator.transitionToTop or  navigator.immediatelyResetRouteStack + navigator.push
+        // navigator.immediatelyResetRouteStack + navigator.push is more beter ,
+        // if target route's parent(router) stack only have one route  eg ['someroute']
+
+        //navigator.transitionToTop(new ExRouteAdapter(route, props));
+
+        navigator.immediatelyResetRouteStack([]);
+        navigator.push(new ExRouteAdapter(route, props));
+
         return true;
     }
 
@@ -271,37 +329,27 @@ export default class ExRouter extends React.Component {
         this.refs.actionsheet.showActionSheetWithOptions({...route.props, ...props}, props.callback);
     }
 
-    _renderNavigationBar(props){
-        const navBar = this.props.renderNavigationBar ? this.props.renderNavigationBar(props) :
-            <Navigator.NavigationBar {...props}/>
-
-        const route = this.props.router.nextRoute || this.props.router.currentRoute;
-        if (route.props.hideNavBar === false){
-            return navBar;
-        }
-        if (this.props.router.props.hideNavBar || route.props.hideNavBar){
-            return null;
-        }
-        return navBar;
-
-    }
-
     render() {
         const router = this.props.router;
+        const route = this.props.router.nextRoute || this.props.router.currentRoute;
         if (!router){
             throw new Error("No router is defined");
         }
         const Header = this.props.header;
-        const header = Header ? <Header {...this.props} {...this.state}/> : null;
+        const header = Header ? <Header {...this.props} {...route.props} {...this.state}/> : null;
 
         const Footer = this.props.footer;
-        const footer = Footer ? <Footer {...this.props} {...this.state}/> : null;
+        const footer = Footer ? <Footer {...this.props} {...route.props} {...this.state}/> : null;
+
+        const routerViewStyle = this.props.routerViewStyle || {};
+
         debug("RENDER ROUTER:"+router.name);
         return (
             <ActionSheet ref="actionsheet">
-                <View style={styles.transparent}>
+                <View style={[styles.transparent, routerViewStyle]}>
                     {header}
                     <ExNavigator ref="nav" initialRouteStack={router.stack.map(route => {
+                            debug("REBUILDING STACK!");
                             const oldProps = router.routes[route].props
                             router.routes[route].props = {...oldProps, ...parentProps(this.props), ...this.state}
                             return new ExRouteAdapter(router.routes[route])
@@ -309,7 +357,7 @@ export default class ExRouter extends React.Component {
                         style={styles.transparent}
                         sceneStyle={{ paddingTop: 0, backgroundColor:'transparent' }}
                         {...this.props}
-                        renderNavigationBar={props=>this._renderNavigationBar({...props, ...this.state, router})}
+                        renderNavigationBar={props=><ExNavigationBar {...this.props} {...props} {...this.state} router={router}/>}
                     />
                     {footer}
                     {this.state.modal}
@@ -344,4 +392,3 @@ var styles = StyleSheet.create({
     },
 
 });
-

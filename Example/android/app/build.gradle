@@ -60,7 +60,8 @@ import com.android.build.OutputFile
 apply from: "react.gradle"
 
 /**
- * Set this to true to create two separate APKs instead of one:
+ * Set this to true to create three separate APKs instead of one:
+ *   - A universal APK that works on all devices
  *   - An APK that only works on ARM devices
  *   - An APK that only works on x86 devices
  * The advantage is the size of the APK is reduced by about 4MB.
@@ -72,7 +73,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = true
+def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
@@ -91,7 +92,7 @@ android {
     splits {
         abi {
             enable enableSeparateBuildPerCPUArchitecture
-            universalApk false  // Also generate an universal APK
+            universalApk false
             reset()
             include "armeabi-v7a", "x86"
         }
@@ -120,5 +121,5 @@ android {
 dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
-    compile "com.facebook.react:react-native:0.19.+"
+    compile "com.facebook.react:react-native:0.20.+"
 }

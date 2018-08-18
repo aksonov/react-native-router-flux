@@ -4,13 +4,8 @@ import buildStyleInterpolator from 'react-native/Libraries/Utilities/buildStyleI
 
 var NoTransition = {
     opacity: {
-        from: 1,
-        to: 1,
-        min: 1,
-        max: 1,
-        type: 'linear',
-        extrapolate: false,
-        round: 100,
+        value: 1.0,
+        type: 'constant',
     },
 };
 
