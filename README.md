@@ -13,7 +13,7 @@ Router for React Native based on [exNavigator](https://github.com/exponentjs/ex-
 
 ## Installation
 ```
-npm i react-native-router-flux --save
+npm i react-native-router-flux@2.3.13 --save
 ```
 
 ## Usage
@@ -177,13 +177,13 @@ Modal type inserts its 'component' after navigator component. See the ```Example
 Note that **ReactNativeRouterFlux will not provide animations for modals** and you'll need to animate the modal yourself (or use a library)
 
 ## Sidebar/Drawer support
-You can easily configure react-native-router-flux to handle a sidebar/drawer for specific routes:  
+You can easily configure react-native-router-flux to handle a sidebar/drawer for specific routes:
 **1.** Create a sidebar/drawer component (you can use both [react-native-drawer](https://github.com/root-two/react-native-drawer) and [react-native-side-menu](https://github.com/react-native-fellowship/react-native-side-menu)) and pass its router props to its children:
 ```javascript
 <DrawerLayout>
    {React.Children.map(children, c => React.cloneElement(c, {route: this.props.route}))}
 </DrawerLayout>
-```  
+```
 **2.** In you router component add the sidebar/drawer and nested routes following this pattern:
 ```javascript
 <Router>
@@ -217,7 +217,7 @@ class SideDrawer extends React.Component {
         type="overlay"
         content={<SideDrawerContent />}
         tapToClose={true}
-        openDrawerOffset={0.2} 
+        openDrawerOffset={0.2}
         panCloseMask={0.2}
         closedDrawerOffset={-3}
         styles={{ drawer: drawerStyle, main: mainStyle }}
@@ -284,10 +284,10 @@ If 'dispatch' prop is passed to the router, it will be called with current route
 
 Also all route actions can be hooked by adding handlers for `Actions.onPush`, `Actions.onReplace`, `Actions.onPop` in your store(s).
 
-Here is an example of connecting the router and its routes to Redux and creating a component aware of being focused:  
+Here is an example of connecting the router and its routes to Redux and creating a component aware of being focused:
 
-**1. Connect a `<Route>` to Redux**  
-Connecting a `<Route>` to Redux is easy, instead of:  
+**1. Connect a `<Route>` to Redux**
+Connecting a `<Route>` to Redux is easy, instead of:
 ```javascript
 <Route name="register" component={RegisterScreen} title="Register" />
 ```
@@ -295,13 +295,13 @@ you might write:
 ```javascript
 <Route name="register" component={connect(selectFnForRegister)(RegisterScreen)} title="Register" />
 ```
-You can also simply connect the component itself in its own file like you usually do.  
-  
-**2. Connect a `<Router>` to Redux**  
-If you need to inform Redux of the navigation status (i.e. when you pop a route) just override the `<Router>` component included in `react-native-router-flux` with a connected one:  
+You can also simply connect the component itself in its own file like you usually do.
+
+**2. Connect a `<Router>` to Redux**
+If you need to inform Redux of the navigation status (i.e. when you pop a route) just override the `<Router>` component included in `react-native-router-flux` with a connected one:
 ```javascript
 import ReactNativeRouter, { Actions, Router } from 'react-native-router-flux'
-const Router = connect()(ReactNativeRouter.Router) 
+const Router = connect()(ReactNativeRouter.Router)
 ```
 Now when you use a `<Router>` it will be connected to the store and will trigger the following actions:
 - `Actions.BEFORE_ROUTE`
@@ -313,17 +313,17 @@ Now when you use a `<Router>` it will be connected to the store and will trigger
 
 Take a look at [this](https://github.com/aksonov/react-native-router-flux/blob/master/Example/Example.js) for an example.
 
-**3. Catch the interested actions in your reducer**  
+**3. Catch the interested actions in your reducer**
 For this example I have a `global` reducer (where I keep the information needed by all my app) where I set the `currentRoute`:
 ```javascript
 case Actions.AFTER_ROUTE:
 case Actions.AFTER_POP:
   return state.set('currentRoute', action.name)
 ```
-Now the reducer will catch every route change and update `global.currentRoute` with the currently focused route.  
-You also can do many other interesting things from here, like saving an history of the navigation itself in an array!  
+Now the reducer will catch every route change and update `global.currentRoute` with the currently focused route.
+You also can do many other interesting things from here, like saving an history of the navigation itself in an array!
 
-**4. Update your component on focus**  
+**4. Update your component on focus**
 I'm doing it on `componentDidUpdate` of my component of the route named `payment`.
 If `global.currentRoute` is `payment` and the previous `global.currentRoute` was different, then the component has just been focused.
 ```javascript
@@ -335,7 +335,7 @@ If `global.currentRoute` is `payment` and the previous `global.currentRoute` was
     }
   }
 ```
-P.S.: Remember to check `currentRoute === 'payment'`, otherwise you'll start doSomething() on every route change!  
+P.S.: Remember to check `currentRoute === 'payment'`, otherwise you'll start doSomething() on every route change!
 
 ## Limitations
 ### Nested Routers
@@ -351,4 +351,3 @@ P.S.: Remember to check `currentRoute === 'payment'`, otherwise you'll start doS
           </Route>
         </Router>
 ```
-
