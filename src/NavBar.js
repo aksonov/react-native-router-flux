@@ -91,10 +91,8 @@ export function LeftButton(state) {
     );
   }
   if (!!state.onLeft ^ !!(leftTitle || buttonImage || menuIcon)) {
-    console.warn(
-      `Both onLeft and leftTitle/leftButtonImage
-            must be specified for the scene: ${state.name}`,
-    );
+    console.warn(`Both onLeft and leftTitle/leftButtonImage
+            must be specified for the scene: ${state.name}`);
   }
   return null;
 }
@@ -156,10 +154,8 @@ export function RightButton(state) {
     );
   }
   if (!!state.onRight ^ !!(typeof rightTitle !== 'undefined' || typeof buttonImage !== 'undefined')) {
-    console.warn(
-      `Both onRight and rightTitle/rightButtonImage
-            must be specified for the scene: ${state.routeName}`,
-    );
+    console.warn(`Both onRight and rightTitle/rightButtonImage
+            must be specified for the scene: ${state.routeName}`);
   }
   return null;
 }

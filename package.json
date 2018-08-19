@@ -23,6 +23,7 @@
     "*/@babel/code-frame": "7.0.0-beta.54"
   },
   "dependencies": {
+    "eslint-config-airbnb": "16.1.0",
     "lodash.isequal": "^4.5.0",
     "opencollective": "^1.0.3",
     "path-to-regexp": "^2.2.1",
@@ -40,8 +41,6 @@
     "babel-eslint": "9.0.0-beta.3",
     "babel-jest": "^23.4.0",
     "eslint": "^5.2.0",
-    "eslint-config-airbnb": "file:../airbnb-style/packages/eslint-config-airbnb",
-    "eslint-config-airbnb-base": "file:../airbnb-style/packages/eslint-config-airbnb-base",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-eslint-comments": "^3.0.1",
     "eslint-plugin-import": "^2.13.0",
