@@ -104,6 +104,8 @@ Can use all `props` listed above in `<Scene>` as `<Tabs>` is syntatic sugar for 
 | `tabBarOnPress`     | `function` | | Custom tab bar icon press. |
 | `backToInitial`     | `boolean` | `false` | Back to initial screen on focused tab if tab icon was tapped. |
 | `upperCaseLabel`     | `boolean` | `true` | Whether to make label uppercase, default is true. |
+| `indicatorStyle`     | `object` |  | Override the style for active tab indicator. |
+
 
 ## Stack (`<Stack>`)
 A component to group Scenes together for its own stack based navigation. Using this will create a separate navigator for this stack, so expect two navbars to appear unless you add `hideNavBar`.
