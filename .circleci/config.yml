@@ -5,11 +5,6 @@ jobs:
     docker:
       - image: circleci/node:8
     steps:
-      - run:
-          name: temporary-eslint-airbnb-config-install
-          command: |
-            git clone https://github.com/airbnb/javascript.git ~/airbnb-style
-            cd ~/airbnb-style/ && yarn install
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
