@@ -17,7 +17,7 @@
 - Upgrade react-navigation@2.11.2 [\#3179](https://github.com/aksonov/react-native-router-flux/pull/3179) ([Agby](https://github.com/Agby))
 - Fix CircleCI locking eslint-config-airbnb version [\#3183](https://github.com/aksonov/react-native-router-flux/pull/3183) ([blackbing](https://github.com/blackbing))
 - Added indicatorStyle to 'Tabs' props. [\#3192](https://github.com/aksonov/react-native-router-flux/pull/3192) ([AkshatGiri](https://github.com/AkshatGiri))
-
+- hotfix: Example, ReduxExample and depencies fixes for Android [\#3195](https://github.com/aksonov/react-native-router-flux/pull/3195) ([daviscabral](https://github.com/daviscabral))
 
 [Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.1...4.0.2)
 
