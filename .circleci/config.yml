@@ -7,12 +7,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: install-dependencies
           command: yarn install --frozen-lockfile
       - save_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ~/.cache/yarn
       - run:
