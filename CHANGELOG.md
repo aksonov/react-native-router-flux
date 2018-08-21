@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.0.2](https://github.com/aksonov/react-native-router-flux/tree/4.0.2) (2018-08-10)
+## [4.0.2](https://github.com/aksonov/react-native-router-flux/tree/4.0.2) (2018-08-21)
 
 **Implemented enhancements:**
 
