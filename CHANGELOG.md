@@ -1,6 +1,7 @@
 # Change Log
 
 ## [4.0.2](https://github.com/aksonov/react-native-router-flux/tree/4.0.2) (2018-08-21)
+[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.1...4.0.2)
 
 **Implemented enhancements:**
 
@@ -18,8 +19,6 @@
 - Fix CircleCI locking eslint-config-airbnb version [\#3183](https://github.com/aksonov/react-native-router-flux/pull/3183) ([blackbing](https://github.com/blackbing))
 - Added indicatorStyle to 'Tabs' props. [\#3192](https://github.com/aksonov/react-native-router-flux/pull/3192) ([AkshatGiri](https://github.com/AkshatGiri))
 - hotfix: Example, ReduxExample and depencies fixes for Android [\#3195](https://github.com/aksonov/react-native-router-flux/pull/3195) ([daviscabral](https://github.com/daviscabral))
-
-[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.1...4.0.2)
 
 ## [4.0.1](https://github.com/aksonov/react-native-router-flux/tree/4.0.1) (2018-08-10)
 [Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0...4.0.1)
