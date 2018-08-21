@@ -1,4 +1,5 @@
 import { ActionConst } from 'react-native-router-flux';
+
 const INITIAL_STATE = { data: null, currentScene: 'home' };
 
 export default (state = INITIAL_STATE, { type, payload, routeName }) => {

@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Text,
-} from 'react-native';
+import { Text } from 'react-native';
 
 const propTypes = {
   focused: PropTypes.bool,
@@ -14,11 +12,7 @@ const defaultProps = {
   title: '',
 };
 
-const TabIcon = props => (
-  <Text style={{ color: props.focused ? 'red' : 'black' }}>
-    {props.title}
-  </Text>
-);
+const TabIcon = props => <Text style={{ color: props.focused ? 'red' : 'black' }}>{props.title}</Text>;
 
 TabIcon.propTypes = propTypes;
 TabIcon.defaultProps = defaultProps;

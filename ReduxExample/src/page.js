@@ -36,12 +36,10 @@ class Page extends React.Component {
   }
 }
 
-const action = data => {
-  return {
-    type: 'data',
-    payload: data,
-  };
-};
+const action = data => ({
+  type: 'data',
+  payload: data,
+});
 
 const styles = {
   fill: {
@@ -68,9 +66,7 @@ const styles = {
   },
 };
 
-const mapStateToProps = ({ reducer }) => {
-  return ({ data } = reducer);
-};
+const mapStateToProps = ({ reducer }) => ({ data } = reducer);
 
 export default connect(
   mapStateToProps,

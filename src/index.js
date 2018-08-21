@@ -11,6 +11,4 @@ import Tabs from './Tabs';
 import Overlay from './Overlay';
 import pathParser from './pathParser';
 
-export {
-  Reducer, ActionConst, Router, Scene, Actions, Modal, Lightbox, Stack, Drawer, Tabs, Overlay, pathParser,
-};
+export { Reducer, ActionConst, Router, Scene, Actions, Modal, Lightbox, Stack, Drawer, Tabs, Overlay, pathParser };
