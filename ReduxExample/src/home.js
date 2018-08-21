@@ -50,9 +50,7 @@ const styles = {
   },
 };
 
-const mapStateToProps = ({ reducer }) => {
-  return ({ data } = reducer);
-};
+const mapStateToProps = ({ reducer }) => ({ data } = reducer);
 
 export default connect(
   mapStateToProps,

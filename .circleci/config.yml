@@ -21,4 +21,4 @@ jobs:
           command: yarn test
       - run:
           name: linter
-          command: yarn eslint
+          command: yarn lint

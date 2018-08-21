@@ -1,8 +1,6 @@
 import React from 'react';
 import { HeaderBackButton } from 'react-navigation';
-import {
-  Platform, I18nManager, Image, StyleSheet, Text, TouchableOpacity, View,
-} from 'react-native';
+import { Platform, I18nManager, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Actions from './navigationStore';
 import _backButtonImage from '../images/back_chevron.png';
 
@@ -75,18 +73,18 @@ export function LeftButton(state) {
     return (
       <TouchableOpacity key="leftNavBarBtn" testID="leftNavButton" style={style} onPress={onPress} hitSlop={state.hitSlop || hitSlop}>
         {leftTitle && <Text style={textStyle}>{leftTitle}</Text>}
-        {!leftTitle
-          && (menuIcon || buttonImage) && (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'flex-start',
-            }}
-          >
-            {menuIcon || <Image source={buttonImage} style={[state.leftButtonIconStyle || styles.defaultImageStyle, { tintColor }]} />}
-          </View>
-        )}
+        {!leftTitle &&
+          (menuIcon || buttonImage) && (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'flex-start',
+              }}
+            >
+              {menuIcon || <Image source={buttonImage} style={[state.leftButtonIconStyle || styles.defaultImageStyle, { tintColor }]} />}
+            </View>
+          )}
       </TouchableOpacity>
     );
   }
@@ -138,18 +136,18 @@ export function RightButton(state) {
     return (
       <TouchableOpacity key="rightNavBarBtn" testID="rightNavButton" style={style} onPress={onPress} hitSlop={state.hitSlop || hitSlop}>
         {rightTitle && <Text style={textStyle}>{rightTitle}</Text>}
-        {!rightTitle
-          && buttonImage && (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'flex-end',
-            }}
-          >
-            {menuIcon || <Image source={buttonImage} style={[state.rightButtonIconStyle || styles.defaultImageStyle, { tintColor }]} />}
-          </View>
-        )}
+        {!rightTitle &&
+          buttonImage && (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'flex-end',
+              }}
+            >
+              {menuIcon || <Image source={buttonImage} style={[state.rightButtonIconStyle || styles.defaultImageStyle, { tintColor }]} />}
+            </View>
+          )}
       </TouchableOpacity>
     );
   }

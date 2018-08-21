@@ -257,15 +257,15 @@ function createNavigationOptions(params) {
     }
 
     if (
-      rightButtonImage
-      || rightTitle
-      || params.renderRightButton
-      || onRight
-      || navigationParams.onRight
-      || navigationParams.rightTitle
-      || navigationParams.rightButtonImage
-      || rightButtonTextStyle
-      || ((drawerImage || drawerIcon) && !hideDrawerButton && drawerPosition === 'right')
+      rightButtonImage ||
+      rightTitle ||
+      params.renderRightButton ||
+      onRight ||
+      navigationParams.onRight ||
+      navigationParams.rightTitle ||
+      navigationParams.rightButtonImage ||
+      rightButtonTextStyle ||
+      ((drawerImage || drawerIcon) && !hideDrawerButton && drawerPosition === 'right')
     ) {
       res.headerRight = getValue(navigationParams.right || navigationParams.rightButton || params.renderRightButton, { ...navigationParams, ...screenProps }) || (
         <RightNavBarButton {...params} {...navigationParams} {...componentData} />
@@ -273,28 +273,29 @@ function createNavigationOptions(params) {
     }
 
     if (
-      leftButtonImage
-      || backButtonImage
-      || backTitle
-      || leftTitle
-      || params.renderLeftButton
-      || leftButtonTextStyle
-      || renderBackButton
-      || backButtonTextStyle
-      || onLeft
-      || navigationParams.leftTitle
-      || navigationParams.onLeft
-      || navigationParams.leftButtonImage
-      || navigationParams.backButtonImage
-      || navigationParams.backTitle
-      || ((drawerImage || drawerIcon) && !hideDrawerButton && drawerPosition !== 'right')
+      leftButtonImage ||
+      backButtonImage ||
+      backTitle ||
+      leftTitle ||
+      params.renderLeftButton ||
+      leftButtonTextStyle ||
+      renderBackButton ||
+      backButtonTextStyle ||
+      onLeft ||
+      navigationParams.leftTitle ||
+      navigationParams.onLeft ||
+      navigationParams.leftButtonImage ||
+      navigationParams.backButtonImage ||
+      navigationParams.backTitle ||
+      ((drawerImage || drawerIcon) && !hideDrawerButton && drawerPosition !== 'right')
     ) {
-      res.headerLeft = getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
-        || (((onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage || navigationParams.leftButtonImage)) || drawerImage || drawerIcon) && (
+      res.headerLeft =
+        getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps }) ||
+        (((onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage || navigationParams.leftButtonImage)) || drawerImage || drawerIcon) && (
           <LeftNavBarButton {...params} {...navigationParams} {...componentData} />
-        ))
-        || res.headerLeft
-        || (init ? null : (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />);
+        )) ||
+        res.headerLeft ||
+        (init ? null : (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />);
     }
 
     if (back) {
@@ -355,11 +356,11 @@ function extendProps(props, store: NavigationStore) {
   const res = { ...props };
   for (const transition of Object.keys(props)) {
     if (
-      reservedKeys.indexOf(transition) === -1
-      && transition.startsWith('on')
-      && transition.charAt(2) >= 'A'
-      && transition.charAt(2) <= 'Z'
-      && typeof props[transition] === 'string'
+      reservedKeys.indexOf(transition) === -1 &&
+      transition.startsWith('on') &&
+      transition.charAt(2) >= 'A' &&
+      transition.charAt(2) <= 'Z' &&
+      typeof props[transition] === 'string'
     ) {
       if (store[props[transition]]) {
         res[transition] = params => store[props[transition]](params);
@@ -523,11 +524,12 @@ class NavigationStore {
           }
         }
       }
-      setTimeout(() => this.dispatch({
-        type: ActionConst.FOCUS,
-        routeName: this.currentScene,
-        params: this.currentParams,
-      }));
+      setTimeout(() =>
+        this.dispatch({
+          type: ActionConst.FOCUS,
+          routeName: this.currentScene,
+          params: this.currentParams,
+        }));
       if (this.states[currentScene]) {
         const handler = this[currentScene + OnEnter];
         const success = this.states[currentScene].success || defaultSuccess;
@@ -658,20 +660,22 @@ class NavigationStore {
       }
       delete props.children;
       if (success) {
-        this.states[key].success = success instanceof Function
-          ? success
-          : (args) => {
-            console.log(`Transition to state=${success}`);
-            this[success](args);
-          };
+        this.states[key].success =
+          success instanceof Function
+            ? success
+            : (args) => {
+              console.log(`Transition to state=${success}`);
+              this[success](args);
+            };
       }
       if (failure) {
-        this.states[key].failure = failure instanceof Function
-          ? failure
-          : (args) => {
-            console.log(`Transition to state=${failure}`);
-            this[failure](args);
-          };
+        this.states[key].failure =
+          failure instanceof Function
+            ? failure
+            : (args) => {
+              console.log(`Transition to state=${failure}`);
+              this[failure](args);
+            };
       }
       if (path) {
         this.states[key].path = path;

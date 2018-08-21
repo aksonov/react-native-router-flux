@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  View, Text, StyleSheet, Button,
-} from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { MessageBarManager } from 'react-native-message-bar';
 
@@ -26,13 +24,15 @@ class Launch extends React.Component {
         <Button title="Go to CustomNavBar page" onPress={() => Actions.customNavBar()} />
         <Button
           title="MessageBar alert"
-          onPress={() => MessageBarManager.showAlert({
-            title: 'Your alert title goes here',
-            message: 'Your alert message goes here',
-            alertType: 'success',
-            // See Properties section for full customization
-            // Or check `index.ios.js` or `index.android.js` for a complete example
-          })}
+          onPress={() =>
+            MessageBarManager.showAlert({
+              title: 'Your alert title goes here',
+              message: 'Your alert message goes here',
+              alertType: 'success',
+              // See Properties section for full customization
+              // Or check `index.ios.js` or `index.android.js` for a complete example
+            })
+          }
         />
         <Button title="Go to TabBar page" onPress={Actions.drawer} />
       </View>

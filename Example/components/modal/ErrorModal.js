@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-} from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Modal from './BaseModal';
 
@@ -25,6 +20,5 @@ const ErrorModal = () => (
     </View>
   </Modal>
 );
-
 
 export default ErrorModal;

@@ -37,7 +37,9 @@ class TabView extends React.Component {
     return (
       <View style={[styles.container, this.props.sceneStyle]}>
         <Text>
-          Tab title:{this.props.title} name:{this.props.name}
+          Tab title:
+          {this.props.title} name:
+          {this.props.name}
         </Text>
         <Text>Tab data: {this.props.data}</Text>
         {this.props.name === 'tab_1_1' && <Button onPress={() => Actions.tab_1_2()}>next screen for tab1_1</Button>}
