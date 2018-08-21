@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  View, Text, StyleSheet, Animated, Dimensions,
-} from 'react-native';
+import { View, Text, StyleSheet, Animated, Dimensions } from 'react-native';
 import Button from 'react-native-button';
 import { Actions } from 'react-native-router-flux';
 
@@ -45,16 +43,15 @@ export default class extends React.Component {
 
   render() {
     return (
-      <Animated.View style={[styles.container, { backgroundColor: 'rgba(52,52,52,0.5)' },
-        { transform: [{ translateY: this.state.offset }] }]}
-      >
-        <View style={{
-          width: 250,
-          height: 250,
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'white',
-        }}
+      <Animated.View style={[styles.container, { backgroundColor: 'rgba(52,52,52,0.5)' }, { transform: [{ translateY: this.state.offset }] }]}>
+        <View
+          style={{
+            width: 250,
+            height: 250,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'white',
+          }}
         >
           <Text>{this.props.data}</Text>
           <Button onPress={this.closeModal.bind(this)}>Close</Button>

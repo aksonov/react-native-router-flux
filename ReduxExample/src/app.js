@@ -6,6 +6,7 @@ import { reduxifyNavigator, createReactNavigationReduxMiddleware, createNavigati
 
 import Home from './home';
 import Page from './page';
+import reducer from './a-reducer';
 
 const AppNavigator = Actions.create(
   <Scene key="root" hideNavBar>
@@ -13,7 +14,6 @@ const AppNavigator = Actions.create(
     <Scene key="page" component={Page} />
   </Scene>,
 );
-import reducer from './a-reducer';
 
 // default nav reducer
 const initialState = AppNavigator.router.getStateForAction(AppNavigator.router.getActionForPathAndParams('home'));

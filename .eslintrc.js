@@ -57,5 +57,8 @@ module.exports = {
       },
     },
     node: true,
+    react: {
+      version: '16.4.2',
+    },
   },
 };

@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
   },
 });
 
-
 export default class extends React.Component {
   onEnter() {
     console.log('EchoView onEnter');
