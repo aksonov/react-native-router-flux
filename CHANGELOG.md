@@ -1,5 +1,31 @@
 # Change Log
 
+## [4.0.2](https://github.com/aksonov/react-native-router-flux/tree/4.0.2) (2018-08-21)
+[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.1...4.0.2)
+
+**Implemented enhancements:**
+
+- Upgrade react-navigation@2.11.2 (#3179)
+- API docs updated
+
+**Closed issues:**
+
+- Stack of same scene not working anymore after update from 4.0.0-beta-28 to 4.0.1 [\#3176](https://github.com/aksonov/react-native-router-flux/issues/3176)
+
+**Merged pull requests:**
+
+- Fixes push to pile scenes instead of navigate [\#3190](https://github.com/aksonov/react-native-router-flux/pull/3190) ([daviscabral](https://github.com/daviscabral))
+- Upgrade react-navigation@2.11.2 [\#3179](https://github.com/aksonov/react-native-router-flux/pull/3179) ([Agby](https://github.com/Agby))
+- Fix CircleCI locking eslint-config-airbnb version [\#3183](https://github.com/aksonov/react-native-router-flux/pull/3183) ([blackbing](https://github.com/blackbing))
+- Added indicatorStyle to 'Tabs' props. [\#3192](https://github.com/aksonov/react-native-router-flux/pull/3192) ([AkshatGiri](https://github.com/AkshatGiri))
+- hotfix: Example, ReduxExample and depencies fixes for Android [\#3195](https://github.com/aksonov/react-native-router-flux/pull/3195) ([daviscabral](https://github.com/daviscabral))
+
+## [4.0.1](https://github.com/aksonov/react-native-router-flux/tree/4.0.1) (2018-08-10)
+[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0...4.0.1)
+
+## [4.0.0](https://github.com/aksonov/react-native-router-flux/tree/4.0.0) (2018-08-10)
+[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/v3...4.0.0)
+
 ## [4.0.0-beta.23](https://github.com/aksonov/react-native-router-flux/tree/4.0.0-beta.23) (2017-11-08)
 [Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.22...4.0.0-beta.23)
 
