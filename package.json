@@ -75,6 +75,9 @@
       "./test/setup.js"
     ]
   },
+  "eslintConfig": {
+    "filePath": "./eslintrc.js"
+  },
   "collective": {
     "type": "opencollective",
     "url": "https://opencollective.com/react-native-router-flux",
