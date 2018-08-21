@@ -37,7 +37,6 @@
     "@babel/core": "7.0.0-beta.47",
     "@babel/plugin-proposal-decorators": "7.0.0-beta.47",
     "@babel/plugin-proposal-optional-chaining": "7.0.0-beta.47",
-    "@babel/preset-flow": "7.0.0-beta.47",
     "@types/react": "^16.4.11",
     "@types/react-native": "^0.56.9",
     "babel-core": "^7.0.0-0",
