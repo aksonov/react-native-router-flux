@@ -5,9 +5,7 @@ import { Actions } from 'react-native-router-flux';
 
 const { height: deviceHeight, width: deviceWidth } = Dimensions.get('window');
 
-const BaseModal = ({
-  children, verticalPercent, horizontalPercent, hideClose,
-}) => {
+const BaseModal = ({ children, verticalPercent, horizontalPercent, hideClose }) => {
   const height = verticalPercent ? deviceHeight * verticalPercent : deviceHeight;
   const width = horizontalPercent ? deviceHeight * horizontalPercent : deviceWidth;
 

@@ -8,10 +8,12 @@ import Home from './home';
 import Page from './page';
 import reducer from './a-reducer';
 
-const AppNavigator = Actions.create(<Scene key="root" hideNavBar>
-  <Scene key="home" component={Home} />
-  <Scene key="page" component={Page} />
-</Scene>);
+const AppNavigator = Actions.create(
+  <Scene key="root" hideNavBar>
+    <Scene key="home" component={Home} />
+    <Scene key="page" component={Page} />
+  </Scene>,
+);
 
 // default nav reducer
 const initialState = AppNavigator.router.getStateForAction(AppNavigator.router.getActionForPathAndParams('home'));

@@ -115,9 +115,7 @@ function getProperties(component = {}) {
   delete res.children;
   return res;
 }
-function createTabBarOptions({
-  tabBarStyle, activeTintColor, inactiveTintColor, activeBackgroundColor, inactiveBackgroundColor, showLabel, labelStyle, tabStyle, ...props
-}) {
+function createTabBarOptions({ tabBarStyle, activeTintColor, inactiveTintColor, activeBackgroundColor, inactiveBackgroundColor, showLabel, labelStyle, tabStyle, ...props }) {
   return {
     ...props,
     style: tabBarStyle,
@@ -332,7 +330,7 @@ function createNavigationOptions(params) {
     }
 
     if (backToInitial) {
-      res.tabBarOnPress = (data) => {
+      res.tabBarOnPress = data => {
         if (data.navigation.state.index !== 0) {
           data.navigation.dispatch(StackActions.popToTop());
         } else {
@@ -496,7 +494,7 @@ class NavigationStore {
     }
   }
 
-  setCustomReducer = (Navigator) => {
+  setCustomReducer = Navigator => {
     this.getStateForAction = Navigator.router.getStateForAction;
     Navigator.router.getStateForAction = (cmd, state) => (this.reducer ? this.reducer(state, cmd) : reducer(state, cmd));
   };
@@ -529,7 +527,8 @@ class NavigationStore {
           type: ActionConst.FOCUS,
           routeName: this.currentScene,
           params: this.currentParams,
-        }));
+        }),
+      );
       if (this.states[currentScene]) {
         const handler = this[currentScene + OnEnter];
         const success = this.states[currentScene].success || defaultSuccess;
@@ -554,7 +553,7 @@ class NavigationStore {
     }
   };
 
-  setTopLevelNavigator = (navigatorRef) => {
+  setTopLevelNavigator = navigatorRef => {
     this._navigator = navigatorRef;
   };
 
@@ -562,7 +561,7 @@ class NavigationStore {
     this.refs[name] = ref;
   };
 
-  deleteRef = (name) => {
+  deleteRef = name => {
     delete this.refs[name];
   };
 
@@ -586,12 +585,8 @@ class NavigationStore {
     }
     const res = {};
     const order = [];
-    const {
-      navigator, renderer, contentComponent, drawerWidth, drawerLockMode, tabBarComponent, tabBarPosition, lazy, duration, ...parentProps
-    } = scene.props;
-    let {
-      tabs, modal, lightbox, overlay, drawer, transitionConfig,
-    } = parentProps;
+    const { navigator, renderer, contentComponent, drawerWidth, drawerLockMode, tabBarComponent, tabBarPosition, lazy, duration, ...parentProps } = scene.props;
+    let { tabs, modal, lightbox, overlay, drawer, transitionConfig } = parentProps;
     if (scene.type === Modal) {
       modal = true;
     } else if (scene.type === Drawer) {
@@ -647,9 +642,7 @@ class NavigationStore {
       const key = child.key || `key${(counter += 1)}`;
       const init = key === children[0].key;
       assert(reservedKeys.indexOf(key) === -1, `Scene name cannot be reserved word: ${child.key}`);
-      const {
-        component, type = tabs || drawer ? 'jump' : 'push', path, onEnter, onExit, on, failure, success, wrap, initial = false, ...props
-      } = child.props;
+      const { component, type = tabs || drawer ? 'jump' : 'push', path, onEnter, onExit, on, failure, success, wrap, initial = false, ...props } = child.props;
       if (!this.states[key]) {
         this.states[key] = {};
       }
@@ -663,19 +656,19 @@ class NavigationStore {
         this.states[key].success =
           success instanceof Function
             ? success
-            : (args) => {
-              console.log(`Transition to state=${success}`);
-              this[success](args);
-            };
+            : args => {
+                console.log(`Transition to state=${success}`);
+                this[success](args);
+              };
       }
       if (failure) {
         this.states[key].failure =
           failure instanceof Function
             ? failure
-            : (args) => {
-              console.log(`Transition to state=${failure}`);
-              this[failure](args);
-            };
+            : args => {
+                console.log(`Transition to state=${failure}`);
+                this[failure](args);
+              };
       }
       if (path) {
         this.states[key].path = path;
@@ -836,7 +829,7 @@ class NavigationStore {
     });
   };
 
-  dispatch = (action) => {
+  dispatch = action => {
     if (this.externalDispatch) {
       this.externalAction = action;
       this.externalDispatch(action);
@@ -878,7 +871,7 @@ class NavigationStore {
     this.dispatch(DrawerActions.toggleDrawer());
   };
 
-  refresh = (data) => {
+  refresh = data => {
     const params = filterParam(data);
     const { key } = getActiveState(this.state);
     this.dispatch(NavigationActions.setParams({ key, params }));
@@ -914,16 +907,18 @@ class NavigationStore {
 
   reset = (routeName, data) => {
     const params = filterParam(data);
-    this.dispatch(StackActions.reset({
-      key: null,
-      index: 0,
-      actions: [
-        NavigationActions.navigate({
-          routeName,
-          params,
-        }),
-      ],
-    }));
+    this.dispatch(
+      StackActions.reset({
+        key: null,
+        index: 0,
+        actions: [
+          NavigationActions.navigate({
+            routeName,
+            params,
+          }),
+        ],
+      }),
+    );
   };
 }
 
