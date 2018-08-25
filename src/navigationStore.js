@@ -1,5 +1,5 @@
 import React from 'react';
-import { Statusbar, Image, Animated, Easing } from 'react-native';
+import { StatusBar, Image, Animated, Easing } from 'react-native';
 import {
   createBottomTabNavigator,
   createMaterialTopTabNavigator,
