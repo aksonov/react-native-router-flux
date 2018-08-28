@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Animated, Easing } from 'react-native';
+import { StatusBar, Image, Animated, Easing } from 'react-native';
 import {
   createBottomTabNavigator,
   createMaterialTopTabNavigator,
@@ -326,7 +326,7 @@ function createNavigationOptions(params) {
 
     if (navTransparent) {
       res.headerTransparent = true;
-      res.headerStyle = {};
+      res.headerStyle = { marginTop: StatusBar.currentHeight };
     }
 
     if (backToInitial) {
