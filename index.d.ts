@@ -127,7 +127,8 @@ interface StackProps extends React.Props<Stack> {
     icon?: any;
     tintColor?: string;
     hideNavBar?: boolean;
-    titleStyle?: StyleProp<TextStyle>;                                               
+    title?: string;
+    titleStyle?: StyleProp<TextStyle>;
 }
 interface StackStatic extends React.ComponentClass<StackProps> {
 }
