@@ -63,7 +63,7 @@ const Example = () => (
         <Lightbox key="lightbox">
           <Stack hideNavBar key="root" titleStyle={{ alignSelf: 'center' }}>
             <Scene key="echo" back clone component={EchoView} getTitle={({ navigation }) => navigation.state.key} />
-            <Scene key="launch" component={Launch} title="Launch" initial />
+            <Scene key="launch" component={Launch} title="Launch" initial type={ActionConst.RESET} />
 
             <Stack key="customNavBar" hideTabBar titleStyle={{ alignSelf: 'center' }}>
               <Scene key="customNavBar1" title="CustomNavBar 1" navBar={CustomNavBar} component={CustomNavBarView} back />
@@ -86,6 +86,7 @@ const Example = () => (
               <Scene hideNavBar panHandlers={null}>
                 <Tabs
                   key="tabbar"
+                  routeName="tabbar"
                   backToInitial
                   swipeEnabled
                   showLabel={false}
@@ -114,7 +115,7 @@ const Example = () => (
                   </Stack>
 
                   <Stack key="tab_3" icon={TabIcon} title="Tab #3">
-                    <Scene key="tab_3_1" component={TabView} rightTitle="Right3" onRight={() => {}} />
+                    <Scene key="tab_3_1" component={TabView} rightTitle="Reset to 'tabbar'" onRight={() => Actions.reset('tabbar')} />
                   </Stack>
                   <Scene key="tab_4_1" component={TabView} title="Tab #4" hideNavBar icon={TabIcon} />
                   <Stack key="tab_5" icon={TabIcon} title="Tab #5">

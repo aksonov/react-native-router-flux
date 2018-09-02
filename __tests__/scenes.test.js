@@ -19,7 +19,7 @@ const router = (
   </Router>
 );
 
-test('renders correctly', done => {
+test('renders correctly', (done) => {
   renderer.create(router);
   console.log('STATE:', JSON.stringify(navigationStore.state));
   navigationStore.c({ data: 'abc' });

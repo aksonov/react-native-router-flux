@@ -45,6 +45,7 @@ export function getParent(state, routeName, parent) {
   }
   return null;
 }
+
 export function inject(state, key, index, routes) {
   if (!state.routes) {
     return state;
@@ -60,7 +61,7 @@ export function inject(state, key, index, routes) {
 
 export function popPrevious(state, routeName) {
   const parent = getParent(state, routeName);
-  console.log('FOUND PARENT:', JSON.stringify(parent));
+  // console.log('FOUND PARENT:', JSON.stringify(parent));
   const { key, index } = parent;
   if (index) {
     const routes = [...parent.routes.slice(0, index - 1), ...parent.routes.slice(index)];
