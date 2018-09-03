@@ -808,8 +808,8 @@ _this2[key]=new Function(
 key.replace(
 /\W/g,
 '_')+'(params){ actions.execute(type, \''+
-key+'\', props, params)}')(_this2,_extends({},
-commonProps,props),type);
+key+'\', props, params)}')(
+_this2,_extends({},commonProps,props),type);
 }
 
 if(
