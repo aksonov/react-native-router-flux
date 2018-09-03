@@ -47,6 +47,7 @@ class DrawerContent extends React.Component {
           Switch to tab5 with data
         </Button>
         <Button onPress={Actions.echo}>Push Clone Scene (EchoView)</Button>
+        <Button onPress={Actions.launch}>Reset back to launch</Button>
       </View>
     );
   }
