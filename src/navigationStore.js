@@ -351,7 +351,7 @@ function originalRouteName(routeName) {
   return routeName;
 }
 function isStatelessComponent(Component) {
-  return (!Component.prototype || typeof Component.prototype.render !== 'function');
+  return !Component.prototype || typeof Component.prototype.render !== 'function';
 }
 function extendProps(props, store: NavigationStore) {
   if (!props) {
