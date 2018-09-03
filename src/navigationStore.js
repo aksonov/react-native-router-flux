@@ -588,8 +588,12 @@ class NavigationStore {
     }
     const res = {};
     const order = [];
-    const { navigator, renderer, contentComponent, drawerWidth, drawerLockMode, tabBarComponent, tabBarPosition, lazy, duration, ...parentProps } = scene.props;
-    let { legacy, tabs, modal, lightbox, overlay, drawer, transitionConfig } = parentProps;
+    const {
+      navigator, renderer, contentComponent, drawerWidth, drawerLockMode, tabBarComponent, tabBarPosition, lazy, duration, ...parentProps
+    } = scene.props;
+    let {
+      legacy, tabs, modal, lightbox, overlay, drawer, transitionConfig,
+    } = parentProps;
     if (scene.type === Modal) {
       modal = true;
     } else if (scene.type === Drawer) {
