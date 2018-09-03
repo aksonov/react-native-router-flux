@@ -350,6 +350,9 @@ function originalRouteName(routeName) {
   }
   return routeName;
 }
+function isStatelessComponent(Component) {
+  return (!Component.prototype || typeof Component.prototype.render !== 'function');
+}
 function extendProps(props, store: NavigationStore) {
   if (!props) {
     return {};
@@ -380,7 +383,7 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
   // detect if the component is not functional stateless
   // not sure if Component can be string-defined ("div") here
   // may be there is a better way to detect stateless function component, but this should work
-  if (!Component.prototype || Component.prototype.render) {
+  if (isStatelessComponent(Component)) {
     class Wrapped extends React.Component {
       static propTypes = {
         navigation: PropTypes.shape().isRequired,
@@ -399,6 +402,14 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
         if (this.ref && this.ref.onEnter) {
           this.ref.onEnter(navigation && navigation.state);
         }
+        // WIP
+        this.subs = [];
+        if (this.ref && this.ref.onWillFocus) {
+          this.subs.push(navigation.addListener('willFocus', this.ref.onWillFocus));
+        }
+        if (this.ref && this.ref.onDidFocus) {
+          this.subs.push(navigation.addListener('didFocus', this.ref.onDidFocus));
+        }
       }
 
       componentWillUnmount() {
@@ -409,6 +420,8 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
         if (this.ref && this.ref.onExit) {
           this.ref.onExit(navigation && navigation.state);
         }
+        // WIP
+        this.subs.forEach(sub => sub.remove());
         this.ref = null;
       }
 
