@@ -3,6 +3,7 @@ import {
   StatusBar, Image, Animated, Easing,
 } from 'react-native';
 import {
+  createTabNavigator as DEPRECATED_createTabNavigator,
   createBottomTabNavigator,
   createMaterialTopTabNavigator,
   createDrawerNavigator,
@@ -24,6 +25,7 @@ import Modal from './Modal';
 import Lightbox from './Lightbox';
 import Drawer from './Drawer';
 import Tabs from './Tabs';
+import LegacyTabs from './LegacyTabs';
 import Overlay from './Overlay';
 import OverlayRenderer from './OverlayRenderer';
 import createStackNavigatorHOC from './createStackNavigatorHOC';
@@ -47,60 +49,60 @@ export const actionMap = {
 };
 
 const reservedKeys = [
-  'children',
-  'refs',
   'addRef',
-  'removeRef',
-  'create',
-  'execute',
-  'popTo',
-  'navigate',
-  'replace',
-  'refresh',
-  'dispatch',
-  'push',
-  'setParams',
-  'run',
-  'onEnter',
-  'onRight',
-  'onLeft',
-  'left',
   'back',
-  'right',
-  'rightButton',
+  'children',
+  'create',
+  'dispatch',
+  'drawerClose',
+  'drawerOpen',
+  'execute',
+  'left',
   'leftButton',
+  'navBar',
+  'navigate',
   'on',
+  'onEnter',
   'onExit',
+  'onLeft',
+  'onRight',
   'pop',
+  'popTo',
+  'push',
+  'refresh',
+  'refs',
+  'removeRef',
   'renderLeftButton',
   'renderRightButton',
   'renderTitle',
-  'navBar',
+  'replace',
+  'right',
+  'rightButton',
+  'run',
+  'setParams',
   'title',
-  'drawerOpen',
-  'drawerClose',
 ];
 
 const dontInheritKeys = [
+  'backToInitial',
+  'children',
   'component',
   'contentComponent',
-  'tabBarComponent',
-  'modal',
   'drawer',
-  'lightbox',
-  'overlay',
-  'tabs',
-  'navigator',
-  'children',
-  'key',
-  'ref',
-  'style',
-  'title',
-  'navTransparent',
-  'type',
   'hideNavBar',
   'hideTabBar',
-  'backToInitial',
+  'key',
+  'lightbox',
+  'modal',
+  'navigator',
+  'navTransparent',
+  'overlay',
+  'ref',
+  'style',
+  'tabBarComponent',
+  'tabs',
+  'title',
+  'type',
 ];
 
 function getValue(value, params) {
@@ -590,7 +592,7 @@ class NavigationStore {
       navigator, renderer, contentComponent, drawerWidth, drawerLockMode, tabBarComponent, tabBarPosition, lazy, duration, ...parentProps
     } = scene.props;
     let {
-      tabs, modal, lightbox, overlay, drawer, transitionConfig,
+      legacy, tabs, modal, lightbox, overlay, drawer, transitionConfig,
     } = parentProps;
     if (scene.type === Modal) {
       modal = true;
@@ -600,6 +602,9 @@ class NavigationStore {
       lightbox = true;
     } else if (scene.type === Tabs) {
       tabs = true;
+    } else if (scene.type === LegacyTabs) {
+      tabs = true;
+      legacy = true;
     } else if (scene.type === Overlay) {
       overlay = true;
     }
@@ -678,7 +683,7 @@ class NavigationStore {
       if (path) {
         this.states[key].path = path;
       }
-      // console.log(`KEY ${key} PATH ${path} DRAWER ${drawer} TABS ${tabs} WRAP ${wrap}`, JSON.stringify(commonProps));
+      // console.log(`KEY ${key} LEGACY {legacy} PATH ${path} DRAWER ${drawer} TABS ${tabs} WRAP ${wrap}`, JSON.stringify(commonProps));
       const screen = {
         screen: createWrapper(component, wrapBy, this) || this.processScene(child, commonProps, clones) || (lightbox && (() => null)),
         navigationOptions: createNavigationOptions({
@@ -778,7 +783,9 @@ class NavigationStore {
 
     if (tabs) {
       let createTabNavigator = createMaterialTopTabNavigator;
-      if (tabBarPosition !== 'top') {
+      if (legacy) {
+        createTabNavigator = DEPRECATED_createTabNavigator;
+      } else if (tabBarPosition !== 'top') {
         createTabNavigator = createBottomTabNavigator;
       }
       return createTabNavigator(res, {
