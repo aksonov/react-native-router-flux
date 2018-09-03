@@ -892,6 +892,7 @@ class NavigationStore {
   refresh = (data) => {
     const params = filterParam(data);
     const { key } = getActiveState(this.state);
+    console.log('KEY', key);
     this.dispatch(NavigationActions.setParams({ key, params }));
   };
 
