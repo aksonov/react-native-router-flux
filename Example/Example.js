@@ -61,7 +61,7 @@ const Example = () => (
     <Overlay key="overlay">
       <Modal key="modal" hideNavBar transitionConfig={() => ({ screenInterpolator: CardStackStyleInterpolator.forFadeFromBottomAndroid })}>
         <Lightbox key="lightbox">
-          <Stack hideNavBar key="root" titleStyle={{ alignSelf: 'center' }}>
+          <Stack key="root" titleStyle={{ alignSelf: 'center' }}>
             <Scene key="echo" back clone component={EchoView} getTitle={({ navigation }) => navigation.state.key} />
             <Scene key="launch" component={Launch} title="Launch" initial type={ActionConst.RESET} />
 
