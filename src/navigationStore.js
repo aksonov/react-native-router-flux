@@ -738,7 +738,7 @@ class NavigationStore {
           `return function ${
             key.replace(/\W/g, '_') // eslint-disable-line no-new-func
           }(params){ actions.execute(type, '${key}', props, params)}`,
-        )(this, { ...commonProps, ...props }, type);
+        )(this, { error: '', ...commonProps, ...props }, type);
       }
 
       if ((onEnter || on || (component && component.onEnter)) && !this[key + OnEnter]) {
