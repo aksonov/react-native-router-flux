@@ -1,7 +1,13 @@
 ### Version
 Tell us which versions you are using:
+<!--
 
-- react-native-router-flux v4.?.? (v3 is not supported)
+v3 and v4.0.0-beta.x are not supported
+
+You can use `npm ls [package]` or `yarn info [package]` to be sure about the versions that were installed (in case you are not locked to a specific version).
+
+-->
+- react-native-router-flux v4.?.?
 - react v16.?.?
 - react-native v0.?.?
 
