@@ -919,11 +919,11 @@ class NavigationStore {
 
   reset = (routeName, data) => {
     const params = filterParam(data);
-    const { key } = getParent(this.state, routeName);
+    const parent = getParent(this.state, routeName);
     this.dispatch(
       StackActions.reset({
         index: 0,
-        key,
+        key: parent ? parent.key : null,
         actions: [
           NavigationActions.navigate({
             routeName,
