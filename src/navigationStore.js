@@ -890,10 +890,12 @@ class NavigationStore {
   refresh = (data, sceneKey = null) => {
     const params = filterParam(data);
     const { key } = getActiveState(this.state);
-    this.dispatch(NavigationActions.setParams({
-      key: (sceneKey ? sceneKey : key),
-      params,
-    }));
+    this.dispatch(
+      NavigationActions.setParams({
+        key: sceneKey || key,
+        params,
+      }),
+    );
   };
 
   pop = ({ timeout, key, ...params } = {}) => {
