@@ -24,6 +24,10 @@ const popToLogin2 = () => {
   Actions.popTo('loginModal2');
 };
 
+const popAndRefresh = () => {
+  Actions.pop({ refresh: { data: 'Data after pop', title: 'title after pop' }, key: null });
+}
+
 export default class extends React.Component {
   render() {
     const title = this.props.title || 'No Title';
@@ -36,6 +40,7 @@ export default class extends React.Component {
         <Button onPress={Actions.pop}>Back</Button>
         <Button onPress={popToLogin1}>To Login</Button>
         <Button onPress={popToLogin2}>To Login2</Button>
+        <Button onPress={popAndRefresh}>Back and refresh</Button>
         <Button onPress={popToRoot}>To Root</Button>
       </View>
     );
