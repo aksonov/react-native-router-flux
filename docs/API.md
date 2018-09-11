@@ -16,13 +16,13 @@
 
 | Property | Type | Default | Description |
 |-------------|----------|--------------|----------------------------------------------------------------|
-| children |  | semi-required | Scene root element (required if `navigator` is not set) |
-| `wrapBy`   | `Function` |  | function to wrap each Scene component and nav bar buttons - allows easy MobX integration (by passing `observer`) |
-| `sceneStyle`     | `Style` |  | Style applied to all scenes (optional) |
 | `backAndroidHandler`     | `Function` |  | Allows custom control of hardwareBackPress in Android (optional). For more info check [BackHandler](https://facebook.github.io/react-native/docs/backhandler.html).  |
-| `uriPrefix`     | `string` |  | A uri prefix to strip from incoming urls for deep linking. For example, if you wanted to support deep linking from `www.example.com/user/1234/`, then you could pass `example.com` to only match paths against `/user/1234/`. |
-| `onStateChange`   | `Function` |  | function to be called every time when navigation state is changed. Useful for mobx stores to change observables (set scene to `Actions.currentScene`, etc.) |
+| `children` |  | semi-required | Scene root element (required if `navigator` is not set) |
 | `navigator`   | `Class` |  | Application navigator with all Scenes created by `Actions.create` - it is altenative way to create Router, mostly used for Redux integration (see ReduxExample for more details) |
+| `onStateChange`   | `Function` |  | function to be called every time when navigation state is changed. Useful for mobx stores to change observables (set scene to `Actions.currentScene`, etc.) |
+| `sceneStyle`     | `Style` |  | Style applied to all scenes (optional) |
+| `uriPrefix`     | `string` |  | A uri prefix to strip from incoming urls for deep linking. For example, if you wanted to support deep linking from `www.example.com/user/1234/`, then you could pass `example.com` to only match paths against `/user/1234/`. |
+| `wrapBy`   | `Function` |  | function to wrap each Scene component and nav bar buttons - allows easy MobX integration (by passing `observer`) |
 
 ## Scene:
 The basic routing component for this router, all `<Scene>` components require a `key` prop that must be unique. A parent `<Scene>` must have a `component` as a `prop` as it will act as a grouping component for its children.
@@ -36,24 +36,23 @@ All properties of type `React.Component` will receive the same properties availa
 | `component` | `React.Component` | `semi-required` | The `Component` to be displayed. Not required when defining a nested `Scene`, see example. |
 | `back`     | `boolean` | `false` | If it is `true` back button is displayed instead of left/drawer button defined by upper container. |
 | `backButtonImage`     | `string` | | Image source to substitute for the nav back button |
+| `backButtonTextStyle` | `Style` |  | Style applied to back button text |
 | `backButtonTintColor`     | `string` | | Custom back button tint color |
-| `init`     | `boolean` | `false` | If it is `true` back button will not be displayed |
+| `backTitle` | `string` |  | Specifies the back button title for scene |
 | `clone`     | `boolean` | `false` | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
 | `contentComponent`     | `React.Component` |  | Component used to render the content of the drawer (e.g. navigation items). |
 | `drawer`     | `boolean` | `false` | load child scenes inside [DrawerNavigator](https://reactnavigation.org/docs/navigators/drawer) |
+| `drawerLockMode` | enum('unlocked', 'locked-closed', 'locked-open')  |  | If a child of a drawer, specifies the [lock mode of the drawer](https://facebook.github.io/react-native/docs/drawerlayoutandroid.html#drawerlockmode) |
 | `failure` | `Function` | | If `on` returns a "falsey" value then `failure` is called. |
-| `backTitle` | `string` |  | Specifies the back button title for scene |
-| `backButtonTextStyle` | `Style` |  | Style applied to back button text |
-| `rightTitle` | `string` |  | Specifies the right button title for scene |
 | `headerMode` | `string` | `float` | Specifies how the header should be rendered: `float` (render a single header that stays at the top and animates as screens are changed. This is a common pattern on iOS.), `screen` (each screen has a header attached to it and the header fades in and out together with the screen. This is a common pattern on Android) or `none` (No header will be rendered) |
-| `hideNavBar`     | `boolean` | `false` | hide the nav bar |
-| `hideTabBar`     | `boolean` | `false` | hide the tab bar (only applies to scenes with `tabs` specified) |
 | `hideBackImage`     | `boolean` | `false` | hide back image |
+| `hideNavBar`     | `boolean` | `false` | hide the nav bar |
+| `init`     | `boolean` | `false` | If it is `true` back button will not be displayed |
 | `initial`   | `boolean` | `false` | Set to `true` if this is the first scene to display among its sibling `Scene`s |
-| `leftButtonImage`     | `Image` |  | Image to substitute for the left nav bar button |
-| `leftButtonTextStyle`     | `Style` |  | Style applied to left button text |
-| `leftButtonStyle`     | `Style` |  | Style applied to left button |
 | `leftButtonIconStyle`     | `Style` |  | Style applied to left button Image |
+| `leftButtonImage`     | `Image` |  | Image to substitute for the left nav bar button |
+| `leftButtonStyle`     | `Style` |  | Style applied to left button |
+| `leftButtonTextStyle`     | `Style` |  | Style applied to left button text |
 | `modal`     | `boolean` | `false` |  Defines scene container as 'modal' one, i.e. all children scenes will have bottom-to-top animation. It is applicable only for containers (different from v3 syntax) |
 | `navBar` | `React.Component`| | Optional React component to render custom NavBar |
 | `navBarButtonColor` | `string` | | Set the color of the back button in the navBar |
@@ -67,19 +66,19 @@ All properties of type `React.Component` will receive the same properties availa
 | `onExit`     | `Function` | | Called when the `Scene` is navigated away from. Only scenes with 'component' defined is supported. Your component class may also have `onExit` function |
 | `onLeft`     | `Function` |  | Called when the left nav bar button is pressed. |
 | `onRight`     | `Function` |  | Called when the right nav bar button is pressed. |
-| `renderTitle`     | `React.Component` |  | React component to render title for nav bar |
+| `renderBackButton` | `React.Component` | | React component to render back button |
 | `renderLeftButton` | `React.Component` | | React component to render as the left button |
 | `renderRightButton` | `React.Component` | | React component to render as the right button |
-| `renderBackButton` | `React.Component` | | React component to render back button |
+| `renderTitle`     | `React.Component` |  | React component to render title for nav bar |
 | `rightButtonImage`     | `Image` |  | Image to substitute for the right nav bar button |
 | `rightButtonStyle`     | `Style` |  | Style applied to right button image |
 | `rightButtonTextStyle`     | `Style` |  | Style applied to right button text |
+| `rightTitle` | `string` |  | Specifies the right button title for scene |
 | `success`     | `Function` | | If `on` returns a "truthy" value then `success` is called. |
 | `tabs`     | `boolean` | `false` | load child scenes as [TabNavigator](https://reactnavigation.org/docs/navigators/tab). Other [Tab Navigator  props](https://reactnavigation.org/docs/navigators/tab#TabNavigatorConfig) also apply here. |
 | `title`     | `string` |  | Text to be displayed in the center of the nav bar. |
 | `titleStyle`     | `Style` |  | Style applied to the title |
 | `type`   | `string` | `push` | Optional type of navigation action. You could use `replace` to replace current scene with this scene |
-| `drawerLockMode` | enum('unlocked', 'locked-closed', 'locked-open')  |  | If a child of a drawer, specifies the [lock mode of the drawer](https://facebook.github.io/react-native/docs/drawerlayoutandroid.html#drawerlockmode) |
 | all other props     |  |  | Any other props not listed here will be pass on to the specified `Scene`'s `component` |
 
 ## Tabs (`<Tabs>` or `<Scene tabs>`)
@@ -87,22 +86,23 @@ Can use all `props` listed above in `<Scene>` as `<Tabs>` is syntatic sugar for 
 
 | Property | Type | Default | Description |
 |-----------------|----------|----------|--------------------------------------------|
-| `wrap`     | `boolean` | `true` | Wrap each scene with own navbar automatically (if it is not another container). |
 | `activeBackgroundColor` | `string` |  | Specifies the active background color for the tab in focus |
 | `activeTintColor`     | `string` |  | Specifies the active tint color for tabbar icons |
+| `backToInitial`     | `boolean` | `false` | Back to initial screen on focused tab if tab icon was tapped. If your intention is to manage navigation from `tabBarOnPress`, do not set this prop `true`. Both props defined will make the `tabBarOnPress` passed to be wrapped and called in conjunction with the default handlers from tabbar. |
+| `hideTabBar`     | `boolean` | `false` | hide the tab bar |
 | `inactiveBackgroundColor` | `string` |  | Specifies the inactive background color for the tabs not in focus |
 | `inactiveTintColor`     | `string` |  | Specifies the inactive tint color for tabbar icons |
+| `indicatorStyle`     | `object` |  | Override the style for active tab indicator. |
 | `labelStyle` | `object` | | Overrides the styles for the tab label |
 | `lazy`     | `boolean` | `false` | Won't render/mount the tab scene until the tab is active |
+| `showLabel`     | `boolean` | `true`  | Boolean to show or not the tabbar icons labels |
 | `tabBarComponent`     | `React.Component` |  | React component to render custom tab bar |
+| `tabBarOnPress`     | `function` | | Custom tab bar icon press. |
 | `tabBarPosition`     | `string` |  | Specifies tabbar position. Defaults to `bottom` on iOS and `top` on Android. |
 | `tabBarStyle` | `object` | | Override the tabbar styles |
 | `tabStyle` | `object` | | Override the style for an individual tab of the tabbar |
-| `showLabel`     | `boolean` | `true`  | Boolean to show or not the tabbar icons labels |
-| `tabBarOnPress`     | `function` | | Custom tab bar icon press. |
-| `backToInitial`     | `boolean` | `false` | Back to initial screen on focused tab if tab icon was tapped. |
 | `upperCaseLabel`     | `boolean` | `true` | Whether to make label uppercase, default is true. |
-| `indicatorStyle`     | `object` |  | Override the style for active tab indicator. |
+| `wrap`     | `boolean` | `true` | Wrap each scene with own navbar automatically (if it is not another container). |
 
 
 ## LegacyTabs (`<LegacyTabs>` or `<Scene tabs={true} legacy={true}>`)
@@ -110,24 +110,25 @@ Can use all `props` listed above in `<Scene>` as `<LegacyTabs>` is syntatic suga
 
 | Property | Type | Default | Description |
 |-----------------|----------|----------|--------------------------------------------|
-| `wrap`     | `boolean` | `true` | Wrap each scene with own navbar automatically (if it is not another container). |
 | `activeBackgroundColor` | `string` |  | Specifies the active background color for the tab in focus |
 | `activeTintColor`     | `string` |  | Specifies the active tint color for tabbar icons |
+| `animationEnabled`     | `boolean` | `true` | Enable or disable tab swipe animation. |
+| `backToInitial`     | `boolean` | `false` | Back to initial screen on focused tab if tab icon was tapped. |
+| `hideTabBar`     | `boolean` | `false` | hide the tab bar |
 | `inactiveBackgroundColor` | `string` |  | Specifies the inactive background color for the tabs not in focus |
 | `inactiveTintColor`     | `string` |  | Specifies the inactive tint color for tabbar icons |
+| `indicatorStyle`     | `object` |  | Override the style for active tab indicator. |
 | `labelStyle` | `object` | | Overrides the styles for the tab label |
 | `lazy`     | `boolean` | `false` | Won't render/mount the tab scene until the tab is active |
+| `showLabel`     | `boolean` | `true`  | Boolean to show or not the tabbar icons labels |
+| `swipeEnabled`     | `boolean` | `false` | Enable or disable swiping tabs. |
 | `tabBarComponent`     | `React.Component` |  | React component to render custom tab bar |
+| `tabBarOnPress`     | `function` | | Custom tab bar icon press. |
 | `tabBarPosition`     | `string` |  | Specifies tabbar position. Defaults to `bottom` on iOS and `top` on Android. |
 | `tabBarStyle` | `object` | | Override the tabbar styles |
 | `tabStyle` | `object` | | Override the style for an individual tab of the tabbar |
-| `showLabel`     | `boolean` | `true`  | Boolean to show or not the tabbar icons labels |
-| `swipeEnabled`     | `boolean` | `false` | Enable or disable swiping tabs. |
-| `animationEnabled`     | `boolean` | `true` | Enable or disable tab swipe animation. |
-| `tabBarOnPress`     | `function` | | Custom tab bar icon press. |
-| `backToInitial`     | `boolean` | `false` | Back to initial screen on focused tab if tab icon was tapped. |
 | `upperCaseLabel`     | `boolean` | `true` | Whether to make label uppercase, default is true. |
-| `indicatorStyle`     | `object` |  | Override the style for active tab indicator. |
+| `wrap`     | `boolean` | `true` | Wrap each scene with own navbar automatically (if it is not another container). |
 
 
 ## Stack (`<Stack>`)
@@ -146,11 +147,11 @@ Can use all `prop` as listed in `Scene` as `<Drawer>`, syntatic sugar for `<Scen
 
 | Property | Type | Default | Description |
 |---|---|---|---|
-| `drawerImage` | `Image` |  | Image to substitute drawer 'hamburger' icon, you have to set it together with `drawer` prop |
 | `drawerIcon` | `React.Component` |  | Arbitrary component to be used for drawer 'hamburger' icon, you have to set it together with `drawer` prop |
-| `hideDrawerButton` | `boolean` | `false` | Boolean to show or not the drawerImage or drawerIcon |
+| `drawerImage` | `Image` |  | Image to substitute drawer 'hamburger' icon, you have to set it together with `drawer` prop |
 | `drawerPosition` | `string`  | `left` | Determines whether the drawer is on the right or the left. Keywords accepted are `right` and `left` |
 | `drawerWidth` | `number`  |  | The width, in pixels, of the drawer (optional)|
+| `hideDrawerButton` | `boolean` | `false` | Boolean to show or not the drawerImage or drawerIcon |
 
 
 ## Modals (`<Modal>` or `<Scene modal>`)
@@ -204,7 +205,10 @@ These can be used directly, for example, `Actions.pop()` will dispatch correspon
 | Property | Type | Parameters | Description |
 |-----------------|----------|----------|--------------------------------------------|
 | `[key]` | `Function` | `Object` | The `Actions` object "automagically" uses the `Scene`'s `key` prop in the `Router` to navigate. To navigate to a scene, call `Actions.key()` or `Actions[key].call()`. |
+| `create` | `React.Element` | pass `Scene` to create your app navigator. It is alternative router creation method mostly used for Redux integration |
 | `currentScene` | `String` | | Returns the current scene that is active |
+| `drawerClose` | `Function` | | Closes the `Drawer` if applicable |
+| `drawerOpen` | `Function` | | Opens the `Drawer` if applicable |
 | `jump` | `Function` | `(sceneKey: String, props: Object)` | used to switch to a new tab. For `Tabs` only. |
 | `pop` | `Function` | | Go back to the previous scene by "popping" the current scene off the nav stack |
 | `popTo` | `Function` | `(sceneKey: String, props: Object)` | Pops the navigation stack until the `Scene` with the specified key is reached. |
@@ -212,27 +216,24 @@ These can be used directly, for example, `Actions.pop()` will dispatch correspon
 | `refresh` | `Function` | `(props: Object)` | Reloads the current scene by loading new `props` into the `Scene` |
 | `replace` | `Function` | `(sceneKey: String, props: Object)` |  Pops the current scene from the stack and pushes the new scene to the navigation stack. *No transition will occur. |
 | `reset` | `Function` | `(sceneKey: String, props: Object)` | Clears the routing stack and pushes the scene into the first index. *No transition will occur.* |
-| `drawerOpen` | `Function` | | Opens the `Drawer` if applicable |
-| `drawerClose` | `Function` | | Closes the `Drawer` if applicable |
-| `create` | `React.Element` | pass `Scene` to create your app navigator. It is alternative router creation method mostly used for Redux integration |
 
 ## ActionConst
 Type constants to determine `Scene` transitions, These are **PREFERRED** over typing their values manually as these are subject to change as the project is updated.
 
 | Property | Type | Value | Shorthand |
 |-----------------|----------|----------|--------------------------------------------|
-| `ActionConst.JUMP` | `string` | 'REACT_NATIVE_ROUTER_FLUX_JUMP' | `jump` |
-| `ActionConst.PUSH` | `string` | 'REACT_NATIVE_ROUTER_FLUX_PUSH' | `push` |
-| `ActionConst.PUSH_OR_POP` | `string` | 'REACT_NATIVE_ROUTER_FLUX_PUSH_OR_POP' | `push` |
-| `ActionConst.REPLACE` | `string` | 'REACT_NATIVE_ROUTER_FLUX_REPLACE' | `replace` |
-| `ActionConst.BACK` | `string` | 'REACT_NATIVE_ROUTER_FLUX_BACK' | `pop` |
-| `ActionConst.BACK_ACTION` | `string` | 'REACT_NATIVE_ROUTER_FLUX_BACK_ACTION' | `pop` |
-| `ActionConst.POP_TO` | `string` | 'REACT_NATIVE_ROUTER_FLUX_POP_TO' | `popTo` |
-| `ActionConst.REFRESH` | `string` | 'REACT_NATIVE_ROUTER_FLUX_REFRESH' | `refresh` |
-| `ActionConst.RESET` | `string` | 'REACT_NATIVE_ROUTER_FLUX_RESET' | `reset` |
-| `ActionConst.FOCUS` | `string` | 'REACT_NATIVE_ROUTER_FLUX_FOCUS' | *N/A* |
-| `ActionConst.BLUR` | `string` | 'REACT_NATIVE_ROUTER_FLUX_BLUR' | *N/A* |
 | `ActionConst.ANDROID_BACK` | `string` | 'REACT_NATIVE_ROUTER_FLUX_ANDROID_BACK' | *N/A* |
+| `ActionConst.BACK_ACTION` | `string` | 'REACT_NATIVE_ROUTER_FLUX_BACK_ACTION' | `pop` |
+| `ActionConst.BACK` | `string` | 'REACT_NATIVE_ROUTER_FLUX_BACK' | `pop` |
+| `ActionConst.BLUR` | `string` | 'REACT_NATIVE_ROUTER_FLUX_BLUR' | *N/A* |
+| `ActionConst.FOCUS` | `string` | 'REACT_NATIVE_ROUTER_FLUX_FOCUS' | *N/A* |
+| `ActionConst.JUMP` | `string` | 'REACT_NATIVE_ROUTER_FLUX_JUMP' | `jump` |
+| `ActionConst.POP_TO` | `string` | 'REACT_NATIVE_ROUTER_FLUX_POP_TO' | `popTo` |
+| `ActionConst.PUSH_OR_POP` | `string` | 'REACT_NATIVE_ROUTER_FLUX_PUSH_OR_POP' | `push` |
+| `ActionConst.PUSH` | `string` | 'REACT_NATIVE_ROUTER_FLUX_PUSH' | `push` |
+| `ActionConst.REFRESH` | `string` | 'REACT_NATIVE_ROUTER_FLUX_REFRESH' | `refresh` |
+| `ActionConst.REPLACE` | `string` | 'REACT_NATIVE_ROUTER_FLUX_REPLACE' | `replace` |
+| `ActionConst.RESET` | `string` | 'REACT_NATIVE_ROUTER_FLUX_RESET' | `reset` |
 
 ## Universal and Deep Linking
 #### Use Case

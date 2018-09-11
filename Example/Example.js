@@ -88,6 +88,7 @@ const Example = () => (
                   key="tabbar"
                   routeName="tabbar"
                   backToInitial
+                  onTabOnPress={() => { console.log('Back to initial and also print this') }}
                   swipeEnabled
                   showLabel={false}
                   tabBarStyle={styles.tabBarStyle}

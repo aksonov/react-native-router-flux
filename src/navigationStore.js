@@ -335,7 +335,12 @@ function createNavigationOptions(params) {
     }
 
     if (backToInitial) {
+      const userDefinedTabBarOnPress = res.tabBarOnPress;
       res.tabBarOnPress = (data) => {
+        if (userDefinedTabBarOnPress) {
+          console.warn('backToInitial and tabBarOnPress were both defined and might cause unexpected navigation behaviors. I hope you know what you are doing ;-)');
+          userDefinedTabBarOnPress(scene, jumpToIndex);
+        }
         if (data.navigation.state.index !== 0) {
           data.navigation.dispatch(StackActions.popToTop());
         } else {
