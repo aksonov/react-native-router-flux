@@ -78,7 +78,7 @@ const Example = () => (
               <Scene key="home" component={Home} title="Replace" type={ActionConst.REPLACE} />
             </Stack>
 
-            <Drawer hideNavBar key="drawer" contentComponent={DrawerContent} drawerImage={MenuIcon} drawerWidth={300}>
+            <Drawer hideNavBar key="drawer" onExit={() => { console.log('Drawer closed') }} onEnter={() => { console.log('Drawer opened') }} contentComponent={DrawerContent} drawerImage={MenuIcon} drawerWidth={300}>
               {/*
                 Wrapper Scene needed to fix a bug where the tabs would
                 reload as a modal ontop of itself

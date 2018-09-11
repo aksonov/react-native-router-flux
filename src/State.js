@@ -22,6 +22,19 @@ export function isActiveRoute(state, routeName) {
   return isActiveRoute(state.routes[state.index], routeName);
 }
 
+export function getRouteNameByKey(state, key) {
+  if (state.key === key) {
+    return state.routeName;
+  }
+  if (!state.routes) {
+    return state.routeName;
+  }
+  if (state.routes[state.index].key === key) {
+    return state.routes[state.index].routeName;
+  }
+  return getRouteNameByKey(state.routes[state.index], key);
+}
+
 export function getActiveState(param, parent) {
   const state = param;
   if (!state.routes) {
