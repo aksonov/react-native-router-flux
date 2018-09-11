@@ -130,9 +130,9 @@ const Example = () => (
         </Lightbox>
         <Scene key="error" component={ErrorModal} />
         <Stack key="login" path="login/:data" titleStyle={{ alignSelf: 'center' }}>
-          <Scene key="loginModal" component={Login} title="Login" onExit={() => console.log('onExit')} leftTitle="Cancel" onLeft={Actions.pop} />
-          <Scene key="loginModal2" component={Login2} title="Login2" backTitle="Back" panHandlers={null} duration={1} />
-          <Scene key="loginModal3" hideNavBar component={Login3} title="Login3" panHandlers={null} duration={1} />
+          <Scene key="loginModal" component={Login} title="Login" onExit={() => console.log('Login: onExit')} leftTitle="Cancel" onLeft={Actions.pop} />
+          <Scene key="loginModal2" component={Login2} title="Login2" onEnter={() => console.log('Login2: onEnter') } backTitle="Back" panHandlers={null} duration={1} />
+          <Scene key="loginModal3" hideNavBar component={Login3} title="Login3" onEnter={() => console.log('Login3: onEnter') } onExit={() => console.log('Login3: onExit')} panHandlers={null} duration={1} />
         </Stack>
       </Modal>
 

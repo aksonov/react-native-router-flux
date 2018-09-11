@@ -136,49 +136,49 @@ function createTabBarOptions({
 }
 function createNavigationOptions(params) {
   const {
-    title,
-    backButtonImage,
-    navTransparent,
-    backToInitial,
-    hideNavBar,
-    hideTabBar,
-    backTitle,
-    right,
-    rightButton,
-    left,
-    leftButton,
-    navigationBarStyle,
-    headerStyle,
-    navBarButtonColor,
-    tabBarLabel,
-    tabBarIcon,
-    icon,
-    getTitle,
-    renderTitle,
-    panHandlers,
-    navigationBarTitleImage,
-    navigationBarTitleImageStyle,
-    component,
-    rightTitle,
-    leftTitle,
-    leftButtonTextStyle,
-    rightButtonTextStyle,
-    backButtonTextStyle,
-    headerTitleStyle,
-    titleStyle,
-    navBar,
-    onRight,
-    onLeft,
-    rightButtonImage,
-    leftButtonImage,
-    init,
     back,
-    renderBackButton,
-    renderNavigationBar,
-    hideDrawerButton,
+    backButtonImage,
+    backButtonTextStyle,
+    backTitle,
+    backToInitial,
+    component,
     drawerIcon,
     drawerImage,
     drawerPosition,
+    getTitle,
+    headerStyle,
+    headerTitleStyle,
+    hideDrawerButton,
+    hideNavBar,
+    hideTabBar,
+    icon,
+    init,
+    left,
+    leftButton,
+    leftButtonImage,
+    leftButtonTextStyle,
+    leftTitle,
+    navBar,
+    navBarButtonColor,
+    navigationBarStyle,
+    navigationBarTitleImage,
+    navigationBarTitleImageStyle,
+    navTransparent,
+    onLeft,
+    onRight,
+    panHandlers,
+    renderBackButton,
+    renderNavigationBar,
+    renderTitle,
+    right,
+    rightButton,
+    rightButtonImage,
+    rightButtonTextStyle,
+    rightTitle,
+    tabBarIcon,
+    tabBarLabel,
+    title,
+    titleStyle,
     ...props
   } = params;
   const NavBar = renderNavigationBar || navBar;
@@ -352,6 +352,9 @@ function originalRouteName(routeName) {
   }
   return routeName;
 }
+function isStatelessComponent(Component) {
+  return !Component.prototype || typeof Component.prototype.render !== 'function';
+}
 function extendProps(props, store: NavigationStore) {
   if (!props) {
     return {};
@@ -382,7 +385,7 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
   // detect if the component is not functional stateless
   // not sure if Component can be string-defined ("div") here
   // may be there is a better way to detect stateless function component, but this should work
-  if (!Component.prototype || Component.prototype.render) {
+  if (!isStatelessComponent(Component)) {
     class Wrapped extends React.Component {
       static propTypes = {
         navigation: PropTypes.shape().isRequired,
@@ -788,6 +791,7 @@ class NavigationStore {
       } else if (tabBarPosition !== 'top') {
         createTabNavigator = createBottomTabNavigator;
       }
+
       return createTabNavigator(res, {
         lazy,
         tabBarComponent,
@@ -883,18 +887,23 @@ class NavigationStore {
     this.dispatch(DrawerActions.toggleDrawer());
   };
 
-  refresh = (data) => {
+  refresh = (data, sceneKey = null) => {
     const params = filterParam(data);
     const { key } = getActiveState(this.state);
-    this.dispatch(NavigationActions.setParams({ key, params }));
+    this.dispatch(
+      NavigationActions.setParams({
+        key: sceneKey || key,
+        params,
+      }),
+    );
   };
 
-  pop = ({ timeout, ...params } = {}) => {
+  pop = ({ timeout, key, ...params } = {}) => {
     const res = filterParam(params);
     if (timeout) {
       setTimeout(() => this.pop(params), timeout);
     } else {
-      this.dispatch(NavigationActions.back());
+      this.dispatch(NavigationActions.back({ key }));
       if (res.refresh) {
         this.refresh(res.refresh);
       }

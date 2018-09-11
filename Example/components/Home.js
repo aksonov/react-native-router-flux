@@ -27,6 +27,7 @@ class Home extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Replace screen</Text>
+        <Text>Prop from dynamic method: {this.props.homeProp}</Text>
         <Button onPress={Actions.pop}>Back</Button>
       </View>
     );
