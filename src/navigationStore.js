@@ -530,7 +530,7 @@ class NavigationStore {
         }
       }
     }
-  }
+  };
 
   onExitHandler = (prevScene) => {
     if (prevScene) {
@@ -546,7 +546,7 @@ class NavigationStore {
         }
       }
     }
-  }
+  };
 
   onNavigationStateChange = async (prevState, currentState, action) => {
     this.state = currentState;
@@ -762,7 +762,6 @@ class NavigationStore {
           }(params){ actions.execute(type, '${key}', props, params)}`,
         )(this, { error: '', ...commonProps, ...props }, type);
       }
-
 
       if ((onEnter || on || (component && component.onEnter)) && !this[key + OnEnter]) {
         this[key + OnEnter] = onEnter || on || component.onEnter;
