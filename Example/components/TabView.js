@@ -27,10 +27,18 @@ const styles = StyleSheet.create({
 });
 
 class TabView extends React.Component {
-  state = { hideNavBar: false };
+  state = { hideNavBar: false, hideTabBar: false };
 
   toggleNavBar = () => {
     this.setState(prevState => ({ hideNavBar: !prevState.hideNavBar }), () => Actions.refresh({ hideNavBar: this.state.hideNavBar }));
+  };
+
+  toggleTabBar = () => {
+    this.setState(prevState => ({ hideTabBar: !prevState.hideTabBar }), () => {
+      Actions.refresh({
+        hideTabBar: this.state.hideTabBar,
+      }, 'tab_2');
+    });
   };
 
   render() {
@@ -94,6 +102,9 @@ class TabView extends React.Component {
         >
           Toggle NavBar
         </Button>
+        {this.props.name === 'tab_2_1' && (
+          <Button onPress={this.toggleTabBar}>Toggle TabBar</Button>
+        )}
       </View>
     );
   }

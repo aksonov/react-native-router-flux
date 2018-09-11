@@ -4,9 +4,26 @@
 
 [Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.1...HEAD)
 
+**Implemented enhancements:**
+
+- New release of `react-navigation` is available \(v2.12.1\) [\#3222](https://github.com/aksonov/react-native-router-flux/issues/3222)
+- Upgrade react-navigation to v.2.12.1 [\#3223](https://github.com/aksonov/react-native-router-flux/pull/3223) ([daviscabral](https://github.com/daviscabral))
+
+**Fixed bugs:**
+
+- Can't pass props to scene from Action.key\(props\). Think this way should work too. [\#3236](https://github.com/aksonov/react-native-router-flux/issues/3236)
+- Actions.reset: There is no route defined for Key X [\#3194](https://github.com/aksonov/react-native-router-flux/issues/3194)
+- Stack of same scene not working anymore after update from 4.0.0-beta-28 to 4.0.1 [\#3176](https://github.com/aksonov/react-native-router-flux/issues/3176)
+- \[Fix \#3194 \#3176\] Adjust reset to work with nested routes [\#3237](https://github.com/aksonov/react-native-router-flux/pull/3237) ([daviscabral](https://github.com/daviscabral))
+- add Statusbar marginTop for navTransparent [\#3212](https://github.com/aksonov/react-native-router-flux/pull/3212) ([rikochet](https://github.com/rikochet))
+
 **Closed issues:**
 
+- How can i get the props after Actions.popTo in the previous scene? [\#3241](https://github.com/aksonov/react-native-router-flux/issues/3241)
+- There is no route defined for key when using Actions.reset\(\); [\#3234](https://github.com/aksonov/react-native-router-flux/issues/3234)
+- Proposal: RNRF 3.5 [\#3213](https://github.com/aksonov/react-native-router-flux/issues/3213)
 - How to pass the props in Tabs? [\#3203](https://github.com/aksonov/react-native-router-flux/issues/3203)
+- Navigation breaks after 4.0.0-beta.23 [\#3202](https://github.com/aksonov/react-native-router-flux/issues/3202)
 -  How can I hear the event come back? [\#3201](https://github.com/aksonov/react-native-router-flux/issues/3201)
 - Upgrading from `4.0.0-beta27` to `4.0.0` breaks app [\#3198](https://github.com/aksonov/react-native-router-flux/issues/3198)
 - Unable to transfer a state value from one scene to another via “Actions.push\(\)” ... [\#3196](https://github.com/aksonov/react-native-router-flux/issues/3196)
@@ -14,7 +31,7 @@
 - drawer position right not working correctly [\#3180](https://github.com/aksonov/react-native-router-flux/issues/3180)
 - How to listen onback, onpop inside screen component [\#3178](https://github.com/aksonov/react-native-router-flux/issues/3178)
 - TextInput field lost focus for each character input [\#3177](https://github.com/aksonov/react-native-router-flux/issues/3177)
-- \[Important\] Unable to use , RNRF  getting error : bug of REACT file an issue  [\#3174](https://github.com/aksonov/react-native-router-flux/issues/3174)
+- ReactNativeJS: TypeError: undefined is not an object \(evaluating 'context.changedBits'\) [\#3174](https://github.com/aksonov/react-native-router-flux/issues/3174)
 - android back button move the app to forground mode [\#3173](https://github.com/aksonov/react-native-router-flux/issues/3173)
 - -v [\#3167](https://github.com/aksonov/react-native-router-flux/issues/3167)
 - currentScene is not showing the currently mounted screens key [\#3165](https://github.com/aksonov/react-native-router-flux/issues/3165)
@@ -23,6 +40,10 @@
 
 **Merged pull requests:**
 
+- Add more information to issue template to help figure out cause of problems [\#3239](https://github.com/aksonov/react-native-router-flux/pull/3239) ([daviscabral](https://github.com/daviscabral))
+- Add title to StackProps type definition [\#3228](https://github.com/aksonov/react-native-router-flux/pull/3228) ([vanb](https://github.com/vanb))
+- Add support for deprecated Tabs component [\#3214](https://github.com/aksonov/react-native-router-flux/pull/3214) ([daviscabral](https://github.com/daviscabral))
+- 4.0.2-dev and CHANGELOG update [\#3211](https://github.com/aksonov/react-native-router-flux/pull/3211) ([daviscabral](https://github.com/daviscabral))
 - Add 'ReduxExample' to .npmignore [\#3210](https://github.com/aksonov/react-native-router-flux/pull/3210) ([dextermb](https://github.com/dextermb))
 - hotfix: Example, ReduxExample and depencies fixes for Android [\#3195](https://github.com/aksonov/react-native-router-flux/pull/3195) ([daviscabral](https://github.com/daviscabral))
 - Added indicatorStyle to 'Tabs' props. [\#3192](https://github.com/aksonov/react-native-router-flux/pull/3192) ([AkshatGiri](https://github.com/AkshatGiri))
@@ -245,7 +266,6 @@
 
 - popTo causes an infinite loop when route is not found [\#3026](https://github.com/aksonov/react-native-router-flux/issues/3026)
 - \[react-native-router-flux v4.0.0-beta.27/npm module\]PopTo method is not fixed [\#2799](https://github.com/aksonov/react-native-router-flux/issues/2799)
-- \[Android\] rightTitle text cut issue [\#2696](https://github.com/aksonov/react-native-router-flux/issues/2696)
 
 **Closed issues:**
 
@@ -295,7 +315,6 @@
 - can i use v3 with latest react native \(55\)and react\(16.3\)  [\#3037](https://github.com/aksonov/react-native-router-flux/issues/3037)
 - \[question\] popN\(...\) functionality? [\#3036](https://github.com/aksonov/react-native-router-flux/issues/3036)
 - TypeError:undefined is not a function \(evaluating 'addListener'\) [\#3033](https://github.com/aksonov/react-native-router-flux/issues/3033)
-- How ro refresh drawer when I use actions \(of any file\) [\#3031](https://github.com/aksonov/react-native-router-flux/issues/3031)
 - Standalone TabBar by passing navigation props doesnt work [\#3030](https://github.com/aksonov/react-native-router-flux/issues/3030)
 - xcode can't be installed  [\#3027](https://github.com/aksonov/react-native-router-flux/issues/3027)
 - Error: There is no route for key home . must be one of drawer [\#3024](https://github.com/aksonov/react-native-router-flux/issues/3024)
@@ -389,7 +408,6 @@
 - Undefined is not a function \(evaluating 'addListener'\)  [\#2897](https://github.com/aksonov/react-native-router-flux/issues/2897)
 - Problem: All tabs setting same title & One navigation bar for all tabs [\#2895](https://github.com/aksonov/react-native-router-flux/issues/2895)
 - Support `showIcon` property for Scene Tabs [\#2892](https://github.com/aksonov/react-native-router-flux/issues/2892)
-- Actions.key not working with onPress - Android [\#2890](https://github.com/aksonov/react-native-router-flux/issues/2890)
 - Router doesn't get rendered on screen - Android [\#2889](https://github.com/aksonov/react-native-router-flux/issues/2889)
 - Drawer close error [\#2887](https://github.com/aksonov/react-native-router-flux/issues/2887)
 - Jump to screen with no animation [\#2879](https://github.com/aksonov/react-native-router-flux/issues/2879)
@@ -434,7 +452,6 @@
 - Help With Drawer Menu [\#2793](https://github.com/aksonov/react-native-router-flux/issues/2793)
 - Unable to pass function as a prop down to scene  [\#2790](https://github.com/aksonov/react-native-router-flux/issues/2790)
 - Duplicate scenes when using stack within stack [\#2784](https://github.com/aksonov/react-native-router-flux/issues/2784)
--  Second time login and tabs throws me out of the app. [\#2783](https://github.com/aksonov/react-native-router-flux/issues/2783)
 - How to import CardStackStyleInterpolator from router flux. [\#2781](https://github.com/aksonov/react-native-router-flux/issues/2781)
 - Can someone show we an example how i can change the Animation while navigating. [\#2780](https://github.com/aksonov/react-native-router-flux/issues/2780)
 - undefined is not a function \(evaluating '\_reactNativeRouterFlux.Actions.guideHomePage\(\)'\)     \_onPress [\#2779](https://github.com/aksonov/react-native-router-flux/issues/2779)
@@ -494,15 +511,6 @@
 - How do I keep the tab bar visible? [\#2726](https://github.com/aksonov/react-native-router-flux/issues/2726)
 - Error resetting scene: There is no route defined for key sceneName. [\#2724](https://github.com/aksonov/react-native-router-flux/issues/2724)
 - TypeError: undefined is not an object \(evaluating 'route.routeName'\) [\#2718](https://github.com/aksonov/react-native-router-flux/issues/2718)
-- \[BUG\] Actions.popTo crashes navigation on v4 [\#2712](https://github.com/aksonov/react-native-router-flux/issues/2712)
-- \[Drawer Issue\] Weird White Flash on Initial Start [\#2711](https://github.com/aksonov/react-native-router-flux/issues/2711)
-- translucent Navbar on ios [\#2707](https://github.com/aksonov/react-native-router-flux/issues/2707)
-- navTransparent doesn't work in Router\>Scene [\#2704](https://github.com/aksonov/react-native-router-flux/issues/2704)
-- undefined is not an object state.children [\#2701](https://github.com/aksonov/react-native-router-flux/issues/2701)
-- Avoid two nav bars when navigate from tabs Scene to another Scene [\#2694](https://github.com/aksonov/react-native-router-flux/issues/2694)
-- Swipe Back Gesture does not works on Right To Left Layout \(iOS\) [\#2693](https://github.com/aksonov/react-native-router-flux/issues/2693)
-- Gradually change the StatusBar color from one color to another when swiping through tabs [\#2690](https://github.com/aksonov/react-native-router-flux/issues/2690)
-- tabBarPosition="top" bug [\#2687](https://github.com/aksonov/react-native-router-flux/issues/2687)
 
 **Merged pull requests:**
 
@@ -523,33 +531,12 @@
 - Exist app when clicked back on home screen [\#2725](https://github.com/aksonov/react-native-router-flux/issues/2725)
 - Content Component returns this error :TypeError: undefined is not an object \(evaluating 'route.routeName'\)  in beta 22 but works in beat21 [\#2723](https://github.com/aksonov/react-native-router-flux/issues/2723)
 - undefined is not an object \(evaluating 'route.routeName'\) [\#2720](https://github.com/aksonov/react-native-router-flux/issues/2720)
-- Example can't work for iOS11.2 [\#2717](https://github.com/aksonov/react-native-router-flux/issues/2717)
-- Why do I have two headers when I go back [\#2716](https://github.com/aksonov/react-native-router-flux/issues/2716)
-- Tabs Dynamic / Conditional Scene rendering [\#2715](https://github.com/aksonov/react-native-router-flux/issues/2715)
-- DefaultRenderer in v4 [\#2710](https://github.com/aksonov/react-native-router-flux/issues/2710)
-- How to set up a scene handoff animation separately [\#2709](https://github.com/aksonov/react-native-router-flux/issues/2709)
-- How to pass props to a tab children [\#2708](https://github.com/aksonov/react-native-router-flux/issues/2708)
-- onBack not working on any scenes [\#2706](https://github.com/aksonov/react-native-router-flux/issues/2706)
-- Subviews not visible when adding Router in Android [\#2705](https://github.com/aksonov/react-native-router-flux/issues/2705)
-- How to pass value to two tabs?  [\#2703](https://github.com/aksonov/react-native-router-flux/issues/2703)
-- \<Drawer \> doesnt work for me  [\#2702](https://github.com/aksonov/react-native-router-flux/issues/2702)
-- how to use Actions Binding in ListView [\#2700](https://github.com/aksonov/react-native-router-flux/issues/2700)
-- Rendering tabs based on authentication and user roles [\#2699](https://github.com/aksonov/react-native-router-flux/issues/2699)
-- When application opens from notification throws Error: There is not route defined... [\#2697](https://github.com/aksonov/react-native-router-flux/issues/2697)
-- renderRightButton and renderLeftButton on Actions.refresh not working [\#2692](https://github.com/aksonov/react-native-router-flux/issues/2692)
-- How to pop or go to another scene without transition. [\#2689](https://github.com/aksonov/react-native-router-flux/issues/2689)
-- Navigating from home to another scene, suddenly reverts [\#2688](https://github.com/aksonov/react-native-router-flux/issues/2688)
-- onPress Event for Scene Title [\#2686](https://github.com/aksonov/react-native-router-flux/issues/2686)
 
 **Merged pull requests:**
 
 - Drawer fixed, faulty closeDrawer removed, androidBack support added [\#2745](https://github.com/aksonov/react-native-router-flux/pull/2745) ([vibhavagarwal5](https://github.com/vibhavagarwal5))
 - Fix wrong logic when back pressed [\#2735](https://github.com/aksonov/react-native-router-flux/pull/2735) ([wsxyeah](https://github.com/wsxyeah))
 - Update license field in package.json to match LICENSE file [\#2721](https://github.com/aksonov/react-native-router-flux/pull/2721) ([andrew](https://github.com/andrew))
-- Update API.md [\#2714](https://github.com/aksonov/react-native-router-flux/pull/2714) ([linkstrifer](https://github.com/linkstrifer))
-- Update API.md [\#2698](https://github.com/aksonov/react-native-router-flux/pull/2698) ([tariksahni](https://github.com/tariksahni))
-- Adds panHandlers to wrapping scene in tabs example [\#2695](https://github.com/aksonov/react-native-router-flux/pull/2695) ([asciifaceman](https://github.com/asciifaceman))
-- Update tabBarOnPress handler to use react-navigation beta.20 contract [\#2691](https://github.com/aksonov/react-native-router-flux/pull/2691) ([rsailor](https://github.com/rsailor))
 
 ## [4.0.0-beta.24](https://github.com/aksonov/react-native-router-flux/tree/4.0.0-beta.24) (2017-11-14)
 [Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.0-beta.23...4.0.0-beta.24)
