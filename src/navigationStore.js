@@ -140,12 +140,14 @@ function createNavigationOptions(params) {
     backButtonImage,
     backButtonTextStyle,
     backTitle,
+    backTitleEnabled,
     backToInitial,
     component,
     drawerIcon,
     drawerImage,
     drawerPosition,
     getTitle,
+    headerLayoutPreset,
     headerStyle,
     headerTitleStyle,
     hideDrawerButton,
@@ -195,15 +197,17 @@ function createNavigationOptions(params) {
     };
     const res = {
       ...props,
+      headerBackImage: navigationParams.backButtonImage || backButtonImage,
+      headerBackTitle: getValue(navigationParams.backTitle || backTitle, state),
+      headerBackTitleEnabled: navigationParams.backTitleEnabled || backTitleEnabled,
+      headerLayoutPreset: navigationParams.headerLayoutPreset || headerLayoutPreset,
+      headerLeft: getValue(navigationParams.left || left || leftButton || params.renderLeftButton, state),
+      headerRight: getValue(navigationParams.right || right || rightButton || params.renderRightButton, state),
+      headerStyle: getValue(navigationParams.headerStyle || headerStyle || navigationBarStyle, state),
       headerTintColor: navBarButtonColor || props.tintColor || navigationParams.tintColor || navigationParams.headerTintColor,
+      headerTitle: getValue(navigationParams.renderTitle || renderTitle || params.renderTitle, state),
       headerTitleStyle: headerTitleStyle || titleStyle,
       title: getValue(navigationParams.title || title || getTitle, state),
-      headerBackTitle: getValue(navigationParams.backTitle || backTitle, state),
-      headerRight: getValue(navigationParams.right || right || rightButton || params.renderRightButton, state),
-      headerLeft: getValue(navigationParams.left || left || leftButton || params.renderLeftButton, state),
-      headerTitle: getValue(navigationParams.renderTitle || renderTitle || params.renderTitle, state),
-      headerStyle: getValue(navigationParams.headerStyle || headerStyle || navigationBarStyle, state),
-      headerBackImage: navigationParams.backButtonImage || backButtonImage,
     };
 
     const NavBarFromParams = navigationParams.renderNavigationBar || navigationParams.navBar;

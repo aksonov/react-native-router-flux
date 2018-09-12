@@ -21,7 +21,7 @@
     "react-native-button": "^2.3.0",
     "react-native-message-bar": "^2.0.10",
     "react-native-router-flux": "file:..",
-    "react-navigation": "2.12.x"
+    "react-navigation": "2.13.x"
   },
   "devDependencies": {
     "@babel/code-frame": "7.0.0-beta.47",
