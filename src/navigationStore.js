@@ -20,7 +20,7 @@ import { LeftButton, RightButton, BackButton } from './NavBar';
 import LightboxRenderer from './LightboxRenderer';
 import _drawerImage from '../images/menu_burger.png';
 import Scene from './Scene';
-import { getActiveState, getParent } from './State';
+import { getActiveState, getParent, getRouteNameByKey } from './State';
 import Modal from './Modal';
 import Lightbox from './Lightbox';
 import Drawer from './Drawer';
@@ -512,6 +512,42 @@ class NavigationStore {
     Navigator.router.getStateForAction = (cmd, state) => (this.reducer ? this.reducer(state, cmd) : reducer(state, cmd));
   };
 
+  onEnterHandler = async (currentScene) => {
+    if (this.states[currentScene]) {
+      const handler = this[currentScene + OnEnter];
+      const success = this.states[currentScene].success || defaultSuccess;
+      const failure = this.states[currentScene].failure || defaultFailure;
+      if (handler) {
+        try {
+          const res = await handler(this.currentParams, this.state);
+          if (res) {
+            success(res);
+          } else {
+            failure();
+          }
+        } catch (e) {
+          failure({ error: e.message });
+        }
+      }
+    }
+  };
+
+  onExitHandler = (prevScene) => {
+    if (prevScene) {
+      const exitHandler = this[prevScene + OnExit];
+      if (exitHandler) {
+        try {
+          const res = exitHandler(this.state);
+          if (res instanceof Promise) {
+            res.then(defaultSuccess, defaultFailure);
+          }
+        } catch (e) {
+          console.error('Error during onExit handler:', e);
+        }
+      }
+    }
+  };
+
   onNavigationStateChange = async (prevState, currentState, action) => {
     this.state = currentState;
     this.prevState = prevState;
@@ -522,41 +558,19 @@ class NavigationStore {
     this.prevScene = this.prevState ? getActiveState(this.prevState).routeName : null;
     if (this.currentScene !== this.prevScene) {
       // run onExit for old scene
-      if (this.prevScene) {
-        const exitHandler = this[this.prevScene + OnExit];
-        if (exitHandler) {
-          try {
-            const res = exitHandler(this.state);
-            if (res instanceof Promise) {
-              res.then(defaultSuccess, defaultFailure);
-            }
-          } catch (e) {
-            console.error('Error during onExit handler:', e);
-          }
-        }
-      }
+      this.onExitHandler(this.prevScene);
       setTimeout(() => this.dispatch({
         type: ActionConst.FOCUS,
         routeName: this.currentScene,
         params: this.currentParams,
       }));
-      if (this.states[currentScene]) {
-        const handler = this[currentScene + OnEnter];
-        const success = this.states[currentScene].success || defaultSuccess;
-        const failure = this.states[currentScene].failure || defaultFailure;
-        // call onEnter handler
-        if (handler) {
-          try {
-            const res = await handler(this.currentParams, this.state);
-            if (res) {
-              success(res);
-            } else {
-              failure();
-            }
-          } catch (e) {
-            failure({ error: e.message });
-          }
-        }
+      this.onEnterHandler(currentScene);
+    } else {
+      const routeName = getRouteNameByKey(this.state, action.key);
+      if (action.type === 'Navigation/DRAWER_OPENED') {
+        this.onEnterHandler(routeName);
+      } else if (action.type === 'Navigation/DRAWER_CLOSED') {
+        this.onExitHandler(routeName);
       }
     }
     if (this.onStateChange) {
