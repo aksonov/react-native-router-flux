@@ -30,7 +30,7 @@
     "opencollective": "^1.0.3",
     "path-to-regexp": "^2.4.0",
     "prop-types": "^15.6.2",
-    "react-navigation": "2.12.x"
+    "react-navigation": "2.13.x"
   },
   "devDependencies": {
     "@babel/cli": "7.0.0-beta.47",

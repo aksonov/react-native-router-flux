@@ -65,7 +65,7 @@ const Example = () => (
             <Scene key="echo" back clone component={EchoView} getTitle={({ navigation }) => navigation.state.key} />
             <Scene key="launch" component={Launch} title="Launch" initial type={ActionConst.RESET} />
 
-            <Stack key="customNavBar" hideTabBar titleStyle={{ alignSelf: 'center' }}>
+            <Stack key="customNavBar" hideTabBar headerLayoutPreset='center'>
               <Scene key="customNavBar1" title="CustomNavBar 1" navBar={CustomNavBar} component={CustomNavBarView} back />
               <Scene key="customNavBar2" title="CustomNavBar 2" navBar={CustomNavBar} component={CustomNavBarView} back />
               <Scene key="customNavBar3" title="Another CustomNavBar" navBar={CustomNavBar2} component={CustomNavBarView} back />
@@ -130,7 +130,7 @@ const Example = () => (
           <Scene key="demo_lightbox" component={DemoLightbox} />
         </Lightbox>
         <Scene key="error" component={ErrorModal} />
-        <Stack key="login" path="login/:data" titleStyle={{ alignSelf: 'center' }}>
+        <Stack key="login" headerLayoutPreset='center' path="login/:data" titleStyle={{ alignSelf: 'center' }}>
           <Scene key="loginModal" component={Login} title="Login" onExit={() => console.log('Login: onExit')} leftTitle="Cancel" onLeft={Actions.pop} />
           <Scene key="loginModal2" component={Login2} title="Login2" onEnter={() => console.log('Login2: onEnter') } backTitle="Back" panHandlers={null} duration={1} />
           <Scene key="loginModal3" hideNavBar component={Login3} title="Login3" onEnter={() => console.log('Login3: onEnter') } onExit={() => console.log('Login3: onExit')} panHandlers={null} duration={1} />

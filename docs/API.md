@@ -39,12 +39,14 @@ All properties of type `React.Component` will receive the same properties availa
 | `backButtonTextStyle` | `Style` |  | Style applied to back button text |
 | `backButtonTintColor`     | `string` | | Custom back button tint color |
 | `backTitle` | `string` |  | Specifies the back button title for scene |
+| `backTitleEnabled` | `boolean` |  | allows you to force back button titles to either be rendered or not (if you disagree with defaults for your platform and layout preset) |
 | `clone`     | `boolean` | `false` | Scenes marked with `clone` will be treated as templates and cloned into the current scene's parent when pushed. See example. |
 | `contentComponent`     | `React.Component` |  | Component used to render the content of the drawer (e.g. navigation items). |
 | `drawer`     | `boolean` | `false` | load child scenes inside [DrawerNavigator](https://reactnavigation.org/docs/navigators/drawer) |
 | `drawerLockMode` | enum('unlocked', 'locked-closed', 'locked-open')  |  | If a child of a drawer, specifies the [lock mode of the drawer](https://facebook.github.io/react-native/docs/drawerlayoutandroid.html#drawerlockmode) |
 | `failure` | `Function` | | If `on` returns a "falsey" value then `failure` is called. |
 | `headerMode` | `string` | `float` | Specifies how the header should be rendered: `float` (render a single header that stays at the top and animates as screens are changed. This is a common pattern on iOS.), `screen` (each screen has a header attached to it and the header fades in and out together with the screen. This is a common pattern on Android) or `none` (No header will be rendered) |
+| `headerLayoutPreset` | `string` | `center | left` | Change layout preset from header to be able to center text in some cases where it would be misaligned. |
 | `hideBackImage`     | `boolean` | `false` | hide back image |
 | `hideNavBar`     | `boolean` | `false` | hide the nav bar |
 | `init`     | `boolean` | `false` | If it is `true` back button will not be displayed |

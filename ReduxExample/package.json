@@ -18,7 +18,7 @@
     "react": "16.4.1",
     "react-native": "0.56.0",
     "react-native-router-flux": "file:..",
-    "react-navigation": "2.12.x",
+    "react-navigation": "2.13.x",
     "react-navigation-redux-helpers": "^2.0.5",
     "react-redux": "^5.0.5",
     "redux": "4.0.x"
