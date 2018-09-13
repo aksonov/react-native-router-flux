@@ -63,7 +63,8 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-navigation-deprecated-tab-navigator": "*"
   },
   "jest": {
     "preset": "react-native",
