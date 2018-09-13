@@ -818,10 +818,7 @@ class NavigationStore {
       if (legacy) {
         createTabNavigator = DEPRECATED_createTabNavigator;
         if (!tabBarComponent) {
-          tabBarComponent =
-            tabBarPosition === 'top'
-              ? props => <DEPRECATED_TabBarTop {...props} {...commonProps} />
-              : props => <DEPRECATED_TabBarBottom {...props} {...commonProps} />;
+          tabBarComponent = tabBarPosition === 'top' ? props => <DEPRECATED_TabBarTop {...props} {...commonProps} /> : props => <DEPRECATED_TabBarBottom {...props} {...commonProps} />;
         }
       } else if (tabBarPosition !== 'top') {
         createTabNavigator = createBottomTabNavigator;
