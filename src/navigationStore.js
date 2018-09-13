@@ -3,7 +3,6 @@ import {
   StatusBar, Image, Animated, Easing,
 } from 'react-native';
 import {
-  createTabNavigator as DEPRECATED_createTabNavigator,
   createBottomTabNavigator,
   createMaterialTopTabNavigator,
   createDrawerNavigator,
@@ -12,6 +11,11 @@ import {
   StackActions,
   DrawerActions,
 } from 'react-navigation';
+import {
+  createTabNavigator as DEPRECATED_createTabNavigator,
+  TabBarTop as DEPRECATED_TabBarTop,
+  TabBarBottom as DEPRECATED_TabBarBottom,
+} from 'react-navigation-deprecated-tab-navigator';
 import PropTypes from 'prop-types';
 import { reducer } from './Reducer';
 import * as ActionConst from './ActionConst';
@@ -813,6 +817,9 @@ class NavigationStore {
       let createTabNavigator = createMaterialTopTabNavigator;
       if (legacy) {
         createTabNavigator = DEPRECATED_createTabNavigator;
+        if (!tabBarComponent) {
+          tabBarComponent = tabBarPosition === 'top' ? props => <DEPRECATED_TabBarTop {...props} {...commonProps} /> : props => <DEPRECATED_TabBarBottom {...props} {...commonProps} />;
+        }
       } else if (tabBarPosition !== 'top') {
         createTabNavigator = createBottomTabNavigator;
       }
