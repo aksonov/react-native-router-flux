@@ -297,12 +297,14 @@ function createNavigationOptions(params) {
       || navigationParams.backTitle
       || ((drawerImage || drawerIcon) && !hideDrawerButton && drawerPosition !== 'right')
     ) {
-      res.headerLeft = getValue(navigationParams.left || navigationParams.leftButton || params.renderLeftButton, { ...params, ...navigationParams, ...screenProps })
+      const leftButton = navigationParams.left || navigationParams.leftButton || params.renderLeftButton;
+      res.headerLeft = getValue(leftButton, { ...params, ...navigationParams, ...screenProps })
         || (((onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage || navigationParams.leftButtonImage)) || drawerImage || drawerIcon) && (
           <LeftNavBarButton {...params} {...navigationParams} {...componentData} />
         ))
         || res.headerLeft
-        || (init ? null : (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />);
+        || (init ? null : (!leftButton && renderBackButton && renderBackButton(state)) || (!leftButton && <BackNavBarButton {...state} />))
+        || null;
     }
 
     if (back) {
