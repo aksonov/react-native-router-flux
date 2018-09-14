@@ -87,6 +87,7 @@ const Example = () => (
                 <Tabs
                   key="tabbar"
                   routeName="tabbar"
+                  legacy
                   backToInitial
                   onTabOnPress={() => { console.log('Back to initial and also print this') }}
                   swipeEnabled
