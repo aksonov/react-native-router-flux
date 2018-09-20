@@ -50,6 +50,7 @@ interface SceneProps extends React.Props<Scene> {
   renderLeftButton?: React.ComponentType<any>;
   renderRightButton?: React.ComponentType<any>;
   renderBackButton?: React.ComponentType<any>;
+  rightTitle?: string;
   rightButtonImage?: Image;
   rightButtonTextStyle?: StyleProp<TextStyle>;
   success?: (() => void) | string;
