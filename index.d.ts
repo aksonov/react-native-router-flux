@@ -7,14 +7,22 @@ import { StyleProp, Image, ViewStyle, TextStyle, ImageStyle } from 'react-native
 export var Router: RouterStatic;
 export type Router = RouterStatic;
 
+// Reducer
+export var Reducer: any;
+export type Reducer = any;
+
 // Router
 interface RouterProps extends React.Props<Router> {
-  sceneStyle?: StyleProp<ViewStyle>;
-  backAndroidHandler?: Function;
-  wrapBy?: Function;
-  scenes?: any;
+    sceneStyle?: StyleProp<ViewStyle>;
+    backAndroidHandler?: Function;
+    wrapBy?: Function;
+    scenes?: any;
+    createReducer?: Function;
+    onStateChange?: Function;
+    getSceneStyle?: Function;
+    uriPrefix?: string;
 }
-interface RouterStatic extends React.ComponentClass<RouterProps> {}
+interface RouterStatic extends React.ComponentClass<RouterProps> { }
 
 // Scene
 export var Scene: SceneStatic;
