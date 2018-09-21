@@ -70,7 +70,8 @@
     "preset": "react-native",
     "modulePathIgnorePatterns": [
       "<rootDir>/Example/",
-      "<rootDir>/ReduxExample/"
+      "<rootDir>/ReduxExample/",
+      "<rootDir>/examples/"
     ],
     "transformIgnorePatterns": [
       "node_modules/(?!(jest-)?react-native|react-navigation|react-navigation-(tabs|drawer|deprecated-tab-navigator|stack))"

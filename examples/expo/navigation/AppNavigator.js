@@ -14,7 +14,6 @@ import {
   Stack,
   Lightbox,
 } from 'react-native-router-flux';
-import MainTabNavigator from './MainTabNavigator';
 import TabBarIcon from '../components/TabBarIcon';
 import MenuIcon from '../components/MenuIcon';
 import DrawerContent from '../components/DrawerContent';
