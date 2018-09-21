@@ -625,7 +625,7 @@ class NavigationStore {
       navigator, renderer, contentComponent, drawerWidth, drawerLockMode, tabBarPosition, lazy, duration, ...parentProps
     } = scene.props;
     let {
-      legacy, tabs, modal, lightbox, overlay, drawer, transitionConfig, tabBarComponent
+      legacy, tabs, modal, lightbox, overlay, drawer, transitionConfig, tabBarComponent,
     } = parentProps;
     if (scene.type === Modal) {
       modal = true;
