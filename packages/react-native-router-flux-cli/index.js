@@ -13,7 +13,7 @@ const commands = {
       'node_modules/react-native-router-flux/node_modules',
       'node_modules/react-native-router-flux/Example',
       'node_modules/react-native-router-flux/ReduxExample',
-      'node_modules/react-native-router-flux/ExpoExample'
+      'node_modules/react-native-router-flux/examples'
     ];
 
     blacklisted.map(function (part) {
