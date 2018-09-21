@@ -102,6 +102,13 @@ class TabView extends React.Component {
         >
           Toggle NavBar
         </Button>
+        <Button
+          onPress={() => {
+            Actions.replace('tab_2_1')
+          }}
+        >
+          Replace with tab2
+        </Button>
         {this.props.name === 'tab_2_1' && (
           <Button onPress={this.toggleTabBar}>Toggle TabBar</Button>
         )}

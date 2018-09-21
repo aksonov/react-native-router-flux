@@ -4,6 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "ios": "react-native run-ios",
+    "android": "react-native run-android",
+    "dev:ios": "yarn dev && yarn ios",
+    "dev:android": "yarn dev && yarn android",
+    "dev": "cp ../../src/* node_modules/react-native-router-flux/src/",
     "test": "jest",
     "postinstall": "./node_modules/.bin/rnrf dedup"
   },
