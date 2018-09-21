@@ -32,7 +32,7 @@ const App = () => (
 );
 ```
 
-...and navigate from scene to scene with a simple, powerful API
+...and navigate from one scene to another scene with a simple and powerful API.
 
 ```js
 // Login.js
@@ -60,8 +60,10 @@ For a full listing of the API, [view the API docs](https://github.com/aksonov/re
 git clone https://github.com/aksonov/react-native-router-flux.git
 cd react-native-router-flux/Example
 
-# Install dependencies
+# Installing dependencies
 yarn
+or
+npm i
 
 # Run it
 react-native run-ios
@@ -69,7 +71,7 @@ react-native run-ios
 
 ## v4 Features
 * Based on latest [React Navigation](https://reactnavigation.org) API
-* Separate navigation logic from presentation. You may change now navigation state directly from your business logic code - stores/reducers/etc. navigationStore
+* Separate navigation logic from presentation. You may now change navigation state directly from your business logic code - stores/reducers/etc. navigationStore
 * Built-in state machine (v3 `Switch` replacement)
   * Each `Scene` with `component` defined can have `onEnter`/`onExit`/`on` handlers.
   * `onEnter`/`on` handler can be async.
@@ -78,10 +80,10 @@ react-native run-ios
   * in case of handler's failure, `failure` prop (if defined) will be run.
   * Combining `onEnter`, `onExit`, `success`, and `failure` makes patterns like authentication, data validation, and conditional transitions simple and intuitive.
 * [MobX](https://mobx.js.org/)-friendly: all scenes are wrapped with `observer`. You may subscribe to `navigationStore` (`Actions` in v3) and observe current navigation state. Not applicable to Redux.
-* Flexible nav bar customization not currently allowed by React Navigation:
+* Flexible Nav bar customization, currently not allowed by React Navigation:
 https://github.com/react-community/react-navigation/issues/779
 * Drawer support (provided by React Navigation)
-* Inheritance of scene attributes allow you to avoid any code/attribute duplications. Adding `rightTitle` to a scene will apply to all child scenes. See example app.
+* Inheritance of scene attributes allow you to avoid any code/attribute duplications. Adding `rightTitle` to a scene will apply to all child scenes simultaneously. See example app.
 * Access to your app navigations state as simple as `Actions.state`.
 * Use `Actions.currentScene` to get name of current scene.
 
