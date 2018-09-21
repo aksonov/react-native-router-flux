@@ -11,8 +11,6 @@ const commands = {
   dedup: function () {
     const blacklisted = [
       'node_modules/react-native-router-flux/node_modules',
-      'node_modules/react-native-router-flux/Example',
-      'node_modules/react-native-router-flux/ReduxExample',
       'node_modules/react-native-router-flux/examples'
     ];
 
