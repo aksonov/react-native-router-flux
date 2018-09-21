@@ -673,7 +673,7 @@ class NavigationStore {
     }
     // add all clones
     for (const child of children) {
-      if (child.props.clone) {
+      if (child && child.props.clone) {
         if (clones.indexOf(child) === -1) {
           clones.push(child);
         }
@@ -682,6 +682,10 @@ class NavigationStore {
     let initialRouteName;
     let initialRouteParams;
     for (const child of children) {
+      // allow null/false child, useful for conditionals
+      if (!child) {
+        continue;
+      }
       const key = child.key || `key${(counter += 1)}`;
       const init = key === children[0].key;
       assert(reservedKeys.indexOf(key) === -1, `Scene name cannot be reserved word: ${child.key}`);
