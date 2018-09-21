@@ -6,11 +6,11 @@
 
 #### v4 is based on [React Navigation v2.x](https://reactnavigation.org/). See [this branch](https://github.com/aksonov/react-native-router-flux/tree/v3) and [docs](https://github.com/aksonov/react-native-router-flux/blob/master/README3.md) for v3 based on deprecated React Native Experimental Navigation API. It is not supported and may not work with latest React Native versions.
 
-#### v4.0.0-beta.x is based on [React Navigation v1.5.x](https://reactnavigation.org/). It is also not supported and may not work with the latest React Native versions.
+#### v4.0.0-beta.x is based on [React Navigation v1.5.x](https://reactnavigation.org/). See [this branch](https://github.com/aksonov/react-native-router-flux/tree/v4.0.0-beta) for this version. It is also not supported and may not work with the latest React Native versions.
 
 ___
 
-* [Example](#try-the-example-app)
+* [Examples](#try-the-example-apps)
 * [Motivation](https://gist.github.com/aksonov/e2d7454421e44b1c4c72214d14053410)
 * [v4 Features](#v4-features)
 * [API](/docs/API.md)
@@ -51,22 +51,20 @@ Actions.refresh({param1: 'hello', param2: 'world'})
 
 For a full listing of the API, [view the API docs](https://github.com/aksonov/react-native-router-flux/blob/master/docs/API.md).
 
-## Try the [example app](https://github.com/aksonov/react-native-router-flux/tree/master/Example)
+## Try the [example apps](https://github.com/aksonov/react-native-router-flux/tree/master/examples)
 
 ![rnrf](https://user-images.githubusercontent.com/3681859/27937441-ef61d932-626b-11e7-885f-1db7dc74b32e.gif)
 
 ```bash
 # Get the code
 git clone https://github.com/aksonov/react-native-router-flux.git
-cd react-native-router-flux/Example
+cd react-native-router-flux/examples/[expo|react-native|redux]
 
 # Installing dependencies
 yarn
-or
-npm i
 
 # Run it
-react-native run-ios
+yarn start
 ```
 
 ## v4 Features
