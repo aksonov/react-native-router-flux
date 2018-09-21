@@ -80,7 +80,7 @@ react-native run-ios
   * in case of handler's failure, `failure` prop (if defined) will be run.
   * Combining `onEnter`, `onExit`, `success`, and `failure` makes patterns like authentication, data validation, and conditional transitions simple and intuitive.
 * [MobX](https://mobx.js.org/)-friendly: all scenes are wrapped with `observer`. You may subscribe to `navigationStore` (`Actions` in v3) and observe current navigation state. Not applicable to Redux.
-* Flexible Nav bar customization ,currently not allowed by React Navigation:
+* Flexible Nav bar customization, currently not allowed by React Navigation:
 https://github.com/react-community/react-navigation/issues/779
 * Drawer support (provided by React Navigation)
 * Inheritance of scene attributes allow you to avoid any code/attribute duplications. Adding `rightTitle` to a scene will apply to all child scenes simultaneously. See example app.
