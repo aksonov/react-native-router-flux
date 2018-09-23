@@ -30,7 +30,7 @@ import pathToRegexp from 'path-to-regexp';
  *     ]
  * }
  */
-const compilePathToRegex = (path) => {
+const compilePathToRegex = path => {
   const keys = [];
   const re = pathToRegexp(path, keys);
   // Returns the regex path to match a uri path to an actual url
