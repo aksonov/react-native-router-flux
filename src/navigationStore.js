@@ -281,7 +281,7 @@ function createNavigationOptions(params) {
       || ((drawerImage || drawerIcon) && !hideDrawerButton && drawerPosition === 'right')
     ) {
       res.headerRight = getValue(navigationParams.right || navigationParams.rightButton || params.renderRightButton, { ...navigationParams, ...screenProps }) || (
-        <RightNavBarButton {...params} {...navigationParams} {...componentData} />
+        <RightNavBarButton navigation={navigation} {...params} {...navigationParams} {...componentData} />
       );
     }
 
@@ -305,15 +305,15 @@ function createNavigationOptions(params) {
       const leftButton = navigationParams.left || navigationParams.leftButton || params.renderLeftButton;
       res.headerLeft = getValue(leftButton, { ...params, ...navigationParams, ...screenProps })
         || (((onLeft && (leftTitle || navigationParams.leftTitle || leftButtonImage || navigationParams.leftButtonImage)) || drawerImage || drawerIcon) && (
-          <LeftNavBarButton {...params} {...navigationParams} {...componentData} />
+          <LeftNavBarButton navigation={navigation} {...params} {...navigationParams} {...componentData} />
         ))
         || res.headerLeft
-        || (init ? null : (!leftButton && renderBackButton && renderBackButton(state)) || (!leftButton && <BackNavBarButton {...state} />))
+        || (init ? null : (!leftButton && renderBackButton && renderBackButton(state)) || (!leftButton && <BackNavBarButton navigation={navigation} {...state} />))
         || null;
     }
 
     if (back) {
-      res.headerLeft = (renderBackButton && renderBackButton(state)) || <BackNavBarButton {...state} />;
+      res.headerLeft = (renderBackButton && renderBackButton(state)) || <BackNavBarButton navigation={navigation} {...state} />;
     }
 
     if (typeof navigationParams.left !== 'undefined' || typeof navigationParams.leftButton !== 'undefined' || typeof navigationParams.renderLeftButton !== 'undefined') {

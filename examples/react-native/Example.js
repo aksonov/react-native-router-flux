@@ -57,8 +57,7 @@ const getSceneStyle = () => ({
 const prefix = Platform.OS === 'android' ? 'mychat://mychat/' : 'mychat://';
 
 const transitionConfig = () => ({
-  screenInterpolator:
-    StackViewStyleInterpolator.forFadeFromBottomAndroid,
+  screenInterpolator: StackViewStyleInterpolator.forFadeFromBottomAndroid,
 });
 
 const Example = () => (
@@ -66,11 +65,11 @@ const Example = () => (
     <Overlay key="overlay">
       <Modal key="modal" hideNavBar transitionConfig={transitionConfig}>
         <Lightbox key="lightbox">
-          <Stack key="root" titleStyle={{ alignSelf: 'center' }}>
+          <Stack key="root" titleStyle={{ alignSelf: 'center' }} hideNavBar>
             <Scene key="echo" back clone component={EchoView} getTitle={({ navigation }) => navigation.state.key} />
             <Scene key="launch" component={Launch} title="Launch" initial type={ActionConst.RESET} />
 
-            <Stack key="customNavBar" hideTabBar headerLayoutPreset='center'>
+            <Stack key="customNavBar" hideTabBar headerLayoutPreset="center">
               <Scene key="customNavBar1" title="CustomNavBar 1" navBar={CustomNavBar} component={CustomNavBarView} back />
               <Scene key="customNavBar2" title="CustomNavBar 2" navBar={CustomNavBar} component={CustomNavBarView} back />
               <Scene key="customNavBar3" title="Another CustomNavBar" navBar={CustomNavBar2} component={CustomNavBarView} back />
@@ -83,7 +82,19 @@ const Example = () => (
               <Scene key="home" component={Home} title="Replace" type={ActionConst.REPLACE} />
             </Stack>
 
-            <Drawer hideNavBar key="drawer" onExit={() => { console.log('Drawer closed') }} onEnter={() => { console.log('Drawer opened') }} contentComponent={DrawerContent} drawerImage={MenuIcon} drawerWidth={300}>
+            <Drawer
+              hideNavBar
+              key="drawer"
+              onExit={() => {
+                console.log('Drawer closed');
+              }}
+              onEnter={() => {
+                console.log('Drawer opened');
+              }}
+              contentComponent={DrawerContent}
+              drawerImage={MenuIcon}
+              drawerWidth={300}
+            >
               {/*
                 Wrapper Scene needed to fix a bug where the tabs would
                 reload as a modal ontop of itself
@@ -94,7 +105,9 @@ const Example = () => (
                   routeName="tabbar"
                   legacy
                   backToInitial
-                  onTabOnPress={() => { console.log('Back to initial and also print this') }}
+                  onTabOnPress={() => {
+                    console.log('Back to initial and also print this');
+                  }}
                   swipeEnabled
                   showLabel={false}
                   tabBarStyle={styles.tabBarStyle}
@@ -136,10 +149,19 @@ const Example = () => (
           <Scene key="demo_lightbox" component={DemoLightbox} />
         </Lightbox>
         <Scene key="error" component={ErrorModal} />
-        <Stack key="login" headerLayoutPreset='center' path="login/:data" titleStyle={{ alignSelf: 'center' }}>
+        <Stack key="login" headerLayoutPreset="center" path="login/:data" titleStyle={{ alignSelf: 'center' }}>
           <Scene key="loginModal" component={Login} title="Login" onExit={() => console.log('Login: onExit')} leftTitle="Cancel" onLeft={Actions.pop} />
-          <Scene key="loginModal2" component={Login2} title="Login2" onEnter={() => console.log('Login2: onEnter') } backTitle="Back" panHandlers={null} duration={1} />
-          <Scene key="loginModal3" hideNavBar component={Login3} title="Login3" onEnter={() => console.log('Login3: onEnter') } onExit={() => console.log('Login3: onExit')} panHandlers={null} duration={1} />
+          <Scene key="loginModal2" component={Login2} title="Login2" onEnter={() => console.log('Login2: onEnter')} backTitle="Back" panHandlers={null} duration={1} />
+          <Scene
+            key="loginModal3"
+            hideNavBar
+            component={Login3}
+            title="Login3"
+            onEnter={() => console.log('Login3: onEnter')}
+            onExit={() => console.log('Login3: onExit')}
+            panHandlers={null}
+            duration={1}
+          />
         </Stack>
       </Modal>
 

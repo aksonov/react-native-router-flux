@@ -3,7 +3,7 @@ import { HeaderBackButton } from 'react-navigation';
 import {
   Platform, I18nManager, Image, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
-import Actions from './navigationStore';
+import { NavigationActions, DrawerActions } from 'react-navigation';
 import _backButtonImage from '../images/back_chevron.png';
 
 const hitSlop = {
@@ -21,7 +21,7 @@ export function BackButton(state) {
   if (onPress) {
     onPress = onPress.bind(null, state);
   } else {
-    onPress = Actions.pop;
+    onPress = () => state.navigation.dispatch(NavigationActions.back());
   }
 
   // returning react-navigation's back button well styled for ios and android if rnrf4-supported customization
@@ -63,7 +63,7 @@ export function LeftButton(state) {
   if (!onPress && !state.hideDrawerButton && (state.drawerImage || menuIcon) && state.drawerPosition !== 'right') {
     buttonImage = state.drawerImage;
     if (buttonImage || menuIcon) {
-      onPress = Actions.drawerOpen;
+      onPress = () => state.navigation.dispatch(DrawerActions.openDrawer());
     }
     if (!menuIcon) {
       menuIcon = <Image source={buttonImage} style={[state.leftButtonIconStyle || styles.defaultImageStyle, { tintColor }]} />;
@@ -126,7 +126,7 @@ export function RightButton(state) {
   if (!onPress && !state.hideDrawerButton && state.drawerImage && state.drawerPosition === 'right') {
     buttonImage = state.drawerImage;
     if (buttonImage || menuIcon) {
-      onPress = Actions.drawerOpen;
+      onPress = () => state.navigation.dispatch(DrawerActions.openDrawer());
     }
     if (!menuIcon) {
       menuIcon = <Image source={buttonImage} style={[rightButtonStyle, { tintColor }]} />;
