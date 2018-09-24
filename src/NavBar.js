@@ -1,7 +1,8 @@
 import React from 'react';
 import { HeaderBackButton } from 'react-navigation';
 import { Platform, I18nManager, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Actions from './navigationStore';
+import Actions from './Actions';
+import { getValue } from './Util';
 import _backButtonImage from '../images/back_chevron.png';
 
 const hitSlop = {
@@ -93,10 +94,6 @@ export function LeftButton(state) {
             must be specified for the scene: ${state.name}`);
   }
   return null;
-}
-
-function getValue(value, params) {
-  return value instanceof Function ? value(params) : value;
 }
 
 export function RightButton(state) {

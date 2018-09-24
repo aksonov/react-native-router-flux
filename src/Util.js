@@ -1,3 +1,44 @@
+export function filterParam(data = {}) {
+  if (data.toString() !== '[object Object]') {
+    return { data };
+  }
+  const proto = (data || {}).constructor.name;
+  // avoid passing React Native parameters
+  if (!data || proto !== 'Object') {
+    return {};
+  }
+  return data;
+}
+
+export function uniteParams(routeName, params) {
+  let res = {};
+  for (const param of params) {
+    if (param) {
+      res = { ...res, ...filterParam(param) };
+    }
+  }
+  res.routeName = routeName;
+  return res;
+}
+
+export function defaultSuccess() { };
+export function defaultFailure() { };
+
+export function getValue(value, params) {
+  return value instanceof Function ? value(params) : value;
+}
+
+export function originalRouteName(routeName) {
+  if (routeName.startsWith('_')) {
+    return routeName.substring(1);
+  }
+  return routeName;
+}
+
+// check if a component is stateless by the lack of render or prototype
+export function isStatelessComponent(Component) {
+  return !Component.prototype || typeof Component.prototype.render !== 'function';
+}
 // searches for the deepest explicitly set value for a key
 // in a navigationState tree.
 export function deepestExplicitValueForKey(navigationState, key) {

@@ -1,8 +1,11 @@
 import React from 'react';
 import { ViewPropTypes, BackHandler, Linking } from 'react-native';
 import PropTypes from 'prop-types';
-import navigationStore from './navigationStore';
+import Actions from './Actions';
+import getNavigationStore from './getNavigationStore';
 import pathParser from './pathParser';
+
+const navigationStore = getNavigationStore();
 
 class App extends React.Component {
   static propTypes = {
@@ -33,11 +36,11 @@ class App extends React.Component {
     Linking.removeEventListener('url', this.handleDeepURL);
   }
 
-  onBackPress = () => navigationStore.pop();
+  onBackPress = () => Actions.pop();
 
   handleDeepURL = e => this.parseDeepURL(e.url);
 
-  parseDeepURL = url => {
+  parseDeepURL = (url) => {
     // If there is no url, then return.
     if (!url) {
       return;
@@ -87,7 +90,7 @@ class App extends React.Component {
         <AppNavigator
           dispatch={navigationStore.dispatch}
           state={navigationStore.state}
-          ref={navigatorRef => {
+          ref={(navigatorRef) => {
             navigationStore.setTopLevelNavigator(navigatorRef);
           }}
         />
@@ -96,7 +99,7 @@ class App extends React.Component {
     return (
       <AppNavigator
         onNavigationStateChange={navigationStore.onNavigationStateChange}
-        ref={navigatorRef => {
+        ref={(navigatorRef) => {
           navigationStore.setTopLevelNavigator(navigatorRef);
         }}
       />
@@ -104,7 +107,9 @@ class App extends React.Component {
   }
 }
 
-const Router = ({ createReducer, sceneStyle, onStateChange, scenes, uriPrefix, navigator, getSceneStyle, children, onDeepLink, wrapBy, ...props }) => {
+const Router = ({
+  createReducer, sceneStyle, onStateChange, scenes, uriPrefix, navigator, getSceneStyle, children, onDeepLink, wrapBy, ...props
+}) => {
   const data = { ...props };
   if (getSceneStyle) {
     data.cardStyle = getSceneStyle(props);

@@ -18,7 +18,18 @@ import {
 import PropTypes from 'prop-types';
 import { reducer } from './Reducer';
 import * as ActionConst from './ActionConst';
-import { OnEnter, OnExit, assert } from './Util';
+import {
+  OnEnter,
+  OnExit,
+  assert,
+  originalRouteName,
+  isStatelessComponent,
+  getValue,
+  filterParam,
+  uniteParams,
+  defaultSuccess,
+  defaultFailure,
+} from './Util';
 import { LeftButton, RightButton, BackButton } from './NavBar';
 import LightboxRenderer from './LightboxRenderer';
 import _drawerImage from '../images/menu_burger.png';
@@ -107,10 +118,6 @@ const dontInheritKeys = [
   'title',
   'type',
 ];
-
-function getValue(value, params) {
-  return value instanceof Function ? value(params) : value;
-}
 
 function getProperties(component = {}) {
   const res = {};
@@ -360,15 +367,6 @@ function createNavigationOptions(params) {
     return res;
   };
 }
-function originalRouteName(routeName) {
-  if (routeName.startsWith('_')) {
-    return routeName.substring(1);
-  }
-  return routeName;
-}
-function isStatelessComponent(Component) {
-  return !Component.prototype || typeof Component.prototype.render !== 'function';
-}
 function extendProps(props, store: NavigationStore) {
   if (!props) {
     return {};
@@ -455,32 +453,6 @@ function createWrapper(Component, wrapBy, store: NavigationStore) {
   };
   return wrapper(StatelessWrapped);
 }
-
-function filterParam(data = {}) {
-  if (data.toString() !== '[object Object]') {
-    return { data };
-  }
-  const proto = (data || {}).constructor.name;
-  // avoid passing React Native parameters
-  if (!data || proto !== 'Object') {
-    return {};
-  }
-  return data;
-}
-
-function uniteParams(routeName, params) {
-  let res = {};
-  for (const param of params) {
-    if (param) {
-      res = { ...res, ...filterParam(param) };
-    }
-  }
-  res.routeName = routeName;
-  return res;
-}
-
-const defaultSuccess = () => {};
-const defaultFailure = () => {};
 
 class NavigationStore {
   getStateForAction = null;
@@ -973,4 +945,4 @@ class NavigationStore {
   };
 }
 
-export default new NavigationStore();
+export default NavigationStore();

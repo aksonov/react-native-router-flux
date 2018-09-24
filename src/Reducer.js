@@ -1,10 +1,11 @@
 import isEqual from 'lodash.isequal';
 import { NavigationActions, StackActions } from 'react-navigation';
-import navigationStore from './navigationStore';
+import getNavigationStore from './getNavigationStore';
 import * as ActionConst from './ActionConst';
 import { getActiveState, popPrevious } from './State';
 
 export function reducer(state, action) {
+  const navigationStore = getNavigationStore();
   const { type, routeName } = action;
   if (type === ActionConst.POP_TO) {
     let nextScene = '';
