@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.2...HEAD)
 
+**Closed issues:**
+
+- Require cycle warnings with React Native 0.57.0 [\#3282](https://github.com/aksonov/react-native-router-flux/issues/3282)
+
 **Merged pull requests:**
 
 - ❗️Hotfix - update react-native-experimental-navigation package [\#3290](https://github.com/aksonov/react-native-router-flux/pull/3290) ([jonathanchrisp](https://github.com/jonathanchrisp))
@@ -515,7 +519,6 @@
 - undefined is not a function \(evaluating '\_reactNativeRouterFlux.Actions.guideHomePage\(\)'\)     \_onPress [\#2779](https://github.com/aksonov/react-native-router-flux/issues/2779)
 - Public API for navigation history [\#2778](https://github.com/aksonov/react-native-router-flux/issues/2778)
 - onLeft and onRight not firing  [\#2777](https://github.com/aksonov/react-native-router-flux/issues/2777)
--  I want to hide hideTabBar, But it's not always easy to make it [\#2775](https://github.com/aksonov/react-native-router-flux/issues/2775)
 
 **Merged pull requests:**
 
