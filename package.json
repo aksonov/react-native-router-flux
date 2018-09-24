@@ -36,14 +36,14 @@
     }
   ],
   "dependencies": {
+    "babel-plugin-transform-remove-console": "^6.8.5",
+    "lodash.isequal": "^4.5.0",
+    "prop-types": "^15.6.0",
     "react": "16.2.0",
     "react-addons-pure-render-mixin": "15.6.2",
     "react-dom": "16.2.0",
     "react-native": "0.52.1",
-    "babel-plugin-transform-remove-console": "^6.8.5",
-    "lodash.isequal": "^4.5.0",
-    "prop-types": "^15.6.0",
-    "react-native-experimental-navigation": "^0.29.1",
+    "react-native-experimental-navigation": "^0.29.2",
     "react-native-tabs": "^1.0.9",
     "react-static-container": "^1.0.2"
   },
