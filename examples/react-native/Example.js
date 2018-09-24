@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const reducerCreate = params => {
-  const defaultReducer = new Reducer(params);
+const defaultReducer = Reducer(Actions);
+const reducerCreate = () => {
   return (state, action) => {
     console.log('reducer: ACTION:', action);
     return defaultReducer(state, action);
