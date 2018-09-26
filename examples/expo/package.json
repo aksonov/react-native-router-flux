@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "expo start",
+    "dev:start": "yarn dev && yarn start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "dev:ios": "yarn dev && yarn ios",
