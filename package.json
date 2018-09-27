@@ -21,14 +21,6 @@
     "fix": "prettier-eslint src/**/*.js __tests__/**/*.js --write",
     "test": "jest"
   },
-  "resolutions": {
-    "*/@babel/cli": "7.0.0-beta.47",
-    "*/@babel/code-frame": "7.0.0-beta.47",
-    "*/@babel/core": "7.0.0-beta.47",
-    "*/@babel/generator": "7.0.0-beta.47",
-    "*/@babel/helper-split-export-declaration": "7.0.0-beta.47",
-    "*/@babel/template": "7.0.0-beta.47"
-  },
   "dependencies": {
     "lodash.isequal": "4.5.0",
     "opencollective": "^1.0.3",
@@ -73,8 +65,6 @@
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [
-      "<rootDir>/Example/",
-      "<rootDir>/ReduxExample/",
       "<rootDir>/examples/"
     ],
     "transformIgnorePatterns": [

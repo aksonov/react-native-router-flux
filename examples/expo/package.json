@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "expo start",
+    "dev:start": "yarn dev && yarn start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "dev:ios": "yarn dev && yarn ios",
@@ -18,23 +19,15 @@
   "jest": {
     "preset": "jest-expo"
   },
-  "resolutions": {
-    "*/@babel/cli": "7.0.0",
-    "*/@babel/code-frame": "7.0.0",
-    "*/@babel/core": "7.1.0",
-    "*/@babel/generator": "7.0.0",
-    "*/@babel/helper-split-export-declaration": "7.0.0",
-    "*/@babel/template": "7.0.0"
-  },
   "dependencies": {
     "@expo/samples": "2.1.1",
     "expo": "^30.0.1",
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
-    "react-native-button": "^2.3.0",
+    "react-native-button": "~2.3.0",
     "react-native-router-flux": "file:../..",
     "react-native-router-flux-cli": "file:../../packages/react-native-router-flux-cli",
-    "react-navigation": "^2.14.2",
+    "react-navigation": "~2.14.2",
     "react-navigation-stack": "^0.4.0"
   },
   "devDependencies": {
