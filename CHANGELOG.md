@@ -2,7 +2,14 @@
 
 ## [Unreleased](https://github.com/aksonov/react-native-router-flux/tree/HEAD)
 
-[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.3...HEAD)
+[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.4...HEAD)
+
+**Closed issues:**
+
+-  typeError: navigationStore.getStateForAction is not a function [\#3296](https://github.com/aksonov/react-native-router-flux/issues/3296)
+
+## [4.0.4](https://github.com/aksonov/react-native-router-flux/tree/4.0.4) (2018-09-27)
+[Full Changelog](https://github.com/aksonov/react-native-router-flux/compare/4.0.3...4.0.4)
 
 **Fixed bugs:**
 
@@ -11,6 +18,7 @@
 
 **Closed issues:**
 
+- Error on ios platform [\#3294](https://github.com/aksonov/react-native-router-flux/issues/3294)
 - Modal and nested Stack routing configuration [\#3277](https://github.com/aksonov/react-native-router-flux/issues/3277)
 - Unable to access component instance in onRight/onLeft [\#3274](https://github.com/aksonov/react-native-router-flux/issues/3274)
 - jump to create new page is failed [\#3271](https://github.com/aksonov/react-native-router-flux/issues/3271)
@@ -528,7 +536,6 @@
 - Actions.SCENE\(\) re rendering all visited Scene [\#2794](https://github.com/aksonov/react-native-router-flux/issues/2794)
 - Help With Drawer Menu [\#2793](https://github.com/aksonov/react-native-router-flux/issues/2793)
 - Unable to pass function as a prop down to scene  [\#2790](https://github.com/aksonov/react-native-router-flux/issues/2790)
-- Duplicate scenes when using stack within stack [\#2784](https://github.com/aksonov/react-native-router-flux/issues/2784)
 
 **Merged pull requests:**
 
