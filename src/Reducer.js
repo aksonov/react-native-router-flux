@@ -5,6 +5,9 @@ import { getActiveState, popPrevious } from './State';
 
 export default function createReducer(navigationStore) {
   return (state, action) => {
+    if (!navigationStore) {
+      navigationStore = require('./navigationStore').default;
+    }
     const { type, routeName } = action;
     if (type === ActionConst.POP_TO) {
       let nextScene = '';
