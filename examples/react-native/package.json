@@ -10,8 +10,7 @@
     "dev:ios": "yarn dev && yarn ios",
     "dev:android": "yarn dev && yarn android",
     "dev": "cp ../../src/* node_modules/react-native-router-flux/src/",
-    "test": "jest",
-    "postinstall": "node_modules/.bin/rnrf dedup"
+    "test": "jest"
   },
   "dependencies": {
     "prop-types": "^15.6.2",
@@ -19,8 +18,7 @@
     "react-native": "0.57.1",
     "react-native-button": "^2.3.0",
     "react-native-message-bar": "^2.0.10",
-    "react-native-router-flux": "file:../..",
-    "react-native-router-flux-cli": "file:../../packages/react-native-router-flux-cli",
+    "react-native-router-flux": "^4.0.4",
     "react-native-screens": "^1.0.0-alpha.12",
     "react-navigation": "2.x",
     "react-navigation-deprecated-tab-navigator": "^1.3.0",
