@@ -324,11 +324,14 @@ function createNavigationOptions(params) {
 
     // currect dynamic navigation params has priority over static scene params
     // but taking them into account only if they are explicitly set (not null or undefined)
+    const routeParams = navigation.state.routes && navigation.state.routes[navigation.state.index].params;
     if (navigationParams.hideTabBar != null) {
       if (navigationParams.hideTabBar) {
         res.tabBarVisible = false;
       }
     } else if (hideTabBar) {
+      res.tabBarVisible = false;
+    } else if (routeParams && routeParams.hideTabBar) {
       res.tabBarVisible = false;
     }
 
