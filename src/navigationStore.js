@@ -646,15 +646,20 @@ class NavigationStore {
       overlay = true;
     }
 
-    if (duration !== undefined && !transitionConfig) {
+    if ((inheritProps.duration !== undefined || duration !== undefined) && !transitionConfig) {
       transitionConfig = () => ({
         transitionSpec: {
           duration,
           timing: Animated.timing,
           easing: Easing.step0,
-        },
+        }
       });
     }
+
+    transparnetTransitionConfig = () => ({
+      ...(transitionConfig ? transitionConfig() : {}),
+      containerStyle: {},
+    });
 
     const commonProps = { ...inheritProps, ...parentProps };
     delete commonProps.children;
@@ -881,7 +886,7 @@ class NavigationStore {
       initialRouteParams,
       initialRouteName,
       ...commonProps,
-      transitionConfig,
+      transitionConfig: transparnetTransitionConfig,
       navigationOptions: createNavigationOptions(commonProps),
     });
   };
