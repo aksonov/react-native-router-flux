@@ -652,8 +652,7 @@ class NavigationStore {
           duration,
           timing: Animated.timing,
           easing: Easing.step0,
-        },
-        containerStyle: {},
+        }
       });
     }
 
