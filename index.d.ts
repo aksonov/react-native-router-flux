@@ -91,6 +91,7 @@ interface TabsProps extends React.Props<Tabs> {
   tabBarPosition?: TabBarPositionType;
   tabBarStyle?: StyleProp<ViewStyle>;
   tabStyle?: StyleProp<ViewStyle>;
+  indicatorStyle?: StyleProp<ViewStyle>;
   showLabel?: boolean;
   swipeEnabled?: boolean;
   tabBarOnPress?: Function;
