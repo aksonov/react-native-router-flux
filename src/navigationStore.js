@@ -838,6 +838,7 @@ class NavigationStore {
         tabBarComponent,
         initialRouteName,
         initialRouteParams,
+        tabBarPosition,
         order,
         ...commonProps,
         tabBarOptions: createTabBarOptions(commonProps),
