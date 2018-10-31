@@ -13,6 +13,10 @@ import Actions from './navigationStore';
 import _backButtonImage from '../images/back_chevron.png';
 
 const hitSlop = { top: 15, bottom: 15, left: 15, right: 15 };
+
+/**
+ * Back button renderer
+*/
 export function BackButton(state) {
   const textButtonStyle = [
     styles.barBackButtonText,
@@ -74,6 +78,9 @@ export function BackButton(state) {
   );
 }
 
+/**
+* Render custom left button
+*/
 export function LeftButton(state) {
   let onPress = state.onLeft;
   let buttonImage = getValue(state.leftButtonImage, state);
@@ -153,6 +160,9 @@ function getValue(value, params) {
   return value instanceof Function ? value(params) : value;
 }
 
+/**
+* Render custom back button
+*/
 export function RightButton(state) {
   if (!state) {
     return null;
@@ -232,6 +242,10 @@ export function RightButton(state) {
   }
   return null;
 }
+
+/**
+* Stylesheets
+*/
 const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
