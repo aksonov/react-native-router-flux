@@ -888,11 +888,13 @@ class NavigationStore {
   };
 
   dispatch = (action) => {
-    if (this.externalDispatch) {
-      this.externalAction = action;
-      this.externalDispatch(action);
-    } else if (this._navigator) {
-      this._navigator.dispatch(action);
+    if (action.routeName !== this.currentScene) {
+      if (this.externalDispatch) {
+        this.externalAction = action;
+        this.externalDispatch(action);
+      } else if (this._navigator) {
+        this._navigator.dispatch(action);
+      }
     }
   };
 
