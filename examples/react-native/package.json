@@ -35,6 +35,7 @@
     "babel-jest": "^23.6.0",
     "jest": "^23.6.0",
     "metro-react-native-babel-preset": "^0.45.0",
+    "react-native-testing-library": "1.4.2",
     "react-test-renderer": "16.5.2",
     "schedule": "0.4.0"
   },
