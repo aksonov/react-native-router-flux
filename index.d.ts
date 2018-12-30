@@ -87,6 +87,7 @@ interface TabsProps extends React.Props<Tabs> {
   labelStyle?: StyleProp<TextStyle>;
   lazy?: boolean;
   hideTabBar?: boolean;
+  hideNavBar?: boolean;
   tabBarComponent?: React.ComponentType<any>;
   tabBarPosition?: TabBarPositionType;
   tabBarStyle?: StyleProp<ViewStyle>;
