@@ -21,3 +21,11 @@ jobs:
       - run:
           name: linter
           command: yarn lint
+      - run:
+          name: install-dependencies react-native example
+          command: yarn install --frozen-lockfile
+          working_directory: ~/react-native-router-flux/examples/react-native
+      - run:
+          name: test react-native example
+          command: yarn test
+          working_directory: ~/react-native-router-flux/examples/react-native
