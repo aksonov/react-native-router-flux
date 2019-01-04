@@ -27,6 +27,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  scene: {
+    backgroundColor: '#F5FCFF',
+    shadowOpacity: 1,
+    shadowRadius: 3,
+  },
   tabBarStyle: {
     backgroundColor: '#eee',
   },
@@ -35,23 +40,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const reducerCreate = params => {
-  const defaultReducer = new Reducer(params);
-  return (state, action) => {
-    console.log('reducer: ACTION:', action);
-    return defaultReducer(state, action);
-  };
-};
-
 const stateHandler = (prevState, newState, action) => {
   console.log('onStateChange: ACTION:', action);
 };
-
-const getSceneStyle = () => ({
-  backgroundColor: '#F5FCFF',
-  shadowOpacity: 1,
-  shadowRadius: 3,
-});
 
 // on Android, the URI prefix typically contains a host in addition to scheme
 const prefix = Platform.OS === 'android' ? 'mychat://mychat/' : 'mychat://';
@@ -61,7 +52,7 @@ const transitionConfig = () => ({
 });
 
 const Example = () => (
-  <Router createReducer={reducerCreate} onStateChange={stateHandler} getSceneStyle={getSceneStyle} uriPrefix={prefix}>
+  <Router onStateChange={stateHandler} sceneStyle={styles.scene} uriPrefix={prefix}>
     <Overlay key="overlay">
       <Modal key="modal" hideNavBar transitionConfig={transitionConfig}>
         <Lightbox key="lightbox">
