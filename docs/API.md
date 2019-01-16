@@ -207,7 +207,7 @@ These can be used directly, for example, `Actions.pop()` will dispatch correspon
 | Property | Type | Parameters | Description |
 |-----------------|----------|----------|--------------------------------------------|
 | `[key]` | `Function` | `Object` | The `Actions` object "automagically" uses the `Scene`'s `key` prop in the `Router` to navigate. To navigate to a scene, call `Actions.key()` or `Actions[key].call()`. |
-| `create` | `React.Element` | pass `Scene` to create your app navigator. It is alternative router creation method mostly used for Redux integration |
+| `create` | `React.Element` | `(rootScene: Scene, props: Object, wrapBy: Function)` | pass `Scene` to create your app navigator and the Props the Router should receive. It is alternative router creation method mostly used for Redux integration |
 | `currentScene` | `String` | | Returns the current scene that is active |
 | `drawerClose` | `Function` | | Closes the `Drawer` if applicable |
 | `drawerOpen` | `Function` | | Opens the `Drawer` if applicable |
