@@ -63,7 +63,7 @@ interface SceneProps extends React.Props<Scene> {
   rightButtonTextStyle?: StyleProp<TextStyle>;
   success?: (() => void) | string;
   tabs?: boolean;
-  title?: string;
+  title?: (() => string) | string;
   titleStyle?: StyleProp<TextStyle>;
   type?: ActionConstShort;
   [name: string]: any; // These are passed through to the scenes
