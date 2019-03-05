@@ -98,7 +98,7 @@ interface TabsProps extends React.Props<Tabs> {
   tabBarOnPress?: Function;
   backToInitial?: boolean;
 }
-interface TabsStatic extends React.ComponentClass<TabsProps> {}
+interface TabsStatic extends React.ComponentClass<SceneProps & TabsProps> {}
 export type TabBarPositionType = 'top' | 'bottom';
 
 // Drawer
