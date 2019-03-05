@@ -106,7 +106,7 @@ export var Drawer: DrawerStatic;
 export type Drawer = DrawerStatic;
 interface DrawerProps extends React.Props<Drawer> {
   drawerImage?: Image;
-  drawerIcon?: React.ComponentType<any>;
+  drawerIcon?: React.ReactElement<any> | React.ComponentType<any>;
   drawerPosition?: DrawerPositionType;
 }
 interface DrawerStatic extends React.ComponentClass<SceneProps & DrawerProps> {}
