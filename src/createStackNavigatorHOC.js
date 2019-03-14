@@ -1,8 +1,8 @@
 /* @flow */
 
-import { createNavigator, createNavigationContainer, StackRouter } from 'react-navigation';
+import { createNavigator, StackRouter } from 'react-navigation';
 
 export default NavigationView => (routeConfigs, navigationConfig = {}) => {
   const router = StackRouter(routeConfigs, navigationConfig);
-  return createNavigationContainer(createNavigator(NavigationView, router, navigationConfig));
+  return createNavigator(NavigationView, router, navigationConfig);
 };
