@@ -1,4 +1,4 @@
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash';
 import { NavigationActions, StackActions } from 'react-navigation';
 import * as ActionConst from './ActionConst';
 import { getActiveState, popPrevious } from './State';
