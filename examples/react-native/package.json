@@ -4,48 +4,25 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "dev:start": "yarn dev && yarn start",
-    "ios": "react-native run-ios",
-    "android": "react-native run-android",
-    "dev:ios": "yarn dev && yarn ios",
-    "dev:android": "yarn dev && yarn android",
-    "dev": "cp ../../src/* node_modules/react-native-router-flux/src/",
     "test": "jest"
   },
   "dependencies": {
-    "prop-types": "^15.6.2",
-    "react": "16.5.0",
-    "react-native": "0.57.1",
+    "react": "16.8.3",
+    "react-native": "0.59.1",
     "react-native-button": "^2.3.0",
     "react-native-message-bar": "^2.0.10",
-    "react-native-router-flux": "^4.0.4",
-    "react-native-screens": "^1.0.0-alpha.12",
-    "react-navigation": "2.x",
-    "react-navigation-deprecated-tab-navigator": "^1.3.0",
-    "react-navigation-stack": "^0.6.0"
+    "react-native-router-flux": "4.1.0-beta.1",
+    "react-native-gesture-handler": "github:kmagiera/react-native-gesture-handler#ff74e0edadd62518b45d85f251f527307457ab9e"
   },
   "devDependencies": {
-    "@babel/code-frame": "^7.0.0",
-    "@babel/core": "^7.1.0",
-    "@babel/plugin-proposal-decorators": "^7.1.0",
-    "@babel/plugin-transform-runtime": "^7.1.0",
-    "@babel/runtime": "^7.0.0",
-    "autobind-decorator": "^2.1.0",
-    "babel-core": "^7.0.0-0",
-    "babel-jest": "^23.6.0",
-    "jest": "^23.6.0",
-    "metro-react-native-babel-preset": "^0.45.0",
-    "react-native-testing-library": "1.4.2",
-    "react-test-renderer": "16.5.2",
-    "schedule": "0.4.0"
+    "@babel/core": "^7.3.4",
+    "@babel/runtime": "^7.3.4",
+    "babel-jest": "^24.5.0",
+    "jest": "^24.5.0",
+    "metro-react-native-babel-preset": "^0.53.1",
+    "react-test-renderer": "16.8.3"
   },
   "jest": {
-    "preset": "react-native",
-    "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-navigation|react-navigation-(tabs|drawer|deprecated-tab-navigator|stack))"
-    ],
-    "setupFiles": [
-      "./test/setup.js"
-    ]
+    "preset": "react-native"
   }
 }
