@@ -23,6 +23,9 @@
     "react-test-renderer": "16.8.3"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|native-base|react-clone-referenced-element|mobx|react-navigation-deprecated-tab-navigator|@react-navigation|apsl-react-native-button)"
+    ]
   }
 }

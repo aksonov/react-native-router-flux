@@ -69,7 +69,7 @@
       "<rootDir>/examples/"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-navigation|react-navigation-(tabs|drawer|deprecated-tab-navigator|stack))"
+      "node_modules/(?!(jest-)?react-native|react-navigation|@react-navigation|react-navigation-(tabs|drawer|deprecated-tab-navigator|stack))"
     ],
     "setupFiles": [
       "./test/setup.js"
