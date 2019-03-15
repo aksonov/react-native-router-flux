@@ -19,7 +19,7 @@ const router = (
   </Router>
 );
 
-test('renders correctly', done => {
+test('renders correctly', (done) => {
   // TODO: fix react-native-gesture-handler error
   // renderer.create(router);
   // console.log('STATE:', JSON.stringify(navigationStore.state));
