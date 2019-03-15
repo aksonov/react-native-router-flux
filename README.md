@@ -89,6 +89,35 @@ https://github.com/react-community/react-navigation/issues/779
 * Access to your app navigations state as simple as `Actions.state`.
 * Use `Actions.currentScene` to get name of current scene.
 
+### Helpful tips if you run into some gotchas
+
+## Using Static on Methods with HOCs
+* This is just a helpful tip for anyone who use the onExit/onEnter methods as a static method in their Component Class. Please refer to this link https://reactjs.org/docs/higher-order-components.html.
+
+* If your Scene Components are Wrapped in Custom HOCs/ Decorators, then the static onExit/onEnter methods will not work as your Custom HOCs will not copy the static methods over to your Enhanced Component.Use the npm package called hoist-non-react-statics to copy your Component level static methods over to your Enhanced Component.
+
+## Implement onBack from your Scene after declaring it
+
+* If you have a Scene where in you want to make some changes to your Component State when Back button is pressed, then doing this 
+```js
+<Scene key={...} component={...} onBack={()=>{/*code*/}}/>
+``` 
+will not help.
+
+```js
+<Scene key={...} component={...} onBack={()=>{/*code*/}} back={true}/> 
+```
+Make sure back = true is passed to your scene, now in your Component's lifecycle add this
+
+```js
+componentDidMount(){
+    InteractionManager.runAfterInteractions(()=> {
+        Actions.refresh({onBack:()=>this.changeSomethingInYourComponent()})
+    })
+}
+```
+
+
 ## Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
