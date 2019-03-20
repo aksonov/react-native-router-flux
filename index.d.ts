@@ -13,16 +13,17 @@ export type Reducer = any;
 
 // Router
 interface RouterProps extends React.Props<Router> {
-    sceneStyle?: StyleProp<ViewStyle>;
-    backAndroidHandler?: Function;
-    wrapBy?: Function;
-    scenes?: any;
-    createReducer?: Function;
-    onStateChange?: Function;
-    getSceneStyle?: Function;
-    uriPrefix?: string;
+  sceneStyle?: StyleProp<ViewStyle>;
+  backAndroidHandler?: Function;
+  wrapBy?: Function;
+  scenes?: any;
+  createReducer?: Function;
+  onStateChange?: Function;
+  getSceneStyle?: Function;
+  uriPrefix?: string;
+  onDeepLink?: Function;
 }
-interface RouterStatic extends React.ComponentClass<RouterProps> { }
+interface RouterStatic extends React.ComponentClass<RouterProps> {}
 
 // Scene
 export var Scene: SceneStatic;
@@ -59,7 +60,7 @@ interface SceneProps extends React.Props<Scene> {
   renderRightButton?: React.ComponentType<any>;
   renderBackButton?: React.ComponentType<any>;
   rightTitle?: string;
-  rightButtonImage?: Image;
+  rightButtonImage?: Image | null;
   rightButtonTextStyle?: StyleProp<TextStyle>;
   success?: (() => void) | string;
   tabs?: boolean;
@@ -141,7 +142,13 @@ interface StackProps extends React.Props<Stack> {
   hideNavBar?: boolean;
   hideTabBar?: boolean;
   title?: string;
+  lightbox?: boolean;
+  tabs?: boolean;
+  initial?: boolean;
   titleStyle?: StyleProp<TextStyle>;
+  type?: string;
+  navTransparent?: boolean;
+  renderer?: any;
 }
 interface StackStatic extends React.ComponentClass<StackProps> {}
 
