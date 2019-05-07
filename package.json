@@ -15,7 +15,7 @@
   "types": "index.d.ts",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "postinstall": "./node_modules/.bin/opencollective postinstall",
+    "postinstall": "./node_modules/.bin/opencollective postinstall || exit 0",
     "build": "./node_modules/.bin/babel src -d dist",
     "lint": "prettier-eslint src/**/*.js __tests__/**/*.js --list-different",
     "fix": "prettier-eslint src/**/*.js __tests__/**/*.js --write",
