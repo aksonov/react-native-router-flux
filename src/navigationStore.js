@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Image, Animated, Easing,
-} from 'react-native';
+import { Image, Animated, Easing } from 'react-native';
 import {
   createAppContainer,
   createBottomTabNavigator,
