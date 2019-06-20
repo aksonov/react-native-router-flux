@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  StatusBar, Image, Animated, Easing,
+  Image, Animated, Easing,
 } from 'react-native';
 import {
   createAppContainer,
@@ -346,7 +346,6 @@ function createNavigationOptions(params) {
 
     if (navTransparent) {
       res.headerTransparent = true;
-      res.headerStyle = { marginTop: StatusBar.currentHeight };
     }
 
     if (!legacy && backToInitial) {
