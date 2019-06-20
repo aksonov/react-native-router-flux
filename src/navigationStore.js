@@ -346,6 +346,7 @@ function createNavigationOptions(params) {
 
     if (navTransparent) {
       res.headerTransparent = true;
+      res.headerStyle = {};
     }
 
     if (!legacy && backToInitial) {
