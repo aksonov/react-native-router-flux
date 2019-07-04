@@ -1,10 +1,5 @@
 import NavigationStore from './Store';
 
-let storeSingleton = null;
+const defaultStore = new NavigationStore();
 
-export default function getDefaultNavigationStore() {
-  if (!storeSingleton) {
-    storeSingleton = new NavigationStore();
-  }
-  return storeSingleton;
-}
+export default defaultStore;

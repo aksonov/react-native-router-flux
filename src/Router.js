@@ -2,7 +2,7 @@ import React from 'react';
 import { ViewPropTypes, BackHandler, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 import NavigationStore from './Store';
-import getDefaultNavigationStore from './defaultStore';
+import defaultStore from './defaultStore';
 import pathParser from './pathParser';
 
 class App extends React.Component {
@@ -39,7 +39,7 @@ class App extends React.Component {
 
   handleDeepURL = e => this.parseDeepURL(e.url);
 
-  parseDeepURL = url => {
+  parseDeepURL = (url) => {
     // If there is no url, then return.
     if (!url) {
       return;
@@ -81,7 +81,9 @@ class App extends React.Component {
   };
 
   render() {
-    const { dispatch, state, navigator: AppNavigator, navigationStore } = this.props;
+    const {
+ dispatch, state, navigator: AppNavigator, navigationStore 
+} = this.props;
     if (dispatch && state) {
       navigationStore.externalDispatch = dispatch;
       navigationStore.externalState = state;
@@ -89,7 +91,7 @@ class App extends React.Component {
         <AppNavigator
           dispatch={navigationStore.dispatch}
           state={navigationStore.state}
-          ref={navigatorRef => {
+          ref={(navigatorRef) => {
             navigationStore.setTopLevelNavigator(navigatorRef);
           }}
         />
@@ -98,7 +100,7 @@ class App extends React.Component {
     return (
       <AppNavigator
         onNavigationStateChange={navigationStore.onNavigationStateChange}
-        ref={navigatorRef => {
+        ref={(navigatorRef) => {
           navigationStore.setTopLevelNavigator(navigatorRef);
         }}
       />
@@ -106,7 +108,9 @@ class App extends React.Component {
   }
 }
 
-const Router = ({ createReducer, sceneStyle, onStateChange, scenes, uriPrefix, navigator, getSceneStyle, children, onDeepLink, wrapBy, navigationStore: store, ...props }) => {
+const Router = ({
+ createReducer, sceneStyle, onStateChange, scenes, uriPrefix, navigator, getSceneStyle, children, onDeepLink, wrapBy, navigationStore: store, ...props 
+}) => {
   const data = { ...props };
   if (getSceneStyle) {
     data.cardStyle = getSceneStyle(props);
@@ -114,7 +118,7 @@ const Router = ({ createReducer, sceneStyle, onStateChange, scenes, uriPrefix, n
   if (sceneStyle) {
     data.cardStyle = sceneStyle;
   }
-  const navigationStore = store || getDefaultNavigationStore();
+  const navigationStore = store || defaultStore;
   const AppNavigator = scenes || navigator || navigationStore.create(children, data, wrapBy);
   navigationStore.reducer = createReducer && createReducer(props);
   if (onStateChange) {
