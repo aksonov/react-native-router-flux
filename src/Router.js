@@ -82,8 +82,8 @@ class App extends React.Component {
 
   render() {
     const {
- dispatch, state, navigator: AppNavigator, navigationStore 
-} = this.props;
+      dispatch, state, navigator: AppNavigator, navigationStore,
+    } = this.props;
     if (dispatch && state) {
       navigationStore.externalDispatch = dispatch;
       navigationStore.externalState = state;
@@ -109,7 +109,7 @@ class App extends React.Component {
 }
 
 const Router = ({
- createReducer, sceneStyle, onStateChange, scenes, uriPrefix, navigator, getSceneStyle, children, onDeepLink, wrapBy, navigationStore: store, ...props 
+  createReducer, sceneStyle, onStateChange, scenes, uriPrefix, navigator, getSceneStyle, children, onDeepLink, wrapBy, navigationStore: store, ...props
 }) => {
   const data = { ...props };
   if (getSceneStyle) {

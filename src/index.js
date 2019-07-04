@@ -15,5 +15,5 @@ import pathParser from './pathParser';
 const Actions = defaultStore;
 
 export {
- Reducer, ActionConst, Router, Scene, NavigationStore, Actions, Modal, Lightbox, Stack, Drawer, Tabs, Overlay, pathParser 
+  Reducer, ActionConst, Router, Scene, NavigationStore, Actions, Modal, Lightbox, Stack, Drawer, Tabs, Overlay, pathParser,
 };
