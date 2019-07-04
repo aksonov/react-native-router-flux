@@ -5,7 +5,7 @@ import { Text } from 'react-native';
 import renderer from 'react-test-renderer';
 import Router from '../src/Router';
 import Scene from '../src/Scene';
-import navigationStore from '../src/navigationStore';
+import NavigationStore from '../src/Store';
 
 const B = () => <Text>Hello world!</Text>;
 const router = (
