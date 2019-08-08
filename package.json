@@ -22,7 +22,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "opencollective": "^1.0.3",
     "path-to-regexp": "^2.4.0",
     "prop-types": "^15.6.2",
@@ -41,7 +41,7 @@
     "babel-eslint": "9.0.0-beta.1",
     "babel-jest": "^23.4.0",
     "babel-preset-react-native": "5.0.2",
-    "eslint": "5.4.0",
+    "eslint": "^6.1.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-config-prettier": "3.0.1",
     "eslint-plugin-eslint-comments": "3.0.1",
