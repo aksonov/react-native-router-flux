@@ -129,7 +129,7 @@ interface OverlayStatic extends React.ComponentClass<SceneProps & OverlayProps> 
 export var Lightbox: LightboxStatic;
 export type Lightbox = LightboxStatic;
 interface LightboxProps extends React.Props<Modal> {}
-interface LightboxStatic extends React.ComponentClass<LightboxProps> {}
+interface LightboxStatic extends React.ComponentClass<SceneProps & LightboxProps> {}
 
 // Stack
 export var Stack: StackStatic;
