@@ -55,7 +55,7 @@
     "prettier-eslint-cli": "5.0.0-beta.0",
     "react": "16.4.1",
     "react-native": "0.56.0",
-    "react-native-jest-mocks": "^1.4.0",
+    "react-native-jest-mocks": "1.4.0",
     "react-test-renderer": "16.4.1"
   },
   "peerDependencies": {

@@ -5929,10 +5929,10 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-native-jest-mocks@^1.4.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/react-native-jest-mocks/-/react-native-jest-mocks-1.5.0.tgz#5ffdde82ccd9387df54c8ef6c74116505579b182"
-  integrity sha512-CAc+jc4BrFU2SJFGHnXV3fS+ikvLngxeP6yWFMmErvk7Qb+v4VN6qaRprziF0ucKzkTr45Dyc2ppXXbVjmxuRA==
+react-native-jest-mocks@1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-jest-mocks/-/react-native-jest-mocks-1.4.0.tgz#8380992bd4c1a533193d96f42dbf2e89bcfea617"
+  integrity sha512-IjV2AKROrwx32jd4nLXsuUWt8qFA5vZX+RoLuL6tMS04Q62Ax6fsVb+vE57SIx3C9aM9ongvz1gPNj6HbwwDkw==
 
 react-native-safe-area-view@^0.14.1:
   version "0.14.7"
