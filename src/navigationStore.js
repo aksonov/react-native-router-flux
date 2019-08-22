@@ -507,6 +507,8 @@ class NavigationStore {
 
   states = {};
 
+  isLogical = {};
+
   currentScene;
 
   prevScene;
@@ -619,6 +621,15 @@ class NavigationStore {
     return createAppContainer(Navigator);
   };
 
+  createAction = name => (args) => {
+    // console.log(`Transition to state=${name}`);
+    if (this.isLogical[name]) {
+      this[name](args);
+    } else {
+      setTimeout(() => this[name](args));
+    }
+  };
+
   processScene = (scene: Scene, inheritProps = {}, clones = [], wrapBy) => {
     assert(scene.props, 'props should be defined');
     if (!scene.props.children) {
@@ -707,20 +718,10 @@ class NavigationStore {
       }
       delete props.children;
       if (success) {
-        this.states[key].success = success instanceof Function
-          ? success
-          : (args) => {
-            // console.log(`Transition to state=${success}`);
-            setTimeout(() => this[success](args));
-          };
+        this.states[key].success = success instanceof Function ? success : this.createAction(success);
       }
       if (failure) {
-        this.states[key].failure = failure instanceof Function
-          ? failure
-          : (args) => {
-            // console.log(`Transition to state=${failure}`);
-            setTimeout(() => this[failure](args));
-          };
+        this.states[key].failure = failure instanceof Function ? failure : this.createAction(failure);
       }
       if (path) {
         this.states[key].path = path;
@@ -773,6 +774,7 @@ class NavigationStore {
       // a bit of magic, create all 'actions'-shortcuts inside navigationStore
       props.init = true;
       if (!this[key]) {
+        this.isLogical[key] = !!component;
         this[key] = new Function(
           'actions',
           'props',
