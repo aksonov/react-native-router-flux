@@ -3,29 +3,29 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "react": "16.8.3",
-    "react-native": "0.59.1",
-    "react-native-button": "^2.3.0",
+    "react": "16.8.6",
+    "react-native": "0.60.5",
+    "react-native-button": "^2.4.0",
+    "react-native-gesture-handler": "^1.4.1",
     "react-native-message-bar": "^2.0.10",
-    "react-native-router-flux": "4.1.0-beta.2",
-    "react-native-gesture-handler": "github:kmagiera/react-native-gesture-handler#ff74e0edadd62518b45d85f251f527307457ab9e"
+    "react-native-router-flux": "4.1.0-beta.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.3.4",
-    "@babel/runtime": "^7.3.4",
-    "babel-jest": "^24.5.0",
-    "jest": "^24.5.0",
-    "metro-react-native-babel-preset": "^0.53.1",
-    "react-test-renderer": "16.8.3"
+    "@babel/core": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.2.2",
+    "jest": "^24.9.0",
+    "metro-react-native-babel-preset": "^0.56.0",
+    "react-test-renderer": "16.8.6"
   },
   "jest": {
-    "preset": "react-native",
-    "transformIgnorePatterns": [
-      "node_modules/(?!react-native|native-base|react-clone-referenced-element|mobx|react-navigation-(stack|tabs|drawer)|react-navigation-deprecated-tab-navigator|@react-navigation|apsl-react-native-button)"
-    ]
+    "preset": "react-native"
   }
 }
