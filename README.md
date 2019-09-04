@@ -71,6 +71,14 @@ yarn
 yarn start
 ```
 
+Installing with npm
+
+```npm install --save react-native-router-flux```
+
+Installing wih yarn
+
+```yarn add react-native-router-flux```
+
 ## v4 Features
 * Based on latest [React Navigation](https://reactnavigation.org) API
 * Separate navigation logic from presentation. You may now change navigation state directly from your business logic code - stores/reducers/etc. navigationStore
