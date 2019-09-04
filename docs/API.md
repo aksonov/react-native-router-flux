@@ -106,6 +106,43 @@ Can use all `props` listed above in `<Scene>` as `<Tabs>` is syntatic sugar for 
 | `upperCaseLabel`     | `boolean` | `true` | Whether to make label uppercase, default is true. |
 | `wrap`     | `boolean` | `true` | Wrap each scene with own navbar automatically (if it is not another container). |
 
+## Custom Tab Bar Component
+To implement a custom tab bar, import your component and assign it to the `tabBarComponent` prop in `<Tabs>`.
+```jsx
+// ... import components
+<Tabs
+  key="tabBar"
+  tabBarComponent={CustomTabBar}
+>
+  <Scene key="tab1" component={TabOne} title="Tab1"/>
+  <Scene key="tab2" component={TabTwo} title="Tab2"/>
+</Tabs>
+```
+Sample code for a custom tab bar component that will navigate to scene when tab is clicked:
+```jsx
+import React from 'react';
+import { Text, View, TouchableOpacity } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+
+export default class CustomTabBar extends React.Component {
+  render() {
+    const { state } = this.props.navigation;
+    const activeTabIndex = state.index;
+
+    return (
+      <View>
+        {
+          state.routes.map(element => (
+            <TouchableOpacity key={element.key} onPress={() => Actions[element.key]()}>
+              <Text>{element.key.toUpperCase()}</Text>
+            </TouchableOpacity>
+          ))
+        }
+      </View>
+    );
+  }
+}
+```
 
 ## LegacyTabs (`<LegacyTabs>` or `<Scene tabs={true} legacy={true}>`)
 Can use all `props` listed above in `<Scene>` as `<LegacyTabs>` is syntatic sugar for `<Scene tabs={true} legacy={true}>`.
