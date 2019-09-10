@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import Button from 'react-native-button';
-import { Actions } from 'react-native-router-flux';
+import {Actions} from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,8 +40,18 @@ export default class extends React.Component {
         <Text>Login page 1</Text>
         <Text>Title: {title}</Text>
         <Text>Data: {data}</Text>
-        <Button onPress={() => Actions.loginModal2({ data: 'Custom data2', title: 'Custom title2' })}>Login 2</Button>
-        <Button onPress={() => Actions.refresh({ title: 'Changed title', data: 'Changed data' })}>Change title</Button>
+        <Button
+          onPress={() =>
+            Actions.loginModal2({data: 'Custom data2', title: 'Custom title2'})
+          }>
+          Login 2
+        </Button>
+        <Button
+          onPress={() =>
+            Actions.refresh({title: 'Changed title', data: 'Changed data'})
+          }>
+          Change title
+        </Button>
         <Button onPress={Actions.pop}>Back</Button>
       </View>
     );

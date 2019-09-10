@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import Button from 'react-native-button';
-import { Actions } from 'react-native-router-flux';
+import {Actions} from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,8 +25,11 @@ const popToLogin2 = () => {
 };
 
 const popAndRefresh = () => {
-  Actions.pop({ refresh: { data: 'Data after pop', title: 'title after pop' }, key: null });
-}
+  Actions.pop({
+    refresh: {data: 'Data after pop', title: 'title after pop'},
+    key: null,
+  });
+};
 
 export default class extends React.Component {
   render() {

@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Animated, Dimensions } from 'react-native';
+import {View, Text, StyleSheet, Animated, Dimensions} from 'react-native';
 import Button from 'react-native-button';
-import { Actions } from 'react-native-router-flux';
+import {Actions} from 'react-native-router-flux';
 
-const { height: deviceHeight } = Dimensions.get('window');
+const {height: deviceHeight} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -43,7 +43,12 @@ export default class extends React.Component {
 
   render() {
     return (
-      <Animated.View style={[styles.container, { backgroundColor: 'rgba(52,52,52,0.5)' }, { transform: [{ translateY: this.state.offset }] }]}>
+      <Animated.View
+        style={[
+          styles.container,
+          {backgroundColor: 'rgba(52,52,52,0.5)'},
+          {transform: [{translateY: this.state.offset}]},
+        ]}>
         <View
           style={{
             width: 250,
@@ -51,8 +56,7 @@ export default class extends React.Component {
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: 'white',
-          }}
-        >
+          }}>
           <Text>{this.props.data}</Text>
           <Button onPress={this.closeModal.bind(this)}>Close</Button>
         </View>
