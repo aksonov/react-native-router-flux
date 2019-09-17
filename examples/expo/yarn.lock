@@ -2,23 +2,7 @@
 # yarn lockfile v1
 
 
-"@babel/cli@7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.0.0.tgz#108b395fd43fff6681d36fb41274df4d8ffeb12e"
-  dependencies:
-    commander "^2.8.1"
-    convert-source-map "^1.1.0"
-    fs-readdir-recursive "^1.1.0"
-    glob "^7.0.0"
-    lodash "^4.17.10"
-    mkdirp "^0.5.1"
-    output-file-sync "^2.0.0"
-    slash "^2.0.0"
-    source-map "^0.5.0"
-  optionalDependencies:
-    chokidar "^2.0.3"
-
-"@babel/code-frame@7.0.0", "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.0.0-beta.35":
+"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.0.0-beta.35":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0.tgz#06e2ab19bdb535385559aabb5ba59729482800f8"
   dependencies:
@@ -62,7 +46,7 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/generator@7.0.0", "@babel/generator@^7.0.0", "@babel/generator@^7.0.0-beta":
+"@babel/generator@^7.0.0", "@babel/generator@^7.0.0-beta":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.0.0.tgz#1efd58bffa951dc846449e58ce3a1d7f02d393aa"
   dependencies:
@@ -202,7 +186,7 @@
     "@babel/template" "^7.0.0"
     "@babel/types" "^7.0.0"
 
-"@babel/helper-split-export-declaration@7.0.0", "@babel/helper-split-export-declaration@^7.0.0":
+"@babel/helper-split-export-declaration@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/helper-split-export-declaration/-/helper-split-export-declaration-7.0.0.tgz#3aae285c0311c2ab095d997b8c9a94cad547d813"
   dependencies:
@@ -454,7 +438,7 @@
     pirates "^4.0.0"
     source-map-support "^0.5.9"
 
-"@babel/template@7.0.0", "@babel/template@^7.0.0", "@babel/template@^7.0.0-beta":
+"@babel/template@^7.0.0", "@babel/template@^7.0.0-beta":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.0.0.tgz#c2bc9870405959c89a9c814376a2ecb247838c80"
   dependencies:
@@ -514,7 +498,7 @@
 
 "@expo/vector-icons@^6.3.1":
   version "6.3.1"
-  resolved "http://registry.npmjs.org/@expo/vector-icons/-/vector-icons-6.3.1.tgz#ffb97cc2343e4a330b44ce3063ee7c8571a6a50d"
+  resolved "https://registry.npmjs.org/@expo/vector-icons/-/vector-icons-6.3.1.tgz#ffb97cc2343e4a330b44ce3063ee7c8571a6a50d"
   dependencies:
     lodash "^4.17.4"
     react-native-vector-icons "4.5.0"
@@ -528,6 +512,23 @@
     noop-fn "^1.0.0"
     pouchdb-collections "^1.0.1"
     tiny-queue "^0.2.1"
+
+"@react-navigation/core@^3.5.1":
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-3.5.1.tgz#7a2339fca3496979305fb3a8ab88c2ca8d8c214d"
+  dependencies:
+    hoist-non-react-statics "^3.3.0"
+    path-to-regexp "^1.7.0"
+    query-string "^6.4.2"
+    react-is "^16.8.6"
+
+"@react-navigation/native@^3.6.2":
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-3.6.2.tgz#3634697b6350cc5189657ae4551f2d52b57fbbf0"
+  dependencies:
+    hoist-non-react-statics "^3.0.1"
+    react-native-safe-area-view "^0.14.1"
+    react-native-screens "^1.0.0 || ^1.0.0-alpha"
 
 abab@^2.0.0:
   version "2.0.0"
@@ -786,15 +787,11 @@ astral-regex@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/astral-regex/-/astral-regex-1.0.0.tgz#6c8c3fb827dd43ee3918f27b82782ab7658a6fd9"
 
-async-each@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/async-each/-/async-each-1.0.1.tgz#19d386a1d9edc6e7c1c85d388aedbcc56d33602d"
-
 async-limiter@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
 
-async@^2.1.4, async@^2.4.0, async@^2.5.0:
+async@^2.1.4, async@^2.4.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/async/-/async-2.6.1.tgz#b245a23ca71930044ec53fa46aa00a3e87c6a610"
   dependencies:
@@ -1012,7 +1009,7 @@ babel-plugin-external-helpers@^6.22.0:
 
 babel-plugin-istanbul@^4.1.5:
   version "4.1.6"
-  resolved "http://registry.npmjs.org/babel-plugin-istanbul/-/babel-plugin-istanbul-4.1.6.tgz#36c59b2192efce81c5b378321b74175add1c9a45"
+  resolved "https://registry.npmjs.org/babel-plugin-istanbul/-/babel-plugin-istanbul-4.1.6.tgz#36c59b2192efce81c5b378321b74175add1c9a45"
   dependencies:
     babel-plugin-syntax-object-rest-spread "^6.13.0"
     find-up "^2.1.0"
@@ -1045,39 +1042,39 @@ babel-plugin-react-transform@^3.0.0:
 
 babel-plugin-syntax-async-functions@^6.5.0, babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
-  resolved "http://registry.npmjs.org/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz#cad9cad1191b5ad634bf30ae0872391e0647be95"
+  resolved "https://registry.npmjs.org/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz#cad9cad1191b5ad634bf30ae0872391e0647be95"
 
 babel-plugin-syntax-class-properties@^6.5.0, babel-plugin-syntax-class-properties@^6.8.0:
   version "6.13.0"
-  resolved "http://registry.npmjs.org/babel-plugin-syntax-class-properties/-/babel-plugin-syntax-class-properties-6.13.0.tgz#d7eb23b79a317f8543962c505b827c7d6cac27de"
+  resolved "https://registry.npmjs.org/babel-plugin-syntax-class-properties/-/babel-plugin-syntax-class-properties-6.13.0.tgz#d7eb23b79a317f8543962c505b827c7d6cac27de"
 
 babel-plugin-syntax-decorators@^6.1.18:
   version "6.13.0"
-  resolved "http://registry.npmjs.org/babel-plugin-syntax-decorators/-/babel-plugin-syntax-decorators-6.13.0.tgz#312563b4dbde3cc806cee3e416cceeaddd11ac0b"
+  resolved "https://registry.npmjs.org/babel-plugin-syntax-decorators/-/babel-plugin-syntax-decorators-6.13.0.tgz#312563b4dbde3cc806cee3e416cceeaddd11ac0b"
 
 babel-plugin-syntax-dynamic-import@^6.18.0:
   version "6.18.0"
-  resolved "http://registry.npmjs.org/babel-plugin-syntax-dynamic-import/-/babel-plugin-syntax-dynamic-import-6.18.0.tgz#8d6a26229c83745a9982a441051572caa179b1da"
+  resolved "https://registry.npmjs.org/babel-plugin-syntax-dynamic-import/-/babel-plugin-syntax-dynamic-import-6.18.0.tgz#8d6a26229c83745a9982a441051572caa179b1da"
 
 babel-plugin-syntax-exponentiation-operator@^6.8.0:
   version "6.13.0"
-  resolved "http://registry.npmjs.org/babel-plugin-syntax-exponentiation-operator/-/babel-plugin-syntax-exponentiation-operator-6.13.0.tgz#9ee7e8337290da95288201a6a57f4170317830de"
+  resolved "https://registry.npmjs.org/babel-plugin-syntax-exponentiation-operator/-/babel-plugin-syntax-exponentiation-operator-6.13.0.tgz#9ee7e8337290da95288201a6a57f4170317830de"
 
 babel-plugin-syntax-export-extensions@^6.8.0:
   version "6.13.0"
-  resolved "http://registry.npmjs.org/babel-plugin-syntax-export-extensions/-/babel-plugin-syntax-export-extensions-6.13.0.tgz#70a1484f0f9089a4e84ad44bac353c95b9b12721"
+  resolved "https://registry.npmjs.org/babel-plugin-syntax-export-extensions/-/babel-plugin-syntax-export-extensions-6.13.0.tgz#70a1484f0f9089a4e84ad44bac353c95b9b12721"
 
 babel-plugin-syntax-flow@^6.18.0, babel-plugin-syntax-flow@^6.5.0, babel-plugin-syntax-flow@^6.8.0:
   version "6.18.0"
-  resolved "http://registry.npmjs.org/babel-plugin-syntax-flow/-/babel-plugin-syntax-flow-6.18.0.tgz#4c3ab20a2af26aa20cd25995c398c4eb70310c8d"
+  resolved "https://registry.npmjs.org/babel-plugin-syntax-flow/-/babel-plugin-syntax-flow-6.18.0.tgz#4c3ab20a2af26aa20cd25995c398c4eb70310c8d"
 
 babel-plugin-syntax-jsx@^6.5.0, babel-plugin-syntax-jsx@^6.8.0:
   version "6.18.0"
-  resolved "http://registry.npmjs.org/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz#0af32a9a6e13ca7a3fd5069e62d7b0f58d0d8946"
+  resolved "https://registry.npmjs.org/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz#0af32a9a6e13ca7a3fd5069e62d7b0f58d0d8946"
 
 babel-plugin-syntax-object-rest-spread@^6.13.0, babel-plugin-syntax-object-rest-spread@^6.8.0:
   version "6.13.0"
-  resolved "http://registry.npmjs.org/babel-plugin-syntax-object-rest-spread/-/babel-plugin-syntax-object-rest-spread-6.13.0.tgz#fd6536f2bce13836ffa3a5458c4903a597bb3bf5"
+  resolved "https://registry.npmjs.org/babel-plugin-syntax-object-rest-spread/-/babel-plugin-syntax-object-rest-spread-6.13.0.tgz#fd6536f2bce13836ffa3a5458c4903a597bb3bf5"
 
 babel-plugin-syntax-trailing-function-commas@^6.20.0, babel-plugin-syntax-trailing-function-commas@^6.5.0, babel-plugin-syntax-trailing-function-commas@^6.8.0:
   version "6.22.0"
@@ -1085,7 +1082,7 @@ babel-plugin-syntax-trailing-function-commas@^6.20.0, babel-plugin-syntax-traili
 
 babel-plugin-transform-async-to-generator@6.16.0:
   version "6.16.0"
-  resolved "http://registry.npmjs.org/babel-plugin-transform-async-to-generator/-/babel-plugin-transform-async-to-generator-6.16.0.tgz#19ec36cb1486b59f9f468adfa42ce13908ca2999"
+  resolved "https://registry.npmjs.org/babel-plugin-transform-async-to-generator/-/babel-plugin-transform-async-to-generator-6.16.0.tgz#19ec36cb1486b59f9f468adfa42ce13908ca2999"
   dependencies:
     babel-helper-remap-async-to-generator "^6.16.0"
     babel-plugin-syntax-async-functions "^6.8.0"
@@ -1394,7 +1391,7 @@ babel-preset-jest@^22.4.4:
 
 babel-preset-react-native@1.9.0:
   version "1.9.0"
-  resolved "http://registry.npmjs.org/babel-preset-react-native/-/babel-preset-react-native-1.9.0.tgz#035fc06c65f4f2a02d0336a100b2da142f36dab1"
+  resolved "https://registry.npmjs.org/babel-preset-react-native/-/babel-preset-react-native-1.9.0.tgz#035fc06c65f4f2a02d0336a100b2da142f36dab1"
   dependencies:
     babel-plugin-check-es2015-constants "^6.5.0"
     babel-plugin-react-transform "2.0.2"
@@ -1567,10 +1564,6 @@ big-integer@^1.6.7:
   version "1.6.36"
   resolved "https://registry.yarnpkg.com/big-integer/-/big-integer-1.6.36.tgz#78631076265d4ae3555c04f85e7d9d2f3a071a36"
 
-binary-extensions@^1.0.0:
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.12.0.tgz#c2d780f53d45bba8317a8902d4ceeaf3a6385b14"
-
 bplist-creator@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/bplist-creator/-/bplist-creator-0.0.7.tgz#37df1536092824b87c42f957b01344117372ae45"
@@ -1598,7 +1591,7 @@ braces@^1.8.2:
     preserve "^0.2.0"
     repeat-element "^1.1.2"
 
-braces@^2.3.0, braces@^2.3.1:
+braces@^2.3.1:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/braces/-/braces-2.3.2.tgz#5979fd3f14cd531565e5fa2df1abfff1dfaee729"
   dependencies:
@@ -1700,7 +1693,7 @@ caseless@~0.12.0:
 
 chalk@1.1.3, chalk@^1.0.0, chalk@^1.1.1, chalk@^1.1.3:
   version "1.1.3"
-  resolved "http://registry.npmjs.org/chalk/-/chalk-1.1.3.tgz#a8115c55e4a702fe4d150abd3872822a7e09fc98"
+  resolved "https://registry.npmjs.org/chalk/-/chalk-1.1.3.tgz#a8115c55e4a702fe4d150abd3872822a7e09fc98"
   dependencies:
     ansi-styles "^2.2.1"
     escape-string-regexp "^1.0.2"
@@ -1723,25 +1716,6 @@ chardet@^0.4.0:
 chardet@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
-
-chokidar@^2.0.3:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.0.4.tgz#356ff4e2b0e8e43e322d18a372460bbcf3accd26"
-  dependencies:
-    anymatch "^2.0.0"
-    async-each "^1.0.0"
-    braces "^2.3.0"
-    glob-parent "^3.1.0"
-    inherits "^2.0.1"
-    is-binary-path "^1.0.0"
-    is-glob "^4.0.0"
-    lodash.debounce "^4.0.8"
-    normalize-path "^2.1.1"
-    path-is-absolute "^1.0.0"
-    readdirp "^2.0.0"
-    upath "^1.0.5"
-  optionalDependencies:
-    fsevents "^1.2.2"
 
 chownr@^1.0.1:
   version "1.0.1"
@@ -1850,7 +1824,7 @@ combined-stream@1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@^2.8.1, commander@^2.9.0:
+commander@^2.9.0:
   version "2.18.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.18.0.tgz#2bf063ddee7c7891176981a2cc798e5754bc6970"
 
@@ -1858,9 +1832,9 @@ commander@~2.13.0:
   version "2.13.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.13.0.tgz#6964bca67685df7c1f1430c584f07d7597885b9c"
 
-commander@~2.17.1:
-  version "2.17.1"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.17.1.tgz#bd77ab7de6de94205ceacc72f1716d29f20a77bf"
+commander@~2.20.0:
+  version "2.20.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.0.tgz#d58bb2b5c1ee8f87b0d340027e9e94e222c5a422"
 
 commondir@^1.0.1:
   version "1.0.1"
@@ -1996,6 +1970,10 @@ data-urls@^1.0.0:
     abab "^2.0.0"
     whatwg-mimetype "^2.1.0"
     whatwg-url "^7.0.0"
+
+debounce@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.2.0.tgz#44a540abc0ea9943018dc0eaa95cce87f65cd131"
 
 debug@2.6.9, debug@^2.1.2, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
@@ -2491,7 +2469,7 @@ expand-range@^1.8.1:
 
 expect@^22.4.0:
   version "22.4.3"
-  resolved "http://registry.npmjs.org/expect/-/expect-22.4.3.tgz#d5a29d0a0e1fb2153557caef2674d4547e914674"
+  resolved "https://registry.npmjs.org/expect/-/expect-22.4.3.tgz#d5a29d0a0e1fb2153557caef2674d4547e914674"
   dependencies:
     ansi-styles "^3.2.0"
     jest-diff "^22.4.3"
@@ -2788,7 +2766,7 @@ extend@~3.0.2:
 
 external-editor@^2.0.1, external-editor@^2.0.4:
   version "2.2.0"
-  resolved "http://registry.npmjs.org/external-editor/-/external-editor-2.2.0.tgz#045511cfd8d133f3846673d1047c154e214ad3d5"
+  resolved "https://registry.npmjs.org/external-editor/-/external-editor-2.2.0.tgz#045511cfd8d133f3846673d1047c154e214ad3d5"
   dependencies:
     chardet "^0.4.0"
     iconv-lite "^0.4.17"
@@ -3034,15 +3012,11 @@ fs-minipass@^1.2.5:
   dependencies:
     minipass "^2.2.1"
 
-fs-readdir-recursive@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/fs-readdir-recursive/-/fs-readdir-recursive-1.1.0.tgz#e32fc030a2ccee44a6b5371308da54be0b397d27"
-
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
 
-fsevents@^1.2.2, fsevents@^1.2.3:
+fsevents@^1.2.3:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.2.4.tgz#f41dcb1af2582af3692da36fc55cbd8e1041c426"
   dependencies:
@@ -3115,14 +3089,7 @@ glob-parent@^2.0.0:
   dependencies:
     is-glob "^2.0.0"
 
-glob-parent@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-3.1.0.tgz#9e6af6299d8d3bd2bd40430832bd113df906c5ae"
-  dependencies:
-    is-glob "^3.1.0"
-    path-dirname "^1.0.0"
-
-glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2:
+glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2:
   version "7.1.3"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.3.tgz#3960832d3f1574108342dafd3a67b332c0969df1"
   dependencies:
@@ -3172,10 +3139,10 @@ gud@^1.0.0:
   resolved "https://registry.yarnpkg.com/gud/-/gud-1.0.0.tgz#a489581b17e6a70beca9abe3ae57de7a499852c0"
 
 handlebars@^4.0.3:
-  version "4.0.12"
-  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.0.12.tgz#2c15c8a96d46da5e266700518ba8cb8d919d5bc5"
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.2.0.tgz#57ce8d2175b9bbb3d8b3cf3e4217b1aec8ddcb2e"
   dependencies:
-    async "^2.5.0"
+    neo-async "^2.6.0"
     optimist "^0.6.1"
     source-map "^0.6.1"
   optionalDependencies:
@@ -3247,6 +3214,12 @@ hoist-non-react-statics@^2.2.0, hoist-non-react-statics@^2.3.1, hoist-non-react-
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
 
+hoist-non-react-statics@^3.0.1, hoist-non-react-statics@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.0.tgz#b09178f0122184fb95acf525daaecb4d8f45958b"
+  dependencies:
+    react-is "^16.7.0"
+
 home-or-tmp@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/home-or-tmp/-/home-or-tmp-2.0.0.tgz#e36c3f2d2cae7d746a857e38d18d5f32a7882db8"
@@ -3270,7 +3243,7 @@ html-encoding-sniffer@^1.0.2:
 
 http-errors@~1.6.2:
   version "1.6.3"
-  resolved "http://registry.npmjs.org/http-errors/-/http-errors-1.6.3.tgz#8b55680bb4be283a0b5bf4ea2e38580be1d9320d"
+  resolved "https://registry.npmjs.org/http-errors/-/http-errors-1.6.3.tgz#8b55680bb4be283a0b5bf4ea2e38580be1d9320d"
   dependencies:
     depd "~1.1.2"
     inherits "2.0.3"
@@ -3333,7 +3306,7 @@ inflight@^1.0.4:
     once "^1.3.0"
     wrappy "1"
 
-inherits@2, inherits@2.0.3, inherits@^2.0.1, inherits@^2.0.3, inherits@~2.0.3:
+inherits@2, inherits@2.0.3, inherits@^2.0.3, inherits@~2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
 
@@ -3426,12 +3399,6 @@ is-arrayish@^0.3.1:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/is-arrayish/-/is-arrayish-0.3.2.tgz#4574a2ae56f7ab206896fb431eaeed066fdf8f03"
 
-is-binary-path@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/is-binary-path/-/is-binary-path-1.0.1.tgz#75f16642b480f187a711c814161fd3a4a7655898"
-  dependencies:
-    binary-extensions "^1.0.0"
-
 is-buffer@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
@@ -3508,10 +3475,6 @@ is-extglob@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/is-extglob/-/is-extglob-1.0.0.tgz#ac468177c4943405a092fc8f29760c6ffc6206c0"
 
-is-extglob@^2.1.0, is-extglob@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/is-extglob/-/is-extglob-2.1.1.tgz#a88c02535791f02ed37c76a1b9ea9773c833f8c2"
-
 is-finite@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/is-finite/-/is-finite-1.0.2.tgz#cc6677695602be550ef11e8b4aa6305342b6d0aa"
@@ -3537,18 +3500,6 @@ is-glob@^2.0.0, is-glob@^2.0.1:
   resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-2.0.1.tgz#d096f926a3ded5600f3fdfd91198cb0888c2d863"
   dependencies:
     is-extglob "^1.0.0"
-
-is-glob@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-3.1.0.tgz#7ba5ae24217804ac70707b96922567486cc3e84a"
-  dependencies:
-    is-extglob "^2.1.0"
-
-is-glob@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-4.0.0.tgz#9521c76845cc2610a85203ddf080a958c2ffabc0"
-  dependencies:
-    is-extglob "^2.1.1"
 
 is-number@^2.1.0:
   version "2.1.0"
@@ -3581,10 +3532,6 @@ is-path-inside@^1.0.0:
   resolved "https://registry.yarnpkg.com/is-path-inside/-/is-path-inside-1.0.1.tgz#8ef5b7de50437a3fdca6b4e865ef7aa55cb48036"
   dependencies:
     path-is-inside "^1.0.1"
-
-is-plain-obj@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/is-plain-obj/-/is-plain-obj-1.1.0.tgz#71a50c8429dfca773c92a390a4a03b39fcd51d3e"
 
 is-plain-object@^2.0.1, is-plain-object@^2.0.3, is-plain-object@^2.0.4:
   version "2.0.4"
@@ -3793,7 +3740,7 @@ jest-config@^22.4.4:
 
 jest-diff@^22.4.0, jest-diff@^22.4.3:
   version "22.4.3"
-  resolved "http://registry.npmjs.org/jest-diff/-/jest-diff-22.4.3.tgz#e18cc3feff0aeef159d02310f2686d4065378030"
+  resolved "https://registry.npmjs.org/jest-diff/-/jest-diff-22.4.3.tgz#e18cc3feff0aeef159d02310f2686d4065378030"
   dependencies:
     chalk "^2.0.1"
     diff "^3.2.0"
@@ -3846,7 +3793,7 @@ jest-get-type@^22.1.0, jest-get-type@^22.4.3:
 
 jest-haste-map@22.4.2:
   version "22.4.2"
-  resolved "http://registry.npmjs.org/jest-haste-map/-/jest-haste-map-22.4.2.tgz#a90178e66146d4378bb076345a949071f3b015b4"
+  resolved "https://registry.npmjs.org/jest-haste-map/-/jest-haste-map-22.4.2.tgz#a90178e66146d4378bb076345a949071f3b015b4"
   dependencies:
     fb-watchman "^2.0.0"
     graceful-fs "^4.1.11"
@@ -3858,7 +3805,7 @@ jest-haste-map@22.4.2:
 
 jest-haste-map@^22.4.2:
   version "22.4.3"
-  resolved "http://registry.npmjs.org/jest-haste-map/-/jest-haste-map-22.4.3.tgz#25842fa2ba350200767ac27f658d58b9d5c2e20b"
+  resolved "https://registry.npmjs.org/jest-haste-map/-/jest-haste-map-22.4.3.tgz#25842fa2ba350200767ac27f658d58b9d5c2e20b"
   dependencies:
     fb-watchman "^2.0.0"
     graceful-fs "^4.1.11"
@@ -3886,13 +3833,13 @@ jest-jasmine2@^22.4.4:
 
 jest-leak-detector@^22.4.0:
   version "22.4.3"
-  resolved "http://registry.npmjs.org/jest-leak-detector/-/jest-leak-detector-22.4.3.tgz#2b7b263103afae8c52b6b91241a2de40117e5b35"
+  resolved "https://registry.npmjs.org/jest-leak-detector/-/jest-leak-detector-22.4.3.tgz#2b7b263103afae8c52b6b91241a2de40117e5b35"
   dependencies:
     pretty-format "^22.4.3"
 
 jest-matcher-utils@^22.4.0, jest-matcher-utils@^22.4.3:
   version "22.4.3"
-  resolved "http://registry.npmjs.org/jest-matcher-utils/-/jest-matcher-utils-22.4.3.tgz#4632fe428ebc73ebc194d3c7b65d37b161f710ff"
+  resolved "https://registry.npmjs.org/jest-matcher-utils/-/jest-matcher-utils-22.4.3.tgz#4632fe428ebc73ebc194d3c7b65d37b161f710ff"
   dependencies:
     chalk "^2.0.1"
     jest-get-type "^22.4.3"
@@ -3918,13 +3865,13 @@ jest-regex-util@^22.1.0, jest-regex-util@^22.4.3:
 
 jest-resolve-dependencies@^22.1.0:
   version "22.4.3"
-  resolved "http://registry.npmjs.org/jest-resolve-dependencies/-/jest-resolve-dependencies-22.4.3.tgz#e2256a5a846732dc3969cb72f3c9ad7725a8195e"
+  resolved "https://registry.npmjs.org/jest-resolve-dependencies/-/jest-resolve-dependencies-22.4.3.tgz#e2256a5a846732dc3969cb72f3c9ad7725a8195e"
   dependencies:
     jest-regex-util "^22.4.3"
 
 jest-resolve@^22.4.2:
   version "22.4.3"
-  resolved "http://registry.npmjs.org/jest-resolve/-/jest-resolve-22.4.3.tgz#0ce9d438c8438229aa9b916968ec6b05c1abb4ea"
+  resolved "https://registry.npmjs.org/jest-resolve/-/jest-resolve-22.4.3.tgz#0ce9d438c8438229aa9b916968ec6b05c1abb4ea"
   dependencies:
     browser-resolve "^1.11.2"
     chalk "^2.0.1"
@@ -3976,7 +3923,7 @@ jest-serializer@^22.4.0, jest-serializer@^22.4.3:
 
 jest-snapshot@^22.4.0:
   version "22.4.3"
-  resolved "http://registry.npmjs.org/jest-snapshot/-/jest-snapshot-22.4.3.tgz#b5c9b42846ffb9faccb76b841315ba67887362d2"
+  resolved "https://registry.npmjs.org/jest-snapshot/-/jest-snapshot-22.4.3.tgz#b5c9b42846ffb9faccb76b841315ba67887362d2"
   dependencies:
     chalk "^2.0.1"
     jest-diff "^22.4.3"
@@ -4124,7 +4071,7 @@ json5@^0.5.0, json5@^0.5.1:
 
 jsonfile@^2.1.0:
   version "2.4.0"
-  resolved "http://registry.npmjs.org/jsonfile/-/jsonfile-2.4.0.tgz#3736a2b428b87bbda0cc83b53fa3d633a35c2ae8"
+  resolved "https://registry.npmjs.org/jsonfile/-/jsonfile-2.4.0.tgz#3736a2b428b87bbda0cc83b53fa3d633a35c2ae8"
   optionalDependencies:
     graceful-fs "^4.1.6"
 
@@ -4228,14 +4175,6 @@ locate-path@^2.0.0:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
 
-lodash.debounce@^4.0.8:
-  version "4.0.8"
-  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
-
-lodash.isequal@4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
-
 lodash.map@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.map/-/lodash.map-4.6.0.tgz#771ec7839e3473d9c4cde28b19394c3562f4f6d3"
@@ -4278,13 +4217,17 @@ lodash.zipobject@^4.1.3:
 
 lodash@^3.5.0:
   version "3.10.1"
-  resolved "http://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
+  resolved "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
 lodash@^4.0.0, lodash@^4.13.1, lodash@^4.16.6, lodash@^4.17.10, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 
-loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1:
+lodash@^4.17.15:
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+
+loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
   dependencies:
@@ -4370,39 +4313,39 @@ metro-babylon7@0.30.2:
 
 metro-cache@0.30.2:
   version "0.30.2"
-  resolved "http://registry.npmjs.org/metro-cache/-/metro-cache-0.30.2.tgz#1fb1ff92d3d8c596fd8cddc1635a9cb1c26e4cba"
+  resolved "https://registry.npmjs.org/metro-cache/-/metro-cache-0.30.2.tgz#1fb1ff92d3d8c596fd8cddc1635a9cb1c26e4cba"
   dependencies:
     jest-serializer "^22.4.0"
     mkdirp "^0.5.1"
 
 metro-core@0.30.2, metro-core@^0.30.0:
   version "0.30.2"
-  resolved "http://registry.npmjs.org/metro-core/-/metro-core-0.30.2.tgz#380ae13cceee29e5be166df7acca9f1daa19fd7e"
+  resolved "https://registry.npmjs.org/metro-core/-/metro-core-0.30.2.tgz#380ae13cceee29e5be166df7acca9f1daa19fd7e"
   dependencies:
     lodash.throttle "^4.1.1"
     wordwrap "^1.0.0"
 
 metro-minify-uglify@0.30.2:
   version "0.30.2"
-  resolved "http://registry.npmjs.org/metro-minify-uglify/-/metro-minify-uglify-0.30.2.tgz#7299a0376ad6340e9acf415912d54b5309702040"
+  resolved "https://registry.npmjs.org/metro-minify-uglify/-/metro-minify-uglify-0.30.2.tgz#7299a0376ad6340e9acf415912d54b5309702040"
   dependencies:
     uglify-es "^3.1.9"
 
 metro-resolver@0.30.2:
   version "0.30.2"
-  resolved "http://registry.npmjs.org/metro-resolver/-/metro-resolver-0.30.2.tgz#c26847e59cdc6a8ab1fb4b92d765165ec06946dd"
+  resolved "https://registry.npmjs.org/metro-resolver/-/metro-resolver-0.30.2.tgz#c26847e59cdc6a8ab1fb4b92d765165ec06946dd"
   dependencies:
     absolute-path "^0.0.0"
 
 metro-source-map@0.30.2:
   version "0.30.2"
-  resolved "http://registry.npmjs.org/metro-source-map/-/metro-source-map-0.30.2.tgz#4ac056642a2c521d974d42a617c8731d094365bb"
+  resolved "https://registry.npmjs.org/metro-source-map/-/metro-source-map-0.30.2.tgz#4ac056642a2c521d974d42a617c8731d094365bb"
   dependencies:
     source-map "^0.5.6"
 
 metro@^0.30.0:
   version "0.30.2"
-  resolved "http://registry.npmjs.org/metro/-/metro-0.30.2.tgz#e722e0eb106530f6d5bcf8de1f50353a0732cfb3"
+  resolved "https://registry.npmjs.org/metro/-/metro-0.30.2.tgz#e722e0eb106530f6d5bcf8de1f50353a0732cfb3"
   dependencies:
     "@babel/core" "^7.0.0-beta"
     "@babel/generator" "^7.0.0-beta"
@@ -4506,7 +4449,7 @@ micromatch@^2.3.11:
     parse-glob "^3.0.4"
     regex-cache "^0.4.2"
 
-micromatch@^3.1.10, micromatch@^3.1.4:
+micromatch@^3.1.4:
   version "3.1.10"
   resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-3.1.10.tgz#70859bc95c9840952f359a068a3fc49f9ecfac23"
   dependencies:
@@ -4570,15 +4513,15 @@ minimatch@^3.0.3, minimatch@^3.0.4:
 
 minimist@0.0.8:
   version "0.0.8"
-  resolved "http://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
+  resolved "https://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
 minimist@1.2.0, minimist@^1.1.1, minimist@^1.2.0:
   version "1.2.0"
-  resolved "http://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
+  resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
 minimist@~0.0.1:
   version "0.0.10"
-  resolved "http://registry.npmjs.org/minimist/-/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
 
 minipass@^2.2.1, minipass@^2.3.3:
   version "2.3.4"
@@ -4602,7 +4545,7 @@ mixin-deep@^1.2.0:
 
 mkdirp@^0.5.0, mkdirp@^0.5.1:
   version "0.5.1"
-  resolved "http://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
+  resolved "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
 
@@ -4664,13 +4607,17 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
+neo-async@^2.6.0:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
 
 node-fetch@1.6.3:
   version "1.6.3"
-  resolved "http://registry.npmjs.org/node-fetch/-/node-fetch-1.6.3.tgz#dc234edd6489982d58e8f0db4f695029abcd8c04"
+  resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-1.6.3.tgz#dc234edd6489982d58e8f0db4f695029abcd8c04"
   dependencies:
     encoding "^0.1.11"
     is-stream "^1.0.1"
@@ -4926,14 +4873,6 @@ osenv@^0.1.4:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
 
-output-file-sync@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/output-file-sync/-/output-file-sync-2.0.1.tgz#f53118282f5f553c2799541792b723a4c71430c0"
-  dependencies:
-    graceful-fs "^4.1.11"
-    is-plain-obj "^1.1.0"
-    mkdirp "^0.5.1"
-
 p-finally@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/p-finally/-/p-finally-1.0.0.tgz#3fbcfb15b899a44123b34b6dcc18b724336a2cae"
@@ -4980,10 +4919,6 @@ parseurl@~1.3.2:
 pascalcase@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/pascalcase/-/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
-
-path-dirname@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/path-dirname/-/path-dirname-1.0.2.tgz#cc33d24d525e099a5388c0336c6e32b9160609e0"
 
 path-exists@^2.0.0:
   version "2.1.0"
@@ -5143,14 +5078,14 @@ pretty-format@^21.2.1:
 
 pretty-format@^22.4.0, pretty-format@^22.4.3:
   version "22.4.3"
-  resolved "http://registry.npmjs.org/pretty-format/-/pretty-format-22.4.3.tgz#f873d780839a9c02e9664c8a082e9ee79eaac16f"
+  resolved "https://registry.npmjs.org/pretty-format/-/pretty-format-22.4.3.tgz#f873d780839a9c02e9664c8a082e9ee79eaac16f"
   dependencies:
     ansi-regex "^3.0.0"
     ansi-styles "^3.2.0"
 
 pretty-format@^4.2.1:
   version "4.3.1"
-  resolved "http://registry.npmjs.org/pretty-format/-/pretty-format-4.3.1.tgz#530be5c42b3c05b36414a7a2a4337aa80acd0e8d"
+  resolved "https://registry.npmjs.org/pretty-format/-/pretty-format-4.3.1.tgz#530be5c42b3c05b36414a7a2a4337aa80acd0e8d"
 
 private@^0.1.6, private@^0.1.8:
   version "0.1.8"
@@ -5181,6 +5116,14 @@ prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1,
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
+prop-types@^15.7.2:
+  version "15.7.2"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
+  dependencies:
+    loose-envify "^1.4.0"
+    object-assign "^4.1.1"
+    react-is "^16.8.1"
+
 pseudomap@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
@@ -5206,6 +5149,14 @@ query-string@^6.1.0:
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.1.0.tgz#01e7d69f6a0940dac67a937d6c6325647aa4532a"
   dependencies:
     decode-uri-component "^0.2.0"
+    strict-uri-encode "^2.0.0"
+
+query-string@^6.4.2:
+  version "6.8.3"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.8.3.tgz#fd9fb7ffb068b79062b43383685611ee47777d4b"
+  dependencies:
+    decode-uri-component "^0.2.0"
+    split-on-first "^1.0.0"
     strict-uri-encode "^2.0.0"
 
 randomatic@^3.0.0:
@@ -5248,6 +5199,10 @@ react-is@^16.5.0:
   version "16.5.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.5.0.tgz#2ec7c192709698591efe13722fab3ef56144ba55"
 
+react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.6:
+  version "16.9.0"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.9.0.tgz#21ca9561399aad0ff1a7701c01683e8ca981edcb"
+
 react-lifecycles-compat@^3, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
@@ -5256,7 +5211,7 @@ react-native-branch@2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.2.5.tgz#4074dd63b4973e6397d9ce50e97b57c77a518e9d"
 
-react-native-button@^2.3.0:
+react-native-button@~2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-native-button/-/react-native-button-2.3.0.tgz#7d0a90095d415b0edf98a904556a7c4439646568"
   dependencies:
@@ -5316,23 +5271,27 @@ react-native-reanimated@1.0.0-alpha.6:
     rimraf "^2.6.2"
 
 "react-native-router-flux@file:../..":
-  version "4.0.2-dev"
+  version "4.2.0-beta.1"
   dependencies:
-    lodash.isequal "4.5.0"
+    lodash "^4.17.15"
     opencollective "^1.0.3"
     path-to-regexp "^2.4.0"
     prop-types "^15.6.2"
-    react-navigation "2.13.x"
+    react-navigation "^4.x"
+    react-navigation-deprecated-tab-navigator "^1.3.0"
+    react-navigation-drawer "^2.2.1"
+    react-navigation-stack "^1.7.3"
+    react-navigation-tabs "^2.5.2"
 
-react-native-safe-area-view@0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.11.0.tgz#4f3dda43c2bace37965e7c6aef5fc83d4f19d174"
+react-native-safe-area-view@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.10.0.tgz#e8e9228d22698c0f82ad1202d24a4e4977260489"
   dependencies:
     hoist-non-react-statics "^2.3.1"
 
-react-native-safe-area-view@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.9.0.tgz#10ece2ecac70e7005a5b0b3f06c8833060e6d21f"
+react-native-safe-area-view@^0.14.1, react-native-safe-area-view@^0.14.6:
+  version "0.14.8"
+  resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.14.8.tgz#ef33c46ff8164ae77acad48c3039ec9c34873e5b"
   dependencies:
     hoist-non-react-statics "^2.3.1"
 
@@ -5342,9 +5301,11 @@ react-native-safe-module@^1.1.0:
   dependencies:
     dedent "^0.6.0"
 
-react-native-screens@^1.0.0-alpha.11:
-  version "1.0.0-alpha.12"
-  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.12.tgz#5953c39c9dbfbe324610005e07d85a416081c48c"
+"react-native-screens@^1.0.0 || ^1.0.0-alpha", react-native-screens@^1.0.0-alpha.10:
+  version "1.0.0-alpha.23"
+  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.23.tgz#25d7ea4d11bda4fcde2d1da7ae50271c6aa636e0"
+  dependencies:
+    debounce "^1.2.0"
 
 react-native-screens@^1.0.0-alpha.5, react-native-screens@^1.0.0-alpha.8:
   version "1.0.0-alpha.9"
@@ -5369,6 +5330,10 @@ react-native-tab-view@^1.0.0:
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-1.0.2.tgz#66e0bc6d38a227ed2b212e3a256b7902f6ce02ed"
   dependencies:
     prop-types "^15.6.1"
+
+react-native-tab-view@^2.9.0:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.10.0.tgz#5e249e5650502010013449ffd4e5edc18a95364b"
 
 react-native-vector-icons@4.5.0:
   version "4.5.0"
@@ -5441,7 +5406,7 @@ react-native-vector-icons@4.5.0:
     xmldoc "^0.4.0"
     yargs "^9.0.0"
 
-react-navigation-deprecated-tab-navigator@1.3.0:
+react-navigation-deprecated-tab-navigator@1.3.0, react-navigation-deprecated-tab-navigator@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/react-navigation-deprecated-tab-navigator/-/react-navigation-deprecated-tab-navigator-1.3.0.tgz#015dcae1e977b984ca7e99245261c15439026bb7"
   dependencies:
@@ -5453,19 +5418,27 @@ react-navigation-drawer@0.5.0:
   dependencies:
     react-native-drawer-layout-polyfill "^1.3.2"
 
-react-navigation-stack@0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/react-navigation-stack/-/react-navigation-stack-0.3.0.tgz#cdd056771e5fd12114811824653b1ec7e9ae5de1"
+react-navigation-drawer@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-navigation-drawer/-/react-navigation-drawer-2.2.1.tgz#00bc5a9fcd80a519834f2db8a37aba9fc7f99d8b"
 
-react-navigation-stack@0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/react-navigation-stack/-/react-navigation-stack-0.6.0.tgz#57dd25d0902137b950795549c43f3608e9edc250"
+react-navigation-stack@0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/react-navigation-stack/-/react-navigation-stack-0.5.1.tgz#acc3c84c7b5209c7d89380d7f4576f17624f683c"
+  dependencies:
+    react-native-screens "^1.0.0-alpha.10"
 
 react-navigation-stack@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/react-navigation-stack/-/react-navigation-stack-0.4.0.tgz#6e1f0800c086ceedfb38005ae20d50c4877396ef"
   dependencies:
     react-native-screens "^1.0.0-alpha.8"
+
+react-navigation-stack@^1.7.3:
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/react-navigation-stack/-/react-navigation-stack-1.7.3.tgz#2dce28bdc80bbd2bf09755a6aa7200055a907504"
+  dependencies:
+    prop-types "^15.7.2"
 
 react-navigation-tabs@0.7.0:
   version "0.7.0"
@@ -5476,18 +5449,25 @@ react-navigation-tabs@0.7.0:
     react-lifecycles-compat "^3.0.4"
     react-native-tab-view "^1.0.0"
 
-react-navigation-tabs@0.8.2:
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/react-navigation-tabs/-/react-navigation-tabs-0.8.2.tgz#65f8a6ce368684227603345b4d312da2ef3366e1"
+react-navigation-tabs@^2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/react-navigation-tabs/-/react-navigation-tabs-2.5.2.tgz#80812254e32c5720722fed9a26b6e109ed0f4ac1"
   dependencies:
-    hoist-non-react-statics "^2.5.0"
-    prop-types "^15.6.1"
+    hoist-non-react-statics "^3.3.0"
     react-lifecycles-compat "^3.0.4"
-    react-native-tab-view "^1.0.0"
+    react-native-safe-area-view "^0.14.6"
+    react-native-tab-view "^2.9.0"
 
-react-navigation@2.13.x:
-  version "2.13.0"
-  resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-2.13.0.tgz#7102ff7cbc492c8daf2ad90fc80463c3469f8b78"
+react-navigation@^4.x:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-4.0.5.tgz#d4e16d9884cfd6bb2cda4d16e001227e2c859b46"
+  dependencies:
+    "@react-navigation/core" "^3.5.1"
+    "@react-navigation/native" "^3.6.2"
+
+react-navigation@~2.14.2:
+  version "2.14.2"
+  resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-2.14.2.tgz#e3c933b15efdc6bcb1e9b014aeacfb2a08997d5b"
   dependencies:
     clamp "^1.0.1"
     create-react-context "0.2.2"
@@ -5495,28 +5475,11 @@ react-navigation@2.13.x:
     path-to-regexp "^1.7.0"
     query-string "^6.1.0"
     react-lifecycles-compat "^3"
-    react-native-safe-area-view "^0.9.0"
+    react-native-safe-area-view "^0.10.0"
     react-navigation-deprecated-tab-navigator "1.3.0"
     react-navigation-drawer "0.5.0"
-    react-navigation-stack "0.3.0"
+    react-navigation-stack "0.5.1"
     react-navigation-tabs "0.7.0"
-
-react-navigation@^2.14.2:
-  version "2.16.0"
-  resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-2.16.0.tgz#9b9320801700baac50e49e87a63641a4df179230"
-  dependencies:
-    clamp "^1.0.1"
-    create-react-context "0.2.2"
-    hoist-non-react-statics "^2.2.0"
-    path-to-regexp "^1.7.0"
-    query-string "^6.1.0"
-    react-lifecycles-compat "^3"
-    react-native-safe-area-view "0.11.0"
-    react-native-screens "^1.0.0-alpha.11"
-    react-navigation-deprecated-tab-navigator "1.3.0"
-    react-navigation-drawer "0.5.0"
-    react-navigation-stack "0.6.0"
-    react-navigation-tabs "0.8.2"
 
 react-proxy@^1.1.7:
   version "1.1.8"
@@ -5547,7 +5510,7 @@ react-transform-hmr@^1.0.4:
 
 react@16.3.1:
   version "16.3.1"
-  resolved "http://registry.npmjs.org/react/-/react-16.3.1.tgz#4a2da433d471251c69b6033ada30e2ed1202cfd8"
+  resolved "https://registry.npmjs.org/react/-/react-16.3.1.tgz#4a2da433d471251c69b6033ada30e2ed1202cfd8"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -5584,9 +5547,9 @@ read-pkg@^2.0.0:
     normalize-package-data "^2.3.2"
     path-type "^2.0.0"
 
-readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.6, readable-stream@^2.1.5, readable-stream@^2.2.2:
+readable-stream@^2.0.1, readable-stream@^2.0.6, readable-stream@^2.1.5, readable-stream@^2.2.2:
   version "2.3.6"
-  resolved "http://registry.npmjs.org/readable-stream/-/readable-stream-2.3.6.tgz#b11c27d88b8ff1fbe070643cf94b0c79ae1b0aaf"
+  resolved "https://registry.npmjs.org/readable-stream/-/readable-stream-2.3.6.tgz#b11c27d88b8ff1fbe070643cf94b0c79ae1b0aaf"
   dependencies:
     core-util-is "~1.0.0"
     inherits "~2.0.3"
@@ -5595,14 +5558,6 @@ readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.6, readable
     safe-buffer "~5.1.1"
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
-
-readdirp@^2.0.0:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/readdirp/-/readdirp-2.2.1.tgz#0e87622a3325aa33e892285caf8b4e846529a525"
-  dependencies:
-    graceful-fs "^4.1.11"
-    micromatch "^3.1.10"
-    readable-stream "^2.0.2"
 
 realpath-native@^1.0.0:
   version "1.0.2"
@@ -5790,7 +5745,7 @@ rimraf@^2.2.8, rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2:
 
 rimraf@~2.2.6:
   version "2.2.8"
-  resolved "http://registry.npmjs.org/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
+  resolved "https://registry.npmjs.org/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
 
 rsvp@^3.3.3:
   version "3.6.2"
@@ -5865,7 +5820,7 @@ sax@^1.2.4:
 
 sax@~1.1.1:
   version "1.1.6"
-  resolved "http://registry.npmjs.org/sax/-/sax-1.1.6.tgz#5d616be8a5e607d54e114afae55b7eaf2fcc3240"
+  resolved "https://registry.npmjs.org/sax/-/sax-1.1.6.tgz#5d616be8a5e607d54e114afae55b7eaf2fcc3240"
 
 schedule@^0.3.0:
   version "0.3.0"
@@ -5983,10 +5938,6 @@ slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
 
-slash@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/slash/-/slash-2.0.0.tgz#de552851a1759df3a8f206535442f5ec4ddeab44"
-
 slice-ansi@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-1.0.0.tgz#044f1a49d8842ff307aad6b505ed178bd950134d"
@@ -6084,6 +6035,10 @@ spdx-expression-parse@^3.0.0:
 spdx-license-ids@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.1.tgz#e2a303236cac54b04031fa7a5a79c7e701df852f"
+
+split-on-first@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/split-on-first/-/split-on-first-1.1.0.tgz#f610afeee3b12bce1d0c30425e76398b78249a5f"
 
 split-string@^3.0.1, split-string@^3.0.2:
   version "3.1.0"
@@ -6229,7 +6184,7 @@ symbol-tree@^3.2.2:
 
 table@^4.0.3:
   version "4.0.3"
-  resolved "http://registry.npmjs.org/table/-/table-4.0.3.tgz#00b5e2b602f1794b9acaf9ca908a76386a7813bc"
+  resolved "https://registry.npmjs.org/table/-/table-4.0.3.tgz#00b5e2b602f1794b9acaf9ca908a76386a7813bc"
   dependencies:
     ajv "^6.0.1"
     ajv-keywords "^3.0.0"
@@ -6284,7 +6239,7 @@ through2@^2.0.0:
 
 through@^2.3.6:
   version "2.3.8"
-  resolved "http://registry.npmjs.org/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
+  resolved "https://registry.npmjs.org/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
 
 time-stamp@^1.0.0:
   version "1.1.0"
@@ -6387,10 +6342,10 @@ uglify-es@^3.1.9:
     source-map "~0.6.1"
 
 uglify-js@^3.1.4:
-  version "3.4.9"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.4.9.tgz#af02f180c1207d76432e473ed24a28f4a782bae3"
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.6.0.tgz#704681345c53a8b2079fb6cec294b05ead242ff5"
   dependencies:
-    commander "~2.17.1"
+    commander "~2.20.0"
     source-map "~0.6.1"
 
 ultron@1.0.x:
@@ -6420,10 +6375,6 @@ unset-value@^1.0.0:
   dependencies:
     has-value "^0.3.1"
     isobject "^3.0.0"
-
-upath@^1.0.5:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/upath/-/upath-1.1.0.tgz#35256597e46a581db4793d0ce47fa9aebfc9fabd"
 
 uri-js@^4.2.2:
   version "4.2.2"
@@ -6528,7 +6479,7 @@ whatwg-fetch@>=0.10.0:
 
 whatwg-fetch@^2.0.4:
   version "2.0.4"
-  resolved "http://registry.npmjs.org/whatwg-fetch/-/whatwg-fetch-2.0.4.tgz#dde6a5df315f9d39991aa17621853d720b85566f"
+  resolved "https://registry.npmjs.org/whatwg-fetch/-/whatwg-fetch-2.0.4.tgz#dde6a5df315f9d39991aa17621853d720b85566f"
 
 whatwg-mimetype@^2.1.0:
   version "2.1.0"
@@ -6582,7 +6533,7 @@ wordwrap@~0.0.2:
 
 wrap-ansi@^2.0.0:
   version "2.1.0"
-  resolved "http://registry.npmjs.org/wrap-ansi/-/wrap-ansi-2.1.0.tgz#d8fc3d284dd05794fe84973caecdd1cf824fdd85"
+  resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-2.1.0.tgz#d8fc3d284dd05794fe84973caecdd1cf824fdd85"
   dependencies:
     string-width "^1.0.1"
     strip-ansi "^3.0.1"
