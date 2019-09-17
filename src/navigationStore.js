@@ -1,15 +1,9 @@
 import React from 'react';
 import { Image, Animated, Easing } from 'react-native';
-import {
-  createAppContainer,
-  createBottomTabNavigator,
-  createMaterialTopTabNavigator,
-  createDrawerNavigator,
-  createStackNavigator,
-  NavigationActions,
-  StackActions,
-  DrawerActions,
-} from 'react-navigation';
+import { createAppContainer, NavigationActions, StackActions } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createDrawerNavigator, DrawerActions } from 'react-navigation-drawer';
+import { createMaterialTopTabNavigator, createBottomTabNavigator } from 'react-navigation-tabs';
 import {
   createTabNavigator as DEPRECATED_createTabNavigator,
   TabBarTop as DEPRECATED_TabBarTop,
