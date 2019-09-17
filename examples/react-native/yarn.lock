@@ -5360,10 +5360,10 @@ react-native-reanimated@^1.2.0:
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.2.0.tgz#9219227a52a5dfa4d34c324596d6726ccd874293"
   integrity sha512-vkWRHrPK5qfHP/ZawlRoo38oeYe9NZaaOH/lmFxRcsKzaSK6x3H5ZPXI8lK6MfTLveqwo1QhJje3zIKXO4nQQw==
 
-react-native-router-flux@4.2.0-alpha.2:
-  version "4.2.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-4.2.0-alpha.2.tgz#c0a3f06405c054312683883fe964dfc6c1ada61e"
-  integrity sha512-dkttJilya/ERQ1JMyRDY2g7rd9SC+0OUpz6TY3xKQAqC08/cq9VWI3yTAGkMSRUnFGU1IgGi2VYb3ulRXh3r4g==
+react-native-router-flux@4.2.0-beta.1:
+  version "4.2.0-beta.1"
+  resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-4.2.0-beta.1.tgz#c07fbf67273ab02eefd0f7ad2cffb57979e7a757"
+  integrity sha512-uzLn7WpFiRXBVJXBmSy7cUsbyRwDuVd6lKSxiG1Ds3GBYyMQNTpTfnDHCmHLBPnxaajR/OPx9/hhZAG63slN4g==
   dependencies:
     lodash "^4.17.15"
     opencollective "^1.0.3"
