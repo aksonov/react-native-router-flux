@@ -1,0 +1,45 @@
+{
+  "name": "rnrfReduxSample",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "ios": "react-native run-ios",
+    "android": "react-native run-android",
+    "dev:ios": "yarn dev && yarn ios",
+    "dev:android": "yarn dev && yarn android",
+    "dev": "cp ../../src/* node_modules/react-native-router-flux/src/",
+    "test": "jest",
+    "postinstall": "./node_modules/.bin/rnrf dedup"
+  },
+  "resolutions": {
+    "*/@babel/cli": "7.0.0-beta.47",
+    "*/@babel/core": "7.0.0-beta.47",
+    "*/@babel/code-frame": "7.0.0-beta.47",
+    "*/@babel/highlight": "7.0.0-beta.47"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.2",
+    "react": "16.4.1",
+    "react-native": "0.56.0",
+    "react-native-router-flux": "file:../../",
+    "react-native-router-flux-cli": "file:../../packages/react-native-router-flux-cli",
+    "react-navigation": "2.13.x",
+    "react-navigation-redux-helpers": "^2.0.5",
+    "react-redux": "^5.0.5",
+    "redux": "4.0.x"
+  },
+  "devDependencies": {
+    "@babel/core": "7.0.0-beta.47",
+    "@babel/plugin-proposal-decorators": "7.0.0-beta.47",
+    "autobind-decorator": "^2.1.0",
+    "babel-core": "^7.0.0-0",
+    "babel-jest": "23.4.0",
+    "babel-preset-react-native": "5.0.2",
+    "jest": "^23.4.1",
+    "react-test-renderer": "^16.4.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}

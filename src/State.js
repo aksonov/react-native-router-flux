@@ -22,12 +22,41 @@ export function isActiveRoute(state, routeName) {
   return isActiveRoute(state.routes[state.index], routeName);
 }
 
+export function getRouteNameByKey(state, key) {
+  if (state.key === key) {
+    return state.routeName;
+  }
+  if (!state.routes) {
+    return state.routeName;
+  }
+  if (state.routes[state.index].key === key) {
+    return state.routes[state.index].routeName;
+  }
+  return getRouteNameByKey(state.routes[state.index], key);
+}
+
 export function getActiveState(param, parent) {
   const state = param;
   if (!state.routes) {
     return { ...state, parent };
   }
   return getActiveState(state.routes[state.index], { ...state, parent });
+}
+
+export function getParent(state, routeName, parent) {
+  if (state.routeName === routeName) {
+    return parent;
+  }
+  if (!state.routes) {
+    return null;
+  }
+  for (let i = 0; i < state.routes.length; i += 1) {
+    const res = getParent(state.routes[i], routeName, state);
+    if (res) {
+      return res;
+    }
+  }
+  return null;
 }
 
 export function inject(state, key, index, routes) {
@@ -43,13 +72,13 @@ export function inject(state, key, index, routes) {
   return { ...state, routes: state.routes.map(x => inject(x, key, index, routes)) };
 }
 
-export function popPrevious(state) {
-  const activeState = getActiveState(state);
-  if (activeState.parent && activeState.parent.index) {
-    const parent = activeState.parent;
-    const key = parent.key;
-    const routes = [...parent.routes.slice(0, parent.index - 1), ...parent.routes.slice(parent.index)];
-    const newState = inject(state, key, parent.index - 1, routes);
+export function popPrevious(state, routeName) {
+  const parent = getParent(state, routeName);
+  // console.log('FOUND PARENT:', JSON.stringify(parent));
+  const { key, index } = parent;
+  if (index) {
+    const routes = [...parent.routes.slice(0, index - 1), ...parent.routes.slice(index)];
+    const newState = inject(state, key, index - 1, routes);
     return newState;
   }
   return state;

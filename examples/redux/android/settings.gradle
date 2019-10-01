@@ -1,0 +1,3 @@
+rootProject.name = 'rnrfReduxSample'
+
+include ':app'
