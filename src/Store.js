@@ -1,22 +1,9 @@
 import React from 'react';
-import {
-  StatusBar, Image, Animated, Easing,
-} from 'react-native';
-import {
-  createAppContainer,
-  createBottomTabNavigator,
-  createMaterialTopTabNavigator,
-  createDrawerNavigator,
-  createStackNavigator,
-  NavigationActions,
-  StackActions,
-  DrawerActions,
-} from 'react-navigation';
-import {
-  createTabNavigator as DEPRECATED_createTabNavigator,
-  TabBarTop as DEPRECATED_TabBarTop,
-  TabBarBottom as DEPRECATED_TabBarBottom,
-} from 'react-navigation-deprecated-tab-navigator';
+import { Image, Animated, Easing } from 'react-native';
+import { createAppContainer, NavigationActions, StackActions } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createDrawerNavigator, DrawerActions } from 'react-navigation-drawer';
+import { createMaterialTopTabNavigator, createBottomTabNavigator } from 'react-navigation-tabs';
 import PropTypes from 'prop-types';
 import createReducer from './Reducer';
 import * as ActionConst from './ActionConst';
@@ -24,13 +11,11 @@ import { OnEnter, OnExit, assert } from './Util';
 import { LeftButton, RightButton, BackButton } from './NavBar';
 import LightboxRenderer from './LightboxRenderer';
 import _drawerImage from '../images/menu_burger.png';
-import Scene from './Scene';
 import { getActiveState, getParent, getRouteNameByKey } from './State';
 import Modal from './Modal';
 import Lightbox from './Lightbox';
 import Drawer from './Drawer';
 import Tabs from './Tabs';
-import LegacyTabs from './LegacyTabs';
 import Overlay from './Overlay';
 import OverlayRenderer from './OverlayRenderer';
 import createStackNavigatorHOC from './createStackNavigatorHOC';
@@ -147,7 +132,6 @@ function createNavigationOptions(params) {
     backTitle,
     backTitleEnabled,
     backToInitial,
-    legacy,
     component,
     drawerIcon,
     drawerImage,
@@ -346,10 +330,10 @@ function createNavigationOptions(params) {
 
     if (navTransparent) {
       res.headerTransparent = true;
-      res.headerStyle = { marginTop: StatusBar.currentHeight };
+      res.headerStyle = {};
     }
 
-    if (!legacy && backToInitial) {
+    if (backToInitial) {
       const userDefinedTabBarOnPress = res.tabBarOnPress;
       res.tabBarOnPress = (data) => {
         if (userDefinedTabBarOnPress) {
@@ -507,6 +491,8 @@ export default class NavigationStore {
 
   states = {};
 
+  isLogical = {};
+
   currentScene;
 
   prevScene;
@@ -619,6 +605,15 @@ export default class NavigationStore {
     return createAppContainer(Navigator);
   };
 
+  createAction = name => (args) => {
+    // console.log(`Transition to state=${name}`);
+    if (this.isLogical[name]) {
+      this[name](args);
+    } else {
+      setTimeout(() => this[name](args));
+    }
+  };
+
   processScene = (scene: Scene, inheritProps = {}, clones = [], wrapBy) => {
     assert(scene.props, 'props should be defined');
     if (!scene.props.children) {
@@ -630,7 +625,7 @@ export default class NavigationStore {
       navigator, renderer, contentComponent, drawerWidth, drawerLockMode, tabBarPosition, lazy, duration, ...parentProps
     } = scene.props;
     let {
-      legacy, tabs, modal, lightbox, overlay, drawer, transitionConfig, tabBarComponent,
+      tabs, modal, lightbox, overlay, drawer, transitionConfig, tabBarComponent,
     } = parentProps;
     if (scene.type === Modal) {
       modal = true;
@@ -640,9 +635,6 @@ export default class NavigationStore {
       lightbox = true;
     } else if (scene.type === Tabs) {
       tabs = true;
-    } else if (scene.type === LegacyTabs) {
-      tabs = true;
-      legacy = true;
     } else if (scene.type === Overlay) {
       overlay = true;
     }
@@ -707,20 +699,10 @@ export default class NavigationStore {
       }
       delete props.children;
       if (success) {
-        this.states[key].success = success instanceof Function
-          ? success
-          : (args) => {
-            // console.log(`Transition to state=${success}`);
-            this[success](args);
-          };
+        this.states[key].success = success instanceof Function ? success : this.createAction(success);
       }
       if (failure) {
-        this.states[key].failure = failure instanceof Function
-          ? failure
-          : (args) => {
-            // console.log(`Transition to state=${failure}`);
-            this[failure](args);
-          };
+        this.states[key].failure = failure instanceof Function ? failure : this.createAction(failure);
       }
       if (path) {
         this.states[key].path = path;
@@ -773,6 +755,7 @@ export default class NavigationStore {
       // a bit of magic, create all 'actions'-shortcuts inside navigationStore
       props.init = true;
       if (!this[key]) {
+        this.isLogical[key] = !!component;
         this[key] = new Function(
           'actions',
           'props',
@@ -825,12 +808,7 @@ export default class NavigationStore {
 
     if (tabs) {
       let createTabNavigator = createMaterialTopTabNavigator;
-      if (legacy) {
-        createTabNavigator = DEPRECATED_createTabNavigator;
-        if (!tabBarComponent) {
-          tabBarComponent = tabBarPosition === 'top' ? props => <DEPRECATED_TabBarTop {...props} {...commonProps} /> : props => <DEPRECATED_TabBarBottom {...props} {...commonProps} />;
-        }
-      } else if (tabBarPosition !== 'top') {
+      if (tabBarPosition !== 'top') {
         createTabNavigator = createBottomTabNavigator;
       }
 
