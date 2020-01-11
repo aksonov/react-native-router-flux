@@ -17,8 +17,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "postinstall": "./node_modules/.bin/opencollective postinstall || exit 0",
     "build": "./node_modules/.bin/babel src -d dist",
-    "lint": "prettier-eslint src/**/*.js __tests__/**/*.js --list-different",
-    "fix": "prettier-eslint src/**/*.js __tests__/**/*.js --write",
+    "lint": "prettier-eslint $PWD/'src/**/*.js' $PWD/'__tests__/**/*.js' --list-different",
+    "fix": "prettier-eslint $PWD/'src/**/*.js' $PWD/'__tests__/**/*.js' --write",
     "test": "jest"
   },
   "dependencies": {
@@ -46,7 +46,7 @@
     "babel-eslint": "9.0.0-beta.1",
     "babel-jest": "^23.4.0",
     "babel-preset-react-native": "5.0.2",
-    "eslint": "^6.1.0",
+    "eslint": "^6.7.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-config-prettier": "3.0.1",
     "eslint-plugin-eslint-comments": "3.0.1",
