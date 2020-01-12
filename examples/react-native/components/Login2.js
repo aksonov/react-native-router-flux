@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import Button from 'react-native-button';
-import { Actions } from 'react-native-router-flux';
+import {Actions} from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,7 +21,12 @@ export default class extends React.Component {
         <Text>Login page 2</Text>
         <Text>Title: {title}</Text>
         <Text>Data: {data}</Text>
-        <Button onPress={() => Actions.loginModal3({ data: 'Custom data3', title: 'Custom title3' })}>Login 3</Button>
+        <Button
+          onPress={() =>
+            Actions.loginModal3({data: 'Custom data3', title: 'Custom title3'})
+          }>
+          Login 3
+        </Button>
       </View>
     );
   }
