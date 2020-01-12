@@ -10,6 +10,7 @@
 - [`Modal`](#modals-modal-or-scene-modal)
 - [`Lightbox`](#lightbox-lightbox)
 - [`Actions`](#actions)
+- [`NavigationStore`](#navigationstore)
 - [`ActionConst`](#actionconst)
 
 ## Router:
@@ -23,6 +24,7 @@
 | `sceneStyle`     | `Style` |  | Style applied to all scenes (optional) |
 | `uriPrefix`     | `string` |  | A uri prefix to strip from incoming urls for deep linking. For example, if you wanted to support deep linking from `www.example.com/user/1234/`, then you could pass `example.com` to only match paths against `/user/1234/`. |
 | `wrapBy`   | `Function` |  | function to wrap each Scene component and nav bar buttons - allows easy MobX integration (by passing `observer`) |
+| `navigationStore` | `NavigationStore` | If you don't want to use singleton `Actions`, you can pass a custom `new NavigationStore()` as prop to Router |
 
 ## Scene:
 The basic routing component for this router, all `<Scene>` components require a `key` prop that must be unique. A parent `<Scene>` must have a `component` as a `prop` as it will act as a grouping component for its children.
@@ -255,6 +257,10 @@ These can be used directly, for example, `Actions.pop()` will dispatch correspon
 | `refresh` | `Function` | `(props: Object)` | Reloads the current scene by loading new `props` into the `Scene` |
 | `replace` | `Function` | `(sceneKey: String, props: Object)` |  Pops the current scene from the stack and pushes the new scene to the navigation stack. *No transition will occur. |
 | `reset` | `Function` | `(sceneKey: String, props: Object)` | Clears the routing stack and pushes the scene into the first index. *No transition will occur.* |
+
+### NavigationStore
+
+`NavigationStore` is the class that `Actions` is an instance of. In other words, `Actions` is the singleton instance of `NavigationStore` — but if you prefer, you can instantiate a `NavigationStore` on your own and pass it to `Router` explicitly.
 
 ## ActionConst
 Type constants to determine `Scene` transitions, These are **PREFERRED** over typing their values manually as these are subject to change as the project is updated.

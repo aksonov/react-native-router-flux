@@ -3,9 +3,10 @@ import { NavigationActions, StackActions } from 'react-navigation';
 import * as ActionConst from './ActionConst';
 import { getActiveState, popPrevious } from './State';
 
-export default function createReducer() {
+export default function createReducer(store) {
   return (state, action) => {
-    const navigationStore = require('./navigationStore').default;
+    const NavigationStore = require('./Store').default;
+    const navigationStore = store || new NavigationStore();
     const { type, routeName } = action;
     if (type === ActionConst.POP_TO) {
       let nextScene = '';
