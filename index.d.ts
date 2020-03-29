@@ -21,6 +21,7 @@ interface RouterProps extends React.Props<Router> {
   onStateChange?: Function;
   getSceneStyle?: Function;
   uriPrefix?: string;
+  tintColor?: string;
   onDeepLink?: Function;
 }
 interface RouterStatic extends React.ComponentClass<RouterProps> {}

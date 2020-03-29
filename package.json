@@ -1,6 +1,6 @@
 {
   "name": "react-native-router-flux",
-  "version": "4.2.0",
+  "version": "5.0.0-alpha.1",
   "description": "React Native Router using Flux architecture",
   "repository": {
     "type": "git",
@@ -11,14 +11,14 @@
   },
   "homepage": "https://github.com/aksonov/react-native-router-flux#readme",
   "license": "MIT",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "types": "index.d.ts",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "postinstall": "./node_modules/.bin/opencollective postinstall || exit 0",
     "build": "./node_modules/.bin/babel src -d dist",
-    "lint": "prettier-eslint $PWD/'src/**/*.js' $PWD/'__tests__/**/*.js' --list-different",
-    "fix": "prettier-eslint $PWD/'src/**/*.js' $PWD/'__tests__/**/*.js' --write",
+    "lint": "prettier-eslint src/**/*.js __tests__/**/*.js --list-different",
+    "fix": "prettier-eslint src/**/*.js __tests__/**/*.js --write",
     "test": "jest"
   },
   "dependencies": {
@@ -26,13 +26,9 @@
     "add": "^2.0.6",
     "lodash": "^4.17.15",
     "opencollective": "^1.0.3",
-    "path-to-regexp": "^2.4.0",
-    "prop-types": "^15.6.2",
-    "react-navigation": "^4.x",
-    "react-navigation-drawer": "^2.2.1",
-    "react-navigation-stack": "^1.7.3",
-    "react-navigation-tabs": "^2.5.2",
-    "remove": "^0.1.5"
+    "@react-navigation/bottom-tabs": "^5.1.1",
+    "@react-navigation/native": "^5.0.9",
+    "@react-navigation/stack": "^5.1.1"
   },
   "devDependencies": {
     "@babel/cli": "7.0.0-beta.47",
@@ -46,7 +42,7 @@
     "babel-eslint": "9.0.0-beta.1",
     "babel-jest": "^25.1.0",
     "babel-preset-react-native": "5.0.2",
-    "eslint": "^6.7.0",
+    "eslint": "^6.1.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-config-prettier": "3.0.1",
     "eslint-plugin-eslint-comments": "3.0.1",
