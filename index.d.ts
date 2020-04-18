@@ -14,6 +14,7 @@ export type Reducer = any;
 // Router
 interface RouterProps extends React.Props<Router> {
   sceneStyle?: StyleProp<ViewStyle>;
+  navigationBarStyle?: StyleProp<ViewStyle>;
   backAndroidHandler?: Function;
   wrapBy?: Function;
   scenes?: any;
@@ -135,8 +136,17 @@ interface LightboxStatic extends React.ComponentClass<SceneProps & LightboxProps
 // Stack
 export var Stack: StackStatic;
 export type Stack = StackStatic;
+export declare type StackHeaderMode = 'float' | 'screen' | 'none';
+export declare type StackCardMode = 'card' | 'modal';
 
 interface StackProps extends React.Props<Stack> {
+  mode?: StackCardMode;
+  headerMode?: StackHeaderMode;
+  /**
+   * If `false`, the keyboard will NOT automatically dismiss when navigating to a new screen.
+   * Defaults to `true`.
+   */
+  keyboardHandlingEnabled?: boolean;
   navigationBarStyle?: StyleProp<ViewStyle>;
   icon?: any;
   tintColor?: string;

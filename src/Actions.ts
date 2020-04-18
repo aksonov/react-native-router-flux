@@ -6,8 +6,12 @@ class NavigationStore {
   setRef(ref: any) {
     this._ref = ref
   }
-  refresh(params: any) {
+  refresh = (params: any) => {
     this._ref!.dispatch(CommonActions.setParams(params))
+  }
+
+  pop = () => {
+    this._ref!.dispatch(CommonActions.goBack())
   }
 }
 export const navigationStore = new NavigationStore()
