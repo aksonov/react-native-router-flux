@@ -6,7 +6,7 @@
 
 ### IMPORTANT NOTES
 
-#### v4.2.0-beta.x is based on [React Navigation v4.x](https://reactnavigation.org/)
+#### v4.2.x is based on [React Navigation v4.x](https://reactnavigation.org/)
 
 #### v4.1.0-beta.x is based on [React Navigation v3.x](https://reactnavigation.org/docs/en/3.x/getting-started.html)
 
