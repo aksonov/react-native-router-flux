@@ -5,8 +5,9 @@
 `react-native-router-flux` is a different API over `react-navigation`. It helps users to define all the routes in one central place and navigate and communicate between different screens in an easy way. But it also means that `react-native-router-flux` inherits all [limitations](https://reactnavigation.org/docs/en/limitations.html) and changes from updated versions.
 
 ### IMPORTANT NOTES
+#### v5.0.alpha.x is based on React Navigation v5.x (very early alpha, development in progress, help wanted!)
 
-#### v4.2.x is based on [React Navigation v4.x](https://reactnavigation.org/)
+#### v4.2.x is based on [React Navigation v4.x](https://reactnavigation.org/docs/4.x/getting-started)
 
 #### v4.1.0-beta.x is based on [React Navigation v3.x](https://reactnavigation.org/docs/en/3.x/getting-started.html)
 
