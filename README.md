@@ -29,7 +29,7 @@
 1. Install native dependencies used by React Native Router (https://reactnavigation.org/docs/en/getting-started.html)
 2. Install this component
 
-```
+```sh
 yarn add react-native-router-flux
 ```
 
@@ -37,7 +37,7 @@ yarn add react-native-router-flux
 
 Define all your routes in one React component...
 
-```js
+```jsx
 const App = () => (
   <Router>
     <Stack key="root">
@@ -51,7 +51,7 @@ const App = () => (
 
 ...and navigate from one scene to another scene with a simple and powerful API.
 
-```js
+```jsx
 // Login.js
 
 // navigate to 'home' as defined in your top-level router
@@ -72,7 +72,7 @@ For a full listing of the API, [view the API docs](https://github.com/aksonov/re
 
 ![rnrf](https://user-images.githubusercontent.com/3681859/27937441-ef61d932-626b-11e7-885f-1db7dc74b32e.gif)
 
-```bash
+```sh
 # Get the code
 git clone https://github.com/aksonov/react-native-router-flux.git
 cd react-native-router-flux/examples/[expo|react-native|redux]
@@ -115,19 +115,19 @@ yarn start
 
 - If you have a Scene where in you want to make some changes to your Component State when Back button is pressed, then doing this
 
-```js
+```jsx
 <Scene key={...} component={...} onBack={()=>{/*code*/}}/>
 ```
 
 will not help.
 
-```js
+```jsx
 <Scene key={...} component={...} onBack={()=>{/*code*/}} back={true}/>
 ```
 
 Make sure back = true is passed to your scene, now in your Component's lifecycle add this
 
-```js
+```jsx
 componentDidMount(){
     InteractionManager.runAfterInteractions(()=> {
         Actions.refresh({onBack:()=>this.changeSomethingInYourComponent()})
