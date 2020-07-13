@@ -33,6 +33,11 @@
 yarn add react-native-router-flux
 ```
 
+## install the following libraries first
+1. react-native-screens by ( ``` npm install react-native-screens || yarn add react-native-screens ```)
+2. react-native-gesture-handler ( ``` npm install react-native-gesture-handler || yarn add react-native-gesture-handler ```)
+3. react-native-reanimated (``` npm install react-native-reanimated || yarn add react-native-reanimated ```)
+
 ## Usage
 
 Define all your routes in one React component...
