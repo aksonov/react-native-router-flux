@@ -254,9 +254,20 @@ These can be used directly, for example, `Actions.pop()` will dispatch correspon
 | `pop` | `Function` | | Go back to the previous scene by "popping" the current scene off the nav stack |
 | `popTo` | `Function` | `(sceneKey: String, props: Object)` | Pops the navigation stack until the `Scene` with the specified key is reached. |
 | `push` | `Function` | `(sceneKey: String, props: Object)` | Pushes the scene to the stack, performing a transition to the new scene. |
+| `ref` | `Object` | | Allow access to component instance through it's ref on `onEnter` and `onExit` events in the `Scene` |
 | `refresh` | `Function` | `(props: Object)` | Reloads the current scene by loading new `props` into the `Scene` |
 | `replace` | `Function` | `(sceneKey: String, props: Object)` |  Pops the current scene from the stack and pushes the new scene to the navigation stack. *No transition will occur. |
 | `reset` | `Function` | `(sceneKey: String, props: Object)` | Clears the routing stack and pushes the scene into the first index. *No transition will occur.* |
+
+If you're having problem accessing `Actions.ref.your_component_ref`, try checking if it is `undefined` first before accessing it's values, so it can access the reference after the component is mounted. An example:
+```
+onEnter={() => {
+if(Actions.refs.your_component_ref !== undefined) { 
+  //now you can access it's properties without trouble
+  Actios.refs.your_component_ref.selector.props.someCoolFunction();
+  }
+}}
+```
 
 ### NavigationStore
 
