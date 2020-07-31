@@ -888,6 +888,10 @@ export default class NavigationStore {
 
   push = (routeName, data) => {
     const params = filterParam(data);
+    if (this.currentScene === routeName &&
+      JSON.stringify(this.currentParams) === JSON.stringify(params)) {
+      return
+    }
     this.dispatch({ type: StackActions.PUSH, routeName, params });
   };
 
