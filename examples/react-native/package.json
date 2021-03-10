@@ -16,8 +16,10 @@
     "react-native-gesture-handler": "^1.6.1",
     "react-native-message-bar": "^2.0.10",
     "react-native-reanimated": "^1.9.0",
-    "react-native-router-flux": "^4.2.0",
-    "react-native-screens": "^2.9.0"
+    "react-native-router-flux": "^4.3.0",
+    "@react-native-community/masked-view": "^0.1.10",
+    "react-native-safe-area-context": "^3.2.0",
+    "react-native-screens": "^2.18.1"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
