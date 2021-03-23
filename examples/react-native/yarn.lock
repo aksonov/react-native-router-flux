@@ -5733,10 +5733,10 @@ react-native-reanimated@^1.9.0:
   dependencies:
     fbjs "^1.0.0"
 
-react-native-router-flux@^4.3.0-beta.7:
-  version "4.3.0-beta.7"
-  resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-4.3.0-beta.7.tgz#5b76bc70cb885b2a2d1dc9ec5936fbac669f64b3"
-  integrity sha512-3AuUx578843MaT7tvVZrI86/3OMcUHaKcY8eMCdBDUFhj5MmwjTmltBYRg3OCnQeDJ5EVXJR7ToD6U1pAQCPuQ==
+react-native-router-flux@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-4.3.0.tgz#db873715b166507873d8e225cf05e3e66bce1ffa"
+  integrity sha512-8BcAIG9lTF/ADpfLYIp7ItcsF+9Uuj1MLLT2c3ex6CAZNfpMk7NJE0g2B6406S02zSVJREaRd0p+SNPufboTzw==
   dependencies:
     "@babel/runtime" "^7.6.0"
     add "^2.0.6"
