@@ -188,7 +188,7 @@ function createNavigationOptions(params) {
       ...screenProps,
     };
     const res = {
-      animationEnabled: type === ActionConst.REPLACE || type === 'replace' ? false : true,
+      animationEnabled: !(type === ActionConst.REPLACE || type === 'replace'  || type === ActionConst.RESET || type === 'reset'),
       ...props,
       cardStyle: navigationParams.cardStyle || cardStyle,
       headerBackImage: navigationParams.backButtonImage || backButtonImage,
