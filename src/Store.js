@@ -126,6 +126,7 @@ function createTabBarOptions({
 }
 function createNavigationOptions(params) {
   const {
+    type,
     cardStyle,
     back,
     backButtonImage,
@@ -187,6 +188,7 @@ function createNavigationOptions(params) {
       ...screenProps,
     };
     const res = {
+      animationEnabled: type === ActionConst.REPLACE || type === 'replace' ? false : true,
       ...props,
       cardStyle: navigationParams.cardStyle || cardStyle,
       headerBackImage: navigationParams.backButtonImage || backButtonImage,
