@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewPropTypes, BackHandler, Linking } from 'react-native';
+import { BackHandler, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 import NavigationStore from './Store';
 import defaultStore from './defaultStore';
@@ -132,7 +132,7 @@ Router.propTypes = {
   navigator: PropTypes.func,
   wrapBy: PropTypes.func,
   getSceneStyle: PropTypes.func,
-  sceneStyle: ViewPropTypes.style,
+  sceneStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   createReducer: PropTypes.func,
   children: PropTypes.element,
   uriPrefix: PropTypes.string,
