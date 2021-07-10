@@ -37,7 +37,7 @@ yarn add react-native-router-flux
 1. react-native-screens by ( ``` npm install react-native-screens || yarn add react-native-screens ```)
 2. react-native-gesture-handler ( ``` npm install react-native-gesture-handler || yarn add react-native-gesture-handler ```)
 3. react-native-reanimated (``` npm install react-native-reanimated || yarn add react-native-reanimated ```)
-4. react-native-safe-area-context (``` npm install react-native-safe-area-context || yarn add react-native-react-native-safe-area-context ```)
+4. react-native-safe-area-context (``` npm install react-native-safe-area-context || yarn add react-native-safe-area-context ```)
 5. @react-native-community/masked-view (``` npm install @react-native-community/masked-view || yarn add @react-native-community/masked-view ```)
 
 
