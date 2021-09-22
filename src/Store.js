@@ -326,10 +326,12 @@ function createNavigationOptions(params) {
 
     if (navigationParams.hideNavBar != null) {
       if (navigationParams.hideNavBar) {
-        res.header = null;
+//       res.header = null; //! 'header: null' will be removed in a future version. Use 'headerShown: false' instead
+      res.headerShown = false;
       }
     } else if (hideNavBar) {
-      res.header = null;
+//       res.header = null; //! 'header: null' will be removed in a future version. Use 'headerShown: false' instead
+      res.headerShown = false;
     }
 
     if (navTransparent) {
