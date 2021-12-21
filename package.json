@@ -15,7 +15,7 @@
   "types": "index.d.ts",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "postinstall": "./node_modules/.bin/opencollective postinstall || exit 0",
+    "postinstall": "opencollective-postinstall",
     "build": "./node_modules/.bin/babel src -d dist",
     "lint": "prettier-eslint $PWD/'src/**/*.js' $PWD/'__tests__/**/*.js' --list-different",
     "fix": "prettier-eslint $PWD/'src/**/*.js' $PWD/'__tests__/**/*.js' --write",
@@ -25,7 +25,7 @@
     "@babel/runtime": "^7.6.0",
     "add": "^2.0.6",
     "lodash": "^4.17.15",
-    "opencollective": "^1.0.3",
+    "opencollective-postinstall": "^2.0.3",
     "path-to-regexp": "^2.4.0",
     "prop-types": "^15.6.2",
     "react-navigation": "^4.x",
