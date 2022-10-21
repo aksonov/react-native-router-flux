@@ -1,15 +1,15 @@
 {
-  "name": "react-native-router-flux",
+  "name": "@ourdate/react-native-router-flux",
   "version": "4.3.1",
   "description": "React Native Router using Flux architecture",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aksonov/react-native-router-flux"
+    "url": "https://github.com/ourdate/react-native-router-flux"
   },
   "bugs": {
-    "url": "https://github.com/aksonov/react-native-router-flux"
+    "url": "https://github.com/ourdate/react-native-router-flux"
   },
-  "homepage": "https://github.com/aksonov/react-native-router-flux#readme",
+  "homepage": "https://github.com/ourdate/react-native-router-flux#readme",
   "license": "MIT",
   "main": "src/index.js",
   "types": "index.d.ts",
