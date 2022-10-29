@@ -32,6 +32,7 @@
     "react-navigation-drawer": "^2.2.1",
     "react-navigation-stack": "^2.10.2",
     "react-navigation-tabs": "^2.10.1",
+	"deprecated-react-native-prop-types":"^2.2.0",
     "remove": "^0.1.5"
   },
   "devDependencies": {
