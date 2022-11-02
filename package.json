@@ -1,6 +1,6 @@
 {
   "name": "@ourdate/react-native-router-flux",
-  "version": "4.3.1",
+  "version": "6.0.0-ourdate-0",
   "description": "React Native Router using Flux architecture",
   "repository": {
     "type": "git",
