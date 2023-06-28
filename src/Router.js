@@ -27,12 +27,16 @@ class App extends React.Component {
     // If the app was "woken up" by an external route.
     Linking.getInitialURL().then(url => this.parseDeepURL(url));
     // Add an event listener for further deep linking.
-    Linking.addEventListener('url', this.handleDeepURL);
+    this.subscription = Linking.addEventListener('url', this.handleDeepURL);
   }
 
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.props.backAndroidHandler || this.onBackPress);
-    Linking.removeEventListener('url', this.handleDeepURL);
+    if (typeof Linking.removeEventListener === 'function') {
+      Linking.removeEventListener('url', this.handleDeepURL);
+    } else if (this.subscription !== null) {
+      this.subscription.remove();
+    }
   }
 
   onBackPress = () => this.props.navigationStore.pop();
